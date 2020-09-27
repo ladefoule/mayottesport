@@ -1,26 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.site')
+
+@section('title', "Vérifiez votre adresse email")
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Vérifiez votre adresse email</div>
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
+            <div class="card-body">
+                @if (session('resent'))
+                    <div class="alert alert-success" role="alert">
+                        Un nouveau lien de vérification a été envoyé à votre adresse email.
+                    </div>
+                @endif
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
-                </div>
+                Avant de poursuivre, veuillez vérifier votre email avec le lien de vérification.
+                Si vous n'avez pas reçu le mail,
+                <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">cliquez ici pour en recevoir un autre</button>.
+                </form>
             </div>
         </div>
     </div>

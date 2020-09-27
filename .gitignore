@@ -1,8 +1,12 @@
+/.phive
+/.phpdoc
 /node_modules
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
+/tools
+/.tools
 .env
 .env.backup
 .phpunit.result.cache

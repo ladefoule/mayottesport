@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -35,6 +36,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        Log::info("Accès à la page de connexion.");
+        // $this->middleware('membre')->except('logout');
+        // $this->middleware('privilege')->except('logout');
+        //$this->middleware('administrateur')->except('logout');
     }
 }

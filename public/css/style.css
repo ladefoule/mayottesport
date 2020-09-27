@@ -1,0 +1,240 @@
+/* Small devices (landscape phones, 576px and down) */
+/* @media (max-width: 576px) { */
+html{
+    font-size: 90%
+}
+
+body{
+    background-color: rgba(197, 226, 230, 0.281);
+    min-width: 375px;
+    background-image: url('/storage/img/fond-mayotte.jpg');
+    background-size:1950px 1000px;
+    background-attachment: fixed;
+}
+
+.overflow-x-auto{
+    overflow-x:auto
+}
+
+.bg-navbar-2{
+    background-color: rgb(212, 211, 211) !important;
+}
+
+.bg-light{
+    background-color: rgba(128, 128, 128, 0.295) !important
+}
+
+/* --------- Les commentaires ---------- */
+.comment {
+    overflow: hidden;
+    padding: 0 0 1em;
+    border-bottom: 1px solid #ddd;
+    margin: 0 0 1em;
+    *zoom: 1;
+}
+
+.comment-img {
+    float: left;
+    margin-right: 33px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.comment-img img {
+    display: block;
+}
+
+.comment-body {
+    overflow: hidden;
+}
+
+.comment .text {
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.comment .text p:last-child {
+    margin: 0;
+}
+
+.comment .attribution {
+    margin: 0.5em 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Decoration */
+
+.comments,
+.comment {
+    position: relative;
+}
+
+.comments:before,
+.comment:before,
+.comment .text:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 65px;
+}
+
+.comments:before {
+    width: 3px;
+    top: -20px;
+    bottom: -20px;
+    background: rgba(0,0,0,0.1);
+}
+
+.comment:before {
+    width: 9px;
+    height: 9px;
+    border: 3px solid #fff;
+    border-radius: 100px;
+    margin: 16px 0 0 -6px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1);
+    background: #ccc;
+}
+
+.comment:hover:before {
+    background: orange;
+}
+
+.comment .text:before {
+    top: 18px;
+    left: 78px;
+    width: 9px;
+    height: 9px;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: #e5e5e5;
+    background: #fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+}​
+/* --------- Fin Les commentaires ---------- */
+
+.select2 {
+    width: 100% !important;
+}
+
+.border-bottom-calendrier{
+    border-bottom: 3px solid gray !important;
+}
+
+.border-bottom-dashed{
+    border-bottom: 1px dashed #000
+}
+
+.border-top-dashed{
+    border-top: 1px dashed #000
+}
+
+.fanion-classement{
+    width:25px;
+}
+
+.table-classement td{
+    vertical-align: middle;
+}
+
+.vertical-align-middle{
+    vertical-align: middle;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+#navbar-scroll-x .btn{
+    border-radius: 20px;
+    font-family:"Nunito", sans-serif;
+}
+
+.bloc-match-football{
+    background-image: url('/storage/img/terrain-de-foot-6.jpg');
+    background-size :cover;
+    background-color:#000
+}
+
+.bloc-equipe-dom, .bloc-equipe-ext, .bloc-score{
+    font-size:1rem;
+    text-align: center;
+}
+
+.bloc-equipe-dom .equipe, .bloc-equipe-ext .equipe{
+    text-align: center;
+}
+
+.fanion-calendrier{
+    width:30px;
+}
+
+.fanion-match{
+    width:50px
+}
+
+.bloc-score input{
+    width:60px;
+    /* border-radius: 5px; */
+}
+
+/* Medium devices (tablets, 576px and up) => point de rupture bootstrap : SM */
+@media (min-width: 576px) {
+    html{
+        font-size: 90%;
+    }
+
+    .bloc-equipe-dom, .bloc-equipe-ext{
+        font-size:1.5rem;
+    }
+
+    .bloc-score{
+        font-size: 2rem;
+    }
+
+    .fanion-calendrier{
+        width:40px;
+    }
+
+    .fanion-match{
+        width:60px
+    }
+
+    .bloc-score input{
+        width:70px;
+    }
+
+
+    /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
+    @media (min-width: 992px) {
+        html{
+            font-size: 100%;
+        }
+
+        .bloc-equipe-dom, .bloc-equipe-ext, .bloc-score{
+            font-size:1.8rem;
+            font-weight: 900;
+        }
+
+        .bloc-equipe-ext .equipe{
+            text-align: right;
+        }
+
+        .bloc-equipe-dom .equipe{
+            text-align: left;
+        }
+
+        a.resultat, a.horaire{
+            font-size:0.8rem
+        }
+
+        .bloc-score input{
+            width:80px;
+        }
+    }
+}

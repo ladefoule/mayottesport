@@ -2,9 +2,11 @@
 
 namespace App;
 
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'pseudo', 'first_name', 'role_id', 'region_id'
     ];
 
     /**
@@ -25,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'user_password', 'remember_token',
     ];
 
     /**
@@ -36,4 +38,49 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Définition de l'attribut nom pour un objet de la class User
+     *
+     * @return string
+     */
+    public function getNomAttribute()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * Les règles de validations
+     *
+     * @param Request $request
+     * @param User $user
+     * @return array
+     */
+    public static function rules(Request $request, User $user = null)
+    {
+        $unique = Rule::unique('users');
+        if($user)
+            $unique = $unique->ignore($user);
+
+        $rules = [
+            'name' => ['required', 'string', 'min:3', 'max:50'],
+            'pseudo' => ['nullable', 'string', 'min:3', 'max:50', $unique],
+            'first_name' => ['nullable', 'string', 'min:3', 'max:50'],
+            'role_id' => ['required', 'exists:roles,id'],
+            'region_id' => ['required', 'exists:regions,id'],
+            'email' => ['required', 'string', 'email', 'max:80', $unique],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
+        return ['rules' => $rules];
+    }
+
+    /**
+     * Le role de l'utilisateur.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::apiResource('/{table}', 'GestionCrudTableController');
+
+Route::get('/{table}', 'GestionCrudTableController@index');
+Route::get('/{table}/{id}', 'GestionCrudTableController@show');
+Route::post('/{table}', 'GestionCrudTableController@store');
+Route::put('/{table}/{id}', 'GestionCrudTableController@update');
+Route::delete('/{table}/{id}', 'GestionCrudTableController@delete');

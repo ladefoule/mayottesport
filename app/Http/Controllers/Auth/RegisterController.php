@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -38,7 +39,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //
     }
 
     /**
@@ -49,9 +50,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        Log::info("Validation des données du nouvel utilisateur.");
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'min:3', 'max:50'],
+            'pseudo' => ['nullable', 'string', 'min:3', 'max:50', 'unique:users'],
+            'first_name' => ['nullable', 'string', 'min:3', 'max:50'],
+            'role_id' => ['required', 'exists:roles,id'],
+            'region_id' => ['required', 'exists:regions,id'],
+            'email' => ['required', 'string', 'email', 'max:80', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,9 +70,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        Log::info("Création d'un nouvel utilisateur.");
+        Log::info("L'email : "  . $data['email']);
+        // On génère automatiquement un pseudo à partir de l'email
+        $pseudo = explode('@', $data['email'])[0] . rand(0, 1000);
         return User::create([
             'name' => $data['name'],
+            'first_name' => $data['first_name'],
             'email' => $data['email'],
+            'pseudo' => $pseudo,
+            'region_id' => $data['region_id'],
+            'role_id' => $data['role_id'],
             'password' => Hash::make($data['password']),
         ]);
     }
