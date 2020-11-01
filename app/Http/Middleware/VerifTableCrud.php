@@ -23,6 +23,7 @@ class VerifTableCrud
             Log::info('Table non gérée ou introuvable : ' . $table);
             abort(404);
         }
+        $request['crudTable'] = $crudTable;
         return $next($request);
     }
 }

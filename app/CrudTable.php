@@ -28,7 +28,7 @@ class CrudTable extends Model
      * Si c'est le cas, on renvoie l'objet CrudTable correspondant, sinon on renvoie false
      *
      * @param String $table
-     * @return CrudTable|false
+     * @return CrudTable|false|void
      */
     public static function verifTable(String $table)
     {

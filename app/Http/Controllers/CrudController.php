@@ -20,10 +20,10 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function lister(string $table)
+    public function lister(Request $request, string $table)
     {
         Log::info(" -------- CrudController : lister -------- ");
-        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles();
         if($listeAttributsVisibles == false){
             Log::info('Aucun attribut à afficher dans la page liste : ' . $table);
@@ -57,10 +57,10 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function listerAjax(string $table)
+    public function listerAjax(Request $request, string $table)
     {
         Log::info(" -------- CrudController : listerAjax -------- ");
-        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles();
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page liste.');
@@ -79,10 +79,10 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\View\View|void
      */
-    public function voir(string $table, int $id)
+    public function voir(Request $request, string $table, int $id)
     {
         Log::info(" -------- CrudController : voir -------- ");
-        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles('voir');
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page \'vue\'.');
@@ -110,10 +110,10 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function ajouter(string $table)
+    public function ajouter(Request $request, string $table)
     {
         Log::info(" -------- CrudController : ajouter -------- ");
-        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles('editer');
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page d\'ajout.');
@@ -140,10 +140,10 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\View\View|void
      */
-    public function editer(string $table, int $id)
+    public function editer(Request $request, string $table, int $id)
     {
         Log::info(" -------- CrudController : editer -------- ");
-        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles('editer');
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page d\'édition.');
@@ -222,10 +222,10 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse|void
      */
-    public function supprimer(string $table, int $id)
+    public function supprimer(Request $request, string $table, int $id)
     {
         Log::info(" -------- CrudController : supprimer -------- ");
-        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
         $instance->delete();
@@ -244,7 +244,7 @@ class CrudController extends Controller
     public function supprimerAjax(Request $request, string $table)
     {
         Log::info(" -------- CrudController : supprimerAjax -------- ");
-        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $nomTable = $crudTable->nom;
         $validator = Validator::make($request->all(), [
