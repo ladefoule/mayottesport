@@ -131,7 +131,7 @@ class ChampMatch extends Model
      */
     public function infos()
     {
-        $key = 'champ-match-'.$this->id;
+        $key = 'champ-match-'.$this->uniqid;
         if(!Config::get('constant.activer_cache', false))
             Cache::forget($key);
 
@@ -170,8 +170,8 @@ class ChampMatch extends Model
             'championnat' => $championnat->nom,
             'scoreEqDom' => $this->score_eq_dom,
             'scoreEqExt' => $this->score_eq_ext,
-            'lienResultat' => route('champ.foot.resultat', ['id' => $this->id]),
-            'lienHoraire' => route('champ.foot.horaire', ['id' => $this->id]),
+            'lienResultat' => route('champ.foot.resultat', ['id' => $this->uniqid]),
+            'lienHoraire' => route('champ.foot.horaire', ['id' => $this->uniqid]),
             'lienMatch' => route('champ.foot.match', [
                 'id' => $this->uniqid,
                 'championnat' => strToUrl($championnat->nom),
@@ -196,10 +196,8 @@ class ChampMatch extends Model
         $championnat = $champSaison->championnat;
         $sport = strToUrl($championnat->sport->nom);
         $championnat = strToUrl($championnat->nom);
-        // $sport = Str::lower(->championnat->sport->nom);
 
-        $url = "/$sport/$championnat/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
-        return $url;
+        return "/$sport/$championnat/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
     }
 
     /**
