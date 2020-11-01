@@ -44,7 +44,7 @@
 </div>
 
 <?php
-dd(uniqid('sports', true));
+// dd(uniqid('sports', true));
 ?>
 
 <div class="row m-0 mb-3">

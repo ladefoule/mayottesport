@@ -15,6 +15,7 @@ class CreateCoupeMatchesTable extends Migration {
 		Schema::create('coupe_matches', function(Blueprint $table)
 		{
             $table->bigIncrements('id');
+            $table->string('uniqid')->unique();
             $table->unsignedBigInteger('equipe_id_dom');
             $table->foreign('equipe_id_dom')->references('id')->on('equipes');
             $table->unsignedBigInteger('equipe_id_ext');
@@ -24,7 +25,7 @@ class CreateCoupeMatchesTable extends Migration {
             $table->unsignedBigInteger('coupe_tour_id');
             $table->foreign('coupe_tour_id')->references('id')->on('coupe_tours');
 			$table->date('date')->nullable();
-			$table->time('heure')->nullable();
+			$table->string('heure', 5)->nullable();
 			$table->boolean('acces_bloque')->nullable();
             $table->integer('nb_modifs')->nullable();
             $table->integer('score_eq_dom')->nullable();

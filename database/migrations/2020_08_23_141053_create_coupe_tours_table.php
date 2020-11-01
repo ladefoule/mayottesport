@@ -19,7 +19,7 @@ class CreateCoupeToursTable extends Migration {
             $table->date('date');
             $table->unsignedBigInteger('coupe_saison_id');
             $table->foreign('coupe_saison_id')->references('id')->on('coupe_saisons');
-            $table->unsignedBigInteger('nom_tour_id');
+            $table->unsignedBigInteger('coupe_nom_tour_id');
             $table->foreign('coupe_nom_tour_id')->references('id')->on('coupe_nom_tours');
 			$table->timestamps();
 		});

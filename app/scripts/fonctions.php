@@ -169,7 +169,9 @@ function genererCalendrier($donnees)
                 'champ_journee_id' => $idJournee,
                 'equipe_id_dom' => $rencontre[0],
                 'equipe_id_ext' => $rencontre[1],
-                'terrain_id' => $terrains[$rencontre[0]]
+                'terrain_id' => $terrains[$rencontre[0]],
+                'uniqid' => uniqid()
+                // 'uuid' => rand(config('constant.UUID_MIN'), config('constant.UUID_MAX'))
             ];
 
             ChampMatch::create($match);
@@ -188,7 +190,9 @@ function genererCalendrier($donnees)
                 'champ_journee_id' => $idJournee,
                 'equipe_id_dom' => $rencontre[1],
                 'equipe_id_ext' => $rencontre[0],
-                'terrain_id' => $terrains[$rencontre[1]]
+                'terrain_id' => $terrains[$rencontre[1]],
+                'uniqid' => uniqid()
+                // 'uuid' => rand(config('constant.UUID_MIN'), config('constant.UUID_MAX'))
             ];
 
             ChampMatch::create($match);

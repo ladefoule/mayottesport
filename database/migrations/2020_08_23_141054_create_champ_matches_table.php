@@ -15,7 +15,7 @@ class CreateChampMatchesTable extends Migration {
 		Schema::create('champ_matches', function(Blueprint $table)
 		{
             $table->bigIncrements('id');
-            $table->uuid('uuid');
+            $table->string('uniqid')->unique();
             $table->unsignedBigInteger('equipe_id_dom');
             $table->foreign('equipe_id_dom')->references('id')->on('equipes');
             $table->unsignedBigInteger('equipe_id_ext');
@@ -25,7 +25,7 @@ class CreateChampMatchesTable extends Migration {
             $table->unsignedBigInteger('champ_journee_id');
             $table->foreign('champ_journee_id')->references('id')->on('champ_journees');
 			$table->date('date')->nullable();
-			$table->time('heure')->nullable();
+			$table->string('heure', 5)->nullable();
 			$table->boolean('acces_bloque')->nullable();
 			$table->integer('nb_modifs')->default(0);
 			$table->integer('score_eq_dom')->nullable();

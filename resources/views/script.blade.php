@@ -2,6 +2,9 @@
 
 // var_dump(request()->all());
 
+// echo uniqid();
+// echo rand(0,99999999);
+
 echo 'Cache vidée !';
 Cache::flush();
 

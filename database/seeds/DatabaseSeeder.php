@@ -36,12 +36,11 @@ class DatabaseSeeder extends Seeder
         // $idRugby = Sport::firstWhere('nom', 'like', 'rugby');
 
         // On insère les différentes catégories d'user
-        $roles = array('membre', 'premium', 'admin', 'superadmin');
-        foreach ($roles as $role) {
+        $roles = array('membre' => 10, 'premium' => 20, 'admin' => 30, 'superadmin' => 40);
+        foreach ($roles as $role => $niveau) {
             App\Role::create([
                 'nom' => $role,
-                'created_at' => now(),
-                'updated_at' => now()
+                'niveau' => $niveau
             ]);
         }
 
@@ -133,13 +132,13 @@ class DatabaseSeeder extends Seeder
         }
 
         // On insère les 12 équipes qui participent à la saison
-        $equipesId = ['29','27','26','97','2','1','4','138','13','162','96','45'];
-        foreach ($equipesId as $equipeId) {
-            App\ChampSaisonEquipe::create([
-                'champ_saison_id' => 1,
-                'equipe_id' => $equipeId
-            ]);
-        }
+        // $equipesId = ['29','27','26','97','2','1','4','138','13','162','96','45'];
+        // foreach ($equipesId as $equipeId) {
+        //     App\ChampSaisonEquipe::create([
+        //         'champ_saison_id' => 1,
+        //         'equipe_id' => $equipeId
+        //     ]);
+        // }
 
         require 'app/scripts/import-calendrier.php';
         require 'app/scripts/gestion-crud-bdd.php';

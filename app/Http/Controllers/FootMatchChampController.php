@@ -152,17 +152,18 @@ class FootMatchChampController extends Controller
      * @param  string $annee
      * @param  string $equipeDom
      * @param  string $equipeExt
-     * @param  int $id
+     * @param  string $id
      * @return \Illuminate\View\View
      */
-    public function match(string $championnat, string $annee, string $equipeDom, string $equipeExt, int $id)
+    public function match(string $championnat, string $annee, string $equipeDom, string $equipeExt, string $id)
     {
         Log::info(" -------- FootMatchChampController : match -------- ");
-        $champMatch = ChampMatch::findOrFail($id);
+        $champMatch = ChampMatch::whereUniqid($id)->firstOrFail();
+        $champSaison = $champMatch->champJournee->champSaison;
 
         // On vérifie l'URL
-        if(strToUrl($champMatch->equipeDom->nom) != $equipeDom || strToUrl($champMatch->equipeExt->nom) != $equipeExt || $champMatch->champJournee->champSaison->annee() != $annee){
-            Log::info('Match introuvable - Championnat : ' . $championnat . ', Année : ' . $annee . ', Equipe dom : ' . $equipeDom . ', Equipe ext : ' . $equipeExt);
+        if(strToUrl($champSaison->championnat->nom) != $championnat || $champSaison->annee() != $annee){
+            Log::info('Match introuvable - championnat : ' . $championnat . ', année : ' . $annee . ', id : ' . $id);
             abort(404);
         }
 

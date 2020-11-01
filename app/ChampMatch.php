@@ -173,7 +173,7 @@ class ChampMatch extends Model
             'lienResultat' => route('champ.foot.resultat', ['id' => $this->id]),
             'lienHoraire' => route('champ.foot.horaire', ['id' => $this->id]),
             'lienMatch' => route('champ.foot.match', [
-                'id' => $this->id,
+                'id' => $this->uniqid,
                 'championnat' => strToUrl($championnat->nom),
                 'annee' => $champSaison->annee(),
                 'equipeDom' => strToUrl($equipeDom->nom),
@@ -198,7 +198,7 @@ class ChampMatch extends Model
         $championnat = strToUrl($championnat->nom);
         // $sport = Str::lower(->championnat->sport->nom);
 
-        $url = "/$sport/$championnat/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->id .".html";
+        $url = "/$sport/$championnat/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
         return $url;
     }
 

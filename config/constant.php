@@ -12,5 +12,4 @@ return [
         'lister' => '<i class="fas fa-list-ul"></i>',
         'database' => '<i class="fas fa-database"></i>'
     ]
-
 ];
