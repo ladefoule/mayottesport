@@ -23,13 +23,12 @@ class CrudController extends Controller
     public function lister(string $table)
     {
         Log::info(" -------- CrudController : lister -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
+        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles();
-        if($listeAttributsVisibles == false)
-            abort(404, 'Aucun attribut à afficher dans la page liste.');
+        if($listeAttributsVisibles == false){
+            Log::info('Aucun attribut à afficher dans la page liste : ' . $table);
+            abort(404);
+        }
 
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase;
@@ -61,10 +60,7 @@ class CrudController extends Controller
     public function listerAjax(string $table)
     {
         Log::info(" -------- CrudController : listerAjax -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
+        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles();
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page liste.');
@@ -86,10 +82,7 @@ class CrudController extends Controller
     public function voir(string $table, int $id)
     {
         Log::info(" -------- CrudController : voir -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
+        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles('voir');
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page \'vue\'.');
@@ -120,10 +113,7 @@ class CrudController extends Controller
     public function ajouter(string $table)
     {
         Log::info(" -------- CrudController : ajouter -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
+        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles('editer');
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page d\'ajout.');
@@ -153,10 +143,7 @@ class CrudController extends Controller
     public function editer(string $table, int $id)
     {
         Log::info(" -------- CrudController : editer -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
+        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles('editer');
         if($listeAttributsVisibles == false)
             abort(404, 'Aucun attribut à afficher dans la page d\'édition.');
@@ -188,10 +175,6 @@ class CrudController extends Controller
     public function ajouterPost(Request $request, string $table)
     {
         Log::info(" -------- CrudController : ajouterPost -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $rules = $modele::rules($request);
 
@@ -217,10 +200,6 @@ class CrudController extends Controller
     public function editerPost(Request $request, string $table, int $id)
     {
         Log::info(" -------- CrudController : editerPost -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
         $rules = $modele::rules($request, $instance);
@@ -234,6 +213,55 @@ class CrudController extends Controller
 
         $this::forgetCaches($table, $instance);
         return redirect()->route('crud.voir', ['table' => $table, 'id' => $id]);
+    }
+
+    /**
+     * Suppression de l'élement qui a l'id $id dans la table $table
+     *
+     * @param string $table
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|void
+     */
+    public function supprimer(string $table, int $id)
+    {
+        Log::info(" -------- CrudController : supprimer -------- ");
+        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $modele = 'App\\'.modelName(str_replace('-', '_', $table));
+        $instance = $modele::findOrFail($id);
+        $instance->delete();
+        Log::info("Suppression de l'id $id dans la table $crudTable->nom");
+        Cache::forget("crud-$table-lister"); // Effacement du cache associé
+        return redirect()->route('crud.lister', ['table' => $table]);
+    }
+
+    /**
+     * Suppressions multiples d'élements de la table $table
+     *
+     * @param Illuminate\Http\Request $request
+     * @param string $table
+     * @return void
+     */
+    public function supprimerAjax(Request $request, string $table)
+    {
+        Log::info(" -------- CrudController : supprimerAjax -------- ");
+        $crudTable = CrudTable::firstWhere('nom', str_replace('-', '_', $table));
+        $modele = 'App\\'.modelName(str_replace('-', '_', $table));
+        $nomTable = $crudTable->nom;
+        $validator = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => "integer|exists:$nomTable,id"
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
+        $request = $validator->validate();
+        foreach ($request['ids'] as $id) {
+            $instance = $modele::findOrFail($id);
+            $instance->delete();
+            Log::info("Suppression de l'id $id dans la table $nomTable");
+        }
+        Cache::forget("crud-$table-lister"); // Effacement du cache associé
     }
 
     /**
@@ -280,61 +308,4 @@ class CrudController extends Controller
             Cache::forget($cache);
         }
     }
-
-    /**
-     * Suppression de l'élement qui a l'id $id dans la table $table
-     *
-     * @param string $table
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse|void
-     */
-    public function supprimer(string $table, int $id)
-    {
-        Log::info(" -------- CrudController : supprimer -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
-        $modele = 'App\\'.modelName(str_replace('-', '_', $table));
-        $instance = $modele::findOrFail($id);
-        $instance->delete();
-        Log::info("Suppression de l'id $id dans la table $crudTable->nom");
-        Cache::forget("crud-$table-lister"); // Effacement du cache associé
-        return redirect()->route('crud.lister', ['table' => $table]);
-    }
-
-    /**
-     * Suppressions multiples d'élements de la table $table
-     *
-     * @param Illuminate\Http\Request $request
-     * @param string $table
-     * @return void
-     */
-    public function supprimerAjax(Request $request, string $table)
-    {
-        Log::info(" -------- CrudController : supprimerAjax -------- ");
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false)
-            abort(404, 'Table non gérée ou introuvable.');
-
-        $modele = 'App\\'.modelName(str_replace('-', '_', $table));
-        $nomTable = $crudTable->nom;
-        $validator = Validator::make($request->all(), [
-            'ids' => 'required|array',
-            'ids.*' => "integer|exists:$nomTable,id"
-        ]);
-
-        if ($validator->fails())
-            abort(404, 'Requête invalide.');
-
-        $request = $validator->validate();
-        foreach ($request['ids'] as $id) {
-            $instance = $modele::findOrFail($id);
-            $instance->delete();
-            Log::info("Suppression de l'id $id dans la table $nomTable");
-        }
-        Cache::forget("crud-$table-lister"); // Effacement du cache associé
-    }
-
-
 }

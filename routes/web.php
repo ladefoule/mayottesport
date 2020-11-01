@@ -44,15 +44,20 @@ Route::group(['middleware'=>'auth'], function () {
             /* DEBUT PREFIX CRUD */
             Route::prefix('/crud')->group(function () {
                 Route::get('/', function(){return redirect()->route('crud.lister', ['table' => 'sports']);})->name('crud');
-                Route::get('/{table}/ajouter', 'CrudController@ajouter')->name('crud.ajouter');
-                Route::post('/{table}/ajouter', 'CrudController@ajouterPost');
-                Route::get('/{table}/editer/{id}', 'CrudController@editer')->name('crud.editer');
-                Route::post('/{table}/editer/{id}', 'CrudController@editerPost');
-                Route::get('/{table}/supprimer/{id}', 'CrudController@supprimer')->name('crud.supprimer');
-                Route::post('/{table}/supprimer', 'CrudController@supprimerAjax')->name('crud.supprimer-ajax');
-                Route::get('/{table}/ajax', 'CrudController@listerAjax')->name('crud.lister-ajax');
-                Route::get('/{table}/{id}', 'CrudController@voir')->name('crud.voir');
-                Route::get('/{table}', 'CrudController@lister')->name('crud.lister');
+
+                /* MIDDLEWARE DE VERIFICATION DU PAREMETRE {table} */
+                Route::group(['middleware' => ['verif-table-crud']], function () {
+                    Route::get('/{table}/ajouter', 'CrudController@ajouter')->name('crud.ajouter');
+                    Route::post('/{table}/ajouter', 'CrudController@ajouterPost');
+                    Route::get('/{table}/editer/{id}', 'CrudController@editer')->name('crud.editer');
+                    Route::post('/{table}/editer/{id}', 'CrudController@editerPost');
+                    Route::get('/{table}/supprimer/{id}', 'CrudController@supprimer')->name('crud.supprimer');
+                    Route::post('/{table}/supprimer', 'CrudController@supprimerAjax')->name('crud.supprimer-ajax');
+                    Route::get('/{table}/ajax', 'CrudController@listerAjax')->name('crud.lister-ajax');
+                    Route::get('/{table}/{id}', 'CrudController@voir')->name('crud.voir');
+                    Route::get('/{table}', 'CrudController@lister')->name('crud.lister');
+                });
+
             }); /* FIN PREFIX CRUD */
 
             /* DEBUT PREFIX AUTRES */
