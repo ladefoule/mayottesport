@@ -3,7 +3,7 @@
 @section('title', $match['nom'])
 
 @section('content')
-<div class="row text-white bloc-match bloc-match-football my-3 mx-0 rounded">
+<div class="row text-white bloc-match bloc-match-football my-3 mx-0 rounded py-4">
     <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1">
         <div class="col-lg-4 d-lg-inline py-2 px-0">
             <img src="{{ $match['fanionDom'] }}" alt="{{ $match['equipeDom'] }}" class="fanion-match">
@@ -42,10 +42,6 @@
         </div>
     </div>
 </div>
-
-<?php
-// dd(uniqid('sports', true));
-?>
 
 <div class="row m-0 mb-3">
     <div class="w-100 card">
