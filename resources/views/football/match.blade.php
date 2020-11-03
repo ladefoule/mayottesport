@@ -43,48 +43,59 @@
         </div>
     </div>
 
+    {{-- Modèle de bloc de commentaire --}}
+    <article class="comment d-none" id="model-bloc-comm">
+        <span class="comment-img">
+            <img src="http://cdn.onlinewebfonts.com/svg/img_266351.png" alt="" width="50" height="50">
+        </span>
+        <div class="comment-body">
+            <div class="text"></div>
+            <p class="attribution">Posté par <span class="nom text-danger"></span> le <span class="date"></span></p>
+        </div>
+    </article>
+
     <div class="row m-0 mb-3">
         <div class="w-100 card">
             <div class="card-header">
                 Les commentaires
             </div>
+            @guest
+                <div class="pl-5 ml-5">
+                    <a href="{{ route('login') }}">Connectez-vous</a> pour commenter
+                </div>
+            @endguest
             <div class="card-body d-flex flex-wrap">
+                @auth
+                    <form action="" id="commenter" class="w-100">
+                        @csrf
+                        <article class="comment">
+                            <a class="comment-img" href="#non">
+                                <img src="https://pbs.twimg.com/profile_images/444197466133385216/UA08zh-B.jpeg" alt=""
+                                    width="50" height="50">
+                            </a>
+                            <div class="comment-body">
+                                <textarea class="text form-control" name="comm" rows="2" id="commentaire"></textarea>
+                                <input type="hidden" name="match_id" id="match_id" value="{{ $match['id'] }}">
+                                <input type="hidden" name="user_id" id="user_id" value="{{ \Auth::id() }}">
+                                <button class="mt-2 btn-sm btn-success">Valider</button>
+                            </div>
+                        </article>
+                    </form>
+                @endauth
                 <section class="comments w-100">
                     <article class="comment">
-                        <a class="comment-img" href="#non">
+                        <span class="comment-img">
                             <img src="http://cdn.onlinewebfonts.com/svg/img_266351.png" alt="" width="50" height="50">
-                        </a>
+                        </span>
                         <div class="comment-body">
                             <div class="text">
                                 {{ $commentaire ?? 'Un commentaire' }}
                             </div>
-                            <p class="attribution">Posté par <a href="#non">{{ $nom ?? 'TEST' }}</a> le
+                            <p class="attribution">Posté par {{ $nom ?? 'Moi' }} le
                                 {{ $date ?? '12/12/2020 à 12:52' }}</p>
                         </div>
                     </article>
-                    @auth
-                       <form action="" id="commenter">
-                           @csrf
-                            <article class="comment">
-                                <a class="comment-img" href="#non">
-                                    <img src="https://pbs.twimg.com/profile_images/444197466133385216/UA08zh-B.jpeg" alt=""
-                                        width="50" height="50">
-                                </a>
-                                <div class="comment-body">
-                                    <textarea class="text form-control" name="comm" rows="2" id="commentaire"></textarea>
-                                    <input type="hidden" name="match_id" id="match_id" value="{{ $match['id'] }}">
-                                    <input type="hidden" name="user_id" id="user_id" value="{{ \Auth::id() }}">
-                                    <button class="mt-2 btn-sm btn-success">Valider</button>
-                                </div>
-                            </article>
-                        </form>
-                    @endauth
                 </section>
-                @guest
-                    <div class="pl-5 ml-5">
-                        <a href="{{ route('login') }}">Connectez-vous</a> pour commenter
-                    </div>
-                @endguest
             </div>
         </div>
     </div>
@@ -98,20 +109,27 @@ $(document).ready(function(){
     var match_id = qs('#match_id').value
     var user_id = qs('#user_id').value
     var _token = qs('[name=_token]').value
+    var comments = qs('.comments')
+    var model = qs('#model-bloc-comm')
     $('#commenter').on('submit', function (e) {
         e.preventDefault()
         comm = commentaire.value
-        if(commentaire.length < 5){
-            cl('Trop court')
+        if(commentaire.length < 2)
             return false
-        }
 
         $.ajax({
             method:'POST',
-            url: "<?php route('comment') ?>",
+            url: "<?php echo route('comment') ?>",
             data:{comm, match_id, user_id, _token},
             success:function(data){
-                cl(data)
+                commentaire.value = ''
+                let bloc = model.cloneNode(true)
+                bloc.classList.remove('d-none')
+                bloc.removeAttribute('id')
+                qs('.text', bloc).innerHTML = data.comm
+                qs('.nom', bloc).innerHTML = data.nom
+                qs('.date', bloc).innerHTML = data.date
+                comments.prepend(bloc)
             }
         })
     })

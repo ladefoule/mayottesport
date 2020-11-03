@@ -26,6 +26,10 @@ class CommentaireController extends Controller
             'comm' => $comm,
         ]);
 
-        return $commentaire;
+        return [
+            'nom' => $commentaire->user->pseudo,
+            'date' => $commentaire->created_at->format('d/m/Y à H:i:s'),
+            'comm' => $commentaire->comm
+        ];
     }
 }
