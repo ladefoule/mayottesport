@@ -2,7 +2,7 @@
 use App\Role;
 use App\Match;
 use App\Journee;
-use App\SaisonEquipe;
+use App\EquipeSaison;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 
@@ -112,7 +112,7 @@ function genererCalendrier($donnees)
 
     // On insère dans la table associatif le lien equipe/saison pour toutes les équipes
     foreach ($terrains as $equipeId => $terrain) {
-        SaisonEquipe::create([
+        EquipeSaison::create([
             'equipe_id' => $equipeId,
             'saison_id' => $saisonId
         ]);

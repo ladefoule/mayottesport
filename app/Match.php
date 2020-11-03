@@ -156,6 +156,7 @@ class Match extends Model
         $saison = $this->journee->saison;
         $competition = $saison->competition;
         return [
+            'id' => $this->id,
             'nom' => $this->nom,
             'equipeDom' => $equipeDom->nom,
             'fanionDom' => $equipeDom->fanion(),

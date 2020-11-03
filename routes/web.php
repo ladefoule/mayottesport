@@ -28,6 +28,7 @@ Auth::routes();
 /* MIDDLEWARE AUTH */
 Route::group(['middleware'=>'auth'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
+    Route::post('/comment', 'CommentaireController@store')->name('comment');
 
     Route::get('/football/championnat/resultat/{id}', 'FootMatchController@resultat')->name('champ.foot.resultat');
     Route::post('/football/championnat/resultat/{id}', 'FootMatchController@resultatPost');
