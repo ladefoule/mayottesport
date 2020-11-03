@@ -60,9 +60,12 @@
                 Les commentaires
             </div>
             @guest
-                <div class="pl-5 ml-5">
-                    <a href="{{ route('login') }}">Connectez-vous</a> pour commenter
+                <div class="pl-5 ml-5 py-3">
+                    <a href="{{ route('login') }}">Connectez-vous</a> ou <a href="{{ route('register') }}">Inscrivez-vous</a> pour commenter
                 </div>
+
+                {{-- La ligne en dessous permettra à l'utilisateur de revenir sur cette page après la connexion --}}
+                <?php Session::put('url.intended', request()->url()); ?>
             @endguest
             <div class="card-body d-flex flex-wrap">
                 @auth
@@ -77,7 +80,7 @@
                                 <textarea class="text form-control" name="comm" rows="2" id="commentaire"></textarea>
                                 <input type="hidden" name="match_id" id="match_id" value="{{ $match['id'] }}">
                                 <input type="hidden" name="user_id" id="user_id" value="{{ \Auth::id() }}">
-                                <button class="mt-2 btn-sm btn-success">Valider</button>
+                                <button class="mt-2 btn-sm btn-success">Envoyer</button>
                             </div>
                         </article>
                     </form>
