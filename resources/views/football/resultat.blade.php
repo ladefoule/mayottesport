@@ -43,7 +43,7 @@
                 Le {{ $match['dateFormat'] }}
             </div>
             <div class="col-12">
-                {{ $match['championnat'] }} : {{ $match['journee'] }}
+                {{ $match['competition'] }} : {{ $match['journee'] }}
             </div>
         </div>
     </div>
