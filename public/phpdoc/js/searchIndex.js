@@ -101,65 +101,65 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/App-Http-Controllers-Controller.html"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController",
-            "name": "FootMatchChampController",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController",
+            "name": "FootMatchController",
             "summary": "",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003Alister\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003Alister\u0028\u0029",
             "name": "lister",
             "summary": "Acc\u00E8s\u0020Back\u002DOffice\nAffichage\u0020de\u0020la\u0020liste\u0020des\u0020matches\u0020de\u0020Championnat\u0020de\u0020Football",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_lister"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_lister"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003Aajouter\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003Aajouter\u0028\u0029",
             "name": "ajouter",
             "summary": "Acc\u00E8s\u0020Back\u002DOffice\nFormulaire\u0020d\u0027ajout\u0020d\u0027un\u0020match\u0020de\u0020football\u0020de\u0020Championnat",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_ajouter"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_ajouter"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003Aediter\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003Aediter\u0028\u0029",
             "name": "editer",
             "summary": "Acc\u00E8s\u0020Back\u002DOffice\nFormulaire\u0020de\u0020modification\u0020\u0028score\u002Bhoraire\u0029\u0020d\u0027un\u0020match\u0020de\u0020football\u0020de\u0020Championnat",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_editer"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_editer"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003AediterPost\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003AediterPost\u0028\u0029",
             "name": "editerPost",
             "summary": "Acc\u00E8s\u0020Back\u002DOffice\nTraitement\u0020de\u0020la\u0020modification\u0020\u0028score\u002Bhoraire\u0029\u0020d\u0027un\u0020match\u0020de\u0020football\u0020de\u0020Championnat\u0020en\u0020POST",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_editerPost"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_editerPost"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003Amatch\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003Amatch\u0028\u0029",
             "name": "match",
             "summary": "Acc\u00E8s\u0020\u00E0\u0020la\u0020view\u0020du\u0020match",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_match"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_match"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003Aresultat\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003Aresultat\u0028\u0029",
             "name": "resultat",
             "summary": "Acc\u00E8s\u0020\u00E0\u0020la\u0020page\u0020de\u0020modification\u0020du\u0020r\u00E9sultat\u0020du\u0020match",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_resultat"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_resultat"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003AresultatPost\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003AresultatPost\u0028\u0029",
             "name": "resultatPost",
             "summary": "Traitement\u0020de\u0020la\u0020modification\u0020du\u0020r\u00E9sultat\u0020du\u0020match",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_resultatPost"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_resultatPost"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003Ahoraire\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003Ahoraire\u0028\u0029",
             "name": "horaire",
             "summary": "Acc\u00E8s\u0020\u00E0\u0020la\u0020page\u0020de\u0020modification\u0020de\u0020l\u0027horaire\u0020du\u0020match",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_horaire"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_horaire"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003AhorairePost\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003AhorairePost\u0028\u0029",
             "name": "horairePost",
             "summary": "Traitement\u0020de\u0020la\u0020modification\u0020de\u0020l\u0027horaire\u0020du\u0020match",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_horairePost"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_horairePost"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003Asupprimer\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003Asupprimer\u0028\u0029",
             "name": "supprimer",
             "summary": "Traitement\u0020de\u0020la\u0020suppression\u0020de\u0020plusieurs\u0020matches\u0020de\u0020football\nLes\u0020ids\u0020\u00E0\u0020supprimer\u0020doivent\u0020\u00EAtre\u0020inclus\u0020dans\u0020un\u0020tableau\u0020qui\u0020portera\u0020le\u0020name\u0020\u0027delete\u0027",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_supprimer"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_supprimer"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\FootMatchChampController\u003A\u003AforgetCaches\u0028\u0029",
+            "fqsen": "\\App\\Http\\Controllers\\FootMatchController\u003A\u003AforgetCaches\u0028\u0029",
             "name": "forgetCaches",
             "summary": "Suppression\u0020des\u0020caches\u0020li\u00E9s\u0020au\u0020match",
-            "url": "../classes/App-Http-Controllers-FootMatchChampController.html#method_forgetCaches"
+            "url": "../classes/App-Http-Controllers-FootMatchController.html#method_forgetCaches"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\HomeController",
             "name": "HomeController",

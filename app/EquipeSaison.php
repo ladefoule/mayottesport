@@ -6,7 +6,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ChampSaisonEquipe extends Pivot
+class EquipeSaison extends Pivot
 {
     public $timestamps = false;
     // protected $table = 'champ_saison_equipe';

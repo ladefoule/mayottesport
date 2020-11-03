@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChampionnatsTable extends Migration {
+class CreateBaremesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,13 @@ class CreateChampionnatsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('championnats', function(Blueprint $table)
+		Schema::create('baremes', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->string('nom');
-            $table->string('nom_complet')->nullable();
+			$table->boolean('victoire')->nullable();
+			$table->boolean('nul')->nullable();
+            $table->boolean('defaite')->nullable();
             $table->unsignedBigInteger('sport_id');
             $table->foreign('sport_id')->references('id')->on('sports');
             $table->timestamps();
@@ -32,7 +34,7 @@ class CreateChampionnatsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('championnats');
+		Schema::drop('baremes');
 	}
 
 }

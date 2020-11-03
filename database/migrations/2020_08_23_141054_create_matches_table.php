@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChampMatchesTable extends Migration {
+class CreateMatchesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateChampMatchesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('champ_matches', function(Blueprint $table)
+		Schema::create('matches', function(Blueprint $table)
 		{
             $table->bigIncrements('id');
             $table->string('uniqid')->unique();
@@ -22,8 +22,8 @@ class CreateChampMatchesTable extends Migration {
             $table->foreign('equipe_id_ext')->references('id')->on('equipes');
             $table->unsignedBigInteger('terrain_id');
             $table->foreign('terrain_id')->references('id')->on('terrains');
-            $table->unsignedBigInteger('champ_journee_id');
-            $table->foreign('champ_journee_id')->references('id')->on('champ_journees');
+            $table->unsignedBigInteger('journee_id');
+            $table->foreign('journee_id')->references('id')->on('journees');
 			$table->date('date')->nullable();
 			$table->string('heure', 5)->nullable();
 			$table->boolean('acces_bloque')->nullable();
@@ -42,7 +42,7 @@ class CreateChampMatchesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('champ_matches');
+		Schema::drop('matches');
 	}
 
 }

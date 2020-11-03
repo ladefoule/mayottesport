@@ -7,7 +7,7 @@
     @csrf
     <div class="row text-white bloc-match bloc-match-football py-3" style="height:auto;background-image: url('/storage/img/terrain-de-foot-6.jpg');background-size :cover;">
         <div class="col-12 text-center h4">
-            {{ $champMatch->champJournee }}
+            {{ $champMatch->journee }}
         </div>
         <div class="col-4 d-flex justify-content-between align-items-center bloc-equipe-dom px-3">
             <div class="d-inline-flex align-items-center pr-2">

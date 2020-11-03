@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Sport;
-use App\Championnat;
-use App\ChampSaison;
-use App\ChampJournee;
+use App\Competition;
+use App\Saison;
+use App\Journee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,7 +21,7 @@ class JourneesMultiplesController extends Controller
         $sports = Sport::orderBy('nom')->get();
         $h1 = $title = 'Saison : Ajout de toutes les journées';
 
-        return view('admin.champ-journees.multi.choix-saison', [
+        return view('admin.journees.multi.choix-saison', [
             'sports' => $sports,
             'title' => $title,
             'h1' => $h1
@@ -36,16 +36,16 @@ class JourneesMultiplesController extends Controller
      */
     public function editMultiples(int $saisonId)
     {
-        $champSaison = ChampSaison::findOrFail($saisonId);
-        $championnat = $champSaison->championnat;
-        $sport = $champSaison->championnat->sport;
-        $nbJournees = $champSaison->nb_journees;
-        $h1 = $title = 'ChampJournees/Saison : ' . $champSaison->champ_saison_id;
+        $saison = Saison::findOrFail($saisonId);
+        $competition = $saison->competition;
+        $sport = $saison->competition->sport;
+        $nbJournees = $saison->nb_journees;
+        $h1 = $title = 'journees/Saison : ' . $saison->saison_id;
 
-        return view('admin.champ-journees.multi.editer', [
-            'championnat' => $championnat->nom,
+        return view('admin.journees.multi.editer', [
+            'competition' => $competition->nom,
             'sport' => $sport->nom,
-            'champSaison' => $champSaison->nom,
+            'champSaison' => $saison->nom,
             'saisonId' => $saisonId,
             'nbJournees' => $nbJournees,
             'title' => $title,
@@ -62,16 +62,16 @@ class JourneesMultiplesController extends Controller
      */
     public function editMultiplesPost(Request $request, int $saisonId = 0)
     {
-        $rules = ['champ_saison_id' => 'required|exists:champ_saisons,id'];
+        $rules = ['saison_id' => 'required|exists:saisons,id'];
         Validator::make($request->all(), $rules)->validate();
-        $saisonId = $request['champ_saison_id'];
+        $saisonId = $request['saison_id'];
 
         for ($i=1; $i <= 100; $i++) {
             if ($request['numero' . $i]) {
                 $journeeNumero = $request['numero' . $i];
                 $journeeDate = $request['date' . $i];
                 $journeeId = $request['id' . $i];
-                $tab = ['numero' => $journeeNumero, 'date' => $journeeDate, 'champ_saison_id' => $saisonId];
+                $tab = ['numero' => $journeeNumero, 'date' => $journeeDate, 'saison_id' => $saisonId];
                 $request['delete'.$i] = $request->has('delete'.$i);
                 $journeeDelete = $request['delete' . $i];
 
@@ -84,10 +84,10 @@ class JourneesMultiplesController extends Controller
                 Validator::make($request->all(), $rules)->validate();
 
                 if($journeeId == 0){ // Si la journée n'existe pas encore dans la bdd, alors on la crée
-                    $journee = new ChampJournee($tab);
+                    $journee = new Journee($tab);
                     $journee->save();
                 }else{
-                    $journee = ChampJournee::findOrFail($journeeId);
+                    $journee = Journee::findOrFail($journeeId);
                     if($journeeDelete) // Si la checkbox de suppression a été cochée alors on supprime la Journée
                         $journee->delete();
                     else // Sinon on fait une maj
@@ -105,20 +105,20 @@ class JourneesMultiplesController extends Controller
      */
     public function vueMultiples(int $saisonId)
     {
-        $champSaison = ChampSaison::findOrFail($saisonId);
-        $championnat = $champSaison->championnat;
-        $sport = $championnat->sport;
-        $h1 = $title = 'ChampJournees/Saison : ' . $saisonId;
-        $champJournees = $champSaison->champJournees->sortBy('numero');
+        $saison = Saison::findOrFail($saisonId);
+        $competition = $saison->competition;
+        $sport = $competition->sport;
+        $h1 = $title = 'Journees/Saison : ' . $saisonId;
+        $journees = $saison->journees->sortBy('numero');
 
-        return view('admin.champ-journees.multi.voir', [
-            'champSaison' => $champSaison->nom,
-            'championnat' => $championnat->nom,
+        return view('admin.journees.multi.voir', [
+            'champSaison' => $saison->nom,
+            'competition' => $competition->nom,
             'sport' => $sport->nom,
             'title' => $title,
             'h1' => $h1,
             'saisonId' => $saisonId,
-            'champJournees' => $champJournees
+            'journees' => $journees
         ]);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChampBaremeInfosTable extends Migration
+class CreateBaremeInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateChampBaremeInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('champ_bareme_infos', function (Blueprint $table) {
+        Schema::create('bareme_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('champ_bareme_id')->unique();
-            $table->foreign('champ_bareme_id')->references('id')->on('champ_baremes')->onDelete('cascade');
+            $table->unsignedBigInteger('bareme_id')->unique();
+            $table->foreign('bareme_id')->references('id')->on('baremes')->onDelete('cascade');
             $table->integer('information');
             $table->string('valeur');
-            $table->unique(['champ_bareme_id', 'information']);
+            $table->unique(['bareme_id', 'information']);
         });
     }
 
@@ -30,6 +30,6 @@ class CreateChampBaremeInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('champ_bareme_infos');
+        Schema::dropIfExists('bareme_infos');
     }
 }

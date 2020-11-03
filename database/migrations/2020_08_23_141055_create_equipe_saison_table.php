@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChampSaisonEquipeTable extends Migration {
+class CreateEquipeSaisonTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,14 @@ class CreateChampSaisonEquipeTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('champ_saison_equipe', function(Blueprint $table)
+		Schema::create('equipe_saison', function(Blueprint $table)
 		{
             $table->bigIncrements('id');
             $table->unsignedBigInteger('equipe_id');
             $table->foreign('equipe_id')->references('id')->on('equipes');
-            $table->unsignedBigInteger('champ_saison_id');
-            $table->foreign('champ_saison_id')->references('id')->on('champ_saisons');
-            $table->unique(['equipe_id','champ_saison_id']);
+            $table->unsignedBigInteger('saison_id');
+            $table->foreign('saison_id')->references('id')->on('saisons');
+            $table->unique(['equipe_id','saison_id']);
 		});
 	}
 
@@ -31,7 +31,7 @@ class CreateChampSaisonEquipeTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('champ_saison_equipe');
+		Schema::drop('equipe_saison');
 	}
 
 }

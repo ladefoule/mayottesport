@@ -40,13 +40,13 @@ class Sport extends Model
     }
 
     /**
-     * Les championnats associés à ce sport
+     * Les competitions associés à ce sport
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function championnats()
+    public function competitions()
     {
-        return $this->hasMany('App\Championnat');
+        return $this->hasMany('App\Competition');
     }
 
     /**

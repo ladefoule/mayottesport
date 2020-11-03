@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Sport;
 use App\Equipe;
 use App\Terrain;
-use App\ChampMatch;
-use App\ChampModif;
-use App\Championnat;
-use App\ChampSaison;
-use App\ChampMatchInfo;
+use App\Match;
+use App\Modif;
+use App\Competition;
+use App\Saison;
+use App\MatchInfo;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
-class FootMatchChampController extends Controller
+class FootMatchController extends Controller
 {
     /**
      * Accès Back-Office
@@ -27,12 +27,12 @@ class FootMatchChampController extends Controller
      */
     public function lister()
     {
-        Log::info(" -------- FootMatchChampController : lister -------- ");
+        Log::info(" -------- FootMatchController : lister -------- ");
         $idFootball = Sport::firstWhere('nom', 'like', 'football')->id ?? 0;
-        $championnats = Championnat::where('sport_id', $idFootball)->orderBy('nom')->get();
+        $championnats = Competition::where('sport_id', $idFootball)->where('type', 'Championnat')->orderBy('nom')->get();
         $h1 = $title = 'Football - Les matches de championnat';
         return view(
-            'admin.champ-matches.foot.lister',
+            'admin.matches.foot.lister',
             ['title' => $title, 'h1' => $h1, 'championnats' => $championnats]
         );
     }
@@ -45,22 +45,22 @@ class FootMatchChampController extends Controller
      */
     public function ajouter()
     {
-        Log::info(" -------- FootMatchChampController : ajouter -------- ");
-        $champMatch = new ChampMatch();
-        $championnat = new Championnat();
-        $saison = new ChampSaison();
+        Log::info(" -------- FootMatchController : ajouter -------- ");
+        $match = new Match();
+        $competition = new Competition();
+        $saison = new Saison();
         $saisons = [];
         $journees = [];
         $title = 'Championnat/Football : Ajout d\'un match';
 
         $idFootball = Sport::firstWhere('nom', 'like', 'football')->id ?? 0;
-        $championnats = Sport::firstWhere('id', $idFootball)->championnats;
+        $competitions = Sport::firstWhere('id', $idFootball)->championnats;
         $equipes = Equipe::orderBy('nom')->get();
         $terrains = Terrain::orderBy('nom')->get();
 
-        return view('admin.champ-matches.foot.ajouter', [
-            'champMatch' => $champMatch, 'title' => $title,
-            'h1' => $title, 'championnats' => $championnats, 'championnatId' => $championnat->id,
+        return view('admin.matches.foot.ajouter', [
+            'Match' => $match, 'title' => $title,
+            'h1' => $title, 'championnats' => $competitions, 'championnatId' => $competition->id,
             'saisonId' => $saison->id, 'saisons' => $saisons, 'journees' => $journees, 'equipes' => $equipes, 'terrains' => $terrains
         ]);
     }
@@ -74,23 +74,23 @@ class FootMatchChampController extends Controller
      */
     public function editer(int $matchId)
     {
-        Log::info(" -------- FootMatchChampController : editer -------- ");
-        $champMatch = ChampMatch::whereUniqid($matchId)->firstOrFail();
-        $infosMatch = $champMatch->champMatchInfos;
-        $liens = infosChampMatch();
-        foreach ($infosMatch as $champMatchInfo) {
-            $info = $champMatchInfo->information; // On récupère ici un entier
+        Log::info(" -------- FootMatchController : editer -------- ");
+        $match = Match::whereUniqid($matchId)->firstOrFail();
+        $infosMatch = $match->MatchInfos;
+        $liens = infosMatch();
+        foreach ($infosMatch as $matchInfo) {
+            $info = $matchInfo->information; // On récupère ici un entier
             $attribut = $liens[$info]; // On récupère l'attribut qui correspond à cet entier
-            $$attribut = $champMatchInfo->valeur;
+            $$attribut = $matchInfo->valeur;
         }
 
         // On insère les infos supplémentaires du match (forfaits/penalités/tab ... : tous les attributs présents dans le fichier JSON)
         foreach($liens as $cle => $lien)
-            $champMatch->$lien = $$lien ?? '';
+            $match->$lien = $$lien ?? '';
 
         $title = "Modification de match";
-        return view('admin.champ-matches.foot.editer', [
-            'champMatch' => $champMatch, 'title' => $title
+        return view('admin.matches.foot.editer', [
+            'Match' => $match, 'title' => $title
         ]);
     }
 
@@ -104,8 +104,8 @@ class FootMatchChampController extends Controller
      */
     public function editerPost(Request $request, int $matchId)
     {
-        Log::info(" -------- FootMatchChampController : editerPost -------- ");
-        $champMatch = ChampMatch::whereUniqid($matchId)->firstOrFail();
+        Log::info(" -------- FootMatchController : editerPost -------- ");
+        $match = Match::whereUniqid($matchId)->firstOrFail();
         $request['penalite_eq_dom'] = $request->has('penalite_eq_dom');
         $request['penalite_eq_ext'] = $request->has('penalite_eq_ext');
         $request['forfait_eq_dom'] = $request->has('forfait_eq_dom');
@@ -122,52 +122,52 @@ class FootMatchChampController extends Controller
         ];
 
         $request = Validator::make($request->all(), $rules)->validate();
-        $infos = $champMatch->champMatchInfos;
-        foreach ($infos as $champMatchInfo)
-            $champMatchInfo->delete();// On supprime tous les pénalités/forfaits éventuels qui existaient déjà
+        $infos = $match->MatchInfos;
+        foreach ($infos as $matchInfo)
+            $matchInfo->delete();// On supprime tous les pénalités/forfaits éventuels qui existaient déjà
 
-        $liens = infosChampMatch();
+        $liens = infosMatch();
         foreach ($liens as $key => $attribut)
             if($request[$attribut]) // On insère les nouvelles informations
-                ChampMatchInfo::create(['information' => $key, 'valeur' => $request[$attribut], 'champ_match_id' => $champMatch->id]);
+                MatchInfo::create(['information' => $key, 'valeur' => $request[$attribut], 'champ_match_id' => $match->id]);
 
         $score_eq_dom = $request['score_eq_dom'] ?? '';
         $score_eq_ext = $request['score_eq_ext'] ?? '';
 
         // S'il y a un changement au niveau du score
-        if ($score_eq_dom != $champMatch->score_eq_dom || $score_eq_ext != $champMatch->score_eq_ext) {
-            $nbModifs = $champMatch->nb_modifs + 1;
+        if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
+            $nbModifs = $match->nb_modifs + 1;
             $request['nb_modifs'] = $nbModifs;
         }
 
-        $champMatch->update($request);
-        $this::forgetCaches($champMatch);
-        return redirect()->route('champ-matches.foot.editer', ['id' => $matchId]);
+        $match->update($request);
+        $this::forgetCaches($match);
+        return redirect()->route('matches.foot.editer', ['id' => $matchId]);
     }
 
     /**
      * Accès à la view du match
      *
-     * @param  string $championnat
+     * @param  string $competition
      * @param  string $annee
      * @param  string $equipeDom
      * @param  string $equipeExt
      * @param  string $id
      * @return \Illuminate\View\View|void
      */
-    public function match(string $championnat, string $annee, string $equipeDom, string $equipeExt, string $id)
+    public function match(string $competition, string $annee, string $equipeDom, string $equipeExt, string $id)
     {
-        Log::info(" -------- FootMatchChampController : match -------- ");
-        $champMatch = ChampMatch::whereUniqid($id)->firstOrFail();
-        $champSaison = $champMatch->champJournee->champSaison;
+        Log::info(" -------- FootMatchController : match -------- ");
+        $match = Match::whereUniqid($id)->firstOrFail();
+        $saison = $match->journee->saison;
 
         // On vérifie l'URL
-        if(strToUrl($champSaison->championnat->nom) != $championnat || $champSaison->annee() != $annee){
-            Log::info('Match introuvable - championnat : ' . $championnat . ', année : ' . $annee . ', id : ' . $id);
+        if(strToUrl($saison->competition->nom) != $competition || $saison->annee() != $annee){
+            Log::info('Match introuvable - competition : ' . $competition . ', année : ' . $annee . ', id : ' . $id);
             abort(404);
         }
 
-        $infos = $champMatch->infos();
+        $infos = $match->infos();
         return view('football.match', [
             'match' => $infos
         ]);
@@ -181,15 +181,15 @@ class FootMatchChampController extends Controller
      */
     public function resultat($matchId)
     {
-        Log::info(" -------- FootMatchChampController : resultat -------- ");
-        $champMatch = ChampMatch::whereUniqid($matchId)->firstOrFail();
-        $accesBloque = $champMatch->acces_bloque;
+        Log::info(" -------- FootMatchController : resultat -------- ");
+        $match = Match::whereUniqid($matchId)->firstOrFail();
+        $accesBloque = $match->acces_bloque;
         if ($accesBloque){
-            Log::info("Match bloqué. Id match : " . $champMatch->id);
+            Log::info("Match bloqué. Id match : " . $match->id);
             abort(403);
         }
 
-        $infos = $champMatch->infos();
+        $infos = $match->infos();
         return view('football.resultat', [
             'match' => $infos
         ]);
@@ -204,38 +204,38 @@ class FootMatchChampController extends Controller
      */
     public function resultatPost(Request $request, int $matchId)
     {
-        Log::info(" -------- FootMatchChampController : resultatPost -------- ");
+        Log::info(" -------- FootMatchController : resultatPost -------- ");
         $request = Validator::make($request->all(), [
             'score_eq_dom' => 'required|integer|min:0|max:30',
             'score_eq_ext' => 'required|integer|min:0|max:30',
             'note' => 'nullable|string|max:200'
         ])->validate();
 
-        $champMatch = ChampMatch::whereUniqid($matchId)->firstOrFail();
+        $match = Match::whereUniqid($matchId)->firstOrFail();
         $score_eq_dom = $request['score_eq_dom'];
         $score_eq_ext = $request['score_eq_ext'];
         $note = $request['note'];
         $idUser = Auth::user()->id;
 
         // S'il y a un changement au niveau du score
-        if ($score_eq_dom != $champMatch->score_eq_dom || $score_eq_ext != $champMatch->score_eq_ext) {
-            $champMatch->update([
+        if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
+            $match->update([
                 'score_eq_dom' => $score_eq_dom,
                 'score_eq_ext' => $score_eq_ext,
-                'nb_modifs' => $champMatch->nb_modifs + 1
+                'nb_modifs' => $match->nb_modifs + 1
             ]);
 
-            $champModif = new ChampModif([
+            $modif = new Modif([
                 'user_id' => $idUser,
-                'champ_match_id' => $champMatch->id,
+                'champ_match_id' => $match->id,
                 'note' => $note,
             ]);
-            $champModif->saveOrFail();
+            $modif->saveOrFail();
 
-            $this::forgetCaches($champMatch);
+            $this::forgetCaches($match);
         }
 
-        $urlMatch = $champMatch->infos()['lienMatch'];
+        $urlMatch = $match->infos()['lienMatch'];
         return redirect($urlMatch);
     }
 
@@ -247,10 +247,10 @@ class FootMatchChampController extends Controller
      */
     public function horaire($matchId)
     {
-        Log::info(" -------- FootMatchChampController : horaire -------- ");
-        $champMatch = ChampMatch::whereUniqid($matchId)->firstOrFail();
+        Log::info(" -------- FootMatchController : horaire -------- ");
+        $match = Match::whereUniqid($matchId)->firstOrFail();
 
-        $infos = $champMatch->infos();
+        $infos = $match->infos();
         return view('football.horaire', [
             'match' => $infos
         ]);
@@ -265,8 +265,8 @@ class FootMatchChampController extends Controller
      */
     public function horairePost(Request $request, int $matchId)
     {
-        Log::info(" -------- FootMatchChampController : horairePost -------- ");
-        $champMatch = ChampMatch::whereUniqid($matchId)->firstOrFail();
+        Log::info(" -------- FootMatchController : horairePost -------- ");
+        $match = Match::whereUniqid($matchId)->firstOrFail();
         $request = Validator::make($request->all(), [
             'date' => 'nullable|date',
             'heure' => 'nullable|size:5'
@@ -275,17 +275,17 @@ class FootMatchChampController extends Controller
         $date = $request['date'];
         $heure = $request['heure'];
         // S'il y a un changement au niveau du score
-        if ($date != $champMatch->date || $heure != $champMatch->heure) {
-            $champMatch->update([
+        if ($date != $match->date || $heure != $match->heure) {
+            $match->update([
                 'date' => $date,
                 'heure' => $heure,
-                'nb_modifs' => $champMatch->nb_modifs + 1
+                'nb_modifs' => $match->nb_modifs + 1
             ]);
 
-            $this::forgetCaches($champMatch);
+            $this::forgetCaches($match);
         }
 
-        $urlMatch = $champMatch->infos()['lienMatch'];
+        $urlMatch = $match->infos()['lienMatch'];
         return redirect($urlMatch);
     }
 
@@ -298,7 +298,7 @@ class FootMatchChampController extends Controller
      */
     public function supprimer(Request $request)
     {
-        Log::info(" -------- FootMatchChampController : supprimer -------- ");
+        Log::info(" -------- FootMatchController : supprimer -------- ");
         $validator = Validator::make($request->all(), [
             'delete' => 'required|array',
             'delete.*' => "integer|exists:champ_matches,id"
@@ -309,7 +309,7 @@ class FootMatchChampController extends Controller
 
         $request = $validator->validate();
         foreach ($request['delete'] as $id) {
-            $match = ChampMatch::whereUniqid($id)->firstOrFail();
+            $match = Match::whereUniqid($id)->firstOrFail();
             $match->delete();
 
             $this::forgetCaches($match);
@@ -319,14 +319,14 @@ class FootMatchChampController extends Controller
     /**
      * Suppression des caches liés au match
      *
-     * @param  ChampMatch $champMatch
+     * @param  Match $match
      * @return void
      */
-    private static function forgetCaches(ChampMatch $champMatch)
+    private static function forgetCaches(Match $match)
     {
-        Log::info(" -------- FootMatchChampController : forgetCaches -------- ");
-        Cache::forget('champ-match-' . $champMatch->uniqid); // Les infos du match
-        Cache::forget('journee-' . $champMatch->champJournee->uniqid); // Les infos de la journée
-        Cache::forget('classement-' . $champMatch->champJournee->champSaison->uniqid); // Le classement de la saison
+        Log::info(" -------- FootMatchController : forgetCaches -------- ");
+        Cache::forget('champ-match-' . $match->uniqid); // Les infos du match
+        Cache::forget('journee-' . $match->journee->id); // Les infos de la journée
+        Cache::forget('classement-' . $match->journee->saison->id); // Le classement de la saison
     }
 }

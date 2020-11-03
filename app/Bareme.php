@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 
-class ChampBareme extends Model
+class Bareme extends Model
 {
     /**
      * Champs autorisés lors de la création
@@ -30,9 +30,9 @@ class ChampBareme extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function champ_saisons()
+    public function saisons()
     {
-        return $this->hasMany('App\ChampSaison');
+        return $this->hasMany('App\Saison');
     }
 
     /**
@@ -49,19 +49,19 @@ class ChampBareme extends Model
      * Les règles de validations
      *
      * @param Request $request
-     * @param ChampBareme $champBareme
+     * @param Bareme $bareme
      * @return array
      */
-    public static function rules(Request $request, ChampBareme $champBareme = null)
+    public static function rules(Request $request, Bareme $bareme = null)
     {
         $nom = $request['nom'] ?? '';
         $sportId = $request['sport_id'] ?? '';
-        $unique = Rule::unique('champ_baremes')->where(function ($query) use ($nom, $sportId) {
+        $unique = Rule::unique('baremes')->where(function ($query) use ($nom, $sportId) {
             return $query->whereNom($nom)->whereSportId($sportId);
         });
 
-        if($champBareme){
-            $id = $champBareme->id;
+        if($bareme){
+            $id = $bareme->id;
             $unique = $unique->ignore($id);
         }
 

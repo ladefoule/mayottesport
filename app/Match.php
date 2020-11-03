@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
-class ChampMatch extends Model
+class Match extends Model
 {
     /**
      * Champs autorisés lors de la création
@@ -16,7 +16,7 @@ class ChampMatch extends Model
      * @var array
      */
     protected $fillable = ['date', 'heure', 'acces_bloque', 'nb_modifs', 'score_eq_dom', 'score_eq_ext',
-                            'champ_journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext'];
+                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext'];
 
     /**
      * La fonction nous renvoie le résultat du matchpar rapport à l'équipe $equipeId
@@ -62,29 +62,29 @@ class ChampMatch extends Model
      * Les règles de validations
      *
      * @param Request $request
-     * @param ChampMatch $champMatch
+     * @param Match $match
      * @return array
      */
-    public static function rules(Request $request, ChampMatch $champMatch = null)
+    public static function rules(Request $request, Match $match = null)
     {
         $equipeIdDom = $request['equipe_id_dom'] ?? 0;
         $equipeIdExt = $request['equipe_id_ext'] ?? 0;
-        $champJourneeId = $request['champ_journee_id'] ?? 0;
-        $uniqueEquipeDomDom = Rule::unique('champ_matches')->where(function ($query) use ($equipeIdDom, $champJourneeId) {
+        $champJourneeId = $request['journee_id'] ?? 0;
+        $uniqueEquipeDomDom = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $champJourneeId) {
             return $query->whereEquipeIdDom($equipeIdDom)->whereChampJourneeId($champJourneeId);
         });
-        $uniqueEquipeDomExt = Rule::unique('champ_matches')->where(function ($query) use ($equipeIdDom, $champJourneeId) {
+        $uniqueEquipeDomExt = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $champJourneeId) {
             return $query->whereEquipeIdExt($equipeIdDom)->whereChampJourneeId($champJourneeId);
         });
-        $uniqueEquipeExtDom = Rule::unique('champ_matches')->where(function ($query) use ($equipeIdExt, $champJourneeId) {
+        $uniqueEquipeExtDom = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $champJourneeId) {
             return $query->whereEquipeIdDom($equipeIdExt)->whereChampJourneeId($champJourneeId);
         });
-        $uniqueEquipeExtExt = Rule::unique('champ_matches')->where(function ($query) use ($equipeIdExt, $champJourneeId) {
+        $uniqueEquipeExtExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $champJourneeId) {
             return $query->whereEquipeIdExt($equipeIdExt)->whereChampJourneeId($champJourneeId);
         });
 
-        if($champMatch){
-            $id = $champMatch->id;
+        if($match){
+            $id = $match->id;
             $uniqueEquipeDomDom = $uniqueEquipeDomDom->ignore($id);
             // $uniqueEquipeDomExt = $uniqueEquipeDomExt->ignore($id);
             // $uniqueEquipeExtDom = $uniqueEquipeExtDom->ignore($id);
@@ -96,7 +96,7 @@ class ChampMatch extends Model
 
         $request['acces_bloque'] = $request->has('acces_bloque');
         $rules = [
-            'champ_journee_id' => 'required|exists:champ_journees,id',
+            'journee_id' => 'required|exists:journees,id',
             'terrain_id' => 'required|exists:terrains,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
@@ -152,9 +152,9 @@ class ChampMatch extends Model
     {
         $equipeDom = $this->equipeDom;
         $equipeExt = $this->equipeExt;
-        $champJournee = $this->champJournee;
-        $champSaison = $this->champJournee->champSaison;
-        $championnat = $champSaison->championnat;
+        $journee = $this->journee;
+        $saison = $this->journee->saison;
+        $competition = $saison->competition;
         return [
             'nom' => $this->nom,
             'equipeDom' => $equipeDom->nom,
@@ -166,16 +166,16 @@ class ChampMatch extends Model
             'date' => $this->date,
             'heure' => $this->heure,
             'accesBloque' => $this->acces_bloque,
-            'journee' => niemeJournee($champJournee->numero),
-            'championnat' => $championnat->nom,
+            'journee' => niemeJournee($journee->numero),
+            'competition' => $competition->nom,
             'scoreEqDom' => $this->score_eq_dom,
             'scoreEqExt' => $this->score_eq_ext,
             'lienResultat' => route('champ.foot.resultat', ['id' => $this->uniqid]),
             'lienHoraire' => route('champ.foot.horaire', ['id' => $this->uniqid]),
             'lienMatch' => route('champ.foot.match', [
                 'id' => $this->uniqid,
-                'championnat' => strToUrl($championnat->nom),
-                'annee' => $champSaison->annee(),
+                'competition' => strToUrl($competition->nom),
+                'annee' => $saison->annee(),
                 'equipeDom' => strToUrl($equipeDom->nom),
                 'equipeExt' => strToUrl($equipeExt->nom)
             ])
@@ -191,13 +191,13 @@ class ChampMatch extends Model
     {
         $equipeDomKebabCase = strToUrl($this->equipeDom->nom);
         $equipeExtKebabCase = strToUrl($this->equipeExt->nom);
-        $champSaison = $this->champJournee->champSaison;
-        $annee = $champSaison->annee();
-        $championnat = $champSaison->championnat;
-        $sport = strToUrl($championnat->sport->nom);
-        $championnat = strToUrl($championnat->nom);
+        $saison = $this->journee->saison;
+        $annee = $saison->annee();
+        $competition = $saison->competition;
+        $sport = strToUrl($competition->sport->nom);
+        $competition = strToUrl($competition->nom);
 
-        return "/$sport/$championnat/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
+        return "/$sport/$competition/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
     }
 
     /**
@@ -237,19 +237,19 @@ class ChampMatch extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function champMatchInfos()
+    public function matchInfos()
     {
-        return $this->hasMany('App\ChampMatchInfo');
+        return $this->hasMany('App\MatchInfo');
     }
 
     /**
-     * La journée (dans la table champ_journees) du match
+     * La journée (dans la table journees) du match
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function champJournee()
+    public function journee()
     {
-        return $this->belongsTo('App\ChampJournee');
+        return $this->belongsTo('App\Journee');
     }
 
     /**
@@ -263,7 +263,7 @@ class ChampMatch extends Model
     }
 
     /**
-     * L'équipe qui reçoit ce match de championnat
+     * L'équipe qui reçoit ce match de competition
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -273,7 +273,7 @@ class ChampMatch extends Model
     }
 
     /**
-     * L'équipe qui se déplace pour ce match de championnat
+     * L'équipe qui se déplace pour ce match de competition
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

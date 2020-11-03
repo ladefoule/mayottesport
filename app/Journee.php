@@ -9,42 +9,42 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Collection;
 
-class ChampJournee extends Model
+class Journee extends Model
 {
     /**
      * Champs autorisés lors de la création
      *
      * @var array
      */
-    protected $fillable = ['numero', 'date', 'champ_saison_id'];
+    protected $fillable = ['numero', 'date', 'saison_id'];
 
     /**
      * Les règles de validations
      *
      * @param Request $request
-     * @param ChampJournee $champJournee
+     * @param Journee $journee
      * @return array
      */
-    public static function rules(Request $request, ChampJournee $champJournee = null)
+    public static function rules(Request $request, Journee $journee = null)
     {
         $numero = $request['numero'] ?? '';
-        $champSaisonId = $request['champ_saison_id'] ?? '';
-        $champSaison = ChampSaison::find($champSaisonId);
-        // Si $champSaison == null, la validation ne passera pas à cause de la règle 'champ_saison_id'
+        $saisonId = $request['saison_id'] ?? '';
+        $saison = Saison::find($saisonId);
+        // Si $saison == null, la validation ne passera pas à cause de la règle 'saison_id'
         // La valeur 0 ici n'a donc aucune importance, elle sert juste à éviter d'avoir null comme maximum
-        $nbJournees = $champSaison->nb_journees ?? 0;
-        $unique = Rule::unique('champ_journees')->where(function ($query) use ($numero, $champSaisonId) {
-            return $query->whereNumero($numero)->whereChampSaisonId($champSaisonId);
+        $nbJournees = $saison->nb_journees ?? 0;
+        $unique = Rule::unique('journees')->where(function ($query) use ($numero, $saisonId) {
+            return $query->whereNumero($numero)->whereChampSaisonId($saisonId);
         });
 
-        if($champJournee){
-            $id = $champJournee->id;
+        if($journee){
+            $id = $journee->id;
             $unique = $unique->ignore($id);
         }
 
         $rules = [
             'date' => 'required|date',
-            'champ_saison_id' => 'required|exists:champ_saisons,id',
+            'saison_id' => 'required|exists:saisons,id',
             'numero' => ['required','integer',"max:$nbJournees",'min:1',$unique]
         ];
         $messages = ['numero.unique' => "Ce numéro de journée, associé à cette saison, existe déjà."];
@@ -78,24 +78,24 @@ class ChampJournee extends Model
      */
     public function genererCalendrier()
     {
-        $champMatches = $this->champMatches->sortBy('date')->sortBy('heure');
+        $matches = $this->matches->sortBy('date')->sortBy('heure');
 
         $i = 0;
         $calendrier = [];
-        foreach ($champMatches as $champMatch) {
-            $equipeDom = $champMatch->equipeDom;
-            $equipeExt = $champMatch->equipeExt;
+        foreach ($matches as $match) {
+            $equipeDom = $match->equipeDom;
+            $equipeExt = $match->equipeExt;
             $fanionDom = $equipeDom->fanion();
             $fanionExt = $equipeExt->fanion();
             $nomEquipeDom = $equipeDom->nom;
             $nomEquipeExt = $equipeExt->nom;
 
-            $date = $champMatch->dateFormat();
-            $score = $champMatch->score(); // Affiche soit l'heure soit le résultat du match
-            $scoreEqDom = $champMatch->score_eq_dom;
-            $scoreEqExt = $champMatch->score_eq_ext;
+            $date = $match->dateFormat();
+            $score = $match->score(); // Affiche soit l'heure soit le résultat du match
+            $scoreEqDom = $match->score_eq_dom;
+            $scoreEqExt = $match->score_eq_ext;
 
-            $url = $champMatch->url();
+            $url = $match->url();
             $calendrier[$i]['url'] = $url;
             $calendrier[$i]['fanion_eq_dom'] = $fanionDom;
             $calendrier[$i]['fanion_eq_ext'] = $fanionExt;
@@ -132,7 +132,7 @@ class ChampJournee extends Model
      */
     public function getNomAttribute()
     {
-        $saison = $this->champSaison->nom;
+        $saison = $this->saison->nom;
         $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
         return 'J' . $journee . ' - ' . $saison;
     }
@@ -142,9 +142,9 @@ class ChampJournee extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function champMatches()
+    public function matches()
     {
-        return $this->hasMany('App\ChampMatch');
+        return $this->hasMany('App\Match');
     }
 
     /**
@@ -152,8 +152,8 @@ class ChampJournee extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function champSaison()
+    public function saison()
     {
-        return $this->belongsTo('App\ChampSaison');
+        return $this->belongsTo('App\Saison');
     }
 }

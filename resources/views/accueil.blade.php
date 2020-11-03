@@ -1,13 +1,13 @@
 <?php
 use Illuminate\Support\Facades\DB;
 use App\Equipe;
-use App\ChampJournee;
-use App\Championnat;
-use App\ChampSaison;
-use App\ChampMatch;
+use App\Journee;
+use App\Competition;
+use App\Saison;
+use App\Match;
 
 $saisonId = 1;
-$championnat = ChampSaison::whereId($saisonId)->first()->championnat->nom;
+$competition = Saison::whereId($saisonId)->first()->competition->nom;
 ?>
 @extends('layouts.site')
 
@@ -24,30 +24,30 @@ $championnat = ChampSaison::whereId($saisonId)->first()->championnat->nom;
     </div>
 
     <div class="col-12 text-center py-3 row justify-content-between">
-        <h3 class="col-12 h4 border-bottom-calendrier py-2"><?= $championnat ?></h3>
+        <h3 class="col-12 h4 border-bottom-calendrier py-2"><?= $competition ?></h3>
         <?php
             $journeeNumero = 1;
-            $journee = ChampJournee::whereChampSaisonId($saisonId)->whereNumero($journeeNumero)->first();
+            $journee = Journee::whereSaisonId($saisonId)->whereNumero($journeeNumero)->first();
         ?>
         <div class="col-lg-8 pl-3">
             {!! $journee->afficherCalendrier() !!}
         </div>
         <div class="d-none d-lg-block col-lg-4 pl-5 pr-0">
-            {!! $saison = ChampSaison::find($saisonId)->afficherClassementSimplifie() !!}
+            {!! $saison = Saison::find($saisonId)->afficherClassementSimplifie() !!}
         </div>
     </div>
 
     <div class="col-12 text-center py-3 row justify-content-between">
-        <h3 class="col-12 h4 border-bottom-calendrier py-2"><?= $championnat ?></h3>
+        <h3 class="col-12 h4 border-bottom-calendrier py-2"><?= $competition ?></h3>
         <?php
             $journeeNumero = 15;
-            $journee = ChampJournee::whereChampSaisonId($saisonId)->whereNumero($journeeNumero)->first();
+            $journee = Journee::whereSaisonId($saisonId)->whereNumero($journeeNumero)->first();
         ?>
         <div class="col-lg-8 pl-3">
             {!! $journee->afficherCalendrier() !!}
         </div>
         <div class="d-none d-lg-block col-lg-4 pl-5 pr-0">
-            {!! $saison = ChampSaison::find($saisonId)->afficherClassementSimplifie() !!}
+            {!! $saison = Saison::find($saisonId)->afficherClassementSimplifie() !!}
         </div>
     </div>
 </div>

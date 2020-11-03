@@ -3,7 +3,7 @@
 
 <?php
 $sportId = App\Sport::where('nom', 'like', 'football')->first()->id ?? 0;
-$championnats = App\Championnat::whereSportId($sportId)->get();
+$championnats = App\Competition::whereSportId($sportId)->get();
 ?>
 
 <head>

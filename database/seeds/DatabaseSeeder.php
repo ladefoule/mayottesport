@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $idFootball = App\Sport::firstWhere('nom', 'like', 'football')->id;
+        $footballId = App\Sport::firstWhere('nom', 'like', 'football')->id;
         // $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball');
         // $idHandball = Sport::firstWhere('nom', 'like', 'handball');
         // $idBasketball = Sport::firstWhere('nom', 'like', 'basketball');
@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
             App\Equipe::create([
                 'nom' => $nomEquipe,
                 // 'equipe_detail' => $nomEquipe,
-                'sport_id' => $idFootball
+                'sport_id' => $footballId
             ]);
         };
 
@@ -84,23 +84,24 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // On insère 2 championnats
-        $championnats = ['Régional 1', 'Régional 2'];
-        foreach ($championnats as $championnat) {
-            App\Championnat::create([
-                'nom' => $championnat,
-                'sport_id' => $idFootball,
+        // On insère 2 competitions
+        $competitions = ['Régional 1', 'Régional 2'];
+        foreach ($competitions as $competition) {
+            App\Competition::create([
+                'nom' => $competition,
+                'type' => 'Championnat',
+                'sport_id' => $footballId,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
         }
 
         // On insère 1 barème
-        $champBaremes = ['Football - Victoire à 3pts'];
-        foreach ($champBaremes as $champBareme) {
-            App\ChampBareme::create([
-                'nom' => $champBareme,
-                'sport_id' => $idFootball,
+        $baremes = ['Football - Victoire à 3pts'];
+        foreach ($baremes as $bareme) {
+            App\Bareme::create([
+                'nom' => $bareme,
+                'sport_id' => $footballId,
                 'victoire' => 3,
                 'nul' => 1,
                 'defaite' => 0,
@@ -110,22 +111,22 @@ class DatabaseSeeder extends Seeder
         }
 
         // On insère 1 saison du championnat Régional 1
-        App\ChampSaison::create([
+        App\Saison::create([
             'annee_debut' => date('Y'),
             'annee_fin' => date('Y')+1,
             'nb_journees' => 22,
-            'champ_bareme_id' => 1,
-            'championnat_id' => 1,
+            'bareme_id' => 1,
+            'competition_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         // On insère 22 journées de la saison 1
         for ($i = 1; $i <= 22; $i++) {
-            App\ChampJournee::create([
+            App\Journee::create([
                 'numero' => $i,
                 'date' => date('Y-m-d'),
-                'champ_saison_id' => 1,
+                'saison_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
@@ -134,8 +135,8 @@ class DatabaseSeeder extends Seeder
         // On insère les 12 équipes qui participent à la saison
         // $equipesId = ['29','27','26','97','2','1','4','138','13','162','96','45'];
         // foreach ($equipesId as $equipeId) {
-        //     App\ChampSaisonEquipe::create([
-        //         'champ_saison_id' => 1,
+        //     App\SaisonEquipe::create([
+        //         'saison_id' => 1,
         //         'equipe_id' => $equipeId
         //     ]);
         // }

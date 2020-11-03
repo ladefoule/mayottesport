@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ChampModif extends Model
+class Modif extends Model
 {
     /**
      * Champs autorisés lors de la création
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'champ_match_id', 'note'];
+    protected $fillable = ['user_id', 'match_id', 'note'];
 }

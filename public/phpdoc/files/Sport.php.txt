@@ -46,7 +46,7 @@ class Sport extends Model
      */
     public function championnats()
     {
-        return $this->hasMany('App\Championnat');
+        return $this->hasMany('App\Competition');
     }
 
     /**

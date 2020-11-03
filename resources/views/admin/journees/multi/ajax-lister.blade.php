@@ -1,5 +1,5 @@
 <?php
-use App\ChampSaison;
+use App\Saison;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +17,7 @@ if ($validator->fails()) {
 $request = $validator->validate();
 
 $saisonId = $request['champ_saison_id'];
-$saison = ChampSaison::findOrFail($saisonId);
+$saison = Saison::findOrFail($saisonId);
 if ($saison == null){
     echo 'Erreur';
     exit();

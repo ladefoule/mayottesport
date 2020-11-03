@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 
-class Championnat extends Model
+class Competition extends Model
 {
     /**
      * Champs autorisés lors de la création
@@ -16,7 +16,7 @@ class Championnat extends Model
     protected $fillable = ['nom', 'nom_complet', 'sport_id'];
 
     /**
-     * Le sport dont appartient ce championnat
+     * Le sport dont appartient cette compétition
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -26,32 +26,32 @@ class Championnat extends Model
     }
 
     /**
-     * Les saisons associées au championnat
+     * Les saisons associées à la compétition
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function champSaisons()
+    public function saisons()
     {
-        return $this->hasMany('App\ChampSaison');
+        return $this->hasMany('App\Saison');
     }
 
     /**
      * Les règles de validations
      *
      * @param Request $request
-     * @param Championnat $championnat
+     * @param Competition $competition
      * @return array
      */
-    public static function rules(Request $request, Championnat $championnat = null)
+    public static function rules(Request $request, Competition $competition = null)
     {
         $nom = $request['nom'] ?? '';
         $sportId = $request['sport_id'] ?? '';
-        $unique = Rule::unique('championnats')->where(function ($query) use ($nom, $sportId) {
+        $unique = Rule::unique('competitions')->where(function ($query) use ($nom, $sportId) {
             return $query->whereNom($nom)->whereSportId($sportId);
         });
 
-        if($championnat){
-            $id = $championnat->id;
+        if($competition){
+            $id = $competition->id;
             $unique = $unique->ignore($id);
         }
 
@@ -60,7 +60,7 @@ class Championnat extends Model
             'nom_complet' => 'nullable|string|max:50',
             'nom' => ['required','string','max:50','min:3',$unique]
         ];
-        $messages = ['nom.unique' => "Ce nom de championnat, associé à ce sport, existe déjà."];
+        $messages = ['nom.unique' => "Ce nom de compétition, associé à ce sport, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];
     }
 }

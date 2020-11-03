@@ -1,8 +1,8 @@
 <?php
 use App\Role;
-use App\ChampMatch;
-use App\ChampJournee;
-use App\ChampSaisonEquipe;
+use App\Match;
+use App\Journee;
+use App\SaisonEquipe;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 
@@ -19,14 +19,14 @@ function infosAttributCrud()
 }
 
 /**
- * La liste des correspondances entre l'id (information dans la table champ_match_infos) et sa signification.
+ * La liste des correspondances entre l'id (information dans la table match_infos) et sa signification.
  *
  * @return \Illuminate\Support\Collection
  */
-function infosChampMatch()
+function infosMatch()
 {
     $client = new \GuzzleHttp\Client();
-    $response = $client->request('GET', config('app.url') . "/json/infos-champ-matches.json", ['timeout' => 2]);
+    $response = $client->request('GET', config('app.url') . "/json/infos-matches.json", ['timeout' => 2]);
     return collect(json_decode($response->getBody()->getContents()));
 }
 
@@ -112,9 +112,9 @@ function genererCalendrier($donnees)
 
     // On insère dans la table associatif le lien equipe/saison pour toutes les équipes
     foreach ($terrains as $equipeId => $terrain) {
-        ChampSaisonEquipe::create([
+        SaisonEquipe::create([
             'equipe_id' => $equipeId,
-            'champ_saison_id' => $saisonId
+            'saison_id' => $saisonId
         ]);
     }
 
@@ -158,15 +158,15 @@ function genererCalendrier($donnees)
     foreach ($rencontres as $journeeNumero => $matchesMemeJournee) {
         foreach ($matchesMemeJournee as $rencontre) {
             /* ALLER */
-            // $journee = DB::table('champ_journees')->select('champ_journees.*')->where(['journee_numero' => $journeeNumero, 'champ_saison_id' => $saisonId])->get()->first();
-            $journee = ChampJournee::firstWhere(['numero' => $journeeNumero, 'champ_saison_id' => $saisonId]);
+            // $journee = DB::table('journees')->select('journees.*')->where(['journee_numero' => $journeeNumero, 'saison_id' => $saisonId])->get()->first();
+            $journee = Journee::firstWhere(['numero' => $journeeNumero, 'saison_id' => $saisonId]);
             $date = $journee->date;
             $idJournee = $journee->id;
 
             $match = [
                 'date' => $date,
                 'heure' => $heure,
-                'champ_journee_id' => $idJournee,
+                'journee_id' => $idJournee,
                 'equipe_id_dom' => $rencontre[0],
                 'equipe_id_ext' => $rencontre[1],
                 'terrain_id' => $terrains[$rencontre[0]],
@@ -174,20 +174,20 @@ function genererCalendrier($donnees)
                 // 'uuid' => rand(config('constant.UUID_MIN'), config('constant.UUID_MAX'))
             ];
 
-            ChampMatch::create($match);
+            Match::create($match);
 
             // Si le tableau de correspondance est précisé alors on l'applique, sinon on applique une diff aller retour unique pour tous les matches
             $diffAllerRetour = $correspondanceAllerRetour[$journeeNumero] ?? $diffAllerRetour;
 
             /* RETOUR */
-            $journee = ChampJournee::firstWhere(['numero' => $journeeNumero + $diffAllerRetour, 'champ_saison_id' => $saisonId]);
+            $journee = Journee::firstWhere(['numero' => $journeeNumero + $diffAllerRetour, 'saison_id' => $saisonId]);
             $date = $journee->date;
             $idJournee = $journee->id;
 
             $match = [
                 'date' => $date,
                 'heure' => $heure,
-                'champ_journee_id' => $idJournee,
+                'journee_id' => $idJournee,
                 'equipe_id_dom' => $rencontre[1],
                 'equipe_id_ext' => $rencontre[0],
                 'terrain_id' => $terrains[$rencontre[1]],
@@ -195,7 +195,7 @@ function genererCalendrier($donnees)
                 // 'uuid' => rand(config('constant.UUID_MIN'), config('constant.UUID_MAX'))
             ];
 
-            ChampMatch::create($match);
+            Match::create($match);
         }
     }
 }

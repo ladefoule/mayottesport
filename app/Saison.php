@@ -10,32 +10,32 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
-class ChampSaison extends Model
+class Saison extends Model
 {
     /**
      * Champs autorisés lors de la création
      *
      * @var array
      */
-    protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'nb_journees', 'champ_bareme_id', 'championnat_id'];
+    protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'nb_journees', 'bareme_id', 'competition_id'];
 
     /**
      * Les règles de validations
      *
      * @param Request $request
-     * @param ChampSaison $champSaison
+     * @param Saison $saison
      * @return array
      */
-    public static function rules(Request $request, ChampSaison $champSaison = null)
+    public static function rules(Request $request, Saison $saison = null)
     {
         $anneeDebut = $request['annee_debut'] ?? '';
-        $championnatId = $request['championnat_id'] ?? '';
-        $unique = Rule::unique('champ_saisons')->where(function ($query) use ($anneeDebut, $championnatId) {
-            return $query->whereAnneeDebut($anneeDebut)->whereChampionnatId($championnatId);
+        $competitionId = $request['competition_id'] ?? '';
+        $unique = Rule::unique('saisons')->where(function ($query) use ($anneeDebut, $competitionId) {
+            return $query->whereAnneeDebut($anneeDebut)->whereCompetitionId($competitionId);
         });
 
-        if($champSaison){
-            $id = $champSaison->id;
+        if($saison){
+            $id = $saison->id;
             $unique = $unique->ignore($id);
         }
 
@@ -44,11 +44,11 @@ class ChampSaison extends Model
             'annee_debut' => ['required','integer','min:2000','max:3000',$unique],
             'annee_fin' => 'required|integer|min:2000|max:3000|gte:annee_debut',
             'nb_journees' => 'required|integer|min:1|max:100',
-            'champ_bareme_id' => 'required|exists:champ_baremes,id',
-            'championnat_id' => 'required|exists:championnats,id',
+            'bareme_id' => 'required|exists:baremes,id',
+            'competition_id' => 'required|exists:competitions,id',
             'finie' => 'boolean'
         ];
-        $messages = ['annee_debut.unique' => "Le championnat possède déjà une saison qui débute la même année."];
+        $messages = ['annee_debut.unique' => "Le competition possède déjà une saison qui débute la même année."];
         return ['rules' => $rules, 'messages' => $messages, 'request' => $request];
     }
 
@@ -67,16 +67,15 @@ class ChampSaison extends Model
             return Cache::get($key);
 
         return Cache::rememberForever($key, function () {
-            return $this->genererClassement($this->championnat->sport->id);
+            return $this->genererClassement($this->competition->sport->id);
         });
     }
 
     public function afficherClassementSimplifie()
     {
         $annee = $this->annee();
-        $championnat = $this->championnat->nom;
-        $championnat = stripAccents(Str::kebab(str_replace(' ', '-', $championnat)));
-        $hrefClassementComplet = route('classement', ['championnat' => $championnat, 'annee' => $annee]);
+        $competition = strToUrl($this->competition->nom);
+        $hrefClassementComplet = route('classement', ['competition' => $competition, 'annee' => $annee]);
         $classement = $this->classement();
         return view('football.classement-simplifie', [
             'classement' => $classement,
@@ -93,11 +92,11 @@ class ChampSaison extends Model
      */
     private function genererClassement(int $sportId)
     {
-        $champBareme = $this->champBareme;
-        $sportId = $champBareme->sport_id;
+        $bareme = $this->bareme;
+        $sportId = $bareme->sport_id;
         foreach($this->equipes as $equipe){
-            $matchesAller = $this->champMatches->where('equipe_id_dom', $equipe->id);
-            $matchesRetour = $this->champMatches->where('equipe_id_ext', $equipe->id);
+            $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);
+            $matchesRetour = $this->matches->where('equipe_id_ext', $equipe->id);
             $matches[$equipe->id] = $matchesAller->merge($matchesRetour);
         }
 
@@ -105,9 +104,9 @@ class ChampSaison extends Model
         $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
         $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
         foreach ($matches as $equipeId => $matchesEquipe) {
-            $equipe = Equipe::findOrFail($equipeId);
-            $nomEquipe = $equipe->nom;
-            $fanionEquipe = $equipe->fanion();
+            $instanceEquipe = Equipe::findOrFail($equipeId);
+            $nomEquipe = $instanceEquipe->nom;
+            $fanionEquipe = $instanceEquipe->fanion();
             $classement[$equipeId]['nom'] = $nomEquipe;
             $classement[$equipeId]['fanion'] = $fanionEquipe;
             $classement[$equipeId]['points'] = 0;
@@ -130,7 +129,7 @@ class ChampSaison extends Model
                     $resultat = $resultat['resultat'];
 
                     $classement[$equipeId][$resultat]++;
-                    $classement[$equipeId]['points'] += $champBareme->$resultat;
+                    $classement[$equipeId]['points'] += $bareme->$resultat;
 
                     $classement[$equipeId]['marques'] += $marques;
                     $classement[$equipeId]['encaisses'] += $encaisses;
@@ -151,7 +150,7 @@ class ChampSaison extends Model
      */
     public function getNomAttribute()
     {
-        return $this->championnat->nom.' '.$this->annee('/');
+        return $this->competition->nom.' '.$this->annee('/');
     }
 
     /**
@@ -170,9 +169,9 @@ class ChampSaison extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function champJournees()
+    public function journees()
     {
-        return $this->hasMany('App\ChampJournee');
+        return $this->hasMany('App\Journee');
     }
 
     /**
@@ -183,7 +182,7 @@ class ChampSaison extends Model
     public function equipes()
     {
         return $this->belongsToMany('App\Equipe')
-                    ->using('App\ChampSaisonEquipe');
+                    ->using('App\EquipeSaison');
     }
 
     /**
@@ -191,19 +190,19 @@ class ChampSaison extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function champMatches()
+    public function matches()
     {
-        return $this->hasManyThrough('App\ChampMatch', 'App\ChampJournee');
+        return $this->hasManyThrough('App\Match', 'App\Journee');
     }
 
     /**
-     * Le championnat lié à la saison
+     * Le competition lié à la saison
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function championnat()
+    public function competition()
     {
-        return $this->belongsTo('App\Championnat');
+        return $this->belongsTo('App\Competition');
     }
 
     /**
@@ -211,8 +210,8 @@ class ChampSaison extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function champBareme()
+    public function bareme()
     {
-        return $this->belongsTo('App\ChampBareme');
+        return $this->belongsTo('App\Bareme');
     }
 }

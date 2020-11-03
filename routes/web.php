@@ -18,10 +18,10 @@ Route::get('script.html', function(){ // Page pour tester une fonction ou un scr
 });
 
 Route::get('/', function () {return view('accueil');})->name('accueil');
-Route::get('/football/{championnat}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'FootMatchChampController@match')->name('champ.foot.match');
-Route::get('/football/{championnat}/{annee}/classement.html', 'ChampSaisonController@classement')->name('classement');
+Route::get('/football/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'FootMatchController@match')->name('champ.foot.match');
+Route::get('/football/{competition}/{annee}/classement.html', 'SaisonController@classement')->name('classement');
 
-// Route::get('/football/{championnat}/{annee}/classement.html', 'ChampSaisonController@classement')->name('afficher-une-journee');
+// Route::get('/football/{competition}/{annee}/classement.html', 'ChampSaisonController@classement')->name('afficher-une-journee');
 
 Auth::routes();
 
@@ -29,13 +29,13 @@ Auth::routes();
 Route::group(['middleware'=>'auth'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
 
-    Route::get('/football/championnat/resultat/{id}', 'FootMatchChampController@resultat')->name('champ.foot.resultat');
-    Route::post('/football/championnat/resultat/{id}', 'FootMatchChampController@resultatPost');
+    Route::get('/football/championnat/resultat/{id}', 'FootMatchController@resultat')->name('champ.foot.resultat');
+    Route::post('/football/championnat/resultat/{id}', 'FootMatchController@resultatPost');
 
     /* MIDDLEWARE PREMIUM */
     Route::group(['check-permission:premium|admin|superadmin'], function () {
-        Route::get('/football/championnat/horaire/match-{id}.html', 'FootMatchChampController@horaire')->name('champ.foot.horaire');
-        Route::post('/football/championnat/horaire/match-{id}.html', 'FootMatchChampController@horairePost');
+        Route::get('/football/championnat/horaire/match-{id}.html', 'FootMatchController@horaire')->name('champ.foot.horaire');
+        Route::post('/football/championnat/horaire/match-{id}.html', 'FootMatchController@horairePost');
 
         /* MIDDLEWARE ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
@@ -72,12 +72,12 @@ Route::group(['middleware'=>'auth'], function () {
                 /* ----- FIN ROUTES JOURNEES ----- */
 
                 /* ----- DEBUT ROUTES MATCHES ----- */
-                    Route::get('/champ-matches/foot/ajouter', 'FootMatchChampController@ajouter')->name('champ-matches.foot.ajouter');
-                    Route::post('/champ-matches/foot/ajouter', 'FootMatchChampController@ajouterPost');
-                    Route::get('/champ-matches/foot/editer/{id}', 'FootMatchChampController@editer')->name('champ-matches.foot.editer');
-                    Route::post('/champ-matches/foot/editer/{id}', 'FootMatchChampController@editerPost');
-                    Route::post('/champ-matches/foot/supprimer', 'FootMatchChampController@supprimer')->name('champ-matches.foot.supprimer');
-                    Route::get('/champ-matches/foot/', 'FootMatchChampController@lister')->name('champ-matches.foot.lister');
+                    Route::get('/champ-matches/foot/ajouter', 'FootMatchController@ajouter')->name('champ-matches.foot.ajouter');
+                    Route::post('/champ-matches/foot/ajouter', 'FootMatchController@ajouterPost');
+                    Route::get('/champ-matches/foot/editer/{id}', 'FootMatchController@editer')->name('champ-matches.foot.editer');
+                    Route::post('/champ-matches/foot/editer/{id}', 'FootMatchController@editerPost');
+                    Route::post('/champ-matches/foot/supprimer', 'FootMatchController@supprimer')->name('champ-matches.foot.supprimer');
+                    Route::get('/champ-matches/foot/', 'FootMatchController@lister')->name('champ-matches.foot.lister');
                 /* ----- FIN ROUTES MATCHES ----- */
             }); /* FIN PREFIX AUTRES */
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChampMatchInfosTable extends Migration
+class CreateMatchInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateChampMatchInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('champ_match_infos', function (Blueprint $table) {
+        Schema::create('match_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('champ_match_id');
-            $table->foreign('champ_match_id')->references('id')->on('champ_matches')->onDelete('cascade');
+            $table->unsignedBigInteger('match_id');
+            $table->foreign('match_id')->references('id')->on('matches')->onDelete('cascade');
             $table->integer('information');
             $table->string('valeur');
-            $table->unique(['champ_match_id', 'information']);
+            $table->unique(['match_id', 'information']);
         });
     }
 
@@ -30,6 +30,6 @@ class CreateChampMatchInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('champ_match_infos');
+        Schema::dropIfExists('match_infos');
     }
 }

@@ -275,8 +275,8 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
         if($instance && $table == 'champ-matches'){
-            $cacheClassement = "classement-".$instance->champJournee->champSaison->id;
-            $cacheJournee = "journee-".$instance->champJournee->id;
+            $cacheClassement = "classement-".$instance->journee->saison->id;
+            $cacheJournee = "journee-".$instance->journee->id;
             Cache::forget($cacheClassement);
             Cache::forget($cacheJournee);
         }

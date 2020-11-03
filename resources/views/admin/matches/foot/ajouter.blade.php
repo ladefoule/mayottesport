@@ -1,8 +1,8 @@
 <?php
-use App\Championnat;
+use App\Competition;
 use App\Equipe;
 use App\ChampJournee;
-use App\ChampSaison;
+use App\Saison;
 ?>
 
 @extends('layouts.gestion-site')

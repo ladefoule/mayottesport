@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCoupeNomToursTable extends Migration {
+class CreateJourneesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,13 @@ class CreateCoupeNomToursTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('coupe_nom_tours', function(Blueprint $table)
+		Schema::create('journees', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('nom')->unique('coupe_nom_tour_unique');
+			$table->integer('numero');
+            $table->date('date');
+            $table->unsignedBigInteger('saison_id');
+            $table->foreign('saison_id')->references('id')->on('saisons');
 			$table->timestamps();
 		});
 	}
@@ -28,7 +31,7 @@ class CreateCoupeNomToursTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('coupe_nom_tours');
+		Schema::drop('journees');
 	}
 
 }
