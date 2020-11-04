@@ -29,6 +29,7 @@ Auth::routes();
 Route::group(['middleware'=>'auth'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
     Route::post('/comment', 'CommentaireController@store')->name('comment');
+    Route::post('/comment/delete', 'CommentaireController@delete')->name('comment.delete');
 
     Route::get('/football/championnat/resultat/{id}', 'FootMatchController@resultat')->name('champ.foot.resultat');
     Route::post('/football/championnat/resultat/{id}', 'FootMatchController@resultatPost');
@@ -86,9 +87,11 @@ Route::group(['middleware'=>'auth'], function () {
             Route::prefix('/crud-gestion')->middleware(['check-permission:superadmin'])->group(function () {
                 Route::get('/tables', 'CrudAdminController@tables')->name('crud-gestion.tables');
                 Route::post('/tables', 'CrudAdminController@tablesPost');
-                Route::get('/attributs', 'CrudAdminController@attributs')->name('crud-gestion.attributs');
-                Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-gestion.attributs.ajax');
-                Route::get('/parametres', 'CrudAdminController@parametres')->name('crud-gestion.parametres');
+
+                // Todo : Routes non opérationneles
+                // Route::get('/attributs', 'CrudAdminController@attributs')->name('crud-gestion.attributs');
+                // Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-gestion.attributs.ajax');
+                // Route::get('/parametres', 'CrudAdminController@parametres')->name('crud-gestion.parametres');
 
                 /* ----- DEBUT ROUTES PDF PARSER ----- */
                 Route::get('/pdfparser', 'PdfParserController@get')->name('pdfParser');

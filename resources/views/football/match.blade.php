@@ -50,7 +50,7 @@
         </span>
         <div class="comment-body">
             <div class="text"></div>
-            <p class="attribution">Posté par <span class="nom text-danger"></span> le <span class="date"></span></p>
+            <p class="attribution">Posté par <span class="nom text-danger"></span> le <span class="date"></span> (<a href="" class="supprimer">Supprimer</a>)</p>
         </div>
     </article>
 
@@ -60,7 +60,7 @@
                 Les commentaires
             </div>
             @guest
-                <div class="pl-5 ml-5 py-3">
+                <div class="pl-3 py-3">
                     <a href="{{ route('login') }}">Connectez-vous</a> ou <a href="{{ route('register') }}">Inscrivez-vous</a> pour commenter
                 </div>
 
@@ -95,7 +95,7 @@
                             <div class="text">
                                 {{ $commentaire->comm }}
                             </div>
-                            <p class="attribution">Posté par <span class="nom text-danger">{{ $commentaire->pseudo }}</span> le <span class="date">{{ $commentaire->created_at->format('d/m/Y à H:i:s') }}</span></p>
+                            <p class="attribution">Posté par <span class="nom text-danger">{{ $commentaire->pseudo }}</span> le <span class="date">{{ $commentaire->created_at->format('d/m/Y à H:i:s') }}</span>@if($commentaire->user_id == \Auth::id()) (<a href="" class="supprimer" data-id="{{ $commentaire->id }}">Supprimer</a>)@endif</p>
                         </div>
                     </article>
                     @endforeach
@@ -116,6 +116,8 @@ $(document).ready(function(){
     var _token = qs('[name=_token]').value
     var comments = qs('.comments')
     var model = qs('#model-bloc-comm')
+
+    // Ajout de commentaire
     $('#commenter').on('submit', function (e) {
         e.preventDefault()
         comm = commentaire.value
@@ -131,10 +133,28 @@ $(document).ready(function(){
                 let bloc = model.cloneNode(true)
                 bloc.classList.remove('d-none')
                 bloc.removeAttribute('id')
+
                 qs('.text', bloc).innerHTML = data.comm
                 qs('.nom', bloc).innerHTML = data.nom
                 qs('.date', bloc).innerHTML = data.date
+                qs('.supprimer', bloc).dataset.id = data.id
                 comments.prepend(bloc)
+            }
+        })
+    })
+
+    // Suppression de commentaire
+    $('.comments').on('click', '.supprimer', function (e) {
+        e.preventDefault()
+        var id = this.dataset.id
+        var href = this
+
+        $.ajax({
+            method:'POST',
+            url: "<?php echo route('comment.delete') ?>",
+            data:{id, _token},
+            success:function(data){
+                href.closest('article').remove() // Suppression du bloc de commentaire
             }
         })
     })

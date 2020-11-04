@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Commentaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CommentaireController extends Controller
@@ -29,7 +30,31 @@ class CommentaireController extends Controller
         return [
             'nom' => $commentaire->user->pseudo,
             'date' => $commentaire->created_at->format('d/m/Y à H:i:s'),
-            'comm' => $commentaire->comm
+            'comm' => $commentaire->comm,
+            'id' => $commentaire->id
         ];
+    }
+
+    /**
+     * Delete comment
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return void
+     */
+    public function delete(Request $request)
+    {
+        $rules = [
+            'id' => 'required|integer|exists:commentaires,id'
+        ];
+
+        $request = Validator::make($request->all(), $rules)->validate();
+        $commentaireId = $request['id'];
+        $commentaire = Commentaire::findOrFail($commentaireId);
+        if($commentaire->user_id != Auth::id())
+            abort(404);
+
+        $commentaire->delete();
+        return response(null, 204);
     }
 }
