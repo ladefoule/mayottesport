@@ -10,7 +10,6 @@ use App\Modif;
 use App\Competition;
 use App\Saison;
 use App\MatchInfo;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -325,7 +324,7 @@ class FootMatchController extends Controller
     private static function forgetCaches(Match $match)
     {
         Log::info(" -------- FootMatchController : forgetCaches -------- ");
-        Cache::forget('champ-match-' . $match->uniqid); // Les infos du match
+        Cache::forget('match-' . $match->uniqid); // Les infos du match
         Cache::forget('journee-' . $match->journee->id); // Les infos de la journée
         Cache::forget('classement-' . $match->journee->saison->id); // Le classement de la saison
     }

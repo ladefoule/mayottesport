@@ -12,7 +12,7 @@ use App\ChampJournee;
 <div class="row card">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> {{ $h1 }}</span><br>
-        <a href="{{ route('champ-matches.foot.ajouter') }}" class="text-decoration-none mr-1">
+        <a href="{{ route('matches.foot.ajouter') }}" class="text-decoration-none mr-1">
             <button class="btn-sm btn-success">
                 <i class="fas fa-plus-circle"></i>
                 <span class="d-none d-xl-inline"> Ajouter un match</span>
@@ -39,16 +39,16 @@ use App\ChampJournee;
                     </select>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="champ_saison_id">Saison</label>
-                    <select name="champ_saison_id" id="champ_saison_id" class="form-control">
+                    <label for="saison_id">Saison</label>
+                    <select name="saison_id" id="saison_id" class="form-control">
                         <option value=""></option>
                     </select>
                 </div>
             </div>
             <div class="form-row justify-content-center">
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="champ_journee_id">Journée</label>
-                    <select name="champ_journee_id" id="champ_journee_id" class="form-control">
+                    <label for="journee_id">Journée</label>
+                    <select name="journee_id" id="journee_id" class="form-control">
                         <option value=""></option>
                     </select>
                 </div>
@@ -82,7 +82,7 @@ use App\ChampJournee;
 <script src="/js/champ-matches-liste.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var selects = '#champ_saison_id, #championnat_id, #champ_journee_id, #equipe_id'
+    var selects = '#saison_id, #championnat_id, #journee_id, #equipe_id'
     $(selects).select2();
     var idTable = 'tab_matches'
     var inputToken = qs('input[name=_token]')
@@ -91,10 +91,10 @@ document.addEventListener('DOMContentLoaded', function () {
     toutCocherDecocher(idTable)
 
     urls = {
-        'saisons' : "<?php echo route('ajax', ['table' => 'champ-saisons']) ?>",
-        'journees' : "<?php echo route('ajax', ['table' => 'champ-journees']) ?>",
+        'saisons' : "<?php echo route('ajax', ['table' => 'saisons']) ?>",
+        'journees' : "<?php echo route('ajax', ['table' => 'journees']) ?>",
         'equipes' : "<?php echo route('ajax', ['table' => 'equipes']) ?>",
-        'matches' : "<?php echo route('ajax', ['table' => 'champ-matches']) ?>"
+        'matches' : "<?php echo route('ajax', ['table' => 'matches']) ?>"
     }
     listeChampMatches(idTable, qsa(selects), urls)
 })

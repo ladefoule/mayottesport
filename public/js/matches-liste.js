@@ -4,16 +4,16 @@ function ajaxTbodyMatchesFootChamp(idTable, urls)
     var url = urls['matches']
     var method = 'POST'
 
-    var championnat_id = qs('#championnat_id').value
-    var champ_saison_id = qs('#champ_saison_id').value
+    var competition_id = qs('#competition_id').value
+    var saison_id = qs('#saison_id').value
     var equipe_id = qs('#equipe_id').value
-    var champ_journee_id = qs('#champ_journee_id').value
+    var journee_id = qs('#journee_id').value
     var _token = qs('input[name=_token]').value
 
     // Requète Ajax pour récupérer les matches
     fetch(url, {
         method:method,
-        body:JSON.stringify({_token, champ_journee_id, champ_saison_id, championnat_id, equipe_id}),
+        body:JSON.stringify({_token, journee_id, saison_id, competition_id, equipe_id}),
         headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(res => res.json())
@@ -109,24 +109,24 @@ function listeChampMatches(idTable, selects, urls)
         select.onchange = function(){
             var formAjax = qs('#formAjax')
             var method = 'POST'
-            var selectChampionnats = qs('#championnat_id')
-            var selectSaisons = qs('#champ_saison_id')
+            var selectCompetitions = qs('#competition_id')
+            var selectSaisons = qs('#saison_id')
             var selectEquipes = qs('#equipe_id')
-            var selectJournees = qs('#champ_journee_id')
+            var selectJournees = qs('#journee_id')
             var inputToken = qs('input[name=_token]')
             var table = qs('#'+idTable)
             var tbody = qs('tbody', table);
             var tbodyNew = dce('tbody')
 
-            if(this.id == 'championnat_id'){
+            if(this.id == 'competition_id'){
                 qs('#'+idTable+' tbody').innerHTML = ''
                 selectEquipes.innerHTML = ''
                 selectJournees.innerHTML = ''
                 let donneesRequeteAjax = {
                     url : urls['saisons'],
                     method : method,
-                    idSelect : 'champ_saison_id',
-                    data : {championnat_id:selectChampionnats.value, _token:inputToken.value}
+                    idSelect : 'saison_id',
+                    data : {competition_id:selectCompetitions.value, _token:inputToken.value}
                 }
 
                 ajaxSelect(donneesRequeteAjax) // On récupère la liste des saisons
@@ -136,7 +136,7 @@ function listeChampMatches(idTable, selects, urls)
                             // On le fait que quand on aura la saison
             }
 
-            if(this.id == 'champ_saison_id'){
+            if(this.id == 'saison_id'){
                 qs('#'+idTable+' tbody').innerHTML = ''
                 selectEquipes.innerHTML = ''
                 selectJournees.innerHTML = ''
@@ -144,8 +144,8 @@ function listeChampMatches(idTable, selects, urls)
                     let donneesRequeteAjax = {
                         url : urls['journees'],
                         method : method,
-                        idSelect : 'champ_journee_id',
-                        data : {champ_saison_id:selectSaisons.value, _token:inputToken.value}
+                        idSelect : 'journee_id',
+                        data : {saison_id:selectSaisons.value, _token:inputToken.value}
                     }
                     // On récupère la liste des journées associées à la saison
                     ajaxSelect(donneesRequeteAjax)
@@ -154,7 +154,7 @@ function listeChampMatches(idTable, selects, urls)
                         url : urls['equipes'],
                         method : method,
                         idSelect : 'equipe_id',
-                        data : {champ_saison_id:selectSaisons.value, _token:inputToken.value}
+                        data : {saison_id:selectSaisons.value, _token:inputToken.value}
                     }
                     // On récupère la liste des équipes associées à la saison
                     ajaxSelect(donneesRequeteAjax2)

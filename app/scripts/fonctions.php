@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
 function infosAttributCrud()
 {
     $client = new \GuzzleHttp\Client();
-    $response = $client->request('GET', config('app.url') . "/json/infos-crud-attributs.json", ['timeout' => 2]);
+    $response = $client->request('GET', config('app.url') . "/json/infos-crud-attribut.json", ['timeout' => 2]);
     return collect(json_decode($response->getBody()->getContents()));
 }
 
@@ -26,7 +26,7 @@ function infosAttributCrud()
 function infosMatch()
 {
     $client = new \GuzzleHttp\Client();
-    $response = $client->request('GET', config('app.url') . "/json/infos-matches.json", ['timeout' => 2]);
+    $response = $client->request('GET', config('app.url') . "/json/infos-match.json", ['timeout' => 2]);
     return collect(json_decode($response->getBody()->getContents()));
 }
 

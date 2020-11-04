@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Validator;
 
 $rules = [
-    'champ_saison_id' => 'required|exists:champ_saisons,id'
+    'saison_id' => 'required|exists:saisons,id'
 ];
 
 $validator = Validator::make(request()->all(), $rules);
@@ -12,5 +12,5 @@ if ($validator->fails()) {
 }
 
 $request = $validator->validate();
-$saisonId = $request['champ_saison_id'];
-echo route('champ-journees.multi.editer', ['id' => $saisonId]);
+$saisonId = $request['saison_id'];
+echo route('journees.multi.editer', ['id' => $saisonId]);

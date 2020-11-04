@@ -131,7 +131,7 @@ class Match extends Model
      */
     public function infos()
     {
-        $key = 'champ-match-'.$this->uniqid;
+        $key = 'match-'.$this->uniqid;
         if(!Config::get('constant.activer_cache', false))
             Cache::forget($key);
 
@@ -155,6 +155,14 @@ class Match extends Model
         $journee = $this->journee;
         $saison = $this->journee->saison;
         $competition = $saison->competition;
+        $commentaires = $this->commentaires->sortByDesc('created_at');
+        foreach ($commentaires as $commentaire) {
+            $commentaire->pseudo = $commentaire->user->pseudo;
+            // $commentaire->created_at = $commentaire->created_at->format('d/m/Y à H:i:s');
+        }
+        // $commentaires->user;
+        // dd($commentaires);
+        // $commentaires->pluck('pseudo');
         return [
             'id' => $this->id,
             'nom' => $this->nom,
@@ -169,6 +177,7 @@ class Match extends Model
             'accesBloque' => $this->acces_bloque,
             'journee' => niemeJournee($journee->numero),
             'competition' => $competition->nom,
+            'commentaires' => $commentaires,
             'scoreEqDom' => $this->score_eq_dom,
             'scoreEqExt' => $this->score_eq_ext,
             'lienResultat' => route('champ.foot.resultat', ['id' => $this->uniqid]),
@@ -241,6 +250,16 @@ class Match extends Model
     public function matchInfos()
     {
         return $this->hasMany('App\MatchInfo');
+    }
+
+    /**
+     * Les commentaires du match
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function commentaires()
+    {
+        return $this->hasMany('App\Commentaire');
     }
 
     /**

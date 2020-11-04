@@ -86,18 +86,20 @@
                     </form>
                 @endauth
                 <section class="comments w-100">
+                    @foreach ($match['commentaires'] as $commentaire)
                     <article class="comment">
                         <span class="comment-img">
                             <img src="http://cdn.onlinewebfonts.com/svg/img_266351.png" alt="" width="50" height="50">
                         </span>
                         <div class="comment-body">
                             <div class="text">
-                                {{ $commentaire ?? 'Un commentaire' }}
+                                {{ $commentaire->comm }}
                             </div>
-                            <p class="attribution">Posté par {{ $nom ?? 'Moi' }} le
-                                {{ $date ?? '12/12/2020 à 12:52' }}</p>
+                            <p class="attribution">Posté par <span class="nom text-danger">{{ $commentaire->pseudo }}</span> le <span class="date">{{ $commentaire->created_at->format('d/m/Y à H:i:s') }}</span></p>
                         </div>
                     </article>
+                    @endforeach
+
                 </section>
             </div>
         </div>

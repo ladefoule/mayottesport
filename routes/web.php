@@ -63,22 +63,22 @@ Route::group(['middleware'=>'auth'], function () {
 
             /* DEBUT PREFIX AUTRES */
             Route::prefix('/autres')->group(function () {
-                Route::get('/', function(){return redirect()->route('champ-journees.multi.choix-saison');})->name('autres');
+                Route::get('/', function(){return redirect()->route('journees.multi.choix-saison');})->name('autres');
 
                 /* ----- DEBUT ROUTES JOURNEES ----- */
-                    Route::get('/champ-journees/multi/choix-saison', 'JourneesMultiplesController@choixSaison')->name('champ-journees.multi.choix-saison');
-                    Route::get('/champ-journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editMultiples')->name('champ-journees.multi.editer');
-                    Route::post('/champ-journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editMultiplesPost');
-                    Route::get('/champ-journees/multi/saison-{id}', 'JourneesMultiplesController@vueMultiples')->name('champ-journees.multi.voir');
+                    Route::get('/journees/multi/choix-saison', 'JourneesMultiplesController@choixSaison')->name('journees.multi.choix-saison');
+                    Route::get('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editMultiples')->name('journees.multi.editer');
+                    Route::post('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editMultiplesPost');
+                    Route::get('/journees/multi/saison-{id}', 'JourneesMultiplesController@vueMultiples')->name('journees.multi.voir');
                 /* ----- FIN ROUTES JOURNEES ----- */
 
                 /* ----- DEBUT ROUTES MATCHES ----- */
-                    Route::get('/champ-matches/foot/ajouter', 'FootMatchController@ajouter')->name('champ-matches.foot.ajouter');
-                    Route::post('/champ-matches/foot/ajouter', 'FootMatchController@ajouterPost');
-                    Route::get('/champ-matches/foot/editer/{id}', 'FootMatchController@editer')->name('champ-matches.foot.editer');
-                    Route::post('/champ-matches/foot/editer/{id}', 'FootMatchController@editerPost');
-                    Route::post('/champ-matches/foot/supprimer', 'FootMatchController@supprimer')->name('champ-matches.foot.supprimer');
-                    Route::get('/champ-matches/foot/', 'FootMatchController@lister')->name('champ-matches.foot.lister');
+                    Route::get('/matches/foot/ajouter', 'FootMatchController@ajouter')->name('matches.foot.ajouter');
+                    Route::post('/matches/foot/ajouter', 'FootMatchController@ajouterPost');
+                    Route::get('/matches/foot/editer/{id}', 'FootMatchController@editer')->name('matches.foot.editer');
+                    Route::post('/matches/foot/editer/{id}', 'FootMatchController@editerPost');
+                    Route::post('/matches/foot/supprimer', 'FootMatchController@supprimer')->name('matches.foot.supprimer');
+                    Route::get('/matches/foot/', 'FootMatchController@lister')->name('matches.foot.lister');
                 /* ----- FIN ROUTES MATCHES ----- */
             }); /* FIN PREFIX AUTRES */
 
@@ -99,9 +99,9 @@ Route::group(['middleware'=>'auth'], function () {
     });/* FIN MIDDLEWARE PREMIUM */
 }); /* FIN MIDDLEWARE AUTH */
 
-Route::post('/ajax/champ-journees-url-editer', function () {
-    return view('admin.champ-journees.ajax-url-editer');
-})->name('champ-journees.ajax-url-editer'); // Récupérer l'url d'édition de journées multiples en AJAX
+Route::post('/ajax/journees-url-editer', function () {
+    return view('admin.journees.ajax-url-editer');
+})->name('journees.ajax-url-editer'); // Récupérer l'url d'édition de journées multiples en AJAX
 
 Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
     return view('ajax.table', ['table' => $table]);

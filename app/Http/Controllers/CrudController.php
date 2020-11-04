@@ -39,7 +39,7 @@ class CrudController extends Controller
         $href['supprimer-ajax'] = route('crud.supprimer-ajax', ['table' => $table]);
         $href['lister-ajax'] = route('crud.lister-ajax', ['table' => $table]);
 
-        return view('admin.crud-attributs.lister', [
+        return view('admin.crud.lister', [
             'liste' => $liste,  // La liste des éléments de la classe
             'listeAttributsVisibles' => $listeAttributsVisibles, // Contient tous les attributs à afficher dans la liste et leur position
                                         // ex: listeAttributsVisibles = [ 0 => [attribut => sport_lib, liste_pos => 1, ...],
@@ -66,7 +66,7 @@ class CrudController extends Controller
             abort(404, 'Aucun attribut à afficher dans la page liste.');
 
         $liste = $crudTable->crud('lister');
-        return view('admin.crud-attributs.lister-ajax', [
+        return view('admin.crud.lister-ajax', [
             'liste' => $liste,
             'listeAttributsVisibles' => $listeAttributsVisibles
         ]);
@@ -96,7 +96,7 @@ class CrudController extends Controller
         $href['editer'] = route('crud.editer', ['table' => $table, 'id' => $id]);
         $href['supprimer'] = route('crud.supprimer', ['table' => $table, 'id' => $id]);
 
-        return view('admin.crud-attributs.voir', [
+        return view('admin.crud.voir', [
             'donnees' => $donnees,
             'href' => $href,
             'h1' => $h1,
@@ -125,7 +125,7 @@ class CrudController extends Controller
         $donnees = $crudTable->crud('ajouter');
         $href['lister'] = route('crud.lister', ['table' => $table]);
 
-        return view('admin.crud-attributs.ajouter', [
+        return view('admin.crud.ajouter', [
             'donnees' => $donnees,
             'h1' => $h1,
             'title' => $title,
@@ -157,7 +157,7 @@ class CrudController extends Controller
         $href['voir'] = route('crud.voir', ['table' => $table, 'id' => $id]);
         $href['supprimer'] = route('crud.supprimer', ['table' => $table, 'id' => $id]);
 
-        return view('admin.crud-attributs.editer', [
+        return view('admin.crud.editer', [
             'donnees' => $donnees,
             'h1' => $h1,
             'title' => $title,
@@ -274,7 +274,7 @@ class CrudController extends Controller
     private static function forgetCaches(string $table, object $instance)
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
-        if($instance && $table == 'champ-matches'){
+        if($instance && $table == 'matches'){
             $cacheClassement = "classement-".$instance->journee->saison->id;
             $cacheJournee = "journee-".$instance->journee->id;
             Cache::forget($cacheClassement);
