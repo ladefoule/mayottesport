@@ -128,7 +128,7 @@ class FootMatchController extends Controller
         $liens = infosMatch();
         foreach ($liens as $key => $attribut)
             if($request[$attribut]) // On insère les nouvelles informations
-                MatchInfo::create(['information' => $key, 'valeur' => $request[$attribut], 'champ_match_id' => $match->id]);
+                MatchInfo::create(['information' => $key, 'valeur' => $request[$attribut], 'match_id' => $match->id]);
 
         $score_eq_dom = $request['score_eq_dom'] ?? '';
         $score_eq_ext = $request['score_eq_ext'] ?? '';
@@ -175,10 +175,10 @@ class FootMatchController extends Controller
     /**
      * Accès à la page de modification du résultat du match
      *
-     * @param  mixed $matchId
+     * @param  string $matchId
      * @return \Illuminate\View\View|void
      */
-    public function resultat($matchId)
+    public function resultat(string $matchId)
     {
         Log::info(" -------- FootMatchController : resultat -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
@@ -197,11 +197,11 @@ class FootMatchController extends Controller
     /**
      * Traitement de la modification du résultat du match
      *
-     * @param  mixed $request
-     * @param  mixed $matchId
+     * @param  Request $request
+     * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function resultatPost(Request $request, int $matchId)
+    public function resultatPost(Request $request, string $matchId)
     {
         Log::info(" -------- FootMatchController : resultatPost -------- ");
         $request = Validator::make($request->all(), [
@@ -226,7 +226,7 @@ class FootMatchController extends Controller
 
             $modif = new Modif([
                 'user_id' => $idUser,
-                'champ_match_id' => $match->id,
+                'match_id' => $match->id,
                 'note' => $note,
             ]);
             $modif->saveOrFail();
@@ -258,11 +258,11 @@ class FootMatchController extends Controller
     /**
      * Traitement de la modification de l'horaire du match
      *
-     * @param  mixed $request
-     * @param  mixed $matchId
+     * @param  Request $request
+     * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function horairePost(Request $request, int $matchId)
+    public function horairePost(Request $request, string $matchId)
     {
         Log::info(" -------- FootMatchController : horairePost -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();

@@ -13,7 +13,7 @@ class Competition extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'nom_complet', 'sport_id'];
+    protected $fillable = ['nom', 'type', 'nom_complet', 'sport_id'];
 
     /**
      * Le sport dont appartient cette compétition
@@ -57,6 +57,7 @@ class Competition extends Model
 
         $rules = [
             'sport_id' => 'required|exists:sports,id',
+            'type' => 'required|integer|min:1',
             'nom_complet' => 'nullable|string|max:50',
             'nom' => ['required','string','max:50','min:3',$unique]
         ];

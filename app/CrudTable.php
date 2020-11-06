@@ -172,7 +172,7 @@ class CrudTable extends Model
                     $infosAttribut = (array) $infosAttribut;
                     Arr::pull($infosAttribut, 'information');
                     Arr::pull($infosAttribut, 'valeur');
-                    $liens = infosAttributCrud();
+                    $liens = infos('crud-attribut');
 
                     // On récupère les infos supplémentaires liés à cet attribut et qui sont présents dans la table crud_attribut_infos
                     // Par exemple : le pattern, le min et max si c'est un nombre, etc...

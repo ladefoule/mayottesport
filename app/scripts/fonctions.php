@@ -4,17 +4,20 @@ use App\Match;
 use App\Journee;
 use App\EquipeSaison;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * La liste des correspondances entre l'id (information dans la table crud_attribut_infos) et sa signification.
  *
  * @return \Illuminate\Support\Collection
  */
-function infosAttributCrud()
+function infos(string $liste)
 {
-    $client = new \GuzzleHttp\Client();
-    $response = $client->request('GET', config('app.url') . "/json/crud-attribut-infos.json", ['timeout' => 2]);
-    return collect(json_decode($response->getBody()->getContents()));
+    // $client = new \GuzzleHttp\Client();
+    // $response = $client->request('GET', config('app.url') . "/json/crud-attribut-infos.json", ['timeout' => 2]);
+    $infos = Storage::get('app/config.json');
+    dd($infos);
+    return collect($liste);
 }
 
 /**

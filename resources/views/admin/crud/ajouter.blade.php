@@ -55,6 +55,9 @@
                             </select>
 
                         {{-- Si l'attribut est de type textarea --}}
+                        @elseif ($inputType == 'select')
+                            
+                        {{-- Si l'attribut est de type textarea --}}
                         @elseif ($inputType == 'textarea')
                             <?php
                                 $contenuTextarea = old($attribut) ?? 'Le champ <span class=\'text-danger font-italic\'>XXX</span>';
