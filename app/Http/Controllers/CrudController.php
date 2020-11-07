@@ -20,26 +20,21 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function lister(Request $request, string $table)
+    public function index(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : lister -------- ");
+        Log::info(" -------- CrudController : index -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $listeAttributsVisibles = $crudTable->listeAttributsVisibles();
-        if($listeAttributsVisibles == false){
-            Log::info('Aucun attribut à afficher dans la page liste : ' . $table);
-            abort(404);
-        }
-
+        $listeAttributsVisibles = $request['listeAttributsVisibles']; // Récupérér depuis le middleware AttributVisible
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase;
         $title = 'CRUD - Lister : ' . $h1;
 
-        $liste = $crudTable->crud('lister');
-        $href['ajouter'] = route('crud.ajouter', ['table' => $table]);
-        $href['supprimer-ajax'] = route('crud.supprimer-ajax', ['table' => $table]);
-        $href['lister-ajax'] = route('crud.lister-ajax', ['table' => $table]);
+        $liste = $crudTable->index();
+        $hrefs['create'] = route('crud.create', ['table' => $table]);
+        $hrefs['delete-ajax'] = route('crud.delete-ajax', ['table' => $table]);
+        $hrefs['index-ajax'] = route('crud.index-ajax', ['table' => $table]);
 
-        return view('admin.crud.lister', [
+        return view('admin.crud.index', [
             'liste' => $liste,  // La liste des éléments de la classe
             'listeAttributsVisibles' => $listeAttributsVisibles, // Contient tous les attributs à afficher dans la liste et leur position
                                         // ex: listeAttributsVisibles = [ 0 => [attribut => sport_lib, liste_pos => 1, ...],
@@ -47,7 +42,7 @@ class CrudController extends Controller
             'table' => $table, // Le nom de la table en kebab-case
             'h1' => $h1,    // Titre du header de la card
             'title' => $title, // Title de la page
-            'href' => $href // Les liens présents dans la view
+            'hrefs' => $hrefs // Les liens présents dans la view
         ]);
     }
 
@@ -57,16 +52,13 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function listerAjax(Request $request, string $table)
+    public function indexAjax(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : listerAjax -------- ");
+        Log::info(" -------- CrudController : indexAjax -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $listeAttributsVisibles = $crudTable->listeAttributsVisibles();
-        if($listeAttributsVisibles == false)
-            abort(404, 'Aucun attribut à afficher dans la page liste.');
-
-        $liste = $crudTable->crud('lister');
-        return view('admin.crud.lister-ajax', [
+        $listeAttributsVisibles = $request['listeAttributsVisibles']; // Récupérér depuis le middleware AttributVisible
+        $liste = $crudTable->index();
+        return view('admin.crud.index-ajax', [
             'liste' => $liste,
             'listeAttributsVisibles' => $listeAttributsVisibles
         ]);
@@ -79,26 +71,23 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\View\View|void
      */
-    public function voir(Request $request, string $table, int $id)
+    public function show(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : voir -------- ");
+        Log::info(" -------- CrudController : show -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $listeAttributsVisibles = $crudTable->listeAttributsVisibles('voir');
-        if($listeAttributsVisibles == false)
-            abort(404, 'Aucun attribut à afficher dans la page \'vue\'.');
 
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase . '/' . $id;
         $title = 'CRUD - Voir : ' . $h1;
 
-        $donnees = $crudTable->crud('voir', $id);
-        $href['lister'] = route('crud.lister', ['table' => $table]);
-        $href['editer'] = route('crud.editer', ['table' => $table, 'id' => $id]);
-        $href['supprimer'] = route('crud.supprimer', ['table' => $table, 'id' => $id]);
+        $donnees = $crudTable->crud('show', $id);
+        $hrefs['index'] = route('crud.index', ['table' => $table]);
+        $hrefs['update'] = route('crud.update', ['table' => $table, 'id' => $id]);
+        $hrefs['delete'] = route('crud.delete', ['table' => $table, 'id' => $id]);
 
-        return view('admin.crud.voir', [
+        return view('admin.crud.show', [
             'donnees' => $donnees,
-            'href' => $href,
+            'hrefs' => $hrefs,
             'h1' => $h1,
             'title' => $title
         ]);
@@ -110,26 +99,22 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function ajouter(Request $request, string $table)
+    public function create(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : ajouter -------- ");
+        Log::info(" -------- CrudController : create -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $listeAttributsVisibles = $crudTable->listeAttributsVisibles('editer');
-        if($listeAttributsVisibles == false)
-            abort(404, 'Aucun attribut à afficher dans la page d\'ajout.');
-
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase . ' : Ajouter';
         $title = 'CRUD - Ajouter : ' . $tablePascalCase;
 
-        $donnees = $crudTable->crud('ajouter');
-        $href['lister'] = route('crud.lister', ['table' => $table]);
+        $donnees = $crudTable->crud('create');
+        $hrefs['index'] = route('crud.index', ['table' => $table]);
 
-        return view('admin.crud.ajouter', [
+        return view('admin.crud.create', [
             'donnees' => $donnees,
             'h1' => $h1,
             'title' => $title,
-            'href' => $href
+            'hrefs' => $hrefs
         ]);
     }
 
@@ -140,28 +125,24 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\View\View|void
      */
-    public function editer(Request $request, string $table, int $id)
+    public function update(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : editer -------- ");
+        Log::info(" -------- CrudController : update -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $listeAttributsVisibles = $crudTable->listeAttributsVisibles('editer');
-        if($listeAttributsVisibles == false)
-            abort(404, 'Aucun attribut à afficher dans la page d\'édition.');
-
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase . '/'.$id . ' : Editer';
         $title = 'CRUD - Editer : ' . $tablePascalCase . '/'.$id;
 
-        $donnees = $crudTable->crud('editer', $id);
-        $href['lister'] = route('crud.lister', ['table' => $table]);
-        $href['voir'] = route('crud.voir', ['table' => $table, 'id' => $id]);
-        $href['supprimer'] = route('crud.supprimer', ['table' => $table, 'id' => $id]);
+        $donnees = $crudTable->crud('update', $id);
+        $hrefs['index'] = route('crud.index', ['table' => $table]);
+        $hrefs['show'] = route('crud.show', ['table' => $table, 'id' => $id]);
+        $hrefs['delete'] = route('crud.delete', ['table' => $table, 'id' => $id]);
 
-        return view('admin.crud.editer', [
+        return view('admin.crud.update', [
             'donnees' => $donnees,
             'h1' => $h1,
             'title' => $title,
-            'href' => $href
+            'hrefs' => $hrefs
         ]);
     }
 
@@ -172,9 +153,9 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function ajouterPost(Request $request, string $table)
+    public function createStore(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : ajouterPost -------- ");
+        Log::info(" -------- CrudController : createStore -------- ");
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $rules = $modele::rules($request);
 
@@ -186,7 +167,7 @@ class CrudController extends Controller
         $instance = $modele::create($request);
 
         $this::forgetCaches($table, $instance);
-        return redirect()->route('crud.voir', ['table' => $table, 'id' => $instance->id]);
+        return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);
     }
 
     /**
@@ -197,9 +178,9 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editerPost(Request $request, string $table, int $id)
+    public function updateStore(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : editerPost -------- ");
+        Log::info(" -------- CrudController : updateStore -------- ");
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
         $rules = $modele::rules($request, $instance);
@@ -212,7 +193,7 @@ class CrudController extends Controller
         $instance->update($request);
 
         $this::forgetCaches($table, $instance);
-        return redirect()->route('crud.voir', ['table' => $table, 'id' => $id]);
+        return redirect()->route('crud.show', ['table' => $table, 'id' => $id]);
     }
 
     /**
@@ -222,16 +203,16 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse|void
      */
-    public function supprimer(Request $request, string $table, int $id)
+    public function delete(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : supprimer -------- ");
+        Log::info(" -------- CrudController : delete -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
         $instance->delete();
         Log::info("Suppression de l'id $id dans la table $crudTable->nom");
-        Cache::forget("crud-$table-lister"); // Effacement du cache associé
-        return redirect()->route('crud.lister', ['table' => $table]);
+        Cache::forget("crud-$table-index"); // Effacement du cache associé
+        return redirect()->route('crud.index', ['table' => $table]);
     }
 
     /**
@@ -261,7 +242,7 @@ class CrudController extends Controller
             $instance->delete();
             Log::info("Suppression de l'id $id dans la table $nomTable");
         }
-        Cache::forget("crud-$table-lister"); // Effacement du cache associé
+        Cache::forget("crud-$table-index"); // Effacement du cache associé
     }
 
     /**
@@ -293,18 +274,17 @@ class CrudController extends Controller
 
             // La table sur laquelle on apporte des modifications
             $table = str_replace('_', '-' , $table);
-            Cache::forget("crud-$table-lister");
-            Cache::forget("attributs-visibles-$table-lister");
-            Cache::forget("attributs-visibles-$table-editer");
-            Cache::forget("attributs-visibles-$table-ajouter");
-            Cache::forget("attributs-visibles-$table-voir");
+            Cache::forget("crud-$table-index");
+            Cache::forget("attributs-visibles-$table-index");
+            Cache::forget("attributs-visibles-$table-create");
+            Cache::forget("attributs-visibles-$table-show");
 
             // On renouvelle les 3 tables liées à la gestion du Crud
-            Cache::forget("crud-crud-tables-lister");
-            Cache::forget("crud-crud-attributs-lister");
-            Cache::forget("crud-crud-attribut-infos-lister");
+            Cache::forget("crud-crud-tables-index");
+            Cache::forget("crud-crud-attributs-index");
+            Cache::forget("crud-crud-attribut-infos-index");
         }else{
-            $cache = "crud-$table-lister";
+            $cache = "crud-$table-index";
             Cache::forget($cache);
         }
     }

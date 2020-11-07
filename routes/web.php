@@ -49,15 +49,18 @@ Route::group(['middleware'=>'auth'], function () {
 
                 /* MIDDLEWARE DE VERIFICATION DU PAREMETRE {table} */
                 Route::group(['middleware' => ['verif-table-crud']], function () {
-                    Route::get('/{table}/ajouter', 'CrudController@ajouter')->name('crud.ajouter');
-                    Route::post('/{table}/ajouter', 'CrudController@ajouterPost');
-                    Route::get('/{table}/editer/{id}', 'CrudController@editer')->name('crud.editer');
-                    Route::post('/{table}/editer/{id}', 'CrudController@editerPost');
-                    Route::get('/{table}/supprimer/{id}', 'CrudController@supprimer')->name('crud.supprimer');
-                    Route::post('/{table}/supprimer', 'CrudController@supprimerAjax')->name('crud.supprimer-ajax');
-                    Route::get('/{table}/ajax', 'CrudController@listerAjax')->name('crud.lister-ajax');
-                    Route::get('/{table}/{id}', 'CrudController@voir')->name('crud.voir');
-                    Route::get('/{table}', 'CrudController@lister')->name('crud.lister');
+                    /* MIDDLEWARE DE VERIFICATION SI LA LISTE DES ATTRIBUTS VISIBLES N'EST PAS VIDE */
+                    Route::group(['middleware' => ['attribut-visible']], function () {
+                        Route::get('/{table}/create', 'CrudController@create')->name('crud.create');
+                        Route::get('/{table}/{id}', 'CrudController@show')->name('crud.show');
+                        Route::get('/{table}/ajax', 'CrudController@indexAjax')->name('crud.index-ajax');
+                        Route::get('/{table}', 'CrudController@index')->name('crud.index');
+                        Route::get('/{table}/update/{id}', 'CrudController@update')->name('crud.update');
+                    });
+                    Route::post('/{table}/create', 'CrudController@createStore');
+                    Route::post('/{table}/update/{id}', 'CrudController@updateStore');
+                    Route::get('/{table}/delete/{id}', 'CrudController@delete')->name('crud.delete');
+                    Route::post('/{table}/delete', 'CrudController@deleteAjax')->name('crud.delete-ajax');
                 });
 
             }); /* FIN PREFIX CRUD */

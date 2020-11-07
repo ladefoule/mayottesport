@@ -17,9 +17,9 @@ class CreateMatchInfosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('match_id');
             $table->foreign('match_id')->references('id')->on('matches')->onDelete('cascade');
-            $table->integer('information');
+            $table->integer('information_id');
             $table->string('valeur');
-            $table->unique(['match_id', 'information']);
+            $table->unique(['match_id', 'information_id']);
         });
     }
 

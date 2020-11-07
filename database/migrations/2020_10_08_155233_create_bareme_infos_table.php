@@ -17,9 +17,9 @@ class CreateBaremeInfosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('bareme_id')->unique();
             $table->foreign('bareme_id')->references('id')->on('baremes')->onDelete('cascade');
-            $table->integer('information');
+            $table->integer('information_id');
             $table->string('valeur');
-            $table->unique(['bareme_id', 'information']);
+            $table->unique(['bareme_id', 'information_id']);
         });
     }
 

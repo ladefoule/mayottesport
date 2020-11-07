@@ -3,12 +3,29 @@
 @section('title', $title)
 
 @section('content')
+
 <div class="row card mx-1">
     <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3" style="font-size: 1.6em">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
-        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">
-            <i class="fas fa-long-arrow-alt-left"></i> retour
+        <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> {{ $h1 }}</span>
+        <a href="{{ $hrefs['index'] }}" title="Liste" class="text-decoration-none ml-2">
+            <button class="btn-sm btn-warning text-body">
+                {!! \Config::get('constant.boutons.lister') !!}
+                <span class="d-none d-lg-inline ml-1">Liste</span>
+            </button>
         </a>
+        <a href="{{ $hrefs['show'] }}" title="Voir" class="text-decoration-none ml-2">
+            <button class="btn-sm btn-success text-white">
+                {!! \Config::get('constant.boutons.voir') !!}
+                <span class="d-none d-lg-inline ml-1">Voir</span>
+            </button>
+        </a>
+        <a href="{{ $hrefs['delete'] }}" title="Supprimer" class="text-decoration-none ml-2">
+            <button class="btn-sm btn-danger">
+                {!! \Config::get('constant.boutons.supprimer') !!}
+                <span class="d-none d-lg-inline ml-1">Supprimer</span>
+            </button>
+        </a>
+        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0"><i class="fas fa-long-arrow-alt-left"></i> retour</a>
     </div>
 
     <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
@@ -21,7 +38,7 @@
                     $inputType = $infos['input_type'];
                     $optionnel = $infos['optionnel'];
                     $labelAttribut = $infos['label'];
-                    $valeur = '';
+                    $valeur = $infos['valeur'];
                     $dataMsg = $infos['data_msg'];
                     $pattern = $infos['pattern'];
                     $min = $infos['min'];
@@ -55,12 +72,9 @@
                             </select>
 
                         {{-- Si l'attribut est de type textarea --}}
-                        @elseif ($inputType == 'select')
-                            
-                        {{-- Si l'attribut est de type textarea --}}
                         @elseif ($inputType == 'textarea')
                             <?php
-                                $contenuTextarea = old($attribut) ?? 'Le champ <span class=\'text-danger font-italic\'>XXX</span>';
+                                $contenuTextarea = old($attribut) ?? $valeur;
                             ?>
                             <textarea name="{{ $attribut }}" class="{{ $className }} @error($attribut) is-invalid @enderror" rows="3">{{ $contenuTextarea }}</textarea>
 

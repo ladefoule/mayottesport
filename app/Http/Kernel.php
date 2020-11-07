@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'check-permission' => \App\Http\Middleware\CheckPermission::class,
         'verif-table-crud' => \App\Http\Middleware\VerifTableCrud::class,
+        'attribut-visible' => \App\Http\Middleware\AttributVisible::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

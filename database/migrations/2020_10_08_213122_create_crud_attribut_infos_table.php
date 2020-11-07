@@ -17,9 +17,9 @@ class CreateCrudAttributInfosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('crud_attribut_id');
             $table->foreign('crud_attribut_id')->references('id')->on('crud_attributs')->onDelete('cascade');
-            $table->integer('information');
+            $table->integer('information_id');
             $table->string('valeur');
-            $table->unique(['crud_attribut_id','information']);
+            $table->unique(['crud_attribut_id','information_id']);
         });
     }
 

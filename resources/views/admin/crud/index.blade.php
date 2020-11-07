@@ -7,7 +7,7 @@
     <div class="d-none">@csrf</div>
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3" style="font-size: 1.6em">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
-        <a href="{{ $href['ajouter'] }}" class="text-decoration-none mr-1">
+        <a href="{{ $hrefs['create'] }}" class="text-decoration-none mr-1">
             <button class="btn-sm btn-primary">
                 {!! \Config::get('constant.boutons.ajouter_cercle') !!}
                 <span class="d-none d-md-inline">Ajouter</span>
@@ -38,13 +38,13 @@
                             <td align="left" class="px-2">{{ $ligne['afficher'][$i] }}</td>
                         @endfor
                         <td class="text-right">
-                            <a href="{{ $ligne['href_voir'] }}" title="Voir" class="text-decoration-none">
+                            <a href="{{ $ligne['href_show'] }}" title="Voir" class="text-decoration-none">
                                 <button class="btn-sm btn-success">
                                     {!! \Config::get('constant.boutons.voir') !!}
                                     <span class="d-none d-lg-inline">Voir</span>
                                 </button>
                             </a>
-                            <a href="{{ $ligne['href_editer'] }}" title="Editer" class="text-decoration-none">
+                            <a href="{{ $ligne['href_update'] }}" title="Editer" class="text-decoration-none">
                                 <button class="btn-sm btn-info text-white">
                                     {!! \Config::get('constant.boutons.editer') !!}
                                     <span class="d-none d-lg-inline">Éditer</span>
@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
     triDataTables(idTable) // Tri du tableau avec DataTables
     toutCocherDecocher(idTable) // Checkbox de suppressions multiples
 
-    let urlSupprimer = "<?php echo $href['supprimer-ajax'] ?>"
-    let urlLister = "<?php echo $href['lister-ajax'] ?>"
+    let urlSupprimer = "<?php echo $hrefs['delete-ajax'] ?>"
+    let urlLister = "<?php echo $hrefs['index-ajax'] ?>"
     let token = qs('input[name=_token]').value
     let params = {
         urlSupprimer:urlSupprimer,
