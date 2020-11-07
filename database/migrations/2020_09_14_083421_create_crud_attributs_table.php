@@ -16,11 +16,11 @@ class CreateCrudAttributsTable extends Migration {
 		{
 			$table->bigIncrements('id');
             $table->unsignedBigInteger('crud_table_id');
-            $table->foreign('crud_table_id')->references('id')->on('crud_tables');
+            $table->foreign('crud_table_id')->references('id')->on('crud_tables')->onDelete('restrict');
             $table->string('attribut');
 			$table->string('label');
             $table->unsignedBigInteger('attribut_crud_table_id')->nullable();
-            $table->foreign('attribut_crud_table_id')->references('id')->on('crud_tables');
+            $table->foreign('attribut_crud_table_id')->references('id')->on('crud_tables')->onDelete('restrict');
             $table->boolean('optionnel')->nullable();
             $table->text('data_msg')->nullable();
             $table->unique(['crud_table_id','attribut']);

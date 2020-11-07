@@ -1,6 +1,6 @@
-@foreach($liste as $ligne)
+@foreach($liste as $id => $ligne)
 <tr>
-    <td><input type="checkbox" id="check{{ $ligne['id'] }}" value="{{ $ligne['id'] }}"></td>
+    <td><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
     @for ($i = 0; $i < count($listeAttributsVisibles); $i++)
         <td align="left"
             @if ($i>=2) class="d-none d-lg-block" @endif

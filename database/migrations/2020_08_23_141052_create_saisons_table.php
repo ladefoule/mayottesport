@@ -20,9 +20,9 @@ class CreateSaisonsTable extends Migration {
             $table->integer('nb_journees');
             $table->boolean('finie')->nullable();
             $table->unsignedBigInteger('competition_id');
-            $table->foreign('competition_id')->references('id')->on('competitions');
+            $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('restrict');
             $table->unsignedBigInteger('bareme_id')->nullable();
-            $table->foreign('bareme_id')->references('id')->on('baremes');
+            $table->foreign('bareme_id')->references('id')->on('baremes')->onDelete('restrict');
 			$table->timestamps();
 		});
 	}

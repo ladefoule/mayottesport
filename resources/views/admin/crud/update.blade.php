@@ -44,6 +44,7 @@
                     $min = $infos['min'];
                     $max = $infos['max'];
                     $className = $infos['class'];
+                    $selectListe = $infos['select_liste'];
                 ?>
                 <div class="form-row mb-3">
                     {{-- Si l'attribut est de type checkbox --}}
@@ -67,6 +68,18 @@
                                     <option value="{{ $instanceFKi->id }}"
                                         @if ($infos['valeur'] == $instanceFKi->id) selected @endif>
                                         {{ $instanceFKi->nom }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                        {{-- Si l'attribut est de type select --}}
+                        @elseif ($inputType == 'select' && $selectListe)
+                            <select name="{{ $attribut }}" id="{{ $attribut }}" class="{{ $className }} @error($attribut) is-invalid @enderror" <?= $dataMsg ?>>
+                                <option value="">Sélectionner</option>
+                                @foreach ($selectListe as $id => $value)
+                                    <option value="{{ $id }}"
+                                        @if (old($attribut) == $id || $valeur == $id) selected @endif>
+                                        {{ $value[1] }}
                                     </option>
                                 @endforeach
                             </select>

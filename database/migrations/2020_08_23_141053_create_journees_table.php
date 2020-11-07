@@ -18,7 +18,7 @@ class CreateJourneesTable extends Migration {
 			$table->integer('numero');
             $table->date('date');
             $table->unsignedBigInteger('saison_id');
-            $table->foreign('saison_id')->references('id')->on('saisons');
+            $table->foreign('saison_id')->references('id')->on('saisons')->onDelete('restrict');
 			$table->timestamps();
 		});
 	}

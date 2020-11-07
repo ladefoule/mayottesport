@@ -19,7 +19,7 @@ class CreateCompetitionsTable extends Migration {
             $table->string('nom_complet')->nullable();
 			$table->string('type');
             $table->unsignedBigInteger('sport_id');
-            $table->foreign('sport_id')->references('id')->on('sports');
+            $table->foreign('sport_id')->references('id')->on('sports')->onDelete('restrict');
             $table->timestamps();
             $table->unique(['sport_id', 'nom']);
 		});

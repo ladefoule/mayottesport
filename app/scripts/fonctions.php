@@ -7,32 +7,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * La liste des correspondances entre l'id (information dans la table crud_attribut_infos) et sa signification.
- *
- * @return \Illuminate\Support\Collection
- */
-function infos(string $liste)
-{
-    // $client = new \GuzzleHttp\Client();
-    // $response = $client->request('GET', config('app.url') . "/json/crud-attribut-infos.json", ['timeout' => 2]);
-    $infos = Storage::get('app/config.json');
-    dd($infos);
-    return collect($liste);
-}
-
-/**
- * La liste des correspondances entre l'id (information dans la table match_infos) et sa signification.
- *
- * @return \Illuminate\Support\Collection
- */
-function infosMatch()
-{
-    $client = new \GuzzleHttp\Client();
-    $response = $client->request('GET', config('app.url') . "/json/match-infos.json", ['timeout' => 2]);
-    return collect(json_decode($response->getBody()->getContents()));
-}
-
-/**
  * Revoie '1ère journée' si $numero = 1, Xème journée si $numero > 1, false dans les autres cas de figure
  *
  * @param  int $numero

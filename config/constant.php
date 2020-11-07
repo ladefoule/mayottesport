@@ -1,7 +1,7 @@
 <?php
 // use Illuminate\Support\Facades\Config;
 return [
-    'activer_cache' => false, // Mettre à false pour désactiver la mise en cache,
+    'activer_cache' => env('MISE_EN_CACHE', false),
 
     'boutons' => [
         'supprimer' => '<i class="fas fa-trash-alt"></i>',
@@ -23,17 +23,20 @@ return [
         7 => ["max", "Maximum"],
         8 => ["select_liste", "Liste à afficher"]
     ],
+
     "match" => [
-        1 => "forfait_eq_dom",
-        2 => "forfait_eq_ext",
-        3 => "penalite_eq_dom",
-        4 => "penalite_eq_ext"
+        1 => ["forfait_eq_dom", "Forfait équipe dom."],
+        2 => ["forfait_eq_ext", "Forfait équipe ext."],
+        3 => ["penalite_eq_dom", "Pénalité équipe dom."],
+        4 => ["penalite_eq_ext", "Pénalité équipe ext."]
     ],
+
     "type-competition" => [
-        1 => "championnat",
-        2 => "coupe"
+        1 => ["championnat", "Championnat"],
+        2 => ["coupe", "Coupe"]
     ],
+
     "bareme" => [
-        1 => "victoire_3_0"
+        1 => ["victoire_3_0", "Victoire 3-0"]
     ]
 ];

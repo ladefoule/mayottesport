@@ -6,7 +6,7 @@
 <div class="row card mx-1">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> {{ $h1 }}</span>
-        <a href="{{ route('champ-journees.multi.voir', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
+        <a href="{{ route('journees.multi.voir', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
             <button class="btn-sm btn-success text-white">
                 <?= \Config::get('constant.boutons.voir') ?>
                 <span class="d-none d-lg-inline ml-1">Voir</span>
@@ -32,15 +32,15 @@
 
             <div class="col-12 form-row justify-content-center mb-3">
                 <div class="col-md-6 d-flex flex-wrap">
-                    <label>Championnat</label>
-                    <input type="text" value="{{ $championnat }}" class="form-control" disabled>
+                    <label>Compétition</label>
+                    <input type="text" value="{{ $competition }}" class="form-control" disabled>
                 </div>
             </div>
 
             <div class="col-12 form-row justify-content-center mb-3">
                 <div class="col-md-6 d-flex flex-wrap">
                     <label>Saison</label>
-                    <input type="text" value="{{ $champSaison }}" class="form-control" disabled>
+                    <input type="text" value="{{ $saison }}" class="form-control" disabled>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                     $nameJourneeId = 'id'.$i;
                     $nameJourneeDelete = 'delete'.$i;
 
-                    $journee = DB::table('champ_journees')->where([ ['champ_saison_id', '=', $saisonId], ['numero', '=', $i] ])->first();
+                    $journee = DB::table('journees')->where([ ['saison_id', '=', $saisonId], ['numero', '=', $i] ])->first();
                     if($journee == null && $i > $nbJournees)
                         break;
                     $numero = $i;
@@ -92,7 +92,7 @@
                 @endfor
             </div>
 
-            <input type="hidden" name="champ_saison_id" value="{{ $saisonId }}">
+            <input type="hidden" name="saison_id" value="{{ $saisonId }}">
 
             <div class="col-12 form-row mt-3">
                 <div class="col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>

@@ -12,7 +12,7 @@
 </head>
 <?php
     $routeJournees = route('journees.multi.choix-saison');
-    $routeFoot = route('matches.foot.lister');
+    // $routeFoot = route('matches.lister');
     $path = request()->path();
 ?>
 <body style="background-image: url('/storage/img/fond-mayotte.jpg');background-size:1950px 1000px;background-attachment: fixed;">
@@ -25,7 +25,7 @@
             <div class="row overflow-x-auto py-2">
                 <div class="d-flex justify-content-center" style="margin:0 auto">
                     <a href="{{ route('journees.multi.choix-saison') }}"><button class="btn mx-2 @if(Str::endsWith($routeJournees, $path)) btn-light @else btn-outline-light @endif">Journées (multi)</button></a>
-                    <a href="{{ route('matches.foot.lister') }}"><button class="btn mx-2 @if(Str::endsWith($routeFoot, $path)) btn-light @else btn-outline-light @endif">Matches de foot</button></a>
+                    {{-- <a href="{{ route('matches.lister') }}"><button class="btn mx-2 @if(Str::endsWith($routeFoot, $path)) btn-light @else btn-outline-light @endif">Matches de foot</button></a> --}}
                 </div>
             </div>
         </div>

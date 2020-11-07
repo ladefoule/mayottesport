@@ -10,7 +10,7 @@ use App\ChampJournee;
 <div class="row card mx-1">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3" style="font-size: 1.6em">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
-        <a href="{{ route('champ-journees.multi.editer', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
+        <a href="{{ route('journees.multi.editer', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
             <button class="btn-sm btn-info text-white">
                 {!! \Config::get('constant.boutons.editer') !!}
                 <span class="d-none d-lg-inline ml-1">Editer</span>
@@ -26,19 +26,19 @@ use App\ChampJournee;
             <li class="list-group-item"><?= $sport ?></li>
         </ul>
         <ul class="list-group mb-3">
-            <li class="list-group-item disabled" aria-disabled="true">Championnat</li>
-            <li class="list-group-item"><?= $championnat ?></li>
+            <li class="list-group-item disabled" aria-disabled="true">Compétition</li>
+            <li class="list-group-item"><?= $competition ?></li>
         </ul>
         <ul class="list-group mb-3">
             <li class="list-group-item disabled" aria-disabled="true">Saison</li>
-            <li class="list-group-item"><?= $champSaison ?></li>
+            <li class="list-group-item"><?= $saison ?></li>
         </ul>
 
         <div class="form-row d-flex justify-content-center">
-            @foreach ($champJournees as $champJournee)
+            @foreach ($journees as $journee)
                 @php
-                $numero = $champJournee->numero;
-                $date = $champJournee->date;
+                $numero = $journee->numero;
+                $date = $journee->date;
                 @endphp
                 <div class="col-12 form-row justify-content-center">
                     <div class="col-4 mb-3">

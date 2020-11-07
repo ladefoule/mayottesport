@@ -3,8 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\CrudTable;
-use Illuminate\Support\Facades\Log;
 
 class AttributVisible
 {
@@ -17,13 +15,9 @@ class AttributVisible
      */
     public function handle($request, Closure $next)
     {
-        $crudTable = $request['crudTable'];
-        // $route = $request->getUri();
-        // $request->getU
-        // $route = route('crud.lister', ['table' => $request['table']]);
-        // $route = $request->routeIs('crud.index');
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $route = $request->route()->getName();
-        // dd($route);
+
         switch ($route) {
             case 'crud.index-ajax':
                 $action = 'index';
@@ -33,13 +27,11 @@ class AttributVisible
                 $action = explode('.', $route)[1];
                 break;
         }
-        // dd($action);
-        // Log::info($route);
+
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles($action);
-        if($listeAttributsVisibles == false){
-            // Log::info("Aucun attribut à afficher dans la page $action : " . $table);
+        if($listeAttributsVisibles == false)
             abort(404);
-        }
+
         $request['listeAttributsVisibles'] = $listeAttributsVisibles;
         return $next($request);
     }

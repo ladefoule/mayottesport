@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -50,7 +49,7 @@ class CrudTable extends Model
         $user = Auth::user();
         $role = $user->role->nom; // admin/membre/superadminpremium etc...
         $key = "crud-navbar-tables-users-" . $role;
-        if(!Config::get('constant.activer_cache', false))
+        if(!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -84,29 +83,6 @@ class CrudTable extends Model
 
     }
 
-    // public function liste()
-    // {
-    //     $key = "crud-tables";
-    //     if(!Config::get('constant.activer_cache', false))
-    //         Cache::forget($key);
-
-    //     if (Cache::has($key))
-    //         return Cache::get($key);
-    //     else
-    //         return Cache::rememberForever($key, function (){
-    //             return $this->liste();
-    //         });
-
-    //     $tables = DB::select('SHOW TABLES');
-    //     $tables = array_map('current', $tables);
-    //     foreach ($tables as $table) {
-    //         $crudTable = CrudTable::firstWhere('nom', $table);
-    //         if($crudTable == null)
-    //             CrudTable::create(['nom' => $table]);
-    //     }
-    //     $crudTables = CrudTable::orderBy('nom')->get();
-    // }
-
     /**
      * Les règles de validations
      *
@@ -135,7 +111,7 @@ class CrudTable extends Model
      * Elle renvoie false sinon.
      *
      * @param string $action
-     * @return array|false
+     * @return \Illuminate\Support\Collection|false
      */
     public function listeAttributsVisibles($action = 'index')
     {
@@ -152,7 +128,7 @@ class CrudTable extends Model
             return false;
 
         $key = "attributs-visibles-" . str_replace('_', '-' ,$this->nom) . "-" . $action;
-        if (!Config::get('constant.activer_cache', false))
+        if (!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -162,7 +138,7 @@ class CrudTable extends Model
                 $listeAttributsVisibles = DB::table('crud_tables')
                     ->join('crud_attributs', 'crud_table_id', 'crud_tables.id')
                     ->join('crud_attribut_infos', 'crud_attribut_id', 'crud_attributs.id')
-                    ->where('information_id', $infoId)
+                    ->where('propriete_id', $infoId)
                     ->where('crud_table_id', $this->id)
                     ->orderByRaw('CAST(valeur AS UNSIGNED)') // Permet d'interpréter la chaine '1' (car valeur est de type Varchar) en entier
                     ->select(['crud_attributs.*', 'crud_tables.*', 'crud_attribut_infos.crud_attribut_id'])
@@ -172,22 +148,24 @@ class CrudTable extends Model
                     return false;
 
                 foreach ($listeAttributsVisibles as $key => $infosAttribut) {
-                    // Correspondance entre l'id de l'information et sa vraie signification
+                    $infosAttribut = (array) $infosAttribut;
+
+                    // Correspondance entre l'id de la propriété et sa vraie signification
                     $correspondances = config('constant.crud-attribut');
 
                     // On récupère les infos supplémentaires liés à cet attribut et qui sont présents dans la table crud_attribut_infos
                     // Par exemple : le pattern, le min et max si c'est un nombre, etc...
                     $infosSupplementaires = CrudAttributInfo::whereCrudAttributId($infosAttribut['crud_attribut_id'])->get();
                     foreach ($infosSupplementaires as $infoSup) {
-                        $infoId = $infoSup->information_id;
+                        $infoId = $infoSup->propriete_id;
                         $valeur = $infoSup->valeur;
                         $infosAttribut[$correspondances[$infoId][0]] = $valeur;
                     }
 
                     $listeAttributsVisibles[$key] = $infosAttribut;
                 }
-dd($listeAttributsVisibles);
-                return $listeAttributsVisibles;
+
+                return collect($listeAttributsVisibles);
             });
     }
 
@@ -207,7 +185,7 @@ dd($listeAttributsVisibles);
         }
         $listeAttributsVisibles = $this->listeAttributsVisibles($action);
 
-        $informations = [];
+        $donnees = [];
         foreach ($listeAttributsVisibles as $infosAttribut) {
             $attribut = $infosAttribut['attribut']; // Le nom de l'attribut
             $valeurAttribut = ($id == 0) ? '' : $instance->$attribut; // Sa valeur
@@ -228,39 +206,41 @@ dd($listeAttributsVisibles);
                 else{
                     $orderBy = $crudTableAttribut->tri_defaut;
                     $select = $orderBy ? $modeleTableAttribut::orderBy($orderBy)->get() : $modeleTableAttribut::get();
-                    $informations[$attribut]['select'] = $select;
+                    $donnees[$attribut]['select'] = $select;
                 }
             }
 
             if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'select' && isset($infosAttribut['select_liste'])) {
                 $selectListe = config('constant.' . $infosAttribut['select_liste']);
                 if($action == 'show' && $valeurAttribut)
-                    $valeurAttribut = $selectListe[$valeurAttribut];
+                    $valeurAttribut = $selectListe[$valeurAttribut][1];
             }
+
             // On affiche le bon format pour les timestamps s'ils sont renseignés
             if ($valeurAttribut && $attribut == 'created_at' || $attribut == 'updated_at')
                 $valeurAttribut = $valeurAttribut->format('d/m/Y à H:i:s');
 
             $inputType = $infosAttribut['input_type'] ?? 'text';
-            $informations[$attribut]['input_type'] = $inputType;
-            $informations[$attribut]['label'] = $infosAttribut['label'];
-            $informations[$attribut]['valeur'] = $valeurAttribut;
+            $donnees[$attribut]['input_type'] = $inputType;
+            $donnees[$attribut]['label'] = $infosAttribut['label'];
+            $donnees[$attribut]['valeur'] = $valeurAttribut;
+
             if ($action == 'show' && $inputType == 'checkbox')
-                $informations[$attribut]['valeur'] = $valeurAttribut ? 'Oui' : 'Non';
+                $donnees[$attribut]['valeur'] = $valeurAttribut ? 'Oui' : 'Non';
 
             if ($action != 'show') { // On n'a pas besoin de ces infos dans la page show
                 $optionnel = $infosAttribut['optionnel'];
-                $informations[$attribut]['optionnel'] = $optionnel;
-                $informations[$attribut]['select_liste'] = $selectListe ?? [];
-                $informations[$attribut]['data_msg'] = $infosAttribut['data_msg'] ? 'data-msg="' . htmlspecialchars($infosAttribut['data_msg']) . '"' : '';
-                $informations[$attribut]['pattern'] = isset($infosAttribut['pattern']) ? 'pattern="' . htmlspecialchars($infosAttribut['pattern']) . '"' : '';
-                $informations[$attribut]['min'] = isset($infosAttribut['min']) && ($infosAttribut['min'] || $infosAttribut['min'] === 0) ? 'min="' . $infosAttribut['min'] . '"' : '';
-                $informations[$attribut]['max'] = isset($infosAttribut['max']) && ($infosAttribut['max'] || $infosAttribut['max'] === 0) ? 'max="' . $infosAttribut['max'] . '"' : '';
-                $informations[$attribut]['class'] = ($inputType == 'checkbox' ? 'form-check-input' : 'form-control')
+                $donnees[$attribut]['optionnel'] = $optionnel;
+                $donnees[$attribut]['select_liste'] = $selectListe ?? [];
+                $donnees[$attribut]['data_msg'] = $infosAttribut['data_msg'] ? 'data-msg="' . htmlspecialchars($infosAttribut['data_msg']) . '"' : '';
+                $donnees[$attribut]['pattern'] = isset($infosAttribut['pattern']) ? 'pattern="' . htmlspecialchars($infosAttribut['pattern']) . '"' : '';
+                $donnees[$attribut]['min'] = isset($infosAttribut['min']) && ($infosAttribut['min'] || $infosAttribut['min'] === 0) ? 'min="' . $infosAttribut['min'] . '"' : '';
+                $donnees[$attribut]['max'] = isset($infosAttribut['max']) && ($infosAttribut['max'] || $infosAttribut['max'] === 0) ? 'max="' . $infosAttribut['max'] . '"' : '';
+                $donnees[$attribut]['class'] = ($inputType == 'checkbox' ? 'form-check-input' : 'form-control')
                     . ($optionnel ? ' input-optionnel' : '');
             }
         }
-        return collect($informations);
+        return collect($donnees);
     }
 
     /**
@@ -275,7 +255,7 @@ dd($listeAttributsVisibles);
         $tableKebabCase = str_replace('_', '-', $table);
 
         $key = "crud-$tableKebabCase-index";
-        if (!Config::get('constant.activer_cache', false))
+        if (!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -299,6 +279,10 @@ dd($listeAttributsVisibles);
                     $checkbox[$i] = false;
                     if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'checkbox')
                         $checkbox[$i] = true;
+
+                    if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'select' && isset($infosAttribut['select_liste']))
+                        $selectListe[$i] = config('constant.' . $infosAttribut['select_liste']);
+
                     $i++;
                 }
                 $nbAttributs = $i;
@@ -315,9 +299,13 @@ dd($listeAttributsVisibles);
                     for ($i = 0; $i < $nbAttributs; $i++) {
                         $contenu = $instance[$attribut[$i]];
 
-                        // Si $ontenu est un id référence d'une autre table, alors on récupère sa vraie valeur
-                        if(isset($listeTableAttribut[$i]))
+                        // Si $contenu est un id référence d'une autre table, alors on récupère sa vraie valeur
+                        if($contenu && isset($listeTableAttribut[$i]))
                             $contenu = $listeTableAttribut[$i][$contenu]['nom'];
+
+                        // Si $contenu est une liste dans le fichier de configuration
+                        if($contenu && isset($selectListe[$i]))
+                            $contenu = $selectListe[$i][$contenu][0];
 
                         if($checkbox[$i])
                             $contenu = $contenu ? 'Oui' : 'Non';

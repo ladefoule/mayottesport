@@ -16,7 +16,7 @@ class Match extends Model
      * @var array
      */
     protected $fillable = ['date', 'heure', 'acces_bloque', 'nb_modifs', 'score_eq_dom', 'score_eq_ext',
-                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext'];
+                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext', 'uniqid'];
 
     /**
      * La fonction nous renvoie le résultat du matchpar rapport à l'équipe $equipeId
@@ -69,18 +69,18 @@ class Match extends Model
     {
         $equipeIdDom = $request['equipe_id_dom'] ?? 0;
         $equipeIdExt = $request['equipe_id_ext'] ?? 0;
-        $champJourneeId = $request['journee_id'] ?? 0;
-        $uniqueEquipeDomDom = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $champJourneeId) {
-            return $query->whereEquipeIdDom($equipeIdDom)->whereChampJourneeId($champJourneeId);
+        $journeeId = $request['journee_id'] ?? 0;
+        $uniqueEquipeDomDom = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $journeeId) {
+            return $query->whereEquipeIdDom($equipeIdDom)->whereJourneeId($journeeId);
         });
-        $uniqueEquipeDomExt = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $champJourneeId) {
-            return $query->whereEquipeIdExt($equipeIdDom)->whereChampJourneeId($champJourneeId);
+        $uniqueEquipeDomExt = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $journeeId) {
+            return $query->whereEquipeIdExt($equipeIdDom)->whereJourneeId($journeeId);
         });
-        $uniqueEquipeExtDom = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $champJourneeId) {
-            return $query->whereEquipeIdDom($equipeIdExt)->whereChampJourneeId($champJourneeId);
+        $uniqueEquipeExtDom = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
+            return $query->whereEquipeIdDom($equipeIdExt)->whereJourneeId($journeeId);
         });
-        $uniqueEquipeExtExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $champJourneeId) {
-            return $query->whereEquipeIdExt($equipeIdExt)->whereChampJourneeId($champJourneeId);
+        $uniqueEquipeExtExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
+            return $query->whereEquipeIdExt($equipeIdExt)->whereJourneeId($journeeId);
         });
 
         if($match){
@@ -132,7 +132,7 @@ class Match extends Model
     public function infos()
     {
         $key = 'match-'.$this->uniqid;
-        if(!Config::get('constant.activer_cache', false))
+        if(!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -156,13 +156,10 @@ class Match extends Model
         $saison = $this->journee->saison;
         $competition = $saison->competition;
         $commentaires = $this->commentaires->sortByDesc('created_at');
-        foreach ($commentaires as $commentaire) {
+        foreach ($commentaires as $commentaire)
             $commentaire->pseudo = $commentaire->user->pseudo;
-            // $commentaire->created_at = $commentaire->created_at->format('d/m/Y à H:i:s');
-        }
-        // $commentaires->user;
-        // dd($commentaires);
-        // $commentaires->pluck('pseudo');
+
+
         return [
             'id' => $this->id,
             'nom' => $this->nom,

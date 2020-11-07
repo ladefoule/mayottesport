@@ -2,30 +2,31 @@
 
 // On insère les crud_tables
 $crudTables = [
-    [1, 'sports', 1, 'nom'],
-    [2, 'competitions', 0, 'nom'],
-    [4, 'baremes', 0, 'nom'],
-    [5, 'equipes', 1, 'nom'],
-    [6, 'saisons', 1, 'competition_id'],
-    [7, 'crud_tables', 1, 'nom'],
-    [8, 'crud_attributs', 1, 'crud_table_id'],
-    [9, 'modifs', 0, 'match_id'],
-    [10, 'users', 1, 'pseudo'],
-    [11, 'villes', 0, 'nom'],
-    [12, 'journees', 1, 'saison_id'],
-    [13, 'matches', 1, 'journee_id'],
-    [14, 'terrains', 0, 'nom'],
-    [15, 'crud_attribut_infos', 1, 'crud_attribut_id'],
-    [16, 'roles', 0, 'nom'],
-    [17, 'regions', 0, 'nom'],
-    [18, 'coupes', 0, 'nom'],
-    [21, 'saison_equipe', 0, 'saison_id'],
-    [27, 'failed_jobs', 0, NULL],
-    [28, 'migrations', 0, NULL],
-    [29, 'nom_tours', 0, 'nom'],
-    [30, 'password_resets', 0, NULL],
-    [31, 'bareme_infos', 0, 'bareme_id'],
-    [32, 'match_infos', 0, 'match_id'],
+   [1, 'sports', 1, 'nom'],
+   [2, 'competitions', 1, 'nom'],
+   [4, 'baremes', 0, 'nom'],
+   [5, 'equipes', 1, 'nom'],
+   [6, 'saisons', 1, 'competition_id'],
+   [7, 'crud_tables', 1, 'nom'],
+   [8, 'crud_attributs', 1, 'crud_table_id'],
+   [9, 'modifs', 0, 'match_id'],
+   [10, 'users', 0, 'pseudo'],
+   [11, 'villes', 0, 'nom'],
+   [12, 'journees', 1, 'saison_id'],
+   [13, 'matches', 1, 'journee_id'],
+   [14, 'terrains', 0, 'nom'],
+   [15, 'crud_attribut_infos', 1, 'crud_attribut_id'],
+   [16, 'roles', 0, 'nom'],
+   [17, 'regions', 0, 'nom'],
+   [21, 'saison_equipe', 0, 'saison_id'],
+   [27, 'failed_jobs', 0, NULL],
+   [28, 'migrations', 0, NULL],
+   [29, 'nom_tours', 0, 'nom'],
+   [30, 'password_resets', 0, NULL],
+   [31, 'bareme_infos', 0, 'bareme_id'],
+   [32, 'match_infos', 0, 'match_id'],
+   [33, 'commentaires', 0, 'created_at'],
+   [34, 'equipe_saison', 1, NULL]
 ];
 foreach ($crudTables as $donnees) {
     $crudTable = new App\CrudTable([
@@ -57,7 +58,7 @@ $crudAttributs = [
     [19, 8, 'crud_table_id', 'Table', 7, NULL, 'Veuillez faire un choix de <span class=\'text-danger font-italic\'>Table</span>'],
     [22, 8, 'attribut_crud_table_id', 'Table de réference de l\'attribut', 7, 1, NULL],
     [23, 8, 'label', 'Label à afficher pour l\'attribut', NULL, NULL, NULL],
-    [27, 6, 'championnat_id', 'Championnat', 2, NULL, NULL],
+    [27, 6, 'competition_id', 'Compétition', 2, 0, NULL],
     [28, 6, 'annee_debut', 'Année (début)', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Année (début)</span> est obligatoire et doit être inclus entre 1980 et 3000.'],
     [29, 6, 'annee_fin', 'Année (fin)', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Année (fin)</span> est obligatoire et doit être inclus entre 1980 et 3000.'],
     [32, 8, 'optionnel', 'Champ optionnel ?', NULL, 1, NULL],
@@ -73,7 +74,7 @@ $crudAttributs = [
     [49, 13, 'journee_id', 'Journée', 12, 0, 'Veuillez sélectionner une <span class=\'text-danger font-italic\'>Journée</span>.'],
     [50, 13, 'equipe_id_dom', 'Equipe dom.', 5, 0, 'Veuillez faire un choix d\'<span class=\'text-danger font-italic\'>Equipe dom.</span>'],
     [51, 13, 'equipe_id_ext', 'Equipe ext.', 5, 0, 'Veuillez faire un choix d\'<span class=\'text-danger font-italic\'>Equipe ext.</span>'],
-    [52, 6, 'bareme_id', 'Barème', 4, 0, 'Veuillez sélectionner un <span class=\'text-danger font-italic\'>Barème</span>.'],
+    [52, 6, 'bareme_id', 'Barème', 4, 1, NULL],
     [53, 14, 'nom', 'Nom', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Nom</span> est obligatoire et  doit comporter entre 3 et 50 caractères.'],
     [54, 14, 'ville_id', 'Ville', 11, 0, 'Veuillez sélectionner une <span class=\'text-danger font-italic\'>Ville</span>.'],
     [55, 11, 'nom', 'Ville', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Ville</span> est obligatoire et doit comporter entre 3 et 50 caractères.'],
@@ -81,7 +82,7 @@ $crudAttributs = [
     [59, 13, 'heure', 'Heure', NULL, 1, 'Le champ <span class=\'text-danger font-italic\'>Heure</span> doit contenir une heure valide s\'il est rempli. Format HH:MM ou HH:MM:SS.'],
     [60, 13, 'terrain_id', 'Terrain', 14, 0, 'Veuillez sélectionner un <span class=\'text-danger font-italic\'>Terrain</span>.'],
     [61, 15, 'crud_attribut_id', 'Attribut', 8, 0, 'Veuillez sélectionner un <span class=\'text-danger font-italic\'>Attribut</span>.'],
-    [62, 15, 'information', 'Information', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Information</span> est obligatoire. \r\nIl doit être égal à un des valeurs suivantes : 1 => liste_pos/ 2=> vue_pos/ 3=> edit_pos/ 4 => input_type/ 5 => pattern/ 6=> min/ 7 => max'],
+    [62, 15, 'propriete_id', 'Propriété', NULL, 0, 'Veuillez sélectionner une <span class=\'text-danger font-italic\'>Propriété</span>.'],
     [63, 15, 'valeur', 'Valeur', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Valeur</span> est obligatoire.'],
     [64, 10, 'name', 'Nom', NULL, 0, 'Le <span class=\'text-danger font-italic\'>Nom</span> est obligatoire.'],
     [65, 10, 'first_name', 'Prénom', NULL, 1, 'Le <span class=\'text-danger font-italic\'>Prénom</span> est optionnel. S\'il est rempli, il doit comporter entre 3 et 50 caractères.'],
@@ -97,10 +98,11 @@ $crudAttributs = [
     [75, 13, 'score_eq_ext', 'Score (équipe ext.)', NULL, 1, 'Le champ <span class=\'text-danger font-italic\'>Score (ext.)</span> est optionnel.'],
     [76, 13, 'nb_modifs', 'Nombre de modifs', NULL, 0, NULL],
     [77, 13, 'acces_bloque', 'Accès bloqué', NULL, 0, NULL],
-    [79, 18, 'nom', 'Nom', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>XXX</span>'],
     [80, 7, 'nom', 'Nom', NULL, 0, NULL],
     [81, 7, 'tri_defaut', 'OrderBy par défaut', NULL, 1, 'Le champ <span class=\'text-danger font-italic\'>Order by</span> ne peut dépasser 50 caractères.'],
-    [82, 7, 'crudable', 'Crudable', NULL, 1, NULL]
+    [82, 7, 'crudable', 'Crudable', NULL, 1, NULL],
+    [83, 2, 'type', 'Type', NULL, 0, 'Veuillez sélectionner un <span class=\'text-danger font-italic\'>Type</span> de compétition.'],
+    [84, 13, 'nom', 'Rencontre', NULL, 0, NULL]
 
 ];
 foreach ($crudAttributs as $donnees) {
@@ -120,7 +122,7 @@ foreach ($crudAttributs as $donnees) {
 $crudAttributInfos = [
     [1, 1, '1'],
     [2, 1, '2'],
-    [3, 1, '1'],
+    [3, 1, '2'],
     [4, 1, '2'],
     [6, 1, '1'],
     [7, 1, '2'],
@@ -135,8 +137,6 @@ $crudAttributInfos = [
     [45, 1, '1'],
     [46, 1, '2'],
     [49, 1, '1'],
-    [50, 1, '2'],
-    [51, 1, '3'],
     [53, 1, '1'],
     [54, 1, '2'],
     [55, 1, '1'],
@@ -290,7 +290,6 @@ $crudAttributInfos = [
     [77, 2, '10'],
     [77, 3, '9'],
     [77, 4, 'checkbox'],
-    [79, 1, '1'],
     [59, 4, 'time'],
     [82, 4, 'checkbox'],
     [80, 1, '1'],
@@ -299,12 +298,19 @@ $crudAttributInfos = [
     [81, 2, '2'],
     [81, 3, '2'],
     [82, 2, '3'],
-    [82, 3, '3']
+    [82, 3, '3'],
+    [83, 4, 'select'],
+    [83, 3, '4'],
+    [83, 8, 'type-competition'],
+    [83, 2, '4'],
+    [62, 4, 'select'],
+    [62, 8, 'crud-attribut'],
+    [84, 1, '1']
 ];
 foreach ($crudAttributInfos as $donnees) {
     $crudAttributInfo = new App\CrudAttributInfo([
         'crud_attribut_id' => $donnees[0],
-        'information' => $donnees[1],
+        'propriete_id' => $donnees[1],
         'valeur' => $donnees[2]
     ]);
     $crudAttributInfo->save();

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
-class FootMatchController extends Controller
+class MatchController extends Controller
 {
     /**
      * Accès Back-Office
@@ -26,13 +26,13 @@ class FootMatchController extends Controller
      */
     public function lister()
     {
-        Log::info(" -------- FootMatchController : lister -------- ");
-        $idFootball = Sport::firstWhere('nom', 'like', 'football')->id ?? 0;
-        $championnats = Competition::where('sport_id', $idFootball)->where('type', 'Championnat')->orderBy('nom')->get();
-        $h1 = $title = 'Football - Les matches de championnat';
+        Log::info(" -------- MatchController : lister -------- ");
+        $sports = Sport::get();
+        // $competitions = Competition::where('sport_id', $idFootball)->where('type', 1)->orderBy('nom')->get();
+        $h1 = $title = ' Parcourir les matches';
         return view(
-            'admin.matches.foot.lister',
-            ['title' => $title, 'h1' => $h1, 'championnats' => $championnats]
+            'admin.matches.lister',
+            ['title' => $title, 'h1' => $h1, 'sports' => $sports]
         );
     }
 
@@ -44,7 +44,7 @@ class FootMatchController extends Controller
      */
     public function ajouter()
     {
-        Log::info(" -------- FootMatchController : ajouter -------- ");
+        Log::info(" -------- MatchController : ajouter -------- ");
         $match = new Match();
         $competition = new Competition();
         $saison = new Saison();
@@ -71,27 +71,27 @@ class FootMatchController extends Controller
      * @param int $matchId
      * @return \Illuminate\View\View|void
      */
-    public function editer(int $matchId)
-    {
-        Log::info(" -------- FootMatchController : editer -------- ");
-        $match = Match::whereUniqid($matchId)->firstOrFail();
-        $infosMatch = $match->MatchInfos;
-        $liens = infosMatch();
-        foreach ($infosMatch as $matchInfo) {
-            $info = $matchInfo->information; // On récupère ici un entier
-            $attribut = $liens[$info]; // On récupère l'attribut qui correspond à cet entier
-            $$attribut = $matchInfo->valeur;
-        }
+    // public function editer(int $matchId)
+    // {
+    //     Log::info(" -------- MatchController : editer -------- ");
+    //     $match = Match::whereUniqid($matchId)->firstOrFail();
+    //     $infosMatch = $match->MatchInfos;
+    //     $liens = infosMatch();
+    //     foreach ($infosMatch as $matchInfo) {
+    //         $info = $matchInfo->information; // On récupère ici un entier
+    //         $attribut = $liens[$info]; // On récupère l'attribut qui correspond à cet entier
+    //         $$attribut = $matchInfo->valeur;
+    //     }
 
-        // On insère les infos supplémentaires du match (forfaits/penalités/tab ... : tous les attributs présents dans le fichier JSON)
-        foreach($liens as $cle => $lien)
-            $match->$lien = $$lien ?? '';
+    //     // On insère les infos supplémentaires du match (forfaits/penalités/tab ... : tous les attributs présents dans le fichier JSON)
+    //     foreach($liens as $cle => $lien)
+    //         $match->$lien = $$lien ?? '';
 
-        $title = "Modification de match";
-        return view('admin.matches.foot.editer', [
-            'Match' => $match, 'title' => $title
-        ]);
-    }
+    //     $title = "Modification de match";
+    //     return view('admin.matches.foot.editer', [
+    //         'Match' => $match, 'title' => $title
+    //     ]);
+    // }
 
     /**
      * Accès Back-Office
@@ -101,48 +101,48 @@ class FootMatchController extends Controller
      * @param int $matchId
      * @return \Illuminate\Http\RedirectResponse|void
      */
-    public function editerPost(Request $request, int $matchId)
-    {
-        Log::info(" -------- FootMatchController : editerPost -------- ");
-        $match = Match::whereUniqid($matchId)->firstOrFail();
-        $request['penalite_eq_dom'] = $request->has('penalite_eq_dom');
-        $request['penalite_eq_ext'] = $request->has('penalite_eq_ext');
-        $request['forfait_eq_dom'] = $request->has('forfait_eq_dom');
-        $request['forfait_eq_ext'] = $request->has('forfait_eq_ext');
-        $rules = [
-            'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
-            'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
-            'forfait_eq_dom' => 'boolean',
-            'forfait_eq_ext' => 'boolean',
-            'penalite_eq_dom' => 'boolean',
-            'penalite_eq_ext' => 'boolean',
-            'date' => 'nullable|date|date_format:Y-m-d',
-            'heure' => 'nullable|string|size:5'
-        ];
+    // public function editerPost(Request $request, int $matchId)
+    // {
+    //     Log::info(" -------- MatchController : editerPost -------- ");
+    //     $match = Match::whereUniqid($matchId)->firstOrFail();
+    //     $request['penalite_eq_dom'] = $request->has('penalite_eq_dom');
+    //     $request['penalite_eq_ext'] = $request->has('penalite_eq_ext');
+    //     $request['forfait_eq_dom'] = $request->has('forfait_eq_dom');
+    //     $request['forfait_eq_ext'] = $request->has('forfait_eq_ext');
+    //     $rules = [
+    //         'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
+    //         'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
+    //         'forfait_eq_dom' => 'boolean',
+    //         'forfait_eq_ext' => 'boolean',
+    //         'penalite_eq_dom' => 'boolean',
+    //         'penalite_eq_ext' => 'boolean',
+    //         'date' => 'nullable|date|date_format:Y-m-d',
+    //         'heure' => 'nullable|string|size:5'
+    //     ];
 
-        $request = Validator::make($request->all(), $rules)->validate();
-        $infos = $match->MatchInfos;
-        foreach ($infos as $matchInfo)
-            $matchInfo->delete();// On supprime tous les pénalités/forfaits éventuels qui existaient déjà
+    //     $request = Validator::make($request->all(), $rules)->validate();
+    //     $infos = $match->MatchInfos;
+    //     foreach ($infos as $matchInfo)
+    //         $matchInfo->delete();// On supprime tous les pénalités/forfaits éventuels qui existaient déjà
 
-        $liens = infosMatch();
-        foreach ($liens as $key => $attribut)
-            if($request[$attribut]) // On insère les nouvelles informations
-                MatchInfo::create(['information' => $key, 'valeur' => $request[$attribut], 'match_id' => $match->id]);
+    //     $liens = infosMatch();
+    //     foreach ($liens as $key => $attribut)
+    //         if($request[$attribut]) // On insère les nouvelles informations
+    //             MatchInfo::create(['information' => $key, 'valeur' => $request[$attribut], 'match_id' => $match->id]);
 
-        $score_eq_dom = $request['score_eq_dom'] ?? '';
-        $score_eq_ext = $request['score_eq_ext'] ?? '';
+    //     $score_eq_dom = $request['score_eq_dom'] ?? '';
+    //     $score_eq_ext = $request['score_eq_ext'] ?? '';
 
-        // S'il y a un changement au niveau du score
-        if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
-            $nbModifs = $match->nb_modifs + 1;
-            $request['nb_modifs'] = $nbModifs;
-        }
+    //     // S'il y a un changement au niveau du score
+    //     if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
+    //         $nbModifs = $match->nb_modifs + 1;
+    //         $request['nb_modifs'] = $nbModifs;
+    //     }
 
-        $match->update($request);
-        $this::forgetCaches($match);
-        return redirect()->route('matches.foot.editer', ['id' => $matchId]);
-    }
+    //     $match->update($request);
+    //     $this::forgetCaches($match);
+    //     return redirect()->route('matches.foot.editer', ['id' => $matchId]);
+    // }
 
     /**
      * Accès à la view du match
@@ -156,7 +156,7 @@ class FootMatchController extends Controller
      */
     public function match(string $competition, string $annee, string $equipeDom, string $equipeExt, string $id)
     {
-        Log::info(" -------- FootMatchController : match -------- ");
+        Log::info(" -------- MatchController : match -------- ");
         $match = Match::whereUniqid($id)->firstOrFail();
         $saison = $match->journee->saison;
 
@@ -180,7 +180,7 @@ class FootMatchController extends Controller
      */
     public function resultat(string $matchId)
     {
-        Log::info(" -------- FootMatchController : resultat -------- ");
+        Log::info(" -------- MatchController : resultat -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
         $accesBloque = $match->acces_bloque;
         if ($accesBloque){
@@ -203,7 +203,7 @@ class FootMatchController extends Controller
      */
     public function resultatPost(Request $request, string $matchId)
     {
-        Log::info(" -------- FootMatchController : resultatPost -------- ");
+        Log::info(" -------- MatchController : resultatPost -------- ");
         $request = Validator::make($request->all(), [
             'score_eq_dom' => 'required|integer|min:0|max:30',
             'score_eq_ext' => 'required|integer|min:0|max:30',
@@ -246,7 +246,7 @@ class FootMatchController extends Controller
      */
     public function horaire($matchId)
     {
-        Log::info(" -------- FootMatchController : horaire -------- ");
+        Log::info(" -------- MatchController : horaire -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
 
         $infos = $match->infos();
@@ -264,7 +264,7 @@ class FootMatchController extends Controller
      */
     public function horairePost(Request $request, string $matchId)
     {
-        Log::info(" -------- FootMatchController : horairePost -------- ");
+        Log::info(" -------- MatchController : horairePost -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
         $request = Validator::make($request->all(), [
             'date' => 'nullable|date',
@@ -295,9 +295,9 @@ class FootMatchController extends Controller
      * @param Request $request
      * @return void
      */
-    public function supprimer(Request $request)
+    public function delete(Request $request)
     {
-        Log::info(" -------- FootMatchController : supprimer -------- ");
+        Log::info(" -------- MatchController : delete -------- ");
         $validator = Validator::make($request->all(), [
             'delete' => 'required|array',
             'delete.*' => "integer|exists:champ_matches,id"
@@ -323,7 +323,7 @@ class FootMatchController extends Controller
      */
     private static function forgetCaches(Match $match)
     {
-        Log::info(" -------- FootMatchController : forgetCaches -------- ");
+        Log::info(" -------- MatchController : forgetCaches -------- ");
         Cache::forget('match-' . $match->uniqid); // Les infos du match
         Cache::forget('journee-' . $match->journee->id); // Les infos de la journée
         Cache::forget('classement-' . $match->journee->saison->id); // Le classement de la saison

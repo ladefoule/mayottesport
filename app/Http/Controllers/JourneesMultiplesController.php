@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Sport;
-use App\Competition;
 use App\Saison;
 use App\Journee;
 use Illuminate\Http\Request;
@@ -45,7 +44,7 @@ class JourneesMultiplesController extends Controller
         return view('admin.journees.multi.editer', [
             'competition' => $competition->nom,
             'sport' => $sport->nom,
-            'champSaison' => $saison->nom,
+            'saison' => $saison->nom,
             'saisonId' => $saisonId,
             'nbJournees' => $nbJournees,
             'title' => $title,
@@ -95,7 +94,7 @@ class JourneesMultiplesController extends Controller
                 }
             }
         }
-        return redirect()->route('champ-journees.multi.voir', ['id' => $saisonId]);
+        return redirect()->route('journees.multi.voir', ['id' => $saisonId]);
     }
 
     /**
@@ -112,7 +111,7 @@ class JourneesMultiplesController extends Controller
         $journees = $saison->journees->sortBy('numero');
 
         return view('admin.journees.multi.voir', [
-            'champSaison' => $saison->nom,
+            'saison' => $saison->nom,
             'competition' => $competition->nom,
             'sport' => $sport->nom,
             'title' => $title,

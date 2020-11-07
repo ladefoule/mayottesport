@@ -59,10 +59,10 @@
                         @elseif ($inputType == 'select' && $selectListe)
                             <select name="{{ $attribut }}" id="{{ $attribut }}" class="{{ $className }} @error($attribut) is-invalid @enderror" <?= $dataMsg ?>>
                                 <option value="">Sélectionner</option>
-                                @foreach ($selectListe as $id => $valeur)
+                                @foreach ($selectListe as $id => $value)
                                     <option value="{{ $id }}"
-                                        @if ($infos['valeur'] == $id) selected @endif>
-                                        {{ $valeur }}
+                                        @if ($valeur == $id) selected @endif>
+                                        {{ $value[1] }}
                                     </option>
                                 @endforeach
                             </select>

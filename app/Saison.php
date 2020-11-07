@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,7 +43,7 @@ class Saison extends Model
             'annee_debut' => ['required','integer','min:2000','max:3000',$unique],
             'annee_fin' => 'required|integer|min:2000|max:3000|gte:annee_debut',
             'nb_journees' => 'required|integer|min:1|max:100',
-            'bareme_id' => 'required|exists:baremes,id',
+            'bareme_id' => 'nullable|exists:baremes,id',
             'competition_id' => 'required|exists:competitions,id',
             'finie' => 'boolean'
         ];
@@ -60,7 +59,7 @@ class Saison extends Model
     public function classement()
     {
         $key = 'classement-'.$this->id;
-        if(!Config::get('constant.activer_cache', false))
+        if(!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))

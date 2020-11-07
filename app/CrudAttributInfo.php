@@ -16,7 +16,7 @@ class CrudAttributInfo extends Model
      * @var array
      */
     protected $fillable = [
-        'crud_attribut_id', 'information_id', 'valeur'
+        'crud_attribut_id', 'propriete_id', 'valeur'
     ];
 
     /**
@@ -28,11 +28,11 @@ class CrudAttributInfo extends Model
      */
     public static function rules(Request $request, CrudAttributInfo $crudAttributInfo = null)
     {
-        $informationId = $request['information_id'] ?? '';
+        $proprieteId = $request['propriete_id'] ?? '';
         $crudAttributId = $request['crud_attribut_id'] ?? '';
 
-        $unique = Rule::unique('crud_attribut_infos')->where(function ($query) use ($informationId, $crudAttributId) {
-            return $query->whereInformationId($informationId)->whereCrudAttributId($crudAttributId);
+        $unique = Rule::unique('crud_attribut_infos')->where(function ($query) use ($proprieteId, $crudAttributId) {
+            return $query->whereProprieteId($proprieteId)->whereCrudAttributId($crudAttributId);
         });
 
         if($crudAttributInfo)
@@ -40,7 +40,7 @@ class CrudAttributInfo extends Model
 
         $rules = [
             'crud_attribut_id' => ['required','integer','exists:crud_attributs,id',$unique],
-            'information_id' => 'required|integer|min:0',
+            'propriete_id' => 'required|integer|min:0',
             'valeur' => 'required|string|max:255',
         ];
         $messages = ['attribut.unique' => "Cet attribut est déjà présent."];

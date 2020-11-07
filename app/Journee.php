@@ -59,7 +59,7 @@ class Journee extends Model
     public function calendrier()
     {
         $key = 'journee-'.$this->id;
-        if(!Config::get('constant.activer_cache', false))
+        if(!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -74,7 +74,7 @@ class Journee extends Model
      * Génération du calendrier s'il n'est plus en Cache.
      * La fonction renvoie une collection qui contient les infos de tous les matches de la journée.
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public function genererCalendrier()
     {
@@ -110,7 +110,7 @@ class Journee extends Model
             $i++;
         }
 
-        return new Collection($calendrier);
+        return collect($calendrier);
     }
 
 

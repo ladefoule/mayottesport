@@ -17,13 +17,13 @@ class CreateMatchesTable extends Migration {
             $table->bigIncrements('id');
             $table->string('uniqid')->unique();
             $table->unsignedBigInteger('equipe_id_dom');
-            $table->foreign('equipe_id_dom')->references('id')->on('equipes');
+            $table->foreign('equipe_id_dom')->references('id')->on('equipes')->onDelete('restrict');
             $table->unsignedBigInteger('equipe_id_ext');
-            $table->foreign('equipe_id_ext')->references('id')->on('equipes');
+            $table->foreign('equipe_id_ext')->references('id')->on('equipes')->onDelete('restrict');
             $table->unsignedBigInteger('terrain_id');
-            $table->foreign('terrain_id')->references('id')->on('terrains');
+            $table->foreign('terrain_id')->references('id')->on('terrains')->onDelete('restrict');
             $table->unsignedBigInteger('journee_id');
-            $table->foreign('journee_id')->references('id')->on('journees');
+            $table->foreign('journee_id')->references('id')->on('journees')->onDelete('restrict');
 			$table->date('date')->nullable();
 			$table->string('heure', 5)->nullable();
 			$table->boolean('acces_bloque')->nullable();

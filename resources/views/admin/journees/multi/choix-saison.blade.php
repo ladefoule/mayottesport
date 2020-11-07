@@ -39,11 +39,11 @@
 
             <div class="col-12 form-row justify-content-center mb-3">
                 <div class="col-md-6 d-flex flex-wrap">
-                    <label for="championnat_id">Choix du championnat</label>
-                    <select name="championnat_id" id="championnat_id" class="form-control @error('championnat_id') is-invalid @enderror">
+                    <label for="competition_id">Choix du championnat</label>
+                    <select name="competition_id" id="competition_id" class="form-control @error('competition_id') is-invalid @enderror">
                         <option value="">&nbsp;</option>
                     </select>
-                    @error('championnat_id')
+                    @error('competition_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -53,11 +53,11 @@
 
             <div class="col-12 form-row justify-content-center mb-3">
                 <div class="col-md-6 d-flex flex-wrap">
-                    <label for="champ_saison_id">Choix de la saison</label>
-                    <select name="champ_saison_id" id="champ_saison_id" class="form-control @error('champ_saison_id') is-invalid @enderror">
+                    <label for="saison_id">Choix de la saison</label>
+                    <select name="saison_id" id="saison_id" class="form-control @error('saison_id') is-invalid @enderror">
                         <option value="">&nbsp;</option>
                     </select>
-                    @error('champ_saison_id')
+                    @error('saison_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -77,20 +77,20 @@
 <script src="/js/journees-multiples-ajout.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var selects = '#sport_id, #championnat_id, #champ_saison_id'
+    var selects = '#sport_id, #competition_id, #saison_id'
     $(selects).select2();
     retour()
     verifierMonFormulaireEnJS('formulaire')
 
     let params = {
         selectSports: qs('#sport_id'),
-        selectChampionnats: qs('#championnat_id'),
-        selectSaisons: qs('#champ_saison_id'),
+        selectCompetitions: qs('#competition_id'),
+        selectSaisons: qs('#saison_id'),
         inputToken: qs('input[name=_token]'),
         method: 'POST',
-        urlAjaxChampionnats:"<?php echo route('ajax', ['table' => 'championnats']) ?>",
-        urlAjaxSaisons:"<?php echo route('ajax', ['table' => 'champ-saisons']) ?>",
-        urlAjaxUrlEditMultiJournees:"<?php echo route('champ-journees.ajax-url-editer') ?>"
+        urlAjaxCompetitions:"<?php echo route('ajax', ['table' => 'competitions']) ?>",
+        urlAjaxSaisons:"<?php echo route('ajax', ['table' => 'saisons']) ?>",
+        urlAjaxUrlEditMultiJournees:"<?php echo route('journees.ajax-url-editer') ?>"
     }
    journeesMultiples(params)
 })

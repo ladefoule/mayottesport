@@ -16,9 +16,9 @@ class CreateEquipeSaisonTable extends Migration {
 		{
             $table->bigIncrements('id');
             $table->unsignedBigInteger('equipe_id');
-            $table->foreign('equipe_id')->references('id')->on('equipes');
+            $table->foreign('equipe_id')->references('id')->on('equipes')->onDelete('cascade');
             $table->unsignedBigInteger('saison_id');
-            $table->foreign('saison_id')->references('id')->on('saisons');
+            $table->foreign('saison_id')->references('id')->on('saisons')->onDelete('cascade');
             $table->unique(['equipe_id','saison_id']);
 		});
 	}

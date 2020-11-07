@@ -1,9 +1,10 @@
-function ajaxTbodyMatchesFootChamp(idTable, urls)
+function ajaxTbodyMatches(idTable, urls)
 {
     var table = qs('#'+idTable)
     var url = urls['matches']
     var method = 'POST'
 
+    var sport_id = qs('#sport_id').value
     var competition_id = qs('#competition_id').value
     var saison_id = qs('#saison_id').value
     var equipe_id = qs('#equipe_id').value
@@ -13,7 +14,7 @@ function ajaxTbodyMatchesFootChamp(idTable, urls)
     // Requète Ajax pour récupérer les matches
     fetch(url, {
         method:method,
-        body:JSON.stringify({_token, journee_id, saison_id, competition_id, equipe_id}),
+        body:JSON.stringify({_token, journee_id, saison_id, competition_id, sport_id, equipe_id}),
         headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(res => res.json())
@@ -31,32 +32,35 @@ function ajaxTbodyMatchesFootChamp(idTable, urls)
                 checkbox.type = 'checkbox'
                 checkbox.value = id
                 tdCheckbox.appendChild(checkbox)
+                tdCheckbox.className = 'px-1'
                 tr.appendChild(tdCheckbox)
 
-                let journee = res[i]['journee']
+                let journee = res[i]['journee_nom']
                 td = dce('td')
                 td.innerHTML = journee
+                td.className = 'px-1'
                 tr.appendChild(td)
 
                 let rencontre = res[i]['nom']
                 td = dce('td')
-                // rencontre.align = 'left'
                 td.innerHTML = rencontre
+                td.className = 'px-1'
                 tr.appendChild(td)
 
                 let tdActions = dce('td')
                 tdActions.align = 'right'
+                tdActions.className = 'px-1'
                 tdActions.innerHTML = `
-                        <a href="/admin/autres/champ-matches/foot/${id}" title="Vue">
+                        <a href="${res[i]['href_show']}" title="Voir">
                             <button class="btn-sm btn-success">
                                 ${BOUTONVUE}
-                                <span class="d-none d-xl-inline">Vue</span>
+                                <span class="d-none d-xl-inline">Voir</span>
                             </button>
                         </a>
-                        <a href="/admin/autres/champ-matches/foot/editer/${id}" title="Editer">
+                        <a href="${res[i]['href_update']}" title="Editer">
                             <button class="btn-sm btn-info text-white">
                                 ${BOUTONEDIT}
-                                <span class="d-none d-xl-inline">Édit</span>
+                                <span class="d-none d-xl-inline">Editer</span>
                             </button>
                         </a>
                         <a href="" title="Supprimer">
@@ -77,38 +81,39 @@ function ajaxTbodyMatchesFootChamp(idTable, urls)
     .catch(err => cl(err))
 }
 
-function listeChampMatches(idTable, selects, urls)
+function listeMatches(idTable, selects, urls)
 {
-    var boutonSupprimerTout = qs('#supprimerSelection')
-    boutonSupprimerTout.addEventListener('click', function(e){
-        let ok = confirm("Supprimer la selection définitivement ?")
-        if(!ok){
-            e.preventDefault()
-            e.stopPropagation()
-        }
-        var lesCheckbox = qsa('input[type=checkbox]', qs('#'+idTable+' > tbody'))
-        var lesIdsASupprimer = []
-        lesCheckbox.forEach(element => {
-            let id = element.value
-            if(element.checked){
-                lesIdsASupprimer.push(id)
-            }
-        });
+    // var boutonSupprimerTout = qs('#supprimerSelection')
+    // boutonSupprimerTout.addEventListener('click', function(e){
+    //     let ok = confirm("Supprimer la selection définitivement ?")
+    //     if(!ok){
+    //         e.preventDefault()
+    //         e.stopPropagation()
+    //     }
+    //     var lesCheckbox = qsa('input[type=checkbox]', qs('#'+idTable+' > tbody'))
+    //     var lesIdsASupprimer = []
+    //     lesCheckbox.forEach(element => {
+    //         let id = element.value
+    //         if(element.checked){
+    //             lesIdsASupprimer.push(id)
+    //         }
+    //     });
 
-        $.ajax({
-            url: "<?php echo route('autres') ?>/champ-matches/foot/supprimer",
-            method: 'POST',
-            data: {delete:lesIdsASupprimer, _token:inputToken.value},
-            success: function(data) {
-                ajaxTbodyMatchesFootChamp(idTable, urls)
-            }
-        })
-    })
+    //     $.ajax({
+    //         url: urls['supprimer'],
+    //         method: 'POST',
+    //         data: {delete:lesIdsASupprimer, _token:inputToken.value},
+    //         success: function(data) {
+    //             ajaxTbodyMatches(idTable, urls)
+    //         }
+    //     })
+    // })
 
     selects.forEach(select => {
         select.onchange = function(){
-            var formAjax = qs('#formAjax')
+            // var formAjax = qs('#formAjax')
             var method = 'POST'
+            var selectSports = qs('#sport_id')
             var selectCompetitions = qs('#competition_id')
             var selectSaisons = qs('#saison_id')
             var selectEquipes = qs('#equipe_id')
@@ -117,6 +122,24 @@ function listeChampMatches(idTable, selects, urls)
             var table = qs('#'+idTable)
             var tbody = qs('tbody', table);
             var tbodyNew = dce('tbody')
+
+            if(this.id == 'sport_id'){
+                qs('#'+idTable+' tbody').innerHTML = ''
+                selectEquipes.innerHTML = ''
+                selectJournees.innerHTML = ''
+                let donneesRequeteAjax = {
+                    url : urls['competitions'],
+                    method : method,
+                    idSelect : 'competition_id',
+                    data : {sport_id:selectSports.value, _token:inputToken.value}
+                }
+
+                ajaxSelect(donneesRequeteAjax) // On récupère la liste des competitions
+                table.replaceChild(tbodyNew, tbody)
+                triDataTables(idTable)
+                return false; // On évite de charger tous les matches d'un même sport
+                            // On le fait que quand on aura la saison
+            }
 
             if(this.id == 'competition_id'){
                 qs('#'+idTable+' tbody').innerHTML = ''
@@ -165,7 +188,7 @@ function listeChampMatches(idTable, selects, urls)
                 }
             }
 
-            ajaxTbodyMatchesFootChamp(idTable, urls)
+            ajaxTbodyMatches(idTable, urls)
         }
     })
 }

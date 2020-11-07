@@ -26,7 +26,7 @@ $competition = Saison::whereId($saisonId)->first()->competition->nom;
     <div class="col-12 text-center py-3 row justify-content-between">
         <h3 class="col-12 h4 border-bottom-calendrier py-2"><?= $competition ?></h3>
         <?php
-            $journeeNumero = 1;
+            $journeeNumero = 10;
             $journee = Journee::whereSaisonId($saisonId)->whereNumero($journeeNumero)->first();
         ?>
         <div class="col-lg-8 pl-3">

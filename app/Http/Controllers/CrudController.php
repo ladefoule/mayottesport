@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cache;
-use App\CrudTable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -99,7 +98,7 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function create(Request $request, string $table)
+    public function createForm(Request $request, string $table)
     {
         Log::info(" -------- CrudController : create -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
@@ -111,34 +110,6 @@ class CrudController extends Controller
         $hrefs['index'] = route('crud.index', ['table' => $table]);
 
         return view('admin.crud.create', [
-            'donnees' => $donnees,
-            'h1' => $h1,
-            'title' => $title,
-            'hrefs' => $hrefs
-        ]);
-    }
-
-    /**
-     * Modification de l'élement qui a l'id $id de la table $table
-     *
-     * @param string $table
-     * @param int $id
-     * @return \Illuminate\View\View|void
-     */
-    public function update(Request $request, string $table, int $id)
-    {
-        Log::info(" -------- CrudController : update -------- ");
-        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $tablePascalCase = Str::ucfirst(Str::camel($table));
-        $h1 = $tablePascalCase . '/'.$id . ' : Editer';
-        $title = 'CRUD - Editer : ' . $tablePascalCase . '/'.$id;
-
-        $donnees = $crudTable->crud('update', $id);
-        $hrefs['index'] = route('crud.index', ['table' => $table]);
-        $hrefs['show'] = route('crud.show', ['table' => $table, 'id' => $id]);
-        $hrefs['delete'] = route('crud.delete', ['table' => $table, 'id' => $id]);
-
-        return view('admin.crud.update', [
             'donnees' => $donnees,
             'h1' => $h1,
             'title' => $title,
@@ -164,10 +135,41 @@ class CrudController extends Controller
         $rules = $rules['rules']; // On récupère les règles de validations
 
         $request = Validator::make($request->all(), $rules, $messages)->validate();
+        if($table == 'matches')
+            $request['uniqid'] = uniqid(); // On génére un uniqid pour les matches
+
         $instance = $modele::create($request);
 
         $this::forgetCaches($table, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);
+    }
+
+    /**
+     * Modification de l'élement qui a l'id $id de la table $table
+     *
+     * @param string $table
+     * @param int $id
+     * @return \Illuminate\View\View|void
+     */
+    public function updateForm(Request $request, string $table, int $id)
+    {
+        Log::info(" -------- CrudController : update -------- ");
+        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
+        $tablePascalCase = Str::ucfirst(Str::camel($table));
+        $h1 = $tablePascalCase . '/'.$id . ' : Editer';
+        $title = 'CRUD - Editer : ' . $tablePascalCase . '/'.$id;
+
+        $donnees = $crudTable->crud('update', $id);
+        $hrefs['index'] = route('crud.index', ['table' => $table]);
+        $hrefs['show'] = route('crud.show', ['table' => $table, 'id' => $id]);
+        $hrefs['delete'] = route('crud.delete', ['table' => $table, 'id' => $id]);
+
+        return view('admin.crud.update', [
+            'donnees' => $donnees,
+            'h1' => $h1,
+            'title' => $title,
+            'hrefs' => $hrefs
+        ]);
     }
 
     /**
@@ -222,9 +224,9 @@ class CrudController extends Controller
      * @param string $table
      * @return void
      */
-    public function supprimerAjax(Request $request, string $table)
+    public function deleteAjax(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : supprimerAjax -------- ");
+        Log::info(" -------- CrudController : deleteAjax -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $nomTable = $crudTable->nom;
@@ -234,7 +236,7 @@ class CrudController extends Controller
         ]);
 
         if ($validator->fails())
-            abort(404);
+            return response(null, 404);
 
         $request = $validator->validate();
         foreach ($request['ids'] as $id) {

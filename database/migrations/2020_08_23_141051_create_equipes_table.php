@@ -17,7 +17,7 @@ class CreateEquipesTable extends Migration {
 			$table->bigIncrements('id');
             $table->string('nom')->unique('equipe_unique');
             $table->unsignedBigInteger('sport_id');
-            $table->foreign('sport_id')->references('id')->on('sports');
+            $table->foreign('sport_id')->references('id')->on('sports')->onDelete('restrict');
 			$table->string('nom_complet')->nullable();
 			$table->boolean('feminine')->nullable();
 			$table->boolean('non_mahoraise')->nullable();

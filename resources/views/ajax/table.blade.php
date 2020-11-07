@@ -14,9 +14,9 @@ $joins = [
     'competitions' => ['sports'],
     'equipes' => ['saisons', 'sports'],
     'baremes' => ['sports'],
-    'saisons' => ['competitions', 'sports', 'baremes'],
-    'journees' => ['saisons', 'competitions', 'sports', 'baremes'],
-    'matches' => ['journees', 'saisons', 'competitions', 'sports', 'baremes', 'equipes'],
+    'saisons' => ['competitions', 'sports'/* , 'baremes' */],
+    'journees' => ['saisons', 'competitions', 'sports'/* , 'baremes' */],
+    'matches' => ['journees', 'saisons', 'competitions', 'sports'/* , 'baremes' */, 'equipes'],
 ];
 
 // Si la table n'est pas présente dans le tableau $joins
@@ -53,7 +53,7 @@ foreach ($joins[$table] as $tableJoin){
                 });
     }else if($table == 'equipes' && $tableJoin == 'saisons')
         // Mon algorithme ne permet pas de lier 2 tables séparées par une table pivot (d'où l'utilisation du leftJoin)
-        $liste = $liste->leftJoin('saison_equipe', 'equipe_id', '=', 'equipes.id')
+        $liste = $liste->leftJoin('equipe_saison', 'equipe_id', '=', 'equipes.id')
                 ->leftJoin('saisons', 'saison_id', '=', 'saisons.id');
     else
         $liste = $liste->join($tableJoin, $attributJoin, '=', "$tableJoin.id");
@@ -84,8 +84,11 @@ foreach ($liste as $key => $instance) {
     $liste[$key] = $instance;
     $liste[$key]['nom'] = $instance->nom; // Toutes les tables doivent avoir un attribut nom (natif ou non)
 
-    if($table == "matches")
-        $liste[$key]['journee'] = 'J' . str_pad($instance->journee->numero, 2, "0", STR_PAD_LEFT);
+    if($table == "matches"){
+        $liste[$key]['href_show'] = route('crud.show', ['table' => 'matches', 'id' => $instance->id]);
+        $liste[$key]['href_update'] = route('crud.update', ['table' => 'matches', 'id' => $instance->id]);
+        $liste[$key]['journee_nom'] = 'J' . str_pad($instance->journee->numero, 2, "0", STR_PAD_LEFT);
+    }
 }
 
 header('HTTP/1.0 200');
