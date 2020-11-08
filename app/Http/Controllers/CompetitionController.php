@@ -13,7 +13,6 @@ class CompetitionController extends Controller
 {
     public function index(string $sport, string $competition)
     {
-        // dd(strToUrl('Coupe de mayotte'));
         $sport = Sport::where('nom', 'like', $sport)->firstOrFail();
         $competitions = $sport->competitions;
         $find = false;
@@ -28,21 +27,52 @@ class CompetitionController extends Controller
 
         $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=',1)->orWhereNull('finie')->firstOrFail();
         $saisonId = $saison->id;
-        $derniereJournee = Journee::whereSaisonId($saisonId)->whereNumero(6)->first();
-        $prochaineJournee = Journee::whereSaisonId($saisonId)->whereNumero(7)->first();
-        // dd($derniereJournee);
-        $classement = Saison::find($saisonId)->afficherClassementSimplifie(true);
+        $derniereJournee = $saison->derniereJournee();
+        $prochaineJournee = $saison->prochaineJournee();
+
+        $types = config('constant.type-competition');
+        $type = $types[$competition->type][0];
+
         $derniereJournee = $derniereJournee->afficherCalendrier();
         $prochaineJournee = $prochaineJournee->afficherCalendrier();
 
-        return view('competition.index', [
-            'classement' => $classement,
+        $variables = [
             'derniereJournee' => $derniereJournee,
             'prochaineJournee' => $prochaineJournee,
             'competition' => $competition->nom,
-            'sport' => Str::lower($sport)
+            'sport' => Str::lower($sport->nom)
+        ];
+
+        if($type == 'championnat'){
+            $classement = Saison::find($saisonId)->classement();
+            $hrefClassement = route('classement', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]);
+
+            $variables['classement'] = $classement;
+            $variables['hrefClassement'] = $hrefClassement;
+        }
+
+        return view('competition.index', $variables);
+    }
+
+    public function classement(string $sport, string $competition)
+    {
+        $sport = Sport::where('nom', 'like', $sport)->firstOrFail();
+        $competitions = $sport->competitions;
+        $find = false;
+        foreach($competitions as $compet)
+            if(strToUrl($compet->nom) == $competition){
+                $competition = $compet;
+                $find = true;
+            break;
+            }
+        if(!$find)
+            abort(404);
+
+        $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=',1)->orWhereNull('finie')->firstOrFail();
+        $classement = $saison->classement();
+        return view('football.classement', [
+            'classement' => $classement,
+            'saison' => $saison->nom
         ]);
-
-
     }
 }

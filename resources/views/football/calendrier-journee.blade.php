@@ -1,4 +1,4 @@
-<h4 class="h5 py-2">{{ $journee }}</h4>
+<h4 class="h5 py-2 text-center">{{ $journee }}</h4>
 @foreach($calendrier as $i => $match)
     <a href="{{ $match['url'] }}" class="text-decoration-none text-body match-calendrier">
         <div class="row d-flex flex-nowrap py-2 border-bottom-dashed @if($i==1) border-top-dashed @endif">

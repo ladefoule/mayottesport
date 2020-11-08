@@ -51,6 +51,16 @@ class Saison extends Model
         return ['rules' => $rules, 'messages' => $messages, 'request' => $request];
     }
 
+    public function derniereJournee()
+    {
+        return $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+    }
+
+    public function prochaineJournee()
+    {
+        return $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+    }
+
     /**
      * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction genererClassement
      *
@@ -65,20 +75,21 @@ class Saison extends Model
         if (Cache::has($key))
             return Cache::get($key);
 
-        return Cache::rememberForever($key, function () {
+        return Cache::rememberForever($key, function (){
             return $this->genererClassement($this->competition->sport->id);
         });
     }
 
-    public function afficherClassementSimplifie()
+    public function afficherClassementSimplifie(bool $complet = false)
     {
-        $annee = $this->annee();
+        $sport = strToUrl($this->competition->sport->nom);
         $competition = strToUrl($this->competition->nom);
-        $hrefClassementComplet = route('classement', ['competition' => $competition, 'annee' => $annee]);
+        $hrefClassementComplet = route('classement', ['competition' => $competition, 'sport' => $sport]);
         $classement = $this->classement();
         return view('football.classement-simplifie', [
             'classement' => $classement,
-            'hrefClassementComplet' => $hrefClassementComplet
+            'hrefClassementComplet' => $hrefClassementComplet,
+            'complet' => $complet
         ]);
 
     }

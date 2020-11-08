@@ -3,8 +3,8 @@
 @section('title', 'classement')
 
 @section('content')
-<div class="col-12 mx-0 my-2 bg-white">
-    <h1 class="h3 py-4 text-center">Classement {{ \Str::lower($champSaison) }}</h1>
+<div class="col-12 mx-0 my-3 bg-white rounded py-3">
+    <h1 class="h3 pt-3 pb-4 text-center">Classement {{ \Str::lower($saison) }}</h1>
     <table class="w-100 table table-striped text-center table-classement" id="classement">
         <thead>
             <th>#</th>
@@ -24,10 +24,9 @@
             @endphp
             @foreach ($classement as $equipe)
                 <tr>
-                    <th scope="row">{{ $i++ }}</th>
+                    <td class="font-weight-bold">{{ $i++ }}</td>
                     <td align="left">
                         <a href="" class="text-dark">
-                            {{-- <img src="{{ $equipe['fanion'] }}" class="fanion-classement"> {{ $equipe['nom'] }} --}}
                             <div class="p-0 d-flex justify-content-start align-items-center">
                                 <div>
                                     <img src="{{ $equipe['fanion'] }}" alt="{{ $equipe['nom'] }}" class="fanion-calendrier pr-2">

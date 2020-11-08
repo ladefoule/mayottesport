@@ -1,4 +1,4 @@
-<h4 class="h5 py-2">Classement</h4>
+<h4 class="h5 py-2 text-center">Classement</h4>
 <table class="table table-striped">
     <thead>
         <th>Pos.</th>
@@ -19,4 +19,4 @@
         @endforeach
     </tbody>
 </table>
-<a href="{{ $hrefClassementComplet }}">Classement complet</a>
+<a class="d-block text-center" href="{{ $hrefClassementComplet }}">Classement complet</a>

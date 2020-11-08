@@ -34,7 +34,7 @@ class Journee extends Model
         // La valeur 0 ici n'a donc aucune importance, elle sert juste à éviter d'avoir null comme maximum
         $nbJournees = $saison->nb_journees ?? 0;
         $unique = Rule::unique('journees')->where(function ($query) use ($numero, $saisonId) {
-            return $query->whereNumero($numero)->whereChampSaisonId($saisonId);
+            return $query->whereNumero($numero)->whereSaisonId($saisonId);
         });
 
         if($journee){
@@ -112,7 +112,6 @@ class Journee extends Model
 
         return collect($calendrier);
     }
-
 
     /**
      * Affiche le résultat du calendrier de la journée envoyé à la view 'football.calendrier-journee'
