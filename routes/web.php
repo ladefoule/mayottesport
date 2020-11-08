@@ -17,6 +17,7 @@ Route::get('script.html', function(){ // Page pour tester une fonction ou un scr
     return view('script');
 });
 
+// Test
 Route::get('/', function () {return view('accueil');})->name('accueil');
 Route::get('/football/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('champ.foot.match');
 Route::get('/football/{competition}/{annee}/classement.html', 'SaisonController@classement')->name('classement');
