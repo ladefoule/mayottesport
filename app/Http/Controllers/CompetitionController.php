@@ -33,8 +33,8 @@ class CompetitionController extends Controller
         $types = config('constant.type-competition');
         $type = $types[$competition->type][0];
 
-        $derniereJournee = $derniereJournee->afficherCalendrier();
-        $prochaineJournee = $prochaineJournee->afficherCalendrier();
+        $derniereJournee = $derniereJournee ? $derniereJournee->afficherCalendrier() : '';
+        $prochaineJournee = $prochaineJournee ? $prochaineJournee->afficherCalendrier() : '';
 
         $variables = [
             'derniereJournee' => $derniereJournee,

@@ -9,12 +9,14 @@
         <h1 class="h4 text-center p-3">{{ $competition }}</h1>
     </div>
     <div class="col-lg-8 d-flex flex-wrap p-0">
-        <div class="col-12 pb-3 mb-3 px-0">
-            <h3 class="alert alert-danger text-center">Les derniers résultats</h3>
-            <div class="px-3">
-                {!! $derniereJournee !!}
+        @if (isset($derniereJournee))
+            <div class="col-12 pb-3 mb-3 px-0">
+                <h3 class="alert alert-danger text-center">Les derniers résultats</h3>
+                <div class="px-3">
+                    {!! $derniereJournee !!}
+                </div>
             </div>
-        </div>
+        @endif
         @if (isset($classement))
         <div class="col-12 p-0 mb-3 pb-3">
             {{-- <h1 class="h3 py-3 text-center">Le classement</h1> --}}
@@ -64,12 +66,14 @@
         </div>
         @endif
 
-        <div class="col-12 px-0">
-            <h3 class="alert alert-success text-center">La prochaine journée</h3>
-            <div class="px-3">
-                {!! $prochaineJournee !!}
+        @if (isset($prochaineJournee))
+            <div class="col-12 px-0">
+                <h3 class="alert alert-success text-center">La prochaine journée</h3>
+                <div class="px-3">
+                    {!! $prochaineJournee !!}
+                </div>
             </div>
-        </div>
+        @endif
     </div>
     <div class="col-lg-4 pl-5 pr-0 text-center">
         PUB

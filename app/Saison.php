@@ -150,7 +150,10 @@ class Saison extends Model
         };
 
         $classement = new Collection($classement);
-        return $classement->sortByDesc('points');
+        return $classement->sortByDesc(function ($ligne, $key) {
+            // Tri des classements par points/diff/buts marques/matches joués
+            return $ligne['points'] . $ligne['diff'] . $ligne['marques'] . $ligne['joues'];
+        });
     }
 
     /**

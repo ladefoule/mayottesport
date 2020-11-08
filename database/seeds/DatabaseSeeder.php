@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
         foreach ($competitions as $competition) {
             App\Competition::create([
                 'nom' => $competition,
-                'type' => 'Championnat',
+                'type' => 1,
                 'sport_id' => $footballId,
                 'created_at' => now(),
                 'updated_at' => now()
