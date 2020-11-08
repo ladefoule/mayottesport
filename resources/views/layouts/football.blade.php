@@ -48,7 +48,7 @@ $championnats = App\Competition::whereSportId($sportId)->get();
             <div class="row overflow-x-auto py-2" id="navbar-scroll-x">
                 <div class="d-flex justify-content-center" style="margin:0 auto">
                     @foreach ($championnats as $championnat)
-                        <a href="classement.html">
+                        <a href="{{ $championnat->url }}">
                             <button class="btn btn-sm mx-2 px-3 btn-light">
                                 {{ $championnat->nom }}
                             </button>

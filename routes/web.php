@@ -22,7 +22,7 @@ Route::get('/', function () {return view('accueil');})->name('accueil');
 Route::get('/football/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('champ.foot.match');
 Route::get('/football/{competition}/{annee}/classement.html', 'SaisonController@classement')->name('classement');
 
-// Route::get('/football/{competition}/{annee}/classement.html', 'ChampSaisonController@classement')->name('afficher-une-journee');
+Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');
 
 Auth::routes();
 
