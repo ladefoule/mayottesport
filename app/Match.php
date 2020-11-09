@@ -27,13 +27,15 @@ class Match extends Model
      */
     public function resultat(int $equipeId)
     {
+        // Si l'id saisi ne correspond à aucune des deux équipes
         if($this->equipe_id_dom != $equipeId && $this->equipe_id_ext != $equipeId)
             return false;
 
         $score_eq_dom = $this->score_eq_dom;
         $score_eq_ext = $this->score_eq_ext;
 
-        if($score_eq_dom == '' || $score_eq_ext == '')
+        // Si l'un des scores est null ou vide
+        if(strlen($score_eq_dom) == 0 || strlen($score_eq_ext) == 0)
             return false;
 
         if($score_eq_dom > $score_eq_ext)

@@ -1,6 +1,6 @@
-@extends('layouts.football')
+@extends('layouts.competition')
 
-@section('title', 'classement')
+@section('title', $competition . ' - Le classement')
 
 @section('content')
 <div class="col-12 mx-0 my-3 bg-white rounded py-3">

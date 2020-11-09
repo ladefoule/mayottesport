@@ -152,6 +152,7 @@ class Saison extends Model
         $classement = new Collection($classement);
         return $classement->sortByDesc(function ($ligne, $key) {
             // Tri des classements par points/diff/buts marques/matches joués
+            // \Log::info($ligne['points'] . $ligne['diff'] . $ligne['marques'] . $ligne['joues']);
             return $ligne['points'] . $ligne['diff'] . $ligne['marques'] . $ligne['joues'];
         });
     }

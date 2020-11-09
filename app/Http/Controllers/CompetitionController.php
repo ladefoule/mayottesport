@@ -72,7 +72,9 @@ class CompetitionController extends Controller
         $classement = $saison->classement();
         return view('football.classement', [
             'classement' => $classement,
-            'saison' => $saison->nom
+            'saison' => $saison->nom,
+            'sport' => strToUrl($sport),
+            'competition' => $competition->nom
         ]);
     }
 }
