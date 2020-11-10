@@ -29,8 +29,8 @@ $sports = Sport::all();
         <a href="/" class="col-10 col-sm-12 d-flex justify-content-center"></a>
     </div> --}}
     <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white border p-0">
-        <div class="container px-3">
-            <a class="navbar-brand" href="/"><img class="img-fluid mx-auto" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
+        <div class="container">
+            <a class="navbar-brand ml-3" href="/"><img class="img-fluid" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@ $sports = Sport::all();
             </div>
         </div>
     </nav>
-    <div class="container-lg-fluid" style="background-color: rgba(151, 153, 153, 0.7) !important">
+    <div class="container-lg-fluid" style="background-color: rgba(255, 255, 255, 0.7) !important">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3" style="margin:0;font-size:0.9rem">
@@ -61,14 +61,17 @@ $sports = Sport::all();
                     <span class="pr-3">
                         <i class="fas fa-angle-right"></i>
                     </span>
-                    <a href="" class="flex-shrink-0 text-white font-weight-bold pr-3">
+                    <a href="" class="flex-shrink-0 text-gray font-weight-bold pr-3">
                         Le classement
                     </a>
-                    <a href="" class="d-flex flex-shrink-0 text-dark font-weight-bold pr-3">
+                    <a href="" class="d-flex flex-shrink-0 text-secondary font-weight-bold pr-3">
                         Les derniers résultats
                     </a>
-                    <a href="" class="flex-shrink-0 text-dark font-weight-bold">
+                    <a href="" class="flex-shrink-0 text-secondary font-weight-bold pr-3">
                         La prochaine journée
+                    </a>
+                    <a href="" class="flex-shrink-0 text-secondary font-weight-bold">
+                        Le palmarès
                     </a>
                 </div>
 
