@@ -18,7 +18,6 @@ $crudTables = [
    [15, 'crud_attribut_infos', 1, 'crud_attribut_id'],
    [16, 'roles', 0, 'nom'],
    [17, 'regions', 0, 'nom'],
-   [21, 'saison_equipe', 0, 'saison_id'],
    [27, 'failed_jobs', 0, NULL],
    [28, 'migrations', 0, NULL],
    [29, 'nom_tours', 0, 'nom'],
@@ -26,7 +25,7 @@ $crudTables = [
    [31, 'bareme_infos', 0, 'bareme_id'],
    [32, 'match_infos', 0, 'match_id'],
    [33, 'commentaires', 0, 'created_at'],
-   [34, 'equipe_saison', 1, NULL]
+   [34, 'equipe_saison', 1, 'saison_id']
 ];
 foreach ($crudTables as $donnees) {
     $crudTable = new App\CrudTable([
