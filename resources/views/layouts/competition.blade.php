@@ -28,7 +28,7 @@ $sports = Sport::all();
     {{-- <div class="d-flex justify-content-center bg-white p-2">
         <a href="/" class="col-10 col-sm-12 d-flex justify-content-center"></a>
     </div> --}}
-    <nav class="navbar sticky-top navbar-white navbar-expand-lg" style="background-color: #fff !important">
+    <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom" style="background-color: #fff !important">
         <div class="container">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -36,10 +36,10 @@ $sports = Sport::all();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="navbar-nav mr-auto bg-white d-flex align-items-center">
-                    <a class="nav-item nav-link px-3" href="/"><img class="img-fluid mx-auto" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 50px"></a>
+                <div class="navbar-nav mr-auto bg-white d-flex align-items-center text-left">
+                    <a class="nav-item nav-link px-3" href="/"><img class="img-fluid mx-auto" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 30px"></a>
                     @foreach ($sports as $sport)
-                        <a class="nav-item nav-link @if (strToUrl($sport->nom) == $sportNom) active @endif px-3" href="/{{ strToUrl($sport->nom) }}">{{ $sport->nom }}</a>
+                        <a class="nav-item nav-link @if (strToUrl($sport->nom) == $sportNom) active text-dark @endif px-3" href="/{{ strToUrl($sport->nom) }}">{{ $sport->nom }}</a>
                     @endforeach
                     {{-- <a class="nav-item nav-link px-3" href="/handball">Handball</a>
                     <a class="nav-item nav-link px-3" href="/basketball">Basketball</a>
@@ -51,16 +51,25 @@ $sports = Sport::all();
             </div>
         </div>
     </nav>
-    <div class="container-lg-fluid" style="background-color: rgba(141, 174, 182, 0.7) !important">
+    <div class="container-lg-fluid" style="background-color: rgba(151, 153, 153, 0.7) !important">
         <div class="container-lg">
-            <div class="row overflow-x-auto py-2 mx-0" id="navbar-scroll-x">
-                <div class="d-flex justify-content-center align-items-center pl-3" style="margin:0">
-                    <span class="text-dark font-weight-bold">
-                        {{ $competition }}
-                    </span>
-                    <a href="">
-                        <button class="btn btn-sm mx-2 px-3 btn-light">Classement</button>
+            <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
+                <div class="d-flex justify-content-center align-items-center pl-3" style="margin:0;font-size:17px">
+                    <a href="" class="text-dark font-weight-bold pr-3">
+                        {{ Str::upper($competition) }}
                     </a>
+                    <a href="" class="text-white font-weight-bold pr-3">
+                        Le classement
+                    </a>
+                    <a href="" class="text-dark font-weight-bold pr-3">
+                        Les derniers résultats
+                    </a>
+                    <a href="" class="text-dark font-weight-bold">
+                        La prochaine journée
+                    </a>
+                    {{-- <a href="">
+                        <button class="btn btn-sm mx-2 px-3 btn-light">Classement</button>
+                    </a> --}}
                 </div>
             </div>
         </div>
