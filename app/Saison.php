@@ -84,7 +84,7 @@ class Saison extends Model
     {
         $sport = strToUrl($this->competition->sport->nom);
         $competition = strToUrl($this->competition->nom);
-        $hrefClassementComplet = route('classement', ['competition' => $competition, 'sport' => $sport]);
+        $hrefClassementComplet = route('competition.classement', ['competition' => $competition, 'sport' => $sport]);
         $classement = $this->classement();
         return view('football.classement-simplifie', [
             'classement' => $classement,

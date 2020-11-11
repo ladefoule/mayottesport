@@ -138,6 +138,26 @@ class Journee extends Model
     }
 
     /**
+     * Retourne l'url de la page de la journée. Retourne false si la saison est déjà finie.
+     *
+     * @return string|false
+     */
+    public function url()
+    {
+        $saison = $this->saison;
+        if($saison->finie)
+            return false;
+
+        $competition = $saison->competition;
+        $sport = $competition->sport;
+        return route('competition.journee', [
+            'sport' => strToUrl($sport->nom),
+            'competition' => strToUrl($competition->nom),
+            'journee' => $this->numero
+        ]);
+    }
+
+    /**
      * Tous les matches de cette journée.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

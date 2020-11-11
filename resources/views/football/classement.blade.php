@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="col-12 mx-0 my-3 bg-white rounded py-3">
-    <h1 class="h3 pt-3 pb-4 text-center">Classement {{ \Str::lower($saison) }}</h1>
+    <h1 class="h5 pt-3 pb-4 text-center">Classement {{ \Str::lower($saison) }}</h1>
     <table class="w-100 table table-striped text-center table-classement" id="classement">
         <thead>
             <th>#</th>

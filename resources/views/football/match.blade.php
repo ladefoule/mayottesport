@@ -1,4 +1,4 @@
-@extends('layouts.football')
+@extends('layouts.competition')
 
 @section('title', $match['nom'])
 
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="col-2 bloc-score d-flex align-items-center justify-content-around p-0">
-            <span class="w-100 text-center">{!! $match['score'] !!}</span>
+            <span class="w-100 text-center font-weight-bold">{!! $match['score'] !!}</span>
         </div>
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-ext p-1">
             <div class="equipe col-lg-8 d-lg-inline order-2 order-lg-1 py-2 px-0">

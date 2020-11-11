@@ -157,6 +157,7 @@ class Match extends Model
         $journee = $this->journee;
         $saison = $this->journee->saison;
         $competition = $saison->competition;
+        $sport = $competition->sport;
         $commentaires = $this->commentaires->sortByDesc('created_at');
         foreach ($commentaires as $commentaire)
             $commentaire->pseudo = $commentaire->user->pseudo;
@@ -179,10 +180,11 @@ class Match extends Model
             'commentaires' => $commentaires,
             'scoreEqDom' => $this->score_eq_dom,
             'scoreEqExt' => $this->score_eq_ext,
-            'lienResultat' => route('champ.foot.resultat', ['id' => $this->uniqid]),
-            'lienHoraire' => route('champ.foot.horaire', ['id' => $this->uniqid]),
-            'lienMatch' => route('champ.foot.match', [
+            'lienResultat' => route('competition.match.resultat', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
+            'lienHoraire' => route('competition.match.horaire', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
+            'lienMatch' => route('competition.match', [
                 'id' => $this->uniqid,
+                'sport' => strToUrl($sport->nom),
                 'competition' => strToUrl($competition->nom),
                 'annee' => $saison->annee(),
                 'equipeDom' => strToUrl($equipeDom->nom),

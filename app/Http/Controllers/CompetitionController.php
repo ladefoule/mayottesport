@@ -8,6 +8,7 @@ use App\Journee;
 use App\Competition;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CompetitionController extends Controller
 {
@@ -18,6 +19,7 @@ class CompetitionController extends Controller
      */
     public function __construct()
     {
+        Log::info(" -------- CompetitionController : __construct -------- ");
         $this->middleware('competition');
 
         // $this->middleware('log')->only('index');
@@ -27,6 +29,7 @@ class CompetitionController extends Controller
 
     public function index(Request $request, string $sport, string $competition)
     {
+        Log::info(" -------- CompetitionController : index -------- ");
         $competition = $request->competition;
         $saison = $request->saison;
         $sport = $request->sport;
@@ -63,6 +66,7 @@ class CompetitionController extends Controller
 
     public function classement(Request $request, string $sport, string $competition)
     {
+        Log::info(" -------- CompetitionController : classement -------- ");
         $competition = $request->competition;
         $saison = $request->saison;
         $sport = strToUrl($request->sport->nom);
@@ -78,6 +82,7 @@ class CompetitionController extends Controller
 
     public function journee(Request $request, string $sport, string $competition, int $journee)
     {
+        Log::info(" -------- CompetitionController : journee -------- ");
         $competition = $request->competition;
         $competitionNom = $competition->nom;
         $saison = $request->saison;
@@ -90,17 +95,14 @@ class CompetitionController extends Controller
         $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->firstOrFail() : '';
         $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->firstOrFail() : '';
 
-        // $hrefPrecedente = ($journee->numero > 1) ?
-        // $hrefPrecedente = route('competition.journee', ['sport' => $sport, 'competition' => $competition, 'journee' => ])
-
         return view('competition.journee', [
             'calendrierJournee' => $journee->afficherCalendrier(),
             'journee' => $journee,
             'journees' => $journees,
             'sport' => $sport,
             'competition' => $competitionNom,
-            'journeePrecedente' => $journeePrecedente,
-            'journeeSuivante' => $journeeSuivante,
+            'hrefJourneePrecedente' => $journeePrecedente ? $journeePrecedente->url() : '',
+            'hrefJourneeSuivante' => $journeeSuivante ? $journeeSuivante->url() : ''
         ]);
     }
 }

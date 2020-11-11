@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="fr">
 
+<?php
+$sports = App\Sport::all();
+?>
+
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/css/app.css">
@@ -13,33 +16,26 @@
 </head>
 
 <body>
-    <!-- Debut de page-->
-    <div class="d-flex justify-content-center bg-white p-2">
-        <a href="/" class="col-10 col-sm-12 d-flex justify-content-center"><img class="img-fluid mx-auto" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport"></a>
-    </div>
-    <nav class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark" style="background-color: #000 !important">
+    <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
         <div class="container">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            <a class="navbar-brand ml-3" href="/"><img class="img-fluid" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
+            <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link text-white px-3" href="/">Accueil</a>
-                    <a class="nav-item nav-link text-white px-3" href="/football">Football</a>
-                    <a class="nav-item nav-link text-white px-3" href="/handball">Handball</a>
-                    <a class="nav-item nav-link text-white px-3" href="/basketball">Basketball</a>
-                    <a class="nav-item nav-link text-white px-3" href="/volleyball">Volleyball</a>
-                    <a class="nav-item nav-link text-white px-3" href="/autres">Autres</a>
-                    <a class="nav-item nav-link text-white px-3" href="/contact">Contact</a>
+            <div class="collapse navbar-collapse pr-2" id="navbarSupportedContent">
+                <div class="navbar-nav mr-auto bg-white">
+                    @foreach ($sports as $sport)
+                        <a class="nav-item nav-link px-2" href="/{{ strToUrl($sport->nom) }}">{{ $sport->nom }}</a>
+                    @endforeach
+                    <a class="nav-item nav-link px-2" href="/autres">Autres</a>
+                    <a class="nav-item nav-link px-2" href="/contact">Contact</a>
                 </div>
-
                 @include('layouts.connexion')
             </div>
         </div>
-    </nav>
-    <div class="container-lg bg-white min-h-500 {{-- border-right border-left border-primary --}}">
+     </nav>
+    <div class="container-lg">
         @yield('content')
     </div>
     <!-- Fin de page-->

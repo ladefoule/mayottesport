@@ -160,7 +160,7 @@ a:hover{
     background-color:#000
 }
 
-.bloc-equipe-dom, .bloc-equipe-ext, .bloc-score{
+.bloc-equipe-dom, .bloc-equipe-ext{
     font-size:1rem;
     text-align: center;
 }
@@ -177,9 +177,18 @@ a:hover{
     width:50px
 }
 
+.bloc-score{
+    font-size: 1.2rem;
+}
+
 .bloc-score input{
-    width:60px;
-    /* border-radius: 5px; */
+    width:50px;
+    height: 30px;
+    /* line-height: 30px; */
+}
+
+.note{
+    width:50%
 }
 
 /* Medium devices (tablets, 576px and up) => point de rupture bootstrap : SM */
@@ -192,10 +201,6 @@ a:hover{
         font-size:1.5rem;
     }
 
-    .bloc-score{
-        font-size: 2rem;
-    }
-
     .fanion-calendrier{
         width:40px;
     }
@@ -204,8 +209,18 @@ a:hover{
         width:60px
     }
 
+    .bloc-score{
+        font-size: 1.8rem;
+    }
+
+    /* Page saisie de résultat */
     .bloc-score input{
         width:70px;
+        height: 35px;
+    }
+
+    .note{
+        width:35%
     }
 
 
@@ -215,7 +230,7 @@ a:hover{
             font-size: 100%;
         }
 
-        .bloc-equipe-dom, .bloc-equipe-ext, .bloc-score{
+        .bloc-equipe-dom, .bloc-equipe-ext{
             font-size:1.8rem;
             font-weight: 900;
         }
@@ -234,6 +249,11 @@ a:hover{
 
         .bloc-score input{
             width:80px;
+            height: 40px;
+        }
+
+        .note{
+            width:25%
         }
     }
 }

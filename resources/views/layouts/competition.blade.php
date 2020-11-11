@@ -34,7 +34,7 @@
                     <a href="{{ $hrefClassement }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.classement') text-info @else text-secondary @endif font-weight-bold pr-3">
                         Le classement
                     </a>
-                    <a href="{{ $hrefCalendrier }}" class="d-flex flex-shrink-0 @if(request()->route()->getName() == 'competition.resultats') text-danger @else text-secondary @endif font-weight-bold pr-3">
+                    <a href="{{ $hrefCalendrier }}" class="d-flex flex-shrink-0 @if(request()->route()->getName() == 'competition.journee') text-danger @else text-secondary @endif font-weight-bold pr-3">
                         Les résultats
                     </a>
                     <a href="{{ $hrefPalmares }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.palmares') text-success @else text-secondary @endif font-weight-bold">

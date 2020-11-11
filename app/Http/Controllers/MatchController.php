@@ -19,6 +19,21 @@ use Illuminate\Support\Facades\Validator;
 class MatchController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        Log::info(" -------- CompetitionController : __construct -------- ");
+        $this->middleware('competition')->only(['match', 'resultat', 'horaire', 'resultatPost', 'horairePost']);
+
+        // $this->middleware('log')->only('index');
+
+        // $this->middleware('subscribed')->except('store');
+    }
+
+    /**
      * Accès Back-Office
      * Affichage de la liste des matches de Championnat de Football
      *
@@ -65,88 +80,9 @@ class MatchController extends Controller
     }
 
     /**
-     * Accès Back-Office
-     * Formulaire de modification (score+horaire) d'un match de football de Championnat
-     *
-     * @param int $matchId
-     * @return \Illuminate\View\View|void
-     */
-    // public function editer(int $matchId)
-    // {
-    //     Log::info(" -------- MatchController : editer -------- ");
-    //     $match = Match::whereUniqid($matchId)->firstOrFail();
-    //     $infosMatch = $match->MatchInfos;
-    //     $liens = infosMatch();
-    //     foreach ($infosMatch as $matchInfo) {
-    //         $info = $matchInfo->information; // On récupère ici un entier
-    //         $attribut = $liens[$info]; // On récupère l'attribut qui correspond à cet entier
-    //         $$attribut = $matchInfo->valeur;
-    //     }
-
-    //     // On insère les infos supplémentaires du match (forfaits/penalités/tab ... : tous les attributs présents dans le fichier JSON)
-    //     foreach($liens as $cle => $lien)
-    //         $match->$lien = $$lien ?? '';
-
-    //     $title = "Modification de match";
-    //     return view('admin.matches.foot.editer', [
-    //         'Match' => $match, 'title' => $title
-    //     ]);
-    // }
-
-    /**
-     * Accès Back-Office
-     * Traitement de la modification (score+horaire) d'un match de football de Championnat en POST
-     *
-     * @param Request $request
-     * @param int $matchId
-     * @return \Illuminate\Http\RedirectResponse|void
-     */
-    // public function editerPost(Request $request, int $matchId)
-    // {
-    //     Log::info(" -------- MatchController : editerPost -------- ");
-    //     $match = Match::whereUniqid($matchId)->firstOrFail();
-    //     $request['penalite_eq_dom'] = $request->has('penalite_eq_dom');
-    //     $request['penalite_eq_ext'] = $request->has('penalite_eq_ext');
-    //     $request['forfait_eq_dom'] = $request->has('forfait_eq_dom');
-    //     $request['forfait_eq_ext'] = $request->has('forfait_eq_ext');
-    //     $rules = [
-    //         'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
-    //         'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
-    //         'forfait_eq_dom' => 'boolean',
-    //         'forfait_eq_ext' => 'boolean',
-    //         'penalite_eq_dom' => 'boolean',
-    //         'penalite_eq_ext' => 'boolean',
-    //         'date' => 'nullable|date|date_format:Y-m-d',
-    //         'heure' => 'nullable|string|size:5'
-    //     ];
-
-    //     $request = Validator::make($request->all(), $rules)->validate();
-    //     $infos = $match->MatchInfos;
-    //     foreach ($infos as $matchInfo)
-    //         $matchInfo->delete();// On supprime tous les pénalités/forfaits éventuels qui existaient déjà
-
-    //     $liens = infosMatch();
-    //     foreach ($liens as $key => $attribut)
-    //         if($request[$attribut]) // On insère les nouvelles informations
-    //             MatchInfo::create(['information' => $key, 'valeur' => $request[$attribut], 'match_id' => $match->id]);
-
-    //     $score_eq_dom = $request['score_eq_dom'] ?? '';
-    //     $score_eq_ext = $request['score_eq_ext'] ?? '';
-
-    //     // S'il y a un changement au niveau du score
-    //     if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
-    //         $nbModifs = $match->nb_modifs + 1;
-    //         $request['nb_modifs'] = $nbModifs;
-    //     }
-
-    //     $match->update($request);
-    //     $this::forgetCaches($match);
-    //     return redirect()->route('matches.foot.editer', ['id' => $matchId]);
-    // }
-
-    /**
      * Accès à la view du match
      *
+     * @param  string $sport
      * @param  string $competition
      * @param  string $annee
      * @param  string $equipeDom
@@ -154,7 +90,7 @@ class MatchController extends Controller
      * @param  string $id
      * @return \Illuminate\View\View|void
      */
-    public function match(string $competition, string $annee, string $equipeDom, string $equipeExt, string $id)
+    public function match(string $sport, string $competition, string $annee, string $equipeDom, string $equipeExt, string $id)
     {
         Log::info(" -------- MatchController : match -------- ");
         $match = Match::whereUniqid($id)->firstOrFail();
@@ -178,7 +114,7 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\View\View|void
      */
-    public function resultat(string $matchId)
+    public function resultat(string $sport, string $competition, string $matchId)
     {
         Log::info(" -------- MatchController : resultat -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
@@ -201,7 +137,7 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function resultatPost(Request $request, string $matchId)
+    public function resultatPost(Request $request, string $sport, string $competition, string $matchId)
     {
         Log::info(" -------- MatchController : resultatPost -------- ");
         $request = Validator::make($request->all(), [
@@ -244,7 +180,7 @@ class MatchController extends Controller
      * @param  mixed $matchId
      * @return \Illuminate\View\View|void
      */
-    public function horaire($matchId)
+    public function horaire(string $sport, string $competition, $matchId)
     {
         Log::info(" -------- MatchController : horaire -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
@@ -262,23 +198,22 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function horairePost(Request $request, string $matchId)
+    public function horairePost(Request $request, string $sport, string $competition, string $matchId)
     {
         Log::info(" -------- MatchController : horairePost -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
         $request = Validator::make($request->all(), [
-            'date' => 'nullable|date',
-            'heure' => 'nullable|size:5'
+            'date' => 'required|date',
+            'heure' => 'required|size:5'
         ])->validate();
 
         $date = $request['date'];
         $heure = $request['heure'];
-        // S'il y a un changement au niveau du score
+
         if ($date != $match->date || $heure != $match->heure) {
             $match->update([
                 'date' => $date,
-                'heure' => $heure,
-                'nb_modifs' => $match->nb_modifs + 1
+                'heure' => $heure
             ]);
 
             $this::forgetCaches($match);

@@ -19,8 +19,8 @@ Route::get('script.html', function(){ // Page pour tester une fonction ou un scr
 
 // Test
 Route::get('/', function () {return view('accueil');})->name('accueil');
-Route::get('/football/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('champ.foot.match');
 
+Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
 Route::get('/{sport}/{competition}/calendrier-et-resultats/{journee}e-journee.html', 'CompetitionController@journee')->name('competition.journee');
 Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@classement')->name('competition.palmares');
@@ -34,13 +34,13 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/comment', 'CommentaireController@store')->name('comment');
     Route::post('/comment/delete', 'CommentaireController@delete')->name('comment.delete');
 
-    Route::get('/football/championnat/resultat/{id}', 'MatchController@resultat')->name('champ.foot.resultat');
-    Route::post('/football/championnat/resultat/{id}', 'MatchController@resultatPost');
+    Route::get('/{sport}/{competition}/resultat/{id}', 'MatchController@resultat')->name('competition.match.resultat');
+    Route::post('/{sport}/{competition}/resultat/{id}', 'MatchController@resultatPost');
 
     /* MIDDLEWARE PREMIUM */
     Route::group(['check-permission:premium|admin|superadmin'], function () {
-        Route::get('/football/championnat/horaire/match-{id}.html', 'MatchController@horaire')->name('champ.foot.horaire');
-        Route::post('/football/championnat/horaire/match-{id}.html', 'MatchController@horairePost');
+        Route::get('/{sport}/{competition}/horaire/{id}', 'MatchController@horaire')->name('competition.match.horaire');
+        Route::post('/{sport}/{competition}/horaire/{id}', 'MatchController@horairePost');
 
         /* MIDDLEWARE ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
