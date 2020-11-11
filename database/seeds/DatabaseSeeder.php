@@ -1,7 +1,5 @@
 <?php
 
-require 'UsersTableSeeder.php';
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
@@ -29,23 +27,8 @@ class DatabaseSeeder extends Seeder
             EquipeSeeder::class,
             RoleSeeder::class,
             RegionSeeder::class,
-            UserSeeder::class,
+            // UserSeeder::class,
         ]);
-
-        // $idFootball = App\Sport::firstWhere('nom', 'like', 'football')->id;
-        // $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball');
-        // $idHandball = Sport::firstWhere('nom', 'like', 'handball');
-        // $idBasketball = Sport::firstWhere('nom', 'like', 'basketball');
-        // $idRugby = Sport::firstWhere('nom', 'like', 'rugby');
-
-        // On insère les 12 équipes qui participent à la saison
-        // $equipesId = ['29','27','26','97','2','1','4','138','13','162','96','45'];
-        // foreach ($equipesId as $equipeId) {
-        //     App\SaisonEquipe::create([
-        //         'saison_id' => 1,
-        //         'equipe_id' => $equipeId
-        //     ]);
-        // }
 
         require 'app/scripts/import-calendrier.php';
         require 'app/scripts/gestion-crud-bdd.php';

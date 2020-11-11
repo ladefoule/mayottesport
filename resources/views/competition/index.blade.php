@@ -1,4 +1,4 @@
-@extends('layouts.sport-index')
+@extends('layouts.competition')
 
 @section('title', $competition . ' - ' . Str::ucfirst($sport))
 

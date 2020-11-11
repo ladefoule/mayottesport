@@ -21,7 +21,10 @@ Route::get('script.html', function(){ // Page pour tester une fonction ou un scr
 Route::get('/', function () {return view('accueil');})->name('accueil');
 Route::get('/football/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('champ.foot.match');
 
-Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('classement');
+Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
+Route::get('/{sport}/{competition}/calendrier-et-resultats/{journee}e-journee.html', 'CompetitionController@classement')->name('competition.journee');
+// Route::get('/{sport}/{competition}/a-suivre.html', 'CompetitionController@classement')->name('competition.asuivre');
+Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@classement')->name('competition.palmares');
 Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');
 
 Auth::routes();
