@@ -118,9 +118,10 @@ class Journee extends Model
      */
     public function afficherCalendrier()
     {
+        // $sport = strToUrl($this->saison->championnat->sport->nom);
         $dateJournee = date('d/m/Y', strtotime($this->date));
         $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
-        return view('football.calendrier-journee', [
+        return view('competition.calendrier-journee', [
             'calendrier' => $this->calendrier(),
             'journee' => $journee
         ])->render();

@@ -11,22 +11,26 @@ use Illuminate\Http\Request;
 
 class CompetitionController extends Controller
 {
-    public function index(string $sport, string $competition)
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $sport = Sport::where('nom', 'like', $sport)->firstOrFail();
-        $competitions = $sport->competitions;
-        $find = false;
-        foreach($competitions as $compet)
-            if(strToUrl($compet->nom) == $competition){
-                $competition = $compet;
-                $find = true;
-            break;
-            }
-        if(!$find)
-            abort(404);
+        $this->middleware('competition');
 
-        $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=',1)->orWhereNull('finie')->firstOrFail();
-        // $saisonId = $saison->id;
+        // $this->middleware('log')->only('index');
+
+        // $this->middleware('subscribed')->except('store');
+    }
+
+    public function index(Request $request, string $sport, string $competition)
+    {
+        $competition = $request->competition;
+        $saison = $request->saison;
+        $sport = $request->sport;
+
         $derniereJournee = $saison->derniereJournee();
         $prochaineJournee = $saison->prochaineJournee();
 
@@ -57,32 +61,46 @@ class CompetitionController extends Controller
         return view('competition.index', $variables);
     }
 
-    public function classement(string $sport, string $competition)
+    public function classement(Request $request, string $sport, string $competition)
     {
-        $sport = Sport::where('nom', 'like', $sport)->firstOrFail();
-        $competitions = $sport->competitions;
-        $find = false;
-        foreach($competitions as $compet)
-            if(strToUrl($compet->nom) == $competition){
-                $competition = $compet;
-                $find = true;
-            break;
-            }
-        if(!$find)
-            abort(404);
+        $competition = $request->competition;
+        $saison = $request->saison;
+        $sport = strToUrl($request->sport->nom);
 
-        $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=',1)->orWhereNull('finie')->firstOrFail();
         $classement = $saison->classement();
-        return view('football.classement', [
+        return view($sport.'.classement', [
             'classement' => $classement,
             'saison' => $saison->nom,
-            'sport' => strToUrl($sport),
+            'sport' => $sport,
             'competition' => $competition->nom
         ]);
     }
 
-    public function journee(string $sport, string $competition, int $journee)
+    public function journee(Request $request, string $sport, string $competition, int $journee)
     {
+        $competition = $request->competition;
+        $competitionNom = $competition->nom;
+        $saison = $request->saison;
+        $journees = $saison->journees;
+        $journee = Journee::whereSaisonId($saison->id)->whereNumero($journee)->firstOrFail();
 
+        $sport = strToUrl($request->sport->nom);
+        $competition = strToUrl($request->competition->nom);
+
+        $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->firstOrFail() : '';
+        $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->firstOrFail() : '';
+
+        // $hrefPrecedente = ($journee->numero > 1) ?
+        // $hrefPrecedente = route('competition.journee', ['sport' => $sport, 'competition' => $competition, 'journee' => ])
+
+        return view('competition.journee', [
+            'calendrierJournee' => $journee->afficherCalendrier(),
+            'journee' => $journee,
+            'journees' => $journees,
+            'sport' => $sport,
+            'competition' => $competitionNom,
+            'journeePrecedente' => $journeePrecedente,
+            'journeeSuivante' => $journeeSuivante,
+        ]);
     }
 }
