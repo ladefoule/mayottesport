@@ -3,19 +3,29 @@
 
 <?php
 use App\Sport;
+use App\Saison;
 use App\Competition;
+
+$competitionKebab = strToUrl($competition);
 
 $sportActuel = Sport::where('nom', 'like', $sport)->firstOrFail();
 $sportId = $sportActuel->id;
 $sportNom = strToUrl($sportActuel->nom);
-// $competitions = Competition::whereSportId($sportId)->get();
 $sports = Sport::all();
 
-$competitionKebab = strToUrl($competition);
+$competition = Competition::where('nom', 'like', $competition)->firstOrFail();
+
+$types = config('constant.type-competition');
+$type = $types[$competition->type][0];
+
+$saison = Saison::where('competition_id', $competition->id)->where('finie', '!=',1)->orWhereNull('finie')->firstOrFail();
+// $saisonId = $saison->id;
+$derniereJournee = $saison->derniereJournee()->numero;
+
 $hrefIndex = route('competition.index', ['sport' => $sport, 'competition' => $competitionKebab]);
 $hrefClassement = route('competition.classement', ['sport' => $sport, 'competition' => $competitionKebab]);
-$hrefResultats = route('competition.resultats', ['sport' => $sport, 'competition' => $competitionKebab]);
-$hrefASuivre = route('competition.asuivre', ['sport' => $sport, 'competition' => $competitionKebab]);
+$hrefCalendrier = route('competition.journee', ['sport' => $sport, 'competition' => $competitionKebab, 'journee' => $derniereJournee]);
+// $hrefASuivre = route('competition.asuivre', ['sport' => $sport, 'competition' => $competitionKebab]);
 $hrefPalmares = route('competition.palmares', ['sport' => $sport, 'competition' => $competitionKebab]);
 ?>
 
@@ -60,7 +70,7 @@ $hrefPalmares = route('competition.palmares', ['sport' => $sport, 'competition' 
             <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3" style="margin:0;font-size:0.9rem">
                     <a href="{{ $hrefIndex }}" class="flex-shrink-0 text-body font-weight-bold pr-3 float-left">
-                        {{ Str::upper($competition) }}
+                        {{ $competition->nom }}
                     </a>
                     <span class="pr-3">
                         <i class="fas fa-angle-right"></i>
@@ -68,13 +78,10 @@ $hrefPalmares = route('competition.palmares', ['sport' => $sport, 'competition' 
                     <a href="{{ $hrefClassement }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.classement') text-info @else text-secondary @endif font-weight-bold pr-3">
                         Le classement
                     </a>
-                    <a href="{{ $hrefResultats }}" class="d-flex flex-shrink-0 @if(request()->route()->getName() == 'competition.resultats') text-danger @else text-secondary @endif font-weight-bold pr-3">
+                    <a href="{{ $hrefCalendrier }}" class="d-flex flex-shrink-0 @if(request()->route()->getName() == 'competition.resultats') text-danger @else text-secondary @endif font-weight-bold pr-3">
                         Les résultats
                     </a>
-                    <a href="{{ $hrefASuivre }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.asuivre') text-success @else text-secondary @endif font-weight-bold pr-3">
-                        À suivre
-                    </a>
-                    <a href="{{ $hrefPalmares }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.palmares') text-body @else text-secondary @endif font-weight-bold">
+                    <a href="{{ $hrefPalmares }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.palmares') text-success @else text-secondary @endif font-weight-bold">
                         Le palmarès
                     </a>
                 </div>

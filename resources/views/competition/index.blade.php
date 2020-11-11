@@ -1,12 +1,12 @@
 @extends('layouts.competition')
 
-@section('title', $competition . ' - ' . Str::ucfirst($sport))
+@section('title', $competition . ' - ' . $sport)
 
 @section('content')
 
 <div class="row d-flex flex-wrap m-0 my-3 bg-white rounded p-3">
     <div class="col-12">
-        <h1 class="h4 text-center p-3">{{ $competition }}</h1>
+        <h1 class="h4 text-center p-3">{{ $sport . ' - ' . $competition }}</h1>
     </div>
     <div class="col-lg-8 d-flex flex-wrap p-0">
         @if (isset($derniereJournee))

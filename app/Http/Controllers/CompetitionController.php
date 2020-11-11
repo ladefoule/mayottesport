@@ -26,7 +26,7 @@ class CompetitionController extends Controller
             abort(404);
 
         $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=',1)->orWhereNull('finie')->firstOrFail();
-        $saisonId = $saison->id;
+        // $saisonId = $saison->id;
         $derniereJournee = $saison->derniereJournee();
         $prochaineJournee = $saison->prochaineJournee();
 
@@ -40,12 +40,15 @@ class CompetitionController extends Controller
             'derniereJournee' => $derniereJournee,
             'prochaineJournee' => $prochaineJournee,
             'competition' => $competition->nom,
-            'sport' => Str::lower($sport->nom)
+            'sport' => $sport->nom,
         ];
 
         if($type == 'championnat'){
-            $classement = Saison::find($saisonId)->classement();
-            $hrefClassement = route('competition.classement', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]);
+            $classement = Saison::find($saison->id)->classement();
+            $hrefClassement = route('competition.classement', [
+                'sport' => strToUrl($sport->nom),
+                'competition' => strToUrl($competition->nom)
+            ]);
 
             $variables['classement'] = $classement;
             $variables['hrefClassement'] = $hrefClassement;
@@ -76,5 +79,10 @@ class CompetitionController extends Controller
             'sport' => strToUrl($sport),
             'competition' => $competition->nom
         ]);
+    }
+
+    public function journee(string $sport, string $competition, int $journee)
+    {
+
     }
 }
