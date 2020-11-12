@@ -38,22 +38,16 @@ class Competition extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param Competition $competition
      * @return array
      */
-    public static function rules(Request $request, Competition $competition = null)
+    public static function rules(Competition $competition = null)
     {
-        $nom = $request['nom'] ?? '';
-        $sportId = $request['sport_id'] ?? '';
+        $nom = request()->nom ?? '';
+        $sportId = request()->sport_id ?? '';
         $unique = Rule::unique('competitions')->where(function ($query) use ($nom, $sportId) {
             return $query->whereNom($nom)->whereSportId($sportId);
-        });
-
-        if($competition){
-            $id = $competition->id;
-            $unique = $unique->ignore($id);
-        }
+        })->ignore($competition);
 
         $rules = [
             'sport_id' => 'required|exists:sports,id',

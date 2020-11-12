@@ -36,25 +36,19 @@ class Equipe extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param Equipe $equipe
      * @return array
      */
-    public static function rules(Request $request, Equipe $equipe = null)
+    public static function rules(Equipe $equipe = null)
     {
-        $request['feminine'] = $request->has('feminine');
-        $request['non_mahoraise'] = $request->has('non_mahoraise');
+        request()->feminine = request()->has('feminine');
+        request()->non_mahoraise = request()->has('non_mahoraise');
 
-        $nom = $request['nom'] ?? '';
-        $sportId = $request['sport_id'] ?? '';
+        $nom = request()->nom ?? '';
+        $sportId = request()->sport_id ?? '';
         $unique = Rule::unique('equipes')->where(function ($query) use ($nom, $sportId) {
             return $query->whereNom($nom)->whereSportId($sportId);
-        });
-
-        if($equipe){
-            $id = $equipe->id;
-            $unique = $unique->ignore($id);
-        }
+        })->ignore($equipe);
 
         $rules = [
             'nom_complet' => 'nullable|string|min:3|max:50',
@@ -64,6 +58,6 @@ class Equipe extends Model
             'nom' => ['required','max:50','min:3',$unique]
         ];
         $messages = ['nom.unique' => "Ce nom d'équipe, associé à ce sport, existe déjà."];
-        return ['rules' => $rules, 'messages' => $messages, 'request' => $request];
+        return ['rules' => $rules, 'messages' => $messages];
     }
 }

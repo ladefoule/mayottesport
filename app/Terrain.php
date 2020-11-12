@@ -16,34 +16,18 @@ class Terrain extends Model
     protected $fillable = ['nom', 'ville_id'];
 
     /**
-     * Définition de l'affichage d'un élément de la table
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->nom ?? '';
-    }
-
-    /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param Terrain $terrain
      * @return array
      */
-    public static function rules(Request $request, Terrain $terrain = null)
+    public static function rules(Terrain $terrain = null)
     {
-        $nom = $request['nom'] ?? '';
-        $villeId = $request['ville_id'] ?? '';
+        $nom = request()->nom ?? '';
+        $villeId = request()->ville_id ?? '';
         $unique = Rule::unique('terrains')->where(function ($query) use ($nom, $villeId) {
             return $query->whereNom($nom)->whereVilleId($villeId);
-        });
-
-        if($terrain){
-            $id = $terrain->id;
-            $unique = $unique->ignore($id);
-        }
+        })->ignore($terrain);
 
         $rules = [
             'nom' => ['required','string','max:50',$unique],

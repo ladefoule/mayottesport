@@ -21,26 +21,21 @@ class Journee extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param Journee $journee
      * @return array
      */
-    public static function rules(Request $request, Journee $journee = null)
+    public static function rules(Journee $journee = null)
     {
-        $numero = $request['numero'] ?? '';
-        $saisonId = $request['saison_id'] ?? '';
+        $numero = request()->numero ?? '';
+        $saisonId = request()->saison_id ?? '';
         $saison = Saison::find($saisonId);
-        // Si $saison == null, la validation ne passera pas à cause de la règle 'saison_id'
-        // La valeur 0 ici n'a donc aucune importance, elle sert juste à éviter d'avoir null comme maximum
+
+        // Si $saison == null, la validation ne passera pas à cause de la règle 'saison_id' qui doit exister dans la base
+        // La valeur 0 ici sert juste à éviter d'avoir null comme maximum si saison = null
         $nbJournees = $saison->nb_journees ?? 0;
         $unique = Rule::unique('journees')->where(function ($query) use ($numero, $saisonId) {
             return $query->whereNumero($numero)->whereSaisonId($saisonId);
-        });
-
-        if($journee){
-            $id = $journee->id;
-            $unique = $unique->ignore($id);
-        }
+        })->ignore($journee);
 
         $rules = [
             'date' => 'required|date',

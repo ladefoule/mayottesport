@@ -63,34 +63,23 @@ class Match extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param Match $match
      * @return array
      */
-    public static function rules(Request $request, Match $match = null)
+    public static function rules( Match $match = null)
     {
-        $equipeIdDom = $request['equipe_id_dom'];
-        $equipeIdExt = $request['equipe_id_ext'];
-        $journeeId = $request['journee_id'];
+        $equipeIdDom = request()->equipe_id_dom;
+        $equipeIdExt = request()->equipe_id_ext;
+        $journeeId = request()->journee_id;
         $uniqueEquipeDom = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $journeeId) {
             return $query->whereJourneeId($journeeId)
-                        ->whereEquipeIdDom($equipeIdDom)
-                        ->orWhere(function($query) use($equipeIdDom, $journeeId){
-                            return $query->whereJourneeId($journeeId)
-                                    ->whereEquipeIdExt($equipeIdDom);
-                        });
+                        ->whereEquipeIdDom($equipeIdDom);
         })->ignore($match);
         $uniqueEquipeExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
             return $query->whereEquipeIdExt($equipeIdExt)->whereJourneeId($journeeId);
         })->ignore($match);
-        // $uniqueEquipeExtDom = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
-        //     return $query->whereEquipeIdDom($equipeIdExt)->whereJourneeId($journeeId);
-        // })->ignore($match);
-        // $uniqueEquipeExtExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
-        //     return $query->whereEquipeIdExt($equipeIdExt)->whereJourneeId($journeeId);
-        // })->ignore($match);
 
-        $request['acces_bloque'] = $request->has('acces_bloque');
+        request()->acces_bloque = request()->has('acces_bloque');
         $rules = [
             'journee_id' => 'required|exists:journees,id',
             'terrain_id' => 'required|exists:terrains,id',
@@ -107,7 +96,7 @@ class Match extends Model
             'equipe_id_dom.unique' => $msg,
             'equipe_id_ext.unique' => $msg
         ];
-        return ['rules' => $rules, 'messages' => $messages, 'request' => $request];
+        return ['rules' => $rules, 'messages' => $messages];
     }
 
     /**

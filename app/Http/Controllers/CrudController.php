@@ -128,10 +128,9 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : createStore -------- ");
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
-        $rules = $modele::rules($request);
+        $rules = $modele::rules();
 
         $messages = $rules['messages'] ?? []; // On récupère éventuellement les messages associés
-        $request = $rules['request'] ?? $request; // On récupère la requète MAJ s'il y a des checkbox dans le formulaire
         $rules = $rules['rules']; // On récupère les règles de validations
 
         $request = Validator::make($request->all(), $rules, $messages)->validate();
@@ -185,10 +184,9 @@ class CrudController extends Controller
         Log::info(" -------- CrudController : updateStore -------- ");
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
-        $rules = $modele::rules($request, $instance);
+        $rules = $modele::rules($instance);
 
         $messages = $rules['messages'] ?? []; // On récupère éventuellement les messages associés
-        $request = $rules['request'] ?? $request; // On récupère la requète MAJ s'il y a des checkbox dans le formulaire
         $rules = $rules['rules']; // On récupère les règles de validations
 
         $request = Validator::make($request->all(), $rules, $messages)->validate();

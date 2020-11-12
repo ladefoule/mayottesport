@@ -41,23 +41,18 @@ class CrudAttribut extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param CrudAttribut $crudAttribut
      * @return array
      */
-    public static function rules(Request $request, CrudAttribut $crudAttribut = null)
+    public static function rules(CrudAttribut $crudAttribut = null)
     {
-        $attribut = $request['attribut'] ?? '';
-        $crudTableId = $request['crud_table_id'] ?? '';
-
+        $attribut = request()->attribut ?? '';
+        $crudTableId = request()->crud_table_id ?? '';
         $unique = Rule::unique('crud_attributs')->where(function ($query) use ($attribut, $crudTableId) {
             return $query->whereAttribut($attribut)->wherecrudTableId($crudTableId);
-        });
+        })->ignore($crudAttribut);
 
-        if($crudAttribut)
-            $unique = $unique->ignore($crudAttribut->id);
-
-        $request['optionnel'] = $request->has('optionnel');
+        request()->optionnel = request()->has('optionnel');
         $rules = [
             'attribut' => ['required','string','max:50',$unique],
             'crud_table_id' => 'required|integer|exists:crud_tables,id',
@@ -67,6 +62,6 @@ class CrudAttribut extends Model
             'data_msg' => 'nullable|string|max:300',
         ];
         $messages = ['attribut.unique' => "Cet attribut est déjà présent."];
-        return ['rules' => $rules, 'messages' => $messages, 'request' => $request];
+        return ['rules' => $rules, 'messages' => $messages];
     }
 }

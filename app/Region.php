@@ -16,33 +16,17 @@ class Region extends Model
     protected $fillable = ['nom'];
 
     /**
-     * Définition de l'affichage d'un élément de la table
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->nom ?? '';
-    }
-
-    /**
      * Les règles de validations
      *
      * @param Region $region
-     * @param Request $request
      * @return array
      */
-    public static function rules(Request $request, Region $region = null)
+    public static function rules(Region $region = null)
     {
-        $nom = $request['nom'] ?? '';
+        $nom = request()->nom ?? '';
         $unique = Rule::unique('regions')->where(function ($query) use ($nom) {
             return $query->whereNom($nom);
-        });
-
-        if($region){
-            $id = $region->id;
-            $unique = $unique->ignore($id);
-        }
+        })->ignore($region);
 
         $rules['nom'] = ['required','string','max:50','min:3',$unique];
         return ['rules' => $rules];

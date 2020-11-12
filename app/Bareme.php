@@ -52,18 +52,13 @@ class Bareme extends Model
      * @param Bareme $bareme
      * @return array
      */
-    public static function rules(Request $request, Bareme $bareme = null)
+    public static function rules(Bareme $bareme = null)
     {
-        $nom = $request['nom'] ?? '';
-        $sportId = $request['sport_id'] ?? '';
+        $nom = request()['nom'] ?? '';
+        $sportId = request()['sport_id'] ?? '';
         $unique = Rule::unique('baremes')->where(function ($query) use ($nom, $sportId) {
             return $query->whereNom($nom)->whereSportId($sportId);
-        });
-
-        if($bareme){
-            $id = $bareme->id;
-            $unique = $unique->ignore($id);
-        }
+        })->ignore($bareme);
 
         $rules = [
             'victoire' => 'required|integer|min:0|max:30',

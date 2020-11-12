@@ -56,7 +56,7 @@ class Sport extends Model
      * @param Sport $sport
      * @return array
      */
-    public static function rules(Request $request, Sport $sport = null)
+    public static function rules(Sport $sport = null)
     {
         $rules = [
             'code' => 'nullable|string|max:5',

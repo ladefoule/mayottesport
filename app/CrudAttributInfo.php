@@ -22,21 +22,16 @@ class CrudAttributInfo extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param CrudAttributInfo $crudAttributInfo
      * @return array
      */
-    public static function rules(Request $request, CrudAttributInfo $crudAttributInfo = null)
+    public static function rules(CrudAttributInfo $crudAttributInfo = null)
     {
-        $proprieteId = $request['propriete_id'] ?? '';
-        $crudAttributId = $request['crud_attribut_id'] ?? '';
-
+        $proprieteId = request()->propriete_id ?? '';
+        $crudAttributId = request()->crud_attribut_id ?? '';
         $unique = Rule::unique('crud_attribut_infos')->where(function ($query) use ($proprieteId, $crudAttributId) {
             return $query->whereProprieteId($proprieteId)->whereCrudAttributId($crudAttributId);
-        });
-
-        if($crudAttributInfo)
-            $unique = $unique->ignore($crudAttributInfo->id);
+        })->ignore($crudAttributInfo);
 
         $rules = [
             'crud_attribut_id' => ['required','integer','exists:crud_attributs,id',$unique],

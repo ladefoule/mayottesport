@@ -86,23 +86,22 @@ class CrudTable extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param CrudTable $crudTable
      * @return array
      */
-    public static function rules(Request $request, CrudTable $crudTable = null)
+    public static function rules(CrudTable $crudTable = null)
     {
         $unique = Rule::unique('crud_tables');
         if ($crudTable)
             $unique = $unique->ignore($crudTable);
 
-        $request['crudable'] = $request->has('crudable');
+        request()->crudable = request()->has('crudable');
         $rules = [
             'nom' => ['required', 'string', 'min:3', 'max:50', $unique],
             'crudable' => 'boolean'
         ];
 
-        return ['rules' => $rules, 'request' => $request];
+        return ['rules' => $rules];
     }
 
     /**

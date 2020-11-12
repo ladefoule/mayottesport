@@ -21,24 +21,18 @@ class Saison extends Model
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param Saison $saison
      * @return array
      */
-    public static function rules(Request $request, Saison $saison = null)
+    public static function rules(Saison $saison = null)
     {
-        $anneeDebut = $request['annee_debut'] ?? '';
-        $competitionId = $request['competition_id'] ?? '';
+        $anneeDebut = request()->annee_debut ?? '';
+        $competitionId = request()->competition_id ?? '';
         $unique = Rule::unique('saisons')->where(function ($query) use ($anneeDebut, $competitionId) {
             return $query->whereAnneeDebut($anneeDebut)->whereCompetitionId($competitionId);
-        });
+        })->ignore($saison);
 
-        if($saison){
-            $id = $saison->id;
-            $unique = $unique->ignore($id);
-        }
-
-        $request['finie'] = $request->has('finie');
+        request()->finie = request()->has('finie');
         $rules = [
             'annee_debut' => ['required','integer','min:2000','max:3000',$unique],
             'annee_fin' => 'required|integer|min:2000|max:3000|gte:annee_debut',
@@ -48,7 +42,7 @@ class Saison extends Model
             'finie' => 'boolean'
         ];
         $messages = ['annee_debut.unique' => "Le competition possède déjà une saison qui débute la même année."];
-        return ['rules' => $rules, 'messages' => $messages, 'request' => $request];
+        return ['rules' => $rules, 'messages' => $messages];
     }
 
     public function derniereJournee()

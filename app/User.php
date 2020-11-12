@@ -52,16 +52,12 @@ class User extends Authenticatable
     /**
      * Les règles de validations
      *
-     * @param Request $request
      * @param User $user
      * @return array
      */
-    public static function rules(Request $request, User $user = null)
+    public static function rules(User $user = null)
     {
-        $unique = Rule::unique('users');
-        if($user)
-            $unique = $unique->ignore($user);
-
+        $unique = Rule::unique('users')->ignore($user);
         $rules = [
             'name' => ['required', 'string', 'min:3', 'max:50'],
             'pseudo' => ['nullable', 'string', 'min:3', 'max:50', $unique],
