@@ -69,32 +69,26 @@ class Match extends Model
      */
     public static function rules(Request $request, Match $match = null)
     {
-        $equipeIdDom = $request['equipe_id_dom'] ?? 0;
-        $equipeIdExt = $request['equipe_id_ext'] ?? 0;
-        $journeeId = $request['journee_id'] ?? 0;
-        $uniqueEquipeDomDom = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $journeeId) {
-            return $query->whereEquipeIdDom($equipeIdDom)->whereJourneeId($journeeId);
-        });
-        $uniqueEquipeDomExt = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $journeeId) {
-            return $query->whereEquipeIdExt($equipeIdDom)->whereJourneeId($journeeId);
-        });
-        $uniqueEquipeExtDom = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
-            return $query->whereEquipeIdDom($equipeIdExt)->whereJourneeId($journeeId);
-        });
-        $uniqueEquipeExtExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
+        $equipeIdDom = $request['equipe_id_dom'];
+        $equipeIdExt = $request['equipe_id_ext'];
+        $journeeId = $request['journee_id'];
+        $uniqueEquipeDom = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $journeeId) {
+            return $query->whereJourneeId($journeeId)
+                        ->whereEquipeIdDom($equipeIdDom)
+                        ->orWhere(function($query) use($equipeIdDom, $journeeId){
+                            return $query->whereJourneeId($journeeId)
+                                    ->whereEquipeIdExt($equipeIdDom);
+                        });
+        })->ignore($match);
+        $uniqueEquipeExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
             return $query->whereEquipeIdExt($equipeIdExt)->whereJourneeId($journeeId);
-        });
-
-        if($match){
-            $id = $match->id;
-            $uniqueEquipeDomDom = $uniqueEquipeDomDom->ignore($id);
-            // $uniqueEquipeDomExt = $uniqueEquipeDomExt->ignore($id);
-            // $uniqueEquipeExtDom = $uniqueEquipeExtDom->ignore($id);
-            $uniqueEquipeExtExt = $uniqueEquipeExtExt->ignore($id);
-        }
-
-        // dd(get_class_methods('Illuminate\Validation\Rules\Unique'));
-        // dd($uniqueEquipeDomDom);
+        })->ignore($match);
+        // $uniqueEquipeExtDom = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
+        //     return $query->whereEquipeIdDom($equipeIdExt)->whereJourneeId($journeeId);
+        // })->ignore($match);
+        // $uniqueEquipeExtExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
+        //     return $query->whereEquipeIdExt($equipeIdExt)->whereJourneeId($journeeId);
+        // })->ignore($match);
 
         $request['acces_bloque'] = $request->has('acces_bloque');
         $rules = [
@@ -102,8 +96,8 @@ class Match extends Model
             'terrain_id' => 'required|exists:terrains,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
-            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeDomDom,$uniqueEquipeDomExt],
-            'equipe_id_ext' => ['required','integer','exists:equipes,id',$uniqueEquipeExtDom,$uniqueEquipeExtExt],
+            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeDom],
+            'equipe_id_ext' => ['required','integer','exists:equipes,id',$uniqueEquipeExt],
             'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
             'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
             'acces_bloque' => 'boolean'

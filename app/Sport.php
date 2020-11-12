@@ -58,19 +58,9 @@ class Sport extends Model
      */
     public static function rules(Request $request, Sport $sport = null)
     {
-        $nom = $request['nom'] ?? '';
-        $unique = Rule::unique('sports')->where(function ($query) use ($nom) {
-            return $query->whereNom($nom);
-        });
-
-        if($sport){
-            $id = $sport->id;
-            $unique = $unique->ignore($id);
-        }
-
         $rules = [
             'code' => 'nullable|string|max:5',
-            'nom' => ['required','string','max:50','min:3',$unique]
+            'nom' => ['required','string','max:50','min:3',Rule::unique('sports')->ignore($sport)]
         ];
         return ['rules' => $rules];
     }
