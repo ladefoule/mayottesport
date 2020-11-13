@@ -63,7 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
         language: {
             url : "/json/datatables.json" // Traduction en français
         },
-        order : [[ 0, 'asc' ]] // Colonne et sens de tri
+        order : [[ 9, 'desc' ]], // Colonne et sens de tri
+        columnDefs: [
+            { targets: [1], orderable: false },
+        ]
     } );
 })
 </script>

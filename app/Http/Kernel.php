@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verif-table-crud' => \App\Http\Middleware\VerifTableCrud::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'sport' => \App\Http\Middleware\Sport::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];

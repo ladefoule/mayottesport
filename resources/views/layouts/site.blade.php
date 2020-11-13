@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <?php
-$sports = App\Sport::all();
+// request()->sports = App\Sport::all();
 ?>
 
 <head>
@@ -16,7 +16,7 @@ $sports = App\Sport::all();
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
+    {{-- <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
         <div class="container">
             <a class="navbar-brand ml-3" href="/"><img class="img-fluid" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
             <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -34,7 +34,8 @@ $sports = App\Sport::all();
                 @include('layouts.connexion')
             </div>
         </div>
-     </nav>
+     </nav> --}}
+    @include('layouts.navbar-sports')
     <div class="container-lg">
         @yield('content')
     </div>

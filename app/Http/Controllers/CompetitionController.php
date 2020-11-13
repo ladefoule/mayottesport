@@ -20,7 +20,7 @@ class CompetitionController extends Controller
     public function __construct()
     {
         Log::info(" -------- CompetitionController : __construct -------- ");
-        $this->middleware('competition');
+        $this->middleware(['sport', 'competition']);
 
         // $this->middleware('log')->only('index');
 

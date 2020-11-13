@@ -5,11 +5,11 @@
 use App\Sport;
 use App\Competition;
 
-$sportActuel = Sport::where('nom', 'like', $sport)->firstOrFail();
-$sportId = $sportActuel->id;
-$sportNom = strToUrl($sportActuel->nom);
-$competitions = Competition::whereSportId($sportId)->get();
-$sports = Sport::all();
+// $sportActuel = Sport::where('nom', 'like', $sport)->firstOrFail();
+// $sportId = $sportActuel->id;
+// $sportNom = strToUrl($sportActuel->nom);
+$competitions = Competition::whereSportId(request()->sport->id)->get();
+// $sports = Sport::all();
 ?>
 
 <head>
@@ -25,7 +25,7 @@ $sports = Sport::all();
 
 <body>
     <!-- Debut de page-->
-    <div class="d-flex justify-content-center bg-white p-2">
+    {{-- <div class="d-flex justify-content-center bg-white p-2">
         <a href="/" class="col-10 col-sm-12 d-flex justify-content-center"><img class="img-fluid mx-auto" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport"></a>
     </div>
     <nav class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark" style="background-color: #000 !important">
@@ -41,16 +41,17 @@ $sports = Sport::all();
                     @foreach ($sports as $sport)
                         <a class="nav-item nav-link @if (strToUrl($sport->nom) == $sportNom) active @endif px-3" href="/{{ strToUrl($sport->nom) }}">{{ $sport->nom }}</a>
                     @endforeach
-                    {{-- <a class="nav-item nav-link px-3" href="/handball">Handball</a>
+                    <a class="nav-item nav-link px-3" href="/handball">Handball</a>
                     <a class="nav-item nav-link px-3" href="/basketball">Basketball</a>
-                    <a class="nav-item nav-link px-3" href="/volleyball">Volleyball</a> --}}
+                    <a class="nav-item nav-link px-3" href="/volleyball">Volleyball</a>
                     <a class="nav-item nav-link px-3" href="/autres">Autres</a>
                     <a class="nav-item nav-link px-3" href="/contact">Contact</a>
                 </div>
                 @include('layouts.connexion')
             </div>
         </div>
-    </nav>
+    </nav> --}}
+    @include('layouts.navbar-sports')
     <div class="container-lg-fluid" style="background-color: rgba(141, 174, 182, 0.7) !important">
         <div class="container-lg">
             <div class="row overflow-x-auto py-2" id="navbar-scroll-x">

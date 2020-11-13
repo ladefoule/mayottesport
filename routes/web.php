@@ -25,6 +25,7 @@ Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@clas
 Route::get('/{sport}/{competition}/calendrier-et-resultats/{journee}e-journee.html', 'CompetitionController@journee')->name('competition.journee');
 Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@classement')->name('competition.palmares');
 Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');
+Route::get('/{sport}', 'SportController@index')->name('sport.index');
 
 Auth::routes();
 
