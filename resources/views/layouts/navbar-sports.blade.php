@@ -6,8 +6,7 @@
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="collapse navbar-collapse pr-2" id="navbarSupportedContent">
-           <div class="navbar-nav mr-auto bg-white{{--  d-flex align-items-center --}}">
-               {{-- <a class="nav-item nav-link px-3" href="/"><img class="img-fluid mx-auto" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 30px"></a> --}}
+           <div class="navbar-nav mr-auto bg-white">
                @foreach (request()->sports as $sport)
                    <a class="nav-item nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif px-2" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a>
                @endforeach

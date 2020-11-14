@@ -3,7 +3,7 @@
 @section('title', "Confirmer le mot de passe")
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center my-3">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">Confirmer le mot de passe</div>

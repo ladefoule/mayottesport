@@ -17,9 +17,6 @@
     // $routeParametres = route('crud-gestion.parametres');
 ?>
 <body>
-    <div class="d-flex justify-content-center p-3 bg-white">
-        <img src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport.com">
-    </div>
     @include('layouts.navbar-admin')
     {{-- <div class="container-fluid">
         <div class="row overflow-x-auto p-3">

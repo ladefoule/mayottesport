@@ -13,18 +13,15 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>@yield('title') | mayottesport.com</title>
 </head>
-<body style="background-image: url('/storage/img/fond-mayotte.jpg');background-size:1950px 1000px;background-attachment: fixed;">
-    <div class="d-flex justify-content-center p-3 bg-white">
-        <img src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport.com">
-    </div>
+<body>
     @include('layouts.navbar-admin')
-    <div class="container-lg-fluid bg-dark">
+    <div class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
         <div class="container-lg">
-            <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
-                <div class="d-flex justify-content-center" style="margin:0 auto">
+            <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
+                <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
                     @foreach ($navbarCrudTables as $table)
                     <a href="{{ $table['route'] }}">
-                        <button class="btn btn-sm mx-2 px-3 btn-light">
+                        <button class="btn btn-sm mx-2 px-3 btn-outline-dark">
                             {{ $table['nom_pascal_case'] }}
                         </button>
                     </a>
