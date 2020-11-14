@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'check-permission' => \App\Http\Middleware\CheckPermission::class,
         'competition' => \App\Http\Middleware\Competition::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'match-id' => \App\Http\Middleware\MatchId::class,
         'verif-table-crud' => \App\Http\Middleware\VerifTableCrud::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Match;
 
 class MatchId
 {
@@ -15,6 +16,12 @@ class MatchId
      */
     public function handle($request, Closure $next)
     {
+        $match = Match::whereUniqid($request->id)->first();
+        if(! $match)
+            abort(404);
+
+        $request->match = $match;
+
         return $next($request);
     }
 }

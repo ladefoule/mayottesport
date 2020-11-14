@@ -25,7 +25,7 @@ class MatchController extends Controller
     public function __construct()
     {
         Log::info(" -------- CompetitionController : __construct -------- ");
-        $this->middleware(['sport', 'competition'])->only(['match', 'resultat', 'horaire', 'resultatPost', 'horairePost']);
+        $this->middleware(['sport', 'competition', 'match-id'])->only(['match', 'resultat', 'horaire', 'resultatPost', 'horairePost']);
 
         // $this->middleware('match-id')->only(['']);
 
@@ -81,23 +81,34 @@ class MatchController extends Controller
     /**
      * Accès à la view du match
      *
+     * @param  Request $request
      * @param  string $sport
      * @param  string $competition
      * @param  string $annee
      * @param  string $equipeDom
      * @param  string $equipeExt
-     * @param  string $id
      * @return \Illuminate\View\View|void
      */
-    public function match($sport, $competition, $annee, $equipeDom, $equipeExt, $id)
+    public function match(Request $request, $sport, $competition, $annee, $equipeDom, $equipeExt)
     {
         Log::info(" -------- MatchController : match -------- ");
-        $match = Match::whereUniqid($id)->firstOrFail();
+
+        // $validator = Validator::make([
+        //     'equipeDom' => $equipeDom,
+        //     'equipeExt' => $equipeExt
+        // ], [
+        //     'equipeDom' => 'regex:[a-z0-9-]\+|min:3',
+        //     'equipeExt' => 'regex:[a-z0-9-]\+|min:3'
+        // ]);
+
+        // if ($validator->fails())
+        //     abort(404);
+
+        $match = $request->match;
         $saison = $match->journee->saison;
 
-        // On vérifie l'URL
-        if(strToUrl($saison->competition->nom) != $competition || $saison->annee() != $annee){
-            Log::info('Match introuvable - competition : ' . $competition . ', année : ' . $annee . ', id : ' . $id);
+        // On vérifie l'année
+        if($saison->annee() != $annee){
             abort(404);
         }
 
@@ -113,10 +124,10 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\View\View|void
      */
-    public function resultat($sport, $competition, $matchId)
+    public function resultat(Request $request)
     {
         Log::info(" -------- MatchController : resultat -------- ");
-        $match = Match::whereUniqid($matchId)->firstOrFail();
+        $match = $request->match;
         $accesBloque = $match->acces_bloque;
         if ($accesBloque){
             Log::info("Match bloqué. Id match : " . $match->id);
@@ -136,20 +147,19 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function resultatPost(Request $request, $sport, $competition, $matchId)
+    public function resultatPost(Request $request)
     {
         Log::info(" -------- MatchController : resultatPost -------- ");
-        $request = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'score_eq_dom' => 'required|integer|min:0|max:30',
             'score_eq_ext' => 'required|integer|min:0|max:30',
             'note' => 'nullable|string|max:200'
         ])->validate();
 
-        $match = Match::whereUniqid($matchId)->firstOrFail();
+        $match = $request->match;
         $score_eq_dom = $request['score_eq_dom'];
         $score_eq_ext = $request['score_eq_ext'];
         $note = $request['note'];
-        $idUser = Auth::user()->id;
 
         // S'il y a un changement au niveau du score
         if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
@@ -159,12 +169,11 @@ class MatchController extends Controller
                 'nb_modifs' => $match->nb_modifs + 1
             ]);
 
-            $modif = new Modif([
-                'user_id' => $idUser,
+            Modif::create([
+                'user_id' => Auth::id(),
                 'match_id' => $match->id,
                 'note' => $note,
             ]);
-            $modif->saveOrFail();
 
             $this::forgetCaches($match);
         }
@@ -179,10 +188,10 @@ class MatchController extends Controller
      * @param  mixed $matchId
      * @return \Illuminate\View\View|void
      */
-    public function horaire($sport, $competition, $matchId)
+    public function horaire(Request $request)
     {
         Log::info(" -------- MatchController : horaire -------- ");
-        $match = Match::whereUniqid($matchId)->firstOrFail();
+        $match = $request->match;
 
         $infos = $match->infos();
         return view('football.horaire', [
@@ -197,11 +206,11 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function horairePost(Request $request, $sport, $competition, $matchId)
+    public function horairePost(Request $request)
     {
         Log::info(" -------- MatchController : horairePost -------- ");
-        $match = Match::whereUniqid($matchId)->firstOrFail();
-        $request = Validator::make($request->all(), [
+        $match = $request->match;
+        Validator::make($request->all(), [
             'date' => 'required|date',
             'heure' => 'required|size:5'
         ])->validate();
@@ -213,6 +222,12 @@ class MatchController extends Controller
             $match->update([
                 'date' => $date,
                 'heure' => $heure
+            ]);
+
+            Modif::create([
+                'user_id' => Auth::id(),
+                'match_id' => $match->id,
+                'note' => "Modification de l'horaire du match.",
             ]);
 
             $this::forgetCaches($match);
