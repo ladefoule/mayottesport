@@ -9,15 +9,15 @@
         <h1 class="h4 text-center p-3">{{ $sport . ' - ' . $competition }}</h1>
     </div>
     <div class="col-lg-8 d-flex flex-wrap p-0">
-        @if (isset($derniereJournee))
+        @if ($derniereJourneeHtml)
             <div class="col-12 pb-3 mb-3 px-0">
                 <h3 class="alert h5 alert-danger text-center">Les derniers résultats</h3>
                 <div class="px-3">
-                    {!! $derniereJournee !!}
+                    {!! $derniereJourneeHtml !!}
                 </div>
             </div>
         @endif
-        @if (isset($classement))
+        @if ($classement)
         <div class="col-12 p-0 mb-3 pb-3">
             {{-- <h1 class="h3 py-3 text-center">Le classement</h1> --}}
             <h3 class="alert h5 alert-info text-center">Le classement</h3>
@@ -66,11 +66,11 @@
         </div>
         @endif
 
-        @if (isset($prochaineJournee))
+        @if ($prochaineJourneeHtml)
             <div class="col-12 px-0">
                 <h3 class="alert h5 alert-success text-center">La prochaine journée</h3>
                 <div class="px-3">
-                    {!! $prochaineJournee !!}
+                    {!! $prochaineJourneeHtml !!}
                 </div>
             </div>
         @endif

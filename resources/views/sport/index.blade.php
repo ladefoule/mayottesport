@@ -20,7 +20,7 @@ $competition = Saison::whereId($saisonId)->first()->competition->nom;
         <h1 class="h4">Mayotte sport : l'ensemble des résultats de l'île</h1>
     </div> --}}
     <div class="col-12 text-center mt-4">
-        <span class="h2 font-italic">Football</span>
+        <span class="h2 font-italic">{{ $sport }}</span>
     </div>
 
     <div class="col-12 text-center py-3 row justify-content-between">

@@ -27,35 +27,45 @@ class CompetitionController extends Controller
         // $this->middleware('subscribed')->except('store');
     }
 
-    public function index(Request $request, string $sport, string $competition)
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function index(Request $request)
     {
         Log::info(" -------- CompetitionController : index -------- ");
         $competition = $request->competition;
         $saison = $request->saison;
         $sport = $request->sport;
 
-        $derniereJournee = $saison->derniereJournee();
-        $prochaineJournee = $saison->prochaineJournee();
 
         $types = config('constant.type-competition');
         $type = $types[$competition->type][0];
 
-        $derniereJournee = $derniereJournee ? $derniereJournee->afficherCalendrier() : '';
-        $prochaineJournee = $prochaineJournee ? $prochaineJournee->afficherCalendrier() : '';
+        $derniereJournee = $saison ? $saison->derniereJournee() : '';
+        $prochaineJournee = $saison ? $saison->prochaineJournee() : '';
+        $derniereJourneeHtml = $derniereJournee ? $derniereJournee->afficherCalendrier() : '';
+        $prochaineJourneeHtml = $prochaineJournee ? $prochaineJournee->afficherCalendrier() : '';
 
         $variables = [
-            'derniereJournee' => $derniereJournee,
-            'prochaineJournee' => $prochaineJournee,
+            'derniereJourneeHtml' => $derniereJourneeHtml,
+            'prochaineJourneeHtml' => $prochaineJourneeHtml,
             'competition' => $competition->nom,
             'sport' => $sport->nom,
         ];
 
         if($type == 'championnat'){
-            $classement = Saison::find($saison->id)->classement();
-            $hrefClassement = route('competition.classement', [
-                'sport' => strToUrl($sport->nom),
-                'competition' => strToUrl($competition->nom)
-            ]);
+            $classement = [];
+            $hrefClassement = '';
+            if($saison){
+                $classement = Saison::find($saison->id)->classement();
+                $hrefClassement = route('competition.classement', [
+                    'sport' => strToUrl($sport->nom),
+                    'competition' => strToUrl($competition->nom)
+                ]);
+            }
 
             $variables['classement'] = $classement;
             $variables['hrefClassement'] = $hrefClassement;
@@ -64,7 +74,7 @@ class CompetitionController extends Controller
         return view('competition.index', $variables);
     }
 
-    public function classement(Request $request, string $sport, string $competition)
+    public function classement(Request $request)
     {
         Log::info(" -------- CompetitionController : classement -------- ");
         $competition = $request->competition;
@@ -80,27 +90,31 @@ class CompetitionController extends Controller
         ]);
     }
 
-    public function journee(Request $request, string $sport, string $competition, int $journee)
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param string $sport
+     * @param string $competition
+     * @param string $journee
+     * @return \Illuminate\View\View|void
+     */
+    public function journee(Request $request, $sport, $competition, $journee)
     {
         Log::info(" -------- CompetitionController : journee -------- ");
-        $competition = $request->competition;
-        $competitionNom = $competition->nom;
         $saison = $request->saison;
         $journees = $saison->journees;
-        $journee = Journee::whereSaisonId($saison->id)->whereNumero($journee)->firstOrFail();
+        $journee = Journee::whereSaisonId($saison->id)->whereNumero($journee)->first();
+        if($journee == null)
+            abort(404);
 
-        $sport = strToUrl($request->sport->nom);
-        $competition = strToUrl($request->competition->nom);
-
-        $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->firstOrFail() : '';
-        $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->firstOrFail() : '';
+        $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->first() : '';
+        $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->first() : '';
 
         return view('competition.journee', [
-            'calendrierJournee' => $journee->afficherCalendrier(),
+            'calendrierJourneeHtml' => $journee->afficherCalendrier(),
             'journee' => $journee,
             'journees' => $journees,
-            'sport' => $sport,
-            'competition' => $competitionNom,
             'hrefJourneePrecedente' => $journeePrecedente ? $journeePrecedente->url() : '',
             'hrefJourneeSuivante' => $journeeSuivante ? $journeeSuivante->url() : ''
         ]);

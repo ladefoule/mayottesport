@@ -9,7 +9,6 @@ use App\Match;
 use App\Modif;
 use App\Competition;
 use App\Saison;
-use App\MatchInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +25,9 @@ class MatchController extends Controller
     public function __construct()
     {
         Log::info(" -------- CompetitionController : __construct -------- ");
-        $this->middleware('competition')->only(['match', 'resultat', 'horaire', 'resultatPost', 'horairePost']);
+        $this->middleware(['sport', 'competition'])->only(['match', 'resultat', 'horaire', 'resultatPost', 'horairePost']);
 
-        // $this->middleware('log')->only('index');
+        // $this->middleware('match-id')->only(['']);
 
         // $this->middleware('subscribed')->except('store');
     }
@@ -90,7 +89,7 @@ class MatchController extends Controller
      * @param  string $id
      * @return \Illuminate\View\View|void
      */
-    public function match(string $sport, string $competition, string $annee, string $equipeDom, string $equipeExt, string $id)
+    public function match($sport, $competition, $annee, $equipeDom, $equipeExt, $id)
     {
         Log::info(" -------- MatchController : match -------- ");
         $match = Match::whereUniqid($id)->firstOrFail();
@@ -114,7 +113,7 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\View\View|void
      */
-    public function resultat(string $sport, string $competition, string $matchId)
+    public function resultat($sport, $competition, $matchId)
     {
         Log::info(" -------- MatchController : resultat -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
@@ -137,7 +136,7 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function resultatPost(Request $request, string $sport, string $competition, string $matchId)
+    public function resultatPost(Request $request, $sport, $competition, $matchId)
     {
         Log::info(" -------- MatchController : resultatPost -------- ");
         $request = Validator::make($request->all(), [
@@ -180,7 +179,7 @@ class MatchController extends Controller
      * @param  mixed $matchId
      * @return \Illuminate\View\View|void
      */
-    public function horaire(string $sport, string $competition, $matchId)
+    public function horaire($sport, $competition, $matchId)
     {
         Log::info(" -------- MatchController : horaire -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();
@@ -198,7 +197,7 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function horairePost(Request $request, string $sport, string $competition, string $matchId)
+    public function horairePost(Request $request, $sport, $competition, $matchId)
     {
         Log::info(" -------- MatchController : horairePost -------- ");
         $match = Match::whereUniqid($matchId)->firstOrFail();

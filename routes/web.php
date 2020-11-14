@@ -20,13 +20,6 @@ Route::get('script.html', function(){ // Page pour tester une fonction ou un scr
 // Test
 Route::get('/', function () {return view('accueil');})->name('accueil');
 
-Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
-Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
-Route::get('/{sport}/{competition}/calendrier-et-resultats/{journee}e-journee.html', 'CompetitionController@journee')->name('competition.journee');
-Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@classement')->name('competition.palmares');
-Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');
-Route::get('/{sport}', 'SportController@index')->name('sport.index');
-
 Auth::routes();
 
 /* MIDDLEWARE AUTH */
@@ -117,3 +110,10 @@ Route::post('/ajax/journees-url-editer', function () {
 Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
     return view('ajax.table', ['table' => $table]);
 })->name('ajax');
+
+Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
+Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
+Route::get('/{sport}/{competition}/calendrier-et-resultats/{journee}e-journee.html', 'CompetitionController@journee')->name('competition.journee');
+Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@classement')->name('competition.palmares');
+Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');
+Route::get('/{sport}', 'SportController@index')->name('sport.index');

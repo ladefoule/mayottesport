@@ -22,7 +22,7 @@ class SportController extends Controller
         // $this->middleware('subscribed')->except('store');
     }
 
-    public function index(string $sport)
+    public function index($sport)
     {
         return view('sport.index', [
             'sport' => $sport

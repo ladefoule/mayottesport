@@ -33,7 +33,8 @@ class Sport
         if($sport == null)
             abort(404);
 
-        request()->sports = SportModel::all();
+        $request->sports = SportModel::all();
+        $request->competitions = $sport->competitions;
 
         // On remplace la chaine de caractère par l'objet
         $request->sport = $sport;
