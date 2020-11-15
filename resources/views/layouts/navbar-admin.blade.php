@@ -11,7 +11,7 @@
                 @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
                     <a class="nav-item nav-link px-2 @if (request()->url() == route('crud-gestion.tables')) active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
                 @endif
-               <a class="nav-item nav-link px-2 @if (request()->route()->getName() == 'crud.index') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
+               <a class="nav-item nav-link px-2 @if (in_array(request()->route()->getName(), ['crud.index', 'crud.create', 'crud.update', 'crud.show'])) active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
                <a class="nav-item nav-link px-2 @if (request()->url() == route('journees.multi.choix-saison')) active font-weight-bold @endif" href="{{ route('journees.multi.choix-saison') }}">Journées (multi)</a>
                {{-- <a class="nav-item nav-link px-2 {{ $activeSpec }}" href="{{ route('autres') }}">Actions spécifiques</a> --}}
            </div>

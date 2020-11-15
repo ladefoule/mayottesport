@@ -119,4 +119,18 @@ class CompetitionController extends Controller
             'hrefJourneeSuivante' => $journeeSuivante ? $journeeSuivante->url() : ''
         ]);
     }
+
+    public function palmares(Request $request)
+    {
+        Log::info(" -------- CompetitionController : palmares -------- ");
+        $competition = $request->competition;
+        $sport = $request->sport;
+
+        $palmares = $competition->palmares();
+        return view('competition.palmares', [
+            'palmares' => $palmares,
+            'sport' => $sport->nom,
+            'competition' => $competition->nom
+        ]);
+    }
 }

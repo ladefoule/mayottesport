@@ -4,20 +4,20 @@
 
 @section('content')
 
-<div class="row d-flex flex-wrap m-0 my-3 bg-white rounded p-3">
-    <div class="col-12">
-        <h1 class="h4 text-center p-3">{{ $sport . ' - ' . $competition }}</h1>
+<div class="row d-flex flex-wrap justify-content-between mx-0 my-3 bg-white rounded">
+    <div class="col-12 py-3">
+        <h1 class="h4 text-center">{{ $sport . ' - ' . $competition }}</h1>
     </div>
-    <div class="col-lg-8 d-flex flex-wrap p-0">
+    <div class="col-lg-9 d-flex flex-wrap">
         @if ($derniereJourneeHtml)
-            <div class="col-12 pb-3 mb-3 px-0">
+            <div class="col-12 p-0 pb-3 mb-3">
                 <h3 class="alert h5 alert-danger text-center">Les derniers résultats</h3>
                 <div class="px-3">
                     {!! $derniereJourneeHtml !!}
                 </div>
             </div>
         @endif
-        @if ($classement)
+        @if (isset($classement))
         <div class="col-12 p-0 mb-3 pb-3">
             {{-- <h1 class="h3 py-3 text-center">Le classement</h1> --}}
             <h3 class="alert h5 alert-info text-center">Le classement</h3>
@@ -75,8 +75,10 @@
             </div>
         @endif
     </div>
-    <div class="col-lg-4 pl-5 pr-0 text-center">
-        PUB
+    <div class="d-flex col-lg-3 justify-content-center border p-3">
+        <div class="border h-100 p-3" style="width:100%">
+            PUB
+        </div>
     </div>
 </div>
 

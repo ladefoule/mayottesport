@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cache;
 use App\Sport;
 use App\Saison;
 use App\Journee;
@@ -33,7 +34,7 @@ class JourneesMultiplesController extends Controller
      * @param int $saisonId
      * @return \Illuminate\View\View
      */
-    public function editMultiples(int $saisonId)
+    public function editMultiples($saisonId)
     {
         $saison = Saison::findOrFail($saisonId);
         $competition = $saison->competition;
@@ -56,16 +57,17 @@ class JourneesMultiplesController extends Controller
      * Traitement de l'ajout/modification de toutes les journées d'une mm saison en POST
      *
      * @param Request $request
-     * @param int $saisonId = 0
+     * @param int $saisonId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editMultiplesPost(Request $request, int $saisonId = 0)
+    public function editMultiplesPost(Request $request, $saisonId)
     {
         $rules = ['saison_id' => 'required|exists:saisons,id'];
         Validator::make($request->all(), $rules)->validate();
         $saisonId = $request['saison_id'];
+        $nbJournees = Saison::findOrFail($saisonId)->nb_journees;
 
-        for ($i=1; $i <= 100; $i++) {
+        for ($i=1; $i <= $nbJournees; $i++) {
             if ($request['numero' . $i]) {
                 $journeeNumero = $request['numero' . $i];
                 $journeeDate = $request['date' . $i];
@@ -94,6 +96,8 @@ class JourneesMultiplesController extends Controller
                 }
             }
         }
+
+        Cache::forget('crud-journees-index');
         return redirect()->route('journees.multi.voir', ['id' => $saisonId]);
     }
 

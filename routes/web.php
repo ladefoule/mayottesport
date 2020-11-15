@@ -114,6 +114,6 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
 Route::get('/{sport}/{competition}/calendrier-et-resultats/{journee}e-journee.html', 'CompetitionController@journee')->name('competition.journee');
-Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@classement')->name('competition.palmares');
+Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@palmares')->name('competition.palmares');
 Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');
 Route::get('/{sport}', 'SportController@index')->name('sport.index');
