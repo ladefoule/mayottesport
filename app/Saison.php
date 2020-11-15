@@ -45,12 +45,12 @@ class Saison extends Model
         return ['rules' => $rules, 'messages' => $messages];
     }
 
-    public function derniereJournee()
+    public function lastDay()
     {
         return $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
     }
 
-    public function prochaineJournee()
+    public function nextDay()
     {
         return $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
     }
@@ -60,10 +60,10 @@ class Saison extends Model
      *
      * @return array
      */
-    public function classement()
+    public function ranking()
     {
         $key = 'classement-'.$this->id;
-        if(!Config::get('constant.activer_cache'))
+        if(! Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -74,13 +74,13 @@ class Saison extends Model
         });
     }
 
-    public function afficherClassementSimplifie(bool $complet = false)
+    public function displaySimplifiedRanking(bool $complet = false)
     {
         $sport = strToUrl($this->competition->sport->nom);
         $competition = strToUrl($this->competition->nom);
-        $hrefClassementComplet = route('competition.classement', ['competition' => $competition, 'sport' => $sport]);
+        $hrefClassementComplet = route($sport . '.ranking', ['competition' => $competition, 'sport' => $sport]);
         $classement = $this->classement();
-        return view('football.classement-simplifie', [
+        return view('competition.simplified-ranking', [
             'classement' => $classement,
             'hrefClassementComplet' => $hrefClassementComplet,
             'complet' => $complet
@@ -152,13 +152,13 @@ class Saison extends Model
     }
 
     /**
-     * Définition de l'attribut nom qui nous renvoie un affichage de l'objet
+     * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string
      */
-    public function getNomAttribute()
+    public function getCrudNameAttribute()
     {
-        return $this->competition->nom.' '.$this->annee('/');
+        return $this->competition->crud_name . ' - ' . $this->annee('/');
     }
 
     /**

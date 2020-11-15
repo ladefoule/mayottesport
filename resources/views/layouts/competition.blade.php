@@ -32,16 +32,16 @@
                         <i class="fas fa-angle-right"></i>
                     </span>
                     @if ($hrefClassement)
-                    <a href="{{ $hrefClassement }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.classement') text-info @else text-secondary @endif font-weight-bold pr-3">
+                    <a href="{{ $hrefClassement }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.ranking') text-info @else text-secondary @endif font-weight-bold pr-3">
                         Le classement
                     </a>
                     @endif
                     @if ($hrefCalendrier)
-                    <a href="{{ $hrefCalendrier }}" class="d-flex flex-shrink-0 @if(request()->route()->getName() == 'competition.journee') text-danger @else text-secondary @endif font-weight-bold pr-3">
+                    <a href="{{ $hrefCalendrier }}" class="d-flex flex-shrink-0 @if(request()->route()->getName() == 'competition.day') text-danger @else text-secondary @endif font-weight-bold pr-3">
                         Les résultats
                     </a>
                     @endif
-                    <a href="{{ $hrefPalmares }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.palmares') text-success @else text-secondary @endif font-weight-bold">
+                    <a href="{{ $hrefPalmares }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.champions') text-success @else text-secondary @endif font-weight-bold">
                         Le palmarès
                     </a>
                 </div>

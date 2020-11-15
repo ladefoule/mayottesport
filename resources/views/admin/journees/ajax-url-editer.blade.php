@@ -13,4 +13,4 @@ if ($validator->fails()) {
 
 $request = $validator->validate();
 $saisonId = $request['saison_id'];
-echo route('journees.multi.editer', ['id' => $saisonId]);
+echo route('journees.multi.edit', ['id' => $saisonId]);

@@ -16,7 +16,7 @@ class Competition extends Model
     protected $fillable = ['nom', 'type', 'nom_complet', 'sport_id'];
 
     /**
-     * Définition de l'affichage d'un objet dans le CRUD (back-office)
+     * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string
      */

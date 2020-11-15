@@ -100,13 +100,13 @@ class Match extends Model
     }
 
     /**
-     * Définition de l'affichage d'un objet de la classe
+     * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string
      */
-    public function getNomAttribute()
+    public function getCrudNameAttribute()
     {
-        return $this->equipeDom->nom . ' # ' . $this->equipeExt->nom;
+        return $this->journee->crud_name . ' - ' . $this->equipeDom->nom . ' # ' . $this->equipeExt->nom;
     }
 
     /**
@@ -117,7 +117,7 @@ class Match extends Model
     public function infos()
     {
         $key = 'match-'.$this->uniqid;
-        if(!Config::get('constant.activer_cache'))
+        if(! Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -163,8 +163,8 @@ class Match extends Model
             'commentaires' => $commentaires,
             'scoreEqDom' => $this->score_eq_dom,
             'scoreEqExt' => $this->score_eq_ext,
-            'lienResultat' => route('competition.match.resultat', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
-            'lienHoraire' => route('competition.match.horaire', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
+            'lienResultat' => route('competition.match.result', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
+            'lienHoraire' => route('competition.match.schedule', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
             'lienMatch' => route('competition.match', [
                 'id' => $this->uniqid,
                 'sport' => strToUrl($sport->nom),

@@ -17,9 +17,15 @@ class VerifTableCrud
      */
     public function handle($request, Closure $next)
     {
+        Log::info(" -------- Middleware VerifTableCrud -------- ");
         $table = $request['table'];
-        $crudTable = CrudTable::verifTable($table);
-        if($crudTable == false){
+        $crudTable = false;
+        $navbarCrudTables = CrudTable::navbarCrudTables();
+        foreach ($navbarCrudTables as $table_)
+            if(array_search($table, $table_))
+                $crudTable = CrudTable::findOrFail($table_['id']);
+
+        if(! $crudTable){
             Log::info('Table non gérée ou introuvable : ' . $table);
             abort(404);
         }

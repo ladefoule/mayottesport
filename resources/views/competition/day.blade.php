@@ -12,7 +12,7 @@
         @endif
         <select class="form-control col-6 col-sm-4 col-md-3" name="journee" id="journee">
             @foreach ($journees as $journee_)
-                <option data-href="{{ route('competition.journee', ['sport' => strToUrl(request()->sport->nom),'competition' => strToUrl(request()->competition->nom),'journee' => $journee_->numero]) }}"
+                <option data-href="{{ route('competition.day', ['sport' => strToUrl(request()->sport->nom),'competition' => strToUrl(request()->competition->nom),'journee' => $journee_->numero]) }}"
                     value="{{ $journee_->numero }}" @if($journee->numero == $journee_->numero) selected @endif>{{ niemeJournee($journee_->numero) }}</option>
             @endforeach
         </select>

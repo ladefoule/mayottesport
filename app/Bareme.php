@@ -16,13 +16,13 @@ class Bareme extends Model
     protected $fillable = ['nom', 'victoire', 'nul', 'defaite', 'sport_id'];
 
     /**
-     * Définition de l'affichage d'un barème
+     * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string
      */
-    public function __toString()
+    public function getCrudNameAttribute()
     {
-        return $this->nom ?? '';
+        return $this->sport->crud_name . ' - ' . $this->nom;
     }
 
     /**

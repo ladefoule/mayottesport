@@ -30,8 +30,8 @@
             <tbody>
                 @foreach($liste as $id => $ligne)
                     <tr>
-                        <td class="px-2"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
-                        <td align="left" class="px-2">{{ $ligne['crud_name'] }}</td>
+                        <td class="px-2 align-middle"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
+                        <td align="left" class="px-2 align-middle">{{ $ligne['crud_name'] }}</td>
                         <td class="text-right">
                             <a href="{{ $ligne['href_show'] }}" title="Voir" class="text-decoration-none">
                                 <button class="btn-sm btn-success">

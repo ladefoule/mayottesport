@@ -16,12 +16,12 @@ class JourneesMultiplesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function choixSaison()
+    public function seasonChoice()
     {
         $sports = Sport::orderBy('nom')->get();
         $h1 = $title = 'Saison : Ajout de toutes les journées';
 
-        return view('admin.journees.multi.choix-saison', [
+        return view('admin.journees.multi.season-choice', [
             'sports' => $sports,
             'title' => $title,
             'h1' => $h1
@@ -34,7 +34,7 @@ class JourneesMultiplesController extends Controller
      * @param int $saisonId
      * @return \Illuminate\View\View
      */
-    public function editMultiples($saisonId)
+    public function edit($saisonId)
     {
         $saison = Saison::findOrFail($saisonId);
         $competition = $saison->competition;
@@ -42,7 +42,7 @@ class JourneesMultiplesController extends Controller
         $nbJournees = $saison->nb_journees;
         $h1 = $title = 'journees/Saison : ' . $saison->saison_id;
 
-        return view('admin.journees.multi.editer', [
+        return view('admin.journees.multi.edit', [
             'competition' => $competition->nom,
             'sport' => $sport->nom,
             'saison' => $saison->nom,
@@ -60,7 +60,7 @@ class JourneesMultiplesController extends Controller
      * @param int $saisonId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editMultiplesPost(Request $request, $saisonId)
+    public function editStore(Request $request, $saisonId)
     {
         $rules = ['saison_id' => 'required|exists:saisons,id'];
         Validator::make($request->all(), $rules)->validate();
@@ -98,7 +98,7 @@ class JourneesMultiplesController extends Controller
         }
 
         Cache::forget('crud-journees-index');
-        return redirect()->route('journees.multi.voir', ['id' => $saisonId]);
+        return redirect()->route('journees.multi.show', ['id' => $saisonId]);
     }
 
     /**
@@ -114,7 +114,7 @@ class JourneesMultiplesController extends Controller
         $h1 = $title = 'Journees/Saison : ' . $saisonId;
         $journees = $saison->journees->sortBy('numero');
 
-        return view('admin.journees.multi.voir', [
+        return view('admin.journees.multi.show', [
             'saison' => $saison->nom,
             'competition' => $competition->nom,
             'sport' => $sport->nom,

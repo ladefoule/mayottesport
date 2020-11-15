@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Match;
+use Illuminate\Support\Facades\Log;
 
 class MatchId
 {
@@ -16,6 +17,7 @@ class MatchId
      */
     public function handle($request, Closure $next)
     {
+        Log::info(" -------- Middleware MatchId -------- ");
         $match = Match::whereUniqid($request->id)->first();
         if(! $match)
             abort(404);

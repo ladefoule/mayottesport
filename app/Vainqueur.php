@@ -30,11 +30,13 @@ class Vainqueur extends Model
     }
 
     /**
-     * Définition de l'attribut nom
+     * Définition de l'affichage dans le CRUD (back-office)
+     *
+     * @return string
      */
-    public function getNomAttribute()
+    public function getCrudNameAttribute()
     {
-        return $this->competition->nom . ' ' . $this->saison . ' : ' . $this->equipe->nom;
+        return $this->competition->crud_name . ' ' . $this->saison . ' : ' . $this->equipe->nom;
     }
 
     /**

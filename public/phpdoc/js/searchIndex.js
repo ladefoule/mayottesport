@@ -181,20 +181,20 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/App-Http-Controllers-JourneesMultiplesController.html"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\JourneesMultiplesController\u003A\u003AchoixSaison\u0028\u0029",
-            "name": "choixSaison",
+            "fqsen": "\\App\\Http\\Controllers\\JourneesMultiplesController\u003A\u003AseasonChoice\u0028\u0029",
+            "name": "seasonChoice",
             "summary": "Ajout\u0020de\u0020toutes\u0020les\u0020journ\u00E9es\u0020d\u0027une\u0020m\u00EAme\u0020saison",
-            "url": "../classes/App-Http-Controllers-JourneesMultiplesController.html#method_choixSaison"
+            "url": "../classes/App-Http-Controllers-JourneesMultiplesController.html#method_seasonChoice"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\JourneesMultiplesController\u003A\u003AeditMultiples\u0028\u0029",
-            "name": "editMultiples",
+            "fqsen": "\\App\\Http\\Controllers\\JourneesMultiplesController\u003A\u003Aedit\u0028\u0029",
+            "name": "edit",
             "summary": "Modification\u0020de\u0020toutes\u0020les\u0020journ\u00E9es\u0020d\u0027une\u0020m\u00EAme\u0020saison",
-            "url": "../classes/App-Http-Controllers-JourneesMultiplesController.html#method_editMultiples"
+            "url": "../classes/App-Http-Controllers-JourneesMultiplesController.html#method_edit"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\JourneesMultiplesController\u003A\u003AeditMultiplesPost\u0028\u0029",
-            "name": "editMultiplesPost",
+            "fqsen": "\\App\\Http\\Controllers\\JourneesMultiplesController\u003A\u003AeditStore\u0028\u0029",
+            "name": "editStore",
             "summary": "Traitement\u0020de\u0020l\u0027ajout\/modification\u0020de\u0020toutes\u0020les\u0020journ\u00E9es\u0020d\u0027une\u0020mm\u0020saison\u0020en\u0020POST",
-            "url": "../classes/App-Http-Controllers-JourneesMultiplesController.html#method_editMultiplesPost"
+            "url": "../classes/App-Http-Controllers-JourneesMultiplesController.html#method_editStore"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\JourneesMultiplesController\u003A\u003AvueMultiples\u0028\u0029",
             "name": "vueMultiples",
@@ -521,10 +521,10 @@ Search.appendIndex(
             "summary": "La\u0020fonction\u0020renvoie\u0020le\u0020classement\u0020s\u0027il\u0020est\u0020d\u00E9j\u00E0\u0020en\u0020cache.\u0020Sinon,\u0020elle\u0020fait\u0020appelle\u0020\u00E0\u0020la\u0020fonction\u0020genererClassement",
             "url": "../classes/App-ChampSaison.html#method_classement"
         },                {
-            "fqsen": "\\App\\ChampSaison\u003A\u003AafficherClassementSimplifie\u0028\u0029",
-            "name": "afficherClassementSimplifie",
+            "fqsen": "\\App\\ChampSaison\u003A\u003AdisplaySimplifiedRanking\u0028\u0029",
+            "name": "displaySimplifiedRanking",
             "summary": "",
-            "url": "../classes/App-ChampSaison.html#method_afficherClassementSimplifie"
+            "url": "../classes/App-ChampSaison.html#method_displaySimplifiedRanking"
         },                {
             "fqsen": "\\App\\ChampSaison\u003A\u003AgenererClassement\u0028\u0029",
             "name": "genererClassement",

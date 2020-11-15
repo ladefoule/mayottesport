@@ -18,6 +18,7 @@ class Competition
      */
     public function handle($request, Closure $next)
     {
+        Log::info(" -------- Middleware Competition -------- ");
         $rules = [
             'competition' => 'alpha_dash|min:3',
         ];
@@ -26,9 +27,8 @@ class Competition
             'competition' => $request->competition,
         ], $rules);
 
-        if ($validator->fails()) {
+        if ($validator->fails())
             abort(404);
-        }
 
         $sport = $request->sport;
         $competitions = $sport->competitions;
@@ -56,19 +56,19 @@ class Competition
         $request->competition = $competition; // On remplace la chaine de caractère par l'objet
         $request->saison = $saison;
         $request->hrefIndex = route('competition.index', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
-        $request->hrefPalmares = route('competition.palmares', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+        $request->hrefPalmares = route('competition.champions', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
 
         $derniereJournee = $request->hrefClassement = $request->hrefCalendrier = '';
         if($saison){
-            $derniereJournee = $saison->derniereJournee();
-            $prochaineJournee = $saison->prochaineJournee();
+            $derniereJournee = $saison->lastDay();
+            $prochaineJournee = $saison->nextDay();
             if($derniereJournee)
-                $request->hrefCalendrier = route('competition.journee', ['sport' => $sportKebab, 'competition' => $competitionKebab, 'journee' => $derniereJournee->numero]);
+                $request->hrefCalendrier = route('competition.day', ['sport' => $sportKebab, 'competition' => $competitionKebab, 'journee' => $derniereJournee->numero]);
             else if($prochaineJournee)
-                $request->hrefCalendrier = route('competition.journee', ['sport' => $sportKebab, 'competition' => $competitionKebab, 'journee' => $prochaineJournee->numero]);
+                $request->hrefCalendrier = route('competition.day', ['sport' => $sportKebab, 'competition' => $competitionKebab, 'journee' => $prochaineJournee->numero]);
 
             if($competition->type == 1){ // Type Championnat
-                $request->hrefClassement = route('competition.classement', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+                $request->hrefClassement = route('competition.ranking', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
             }
         }
 

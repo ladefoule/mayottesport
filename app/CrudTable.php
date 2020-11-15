@@ -23,23 +23,6 @@ class CrudTable extends Model
     public $timestamps = false;
 
     /**
-     * On vérifie si la table saisie est présente dans la table de gestion du CRUD.
-     * Si c'est le cas, on renvoie l'objet CrudTable correspondant, sinon on renvoie false
-     *
-     * @param String $table
-     * @return CrudTable|false|void
-     */
-    public static function verifTable(String $table)
-    {
-        $navbarCrudTables = CrudTable::navbarCrudTables();
-        foreach ($navbarCrudTables as $table_) {
-            if(array_search($table, $table_))
-                return CrudTable::findOrFail($table_['id']);
-        }
-        return false;
-    }
-
-    /**
      * navbarCrudTables
      *
      * @return \Illuminate\Support\Collection
@@ -49,7 +32,7 @@ class CrudTable extends Model
         $user = Auth::user();
         $role = $user->role->nom; // admin/membre/superadminpremium etc...
         $key = "crud-navbar-tables-users-" . $role;
-        if(!Config::get('constant.activer_cache'))
+        if(! Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -107,15 +90,15 @@ class CrudTable extends Model
 
     /**
      * La fonction récupère la liste (dans le bon ordre) des attributs qu'on doit afficher
-     * soit dans la page liste, la page vue (affichage d'un élement) ou l'édition/ajout d'un élement.
-     * Elle renvoie false sinon.
+     * soit dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement.
+     * Elle renvoie false sinon la liste est vide.
      *
      * @param string $action
      * @return \Illuminate\Support\Collection|false
      */
-    public function listeAttributsVisibles($action = 'index')
+    public function listeAttributsVisibles(string $action)
     {
-        if($action == 'update') $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout et de la modification
+        if($action == 'update') $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
 
         $correspondances = config('constant.crud-attribut');
         foreach ($correspondances as $id => $value)
@@ -124,11 +107,11 @@ class CrudTable extends Model
                 break;
             }
 
-        if(!isset($infoId))
+        if(! isset($infoId))
             return false;
 
         $key = "attributs-visibles-" . str_replace('_', '-' ,$this->nom) . "-" . $action;
-        if (!Config::get('constant.activer_cache'))
+        if (! Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -140,7 +123,7 @@ class CrudTable extends Model
                     ->join('crud_attribut_infos', 'crud_attribut_id', 'crud_attributs.id')
                     ->where('propriete_id', $infoId)
                     ->where('crud_table_id', $this->id)
-                    ->orderByRaw('CAST(valeur AS UNSIGNED)') // Permet d'interpréter la chaine '1' (car valeur est de type Varchar) en entier
+                    ->orderByRaw('CAST(valeur AS UNSIGNED)') // Permet d'interpréter une chaine '1' (car valeur est de type Varchar) en entier
                     ->select(['crud_attributs.*', 'crud_tables.*', 'crud_attribut_infos.crud_attribut_id'])
                     ->get()->all();
 
@@ -150,7 +133,7 @@ class CrudTable extends Model
                 foreach ($listeAttributsVisibles as $key => $infosAttribut) {
                     $infosAttribut = (array) $infosAttribut;
 
-                    // Correspondance entre l'id de la propriété et sa vraie signification
+                    // Correspondance entre les propriete_id et leur vraie signification
                     $correspondances = config('constant.crud-attribut');
 
                     // On récupère les infos supplémentaires liés à cet attribut et qui sont présents dans la table crud_attribut_infos

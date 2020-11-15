@@ -17,16 +17,7 @@ class AttributVisible
     {
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
         $route = $request->route()->getName();
-
-        switch ($route) {
-            case 'crud.index-ajax':
-                $action = 'index';
-                break;
-
-            default:
-                $action = explode('.', $route)[1];
-                break;
-        }
+        $action = explode('.', $route)[1]; // les différentes routes : crud.create / crud.show / crud.update
 
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles($action);
         if($listeAttributsVisibles == false)

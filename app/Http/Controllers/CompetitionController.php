@@ -21,10 +21,6 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- CompetitionController : __construct -------- ");
         $this->middleware(['sport', 'competition']);
-
-        // $this->middleware('log')->only('index');
-
-        // $this->middleware('subscribed')->except('store');
     }
 
     /**
@@ -44,8 +40,8 @@ class CompetitionController extends Controller
         $types = config('constant.type-competition');
         $type = $types[$competition->type][0];
 
-        $derniereJournee = $saison ? $saison->derniereJournee() : '';
-        $prochaineJournee = $saison ? $saison->prochaineJournee() : '';
+        $derniereJournee = $saison ? $saison->lastDay() : '';
+        $prochaineJournee = $saison ? $saison->nextDay() : '';
         $derniereJourneeHtml = $derniereJournee ? $derniereJournee->afficherCalendrier() : '';
         $prochaineJourneeHtml = $prochaineJournee ? $prochaineJournee->afficherCalendrier() : '';
 
@@ -61,7 +57,7 @@ class CompetitionController extends Controller
             $hrefClassement = '';
             if($saison){
                 $classement = Saison::find($saison->id)->classement();
-                $hrefClassement = route('competition.classement', [
+                $hrefClassement = route('competition.ranking', [
                     'sport' => strToUrl($sport->nom),
                     'competition' => strToUrl($competition->nom)
                 ]);
@@ -74,15 +70,15 @@ class CompetitionController extends Controller
         return view('competition.index', $variables);
     }
 
-    public function classement(Request $request)
+    public function ranking(Request $request)
     {
-        Log::info(" -------- CompetitionController : classement -------- ");
+        Log::info(" -------- CompetitionController : ranking -------- ");
         $competition = $request->competition;
         $saison = $request->saison;
         $sport = strToUrl($request->sport->nom);
 
-        $classement = $saison->classement();
-        return view($sport.'.classement', [
+        $classement = $saison->ranking();
+        return view($sport.'.ranking', [
             'classement' => $classement,
             'saison' => $saison->nom,
             'sport' => $sport,
@@ -99,9 +95,9 @@ class CompetitionController extends Controller
      * @param string $journee
      * @return \Illuminate\View\View|void
      */
-    public function journee(Request $request, $sport, $competition, $journee)
+    public function day(Request $request, $sport, $competition, $journee)
     {
-        Log::info(" -------- CompetitionController : journee -------- ");
+        Log::info(" -------- CompetitionController : day -------- ");
         $saison = $request->saison;
         $journees = $saison->journees;
         $journee = Journee::whereSaisonId($saison->id)->whereNumero($journee)->first();
@@ -111,7 +107,7 @@ class CompetitionController extends Controller
         $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->first() : '';
         $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->first() : '';
 
-        return view('competition.journee', [
+        return view('competition.day', [
             'calendrierJourneeHtml' => $journee->afficherCalendrier(),
             'journee' => $journee,
             'journees' => $journees,
@@ -120,14 +116,14 @@ class CompetitionController extends Controller
         ]);
     }
 
-    public function palmares(Request $request)
+    public function champions(Request $request)
     {
-        Log::info(" -------- CompetitionController : palmares -------- ");
+        Log::info(" -------- CompetitionController : champions -------- ");
         $competition = $request->competition;
         $sport = $request->sport;
 
         $palmares = $competition->palmares();
-        return view('competition.palmares', [
+        return view('competition.champions', [
             'palmares' => $palmares,
             'sport' => $sport->nom,
             'competition' => $competition->nom

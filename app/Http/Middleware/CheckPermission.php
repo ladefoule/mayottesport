@@ -3,8 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Providers\RouteServiceProvider;
 
 class CheckPermission
@@ -18,10 +17,11 @@ class CheckPermission
      */
     public function handle($request, Closure $next, $permission)
     {
+        Log::info(" -------- Middleware CheckPermission -------- ");
         $permission = explode('|', $permission);
         if(checkPermission($permission))
             return $next($request);
 
-            return redirect()->route('accueil')->with('messageAccess', "Vous n'avez pas accès à cette page. Merci de contacter l'administrateur.");
-        }
+        abort(404);
+    }
 }

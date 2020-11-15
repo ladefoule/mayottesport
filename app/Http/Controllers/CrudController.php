@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\Validator;
 class CrudController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        Log::info(" -------- CrudController : __construct -------- ");
+        $this->middleware('verif-table-crud')->except('forgetCaches');
+        $this->middleware('attribut-visible')->only(['show', 'createForm', 'updateForm']);
+    }
+
+    /**
      * Affichage de tous les élements d'une table.
      * Ensuite, elle vérifie s'il y a des attributs de cette table à afficher lors de l'appel à la liste (infos présentes dans la table crud_attributs).
      * Enfin, si on trouve au moins un attribut, on affiche les données.
@@ -23,7 +35,6 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : index -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $listeAttributsVisibles = $request['listeAttributsVisibles']; // Récupérér depuis le middleware AttributVisible
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase;
         $title = 'CRUD - Lister : ' . $h1;
@@ -35,9 +46,6 @@ class CrudController extends Controller
 
         return view('admin.crud.index', [
             'liste' => $liste,  // La liste des éléments de la classe
-            'listeAttributsVisibles' => $listeAttributsVisibles, // Contient tous les attributs à afficher dans la liste et leur position
-                                        // ex: listeAttributsVisibles = [ 0 => [attribut => sport_lib, liste_pos => 1, ...],
-                                        //                      1 => [attribut => sport_code, liste_pos => 2, ...], ... ]
             'table' => $table, // Le nom de la table en kebab-case
             'h1' => $h1,    // Titre du header de la card
             'title' => $title, // Title de la page
@@ -55,11 +63,9 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : indexAjax -------- ");
         $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
-        $listeAttributsVisibles = $request['listeAttributsVisibles']; // Récupérér depuis le middleware AttributVisible
         $liste = $crudTable->index();
         return view('admin.crud.index-ajax', [
-            'liste' => $liste,
-            'listeAttributsVisibles' => $listeAttributsVisibles
+            'liste' => $liste
         ]);
     }
 

@@ -54,7 +54,7 @@ class Journee extends Model
     public function calendrier()
     {
         $key = 'journee-'.$this->id;
-        if(!Config::get('constant.activer_cache'))
+        if(! Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
@@ -116,10 +116,22 @@ class Journee extends Model
         // $sport = strToUrl($this->saison->championnat->sport->nom);
         $dateJournee = date('d/m/Y', strtotime($this->date));
         $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
-        return view('competition.calendrier-journee', [
+        return view('competition.day-calendar', [
             'calendrier' => $this->calendrier(),
             'journee' => $journee
         ])->render();
+    }
+
+    /**
+     * Définition de l'affichage dans le CRUD (back-office)
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        $saison = $this->saison->crud_name;
+        $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
+        return $saison . ' - J' . $journee;
     }
 
     /**
@@ -145,7 +157,7 @@ class Journee extends Model
 
         $competition = $saison->competition;
         $sport = $competition->sport;
-        return route('competition.journee', [
+        return route('competition.day', [
             'sport' => strToUrl($sport->nom),
             'competition' => strToUrl($competition->nom),
             'journee' => $this->numero

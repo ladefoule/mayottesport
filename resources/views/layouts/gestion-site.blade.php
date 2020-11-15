@@ -10,7 +10,7 @@
     <title>@yield('title') | mayottesport.com</title>
 </head>
 <?php
-    $routeJournees = route('journees.multi.choix-saison');
+    $routeJournees = route('journees.multi.season-choice');
     $path = request()->path();
 ?>
 <body>
@@ -19,7 +19,7 @@
         <div class="container-lg">
             <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3" style="margin:0;font-size:0.9rem">
-                    <a href="{{ route('journees.multi.choix-saison') }}"><button class="btn btn-sm mx-2 btn-outline-dark">Journées (multi)</button></a>
+                    <a href="{{ route('journees.multi.season-choice') }}"><button class="btn btn-sm mx-2 btn-outline-dark">Journées (multi)</button></a>
                     {{-- <a href="{{ route('matches.lister') }}"><button class="btn mx-2 @if(Str::endsWith($routeFoot, $path)) btn-light @else btn-outline-light @endif">Matches de foot</button></a> --}}
                 </div>
             </div>

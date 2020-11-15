@@ -6,7 +6,7 @@
 <div class="row card mx-1">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> {{ $h1 }}</span>
-        <a href="{{ route('journees.multi.voir', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
+        <a href="{{ route('journees.multi.show', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
             <button class="btn-sm btn-success text-white">
                 <?= \Config::get('constant.boutons.voir') ?>
                 <span class="d-none d-lg-inline ml-1">Voir</span>

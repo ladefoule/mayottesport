@@ -25,57 +25,7 @@ class MatchController extends Controller
     public function __construct()
     {
         Log::info(" -------- CompetitionController : __construct -------- ");
-        $this->middleware(['sport', 'competition', 'match-id'])->only(['match', 'resultat', 'horaire', 'resultatPost', 'horairePost']);
-
-        // $this->middleware('match-id')->only(['']);
-
-        // $this->middleware('subscribed')->except('store');
-    }
-
-    /**
-     * Accès Back-Office
-     * Affichage de la liste des matches de Championnat de Football
-     *
-     * @return \Illuminate\View\View
-     */
-    public function lister()
-    {
-        Log::info(" -------- MatchController : lister -------- ");
-        $sports = Sport::get();
-        // $competitions = Competition::where('sport_id', $idFootball)->where('type', 1)->orderBy('nom')->get();
-        $h1 = $title = ' Parcourir les matches';
-        return view(
-            'admin.matches.lister',
-            ['title' => $title, 'h1' => $h1, 'sports' => $sports]
-        );
-    }
-
-    /**
-     * Accès Back-Office
-     * Formulaire d'ajout d'un match de football de Championnat
-     *
-     * @return \Illuminate\View\View|void
-     */
-    public function ajouter()
-    {
-        Log::info(" -------- MatchController : ajouter -------- ");
-        $match = new Match();
-        $competition = new Competition();
-        $saison = new Saison();
-        $saisons = [];
-        $journees = [];
-        $title = 'Championnat/Football : Ajout d\'un match';
-
-        $idFootball = Sport::firstWhere('nom', 'like', 'football')->id ?? 0;
-        $competitions = Sport::firstWhere('id', $idFootball)->championnats;
-        $equipes = Equipe::orderBy('nom')->get();
-        $terrains = Terrain::orderBy('nom')->get();
-
-        return view('admin.matches.foot.ajouter', [
-            'Match' => $match, 'title' => $title,
-            'h1' => $title, 'championnats' => $competitions, 'championnatId' => $competition->id,
-            'saisonId' => $saison->id, 'saisons' => $saisons, 'journees' => $journees, 'equipes' => $equipes, 'terrains' => $terrains
-        ]);
+        $this->middleware(['sport', 'competition', 'match-id'])->except('forgetCaches');
     }
 
     /**
@@ -92,18 +42,6 @@ class MatchController extends Controller
     public function match(Request $request, $sport, $competition, $annee, $equipeDom, $equipeExt)
     {
         Log::info(" -------- MatchController : match -------- ");
-
-        // $validator = Validator::make([
-        //     'equipeDom' => $equipeDom,
-        //     'equipeExt' => $equipeExt
-        // ], [
-        //     'equipeDom' => 'regex:[a-z0-9-]\+|min:3',
-        //     'equipeExt' => 'regex:[a-z0-9-]\+|min:3'
-        // ]);
-
-        // if ($validator->fails())
-        //     abort(404);
-
         $match = $request->match;
         $saison = $match->journee->saison;
 
@@ -124,9 +62,9 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\View\View|void
      */
-    public function resultat(Request $request)
+    public function result(Request $request)
     {
-        Log::info(" -------- MatchController : resultat -------- ");
+        Log::info(" -------- MatchController : result -------- ");
         $match = $request->match;
         $accesBloque = $match->acces_bloque;
         if ($accesBloque){
@@ -135,7 +73,7 @@ class MatchController extends Controller
         }
 
         $infos = $match->infos();
-        return view('football.resultat', [
+        return view('football.result', [
             'match' => $infos
         ]);
     }
@@ -147,9 +85,9 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function resultatPost(Request $request)
+    public function resultStore(Request $request)
     {
-        Log::info(" -------- MatchController : resultatPost -------- ");
+        Log::info(" -------- MatchController : resultStore -------- ");
         Validator::make($request->all(), [
             'score_eq_dom' => 'required|integer|min:0|max:30',
             'score_eq_ext' => 'required|integer|min:0|max:30',
@@ -188,13 +126,13 @@ class MatchController extends Controller
      * @param  mixed $matchId
      * @return \Illuminate\View\View|void
      */
-    public function horaire(Request $request)
+    public function schedule(Request $request)
     {
-        Log::info(" -------- MatchController : horaire -------- ");
+        Log::info(" -------- MatchController : schedule -------- ");
         $match = $request->match;
 
         $infos = $match->infos();
-        return view('football.horaire', [
+        return view('football.schedule', [
             'match' => $infos
         ]);
     }
@@ -206,9 +144,9 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function horairePost(Request $request)
+    public function scheduleStore(Request $request)
     {
-        Log::info(" -------- MatchController : horairePost -------- ");
+        Log::info(" -------- MatchController : scheduleStore -------- ");
         $match = $request->match;
         Validator::make($request->all(), [
             'date' => 'required|date',
@@ -235,33 +173,6 @@ class MatchController extends Controller
 
         $urlMatch = $match->infos()['lienMatch'];
         return redirect($urlMatch);
-    }
-
-    /**
-     * Traitement de la suppression de plusieurs matches de football
-     * Les ids à supprimer doivent être inclus dans un tableau qui portera le name 'delete'
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function delete(Request $request)
-    {
-        Log::info(" -------- MatchController : delete -------- ");
-        $validator = Validator::make($request->all(), [
-            'delete' => 'required|array',
-            'delete.*' => "integer|exists:champ_matches,id"
-        ]);
-
-        if ($validator->fails())
-            abort(404);
-
-        $request = $validator->validate();
-        foreach ($request['delete'] as $id) {
-            $match = Match::whereUniqid($id)->firstOrFail();
-            $match->delete();
-
-            $this::forgetCaches($match);
-        }
     }
 
     /**

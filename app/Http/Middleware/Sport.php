@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Sport as SportModel;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class Sport
@@ -17,6 +18,7 @@ class Sport
      */
     public function handle($request, Closure $next)
     {
+        Log::info(" -------- Middleware Sport -------- ");
         $rules = [
             'sport' => 'alpha_dash|min:3'
         ];
