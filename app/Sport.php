@@ -30,13 +30,13 @@ class Sport extends Model
     protected $fillable = ['nom', 'code'];
 
     /**
-     * Définition de l'affichage d'un sport
+     * Définition de l'affichage d'un objet dans le CRUD (back-office)
      *
      * @return string
      */
-    public function __toString()
+    public function getCrudNameAttribute()
     {
-        return $this->nom ?? '';
+        return $this->nom;
     }
 
     /**

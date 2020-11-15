@@ -16,7 +16,17 @@ class Competition extends Model
     protected $fillable = ['nom', 'type', 'nom_complet', 'sport_id'];
 
     /**
-     * Le sport dont appartient cette compétition
+     * Définition de l'affichage d'un objet dans le CRUD (back-office)
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        return $this->sport->crud_name . ' - ' . $this->nom;
+    }
+
+    /**
+     * Le sport lié à cette compétition
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

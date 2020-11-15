@@ -50,7 +50,7 @@
                                 @foreach ($infos['select'] as $instanceFKi)
                                     <option value="{{ $instanceFKi->id }}"
                                         @if ($infos['valeur'] == $instanceFKi->id) selected @endif>
-                                        {{ $instanceFKi->nom }}
+                                        {{ $instanceFKi }}
                                     </option>
                                 @endforeach
                             </select>

@@ -17,11 +17,31 @@ class Equipe extends Model
     protected $fillable = ['nom', 'nom_complet', 'sport_id', 'feminine', 'non_mahoraise'];
 
     /**
+     * Définition de l'affichage d'un objet dans le CRUD (back-office)
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        return $this->sport->crud_name . ' - ' . $this->nom;
+    }
+
+    /**
+     * Le sport lié à cette équipe
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sport()
+    {
+        return $this->belongsTo('App\Sport');
+    }
+
+    /**
      * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
      * Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
      * Sinon on renvoie le lien vers le fanion par défaut.
      *
-     * @return String
+     * @return string
      */
     public function fanion()
     {

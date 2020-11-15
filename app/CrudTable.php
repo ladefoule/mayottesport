@@ -264,54 +264,14 @@ class CrudTable extends Model
             return Cache::rememberForever($key, function () use($table, $tableKebabCase){
                 $modele = 'App\\' . modelName($table);
                 $triDefaut = $this->tri_defaut;
-                $listeAttributsVisibles = $this->listeAttributsVisibles();
 
-                $i = 0; $liste = [];
-                foreach($listeAttributsVisibles as $infosAttribut){
-                    $crudAttributId = $infosAttribut['crud_attribut_id'];
-                    $crudAttribut = CrudAttribut::findOrFail($crudAttributId);
-                    $attribut[$i] = $crudAttribut->attribut;
-
-                    // Si l'attribut est une référence à une autre table, alors on récupère la liste complète de la table
-                    if ($infosAttribut['attribut_crud_table_id'])
-                        $listeTableAttribut[$i] = CrudTable::findOrFail($infosAttribut['attribut_crud_table_id'])->index();
-
-                    $checkbox[$i] = false;
-                    if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'checkbox')
-                        $checkbox[$i] = true;
-
-                    if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'select' && isset($infosAttribut['select_liste']))
-                        $selectListe[$i] = config('constant.' . $infosAttribut['select_liste']);
-
-                    $i++;
-                }
-                $nbAttributs = $i;
-
+                $liste = [];
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
-                    $liste[$id]['nom'] = $instance->nom;
+                    $liste[$id]['crud_name'] = $instance->crud_name;
                     $liste[$id]['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
                     $liste[$id]['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
-
-                    // On parcourt la liste des attributs à afficher et on récupère à chaque fois la valeur correspondante dans l'instance
-                    // On les range dans le tableau $liste[$id]['afficher'][...] $id étant l'id de l'instance
-                    for ($i = 0; $i < $nbAttributs; $i++) {
-                        $contenu = $instance[$attribut[$i]];
-
-                        // Si $contenu est un id référence d'une autre table, alors on récupère sa vraie valeur
-                        if($contenu && isset($listeTableAttribut[$i]))
-                            $contenu = $listeTableAttribut[$i][$contenu]['nom'];
-
-                        // Si $contenu est une liste dans le fichier de configuration
-                        if($contenu && isset($selectListe[$i]))
-                            $contenu = $selectListe[$i][$contenu][0];
-
-                        if($checkbox[$i])
-                            $contenu = $contenu ? 'Oui' : 'Non';
-
-                        $liste[$id]['afficher'][$i] = $contenu;
-                    }
                 }
                 return collect($liste);
             });

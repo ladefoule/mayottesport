@@ -23,10 +23,7 @@
             <thead>
                 <tr>
                     <th scope="col" class="px-2"><input type="checkbox" id="tout" data-action="cocher"></th>
-                    {{-- On affiche en entete les labels des attributs qu'on peut afficher dans la liste --}}
-                    @for ($i = 0; $i < count($listeAttributsVisibles); $i++)
-                        <th scope="col" class="text-left px-2">{{ Str::lower($listeAttributsVisibles[$i]['label']) }}</th>
-                    @endfor
+                    <th scope="col" class="text-left px-2">{{ Str::singular($table) }}</th>
                     <th scope="col" class="text-right px-3">actions</th>
                 </tr>
             </thead>
@@ -34,9 +31,7 @@
                 @foreach($liste as $id => $ligne)
                     <tr>
                         <td class="px-2"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
-                        @for ($i = 0; $i < count($ligne['afficher']); $i++)
-                            <td align="left" class="px-2">{{ $ligne['afficher'][$i] }}</td>
-                        @endfor
+                        <td align="left" class="px-2">{{ $ligne['crud_name'] }}</td>
                         <td class="text-right">
                             <a href="{{ $ligne['href_show'] }}" title="Voir" class="text-decoration-none">
                                 <button class="btn-sm btn-success">
