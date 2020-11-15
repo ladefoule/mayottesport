@@ -19,7 +19,7 @@ class CrudTable extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'crudable'];
+    protected $fillable = ['nom', 'crudable', 'tri_defaut'];
     public $timestamps = false;
 
     /**
@@ -98,6 +98,7 @@ class CrudTable extends Model
         request()->crudable = request()->has('crudable');
         $rules = [
             'nom' => ['required', 'string', 'min:3', 'max:50', $unique],
+            'tri_defaut' => 'required|max:50',
             'crudable' => 'boolean'
         ];
 

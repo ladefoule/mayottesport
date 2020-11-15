@@ -5,9 +5,8 @@ namespace App;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 
-class Palmares extends Model
+class Vainqueur extends Model
 {
-    public $table = 'palmares';
     public $fillable = ['equipe_id', 'saison', 'competition_id'];
 
     /**
@@ -44,14 +43,14 @@ class Palmares extends Model
      * @param Region $region
      * @return array
      */
-    public static function rules(Region $palmares = null)
+    public static function rules(Region $vainqueur = null)
     {
         $equipeId = request()->equipe_id ?? '';
         $competitionId = request()->competition_id ?? '';
         $saison = request()->saison ?? '';
-        $unique = Rule::unique('palmares')->where(function ($query) use ($equipeId, $competitionId, $saison) {
+        $unique = Rule::unique('vainqueurs')->where(function ($query) use ($equipeId, $competitionId, $saison) {
             return $query->whereEquipeId($equipeId)->whereCompetitionId($competitionId)->where('saison', 'like', $saison);
-        })->ignore($palmares);
+        })->ignore($vainqueur);
 
         $rules = [
             'saison' => ['required','max:20',$unique],
