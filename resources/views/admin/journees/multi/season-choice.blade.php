@@ -25,7 +25,7 @@
                         @foreach ($sports as $sport)
                             <option
                                 @if (old('id') == $sport->id) selected @endif
-                                value="{{ $sport->id }}">{{ $sport }}
+                                value="{{ $sport->id }}">{{ $sport->nom }}
                             </option>
                         @endforeach
                     </select>

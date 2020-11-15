@@ -58,7 +58,7 @@
 
                     {{-- Si l'attribut n'est pas de type checkbox --}}
                     @else
-                        <label for="{{$attribut}}">{{$labelAttribut}}@if (!$optionnel) <span class="text-danger text-weight-bold">*</span> @endif</label>
+                        <label for="{{$attribut}}">{{$labelAttribut}}@if (! $optionnel) <span class="text-danger text-weight-bold">*</span> @endif</label>
 
                         {{-- Si l'attribut est une référence à une autre table --}}
                         @if (isset($infos['select']))

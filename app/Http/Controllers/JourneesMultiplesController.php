@@ -37,15 +37,11 @@ class JourneesMultiplesController extends Controller
     public function edit($saisonId)
     {
         $saison = Saison::findOrFail($saisonId);
-        $competition = $saison->competition;
-        $sport = $saison->competition->sport;
         $nbJournees = $saison->nb_journees;
-        $h1 = $title = 'journees/Saison : ' . $saison->saison_id;
+        $h1 = $title = 'Journees/SaisonId : ' . $saison->id;
 
         return view('admin.journees.multi.edit', [
-            'competition' => $competition->nom,
-            'sport' => $sport->nom,
-            'saison' => $saison->nom,
+            'saison' => $saison->crud_name,
             'saisonId' => $saisonId,
             'nbJournees' => $nbJournees,
             'title' => $title,
@@ -106,18 +102,14 @@ class JourneesMultiplesController extends Controller
      * @param int $saisonId
      * @return \Illuminate\View\View
      */
-    public function vueMultiples(int $saisonId)
+    public function show(int $saisonId)
     {
         $saison = Saison::findOrFail($saisonId);
-        $competition = $saison->competition;
-        $sport = $competition->sport;
-        $h1 = $title = 'Journees/Saison : ' . $saisonId;
+        $h1 = $title = 'Journees/SaisonId : ' . $saisonId;
         $journees = $saison->journees->sortBy('numero');
 
         return view('admin.journees.multi.show', [
-            'saison' => $saison->nom,
-            'competition' => $competition->nom,
-            'sport' => $sport->nom,
+            'saison' => $saison->crud_name,
             'title' => $title,
             'h1' => $h1,
             'saisonId' => $saisonId,

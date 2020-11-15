@@ -60,7 +60,7 @@ Route::group(['middleware'=>'auth'], function () {
                     Route::get('/journees/multi/choix-saison', 'JourneesMultiplesController@seasonChoice')->name('journees.multi.season-choice');
                     Route::get('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@edit')->name('journees.multi.edit');
                     Route::post('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editStore');
-                    Route::get('/journees/multi/saison-{id}', 'JourneesMultiplesController@vueMultiples')->name('journees.multi.show');
+                    Route::get('/journees/multi/saison-{id}', 'JourneesMultiplesController@show')->name('journees.multi.show');
                 /* ----- FIN ROUTES JOURNEES ----- */
             }); /* FIN PREFIX AUTRES */
 

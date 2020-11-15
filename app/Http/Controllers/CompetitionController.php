@@ -42,8 +42,8 @@ class CompetitionController extends Controller
 
         $derniereJournee = $saison ? $saison->lastDay() : '';
         $prochaineJournee = $saison ? $saison->nextDay() : '';
-        $derniereJourneeHtml = $derniereJournee ? $derniereJournee->afficherCalendrier() : '';
-        $prochaineJourneeHtml = $prochaineJournee ? $prochaineJournee->afficherCalendrier() : '';
+        $derniereJourneeHtml = $derniereJournee ? $derniereJournee->displayDay() : '';
+        $prochaineJourneeHtml = $prochaineJournee ? $prochaineJournee->displayDay() : '';
 
         $variables = [
             'derniereJourneeHtml' => $derniereJourneeHtml,
@@ -108,7 +108,7 @@ class CompetitionController extends Controller
         $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->first() : '';
 
         return view('competition.day', [
-            'calendrierJourneeHtml' => $journee->afficherCalendrier(),
+            'calendrierJourneeHtml' => $journee->displayDay(),
             'journee' => $journee,
             'journees' => $journees,
             'hrefJourneePrecedente' => $journeePrecedente ? $journeePrecedente->url() : '',

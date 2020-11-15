@@ -1,7 +1,3 @@
-@php
-use App\ChampJournee;
-@endphp
-
 @extends('layouts.gestion-site')
 
 @section('title', $h1)
@@ -22,35 +18,23 @@ use App\ChampJournee;
     </div>
     <div class="card-body">
         <ul class="list-group mb-3">
-            <li class="list-group-item disabled" aria-disabled="true">Sport</li>
-            <li class="list-group-item"><?= $sport ?></li>
-        </ul>
-        <ul class="list-group mb-3">
-            <li class="list-group-item disabled" aria-disabled="true">Compétition</li>
-            <li class="list-group-item"><?= $competition ?></li>
-        </ul>
-        <ul class="list-group mb-3">
             <li class="list-group-item disabled" aria-disabled="true">Saison</li>
             <li class="list-group-item"><?= $saison ?></li>
         </ul>
 
         <div class="form-row d-flex justify-content-center">
             @foreach ($journees as $journee)
-                @php
-                $numero = $journee->numero;
-                $date = $journee->date;
-                @endphp
-                <div class="col-12 form-row justify-content-center">
-                    <div class="col-4 mb-3">
+                <div class="col-12 form-row justify-content-center mb-3">
+                    <div class="col-4">
                         <ul class="list-group">
                             <li class="list-group-item disabled" aria-disabled="true">Journée</li>
-                            <li class="list-group-item"><?= $numero ?></li>
+                            <li class="list-group-item">{{ $journee->numero }}</li>
                         </ul>
                     </div>
                     <div class="col-8">
                         <ul class="list-group">
                             <li class="list-group-item disabled" aria-disabled="true">Date</li>
-                            <li class="list-group-item"><?= date('d/m/Y', strtotime($date)); ?></li>
+                            <li class="list-group-item">{{ date('d/m/Y', strtotime($journee->date)) }}</li>
                         </ul>
                     </div>
                 </div>

@@ -158,7 +158,7 @@ class Saison extends Model
      */
     public function getCrudNameAttribute()
     {
-        return $this->competition->crud_name . ' - ' . $this->annee('/');
+        return $this->competition->crud_name . ' ' . $this->annee('/');
     }
 
     /**

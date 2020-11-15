@@ -20,15 +20,25 @@ class SportController extends Controller
 
     public function index(Request $request)
     {
+        Log::info(" -------- SportController : index -------- ");
         $sport = $request->sport;
         $competitions = $sport->competitions;
         $liste = [];
         foreach ($competitions as $competition) {
-            $saisonEnCours = $competition->saisons->firstWhere('finie', '!=', 1);
-            if($saisonEnCours){
-
+            $saison = $competition->saisons->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
+            if($saison){
+                $journee = $saison->lastDay();
+                if(! $journee) $journee = $saison->nextDay();
+                if($journee){
+                    $liste[] = [
+                        'nom' => $competition->nom,
+                        'journee' => $journee->displayDay(),
+                        'classement' => $competition->type == 1 ? $saison->displaySimplifiedRanking() : ''
+                    ];
+                }
             }
         }
+        // dd($liste);
         return view('sport.index', [
             'sport' => $sport->nom,
             'liste' => $liste

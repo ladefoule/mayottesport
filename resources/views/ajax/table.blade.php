@@ -45,17 +45,17 @@ $liste = DB::table($table); // Initialisation de la requète
 // On lie toutes les jointures
 foreach ($joins[$table] as $tableJoin){
     $attributJoin = Str::singular($tableJoin) . '_id';
-    if($table == 'matches' && $tableJoin == 'equipes'){
-        // Jointure spécial pour les équipes car elles peuvent appartenir à deux champs equipe_id_dom/equipe_id_ext
-        if(isset($request['equipe_id']))
-            $liste = $liste->join('equipes', function ($join) {
-                    $join->on('equipe_id_ext', '=', 'equipes.id')->orOn('equipe_id_dom', '=', 'equipes.id');
-                });
-    }else if($table == 'equipes' && $tableJoin == 'saisons')
-        // Mon algorithme ne permet pas de lier 2 tables séparées par une table pivot (d'où l'utilisation du leftJoin)
-        $liste = $liste->leftJoin('equipe_saison', 'equipe_id', '=', 'equipes.id')
-                ->leftJoin('saisons', 'saison_id', '=', 'saisons.id');
-    else
+    // if($table == 'matches' && $tableJoin == 'equipes'){
+    //     // Jointure spécial pour les équipes car elles peuvent appartenir à deux champs equipe_id_dom/equipe_id_ext
+    //     if(isset($request['equipe_id']))
+    //         $liste = $liste->join('equipes', function ($join) {
+    //                 $join->on('equipe_id_ext', '=', 'equipes.id')->orOn('equipe_id_dom', '=', 'equipes.id');
+    //             });
+    // }else if($table == 'equipes' && $tableJoin == 'saisons')
+    //     // Mon algorithme ne permet pas de lier 2 tables séparées par une table pivot (d'où l'utilisation du leftJoin)
+    //     $liste = $liste->leftJoin('equipe_saison', 'equipe_id', '=', 'equipes.id')
+    //             ->leftJoin('saisons', 'saison_id', '=', 'saisons.id');
+    // else
         $liste = $liste->join($tableJoin, $attributJoin, '=', "$tableJoin.id");
 }
 
@@ -82,13 +82,13 @@ $modele = 'App\\' . modelName($table);
 foreach ($liste as $key => $instance) {
     $instance = $modele::find($instance->id);
     $liste[$key] = $instance;
-    $liste[$key]['nom'] = $instance->nom; // Toutes les tables doivent avoir un attribut nom (natif ou non)
+    $liste[$key]['nom'] = $instance->crud_name; // Toutes les tables doivent avoir un attribut nom (natif ou non)
 
-    if($table == "matches"){
-        $liste[$key]['href_show'] = route('crud.show', ['table' => 'matches', 'id' => $instance->id]);
-        $liste[$key]['href_update'] = route('crud.update', ['table' => 'matches', 'id' => $instance->id]);
-        $liste[$key]['journee_nom'] = 'J' . str_pad($instance->journee->numero, 2, "0", STR_PAD_LEFT);
-    }
+    // if($table == "saisons"){
+        // $liste[$key]['href_show'] = route('crud.show', ['table' => 'matches', 'id' => $instance->id]);
+        // $liste[$key]['href_update'] = route('crud.update', ['table' => 'matches', 'id' => $instance->id]);
+        // $liste[$key]['journee_nom'] = 'J' . str_pad($instance->journee->numero, 2, "0", STR_PAD_LEFT);
+    // }
 }
 
 header('HTTP/1.0 200');

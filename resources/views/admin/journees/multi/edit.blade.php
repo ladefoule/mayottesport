@@ -3,7 +3,7 @@
 @section('title', $h1)
 
 @section('content')
-<div class="row card mx-1">
+<div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> {{ $h1 }}</span>
         <a href="{{ route('journees.multi.show', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
@@ -17,25 +17,10 @@
         </a>
     </div>
 
-    <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
-
     <div class="card-body">
+        <div class="text-danger text-right pr-3">* champs obligatoires</div>
         <form action="" method="POST" class="needs-validation w-100 d-flex flex-wrap" id="formulaire">
             @csrf
-
-            <div class="col-12 form-row justify-content-center mb-3">
-                <div class="col-md-6 d-flex flex-wrap">
-                    <label>Sport</label>
-                    <input type="text" value="{{ $sport }}" class="form-control" disabled>
-                </div>
-            </div>
-
-            <div class="col-12 form-row justify-content-center mb-3">
-                <div class="col-md-6 d-flex flex-wrap">
-                    <label>Compétition</label>
-                    <input type="text" value="{{ $competition }}" class="form-control" disabled>
-                </div>
-            </div>
 
             <div class="col-12 form-row justify-content-center mb-3">
                 <div class="col-md-6 d-flex flex-wrap">
@@ -51,8 +36,8 @@
                 </div>
             </div>
 
-            <div class="col-12 form-row d-flex justify-content-center mb-3">
-                @for ($i = 1; $i <= 100; $i++)
+            <div class="col-12 form-row d-flex justify-content-center">
+                @for ($i = 1; $i <= $nbJournees; $i++)
                     <?php
                     $nameJourneeNumero = 'numero'.$i;
                     $nameJourneeDate = 'date'.$i;
@@ -66,7 +51,7 @@
                     $date = $journee->date ?? date('Y-m-d');
                     ?>
                     <div class="col-4 col-md-4 col-lg-3 mb-3">
-                        <label for="">Journée</label>
+                        <label for="">Journée <span class="text-danger text-weight-bold">*</span></label>
                             <input type="number" min="1" max="100" data-msg="Tous les champs <span class='text-danger font-italic'>Journée</span> sont obligatoires et leur contenu doit être entre 1 et 100."
                             name="{{$nameJourneeNumero}}" class="form-control @error($nameJourneeNumero) is-invalid @enderror" value="{{ old($nameJourneeNumero) ?? $numero }}">
                         @error($nameJourneeNumero)

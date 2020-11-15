@@ -396,10 +396,10 @@ Search.appendIndex(
             "summary": "G\u00E9n\u00E9ration\u0020du\u0020calendrier\u0020s\u0027il\u0020n\u0027est\u0020plus\u0020en\u0020Cache.",
             "url": "../classes/App-ChampJournee.html#method_genererCalendrier"
         },                {
-            "fqsen": "\\App\\ChampJournee\u003A\u003AafficherCalendrier\u0028\u0029",
-            "name": "afficherCalendrier",
+            "fqsen": "\\App\\ChampJournee\u003A\u003AdisplayDay\u0028\u0029",
+            "name": "displayDay",
             "summary": "Affiche\u0020le\u0020r\u00E9sultat\u0020du\u0020calendrier\u0020de\u0020la\u0020journ\u00E9e\u0020envoy\u00E9\u0020\u00E0\u0020la\u0020view\u0020\u0027football.calendrier\u002Djournee\u0027",
-            "url": "../classes/App-ChampJournee.html#method_afficherCalendrier"
+            "url": "../classes/App-ChampJournee.html#method_displayDay"
         },                {
             "fqsen": "\\App\\ChampJournee\u003A\u003AgetNomAttribute\u0028\u0029",
             "name": "getNomAttribute",

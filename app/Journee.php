@@ -111,7 +111,7 @@ class Journee extends Model
     /**
      * Affiche le résultat du calendrier de la journée envoyé à la view 'football.calendrier-journee'
      */
-    public function afficherCalendrier()
+    public function displayDay()
     {
         // $sport = strToUrl($this->saison->championnat->sport->nom);
         $dateJournee = date('d/m/Y', strtotime($this->date));
