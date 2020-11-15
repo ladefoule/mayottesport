@@ -19,13 +19,13 @@ class CrudAttribut extends Model
     public $timestamps = false;
 
     /**
-     * Définition de l'attribut nom de l'objet
+     * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string
      */
-    public function getNomAttribute()
+    public function getCrudNameAttribute()
     {
-        return $this->crudTable->nom . '/' . $this->attribut;
+        return $this->crudTable->crud_name . '/' . $this->attribut;
     }
 
     /**

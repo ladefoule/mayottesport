@@ -23,6 +23,16 @@ class CrudTable extends Model
     public $timestamps = false;
 
     /**
+     * Définition de l'affichage dans le CRUD (back-office)
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        return $this->nom;
+    }
+
+    /**
      * navbarCrudTables
      *
      * @return \Illuminate\Support\Collection

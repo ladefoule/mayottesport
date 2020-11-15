@@ -1,10 +1,8 @@
 <?php
-use App\Role;
 use App\Match;
 use App\Journee;
 use App\EquipeSaison;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Revoie '1ère journée' si $numero = 1, Xème journée si $numero > 1, false dans les autres cas de figure

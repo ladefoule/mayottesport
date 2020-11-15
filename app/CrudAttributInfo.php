@@ -20,6 +20,17 @@ class CrudAttributInfo extends Model
     ];
 
     /**
+     * Définition de l'affichage dans le CRUD (back-office)
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        $crudProprietes = config('constant.crud-attribut');
+        return $this->crudAttribut->crud_name . ' - ' . $crudProprietes[$this->propriete_id][0];
+    }
+
+    /**
      * Les règles de validations
      *
      * @param CrudAttributInfo $crudAttributInfo
