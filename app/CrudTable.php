@@ -183,14 +183,11 @@ class CrudTable extends Model
                 $crudTableAttribut = CrudTable::find($infosAttribut['attribut_crud_table_id']);
                 $modeleTableAttribut = 'App\\' . modelName($crudTableAttribut->nom);
 
-                // Dans la page vue, on affiche le 'nom' de l'attribut référence
+                // Dans la page vue, on affiche le 'nom' de l'attribut référence, sinon on affiche la liste complète
                 if ($action == 'show' && $valeurAttribut)
-                    $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->nom;
-                else{
-                    $orderBy = $crudTableAttribut->tri_defaut;
-                    $select = $orderBy ? $modeleTableAttribut::orderBy($orderBy)->get() : $modeleTableAttribut::get();
-                    $donnees[$attribut]['select'] = $select;
-                }
+                    $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->crud_name;
+                else
+                    $donnees[$attribut]['select'] = $crudTableAttribut->index();
             }
 
             if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'select' && isset($infosAttribut['select_liste'])) {

@@ -181,6 +181,11 @@ a:hover{
     width:50%
 }
 
+.nom-competition{
+    font-size: 1.2rem;
+    line-height: 1rem;
+}
+
 /* Medium devices (tablets, 576px and up) => point de rupture bootstrap : SM */
 @media (min-width: 576px) {
     html{

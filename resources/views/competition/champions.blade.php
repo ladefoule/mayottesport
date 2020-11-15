@@ -1,20 +1,22 @@
 @extends('layouts.competition')
 
-@section('title', request()->competition->nom . ' - Calendrier et résultats - '.niemeJournee($journee->numero).' - ' . request()->sport->nom)
+@section('title', $competition . ' - Le palmarès')
 
 @section('content')
 
 <div class="row d-flex flex-wrap m-0 my-3 bg-white rounded p-3">
     <div class="col-12 d-flex flex-wrap justify-content-center align-items-center pb-3">
-        <h1 class="h4 text-center p-2 col-12">{{ request()->competition->nom . ' - Le palmarès'}}</h1>
+        <h1 class="h4 text-center col-12">{{ $competition . ' - Le palmarès'}}</h1>
     </div>
     <div class="col-lg-8 d-flex flex-wrap p-0">
-        <table>
+        <table class="table table-striped text-center font-weight-bold">
             <tbody>
+                @foreach ($champions as $champion)
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $champion->saison }}</td>
+                    <td>{{ $champion->equipe->nom }}</td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

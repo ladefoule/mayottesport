@@ -120,12 +120,9 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- CompetitionController : champions -------- ");
         $competition = $request->competition;
-        $sport = $request->sport;
-
-        $palmares = $competition->palmares();
+        $champions = $competition->champions;
         return view('competition.champions', [
-            'palmares' => $palmares,
-            'sport' => $sport->nom,
+            'champions' => $champions,
             'competition' => $competition->nom
         ]);
     }

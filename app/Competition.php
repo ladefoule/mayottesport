@@ -46,6 +46,16 @@ class Competition extends Model
     }
 
     /**
+     * Le palmarès
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function champions()
+    {
+        return $this->hasMany('App\Champion');
+    }
+
+    /**
      * Les règles de validations
      *
      * @param Competition $competition

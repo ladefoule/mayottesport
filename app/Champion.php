@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 
-class Vainqueur extends Model
+class Champion extends Model
 {
     public $fillable = ['equipe_id', 'saison', 'competition_id'];
 
@@ -50,7 +50,7 @@ class Vainqueur extends Model
         $equipeId = request()->equipe_id ?? '';
         $competitionId = request()->competition_id ?? '';
         $saison = request()->saison ?? '';
-        $unique = Rule::unique('vainqueurs')->where(function ($query) use ($equipeId, $competitionId, $saison) {
+        $unique = Rule::unique('champions')->where(function ($query) use ($equipeId, $competitionId, $saison) {
             return $query->whereEquipeId($equipeId)->whereCompetitionId($competitionId)->where('saison', 'like', $saison);
         })->ignore($vainqueur);
 

@@ -16,16 +16,22 @@ class SportController extends Controller
     {
         Log::info(" -------- SportController : __construct -------- ");
         $this->middleware('sport');
-
-        // $this->middleware('log')->only('index');
-
-        // $this->middleware('subscribed')->except('store');
     }
 
-    public function index($sport)
+    public function index(Request $request)
     {
+        $sport = $request->sport;
+        $competitions = $sport->competitions;
+        $liste = [];
+        foreach ($competitions as $competition) {
+            $saisonEnCours = $competition->saisons->firstWhere('finie', '!=', 1);
+            if($saisonEnCours){
+
+            }
+        }
         return view('sport.index', [
-            'sport' => $sport
+            'sport' => $sport->nom,
+            'liste' => $liste
         ]);
     }
 }

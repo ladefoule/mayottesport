@@ -63,11 +63,11 @@
                         {{-- Si l'attribut est une référence à une autre table --}}
                         @if (isset($infos['select']))
                             <select name="{{ $attribut }}" id="{{ $attribut }}" class="{{ $className }} @error($attribut) is-invalid @enderror" <?= $dataMsg ?>>
-                                <option value=""></option>
-                                @foreach ($infos['select'] as $instanceFKi)
-                                    <option value="{{ $instanceFKi->id }}"
-                                        @if ($infos['valeur'] == $instanceFKi->id) selected @endif>
-                                        {{ $instanceFKi }}
+                                <option value="">&nbsp;</option>
+                                @foreach ($infos['select'] as $id => $instanceFK)
+                                    <option value="{{ $id }}"
+                                        @if ($infos['valeur'] == $id || old($attribut) == $id) selected @endif>
+                                        {{ $instanceFK['crud_name'] }}
                                     </option>
                                 @endforeach
                             </select>
