@@ -56,7 +56,7 @@ class Saison extends Model
     }
 
     /**
-     * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction genererClassement
+     * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction generateRanking
      *
      * @return array
      */
@@ -70,7 +70,7 @@ class Saison extends Model
             return Cache::get($key);
 
         return Cache::rememberForever($key, function (){
-            return $this->genererClassement($this->competition->sport->id);
+            return $this->generateRanking($this->competition->sport->id);
         });
     }
 
@@ -78,8 +78,8 @@ class Saison extends Model
     {
         $sport = strToUrl($this->competition->sport->nom);
         $competition = strToUrl($this->competition->nom);
-        $hrefClassementComplet = route($sport . '.ranking', ['competition' => $competition, 'sport' => $sport]);
-        $classement = $this->classement();
+        $hrefClassementComplet = route('competition.ranking', ['competition' => $competition, 'sport' => $sport]);
+        $classement = $this->ranking();
         return view('competition.simplified-ranking', [
             'classement' => $classement,
             'hrefClassementComplet' => $hrefClassementComplet,
@@ -94,7 +94,7 @@ class Saison extends Model
      * @param int $sportId
      * @return array
      */
-    private function genererClassement(int $sportId)
+    private function generateRanking(int $sportId)
     {
         $bareme = $this->bareme;
         $sportId = $bareme->sport_id;

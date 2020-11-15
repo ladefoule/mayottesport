@@ -518,7 +518,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\ChampSaison\u003A\u003Aclassement\u0028\u0029",
             "name": "classement",
-            "summary": "La\u0020fonction\u0020renvoie\u0020le\u0020classement\u0020s\u0027il\u0020est\u0020d\u00E9j\u00E0\u0020en\u0020cache.\u0020Sinon,\u0020elle\u0020fait\u0020appelle\u0020\u00E0\u0020la\u0020fonction\u0020genererClassement",
+            "summary": "La\u0020fonction\u0020renvoie\u0020le\u0020classement\u0020s\u0027il\u0020est\u0020d\u00E9j\u00E0\u0020en\u0020cache.\u0020Sinon,\u0020elle\u0020fait\u0020appelle\u0020\u00E0\u0020la\u0020fonction\u0020generateRanking",
             "url": "../classes/App-ChampSaison.html#method_classement"
         },                {
             "fqsen": "\\App\\ChampSaison\u003A\u003AdisplaySimplifiedRanking\u0028\u0029",
@@ -526,10 +526,10 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/App-ChampSaison.html#method_displaySimplifiedRanking"
         },                {
-            "fqsen": "\\App\\ChampSaison\u003A\u003AgenererClassement\u0028\u0029",
-            "name": "genererClassement",
+            "fqsen": "\\App\\ChampSaison\u003A\u003AgenerateRanking\u0028\u0029",
+            "name": "generateRanking",
             "summary": "G\u00E9n\u00E9ration\u0020du\u0020classement\u0020de\u0020la\u0020saison\u0020\u0028en\u0020fonction\u0020du\u0020sport\u0029",
-            "url": "../classes/App-ChampSaison.html#method_genererClassement"
+            "url": "../classes/App-ChampSaison.html#method_generateRanking"
         },                {
             "fqsen": "\\App\\ChampSaison\u003A\u003AgetNomAttribute\u0028\u0029",
             "name": "getNomAttribute",

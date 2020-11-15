@@ -56,7 +56,7 @@ class CompetitionController extends Controller
             $classement = [];
             $hrefClassement = '';
             if($saison){
-                $classement = Saison::find($saison->id)->classement();
+                $classement = Saison::find($saison->id)->ranking();
                 $hrefClassement = route('competition.ranking', [
                     'sport' => strToUrl($sport->nom),
                     'competition' => strToUrl($competition->nom)
