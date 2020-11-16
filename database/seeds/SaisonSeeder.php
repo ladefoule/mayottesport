@@ -36,6 +36,7 @@ class SaisonSeeder extends Seeder
         // On insère une saison de Coupe de Mayotte (football)
         App\Saison::create([
             'annee_debut' => date('Y'),
+            'annee_fin' => date('Y'),
             'nb_journees' => 7,
             'competition_id' => 3,
             'created_at' => now(),

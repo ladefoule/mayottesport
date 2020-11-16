@@ -70,7 +70,7 @@
                             <select data-msg="Le champ <span class='text-danger font-italic'>Lieu</span> doit être égal à l'une des options proposées." name="region_id" class="form-control @error('region_id') is-invalid @enderror">
                                 <option value=""></option>
                                 @foreach ($regions as $region)
-                                    <option @if (/* old('region_id') == $region->region_id */ $region->id == 1) selected @endif value="{{ $region->id }}">{{ $region }}</option>
+                                    <option @if (/* old('region_id') == $region->region_id */ $region->id == 1) selected @endif value="{{ $region->id }}">{{ $region->nom }}</option>
                                 @endforeach
                             </select>
                             @error('region_id')

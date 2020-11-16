@@ -29,7 +29,7 @@ $rencontres = [
     ]
 ];
 
-$diffAllerRetour = 11; // Différence en nombre de jours entre le match aller et le retour
+$diffAllerRetour = 1; // Différence en nombre de jours entre le match aller et le retour
 
 $donnees = [
    'heure' => $heure,
