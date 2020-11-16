@@ -12,7 +12,7 @@ class CompetitionSeeder extends Seeder
     public function run()
     {
         // On insère 2 competitions
-        $competitions = ['Régional 1', 'Régional 2'];
+        $competitions = ['Régional 1', 'Régional 2', 'Coupe de Mayotte', 'Coupe de France'];
         foreach ($competitions as $competition) {
             App\Competition::create([
                 'nom' => $competition,

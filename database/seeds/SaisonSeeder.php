@@ -11,13 +11,33 @@ class SaisonSeeder extends Seeder
      */
     public function run()
     {
-        // On insère 1 saison du championnat Régional 1
+        // On insère une saison de Régional 1 (football)
         App\Saison::create([
             'annee_debut' => date('Y'),
             'annee_fin' => date('Y')+1,
             'nb_journees' => 22,
             'bareme_id' => 1,
             'competition_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        // On insère une saison de Régional 2 (football)
+        App\Saison::create([
+            'annee_debut' => date('Y'),
+            'annee_fin' => date('Y')+1,
+            'nb_journees' => 22,
+            'bareme_id' => 1,
+            'competition_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        // On insère une saison de Coupe de Mayotte (football)
+        App\Saison::create([
+            'annee_debut' => date('Y'),
+            'nb_journees' => 7,
+            'competition_id' => 3,
             'created_at' => now(),
             'updated_at' => now()
         ]);

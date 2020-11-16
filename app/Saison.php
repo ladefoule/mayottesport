@@ -98,6 +98,7 @@ class Saison extends Model
     {
         $bareme = $this->bareme;
         $sportId = $bareme->sport_id;
+        $matches = [];
         foreach($this->equipes as $equipe){
             $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);
             $matchesRetour = $this->matches->where('equipe_id_ext', $equipe->id);

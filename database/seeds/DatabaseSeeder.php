@@ -30,7 +30,9 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
         ]);
 
-        require 'app/scripts/import-calendrier.php';
+        require 'app/scripts/import-saison-1.php';
+        require 'app/scripts/import-saison-2.php';
+        require 'app/scripts/import-saison-3.php';
         require 'app/scripts/gestion-crud-bdd.php';
 
         // Re enable all mass assignment restrictions
