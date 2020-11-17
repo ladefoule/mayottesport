@@ -49,6 +49,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="col-12 text-center mt-3">
+        <span>Classement sous réserve d'homologation</span>
+    </div>
 </div>
 @endsection
 

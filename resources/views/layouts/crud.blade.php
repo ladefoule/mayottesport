@@ -35,6 +35,9 @@
         @yield('content')
     </div>
 
+    {{-- Footer --}}
+    @include('layouts.footer')
+
     <!-- Fin de page-->
     <script src="https://kit.fontawesome.com/fa79ab8443.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>

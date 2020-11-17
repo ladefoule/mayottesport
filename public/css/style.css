@@ -111,7 +111,11 @@ body{
     width: 100% !important;
 }
 
-.border-bottom-calendrier{
+.bg-body{
+    background-color: #000;
+}
+
+.{
     border-bottom: 3px solid gray !important;
 }
 

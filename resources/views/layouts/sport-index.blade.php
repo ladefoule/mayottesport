@@ -32,6 +32,9 @@
         @yield('content')
     </div>
 
+    {{-- Footer --}}
+    @include('layouts.footer')
+
     <script src="https://kit.fontawesome.com/fa79ab8443.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" crossorigin="anonymous"></script>
