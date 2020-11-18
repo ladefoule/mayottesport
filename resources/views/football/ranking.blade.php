@@ -1,10 +1,10 @@
 @extends('layouts.competition')
 
-@section('title', $competition . ' - Le classement')
+@section('title', $title)
 
 @section('content')
 <div class="col-12 mx-0 my-3 py-3 bg-white rounded">
-    <h1 class="h5 pb-3 text-center">Classement {{ \Str::lower($saison) }}</h1>
+    <h1 class="h5 pb-3 text-center">{{ $h1 }}</h1>
     <table class="w-100 table table-striped text-center table-classement" id="classement">
         <thead>
             <th>#</th>

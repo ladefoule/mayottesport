@@ -5,7 +5,7 @@ use App\ChampJournee;
 use App\Saison;
 ?>
 
-@extends('layouts.gestion-site')
+@extends('layouts.admin')
 
 @section('title', $h1)
 

@@ -10,7 +10,7 @@
                     {{ $match['nom_eq_dom'] }}
                 </div>
             </div>
-            <div class="col-2 d-flex justify-content-center align-items-center">
+            <div class="col-2 d-flex justify-content-center align-items-center p-0">
                 {!! $match['score'] !!}
             </div>
             <div class="col-5 p-0 d-flex justify-content-between align-items-center @if($match['score_eq_dom'] < $match['score_eq_ext']) font-weight-bold @endif">

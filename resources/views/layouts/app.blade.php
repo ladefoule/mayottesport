@@ -36,7 +36,7 @@
 
                     </ul>
 
-                    @include('layouts.connexion')
+                    @include('layouts.include.connexion')
                 </div>
             </div>
         </nav>

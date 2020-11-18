@@ -153,6 +153,16 @@ class Saison extends Model
     }
 
     /**
+     * Définition de l'attribut nom
+     *
+     * @return string
+     */
+    public function getNomAttribute()
+    {
+        return $this->competition->nom . ' ' . $this->annee('/');
+    }
+
+    /**
      * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string

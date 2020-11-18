@@ -32,6 +32,7 @@ class Competition
 
         $sport = $request->sport;
         $competitions = $sport->competitions;
+
         $find = false;
         foreach($competitions as $compet)
             if(strToUrl($compet->nom) == ($request->competition)){

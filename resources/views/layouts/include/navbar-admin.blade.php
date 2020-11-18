@@ -16,7 +16,7 @@
                {{-- <a class="nav-item nav-link px-2 {{ $activeSpec }}" href="{{ route('autres') }}">Actions spécifiques</a> --}}
            </div>
 
-           @include('layouts.connexion')
+           @include('layouts.include.connexion')
        </div>
    </div>
 </nav>

@@ -1,4 +1,4 @@
-@extends('layouts.gestion-site')
+@extends('layouts.admin')
 
 @section('title', $title)
 

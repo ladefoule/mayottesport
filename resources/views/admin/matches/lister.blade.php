@@ -4,7 +4,7 @@ use App\FootScore;
 use App\ChampJournee;
 ?>
 
-@extends('layouts.gestion-site')
+@extends('layouts.admin')
 
 @section('title', $title)
 

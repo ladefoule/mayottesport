@@ -1,4 +1,4 @@
-@extends('layouts.admin-crud')
+@extends('layouts.crud-superadmin')
 
 @section('title', 'Gestion des tables "crudables"')
 
