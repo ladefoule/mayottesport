@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="row d-flex flex-wrap m-0 my-3 bg-white rounded p-3">
+<div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
     <div class="col-12 d-flex flex-wrap justify-content-center align-items-center pb-3">
         <h1 class="h4 text-center p-2 col-12">{{ request()->competition->nom . ' - Calendrier et résultats'}}</h1>
         @if ($hrefJourneePrecedente)

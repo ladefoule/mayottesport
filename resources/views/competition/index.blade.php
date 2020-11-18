@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="row d-flex flex-wrap justify-content-between mx-0 my-3 bg-white rounded">
+<div class="row d-flex flex-wrap justify-content-between mx-0 bg-white rounded">
     <div class="col-12 py-3">
         <h1 class="h4 text-center">{{ $sport . ' - ' . $competition }}</h1>
     </div>

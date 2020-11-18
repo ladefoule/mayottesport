@@ -1,5 +1,3 @@
-// const axios = require('axios');
-
 const BOUTONSUPPRESSION = '<i class="fas fa-trash-alt"></i>';
 const BOUTONAJOUTER = '<i class="fas fa-plus"></i>';
 const BOUTONVUE = '<i class="fas fa-eye"></i>';

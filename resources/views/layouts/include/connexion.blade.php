@@ -16,7 +16,7 @@
                 {{ Auth::user()->pseudo }} <span class="caret"></span>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-right mb-2" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('profil') }}">
                     Mon profil
                 </a>

@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="row my-3 mx-0 bg-white justify-content-center rounded">
+<div class="row mx-0 bg-white justify-content-center rounded">
     @foreach ($liste as $competition)
     <div class="col-12 text-center py-3 row justify-content-between">
         <h3 class="col-12 h4 border-bottom-calendrier py-2">{{ $competition['nom'] }}</h3>

@@ -6,7 +6,7 @@
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
        </button>
-       <div class="collapse navbar-collapse pr-2" id="navbarSupportedContent">
+       <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto">
                 @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
                     <a class="nav-item nav-link px-2 @if (request()->url() == route('crud-gestion.tables')) active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
@@ -20,3 +20,25 @@
        </div>
    </div>
 </nav>
+
+{{-- NAVBAR MOBILE --}}
+<nav class="navbar-mobile border bg-light d-lg-none h-100 position-fixed overflow-y-auto" data-state="hidden">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">MENU</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="text-danger h3">X</span>
+        </button>
+          <ul class="navbar-nav w-100 border-bottom">
+            <li class="nav-item active px-2 border-bottom">
+                <a class="nav-link" href="/">Accueil du site</a>
+            </li>
+            @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
+                <a class="border-bottom nav-item nav-link px-2 @if (request()->url() == route('crud-gestion.tables')) active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
+            @endif
+            <a class="border-bottom nav-item nav-link px-2 @if (in_array(request()->route()->getName(), ['crud.index', 'crud.create', 'crud.update', 'crud.show'])) active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
+            <a class="border-bottom nav-item nav-link px-2 @if (request()->url() == route('journees.multi.season-choice')) active font-weight-bold @endif" href="{{ route('journees.multi.season-choice') }}">Journées (multi)</a>
+            @include('layouts.include.connexion')
+          </ul>
+      </nav>
+</nav>
+{{-- FIN NAVBAR MOBILE --}}

@@ -1,7 +1,7 @@
 @extends('layouts.competition')
 
 @section('content')
-<form action="" method="post" id="formulaire" class="my-3">
+<form action="" method="post" id="formulaire">
     @csrf
     <div class="row text-white bloc-match bloc-match-football rounded mx-0 py-4">
         <div class="row mx-0 col-4 d-flex justify-content-between align-items-center bloc-equipe-dom">

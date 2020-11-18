@@ -15,7 +15,7 @@ $competition = Saison::whereId($saisonId)->first()->competition->nom;
 
 @section('content')
 
-<div class="row my-3 mx-0 bg-white justify-content-center rounded">
+<div class="row mx-0 bg-white justify-content-center rounded">
     {{-- <div class="col-12 text-center">
         <h1 class="h4">Mayotte sport : l'ensemble des résultats de l'île</h1>
     </div> --}}

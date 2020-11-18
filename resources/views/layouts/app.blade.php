@@ -41,9 +41,9 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <section class="py-3">
             @yield('content')
-        </main>
+        </section>
     </div>
 </body>
 </html>

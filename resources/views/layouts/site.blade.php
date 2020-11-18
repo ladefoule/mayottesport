@@ -11,15 +11,15 @@
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/datatables.min.css">
     <link rel="stylesheet" href="/css/select2.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css?t={{ now() }}">{{-- A ENLEVER EN PRODUCTION --}}
     <title>@yield('title') | mayottesport.com</title>
 </head>
 
 <body>
     @include('layouts.include.navbar-sports')
-    <div class="container-lg">
+    <section class="container-lg p-3">
         @yield('content')
-    </div>
+    </section>
 
     {{-- Footer --}}
     @include('layouts.include.footer')

@@ -126,4 +126,28 @@
 <script src="/js/datatables.min.js"></script>
 <script src="/js/select2.min.js"></script>
 <script src="/js/outils.js"></script>
+<script>
+$(document).ready(function(){
+    var navbarMobile = qs('.navbar-mobile')
+    $('.navbar-toggler').on('click', function(){
+        let state = navbarMobile.dataset.state
+        if(state == 'hidden'){
+            navbarMobile.style.left = 0
+            state = 'visible'
+        }else if(state == 'visible'){
+            navbarMobile.style.left = '-250px'
+            state = 'hidden'
+        }
+
+        navbarMobile.dataset.state = state
+    })
+
+    $('footer,section').on('click', function(e){
+        if(e.target != navbarMobile && navbarMobile.dataset.state == 'visible'){
+            navbarMobile.dataset.state = 'hidden'
+            navbarMobile.style.left = '-250px'
+        }
+    })
+})
+</script>
 @yield('script')
