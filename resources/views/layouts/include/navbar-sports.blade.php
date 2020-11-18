@@ -27,7 +27,6 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="text-danger h3">X</span>
         </button>
-        {{-- <div class="collapse navbar-collapse" id="navbarNavDropdown"> --}}
           <ul class="navbar-nav w-100 border-bottom">
             <li class="nav-item active px-2 border-bottom">
                 <a class="nav-link" href="/">Accueil</a>
@@ -35,20 +34,19 @@
             @foreach (request()->sports as $sport)
                 @if (count($sport->competitions) > 0)
                     <li class="nav-item dropdown border-bottom px-2">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ $sport->nom }}
+                        <a class="nav-link dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-futbol"></i> {{ $sport->nom }}
                         </a>
                         <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
                             <a class="dropdown-item" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
                             @foreach ($sport->competitions as $i => $competition)
                                 <a class="dropdown-item" href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">{{ $competition->nom }}</a>
-                                <?php //if($i == 4) break; ?>
                             @endforeach
                         </div>
                     </li>
                 @else
                     <li class="nav-item border-bottom px-2">
-                        <a class="nav-link" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a>
+                        <a class="nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a>
                     </li>
                 @endif
             @endforeach
@@ -56,7 +54,6 @@
             <a class="border-bottom nav-item nav-link px-2" href="/contact">Contact</a>
             @include('layouts.include.connexion')
           </ul>
-        {{-- </div> --}}
       </nav>
 </nav>
 {{-- FIN NAVBAR MOBILE --}}

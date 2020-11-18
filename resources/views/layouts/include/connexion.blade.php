@@ -24,9 +24,6 @@
                     <a class="dropdown-item" href="{{ route('crud') }}">
                         Back-office
                     </a>
-                    <a class="dropdown-item" href="/">
-                        Accueil
-                    </a>
                 @endif
                 <a class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault();

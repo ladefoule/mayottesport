@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="/css/style.css?t={{ now() }}">{{-- A ENLEVER EN PRODUCTION --}}
     <title>@yield('title') | mayottesport.com</title>
 </head>
-<?php
-    $routeJournees = route('journees.multi.season-choice');
-    $path = request()->path();
-?>
+
 <body>
-    @include('layouts.include.navbar-admin')
+    {{-- Navbar principal --}}
+    @include('layouts.include.navbar-sports')
+    {{-- Fin Navbar principal --}}
+
+    {{-- Section scroll X --}}
     <div class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
@@ -25,13 +26,17 @@
             </div>
         </div>
     </div>
+    {{-- Fin Section scroll X --}}
 
+    {{-- Main --}}
     <section class="container-lg p-3">
         @yield('content')
     </section>
+    {{-- Fin Main --}}
 
     {{-- Footer --}}
     @include('layouts.include.footer')
+    {{-- Fin Footer --}}
 </body>
 
 </html>

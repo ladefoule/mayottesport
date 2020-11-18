@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/datatables.min.css">
@@ -12,8 +13,12 @@
 </head>
 
 <body>
+    {{-- Navbar principal --}}
     @include('layouts.include.navbar-sports')
-    <div class="container-lg-fluid bg-white border-bottom">
+    {{-- Fin Navbar principal --}}
+
+    {{-- Section scroll X --}}
+    <section class="container-lg-fluid bg-white border-bottom">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start px-3 flex-shrink-0">
@@ -27,13 +32,18 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    {{-- Fin Section scroll X --}}
+
+    {{-- Main --}}
     <section class="container-lg p-3">
         @yield('content')
     </section>
+    {{-- Fin Main --}}
 
     {{-- Footer --}}
     @include('layouts.include.footer')
+    {{-- Fin Footer --}}
 </body>
 
 </html>
