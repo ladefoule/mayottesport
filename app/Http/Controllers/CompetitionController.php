@@ -106,6 +106,9 @@ class CompetitionController extends Controller
         if($journee == null)
             abort(404);
 
+        foreach ($journees as $journee)
+            $journee->url = $journee->url();
+
         $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->first() : '';
         $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->first() : '';
 

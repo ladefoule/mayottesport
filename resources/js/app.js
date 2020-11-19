@@ -7,6 +7,23 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueRouter from 'vue-router';
+import DayCalendar from './components/DayCalendar';
+import ExampleComponent from './components/ExampleComponent';
+Vue.use(VueRouter)
+
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('day-calendar', require('./components/DayCalendar.vue').default);
+
+const routes = [
+    { path: '/football/:competition/calendrier-et-resultats/:journeee-journee.html', component: DayCalendar , name:'journee'},
+    { path: '/bar', component: ExampleComponent }
+];
+
+const router = new VueRouter({
+    mode: 'history',
+    routes // short for `routes: routes`
+})
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +36,6 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +45,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    methods: {
+        qs: (query, elem = document) => elem.querySelector(query),
+        qsa: (query, elem = document) => elem.querySelectorAll(query),
+        cl: elem => console.log(elem),
+        dce: elem => document.createElement(elem)
+    },
+    router
 });
+
