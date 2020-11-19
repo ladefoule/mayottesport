@@ -26,6 +26,18 @@ body{
     overflow-y:auto
 }
 
+.cursor-pointer{
+    cursor:  pointer;
+}
+
+.cursor-default{
+    cursor:  default;
+}
+
+a.non-cliquable, a.non-cliquable:hover{
+    color:gray !important
+}
+
 /* --------- Les commentaires ---------- */
 .comment {
     overflow: hidden;
@@ -176,7 +188,7 @@ a:hover{
 }
 
 .fanion-calendrier{
-    width:30px;
+    width:35px;
 }
 
 .fanion-match{

@@ -20,7 +20,7 @@ class CompetitionController extends Controller
     public function __construct()
     {
         Log::info(" -------- CompetitionController : __construct -------- ");
-        $this->middleware(['sport', 'competition']);
+        $this->middleware(['sport', 'competition'])->except('dayCalendar');
     }
 
     /**
@@ -97,24 +97,25 @@ class CompetitionController extends Controller
      * @param string $journee
      * @return \Illuminate\View\View|void
      */
-    public function day(Request $request, $sport, $competition, $journee)
+    public function day(Request $request)
     {
         Log::info(" -------- CompetitionController : day -------- ");
         $saison = $request->saison;
         $journees = $saison->journees;
-        $journee = Journee::whereSaisonId($saison->id)->whereNumero($journee)->first();
+        $journee = Journee::whereSaisonId($saison->id)->where('date', '<', date('Y-m-d'))->first();
         if($journee == null)
             abort(404);
 
-        $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->first() : '';
-        $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->first() : '';
+        // $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->first() : '';
+        // $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->first() : '';
 
         return view('competition.day', [
             'calendrierJourneeHtml' => $journee->displayDay(),
+            'saison' => $saison,
             'journee' => $journee,
             'journees' => $journees,
-            'hrefJourneePrecedente' => $journeePrecedente ? $journeePrecedente->url() : '',
-            'hrefJourneeSuivante' => $journeeSuivante ? $journeeSuivante->url() : ''
+            // 'hrefJourneePrecedente' => $journeePrecedente ? $journeePrecedente->url() : '',
+            // 'hrefJourneeSuivante' => $journeeSuivante ? $journeeSuivante->url() : ''
         ]);
     }
 
@@ -127,5 +128,11 @@ class CompetitionController extends Controller
             'champions' => $champions,
             'competition' => $competition->nom
         ]);
+    }
+
+    public function dayCalendar(Request $request)
+    {
+        $journee = Journee::whereSaisonId($request['saison'])->whereNumero($request['journee'])->firstOrFail();
+        return $journee->displayDay();
     }
 }
