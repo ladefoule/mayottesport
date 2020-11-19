@@ -1,6 +1,6 @@
 <template>
   <div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
-    TEST
+    TEST {{ current }}
     <h1 class="h4 text-center p-2 col-12">
       {{ competition }} - Calendrier et résultats
     </h1>
@@ -9,8 +9,8 @@
     >
         <!-- <router-link to="/day">Go to Day</router-link> -->
       <router-link
-        v-if="hrefjourneeprecedente"
-        :to="hrefjourneeprecedente"
+        v-if="previous"
+        :to="previous"
         class="float-right pr-2"
         >précédente</router-link>
       <select
@@ -19,31 +19,47 @@
         id="journee"
         v-on:change="dayChange($event)"
       >
-        <!-- @foreach ($journees as $journee_)
-            <option data-href="{{ route('competition.day', ['sport' => strToUrl(request()->sport->nom),'competition' => strToUrl(request()->competition->nom),'journee' => $journee_->numero]) }}"
-                value="{{ $journee_->numero }}" @if($journee->numero == $journee_->numero) selected @endif>{{ niemeJournee($journee_->numero) }}</option>
-        @endforeach -->
         <option
-          v-for="journee in journees"
-          :value="journee.id"
-          :key="journee.id"
-          :data-href="journee.url"
-          :selected="currentday == journee.numero"
+          v-for="day in days"
+          :value="day.id"
+          :key="day.id"
+          :data-href="day.url"
         >
-          {{ niemeJournee(journee.numero) }}
+          {{ niemeJournee(day.numero) }}
         </option>
       </select>
-      <a
-        v-if="hrefjourneesuivante"
-        :href="hrefJourneeSuivante"
+      <router-link
+        v-if="previous"
+        :to="previous"
         class="float-left pl-2"
-        >suivante</a
-      >
+        >suivante</router-link>
     </div>
     <div class="col-lg-8 d-flex flex-wrap p-0">
       <div class="col-12 pb-3 mb-3 px-0">
         <div class="px-3">
-          <!-- {!! $calendrierJourneeHtml !!} -->
+            <a v-for="match in matches" :href="match.url" :key="match.id" class="text-decoration-none text-body match-calendrier">
+                <div class="row d-flex flex-nowrap py-2 border-bottom-dashed @if($i==0) border-top-dashed @endif">
+                    <div class="col-5 p-0 d-flex justify-content-between align-items-center @if($match['score_eq_dom'] > $match['score_eq_ext']) font-weight-bold @endif">
+                        <div>
+                            <img :src="match.fanion_eq_dom" :alt="match.nom_eq_dom" class="fanion-calendrier pr-2">
+                        </div>
+                        <div class="text-right">
+                            {{ match.nom_eq_dom }}
+                        </div>
+                    </div>
+                    <div class="col-2 d-flex justify-content-center align-items-center p-0">
+                        {{ match.score }}
+                    </div>
+                    <div class="col-5 p-0 d-flex justify-content-between align-items-center @if(match.score_eq_dom < match.score_eq_ext) font-weight-bold @endif">
+                        <div class="text-left">
+                            {{ match.nom_eq_ext }}
+                        </div>
+                        <div>
+                            <img :src="match.fanion_eq_ext" :alt="match.nom_eq_ext" class="fanion-calendrier pl-2">
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
       </div>
     </div>
@@ -54,21 +70,25 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   props: [
     "competition",
-    "hrefjourneesuivante",
-    "hrefjourneeprecedente",
-    "journees",
-    "currentday",
+    "previous",
+    "next",
+    "days",
+    "current",
+    "matches",
   ],
   data() {
     return {
-      test: "",
-    };
+        // previous: this
+    }
   },
   mounted() {
-    //    console.log('Component mounted. OK !')
+       console.log('Component mounted. OK !')
+    // cl('monté')
   },
   methods: {
     niemeJournee(numero) {
@@ -82,12 +102,14 @@ export default {
     dce: (elem) => document.createElement(elem),
 
     dayChange(event) {
-      let  option = event.target.options[event.target.selectedIndex]
-    //   let href = event.target.options.dataset.href;
-    //   cl(option.dataset.href)
-    //   return
-      //   option = event.target.value;
-      document.location = option.dataset.href;
+        let  option = event.target.options[event.target.selectedIndex]
+        axios.get('/api/journee/calendrier', {params: {saison:1, journee:5}})
+        .then(res => {
+            this.$router.push(option.dataset.href)
+        })
+        .catch(err => {
+            cl(err)
+        })
     },
   },
 };

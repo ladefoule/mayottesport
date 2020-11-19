@@ -1,19 +1,10 @@
 @extends('layouts.competition')
 
-@section('title', request()->competition->nom . ' - Calendrier et résultats - ' . niemeJournee($journee->numero) . ' - '
+@section('title', request()->competition->nom . ' - Calendrier et résultats - ' . niemeJournee($currentDay->numero) . ' - '
     . request()->sport->nom)
 
 @section('content')
-<?php //dd($journee) ?>
-    <day-calendar
-        competition="{{ request()->competition->nom }}"
-        :journees="{{ $journees }}"
-        hrefjourneeprecedente="{{ $hrefJourneePrecedente }}"
-        hrefjourneesuivante="{{ $hrefJourneeSuivante }}"
-        currentday="{{ $journee->numero }}"
-    >
-    </day-calendar>
-    {{-- <div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
+    <div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
         <h1 class="h4 text-center p-2 col-12">{{ request()->competition->nom . ' - Calendrier et résultats' }}</h1>
         <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
             @if ($hrefJourneePrecedente)
@@ -23,7 +14,7 @@
                 @foreach ($journees as $journee_)
                     <option
                         data-href="{{ route('competition.day', ['sport' => strToUrl(request()->sport->nom), 'competition' => strToUrl(request()->competition->nom), 'journee' => $journee_->numero]) }}"
-                        value="{{ $journee_->numero }}" @if ($journee->numero == $journee_->numero) selected
+                        value="{{ $journee_->numero }}" @if ($currentDay->numero == $journee_->numero) selected
                 @endif>{{ niemeJournee($journee_->numero) }}</option>
                 @endforeach
             </select>
@@ -35,13 +26,22 @@
             <div class="col-12 pb-3 mb-3 px-0">
                 <div class="px-3">
                     {!! $calendrierJourneeHtml !!}
+                    <day-calendar
+                        competition="{{ request()->competition->nom }}"
+                        :days="{{ $journees }}"
+                        previous="{{ $hrefJourneePrecedente }}"
+                        next="{{ $hrefJourneeSuivante }}"
+                        current="{{ $currentDay->numero }}"
+                        :matches="{{ $calendrier }}"
+                    >
+                    </day-calendar>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 pl-5 pr-0 text-center">
             PUB
         </div>
-    </div> --}}
+    </div>
 
 @endsection
 

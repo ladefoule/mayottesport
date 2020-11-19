@@ -16,7 +16,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('day-calendar', require('./components/DayCalendar.vue').default);
 
 const routes = [
-    { path: '/football/:competition/calendrier-et-resultats/:journeee-journee.html', component: DayCalendar , name:'journee'},
+    { path: '/:journeee-journee.html', component: DayCalendar , name:'journee'},
     { path: '/bar', component: ExampleComponent }
 ];
 
