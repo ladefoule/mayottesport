@@ -1981,11 +1981,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["competition", "previous", "next", "days", "current", "matches"],
   data: function data() {
-    return {// previous: this
+    return {
+      matchesData: this.matches,
+      currentData: this.current
     };
   },
   mounted: function mounted() {
@@ -2017,10 +2023,33 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/journee/calendrier', {
         params: {
           saison: 1,
-          journee: 5
+          journee: option.value
         }
       }).then(function (res) {
         _this.$router.push(option.dataset.href);
+
+        cl(res.data);
+        _this.matchesData = res.data;
+        _this.currentData = option.value;
+      })["catch"](function (err) {
+        cl(err);
+      });
+    },
+    dayPrevNext: function dayPrevNext(event) {
+      var _this2 = this;
+
+      cl(event);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/journee/calendrier', {
+        params: {
+          saison: 1,
+          journee: event.target.value
+        }
+      }).then(function (res) {
+        _this2.$router.push(option.dataset.href);
+
+        cl(res.data);
+        _this2.matchesData = res.data;
+        _this2.currentData = option.value;
       })["catch"](function (err) {
         cl(err);
       });
@@ -37653,182 +37682,190 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "row d-flex flex-wrap m-0 bg-white rounded p-3" },
-    [
-      _vm._v("\n  TEST " + _vm._s(_vm.current) + "\n  "),
-      _c("h1", { staticClass: "h4 text-center p-2 col-12" }, [
-        _vm._v(
-          "\n    " + _vm._s(_vm.competition) + " - Calendrier et résultats\n  "
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3"
-        },
-        [
-          _vm.previous
-            ? _c(
-                "router-link",
-                {
-                  staticClass: "float-right pr-2",
-                  attrs: { to: _vm.previous }
-                },
-                [_vm._v("précédente")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              staticClass: "form-control col-6 col-sm-4 col-md-3 px-2",
-              attrs: { name: "journee", id: "journee" },
-              on: {
-                change: function($event) {
-                  return _vm.dayChange($event)
+  return _c("div", [
+    _vm._v("\n  TEST " + _vm._s(_vm.currentData) + "\n  "),
+    _c("h1", { staticClass: "h4 text-center p-2 col-12" }, [
+      _vm._v(
+        "\n    " + _vm._s(_vm.competition) + " - Calendrier et résultats\n  "
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3"
+      },
+      [
+        _vm.previous
+          ? _c(
+              "router-link",
+              {
+                staticClass: "float-right pr-2",
+                attrs: { to: _vm.previous, value: _vm.currentData - 1 },
+                on: {
+                  mouseOver: function($event) {
+                    return _vm.dayPrevNext($event)
+                  }
                 }
+              },
+              [_vm._v("précédente")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            staticClass: "form-control col-6 col-sm-4 col-md-3 px-2",
+            attrs: { name: "journee", id: "journee" },
+            on: {
+              change: function($event) {
+                return _vm.dayChange($event)
               }
-            },
-            _vm._l(_vm.days, function(day) {
-              return _c(
-                "option",
-                {
-                  key: day.id,
-                  attrs: { "data-href": day.url },
-                  domProps: { value: day.id }
-                },
-                [
-                  _vm._v(
-                    "\n        " +
-                      _vm._s(_vm.niemeJournee(day.numero)) +
-                      "\n      "
-                  )
-                ]
-              )
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _vm.previous
-            ? _c(
-                "router-link",
-                { staticClass: "float-left pl-2", attrs: { to: _vm.previous } },
-                [_vm._v("suivante")]
-              )
-            : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-8 d-flex flex-wrap p-0" }, [
-        _c("div", { staticClass: "col-12 pb-3 mb-3 px-0" }, [
-          _c(
-            "div",
-            { staticClass: "px-3" },
-            _vm._l(_vm.matches, function(match) {
-              return _c(
-                "a",
-                {
-                  key: match.id,
-                  staticClass:
-                    "text-decoration-none text-body match-calendrier",
-                  attrs: { href: match.url }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "row d-flex flex-nowrap py-2 border-bottom-dashed @if($i==0) border-top-dashed @endif"
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "col-5 p-0 d-flex justify-content-between align-items-center @if($match['score_eq_dom'] > $match['score_eq_ext']) font-weight-bold @endif"
-                        },
-                        [
-                          _c("div", [
-                            _c("img", {
-                              staticClass: "fanion-calendrier pr-2",
-                              attrs: {
-                                src: match.fanion_eq_dom,
-                                alt: match.nom_eq_dom
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "text-right" }, [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(match.nom_eq_dom) +
-                                "\n                      "
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "col-2 d-flex justify-content-center align-items-center p-0"
-                        },
-                        [
+            }
+          },
+          _vm._l(_vm.days, function(day) {
+            return _c(
+              "option",
+              {
+                key: day.id,
+                attrs: { "data-href": day.url },
+                domProps: { value: day.id }
+              },
+              [
+                _vm._v(
+                  "\n        " +
+                    _vm._s(_vm.niemeJournee(day.numero)) +
+                    "\n      "
+                )
+              ]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _vm.next
+          ? _c(
+              "router-link",
+              {
+                staticClass: "float-left pl-2",
+                attrs: { to: _vm.next, value: _vm.currentData + 1 },
+                on: {
+                  mouseOver: function($event) {
+                    return _vm.dayPrevNext($event)
+                  }
+                }
+              },
+              [_vm._v("suivante")]
+            )
+          : _vm._e()
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-8 d-flex flex-wrap p-0" }, [
+      _c("div", { staticClass: "col-12 pb-3 mb-3 px-0" }, [
+        _c(
+          "div",
+          { staticClass: "px-3" },
+          _vm._l(_vm.matchesData, function(match) {
+            return _c(
+              "a",
+              {
+                key: match.id,
+                staticClass: "text-decoration-none text-body match-calendrier",
+                attrs: { href: match.url }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "row d-flex flex-nowrap py-2 border-bottom-dashed @if($i==0) border-top-dashed @endif"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-5 p-0 d-flex justify-content-between align-items-center @if($match['score_eq_dom'] > $match['score_eq_ext']) font-weight-bold @endif"
+                      },
+                      [
+                        _c("div", [
+                          _c("img", {
+                            staticClass: "fanion-calendrier pr-2",
+                            attrs: {
+                              src: match.fanion_eq_dom,
+                              alt: match.nom_eq_dom
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "text-right" }, [
                           _vm._v(
-                            "\n                      " +
-                              _vm._s(match.score) +
-                              "\n                  "
+                            "\n                          " +
+                              _vm._s(match.nom_eq_dom) +
+                              "\n                      "
                           )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "col-5 p-0 d-flex justify-content-between align-items-center @if(match.score_eq_dom < match.score_eq_ext) font-weight-bold @endif"
-                        },
-                        [
-                          _c("div", { staticClass: "text-left" }, [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(match.nom_eq_ext) +
-                                "\n                      "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("img", {
-                              staticClass: "fanion-calendrier pl-2",
-                              attrs: {
-                                src: match.fanion_eq_ext,
-                                alt: match.nom_eq_ext
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            }),
-            0
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-4 pl-5 pr-0 text-center" }, [
-        _vm._v("PUB")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-2 d-flex justify-content-center align-items-center p-0"
+                      },
+                      [
+                        _vm._v(
+                          "\n                      " +
+                            _vm._s(match.score) +
+                            "\n                  "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-5 p-0 d-flex justify-content-between align-items-center @if(match.score_eq_dom < match.score_eq_ext) font-weight-bold @endif"
+                      },
+                      [
+                        _c("div", { staticClass: "text-left" }, [
+                          _vm._v(
+                            "\n                          " +
+                              _vm._s(match.nom_eq_ext) +
+                              "\n                      "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("img", {
+                            staticClass: "fanion-calendrier pl-2",
+                            attrs: {
+                              src: match.fanion_eq_ext,
+                              alt: match.nom_eq_ext
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          }),
+          0
+        )
       ])
-    ]
-  )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-4 pl-5 pr-0 text-center" }, [
+      _vm._v("PUB")
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

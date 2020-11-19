@@ -1,6 +1,6 @@
 <template>
-  <div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
-    TEST {{ current }}
+  <div>
+    TEST {{ currentData }}
     <h1 class="h4 text-center p-2 col-12">
       {{ competition }} - Calendrier et résultats
     </h1>
@@ -11,6 +11,8 @@
       <router-link
         v-if="previous"
         :to="previous"
+        :value="currentData - 1"
+        v-on:mouseOver="dayPrevNext($event)"
         class="float-right pr-2"
         >précédente</router-link>
       <select
@@ -29,15 +31,17 @@
         </option>
       </select>
       <router-link
-        v-if="previous"
-        :to="previous"
+        v-if="next"
+        :to="next"
+        :value="currentData + 1"
+        v-on:mouseOver="dayPrevNext($event)"
         class="float-left pl-2"
         >suivante</router-link>
     </div>
     <div class="col-lg-8 d-flex flex-wrap p-0">
       <div class="col-12 pb-3 mb-3 px-0">
         <div class="px-3">
-            <a v-for="match in matches" :href="match.url" :key="match.id" class="text-decoration-none text-body match-calendrier">
+            <a v-for="match in matchesData" :href="match.url" :key="match.id" class="text-decoration-none text-body match-calendrier">
                 <div class="row d-flex flex-nowrap py-2 border-bottom-dashed @if($i==0) border-top-dashed @endif">
                     <div class="col-5 p-0 d-flex justify-content-between align-items-center @if($match['score_eq_dom'] > $match['score_eq_ext']) font-weight-bold @endif">
                         <div>
@@ -83,7 +87,8 @@ export default {
   ],
   data() {
     return {
-        // previous: this
+        matchesData:this.matches,
+        currentData:this.current
     }
   },
   mounted() {
@@ -103,14 +108,31 @@ export default {
 
     dayChange(event) {
         let  option = event.target.options[event.target.selectedIndex]
-        axios.get('/api/journee/calendrier', {params: {saison:1, journee:5}})
+        axios.get('/api/journee/calendrier', {params: {saison:1, journee:option.value}})
         .then(res => {
             this.$router.push(option.dataset.href)
+            cl(res.data)
+            this.matchesData = res.data
+            this.currentData = option.value
         })
         .catch(err => {
             cl(err)
         })
     },
+
+    dayPrevNext(event){
+        cl(event)
+        axios.get('/api/journee/calendrier', {params: {saison:1, journee:event.target.value}})
+        .then(res => {
+            this.$router.push(option.dataset.href)
+            cl(res.data)
+            this.matchesData = res.data
+            this.currentData = option.value
+        })
+        .catch(err => {
+            cl(err)
+        })
+    }
   },
 };
 </script>
