@@ -14,14 +14,16 @@ class CreateEquipesTable extends Migration {
 	{
 		Schema::create('equipes', function(Blueprint $table)
 		{
-			$table->bigIncrements('id');
-            $table->string('nom')->unique('equipe_unique');
+            $table->bigIncrements('id');
+            $table->string('uniqid')->unique();
+            $table->string('nom');
             $table->unsignedBigInteger('sport_id');
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('restrict');
 			$table->string('nom_complet')->nullable();
 			$table->boolean('feminine')->nullable();
 			$table->boolean('non_mahoraise')->nullable();
-			$table->timestamps();
+            $table->timestamps();
+            $table->unique(['nom', 'sport_id'], 'equipe_unique_par_sport');
 		});
 	}
 

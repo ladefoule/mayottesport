@@ -40,8 +40,8 @@ class CompetitionController extends Controller
         $types = config('constant.type-competition');
         $type = $types[$competition->type][0];
 
-        $derniereJournee = $saison ? $saison->lastDay() : '';
-        $prochaineJournee = $saison ? $saison->nextDay() : '';
+        $derniereJournee = $saison ? $saison->derniereJournee() : '';
+        $prochaineJournee = $saison ? $saison->prochaineJournee() : '';
         $derniereJourneeHtml = $derniereJournee ? $derniereJournee->displayDay() : '';
         $prochaineJourneeHtml = $prochaineJournee ? $prochaineJournee->displayDay() : '';
 
@@ -56,7 +56,7 @@ class CompetitionController extends Controller
             $classement = [];
             $hrefClassement = '';
             if($saison){
-                $classement = Saison::find($saison->id)->ranking();
+                $classement = Saison::find($saison->id)->classement();
                 $hrefClassement = route('competition.classement', [
                     'sport' => strToUrl($sport->nom),
                     'competition' => strToUrl($competition->nom)
@@ -78,7 +78,7 @@ class CompetitionController extends Controller
         $sport = strToUrl($request->sport->nom);
         $title = $h1 = 'Football - Classement ' . Str::lower($saison->nom);
 
-        $classement = $saison->ranking();
+        $classement = $saison->classement();
         return view($sport.'.classement', [
             'classement' => $classement,
             // 'saison' => $saison,

@@ -27,13 +27,20 @@ class SportController extends Controller
         foreach ($competitions as $competition) {
             $saison = $competition->saisons->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
             if($saison){
-                $journee = $saison->lastDay();
-                if(! $journee) $journee = $saison->nextDay();
+                $journee = $saison->derniereJournee();
+                if(! $journee) $journee = $saison->prochaineJournee();
                 if($journee){
+                    $classement = '';
+                    if($competition->type == 1)
+                        $classement = view('competition.classement-simple', [
+                            'classement' => $saison->classement(),
+                            'hrefClassementComplet' => $saison->href()
+                        ])->render();
+
                     $liste[] = [
                         'nom' => $competition->nom,
                         'journee' => $journee->displayDay(),
-                        'classement' => $competition->type == 1 ? $saison->displaySimplifiedRanking() : ''
+                        'classement' => $classement
                     ];
                 }
             }

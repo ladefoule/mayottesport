@@ -10,8 +10,9 @@
         <a id="previous" data-id="{{ $journee->numero - 1 }}" href="" class="float-right pr-3 @if ($journee->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem"><i class="fas fa-chevron-left"></i></a>
         <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
             @foreach ($journees as $journee_)
-                <option data-href="{{ route('competition.calendrier-resultats', ['sport' => strToUrl(request()->sport->nom),'competition' => strToUrl(request()->competition->nom),'journee' => $journee_->numero]) }}"
-                    value="{{ $journee_->numero }}" @if($journee->numero == $journee_->numero) selected @endif>{{ niemeJournee($journee_->numero) }}</option>
+                <option value="{{ $journee_->numero }}" @if($journee->numero == $journee_->numero) selected @endif>
+                    {{ niemeJournee($journee_->numero) }}
+                </option>
             @endforeach
         </select>
         <a id="next" data-id="{{ $journee->numero + 1 }}" href="" class="float-left pl-3 @if ($journee->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem"><i class="fas fa-chevron-right"></i></a>

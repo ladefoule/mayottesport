@@ -12,7 +12,7 @@
 </head>
 <body>
     {{-- Navbar principal --}}
-    @include('layouts.include.navbar-sports')
+    @include('layouts.include.navbar-admin')
     {{-- Fin Navbar principal --}}
 
     {{-- Main --}}

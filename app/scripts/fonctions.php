@@ -1,9 +1,12 @@
 <?php
+use App\Cache;
 use App\Match;
 use App\Journee;
+use App\CrudTable;
 use App\EquipeSaison;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Revoie '1ère journée' si $numero = 1, Xème journée si $numero > 1, false dans les autres cas de figure
@@ -70,6 +73,19 @@ function checkPermission(array $roles)
     return false;
 }
 
+function awesome(string $table)
+{
+    $key = "awesome-$table";
+    if (!Config::get('constant.activer_cache'))
+        Cache::forget($key);
+
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use($table){
+            return CrudTable::whereNom($table)->first()->index();
+        });
+}
 
 /**
  * Génère tous les matches d'une saison dans la bdd

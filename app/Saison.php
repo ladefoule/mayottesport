@@ -45,22 +45,45 @@ class Saison extends Model
         return ['rules' => $rules, 'messages' => $messages];
     }
 
-    public function lastDay()
+    /**
+     * La dernière journée jouée
+     *
+     * @return Journee
+     */
+    public function derniereJournee()
     {
         return $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
     }
 
-    public function nextDay()
+    /**
+     * La prochaine journée à jouer
+     *
+     * @return Journee
+     */
+    public function prochaineJournee()
     {
         return $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
     }
 
+    // public function classementSimple(bool $complet = false)
+    // {
+    //     $sport = strToUrl($this->competition->sport->nom);
+    //     $competition = strToUrl($this->competition->nom);
+    //     $hrefClassementComplet = route('competition.classement', ['competition' => $competition, 'sport' => $sport]);
+    //     $classement = $this->classement();
+    //     return view('competition.classement-simple', [
+    //         'classement' => $classement,
+    //         'hrefClassementComplet' => $hrefClassementComplet,
+    //         'complet' => $complet
+    //     ]);
+    // }
+
     /**
      * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction generateRanking
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
-    public function ranking()
+    public function classement()
     {
         $key = 'classement-'.$this->id;
         if(! Config::get('constant.activer_cache'))
@@ -70,34 +93,20 @@ class Saison extends Model
             return Cache::get($key);
 
         return Cache::rememberForever($key, function (){
-            return $this->generateRanking($this->competition->sport->id);
+            return $this->genererClassement();
         });
     }
 
-    public function displaySimplifiedRanking(bool $complet = false)
-    {
-        $sport = strToUrl($this->competition->sport->nom);
-        $competition = strToUrl($this->competition->nom);
-        $hrefClassementComplet = route('competition.classement', ['competition' => $competition, 'sport' => $sport]);
-        $classement = $this->ranking();
-        return view('competition.classement-simple', [
-            'classement' => $classement,
-            'hrefClassementComplet' => $hrefClassementComplet,
-            'complet' => $complet
-        ]);
-
-    }
-
     /**
-     * Génération du classement de la saison (en fonction du sport)
+     * Génération du classement de la saison
      *
      * @param int $sportId
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
-    private function generateRanking(int $sportId)
+    private function genererClassement()
     {
         $bareme = $this->bareme;
-        $sportId = $bareme->sport_id;
+        $sport = $bareme->sport;
         $matches = [];
         foreach($this->equipes as $equipe){
             $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);
@@ -109,10 +118,12 @@ class Saison extends Model
         $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
         $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
         foreach ($matches as $equipeId => $matchesEquipe) {
-            $instanceEquipe = Equipe::findOrFail($equipeId);
-            $nomEquipe = $instanceEquipe->nom;
-            $fanionEquipe = $instanceEquipe->fanion();
+            $equipe = Equipe::findOrFail($equipeId);
+            $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
+            $nomEquipe = $equipe->nom;
+            $fanionEquipe = $equipe->fanion();
             $classement[$equipeId]['nom'] = $nomEquipe;
+            $classement[$equipeId]['hrefEquipe'] = $hrefEquipe;
             $classement[$equipeId]['fanion'] = $fanionEquipe;
             $classement[$equipeId]['points'] = 0;
             $classement[$equipeId]['joues'] = 0;
@@ -120,7 +131,7 @@ class Saison extends Model
             $classement[$equipeId]['marques'] = 0;
             $classement[$equipeId]['encaisses'] = 0;
 
-            if($sportId != $idBasketball && $sportId != $idVolleyball)
+            if($sport->id != $idBasketball && $sport->id != $idVolleyball)
                 $classement[$equipeId]['nul'] = 0;
 
             $classement[$equipeId]['defaite'] = 0;

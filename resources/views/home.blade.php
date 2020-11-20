@@ -33,7 +33,7 @@ $competition = Saison::whereId($saisonId)->first()->competition->nom;
             {!! $journee->displayDay() !!}
         </div>
         <div class="d-none d-lg-block col-lg-4 pl-5 pr-0">
-            {!! $saison = Saison::find($saisonId)->displaySimplifiedRanking() !!}
+            {!! $saison = Saison::find($saisonId)->classementSimple() !!}
         </div>
     </div>
 
@@ -47,7 +47,7 @@ $competition = Saison::whereId($saisonId)->first()->competition->nom;
             {!! $journee->displayDay() !!}
         </div>
         <div class="d-none d-lg-block col-lg-4 pl-5 pr-0">
-            {!! $saison = Saison::find($saisonId)->displaySimplifiedRanking() !!}
+            {!! $saison = Saison::find($saisonId)->classementSimple() !!}
         </div>
     </div>
 </div>

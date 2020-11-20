@@ -16,8 +16,8 @@ class EquipeSeeder extends Seeder
         foreach ($equipes as $nomEquipe) {
             App\Equipe::create([
                 'nom' => $nomEquipe,
-                // 'equipe_detail' => $nomEquipe,
-                'sport_id' => 1
+                'sport_id' => 1,
+                'uniqid' => uniqid()
             ]);
         };
     }

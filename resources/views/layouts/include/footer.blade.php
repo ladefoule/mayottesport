@@ -1,6 +1,7 @@
 <!-- Footer -->
 <footer class="page-footer font-small indigo text-white bg-dark">
     <!-- Footer Links -->
+    @if (request()->sports)
     <div class="container text-center text-md-left">
         <div class="row d-flex {{-- flex-nowrap --}} flex-basis-1 text-center">
             @foreach (request()->sports as $sport)
@@ -36,6 +37,7 @@
             </div>
         </div>
     </div>
+    @endif
     <!-- Footer Links -->
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3 bg-body">© {{ date('Y') }} Copyright:

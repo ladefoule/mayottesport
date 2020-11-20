@@ -26,7 +26,7 @@
                 <tr>
                     <td class="font-weight-bold">{{ $i++ }}</td>
                     <td align="left">
-                        <a href="" class="text-dark">
+                        <a href="{{ $equipe['hrefEquipe'] }}" class="text-dark">
                             <div class="p-0 d-flex justify-content-start align-items-center">
                                 <div>
                                     <img src="{{ $equipe['fanion'] }}" alt="{{ $equipe['nom'] }}" class="fanion-calendrier pr-2">

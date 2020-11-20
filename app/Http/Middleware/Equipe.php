@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\EquipeSaison;
 use App\Equipe as EquipeModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,6 +39,7 @@ class Equipe
             abort(404);
 
         $request->equipe = $equipe;
+        // $request->competitions = $competitions;
 
         return $next($request);
     }
