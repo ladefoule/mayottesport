@@ -83,7 +83,7 @@ function awesome(string $table)
         return Cache::get($key);
     else
         return Cache::rememberForever($key, function () use($table){
-            return CrudTable::whereNom($table)->first()->index();
+            return CrudTable::whereNom($table)->firstOrFail()->index();
         });
 }
 

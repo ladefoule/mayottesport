@@ -15,7 +15,7 @@ class AttributVisible
      */
     public function handle($request, Closure $next)
     {
-        $crudTable = $request['crudTable']; // Récupérer depuis le middleware VerifTableCrud
+        $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $route = $request->route()->getName();
         $action = explode('.', $route)[1]; // les différentes routes : crud.create / crud.show / crud.update
 
@@ -23,7 +23,7 @@ class AttributVisible
         if($listeAttributsVisibles == false)
             abort(404);
 
-        $request['listeAttributsVisibles'] = $listeAttributsVisibles;
+        $request->listeAttributsVisibles = $listeAttributsVisibles;
         return $next($request);
     }
 }

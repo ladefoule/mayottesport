@@ -106,7 +106,7 @@ class Match extends Model
      */
     public function getCrudNameAttribute()
     {
-        return $this->journee->crud_name . ' - ' . $this->equipeDom->nom . ' # ' . $this->equipeExt->nom;
+        return awesome('journees')[$this->journee_id]['crud_name'] . ' - ' . awesome('equipes')[$this->equipe_id_dom]['nom'] . ' # ' . awesome('equipes')[$this->equipe_id_ext]['nom'];
     }
 
     /**

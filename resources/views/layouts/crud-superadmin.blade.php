@@ -1,3 +1,6 @@
+<?php
+    $tablesSuperAdmin = App\CrudTable::whereIn('nom', ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])->get();
+?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -14,6 +17,24 @@
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-admin')
     {{-- Fin Navbar principal --}}
+
+    {{-- Section scroll X --}}
+    <div class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
+        <div class="container-lg">
+            <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
+                <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
+                    @foreach ($tablesSuperAdmin as $table)
+                    <a href="{{ route('crud.index', ['table' => str_replace('_', '-', $table->nom)]) }}">
+                        <button class="btn btn-sm mx-2 px-3 btn-outline-dark">
+                            {{ \Str::ucfirst(\Str::camel($table->nom)) }}
+                        </button>
+                    </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Fin Section scroll X --}}
 
     {{-- Main --}}
     <section class="container-lg p-3">

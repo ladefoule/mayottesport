@@ -1,4 +1,4 @@
-@extends('layouts.crud')
+@extends('layouts.' . request()->layout)
 
 @section('title', $title)
 

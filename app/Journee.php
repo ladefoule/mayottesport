@@ -129,7 +129,7 @@ class Journee extends Model
      */
     public function getCrudNameAttribute()
     {
-        $saison = $this->saison->crud_name;
+        $saison = awesome('saisons')[$this->saison_id]['crud_name'];
         $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
         return $saison . ' - J' . $journee;
     }

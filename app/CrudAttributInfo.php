@@ -27,7 +27,7 @@ class CrudAttributInfo extends Model
     public function getCrudNameAttribute()
     {
         $crudProprietes = config('constant.crud-attribut');
-        return $this->crudAttribut->crud_name . ' - ' . $crudProprietes[$this->propriete_id][0];
+        return awesome('crud_attributs')[$this->crud_attribut_id]['crud_name'] . ' - ' . $crudProprietes[$this->propriete_id][0];
     }
 
     /**

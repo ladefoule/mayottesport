@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\CrudTable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class VerifTableCrud
 {
@@ -22,14 +23,24 @@ class VerifTableCrud
         $crudTable = false;
         $navbarCrudTables = CrudTable::navbarCrudTables();
         foreach ($navbarCrudTables as $table_)
-            if(array_search($table, $table_))
+            if(array_search($table, $table_)){
                 $crudTable = CrudTable::findOrFail($table_['id']);
+                $request->layout = 'crud';
+            }
+
+        if(Auth::user()->role->nom == 'superadmin'){
+            $tables = ['crud_tables', 'crud_attributs', 'crud_attribut_infos'];
+            if(array_search(str_replace('-', '_', $table), $tables)){
+                $crudTable = CrudTable::whereNom($tables[array_search(str_replace('-', '_', $table), $tables)])->firstOrFail();
+                $request->layout = 'crud-superadmin';
+            }
+        }
 
         if(! $crudTable){
             Log::info('Table non gérée ou introuvable : ' . $table);
             abort(404);
         }
-        $request['crudTable'] = $crudTable;
+        $request->crudTable = $crudTable;
         return $next($request);
     }
 }

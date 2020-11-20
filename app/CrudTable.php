@@ -39,20 +39,15 @@ class CrudTable extends Model
      */
     public static function navbarCrudTables()
     {
-        $user = Auth::user();
-        $role = $user->role->nom; // admin/membre/superadminpremium etc...
-        $key = "crud-navbar-tables-users-" . $role;
+        $key = "crud-navbar-tables";
         if(! Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
             return Cache::get($key);
         else
-            return Cache::rememberForever($key, function () use($role) {
-                if($role == 'superadmin')
-                    $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)->get() ?? [];
-                else // => admin
-                    $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)
+            return Cache::rememberForever($key, function () {
+                $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)
                         ->whereNotIn('nom', ['crud_tables', 'crud_attributs', 'crud_attribut_infos', 'users', 'roles'])
                         ->get() ?? [];
 
@@ -259,6 +254,7 @@ class CrudTable extends Model
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
+                    $liste[$id]['nom'] = $instance->nom ?? '';
                     $liste[$id]['crud_name'] = $instance->crud_name;
                     $liste[$id]['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
                     $liste[$id]['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
