@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'check-permission' => \App\Http\Middleware\CheckPermission::class,
         'competition' => \App\Http\Middleware\Competition::class,
+        'equipe' => \App\Http\Middleware\Equipe::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'match-id' => \App\Http\Middleware\MatchId::class,
         'verif-table-crud' => \App\Http\Middleware\VerifTableCrud::class,

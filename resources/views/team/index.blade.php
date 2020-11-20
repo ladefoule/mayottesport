@@ -1,6 +1,6 @@
 @extends('layouts.team')
 
-@section('title', request()->team->nom . ' - ' . request()->sport->nom)
+@section('title', $title)
 
 @section('content')
 
