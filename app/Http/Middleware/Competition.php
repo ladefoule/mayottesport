@@ -60,10 +60,10 @@ class Competition
         $request->hrefPalmares = route('competition.champions', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
 
         if($saison){
-            $request->hrefCalendrier = route('competition.day', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+            $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
 
             if($competition->type == 1) // Type Championnat
-                $request->hrefClassement = route('competition.ranking', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+                $request->hrefClassement = route('competition.classement', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
         }
 
         return $next($request);

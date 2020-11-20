@@ -21,7 +21,7 @@ class JourneesMultiplesController extends Controller
         $sports = Sport::orderBy('nom')->get();
         $h1 = $title = 'Saison : Ajout de toutes les journées';
 
-        return view('admin.journees.multi.season-choice', [
+        return view('admin.journees.multi.select', [
             'sports' => $sports,
             'title' => $title,
             'h1' => $h1

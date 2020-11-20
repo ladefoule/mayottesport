@@ -1,16 +1,16 @@
-@extends('layouts.team')
+@extends('layouts.competition')
 
-@section('title', $title)
+@section('title', request()->competition->nom . ' - Calendrier et résultats - '.niemeJournee($journee->numero).' - ' . request()->sport->nom)
 
 @section('content')
 
 <div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
-    {{-- <h1 class="h4 text-center p-2 col-12">{{ request()->team->nom . ' - Calendrier et résultats'}}</h1>
+    <h1 class="h4 text-center p-2 col-12">{{ request()->competition->nom . ' - Calendrier et résultats'}}</h1>
     <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
         <a id="previous" data-id="{{ $journee->numero - 1 }}" href="" class="float-right pr-3 @if ($journee->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem"><i class="fas fa-chevron-left"></i></a>
         <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
             @foreach ($journees as $journee_)
-                <option data-href="{{ route('competition.day', ['sport' => strToUrl(request()->sport->nom),'competition' => strToUrl(request()->competition->nom),'journee' => $journee_->numero]) }}"
+                <option data-href="{{ route('competition.calendrier-resultats', ['sport' => strToUrl(request()->sport->nom),'competition' => strToUrl(request()->competition->nom),'journee' => $journee_->numero]) }}"
                     value="{{ $journee_->numero }}" @if($journee->numero == $journee_->numero) selected @endif>{{ niemeJournee($journee_->numero) }}</option>
             @endforeach
         </select>
@@ -22,7 +22,7 @@
                 {!! $calendrierJourneeHtml !!}
             </div>
         </div>
-    </div> --}}
+    </div>
     <div class="col-lg-4 pl-5 pr-0 text-center">
         PUB
     </div>
@@ -33,7 +33,17 @@
 @section('script')
 <script>
 $(document).ready(function(){
-
+    $('#journees').on('change', function() {
+        option = this.options[this.selectedIndex]
+        journee = option.value
+        ajax(journee)
+    })
+    $('#previous, #next').on('click', function(e) {
+        e.preventDefault()
+        journee = this.dataset.id
+        if(! this.classList.contains('non-cliquable'))
+            ajax(journee)
+    })
 })
 
 function ajax(journee)
@@ -42,7 +52,7 @@ function ajax(journee)
     var journees = qs('#journees')
     var previous = qs('#previous')
     var next = qs('#next')
-    var saison = "<?php //echo $saison->id ?>"
+    var saison = "<?php echo $saison->id ?>"
     $.ajax({
         type: 'GET',
         url: "<?php echo route('day.calendar.display') ?>",

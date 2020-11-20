@@ -12,7 +12,7 @@
                     <a class="nav-item nav-link px-2 @if (request()->url() == route('crud-gestion.tables')) active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
                 @endif
                <a class="nav-item nav-link px-2 @if (in_array(request()->route()->getName(), ['crud.index', 'crud.create', 'crud.update', 'crud.show'])) active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
-               <a class="nav-item nav-link px-2 @if (request()->url() == route('journees.multi.season-choice')) active font-weight-bold @endif" href="{{ route('journees.multi.season-choice') }}">Journées (multi)</a>
+               <a class="nav-item nav-link px-2 @if (request()->url() == route('journees.multi.select')) active font-weight-bold @endif" href="{{ route('journees.multi.select') }}">Journées (multi)</a>
                {{-- <a class="nav-item nav-link px-2 {{ $activeSpec }}" href="{{ route('autres') }}">Actions spécifiques</a> --}}
            </div>
 
@@ -36,7 +36,7 @@
                 <a class="border-bottom nav-item nav-link px-2 @if (request()->url() == route('crud-gestion.tables')) active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
             @endif
             <a class="border-bottom nav-item nav-link px-2 @if (in_array(request()->route()->getName(), ['crud.index', 'crud.create', 'crud.update', 'crud.show'])) active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
-            <a class="border-bottom nav-item nav-link px-2 @if (request()->url() == route('journees.multi.season-choice')) active font-weight-bold @endif" href="{{ route('journees.multi.season-choice') }}">Journées (multi)</a>
+            <a class="border-bottom nav-item nav-link px-2 @if (request()->url() == route('journees.multi.select')) active font-weight-bold @endif" href="{{ route('journees.multi.select') }}">Journées (multi)</a>
             @include('layouts.include.connexion')
           </ul>
       </nav>

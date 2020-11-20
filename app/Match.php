@@ -163,8 +163,8 @@ class Match extends Model
             'commentaires' => $commentaires,
             'scoreEqDom' => $this->score_eq_dom,
             'scoreEqExt' => $this->score_eq_ext,
-            'lienResultat' => route('competition.match.result', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
-            'lienHoraire' => route('competition.match.schedule', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
+            'lienResultat' => route('competition.match.resultat', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
+            'lienHoraire' => route('competition.match.horaire', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
             'lienMatch' => route('competition.match', [
                 'id' => $this->uniqid,
                 'sport' => strToUrl($sport->nom),

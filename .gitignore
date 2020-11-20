@@ -9,7 +9,7 @@
 /.tools
 .env
 .env.backup
-.phpunit.result.cache
+.phpunit.resultat.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log

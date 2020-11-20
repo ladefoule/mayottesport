@@ -28,12 +28,12 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/comment', 'CommentaireController@store')->name('comment');
     Route::post('/comment/delete', 'CommentaireController@delete')->name('comment.delete');
 
-    Route::get('/{sport}/{competition}/resultat/{id}', 'MatchController@result')->name('competition.match.result');
+    Route::get('/{sport}/{competition}/resultat/{id}', 'MatchController@result')->name('competition.match.resultat');
     Route::post('/{sport}/{competition}/resultat/{id}', 'MatchController@resultStore');
 
     /* MIDDLEWARE PREMIUM */
     Route::group(['check-permission:premium|admin|superadmin'], function () {
-        Route::get('/{sport}/{competition}/horaire/{id}', 'MatchController@schedule')->name('competition.match.schedule');
+        Route::get('/{sport}/{competition}/horaire/{id}', 'MatchController@schedule')->name('competition.match.horaire');
         Route::post('/{sport}/{competition}/horaire/{id}', 'MatchController@scheduleStore');
 
         /* MIDDLEWARE ADMIN */
@@ -57,7 +57,7 @@ Route::group(['middleware'=>'auth'], function () {
             /* DEBUT PREFIX AUTRES */
             Route::prefix('/autres')->group(function () {
                 /* ----- DEBUT ROUTES JOURNEES ----- */
-                    Route::get('/journees/multi/choix-saison', 'JourneesMultiplesController@seasonChoice')->name('journees.multi.season-choice');
+                    Route::get('/journees/multi/select', 'JourneesMultiplesController@seasonChoice')->name('journees.multi.select');
                     Route::get('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@edit')->name('journees.multi.edit');
                     Route::post('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editStore');
                     Route::get('/journees/multi/saison-{id}', 'JourneesMultiplesController@show')->name('journees.multi.show');
@@ -92,8 +92,8 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 })->name('ajax');
 
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
-Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@ranking')->name('competition.ranking');
-Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@day')->name('competition.day');
+Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@ranking')->name('competition.classement');
+Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@day')->name('competition.calendrier-resultats');
 Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@champions')->name('competition.champions');
 Route::get('/{sport}/equipe/{id}_{equipe}.html', 'EquipeController@index')->name('equipe.index');
 Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');

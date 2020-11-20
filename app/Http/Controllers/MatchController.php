@@ -73,7 +73,7 @@ class MatchController extends Controller
         }
 
         $infos = $match->infos();
-        return view('football.result', [
+        return view('football.resultat', [
             'match' => $infos
         ]);
     }
@@ -132,7 +132,7 @@ class MatchController extends Controller
         $match = $request->match;
 
         $infos = $match->infos();
-        return view('football.schedule', [
+        return view('football.horaire', [
             'match' => $infos
         ]);
     }

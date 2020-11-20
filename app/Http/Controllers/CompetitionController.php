@@ -57,7 +57,7 @@ class CompetitionController extends Controller
             $hrefClassement = '';
             if($saison){
                 $classement = Saison::find($saison->id)->ranking();
-                $hrefClassement = route('competition.ranking', [
+                $hrefClassement = route('competition.classement', [
                     'sport' => strToUrl($sport->nom),
                     'competition' => strToUrl($competition->nom)
                 ]);
@@ -79,7 +79,7 @@ class CompetitionController extends Controller
         $title = $h1 = 'Football - Classement ' . Str::lower($saison->nom);
 
         $classement = $saison->ranking();
-        return view($sport.'.ranking', [
+        return view($sport.'.classement', [
             'classement' => $classement,
             // 'saison' => $saison,
             // 'sport' => $sport,
@@ -106,7 +106,7 @@ class CompetitionController extends Controller
         if($journee == null)
             abort(404);
 
-        return view('competition.day', [
+        return view('competition.calendrier-resultats', [
             'calendrierJourneeHtml' => $journee->displayDay(),
             'saison' => $saison,
             'journee' => $journee,

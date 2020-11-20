@@ -23,7 +23,7 @@ class EquipeController extends Controller
         $equipe = $request->equipe;
         $sport = $request->sport;
         $title = $equipe->nom . ' - ' . $sport->nom;
-        return view('team.index', [
+        return view('equipe.index', [
             'equipe' => $equipe,
             'title' => $title
         ]);

@@ -116,7 +116,7 @@ class Journee extends Model
         // $sport = strToUrl($this->saison->championnat->sport->nom);
         $dateJournee = date('d/m/Y', strtotime($this->date));
         $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
-        return view('competition.day-display', [
+        return view('competition.journee', [
             'calendrier' => $this->calendrier(),
             'journee' => $journee
         ])->render();
@@ -157,7 +157,7 @@ class Journee extends Model
 
         $competition = $saison->competition;
         $sport = $competition->sport;
-        return route('competition.day', [
+        return route('competition.calendrier-resultats', [
             'sport' => strToUrl($sport->nom),
             'competition' => strToUrl($competition->nom),
             'journee' => $this->numero
