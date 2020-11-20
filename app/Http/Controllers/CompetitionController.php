@@ -106,16 +106,11 @@ class CompetitionController extends Controller
         if($journee == null)
             abort(404);
 
-        // $journeePrecedente = ($journee->numero > 1) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero - 1)->first() : '';
-        // $journeeSuivante = ($journee->numero < $saison->nb_journees) ? Journee::whereSaisonId($saison->id)->whereNumero($journee->numero + 1)->first() : '';
-
         return view('competition.day', [
             'calendrierJourneeHtml' => $journee->displayDay(),
             'saison' => $saison,
             'journee' => $journee,
             'journees' => $journees,
-            // 'hrefJourneePrecedente' => $journeePrecedente ? $journeePrecedente->url() : '',
-            // 'hrefJourneeSuivante' => $journeeSuivante ? $journeeSuivante->url() : ''
         ]);
     }
 

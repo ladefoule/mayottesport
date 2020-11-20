@@ -1,6 +1,6 @@
 {{-- NAVBAR LARGE SCREEN --}}
 <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
-   <div class="container">
+   <div class="container border">
        <a class="navbar-brand pl-3" href="/"><img class="img-fluid" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

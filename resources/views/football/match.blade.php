@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        @if (!$match['accesBloque'])
+        @if (! $match['accesBloque'])
             <div class="col-12 d-flex align-items-center justify-content-center p-3">
                 <a href="{{ $match['lienResultat'] }}"><button class="btn btn-success">Modifier le résultat</button></a>
             </div>
@@ -53,8 +53,9 @@
             <p class="attribution">Posté par <span class="nom text-danger"></span> le <span class="date"></span> (<a href="" class="supprimer">Supprimer</a>)</p>
         </div>
     </article>
+    {{-- Fin Modèle de bloc de commentaire --}}
 
-    <div class="row m-0 mb-3">
+    <div class="row m-0 mt-3">
         <div class="w-100 card">
             <div class="card-header">
                 Les commentaires

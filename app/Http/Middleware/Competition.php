@@ -59,18 +59,11 @@ class Competition
         $request->hrefIndex = route('competition.index', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
         $request->hrefPalmares = route('competition.champions', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
 
-        $derniereJournee = $request->hrefClassement = $request->hrefCalendrier = '';
         if($saison){
-            $derniereJournee = $saison->lastDay();
-            $prochaineJournee = $saison->nextDay();
-            if($derniereJournee)
-                $request->hrefCalendrier = route('competition.day', ['sport' => $sportKebab, 'competition' => $competitionKebab, 'journee' => $derniereJournee->numero]);
-            else if($prochaineJournee)
-                $request->hrefCalendrier = route('competition.day', ['sport' => $sportKebab, 'competition' => $competitionKebab, 'journee' => $prochaineJournee->numero]);
+            $request->hrefCalendrier = route('competition.day', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
 
-            if($competition->type == 1){ // Type Championnat
+            if($competition->type == 1) // Type Championnat
                 $request->hrefClassement = route('competition.ranking', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
-            }
         }
 
         return $next($request);

@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::apiResource('/{table}', 'GestionCrudTableController');
 
-Route::get('/day-calendar', 'CompetitionController@dayCalendar')->name('day.calendar.display');
+Route::get('/day-display', 'CompetitionController@dayCalendar')->name('day.calendar.display');
 
 Route::get('/{table}', 'GestionCrudTableController@index');
 Route::get('/{table}/{id}', 'GestionCrudTableController@show');
