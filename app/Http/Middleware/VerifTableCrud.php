@@ -30,15 +30,16 @@ class VerifTableCrud
 
         if(Auth::user()->role->nom == 'superadmin'){
             $tables = ['crud_tables', 'crud_attributs', 'crud_attribut_infos'];
-            if(array_search(str_replace('-', '_', $table), $tables)){
-                $crudTable = CrudTable::whereNom($tables[array_search(str_replace('-', '_', $table), $tables)])->firstOrFail();
+            $position = array_search(str_replace('-', '_', $table), $tables);
+            if($position !== false){
+                $crudTable = CrudTable::whereNom($tables[$position])->firstOrFail();
                 $request->layout = 'crud-superadmin';
             }
         }
 
         if(! $crudTable){
             Log::info('Table non gérée ou introuvable : ' . $table);
-            abort(404);
+            abort(404, 'oo');
         }
         $request->crudTable = $crudTable;
         return $next($request);

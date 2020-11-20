@@ -32,20 +32,17 @@ class SportController extends Controller
                 if($journee){
                     $classement = '';
                     if($competition->type == 1)
-                        $classement = view('competition.classement-simple', [
-                            'classement' => $saison->classement(),
-                            'hrefClassementComplet' => $saison->href()
-                        ])->render();
+                        $classement = $saison->classementSimpleRender();
 
                     $liste[] = [
                         'nom' => $competition->nom,
-                        'journee' => $journee->displayDay(),
+                        'journee' => $journee->journeeRender(),
                         'classement' => $classement
                     ];
                 }
             }
         }
-        // dd($liste);
+
         return view('sport.index', [
             'sport' => $sport->nom,
             'liste' => $liste

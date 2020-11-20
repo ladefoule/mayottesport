@@ -111,16 +111,16 @@ class Journee extends Model
     /**
      * Affiche le résultat du calendrier de la journée envoyé à la view 'football.calendrier-journee'
      */
-    // public function displayDay()
-    // {
-    //     // $sport = strToUrl($this->saison->championnat->sport->nom);
-    //     $dateJournee = date('d/m/Y', strtotime($this->date));
-    //     $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
-    //     return view('competition.journee', [
-    //         'calendrier' => $this->calendrier(),
-    //         'journee' => $journee
-    //     ])->render();
-    // }
+    public function journeeRender()
+    {
+        // $sport = strToUrl($this->saison->championnat->sport->nom);
+        $dateJournee = date('d/m/Y', strtotime($this->date));
+        $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
+        return view('competition.journee', [
+            'calendrier' => $this->calendrier(),
+            'journee' => $journee
+        ])->render();
+    }
 
     /**
      * Définition de l'affichage dans le CRUD (back-office)

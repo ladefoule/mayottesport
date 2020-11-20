@@ -9,9 +9,9 @@
        <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto">
                 @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
-                    <a class="nav-item nav-link px-2 @if (request()->url() == route('crud-gestion.tables')) active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
+                    <a class="nav-item nav-link px-2 @if (request()->layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
                 @endif
-               <a class="nav-item nav-link px-2 @if (in_array(request()->route()->getName(), ['crud.index', 'crud.create', 'crud.update', 'crud.show'])) active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
+               <a class="nav-item nav-link px-2 @if (request()->layout == 'crud') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
                <a class="nav-item nav-link px-2 @if (request()->url() == route('journees.multi.select')) active font-weight-bold @endif" href="{{ route('journees.multi.select') }}">Journées (multi)</a>
                {{-- <a class="nav-item nav-link px-2 {{ $activeSpec }}" href="{{ route('autres') }}">Actions spécifiques</a> --}}
            </div>
@@ -33,9 +33,9 @@
                 <a class="nav-link" href="/">Accueil du site</a>
             </li>
             @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
-                <a class="border-bottom nav-item nav-link px-2 @if (request()->url() == route('crud-gestion.tables')) active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
+                <a class="border-bottom nav-item nav-link px-2 @if (request()->layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
             @endif
-            <a class="border-bottom nav-item nav-link px-2 @if (in_array(request()->route()->getName(), ['crud.index', 'crud.create', 'crud.update', 'crud.show'])) active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
+            <a class="border-bottom nav-item nav-link px-2 @if (request()->layout == 'crud') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
             <a class="border-bottom nav-item nav-link px-2 @if (request()->url() == route('journees.multi.select')) active font-weight-bold @endif" href="{{ route('journees.multi.select') }}">Journées (multi)</a>
             @include('layouts.include.connexion')
           </ul>

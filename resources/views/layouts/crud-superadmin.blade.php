@@ -25,7 +25,8 @@
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
                     @foreach ($tablesSuperAdmin as $table)
                     <a href="{{ route('crud.index', ['table' => str_replace('_', '-', $table->nom)]) }}">
-                        <button class="btn btn-sm mx-2 px-3 btn-outline-dark">
+                        {{-- Le isset en dessous c'est pour pouvoir accéder à la page des tables 'crudables' qui n'est pas liée au middleware VerifTable --}}
+                        <button class="btn btn-sm mx-2 px-3 btn-outline-dark @if (isset(request()->crudTable) && $table->nom == request()->crudTable->nom) btn-dark text-white @endif">
                             {{ \Str::ucfirst(\Str::camel($table->nom)) }}
                         </button>
                     </a>

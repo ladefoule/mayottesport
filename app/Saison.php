@@ -65,18 +65,18 @@ class Saison extends Model
         return $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
     }
 
-    // public function classementSimple(bool $complet = false)
-    // {
-    //     $sport = strToUrl($this->competition->sport->nom);
-    //     $competition = strToUrl($this->competition->nom);
-    //     $hrefClassementComplet = route('competition.classement', ['competition' => $competition, 'sport' => $sport]);
-    //     $classement = $this->classement();
-    //     return view('competition.classement-simple', [
-    //         'classement' => $classement,
-    //         'hrefClassementComplet' => $hrefClassementComplet,
-    //         'complet' => $complet
-    //     ]);
-    // }
+    public function classementSimpleRender(bool $complet = false)
+    {
+        $sport = strToUrl($this->competition->sport->nom);
+        $competition = strToUrl($this->competition->nom);
+        $hrefClassementComplet = route('competition.classement', ['competition' => $competition, 'sport' => $sport]);
+        $classement = $this->classement();
+        return view('competition.classement-simple', [
+            'classement' => $classement,
+            'hrefClassementComplet' => $hrefClassementComplet,
+            'complet' => $complet
+        ]);
+    }
 
     /**
      * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction generateRanking

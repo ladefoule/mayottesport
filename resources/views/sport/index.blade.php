@@ -1,4 +1,4 @@
-@extends('layouts.sport-index')
+@extends('layouts.sport')
 
 @section('title', "$sport - Les derniers résultats")
 
