@@ -137,17 +137,17 @@ a.non-cliquable, a.non-cliquable:hover{
 
 .nul{
     color:gray;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
 
 .victoire{
     color:green;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
 
 .defaite{
     color:red;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
 
 .select2 {
@@ -202,12 +202,24 @@ a:hover{
     text-align: center;
 }
 
-.bloc-equipe-dom .equipe, .bloc-equipe-ext .equipe{
+.equipe-exterieur, .equipe-domicile{
     text-align: center;
 }
 
 .fanion-calendrier{
     width:35px;
+}
+
+.fanion-page-equipe{
+    width:25px;
+}
+
+.equipe-align-auto{
+    margin-bottom: auto;
+}
+
+.logo-align-auto{
+    margin-top: auto;
 }
 
 .fanion-match{
@@ -237,6 +249,10 @@ a:hover{
 @media (min-width: 576px) {
     html{
         font-size: 90%;
+    }
+
+    .fanion-page-equipe{
+        width:30px;
     }
 
     .bloc-equipe-dom, .bloc-equipe-ext{
@@ -272,16 +288,24 @@ a:hover{
             font-size: 100%;
         }
 
+        .fanion-page-equipe{
+            width:35px;
+        }
+
+        .equipe-align-auto, .logo-align-auto{
+            margin: 0;
+        }
+
         .bloc-equipe-dom, .bloc-equipe-ext{
             font-size:1.8rem;
             font-weight: 900;
         }
 
-        .bloc-equipe-ext .equipe{
+        .equipe-exterieur{
             text-align: right;
         }
 
-        .bloc-equipe-dom .equipe{
+        .equipe-domicile{
             text-align: left;
         }
 
