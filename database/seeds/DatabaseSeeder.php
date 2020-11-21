@@ -18,16 +18,16 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call([
-            SportSeeder::class,
-            CompetitionSeeder::class,
-            BaremeSeeder::class,
-            SaisonSeeder::class,
-            JourneeSeeder::class,
-            VilleSeeder::class,
-            TerrainSeeder::class,
-            EquipeSeeder::class,
-            RoleSeeder::class,
-            RegionSeeder::class,
+            SportTableSeeder::class,
+            CompetitionTableSeeder::class,
+            BaremeTableSeeder::class,
+            SaisonTableSeeder::class,
+            JourneeTableSeeder::class,
+            VilleTableSeeder::class,
+            TerrainTableSeeder::class,
+            EquipeTableSeeder::class,
+            RoleTableSeeder::class,
+            RegionTableSeeder::class,
             // UserSeeder::class,
         ]);
 
