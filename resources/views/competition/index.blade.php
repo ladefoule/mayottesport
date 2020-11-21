@@ -9,11 +9,11 @@
         <h1 class="h4 text-center">{{ $sport . ' - ' . $competition }}</h1>
     </div>
     <div class="col-lg-9 d-flex flex-wrap">
-        @if ($derniereJourneeHtml)
+        @if ($derniereJournee)
             <div class="col-12 p-0 pb-3 mb-3">
                 <h3 class="alert h5 alert-danger text-center">Les derniers résultats</h3>
                 <div class="px-3">
-                    {!! $derniereJourneeHtml !!}
+                    {!! $derniereJournee !!}
                 </div>
             </div>
         @endif
@@ -66,11 +66,11 @@
         </div>
         @endif
 
-        @if ($prochaineJourneeHtml)
+        @if ($prochaineJournee)
             <div class="col-12 px-0">
                 <h3 class="alert h5 alert-success text-center">La prochaine journée</h3>
                 <div class="px-3">
-                    {!! $prochaineJourneeHtml !!}
+                    {!! $prochaineJournee !!}
                 </div>
             </div>
         @endif

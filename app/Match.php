@@ -136,11 +136,15 @@ class Match extends Model
     public function genererInfos()
     {
         $equipeDom = $this->equipeDom;
+        $equipeDomNomKebab = strToUrl($equipeDom->nom);
         $equipeExt = $this->equipeExt;
+        $equipeExtNomKebab = strToUrl($equipeExt->nom);
         $journee = $this->journee;
         $saison = $this->journee->saison;
         $competition = $saison->competition;
+        $competitionNomKebab = strToUrl($competition->nom);
         $sport = $competition->sport;
+        $sportNomKebab = strToUrl($sport->nom);
         $commentaires = $this->commentaires->sortByDesc('created_at');
         foreach ($commentaires as $commentaire)
             $commentaire->pseudo = $commentaire->user->pseudo;
@@ -149,30 +153,33 @@ class Match extends Model
         return [
             'id' => $this->id,
             'nom' => $this->nom,
-            'equipeDom' => $equipeDom->nom,
-            'fanionDom' => $equipeDom->fanion(),
-            'equipeExt' => $equipeExt->nom,
-            'fanionExt' => $equipeExt->fanion(),
+            'nom_eq_dom' => $equipeDom->nom,
+            'href_eq_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'id' => $equipeDom->uniqid]),
+            'fanion_eq_dom' => $equipeDom->fanion(),
+            'nom_eq_ext' => $equipeExt->nom,
+            'href_eq_ext' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeExtNomKebab, 'id' => $equipeExt->uniqid]),
+            'fanion_eq_ext' => $equipeExt->fanion(),
+            'url' => $this->url(),
             'score' => $this->score(),
-            'dateFormat' => $this->dateFormat(),
+            'date_format' => $this->dateFormat(),
             'date' => $this->date,
             'heure' => $this->heure,
             'title' => "Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $sport->nom . ' - ' . $competition->nom . ' ' . $saison->annee('/'),
-            'accesBloque' => $this->acces_bloque,
+            'acces_bloque' => $this->acces_bloque,
             'journee' => niemeJournee($journee->numero),
             'competition' => $competition->nom,
             'commentaires' => $commentaires,
-            'scoreEqDom' => $this->score_eq_dom,
-            'scoreEqExt' => $this->score_eq_ext,
-            'lienResultat' => route('competition.match.resultat', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
-            'lienHoraire' => route('competition.match.horaire', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom),'id' => $this->uniqid]),
-            'lienMatch' => route('competition.match', [
+            'score_eq_dom' => $this->score_eq_dom,
+            'score_eq_ext' => $this->score_eq_ext,
+            'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'id' => $this->uniqid]),
+            'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'id' => $this->uniqid]),
+            'href_match' => route('competition.match', [
                 'id' => $this->uniqid,
-                'sport' => strToUrl($sport->nom),
-                'competition' => strToUrl($competition->nom),
+                'sport' => $sportNomKebab,
+                'competition' => $competitionNomKebab,
                 'annee' => $saison->annee(),
-                'equipeDom' => strToUrl($equipeDom->nom),
-                'equipeExt' => strToUrl($equipeExt->nom)
+                'equipeDom' => $equipeDomNomKebab,
+                'equipeExt' => $equipeExtNomKebab
             ])
         ];
     }

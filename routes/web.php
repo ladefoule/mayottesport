@@ -17,7 +17,6 @@ Route::get('script.html', function(){ // Page pour tester une fonction ou un scr
     return view('script');
 });
 
-// Test
 Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
@@ -92,8 +91,8 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 })->name('ajax');
 
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
-Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@ranking')->name('competition.classement');
-Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@day')->name('competition.calendrier-resultats');
+Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
+Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@resultats')->name('competition.calendrier-resultats');
 Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@champions')->name('competition.champions');
 Route::get('/{sport}/equipe/{id}_{equipe}.html', 'EquipeController@index')->name('equipe.index');
 Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');

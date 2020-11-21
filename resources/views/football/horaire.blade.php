@@ -1,15 +1,17 @@
 @extends('layouts.competition')
 
+@section('title', $match['title'])
+
 @section('content')
 <form action="" method="post" id="formulaire">
     @csrf
     <div class="row text-white bloc-match bloc-match-football py-3 mx-0 rounded py-4">
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1">
             <div class="col-lg-4 d-lg-inline py-2 px-0">
-                <img src="{{ $match['fanionDom'] }}" alt="{{ $match['equipeDom'] }}" class="fanion-match">
+                <img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" class="fanion-match">
             </div>
             <div class="equipe col-lg-8 d-lg-inline py-2 px-0">
-                {{ $match['equipeDom'] }}
+                {{ $match['nom_eq_dom'] }}
             </div>
         </div>
         <div class="col-2 bloc-score d-flex align-items-center justify-content-around p-0">
@@ -17,10 +19,10 @@
         </div>
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-ext p-1">
             <div class="equipe col-lg-8 d-lg-inline order-2 order-lg-1 py-2 px-0">
-                {{ $match['equipeExt'] }}
+                {{ $match['nom_eq_ext'] }}
             </div>
             <div class="col-lg-4 d-lg-inline order-1 order-lg-2 py-2 px-0">
-                <img src="{{ $match['fanionExt'] }}" alt="{{ $match['equipeExt'] }}" class="fanion-match">
+                <img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" class="fanion-match">
             </div>
         </div>
 

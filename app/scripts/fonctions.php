@@ -74,6 +74,11 @@ function checkPermission(array $roles)
     return false;
 }
 
+/**
+ * La liste des sports avec leurs compétitions
+ *
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
 function sportsEtCompetitions()
 {
     $key = 'sports-et-competitions';
@@ -92,6 +97,12 @@ function sportsEtCompetitions()
         });
 }
 
+/**
+ * Liste de tous les éléments de la table.
+ *
+ * @param string $table
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
 function indexCrud(string $table)
 {
     $key = "awesome-$table";

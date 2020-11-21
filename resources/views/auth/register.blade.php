@@ -3,7 +3,7 @@
 @section('title', "S'inscrire")
 
 @section('content')
-<div class="row justify-content-center my-3">
+<div class="row justify-content-center">
     <div class="col-12">
         <div class="card">
             <div class="card-header position-relative">S'inscrire</div>

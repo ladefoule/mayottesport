@@ -78,29 +78,7 @@ class Journee extends Model
         $i = 0;
         $calendrier = [];
         foreach ($matches as $match) {
-            $equipeDom = $match->equipeDom;
-            $equipeExt = $match->equipeExt;
-            $fanionDom = $equipeDom->fanion();
-            $fanionExt = $equipeExt->fanion();
-            $nomEquipeDom = $equipeDom->nom;
-            $nomEquipeExt = $equipeExt->nom;
-
-            $date = $match->dateFormat();
-            $score = $match->score(); // Affiche soit l'heure soit le résultat du match
-            $scoreEqDom = $match->score_eq_dom;
-            $scoreEqExt = $match->score_eq_ext;
-
-            $url = $match->url();
-            $calendrier[$i]['url'] = $url;
-            $calendrier[$i]['fanion_eq_dom'] = $fanionDom;
-            $calendrier[$i]['fanion_eq_ext'] = $fanionExt;
-            $calendrier[$i]['date'] = $date;
-            $calendrier[$i]['score'] = $score;
-            $calendrier[$i]['nom_eq_dom'] = $nomEquipeDom;
-            $calendrier[$i]['nom_eq_ext'] = $nomEquipeExt;
-            $calendrier[$i]['score_eq_dom'] = $scoreEqDom;
-            $calendrier[$i]['score_eq_ext'] = $scoreEqExt;
-            $calendrier[$i]['url'] = $url;
+            $calendrier[$i] = $match->infos();
 
             $i++;
         }

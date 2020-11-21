@@ -69,7 +69,7 @@ function ajax(journee)
     var saison = "<?php //echo $saison->id ?>"
     $.ajax({
         type: 'GET',
-        url: "<?php echo route('day.calendar.display') ?>",
+        url: "<?php echo route('journee.calendrier') ?>",
         data:{journee, saison},
         success:function(data){
             matches.innerHTML = data

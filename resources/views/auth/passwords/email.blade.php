@@ -3,7 +3,7 @@
 @section('title', "Réinitialisation du mot de passe")
 
 @section('content')
-<div class="row justify-content-center my-3">
+<div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">Réinitialisation du mot de passe</div>

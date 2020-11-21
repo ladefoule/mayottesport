@@ -230,7 +230,6 @@ class CrudTable extends Model
 
     /**
      * Liste de tous les éléments de la table.
-     * Dans cette liste, on aura que les attributs ayant une position 'index_position' spécifiée dans la table crud_attribut_infos.
      *
      * @return \Illuminate\Support\Collection
      */
