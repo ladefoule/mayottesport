@@ -27,13 +27,13 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/comment', 'CommentaireController@store')->name('comment');
     Route::post('/comment/delete', 'CommentaireController@delete')->name('comment.delete');
 
-    Route::get('/{sport}/{competition}/resultat/{id}', 'MatchController@result')->name('competition.match.resultat');
-    Route::post('/{sport}/{competition}/resultat/{id}', 'MatchController@resultStore');
+    Route::get('/{sport}/{competition}/resultat/{id}', 'MatchController@resultat')->name('competition.match.resultat');
+    Route::post('/{sport}/{competition}/resultat/{id}', 'MatchController@resultatPost');
 
     /* MIDDLEWARE PREMIUM */
     Route::group(['check-permission:premium|admin|superadmin'], function () {
-        Route::get('/{sport}/{competition}/horaire/{id}', 'MatchController@schedule')->name('competition.match.horaire');
-        Route::post('/{sport}/{competition}/horaire/{id}', 'MatchController@scheduleStore');
+        Route::get('/{sport}/{competition}/horaire/{id}', 'MatchController@horaire')->name('competition.match.horaire');
+        Route::post('/{sport}/{competition}/horaire/{id}', 'MatchController@horairePost');
 
         /* MIDDLEWARE ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {

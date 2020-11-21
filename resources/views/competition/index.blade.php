@@ -3,9 +3,8 @@
 @section('title', $competition . ' - ' . $sport)
 
 @section('content')
-
-<div class="row d-flex flex-wrap justify-content-between mx-0 bg-white rounded">
-    <div class="col-12 py-3">
+<div class="row d-flex flex-wrap justify-content-between mx-0 bg-white rounded py-3">
+    <div class="col-12 mb-3">
         <h1 class="h4 text-center">{{ $sport . ' - ' . $competition }}</h1>
     </div>
     <div class="col-lg-9 d-flex flex-wrap">
@@ -81,5 +80,4 @@
         </div>
     </div>
 </div>
-
 @endsection

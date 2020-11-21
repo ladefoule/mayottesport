@@ -140,10 +140,12 @@ class CrudController extends Controller
         $rules = $rules['rules']; // On récupère les règles de validations
 
         $request = Validator::make($request->all(), $rules, $messages)->validate();
-        if($table == 'matches')
-            $request['uniqid'] = uniqid(); // On génére un uniqid pour les matches
+        if(in_array($table, ['matches', 'equipes']))
+            $request['uniqid'] = uniqid(); // On génére un uniqid pour les matches et les équipes
 
         $instance = $modele::create($request);
+
+        // Todo : Erreur lors de la crétion d'un élément equipe_saison, impossible de récupérer l'id
 
         $this::forgetCaches($table, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);

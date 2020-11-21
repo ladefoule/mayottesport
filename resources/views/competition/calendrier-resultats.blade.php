@@ -3,9 +3,8 @@
 @section('title', request()->competition->nom . ' - Calendrier et résultats - '.niemeJournee($journee->numero).' - ' . request()->sport->nom)
 
 @section('content')
-
 <div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
-    <h1 class="h4 text-center p-2 col-12">{{ request()->competition->nom . ' - Calendrier et résultats'}}</h1>
+    <h1 class="h4 text-center col-12">{{ request()->competition->nom . ' - Calendrier et résultats'}}</h1>
     <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
         <a id="previous" data-id="{{ $journee->numero - 1 }}" href="" class="float-right pr-3 @if ($journee->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem"><i class="fas fa-chevron-left"></i></a>
         <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
@@ -18,13 +17,11 @@
         <a id="next" data-id="{{ $journee->numero + 1 }}" href="" class="float-left pl-3 @if ($journee->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem"><i class="fas fa-chevron-right"></i></a>
     </div>
     <div class="col-lg-8 d-flex flex-wrap p-0">
-        <div class="col-12 pb-3 mb-3 px-0">
-            <div class="px-3" id="matches">
-                {!! $calendrierJourneeHtml !!}
-            </div>
+        <div class="col-12 px-3" id="matches">
+            {!! $calendrierJourneeHtml !!}
         </div>
     </div>
-    <div class="col-lg-4 pl-5 pr-0 text-center">
+    <div class="col-lg-4 pl-5 pr-0 text-center border">
         PUB
     </div>
 </div>

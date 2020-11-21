@@ -51,7 +51,7 @@ class MatchController extends Controller
         }
 
         $infos = $match->infos();
-        return view('football.match', [
+        return view('competition.match', [
             'match' => $infos
         ]);
     }
@@ -62,9 +62,9 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\View\View|void
      */
-    public function result(Request $request)
+    public function resultat(Request $request)
     {
-        Log::info(" -------- MatchController : result -------- ");
+        Log::info(" -------- MatchController : resultat -------- ");
         $match = $request->match;
         $accesBloque = $match->acces_bloque;
         if ($accesBloque){
@@ -73,7 +73,7 @@ class MatchController extends Controller
         }
 
         $infos = $match->infos();
-        return view('football.resultat', [
+        return view('competition.resultat', [
             'match' => $infos
         ]);
     }
@@ -85,13 +85,13 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function resultStore(Request $request)
+    public function resultatPost(Request $request)
     {
-        Log::info(" -------- MatchController : resultStore -------- ");
+        Log::info(" -------- MatchController : resultatPost -------- ");
         Validator::make($request->all(), [
             'score_eq_dom' => 'required|integer|min:0|max:30',
             'score_eq_ext' => 'required|integer|min:0|max:30',
-            'note' => 'nullable|string|max:200'
+            'note' => 'nullable|max:200'
         ])->validate();
 
         $match = $request->match;
@@ -116,7 +116,7 @@ class MatchController extends Controller
             $this::forgetCaches($match);
         }
 
-        $urlMatch = $match->infos()['lienMatch'];
+        $urlMatch = $match->infos()['href_match'];
         return redirect($urlMatch);
     }
 
@@ -126,13 +126,13 @@ class MatchController extends Controller
      * @param  mixed $matchId
      * @return \Illuminate\View\View|void
      */
-    public function schedule(Request $request)
+    public function horaire(Request $request)
     {
-        Log::info(" -------- MatchController : schedule -------- ");
+        Log::info(" -------- MatchController : horaire -------- ");
         $match = $request->match;
 
         $infos = $match->infos();
-        return view('football.horaire', [
+        return view('competition.horaire', [
             'match' => $infos
         ]);
     }
@@ -144,9 +144,9 @@ class MatchController extends Controller
      * @param  string $matchId
      * @return \Illuminate\Routing\Redirector|void
      */
-    public function scheduleStore(Request $request)
+    public function horairePost(Request $request)
     {
-        Log::info(" -------- MatchController : scheduleStore -------- ");
+        Log::info(" -------- MatchController : horairePost -------- ");
         $match = $request->match;
         Validator::make($request->all(), [
             'date' => 'required|date',
@@ -171,7 +171,7 @@ class MatchController extends Controller
             $this::forgetCaches($match);
         }
 
-        $urlMatch = $match->infos()['lienMatch'];
+        $urlMatch = $match->infos()['href_match'];
         return redirect($urlMatch);
     }
 

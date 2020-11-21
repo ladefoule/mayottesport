@@ -16,7 +16,7 @@
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <div class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
+    <section class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3" style="margin:0;font-size:0.9rem">
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     {{-- Fin Section scroll X --}}
 
     {{-- Main --}}
