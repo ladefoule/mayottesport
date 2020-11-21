@@ -1,5 +1,16 @@
 <?php
 
+use RoleSeeder;
+use UserSeeder;
+use SportSeeder;
+use VilleSeeder;
+use BaremeSeeder;
+use EquipeSeeder;
+use RegionSeeder;
+use SaisonSeeder;
+use JourneeSeeder;
+use TerrainSeeder;
+use CompetitionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
