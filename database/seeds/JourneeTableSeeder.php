@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class JourneeSeeder extends Seeder
+class JourneeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

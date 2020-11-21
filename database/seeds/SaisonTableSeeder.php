@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SaisonSeeder extends Seeder
+class SaisonTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

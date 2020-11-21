@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TerrainSeeder extends Seeder
+class TerrainTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

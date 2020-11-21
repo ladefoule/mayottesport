@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CompetitionSeeder extends Seeder
+class CompetitionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
