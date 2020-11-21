@@ -106,7 +106,7 @@ class Match extends Model
      */
     public function getCrudNameAttribute()
     {
-        return awesome('journees')[$this->journee_id]['crud_name'] . ' - ' . awesome('equipes')[$this->equipe_id_dom]['nom'] . ' # ' . awesome('equipes')[$this->equipe_id_ext]['nom'];
+        return indexCrud('journees')[$this->journee_id]['crud_name'] . ' - ' . indexCrud('equipes')[$this->equipe_id_dom]['nom'] . ' # ' . indexCrud('equipes')[$this->equipe_id_ext]['nom'];
     }
 
     /**
@@ -157,6 +157,7 @@ class Match extends Model
             'dateFormat' => $this->dateFormat(),
             'date' => $this->date,
             'heure' => $this->heure,
+            'title' => "Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $sport->nom . ' - ' . $competition->nom . ' ' . $saison->annee('/'),
             'accesBloque' => $this->acces_bloque,
             'journee' => niemeJournee($journee->numero),
             'competition' => $competition->nom,

@@ -1,6 +1,6 @@
 @extends('layouts.competition')
 
-@section('title', $match['nom'])
+@section('title', $match['title'])
 
 @section('content')
     <div class="row text-white bloc-match bloc-match-football mx-0 rounded py-4">

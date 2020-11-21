@@ -1,6 +1,10 @@
+<?php
+    $sports = request()->sports;
+?>
+
 {{-- NAVBAR LARGE SCREEN --}}
 <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
-   <div class="container border">
+   <div class="container">
        <a class="navbar-brand pl-3" href="/"><img class="img-fluid" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,7 +12,7 @@
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto bg-white">
-               @foreach (request()->sports as $sport)
+               @foreach ($sports as $sport)
                    <a class="nav-item nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif px-2" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a>
                @endforeach
                <a class="nav-item nav-link px-2" href="/autres">Autres</a>
@@ -31,7 +35,7 @@
             <li class="nav-item active px-2 border-bottom">
                 <a class="nav-link" href="/">Accueil</a>
             </li>
-            @foreach (request()->sports as $sport)
+            @foreach ($sports as $sport)
                 @if (count($sport->competitions) > 0)
                     <li class="nav-item dropdown border-bottom px-2">
                         <a class="nav-link dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

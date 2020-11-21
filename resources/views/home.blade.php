@@ -23,33 +23,21 @@ $competition = Saison::whereId($saisonId)->first()->competition->nom;
         <span class="h2 font-italic">Football</span>
     </div>
 
-    <div class="col-12 text-center py-3 row justify-content-between">
-        <h3 class="col-12 h4 border-bottom-calendrier py-2"><?= $competition ?></h3>
-        <?php
-            $journeeNumero = 10;
-            $journee = Journee::whereSaisonId($saisonId)->whereNumero($journeeNumero)->first();
-        ?>
-        <div class="col-lg-8 pl-3">
-            {!! $journee->journeeRender() !!}
+    @foreach ($sports as $sport)
+        @foreach ($sport->liste as $competition)
+        <div class="col-12 text-center py-3 row justify-content-between">
+            <h3 class="col-12 h4 border-bottom-calendrier py-2">{{ $competition['nom'] }}</h3>
+            <div class="col-lg-8 pl-3">
+                {!! $competition['journee'] !!}
+            </div>
+            <div class="d-none d-lg-block col-lg-4 pl-5 pr-0">
+                @if ($competition['classement'])
+                    {!! $competition['classement'] !!}
+                @endif
+            </div>
         </div>
-        <div class="d-none d-lg-block col-lg-4 pl-5 pr-0">
-            {!! $saison = Saison::find($saisonId)->classementSimpleRender() !!}
-        </div>
-    </div>
-
-    <div class="col-12 text-center py-3 row justify-content-between">
-        <h3 class="col-12 h4 border-bottom-calendrier py-2"><?= $competition ?></h3>
-        <?php
-            $journeeNumero = 15;
-            $journee = Journee::whereSaisonId($saisonId)->whereNumero($journeeNumero)->first();
-        ?>
-        <div class="col-lg-8 pl-3">
-            {!! $journee->journeeRender() !!}
-        </div>
-        <div class="d-none d-lg-block col-lg-4 pl-5 pr-0">
-            {!! $saison = Saison::find($saisonId)->classementSimpleRender() !!}
-        </div>
-    </div>
+        @endforeach
+    @endforeach
 </div>
 
 @endsection

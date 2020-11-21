@@ -35,12 +35,10 @@ class Sport
         if($sport == null)
             abort(404);
 
-        $sports = SportModel::all();
-        foreach ($sports as $sportTmp)
-            $sportTmp->competitions = $sportTmp->competitions; // On récupère la liste des compétitions pour le MENU
-
-        $request->sports = $sports;
+        // La liste des sports ainsi que les compétitions liées (pour les navbars et le footer)
+        $request->sports = sportsEtCompetitions();
         $request->competitions = $sport->competitions;
+        // $request->competitions = $request->sports[$sport->id]->competitions;
 
         // On remplace la chaine de caractère par l'objet
         $request->sport = $sport;

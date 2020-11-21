@@ -180,7 +180,7 @@ class Saison extends Model
      */
     public function getCrudNameAttribute()
     {
-        return awesome('competitions')[$this->competition_id]['crud_name'] . ' ' . $this->annee('/');
+        return indexCrud('competitions')[$this->competition_id]['crud_name'] . ' ' . $this->annee('/');
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 use App\Cache;
 use App\Match;
+use App\Sport;
 use App\Journee;
 use App\CrudTable;
 use App\EquipeSaison;
@@ -73,7 +74,25 @@ function checkPermission(array $roles)
     return false;
 }
 
-function awesome(string $table)
+function sportsEtCompetitions()
+{
+    $key = 'sports-et-competitions';
+    if(! Config::get('constant.activer_cache'))
+        Cache::forget($key);
+
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () {
+            $sports = Sport::all();
+            foreach ($sports as $sport)
+                $sport->competitions = $sport->competitions; // On récupère la liste des compétitions pour le MENU
+
+            return $sports;
+        });
+}
+
+function indexCrud(string $table)
 {
     $key = "awesome-$table";
     if (!Config::get('constant.activer_cache'))

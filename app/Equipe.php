@@ -24,7 +24,7 @@ class Equipe extends Model
      */
     public function getCrudNameAttribute()
     {
-        return awesome('sports')[$this->sport_id]['crud_name'] . ' - ' . $this->nom;
+        return indexCrud('sports')[$this->sport_id]['crud_name'] . ' - ' . $this->nom;
     }
 
     /**

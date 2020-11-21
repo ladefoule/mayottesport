@@ -25,7 +25,7 @@ class CrudAttribut extends Model
      */
     public function getCrudNameAttribute()
     {
-        return awesome('crud_tables')[$this->crud_table_id]['crud_name'] . '/' . $this->attribut;
+        return indexCrud('crud_tables')[$this->crud_table_id]['crud_name'] . '/' . $this->attribut;
     }
 
     /**
