@@ -6,6 +6,7 @@ use Closure;
 use App\CrudTable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class VerifTableCrud
 {
@@ -19,6 +20,9 @@ class VerifTableCrud
     public function handle($request, Closure $next)
     {
         Log::info(" -------- Middleware VerifTableCrud -------- ");
+        if (Validator::make(['table' => $request->table], ['table' => 'alpha_dash'])->fails())
+            abort(404);
+
         $table = $request['table'];
         $crudTable = false;
         $navbarCrudTables = CrudTable::navbarCrudTables();
@@ -39,7 +43,7 @@ class VerifTableCrud
 
         if(! $crudTable){
             Log::info('Table non gérée ou introuvable : ' . $table);
-            abort(404, 'oo');
+            abort(404);
         }
         $request->crudTable = $crudTable;
         return $next($request);

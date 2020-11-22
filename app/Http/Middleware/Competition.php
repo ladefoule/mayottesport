@@ -19,15 +19,7 @@ class Competition
     public function handle($request, Closure $next)
     {
         Log::info(" -------- Middleware Competition -------- ");
-        $rules = [
-            'competition' => 'alpha_dash|min:3',
-        ];
-
-        $validator = Validator::make([
-            'competition' => $request->competition,
-        ], $rules);
-
-        if ($validator->fails())
+        if (Validator::make(['competition' => $request->competition], ['competition' => 'alpha_dash|min:3'])->fails())
             abort(404);
 
         $sport = $request->sport;
@@ -47,11 +39,7 @@ class Competition
         $competitionKebab = $request->competition;
         $sportKebab = strToUrl($request->sport->nom);
 
-        $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=', 1)
-                            ->orWhere(function($query) use($competition) {
-                                $query->whereNull('finie')
-                                    ->where('competition_id', $competition->id);
-                            })->first();
+        $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
 
         // Les infos requises pour toutes les pages du middleware
         $request->competition = $competition; // On remplace la chaine de caractère par l'objet

@@ -3,9 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\EquipeSaison;
 use App\Equipe as EquipeModel;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,8 +32,8 @@ class Equipe
         if ($validator->fails())
             abort(404);
 
-        $equipe = EquipeModel::whereUniqid($request->id)->first();
-        if (! $equipe || strToUrl($equipe->nom) != $request->equipe)
+        $equipe = EquipeModel::whereUniqid($request->id)->firstOrFail();
+        if (strToUrl($equipe->nom) != $request->equipe)
             abort(404);
 
         $request->equipe = $equipe;

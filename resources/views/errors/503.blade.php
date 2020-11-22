@@ -2,4 +2,5 @@
 
 @section('title', __('Service non disponible'))
 @section('code', '503')
-@section('message', __($exception->getMessage() ?: 'Service non disponible'))
+@section('message', 'Service non disponible'))
+{{-- @section('message', __($exception->getMessage() ?: 'Service non disponible')) --}}

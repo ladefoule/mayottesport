@@ -152,7 +152,9 @@ class Match extends Model
 
         return [
             'id' => $this->id,
-            'nom' => $this->nom,
+            'id_eq_dom' => $this->id_eq_dom,
+            'id_eq_ext' => $this->id_eq_ext,
+            // 'crud_name' => $this->crud_name,
             'nom_eq_dom' => $equipeDom->nom,
             'href_eq_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'id' => $equipeDom->uniqid]),
             'fanion_eq_dom' => $equipeDom->fanion(),
@@ -182,6 +184,23 @@ class Match extends Model
                 'equipeExt' => $equipeExtNomKebab
             ])
         ];
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Equipe $equipe
+     * @return void
+     */
+    public function matchRender(Equipe $equipe)
+    {
+        $infos = $this->infos();
+        $resultat = $this->resultat($equipe->id) ? $this->resultat($equipe->id)['resultat'] : '';;
+        return view('equipe.match', [
+            'equipe' => $equipe,
+            'match' => $infos,
+            'resultat' => $resultat
+        ])->render();
     }
 
     /**

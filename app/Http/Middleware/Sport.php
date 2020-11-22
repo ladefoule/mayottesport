@@ -19,21 +19,10 @@ class Sport
     public function handle($request, Closure $next)
     {
         Log::info(" -------- Middleware Sport -------- ");
-        $rules = [
-            'sport' => 'alpha_dash|min:3'
-        ];
-
-        $validator = Validator::make([
-            'sport' => $request->sport
-        ], $rules);
-
-        if ($validator->fails()) {
+        if (Validator::make(['sport' => $request->sport], ['sport' => 'alpha_dash|min:3'])->fails())
             abort(404);
-        }
 
-        $sport = SportModel::firstWhere('nom', 'like', $request->sport);
-        if($sport == null)
-            abort(404);
+        $sport = SportModel::where('nom', 'like', $request->sport)->firstOrFail();
 
         // La liste des sports ainsi que les compétitions liées (pour les navbars et le footer)
         $request->sports = sportsEtCompetitions();

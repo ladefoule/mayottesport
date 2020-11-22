@@ -20,7 +20,7 @@ class AttributVisible
         $action = explode('.', $route)[1]; // les différentes routes : crud.create / crud.show / crud.update
 
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles($action);
-        if($listeAttributsVisibles == false)
+        if(! $listeAttributsVisibles)
             abort(404);
 
         $request->listeAttributsVisibles = $listeAttributsVisibles;

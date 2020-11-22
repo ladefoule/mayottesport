@@ -14,4 +14,5 @@
 
 @section('title', 'Non trouvé')
 @section('code', '404')
-@section('message', $exception->getMessage() ?: 'Non trouvé')
+@section('message', 'Non trouvé')
+{{-- @section('message', $exception->getMessage() ?: 'Non trouvé') --}}
