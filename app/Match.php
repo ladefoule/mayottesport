@@ -195,7 +195,7 @@ class Match extends Model
     public function matchRender(Equipe $equipe)
     {
         $infos = $this->infos();
-        $resultat = $this->resultat($equipe->id) ? $this->resultat($equipe->id)['resultat'] : '';;
+        $resultat = $this->resultat($equipe->id) ? $this->resultat($equipe->id)['resultat'] : '';
         return view('equipe.match', [
             'equipe' => $equipe,
             'match' => $infos,

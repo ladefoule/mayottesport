@@ -6,9 +6,9 @@
     <div class="row text-white bloc-match bloc-match-football mx-0 rounded py-4">
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1">
             <div class="col-lg-4 d-lg-inline py-2 px-0">
-                <img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" class="fanion-match">
+                <a href="{{ $match['href_eq_dom'] }}"><img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" class="fanion-match"></a>
             </div>
-            <div class="equipe col-lg-8 d-lg-inline py-2 px-0">
+            <div class="equipe-domicile col-lg-8 d-lg-inline py-2 px-0">
                 <a href="{{ $match['href_eq_dom'] }}" class="text-white">{{ $match['nom_eq_dom'] }}</a>
             </div>
         </div>
@@ -16,11 +16,11 @@
             <span class="w-100 text-center font-weight-bold">{!! $match['score'] !!}</span>
         </div>
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-ext p-1">
-            <div class="equipe col-lg-8 d-lg-inline order-2 order-lg-1 py-2 px-0">
+            <div class="equipe-exterieur col-lg-8 d-lg-inline order-2 order-lg-1 py-2 px-0">
                 <a href="{{ $match['href_eq_ext'] }}" class="text-white">{{ $match['nom_eq_ext'] }}</a>
             </div>
             <div class="col-lg-4 d-lg-inline order-1 order-lg-2 py-2 px-0">
-                <img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" class="fanion-match">
+                <a href="{{ $match['href_eq_ext'] }}"><img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" class="fanion-match"></a>
             </div>
         </div>
 
