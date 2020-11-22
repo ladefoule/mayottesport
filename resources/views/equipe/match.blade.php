@@ -4,7 +4,7 @@
            @if ($match['id_eq_dom'] != $equipe->id)
                <a class="text-dark" href="{{ $match['href_eq_dom'] }}">
            @endif
-           <img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" class="fanion-page-equipe">
+           <img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" style="width:25px">
            @if ($match['id_eq_dom'] != $equipe->id)
                </a>
            @endif
@@ -36,7 +36,7 @@
            @if ($match['id_eq_ext'] != $equipe->id)
                <a class="text-dark" href="{{ $match['href_eq_ext'] }}">
            @endif
-           <img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" class="fanion-page-equipe">
+           <img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" style="width:25px">
            @if ($match['id_eq_ext'] != $equipe->id)
                </a>
            @endif

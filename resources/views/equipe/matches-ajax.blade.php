@@ -1,4 +1,5 @@
-@foreach ($matches as $i => $match)
+<?php $i = 0 ?>
+@foreach ($matches as $match)
    <?php
          $equipeDomId = $match->equipe_id_dom;
          $equipeExtId = $match->equipe_id_ext;
@@ -53,4 +54,5 @@
             </div>
          </div>
    </div>
+   <?php $i++; ?>
 @endforeach
