@@ -29,7 +29,7 @@ function niemeJournee(int $numero)
  */
 function strToUrl(string $str)
 {
-    return str_replace([' ', '/', '_', '\\', '\'', '\"'], '-', Str::lower(stripAccents($str)));
+    return str_replace([' ', '/', '_', '\\', '\'', '\"', '(', ')'], '-', Str::lower(stripAccents($str)));
 }
 
 /**
