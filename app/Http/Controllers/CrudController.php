@@ -250,7 +250,7 @@ class CrudController extends Controller
             $instance->delete();
             Log::info("Suppression de l'id $id dans la table $nomTable");
         }
-        Cache::forget("crud-$table-index"); // Effacement du cache associé
+        Cache::forget("index-$table"); // Effacement du cache associé
     }
 
     /**

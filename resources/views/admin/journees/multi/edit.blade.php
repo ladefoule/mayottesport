@@ -39,21 +39,18 @@
             <div class="col-12 form-row d-flex justify-content-center">
                 @for ($i = 1; $i <= $nbJournees; $i++)
                     <?php
-                    $nameJourneeNumero = 'numero'.$i;
-                    $nameJourneeDate = 'date'.$i;
-                    $nameJourneeId = 'id'.$i;
-                    $nameJourneeDelete = 'delete'.$i;
+                        $journee = $listeJournees[$i] ?? '';
+                        $date = $journee->date ?? date('Y-m-d');
 
-                    $journee = DB::table('journees')->where([ ['saison_id', '=', $saisonId], ['numero', '=', $i] ])->first();
-                    if($journee == null && $i > $nbJournees)
-                        break;
-                    $numero = $i;
-                    $date = $journee->date ?? date('Y-m-d');
+                        $nameJourneeNumero = 'numero'.$i;
+                        $nameJourneeDate = 'date'.$i;
+                        $nameJourneeId = 'id'.$i;
+                        $nameJourneeDelete = 'delete'.$i;
                     ?>
                     <div class="col-4 col-md-4 col-lg-3 mb-3">
                         <label for="">Journée <span class="text-danger text-weight-bold">*</span></label>
                             <input type="number" min="1" max="100" data-msg="Tous les champs <span class='text-danger font-italic'>Journée</span> sont obligatoires et leur contenu doit être entre 1 et 100."
-                            name="{{$nameJourneeNumero}}" class="form-control @error($nameJourneeNumero) is-invalid @enderror" value="{{ old($nameJourneeNumero) ?? $numero }}">
+                            name="{{$nameJourneeNumero}}" class="form-control @error($nameJourneeNumero) is-invalid @enderror" value="{{ old($nameJourneeNumero) ?? $i }}">
                         @error($nameJourneeNumero)
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -71,7 +68,7 @@
                         @enderror
                     </div>
                     <div class="col-1 d-flex align-items-center justify-content-center ml-2">
-                        <input type="checkbox" class="" name="{{ $nameJourneeDelete }}" @if($journee == null) disabled @endif>
+                        <input type="checkbox" class="" name="{{ $nameJourneeDelete }}" @if(! $journee) disabled @endif>
                     </div>
                     <input type="hidden" name="{{ $nameJourneeId }}" value="{{ $journee->id ?? 0 }}">
                 @endfor

@@ -23,7 +23,7 @@ class CreateMatchesTable extends Migration {
             $table->unsignedBigInteger('terrain_id');
             $table->foreign('terrain_id')->references('id')->on('terrains')->onDelete('restrict');
             $table->unsignedBigInteger('journee_id');
-            $table->foreign('journee_id')->references('id')->on('journees')->onDelete('restrict');
+            $table->foreign('journee_id')->references('id')->on('journees')->onDelete('cascade');
 			$table->date('date')->nullable();
 			$table->string('heure', 5)->nullable();
 			$table->boolean('acces_bloque')->nullable();

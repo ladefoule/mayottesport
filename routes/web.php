@@ -56,9 +56,9 @@ Route::group(['middleware'=>'auth'], function () {
             /* DEBUT PREFIX AUTRES */
             Route::prefix('/autres')->group(function () {
                 /* ----- DEBUT ROUTES JOURNEES ----- */
-                    Route::get('/journees/multi/select', 'JourneesMultiplesController@seasonChoice')->name('journees.multi.select');
+                    Route::get('/journees/multi/select', 'JourneesMultiplesController@select')->name('journees.multi.select');
                     Route::get('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@edit')->name('journees.multi.edit');
-                    Route::post('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editStore');
+                    Route::post('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editPost');
                     Route::get('/journees/multi/saison-{id}', 'JourneesMultiplesController@show')->name('journees.multi.show');
                 /* ----- FIN ROUTES JOURNEES ----- */
             }); /* FIN PREFIX AUTRES */

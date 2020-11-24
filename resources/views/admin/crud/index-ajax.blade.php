@@ -1,11 +1,7 @@
 @foreach($liste as $id => $ligne)
 <tr>
     <td><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
-    @for ($i = 0; $i < count($listeAttributsVisibles); $i++)
-        <td align="left"
-            @if ($i>=2) class="d-none d-lg-block" @endif
-        >{{ $ligne['afficher'][$i] }}</td>
-    @endfor
+    <td align="left" class="px-2 align-middle">{{ $ligne['crud_name'] }}</td>
     <td class="text-right">
         <a href="{{ $ligne['href_show'] }}" title="Voir" class="text-decoration-none">
             <button class="btn-sm btn-success">

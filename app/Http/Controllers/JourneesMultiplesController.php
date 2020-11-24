@@ -7,6 +7,7 @@ use App\Sport;
 use App\Saison;
 use App\Journee;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
 class JourneesMultiplesController extends Controller
@@ -16,7 +17,7 @@ class JourneesMultiplesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function seasonChoice()
+    public function select()
     {
         $sports = Sport::orderBy('nom')->get();
         $h1 = $title = 'Saison : Ajout de toutes les journées';
@@ -40,9 +41,23 @@ class JourneesMultiplesController extends Controller
         $nbJournees = $saison->nb_journees;
         $h1 = $title = 'Journees/SaisonId : ' . $saison->id;
 
+        $journees = Journee::whereSaisonId($saisonId)->get();
+        foreach ($journees as $journee) {
+            $numero = $journee->numero;
+            $journee->nameJourneeNumero = 'numero'.$numero;
+            $journee->nameJourneeDate = 'date'.$numero;
+            $journee->nameJourneeId = 'id'.$numero;
+            $journee->nameJourneeDelete = 'delete'.$numero;
+
+            $listeJournees[$numero] = $journee;
+        }
+        // dd($listeJournees);
+        // $journee = DB::table('journees')->where([ ['saison_id', '=', $saisonId], ['numero', '=', $i] ])->first();
+
         return view('admin.journees.multi.edit', [
             'saison' => $saison->crud_name,
             'saisonId' => $saisonId,
+            'listeJournees' => $listeJournees,
             'nbJournees' => $nbJournees,
             'title' => $title,
             'h1' => $h1
@@ -56,44 +71,52 @@ class JourneesMultiplesController extends Controller
      * @param int $saisonId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editStore(Request $request, $saisonId)
+    public function editPost(Request $request, $saisonId)
     {
-        $rules = ['saison_id' => 'required|exists:saisons,id'];
-        Validator::make($request->all(), $rules)->validate();
-        $saisonId = $request['saison_id'];
+        // Todo : fire une validation du tbleau reçu
         $nbJournees = Saison::findOrFail($saisonId)->nb_journees;
-
         for ($i=1; $i <= $nbJournees; $i++) {
             if ($request['numero' . $i]) {
-                $journeeNumero = $request['numero' . $i];
-                $journeeDate = $request['date' . $i];
                 $journeeId = $request['id' . $i];
-                $tab = ['numero' => $journeeNumero, 'date' => $journeeDate, 'saison_id' => $saisonId];
-                $request['delete'.$i] = $request->has('delete'.$i);
-                $journeeDelete = $request['delete' . $i];
+                $numero = $request['numero' . $i];
+                $date = $request['date' . $i];
 
+                $journee = Journee::find($journeeId);
+                $unique = Rule::unique('journees', 'numero')->where(function ($query) use ($numero, $saisonId) {
+                    return $query->whereNumero($numero)->whereSaisonId($saisonId);
+                })->ignore($journee);
                 $rules = [
-                    'date'.$i => 'required|date',
-                    'id'.$i => 'required|integer|min:0',
-                    'numero'.$i => "required|integer|min:1|max:100",
-                    'delete'.$i => 'boolean'
+                    'date' . $i => 'required|date',
+                    'numero' . $i => ["required","integer","min:1","max:$nbJournees", $unique],
                 ];
-                Validator::make($request->all(), $rules)->validate();
+
+                $donnees = [
+                    'numero'.$i => $numero,
+                    'date'.$i => $date
+                ];
+                // dd($rules);
+                Validator::make($donnees, $rules)->validate();
+                $donnees = [
+                    'numero' => $numero,
+                    'date' => $date,
+                    'saison_id' => $saisonId
+                ];
 
                 if($journeeId == 0){ // Si la journée n'existe pas encore dans la bdd, alors on la crée
-                    $journee = new Journee($tab);
+                    $journee = new Journee($donnees);
                     $journee->save();
                 }else{
                     $journee = Journee::findOrFail($journeeId);
+                    $journeeDelete = $request->has('delete' . $i);
                     if($journeeDelete) // Si la checkbox de suppression a été cochée alors on supprime la Journée
                         $journee->delete();
                     else // Sinon on fait une maj
-                        $journee->update($tab);
+                        $journee->update($donnees);
                 }
             }
         }
 
-        Cache::forget('crud-journees-index');
+        Cache::forget('index-journees');
         return redirect()->route('journees.multi.show', ['id' => $saisonId]);
     }
 
