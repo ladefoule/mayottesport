@@ -24,7 +24,7 @@ class Equipe extends Model
      */
     public function getCrudNameAttribute()
     {
-        return indexCrud('sports')[$this->sport_id]['crud_name'] . ' - ' . $this->nom;
+        return index('sports')[$this->sport_id]['crud_name'] . ' - ' . $this->nom;
     }
 
     /**
@@ -35,23 +35,6 @@ class Equipe extends Model
     public function sport()
     {
         return $this->belongsTo('App\Sport');
-    }
-
-    /**
-     * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
-     * Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
-     * Sinon on renvoie le lien vers le fanion par défaut.
-     *
-     * @return string
-     */
-    public function fanion()
-    {
-        $fanion = 'foot-' . $this->id;
-        $exists = Storage::disk('public')->exists('img/fanion/' . $fanion . '.png');
-        if($exists == false)
-            $fanion = "defaut-2";
-
-        return "/storage/img/fanion/" . $fanion . '.png';
     }
 
     /**

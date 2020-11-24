@@ -132,4 +132,4 @@ $donnees = [
 
 // genererCalendrier($donnees);
 
-Cache::forget('crud-champ-matches-lister');
+Cache::forget('crud-matches-index');

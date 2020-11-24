@@ -1,14 +1,3 @@
-<?php
-use Illuminate\Support\Facades\DB;
-use App\Equipe;
-use App\Journee;
-use App\Competition;
-use App\Saison;
-use App\Match;
-
-$saisonId = 1;
-$competition = Saison::whereId($saisonId)->first()->competition->nom;
-?>
 @extends('layouts.site')
 
 @section('title', 'Accueil de notre site')

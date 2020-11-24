@@ -1,10 +1,12 @@
+<?php
+    $sports = sportsEtCompetitions();
+?>
 <!-- Footer -->
 <footer class="page-footer font-small indigo text-white bg-dark">
     <!-- Footer Links -->
-    @if (request()->sports)
     <div class="container text-center text-md-left">
         <div class="row d-flex {{-- flex-nowrap --}} flex-basis-1 text-center">
-            @foreach (request()->sports as $sport)
+            @foreach ($sports as $sport)
             <div class="col-4 col-md-2 mx-auto px-2">
                 <a href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}"><h5 class="font-weight-bold mt-3 mb-2 text-white">{{ $sport->nom }}</h5></a>
                 <ul class="list-unstyled">
@@ -37,8 +39,8 @@
             </div>
         </div>
     </div>
-    @endif
     <!-- Footer Links -->
+    
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3 bg-body">© {{ date('Y') }} Copyright:
         <a href="{{ config('app.url') }}"> mayottesport.com</a> - FB - TW

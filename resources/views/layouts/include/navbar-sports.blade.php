@@ -1,5 +1,5 @@
 <?php
-    $sports = request()->sports;
+    $sports = sportsEtCompetitions();
 ?>
 
 {{-- NAVBAR LARGE SCREEN --}}

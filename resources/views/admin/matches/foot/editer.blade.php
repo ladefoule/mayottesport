@@ -11,7 +11,7 @@
         </div>
         <div class="col-4 d-flex justify-content-between align-items-center bloc-equipe-dom px-3">
             <div class="d-inline-flex align-items-center pr-2">
-                <img src="{{ $champMatch->equipeDom->fanion() }}" alt="{{ $champMatch->equipeDom }}" class="fanion-match">
+                <img src="{{ fanion($champMatch->equipeDom->id) }}" alt="{{ $champMatch->equipeDom }}" class="fanion-match">
             </div>
             <div class="d-inline">
                 {{ $champMatch->equipeDom }}
@@ -27,7 +27,7 @@
                 {{ $champMatch->equipeExt }}
             </div>
             <div class="d-inline-flex align-items-center">
-                <img src="{{ $champMatch->equipeExt->fanion() }}" alt="{{ $champMatch->equipeExt }}" class="fanion-match">
+                <img src="{{ fanion($champMatch->equipeExt->id) }}" alt="{{ $champMatch->equipeExt }}" class="fanion-match">
             </div>
         </div>
 

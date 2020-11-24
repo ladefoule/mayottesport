@@ -13,12 +13,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         Log::info(" -------- HomeController : index -------- ");
-        $sports = Sport::all();
-        foreach ($sports as $key => $sport) {
+        $sports = sportsEtCompetitions();
+        $request->sports = $sports;
+        foreach ($sports as $sport) {
             $competitions = $sport->competitions;
+            $sport->competitions = $competitions;
             $liste = [];
             foreach ($competitions as $competition) {
                 $saison = $competition->saisons->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
@@ -40,7 +42,7 @@ class HomeController extends Controller
             }
             $sport->liste = $liste;
         }
-
+        // dd($request->sports);
         return view('home', [
             'sports' => $sports
         ]);

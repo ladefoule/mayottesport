@@ -8,6 +8,7 @@ use App\EquipeSaison;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Revoie '1ère journée' si $numero = 1, Xème journée si $numero > 1, false dans les autres cas de figure
@@ -98,14 +99,31 @@ function sportsEtCompetitions()
 }
 
 /**
+ * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
+ * Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
+ * Sinon on renvoie le lien vers le fanion par défaut.
+ *
+ * @return string
+ */
+function fanion($equipeId)
+{
+    $fanion = 'foot-' . $equipeId;
+    $exists = Storage::disk('public')->exists('img/fanion/' . $fanion . '.png');
+    if($exists == false)
+        $fanion = "defaut-2";
+
+    return "/storage/img/fanion/" . $fanion . '.png';
+}
+
+/**
  * Liste de tous les éléments de la table.
  *
  * @param string $table
  * @return \Illuminate\Database\Eloquent\Collection
  */
-function indexCrud(string $table)
+function index(string $table)
 {
-    $key = "awesome-$table";
+    $key = "index-$table";
     if (!Config::get('constant.activer_cache'))
         Cache::forget($key);
 

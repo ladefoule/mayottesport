@@ -238,7 +238,7 @@ class CrudTable extends Model
         $table = $this->nom;
         $tableKebabCase = str_replace('_', '-', $table);
 
-        $key = "crud-$tableKebabCase-index";
+        $key = "index-$tableKebabCase";
         if (!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
@@ -253,10 +253,19 @@ class CrudTable extends Model
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
+                    // dd($instance->attributes);
+                    foreach ($instance->attributes as $key => $value) {
+                        $liste[$id][$key] = $value;
+                    }
+                    // $liste[$id][$id] = $instance->id;
                     $liste[$id]['nom'] = $instance->nom ?? '';
                     $liste[$id]['crud_name'] = $instance->crud_name;
                     $liste[$id]['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
                     $liste[$id]['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+                    // $liste[$id]['nom'] = $instance->nom ?? '';
+                    // $liste[$id]['crud_name'] = $instance->crud_name;
+                    // $liste[$id]['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
+                    // $liste[$id]['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
                 }
                 return collect($liste);
             });

@@ -282,17 +282,15 @@ class CrudController extends Controller
 
             // La table sur laquelle on apporte des modifications
             $table = str_replace('_', '-' , $table);
-            Cache::forget("crud-$table-index");
-            Cache::forget("attributs-visibles-$table-index");
             Cache::forget("attributs-visibles-$table-create");
             Cache::forget("attributs-visibles-$table-show");
 
-            // On renouvelle les 3 tables liées à la gestion du Crud
-            Cache::forget("crud-crud-tables-index");
-            Cache::forget("crud-crud-attributs-index");
-            Cache::forget("crud-crud-attribut-infos-index");
+            // On supprime les cches des tables liées à la gestion du Crud
+            Cache::forget("index-crud-tables");
+            Cache::forget("index-crud-attributs");
+            Cache::forget("index-crud-attribut-infos");
         }else{
-            $cache = "crud-$table-index";
+            $cache = "index-$table";
             Cache::forget($cache);
         }
     }

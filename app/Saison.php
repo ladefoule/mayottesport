@@ -67,9 +67,9 @@ class Saison extends Model
 
     public function classementSimpleRender(bool $complet = false)
     {
-        $sport = strToUrl($this->competition->sport->nom);
-        $competition = strToUrl($this->competition->nom);
-        $hrefClassementComplet = route('competition.classement', ['competition' => $competition, 'sport' => $sport]);
+        $competition = index('competitions')[$this->competition_id];
+        $sport = index('sports')[$competition->sport_id];
+        $hrefClassementComplet = route('competition.classement', ['competition' => $competition->nom, 'sport' => $sport->nom]);
         $classement = $this->classement();
         return view('competition.classement-simple', [
             'classement' => $classement,
@@ -121,7 +121,7 @@ class Saison extends Model
             $equipe = Equipe::findOrFail($equipeId);
             $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
             $nomEquipe = $equipe->nom;
-            $fanionEquipe = $equipe->fanion();
+            $fanionEquipe = fanion($equipe->id);
             $classement[$equipeId]['nom'] = $nomEquipe;
             $classement[$equipeId]['hrefEquipe'] = $hrefEquipe;
             $classement[$equipeId]['fanion'] = $fanionEquipe;
@@ -164,13 +164,13 @@ class Saison extends Model
     }
 
     /**
-     * Définition de l'attribut nom
+     * Définition de l'attribut nom pour une saison
      *
      * @return string
      */
     public function getNomAttribute()
     {
-        return $this->competition->nom . ' ' . $this->annee('/');
+        return /* index('competitions')[$this->competition_id]->nom . ' ' . */ $this->annee('/');
     }
 
     /**
@@ -180,7 +180,7 @@ class Saison extends Model
      */
     public function getCrudNameAttribute()
     {
-        return indexCrud('competitions')[$this->competition_id]['crud_name'] . ' ' . $this->annee('/');
+        return index('competitions')[$this->competition_id]['crud_name'] . ' ' . $this->annee('/');
     }
 
     /**
