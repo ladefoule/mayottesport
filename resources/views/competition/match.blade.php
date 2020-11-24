@@ -94,9 +94,9 @@
                         </span>
                         <div class="comment-body">
                             <div class="text">
-                                {{ $commentaire->comm }}
+                                {{ $commentaire['comm'] }}
                             </div>
-                            <p class="attribution">Posté par <span class="nom text-danger">{{ $commentaire->pseudo }}</span> le <span class="date">{{ $commentaire->created_at->format('d/m/Y à H:i:s') }}</span>@if($commentaire->user_id == \Auth::id()) (<a href="" class="supprimer" data-id="{{ $commentaire->id }}">Supprimer</a>)@endif</p>
+                            <p class="attribution">Posté par <span class="nom text-danger">{{ $commentaire['pseudo'] }}</span> le <span class="date">{{ $commentaire['created_at']/* ->format('d/m/Y à H:i:s') */ }}</span>@if($commentaire['user_id'] == \Auth::id()) (<a href="" class="supprimer" data-id="{{ $commentaire['id'] }}">Supprimer</a>)@endif</p>
                         </div>
                     </article>
                     @endforeach

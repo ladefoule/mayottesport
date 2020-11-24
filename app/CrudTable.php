@@ -253,19 +253,18 @@ class CrudTable extends Model
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
-                    // dd($instance->attributes);
+                    $collect = collect();
                     foreach ($instance->attributes as $key => $value) {
-                        $liste[$id][$key] = $value;
+                        $collect[$key] = $value;
                     }
-                    // $liste[$id][$id] = $instance->id;
-                    $liste[$id]['nom'] = $instance->nom ?? '';
-                    $liste[$id]['crud_name'] = $instance->crud_name;
-                    $liste[$id]['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                    $liste[$id]['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
-                    // $liste[$id]['nom'] = $instance->nom ?? '';
-                    // $liste[$id]['crud_name'] = $instance->crud_name;
-                    // $liste[$id]['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                    // $liste[$id]['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+                    // $collect[$id] = $instance->id;
+                    $collect['nom'] = $instance->nom ?? '';
+                    $collect['crud_name'] = $instance->crud_name;
+                    $collect['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
+                    $collect['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+
+                    $liste[$id] = $collect;
+                    // dd($collect);
                 }
                 return collect($liste);
             });

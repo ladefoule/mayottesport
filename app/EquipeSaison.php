@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class EquipeSaison extends Pivot
 {
     public $timestamps = false;
-    // protected $table = 'champ_saison_equipe';
 
     /**
      * Champs autorisés lors de la création
@@ -47,7 +46,7 @@ class EquipeSaison extends Pivot
      */
     public function getCrudNameAttribute()
     {
-        return index('saisons')[$this->saison_id]['crud_name'] . ' - ' . index('equipes')[$this->equipe_id]['crud_name'];
+        return index('saisons')[$this->saison_id]['crud_name'] . ' - ' . index('equipes')[$this->equipe_id]['nom'];
     }
 
     public function getNomAttribute()

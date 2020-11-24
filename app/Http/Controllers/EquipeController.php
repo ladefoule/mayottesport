@@ -27,42 +27,26 @@ class EquipeController extends Controller
     {
         $equipe = $request->equipe;
         $sport = $request->sport;
+        $matches = $equipe->matches; // Tous les matches de l'équipe
 
         // On recherche le prochain match de l'équipe toute compétition confondue
-        $prochainMatch = Match::whereEquipeIdDom($equipe->id)->where('date', '>=', date('Y-m-d'))
-                ->orWhere(function($query) use($equipe) {
-                    $query->whereEquipeIdExt($equipe->id)
-                        ->where('date', '>=', date('Y-m-d'));
-                })
-                ->orderBy('date')
-                ->first();
+        $prochainMatch = $matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
         $prochainMatchRender = $prochainMatch ? $prochainMatch->matchRender($equipe) : '';
 
         // On recherche le dernier match de l'équipe toute compétition confondue
-        $dernierMatch = Match::whereEquipeIdDom($equipe->id)->where('date', '<', date('Y-m-d'))
-                ->orWhere(function($query) use($equipe) {
-                    $query->whereEquipeIdExt($equipe->id)
-                        ->where('date', '<', date('Y-m-d'));
-                })
-                ->orderBy('date', 'desc')
-                ->first();
+        $dernierMatch = $matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
         $dernierMatchRender = $dernierMatch ? $dernierMatch->matchRender($equipe) : '';
 
-        // Jointures entre les tables pour recherche les matches de l'équipe, les saisons, etc...
-        $jointure = DB::table('competitions')
-            ->join('saisons', 'competitions.id', 'competition_id')
-            ->join('equipe_saison', 'saison_id', 'saisons.id')
-            ->join('equipes', 'equipes.id', 'equipe_id')
-            ->where('equipes.id', $equipe->id);
+        // Toutes les saisons dans lesquelles l'équipe a joué
+        $saisons = $equipe->saisons;
 
-        // Les compétitions dans lesquelles l'équipe à jouer
-        $competitions = $jointure
-            ->select('competitions.*')
-            ->orderBy('saisons.finie')
-            ->distinct()
-            ->get();
+        // On récupère la liste des compétitions à partir de la liste des saisons
+        $competitions = collect();
+        foreach ($saisons as $saison)
+            $competitions[] = index('competitions')[$saison->competition_id];
 
-        $saisons = $matches = [];
+        $competitions = $competitions->unique();
+
         $derniereSaison = $derniereCompetition = '';
         if(count($competitions) > 0){
             // On affiche en priorité la dernière saison de championnat
@@ -70,8 +54,8 @@ class EquipeController extends Controller
             if(! $derniereCompetition)
                 $derniereCompetition = $competitions->first();
 
-            // On récupère toutes les saisons de la compétition en sélectionnat l première
-            $saisons = Competition::find($derniereCompetition->id)->saisons;
+            // On affiche les saisons de la compétition sélectionnée dans le 2ème select
+            $saisons = $saisons->where('competition_id', $derniereCompetition['id']);
             $derniereSaison = $saisons->sortBy('annee_debut')->first();
 
             $matches = $derniereSaison->matches->where('equipe_id_dom', $equipe->id);

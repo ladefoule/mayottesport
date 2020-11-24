@@ -68,14 +68,14 @@ class Saison extends Model
     public function classementSimpleRender(bool $complet = false)
     {
         $competition = index('competitions')[$this->competition_id];
-        $sport = index('sports')[$competition->sport_id];
-        $hrefClassementComplet = route('competition.classement', ['competition' => $competition->nom, 'sport' => $sport->nom]);
+        $sport = index('sports')[$competition['sport_id']];
+        $hrefClassementComplet = route('competition.classement', ['competition' => $competition['nom'], 'sport' => $sport['nom']]);
         $classement = $this->classement();
         return view('competition.classement-simple', [
             'classement' => $classement,
             'hrefClassementComplet' => $hrefClassementComplet,
             'complet' => $complet
-        ]);
+        ])->render();
     }
 
     /**
@@ -207,7 +207,7 @@ class Saison extends Model
     /**
      * Les équipes participantes à la saison
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function equipes()
     {

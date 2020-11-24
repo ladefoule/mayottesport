@@ -12,8 +12,8 @@
                 <select class="form-control col-10 col-sm-6" name="journee" id="competition_id">
                     <option value="">Compétitions</option>
                     @foreach ($competitions as $competition)
-                        <option value="{{ $competition->id }}" @if($competition->id == $derniereCompetition->id) selected @endif>
-                            {{ $competition->nom }}
+                        <option value="{{ $competition['id'] }}" @if($competition['id'] == $derniereCompetition['id']) selected @endif>
+                            {{ $competition['nom'] }}
                         </option>
                     @endforeach
                 </select>

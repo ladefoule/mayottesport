@@ -82,7 +82,7 @@ $modele = 'App\\' . modelName($table);
 foreach ($liste as $key => $instance) {
     $instance = $modele::find($instance->id);
     $liste[$key] = $instance;
-    $liste[$key]['nom'] = $instance->crud_name; // Toutes les tables doivent avoir un attribut nom (natif ou non)
+    $liste[$key]['nom'] = $instance->crud_name ?? $instance->nom; // Toutes les tables doivent avoir un attribut crud_name (natif ou non)
 
     // if($table == "saisons"){
         // $liste[$key]['href_show'] = route('crud.show', ['table' => 'matches', 'id' => $instance->id]);

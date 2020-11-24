@@ -143,9 +143,12 @@ class CrudController extends Controller
         if(in_array($table, ['matches', 'equipes']))
             $request['uniqid'] = uniqid(); // On génére un uniqid pour les matches et les équipes
 
-        $instance = $modele::create($request);
+        // $instance = $modele::create($request);
+        $instance = new $modele($request);
+        $instance->save();
 
-        // Todo : Erreur lors de la crétion d'un élément equipe_saison, impossible de récupérer l'id
+        // Todo : Erreur lors de la crétion d'un élément equipe_saison, impossible de récupérer l'id car table pivot
+        dd($instance);
 
         $this::forgetCaches($table, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);
@@ -217,9 +220,10 @@ class CrudController extends Controller
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
+        $this::forgetCaches($table, $instance);
         $instance->delete();
         Log::info("Suppression de l'id $id dans la table $crudTable->nom");
-        Cache::forget("crud-$table-index"); // Effacement du cache associé
+
         return redirect()->route('crud.index', ['table' => $table]);
     }
 

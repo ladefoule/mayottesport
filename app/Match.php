@@ -141,15 +141,17 @@ class Match extends Model
         $equipeExtNomKebab = strToUrl($equipeExt['nom']);
         $journee = index('journees')[$this->journee_id];
         $saison = index('saisons')[$journee['saison_id']];
-        $saison = Saison::findOrFail($saison['id']); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
+        // $saison = Saison::findOrFail($saison['id']); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
+        $annee = ($saison['annee_debut'] == $saison['annee_fin']) ? $saison['annee_debut'] : $saison['annee_debut']. '/' .$saison['annee_fin'];
         $competition = index('competitions')[$saison['competition_id']];
         $competitionNomKebab = strToUrl($competition['nom']);
         $sport = index('sports')[$competition['sport_id']];
         $sportNomKebab = strToUrl($sport['nom']);
-        $commentaires = $this->commentaires->sortByDesc('created_at');
+        $commentaires = index('commentaires')->where('match_id', $this->id)->sortByDesc('created_at');//$this->commentaires->sortByDesc('created_at');
         foreach ($commentaires as $commentaire){
-            $user = index('users')[$commentaire->user_id];
-            $commentaire->pseudo = $user['pseudo'];
+            // dd($commentaire);
+            $user = index('users')[$commentaire['user_id']];
+            $commentaire['pseudo'] = $user['pseudo'];
         }
 
 
@@ -168,7 +170,7 @@ class Match extends Model
             'date_format' => $this->dateFormat(),
             'date' => $this->date,
             'heure' => $this->heure,
-            'title' => "Match " . $equipeDom['nom'] . ' vs ' . $equipeExt['nom'] . ' - ' . $sport['nom'] . ' - ' . $competition['nom'] . ' ' . $saison->annee('/'),
+            'title' => "Match " . $equipeDom['nom'] . ' vs ' . $equipeExt['nom'] . ' - ' . $sport['nom'] . ' - ' . $competition['nom'] . ' ' . $annee,
             'acces_bloque' => $this->acces_bloque,
             'journee' => niemeJournee($journee['numero']),
             'competition' => $competition['nom'],
@@ -181,7 +183,7 @@ class Match extends Model
                 'id' => $this->uniqid,
                 'sport' => $sportNomKebab,
                 'competition' => $competitionNomKebab,
-                'annee' => $saison->annee(),
+                'annee' => str_replace('/', '-', $annee),
                 'equipeDom' => $equipeDomNomKebab,
                 'equipeExt' => $equipeExtNomKebab
             ])
@@ -218,8 +220,8 @@ class Match extends Model
         $equipeExtKebabCase = strToUrl($equipeExt['nom']);
         $journee = index('journees')[$this->journee_id];
         $saison = index('saisons')[$journee['saison_id']];
-        $saison = Saison::findOrFail($saison['id']); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
-        $annee = $saison->annee();
+        // $saison = Saison::findOrFail($saison['id']); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
+        $annee = ($saison['annee_debut'] == $saison['annee_fin']) ? $saison['annee_debut'] : $saison['annee_debut']. '-' .$saison['annee_fin'];
         $competition = index('competitions')[$saison['competition_id']];
         $sport = index('sports')[$competition['sport_id']];
         $sport = strToUrl($sport['nom']);

@@ -38,6 +38,28 @@ class Equipe extends Model
     }
 
     /**
+     *
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function saisons()
+    {
+        return $this->belongsToMany('App\Saison')
+                    ->using('App\EquipeSaison');
+    }
+
+    /**
+     *
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function matches()
+    {
+        return $this->hasMany('App\Match', 'equipe_id_dom')
+                    ->union($this->hasMany('App\Match', 'equipe_id_ext'));
+    }
+
+    /**
      * Les règles de validations
      *
      * @param Equipe $equipe
