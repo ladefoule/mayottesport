@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sport;
+use App\Saison;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -16,20 +17,17 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         Log::info(" -------- HomeController : index -------- ");
-        $sports = sportsEtCompetitions();
-        $request->sports = $sports;
+        $sports = index('sports');
         foreach ($sports as $sport) {
-            $competitions = $sport->competitions;
-            $sport->competitions = $competitions;
+            $competitions = index('competitions')->where('sport_id', $sport->id);
             $liste = [];
             foreach ($competitions as $competition) {
-                $saison = $competition->saisons->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
+                $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
                 if($saison){
-                    $journee = $saison->derniereJournee();
-                    if(! $journee) $journee = $saison->prochaineJournee();
+                    $journee = $saison->derniereJournee() ?? $saison->prochaineJournee();
                     if($journee){
                         $classement = '';
-                        if($competition->type == 1)
+                        if($competition->type == 1) // Championnat
                             $classement = $saison->classementSimpleRender();
 
                         $liste[] = [
@@ -42,7 +40,7 @@ class HomeController extends Controller
             }
             $sport->liste = $liste;
         }
-        // dd($request->sports);
+
         return view('home', [
             'sports' => $sports
         ]);

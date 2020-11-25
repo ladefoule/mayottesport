@@ -1,3 +1,7 @@
+<?php
+    $sport = request()->sport; // Middleware Sport
+    $competitions = index('competitions')->where('sport_id', $sport->id);
+?>
 <!doctype html>
 <html lang="fr">
 
@@ -22,8 +26,8 @@
         <div class="container-lg">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start px-3 flex-shrink-0">
-                    @foreach (request()->competitions as $competition)
-                        <a href="{{ route('competition.index', ['sport' => strToUrl(request()->sport->nom), 'competition' => strToUrl($competition->nom)]) }}">
+                    @foreach ($competitions as $competition)
+                        <a href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">
                             <button class="btn btn-sm mx-2 px-3 btn-outline-dark">
                                 {{ $competition->nom }}
                             </button>

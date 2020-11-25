@@ -148,7 +148,7 @@ class CrudController extends Controller
         $instance->save();
 
         // Todo : Erreur lors de la crétion d'un élément equipe_saison, impossible de récupérer l'id car table pivot
-        dd($instance);
+        // dd($instance);
 
         $this::forgetCaches($table, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);

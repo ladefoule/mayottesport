@@ -76,29 +76,6 @@ function checkPermission(array $roles)
 }
 
 /**
- * La liste des sports avec leurs compétitions
- *
- * @return \Illuminate\Database\Eloquent\Collection
- */
-function sportsEtCompetitions()
-{
-    $key = 'sports-et-competitions';
-    if(! Config::get('constant.activer_cache'))
-        Cache::forget($key);
-
-    if (Cache::has($key))
-        return Cache::get($key);
-    else
-        return Cache::rememberForever($key, function () {
-            $sports = Sport::all();
-            foreach ($sports as $sport)
-                $sport->competitions = $sport->competitions; // On récupère la liste des compétitions pour le MENU
-
-            return $sports;
-        });
-}
-
-/**
  * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
  * Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
  * Sinon on renvoie le lien vers le fanion par défaut.

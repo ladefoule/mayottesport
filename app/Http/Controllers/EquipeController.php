@@ -55,7 +55,7 @@ class EquipeController extends Controller
                 $derniereCompetition = $competitions->first();
 
             // On affiche les saisons de la compétition sélectionnée dans le 2ème select
-            $saisons = $saisons->where('competition_id', $derniereCompetition['id']);
+            $saisons = $saisons->where('competition_id', $derniereCompetition->id);
             $derniereSaison = $saisons->sortBy('annee_debut')->first();
 
             $matches = $derniereSaison->matches->where('equipe_id_dom', $equipe->id);

@@ -67,7 +67,7 @@
                                 @foreach ($infos['select'] as $id => $instanceFK)
                                     <option value="{{ $id }}"
                                         @if ($infos['valeur'] == $id || old($attribut) == $id) selected @endif>
-                                        {{ $instanceFK['crud_name'] }}
+                                        {{ $instanceFK->crud_name }}
                                     </option>
                                 @endforeach
                             </select>

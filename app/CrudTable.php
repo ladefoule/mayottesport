@@ -255,13 +255,13 @@ class CrudTable extends Model
                     $id = $instance->id;
                     $collect = collect();
                     foreach ($instance->attributes as $key => $value) {
-                        $collect[$key] = $value;
+                        $collect->$key = $value;
                     }
                     // $collect[$id] = $instance->id;
-                    $collect['nom'] = $instance->nom ?? '';
-                    $collect['crud_name'] = $instance->crud_name;
-                    $collect['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                    $collect['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+                    $collect->nom = $instance->nom ?? '';
+                    $collect->crud_name = $instance->crud_name;
+                    $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
+                    $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
 
                     $liste[$id] = $collect;
                     // dd($collect);

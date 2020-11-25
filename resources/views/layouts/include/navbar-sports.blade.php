@@ -1,5 +1,6 @@
 <?php
-    $sports = sportsEtCompetitions();
+    $sports = index('sports');
+    $competitions = index('competitions');
 ?>
 
 {{-- NAVBAR LARGE SCREEN --}}
@@ -12,7 +13,7 @@
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto bg-white">
-               @foreach ($sports as $sport)
+               @foreach (index('sports') as $sport)
                    <a class="nav-item nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif px-2" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a>
                @endforeach
                <a class="nav-item nav-link px-2" href="/autres">Autres</a>
@@ -36,14 +37,14 @@
                 <a class="nav-link" href="/">Accueil</a>
             </li>
             @foreach ($sports as $sport)
-                @if (count($sport->competitions) > 0)
+                @if ($competitions->where('sport_id', $sport->id)->all() > 0)
                     <li class="nav-item dropdown border-bottom px-2">
                         <a class="nav-link dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-futbol"></i> {{ $sport->nom }}
                         </a>
                         <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
                             <a class="dropdown-item" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
-                            @foreach ($sport->competitions as $i => $competition)
+                            @foreach ($competitions->where('sport_id', $sport->id) as $competition)
                                 <a class="dropdown-item" href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">{{ $competition->nom }}</a>
                             @endforeach
                         </div>

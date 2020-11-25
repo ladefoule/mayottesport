@@ -68,8 +68,8 @@ class Saison extends Model
     public function classementSimpleRender(bool $complet = false)
     {
         $competition = index('competitions')[$this->competition_id];
-        $sport = index('sports')[$competition['sport_id']];
-        $hrefClassementComplet = route('competition.classement', ['competition' => $competition['nom'], 'sport' => $sport['nom']]);
+        $sport = index('sports')[$competition->sport_id];
+        $hrefClassementComplet = route('competition.classement', ['competition' => strToUrl($competition->nom), 'sport' => strToUrl($sport->nom)]);
         $classement = $this->classement();
         return view('competition.classement-simple', [
             'classement' => $classement,
@@ -116,9 +116,14 @@ class Saison extends Model
 
         $classement = [];
         $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
+        // $idBasketball = index('sports')->where('nom', 'like', 'basketball')->first() ?? 0;
+        $idBasketball = index('sports')->filter(function ($value, $key) {
+            return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
+        })->first()->id ?? 0;
         $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
         foreach ($matches as $equipeId => $matchesEquipe) {
-            $equipe = Equipe::findOrFail($equipeId);
+            // $equipe = Equipe::findOrFail($equipeId);
+            $equipe = index('equipes')[$equipeId];
             $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
             $nomEquipe = $equipe->nom;
             $fanionEquipe = fanion($equipe->id);
@@ -180,7 +185,7 @@ class Saison extends Model
      */
     public function getCrudNameAttribute()
     {
-        return index('competitions')[$this->competition_id]['crud_name'] . ' ' . $this->annee('/');
+        return index('competitions')[$this->competition_id]->crud_name . ' ' . $this->annee('/');
     }
 
     /**

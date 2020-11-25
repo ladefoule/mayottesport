@@ -107,7 +107,7 @@ class Journee extends Model
      */
     public function getCrudNameAttribute()
     {
-        $saison = index('saisons')[$this->saison_id]['crud_name'];
+        $saison = index('saisons')[$this->saison_id]->crud_name;
         $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
         return $saison . ' - J' . $journee;
     }
@@ -117,7 +117,7 @@ class Journee extends Model
      */
     public function getNomAttribute()
     {
-        $saison = index('saisons')[$this->saison_id]['nom'];
+        $saison = index('saisons')[$this->saison_id]->nom;
         // dd($saison);
         $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
         return 'J' . $journee . ' - ' . $saison;

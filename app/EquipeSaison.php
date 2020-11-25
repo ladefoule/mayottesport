@@ -46,7 +46,7 @@ class EquipeSaison extends Pivot
      */
     public function getCrudNameAttribute()
     {
-        return index('saisons')[$this->saison_id]['crud_name'] . ' - ' . index('equipes')[$this->equipe_id]['nom'];
+        return index('saisons')[$this->saison_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id]['nom'];
     }
 
     public function getNomAttribute()

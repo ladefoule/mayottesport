@@ -1,5 +1,6 @@
 <?php
-    $sports = sportsEtCompetitions();
+    $sports = index('sports');
+    $competitions = index('competitions');
 ?>
 <!-- Footer -->
 <footer class="page-footer font-small indigo text-white bg-dark">
@@ -10,11 +11,12 @@
             <div class="col-4 col-md-2 mx-auto px-2">
                 <a href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}"><h5 class="font-weight-bold mt-3 mb-2 text-white">{{ $sport->nom }}</h5></a>
                 <ul class="list-unstyled">
-                    @foreach ($sport->competitions as $i => $competition)
+                    <?php $i = 1 ?>
+                    @foreach ($competitions->where('sport_id', $sport->id) as $competition)
                     <li>
                         <a href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">{{ $competition->nom }}</a>
                     </li>
-                    <?php if($i == 4) break; ?>
+                    <?php if($i++ == 5) break; ?>
                 @endforeach
                 </ul>
             </div>
@@ -40,7 +42,7 @@
         </div>
     </div>
     <!-- Footer Links -->
-    
+
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3 bg-body">© {{ date('Y') }} Copyright:
         <a href="{{ config('app.url') }}"> mayottesport.com</a> - FB - TW

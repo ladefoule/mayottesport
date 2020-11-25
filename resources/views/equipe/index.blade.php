@@ -5,15 +5,15 @@
 @section('content')
 
 <div class="row d-flex flex-wrap mx-0 bg-white rounded p-3">
-    <h1 class="h4 text-center col-12">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
+    <h1 class="h3 text-center col-12 text-body">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
     <div class="row order-2 order-lg-1 col-lg-8 d-flex flex-wrap justify-content-center mt-3 px-0 mx-0">
         <div class="col-12 d-flex flex-wrap justify-content-center mb-auto">
             <div class="col-12 mb-3 d-flex justify-content-center">
                 <select class="form-control col-10 col-sm-6" name="journee" id="competition_id">
                     <option value="">Compétitions</option>
                     @foreach ($competitions as $competition)
-                        <option value="{{ $competition['id'] }}" @if($competition['id'] == $derniereCompetition['id']) selected @endif>
-                            {{ $competition['nom'] }}
+                        <option value="{{ $competition->id }}" @if($competition->id == $derniereCompetition->id) selected @endif>
+                            {{ $competition->nom }}
                         </option>
                     @endforeach
                 </select>

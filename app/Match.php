@@ -106,13 +106,13 @@ class Match extends Model
      */
     public function getCrudNameAttribute()
     {
-        return index('journees')[$this->journee_id]['crud_name'] . ' - ' . index('equipes')[$this->equipe_id_dom]['nom'] . ' # ' . index('equipes')[$this->equipe_id_ext]['nom'];
+        return index('journees')[$this->journee_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id_dom]['nom'] . ' # ' . index('equipes')[$this->equipe_id_ext]['nom'];
     }
 
     /**
      * Les informations du match dont ont besoin les views match/resultat et horaire
      *
-     * @return void
+     * @return \Illuminate\Support\Collection
      */
     public function infos()
     {
@@ -131,49 +131,49 @@ class Match extends Model
     /**
      * Génération des données du match
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public function genererInfos()
     {
         $equipeDom = index('equipes')[$this->equipe_id_dom];
-        $equipeDomNomKebab = strToUrl($equipeDom['nom']);
+        $equipeDomNomKebab = strToUrl($equipeDom->nom);
         $equipeExt = index('equipes')[$this->equipe_id_ext];
-        $equipeExtNomKebab = strToUrl($equipeExt['nom']);
+        $equipeExtNomKebab = strToUrl($equipeExt->nom);
         $journee = index('journees')[$this->journee_id];
-        $saison = index('saisons')[$journee['saison_id']];
-        // $saison = Saison::findOrFail($saison['id']); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
-        $annee = ($saison['annee_debut'] == $saison['annee_fin']) ? $saison['annee_debut'] : $saison['annee_debut']. '/' .$saison['annee_fin'];
-        $competition = index('competitions')[$saison['competition_id']];
-        $competitionNomKebab = strToUrl($competition['nom']);
-        $sport = index('sports')[$competition['sport_id']];
-        $sportNomKebab = strToUrl($sport['nom']);
+        $saison = index('saisons')[$journee->saison_id];
+        // $saison = Saison::findOrFail($saison->id); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
+        $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
+        $competition = index('competitions')[$saison->competition_id];
+        $competitionNomKebab = strToUrl($competition->nom);
+        $sport = index('sports')[$competition->sport_id];
+        $sportNomKebab = strToUrl($sport->nom);
         $commentaires = index('commentaires')->where('match_id', $this->id)->sortByDesc('created_at');//$this->commentaires->sortByDesc('created_at');
         foreach ($commentaires as $commentaire){
             // dd($commentaire);
-            $user = index('users')[$commentaire['user_id']];
-            $commentaire['pseudo'] = $user['pseudo'];
+            $user = index('users')[$commentaire->user_id];
+            $commentaire->pseudo = $user->pseudo;
         }
 
 
-        return [
+        return collect([
             'id' => $this->id,
             'id_eq_dom' => $this->id_eq_dom,
             'id_eq_ext' => $this->id_eq_ext,
-            'nom_eq_dom' => $equipeDom['nom'],
-            'href_eq_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'id' => $equipeDom['uniqid']]),
-            'fanion_eq_dom' => fanion($equipeDom['id']),
-            'nom_eq_ext' => $equipeExt['nom'],
-            'href_eq_ext' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeExtNomKebab, 'id' => $equipeExt['uniqid']]),
-            'fanion_eq_ext' => fanion($equipeExt['id']),
+            'nom_eq_dom' => $equipeDom->nom,
+            'href_eq_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'id' => $equipeDom->uniqid]),
+            'fanion_eq_dom' => fanion($equipeDom->id),
+            'nom_eq_ext' => $equipeExt->nom,
+            'href_eq_ext' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeExtNomKebab, 'id' => $equipeExt->uniqid]),
+            'fanion_eq_ext' => fanion($equipeExt->id),
             'url' => $this->url(),
             'score' => $this->score(),
             'date_format' => $this->dateFormat(),
             'date' => $this->date,
             'heure' => $this->heure,
-            'title' => "Match " . $equipeDom['nom'] . ' vs ' . $equipeExt['nom'] . ' - ' . $sport['nom'] . ' - ' . $competition['nom'] . ' ' . $annee,
+            'title' => "Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $sport->nom . ' - ' . $competition->nom . ' ' . $annee,
             'acces_bloque' => $this->acces_bloque,
-            'journee' => niemeJournee($journee['numero']),
-            'competition' => $competition['nom'],
+            'journee' => niemeJournee($journee->numero),
+            'competition' => $competition->nom,
             'commentaires' => $commentaires,
             'score_eq_dom' => $this->score_eq_dom,
             'score_eq_ext' => $this->score_eq_ext,
@@ -187,7 +187,7 @@ class Match extends Model
                 'equipeDom' => $equipeDomNomKebab,
                 'equipeExt' => $equipeExtNomKebab
             ])
-        ];
+        ]);
     }
 
     /**
@@ -216,16 +216,15 @@ class Match extends Model
     {
         $equipeDom = index('equipes')[$this->equipe_id_dom];
         $equipeExt = index('equipes')[$this->equipe_id_ext];
-        $equipeDomKebabCase = strToUrl($equipeDom['nom']);
-        $equipeExtKebabCase = strToUrl($equipeExt['nom']);
+        $equipeDomKebabCase = strToUrl($equipeDom->nom);
+        $equipeExtKebabCase = strToUrl($equipeExt->nom);
         $journee = index('journees')[$this->journee_id];
-        $saison = index('saisons')[$journee['saison_id']];
-        // $saison = Saison::findOrFail($saison['id']); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
-        $annee = ($saison['annee_debut'] == $saison['annee_fin']) ? $saison['annee_debut'] : $saison['annee_debut']. '-' .$saison['annee_fin'];
-        $competition = index('competitions')[$saison['competition_id']];
-        $sport = index('sports')[$competition['sport_id']];
-        $sport = strToUrl($sport['nom']);
-        $competition = strToUrl($competition['nom']);
+        $saison = index('saisons')[$journee->saison_id];
+        $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '-' .$saison->annee_fin;
+        $competition = index('competitions')[$saison->competition_id];
+        $sport = index('sports')[$competition->sport_id];
+        $sport = strToUrl($sport->nom);
+        $competition = strToUrl($competition->nom);
 
         return "/$sport/$competition/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
     }
