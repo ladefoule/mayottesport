@@ -48,7 +48,7 @@ class CrudTable extends Model
         else
             return Cache::rememberForever($key, function () {
                 $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)
-                        ->whereNotIn('nom', ['crud_tables', 'crud_attributs', 'crud_attribut_infos', 'users', 'roles'])
+                        ->whereNotIn('nom', ['crud_tables', 'crud_attributs', 'crud_attribut_infos', 'users', 'roles', 'migrations', 'password_resets'])
                         ->get() ?? [];
 
                 $navbarCrudTables = [];
@@ -258,8 +258,8 @@ class CrudTable extends Model
                         $collect->$key = $value;
                     }
                     // $collect[$id] = $instance->id;
-                    $collect->nom = $instance->nom ?? '';
                     $collect->crud_name = $instance->crud_name;
+                    $collect->nom = $instance->nom ?? $instance->crud_name;
                     $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
                     $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
 

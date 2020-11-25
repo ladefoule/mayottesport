@@ -12,7 +12,7 @@
        <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto">
                 @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
-                    <a class="nav-item nav-link px-2 @if ($layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Gestion du CRUD</a>
+                    <a class="nav-item nav-link px-2 @if ($layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-gestion.tables') }}">Superadmin</a>
                 @endif
                <a class="nav-item nav-link px-2 @if ($layout == 'crud') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
                <a class="nav-item nav-link px-2 @if ($url == route('journees.multi.select')) active font-weight-bold @endif" href="{{ route('journees.multi.select') }}">Journées (multi)</a>

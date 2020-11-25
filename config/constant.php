@@ -1,7 +1,7 @@
 <?php
 // use Illuminate\Support\Facades\Config;
 return [
-    'activer_cache' => env('MISE_EN_CACHE', false),
+    'activer_cache' => env('MISE_EN_CACHE', true),
 
     'boutons' => [
         'supprimer' => '<i class="icon-trash-empty"></i>',
@@ -10,7 +10,9 @@ return [
         'voir' => '<i class="icon-eye"></i>',
         'editer' => '<i class="icon-edit"></i>',
         'lister' => '<i class="icon-list"></i>',
-        'database' => '<i class="icon-database"></i>'
+        'database' => '<i class="icon-database"></i>',
+        'left' => '<i class="icon-left-open"></i>',
+        'right' => '<i class="icon-right-open"></i>'
     ],
 
     "crud-attribut" => [
@@ -38,5 +40,9 @@ return [
 
     "bareme" => [
         1 => ["victoire_3_0", "Victoire 3-0"]
+    ],
+
+    "superadmin-tables" => [
+        'crud_tables', 'crud_attributs', 'crud_attribut_tables', 'roles', 'users', 'migrations', 'password_resets'
     ]
 ];

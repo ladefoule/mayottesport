@@ -24,4 +24,14 @@ class Role extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    /**
+     * Définition de l'attribut nom pour un objet de la class Role
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        return $this->nom;
+    }
 }

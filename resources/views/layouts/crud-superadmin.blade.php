@@ -1,5 +1,5 @@
 <?php
-    $tablesSuperAdmin = App\CrudTable::whereIn('nom', ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])->get();
+    $tablesSuperAdmin = App\CrudTable::whereIn('nom', config('constant.superadmin-tables'))->orderBy('nom')->get();
 ?>
 <!doctype html>
 <html lang="fr">
@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/fontello/css/fontello.css">
     <link rel="stylesheet" href="/css/datatables.min.css">
     <link rel="stylesheet" href="/css/select2.min.css">
     <link rel="stylesheet" href="/css/style.css?t={{ now() }}">{{-- A ENLEVER EN PRODUCTION --}}

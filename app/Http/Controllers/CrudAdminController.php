@@ -52,9 +52,7 @@ class CrudAdminController extends Controller
                 $crudTable->update(['crudable' => 0]);
         }
 
-        Log::info('Suppressions des caches : "crud-navbar-tables-users-superadmin" et "crud-navbar-tables-users-admin"');
-        Cache::forget("crud-navbar-tables-users-superadmin");
-        Cache::forget("crud-navbar-tables-users-admin");
+        Cache::forget("crud-navbar-tables");
         return redirect()->route('crud-gestion.tables');
     }
 
