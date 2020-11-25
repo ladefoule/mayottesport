@@ -17,7 +17,8 @@ class CreateChampionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('competition_id');
             $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('cascade');
-            $table->string('saison');
+            $table->unsignedBigInteger('saison_id');
+            $table->foreign('saison_id')->references('id')->on('saisons')->onDelete('cascade');
             $table->unsignedBigInteger('equipe_id');
             $table->foreign('equipe_id')->references('id')->on('equipes')->onDelete('cascade');
             $table->timestamps();

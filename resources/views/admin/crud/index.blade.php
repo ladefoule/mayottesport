@@ -32,7 +32,7 @@
                     <tr>
                         <td class="px-2 align-middle"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
                         <td align="left" class="px-2 align-middle">{{ $ligne->crud_name }}</td>
-                        <td class="text-right">
+                        <td class="text-right d-block">
                             <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none">
                                 <button class="btn-sm btn-success">
                                     {!! \Config::get('constant.boutons.voir') !!}

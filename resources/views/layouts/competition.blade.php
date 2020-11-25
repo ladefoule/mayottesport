@@ -29,24 +29,24 @@
     <div class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
         <div class="container">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
-                <div class="d-flex justify-content-start align-items-center px-3">
-                    <a href="{{ $hrefIndex }}" class="flex-shrink-0 text-body font-weight-bold pr-3 float-left nom-competition">
+                <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">
+                    <a href="{{ $hrefIndex }}" class="text-body font-weight-bold mr-3 nom-competition">
                         {{ $competition->nom }}
                     </a>
-                    <span class="pr-3">
+                    <span class="mr-3">
                         <i class="fas fa-angle-right"></i>
                     </span>
                     @if ($hrefClassement)
-                    <a href="{{ $hrefClassement }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.classement') text-info @else text-secondary @endif font-weight-bold pr-3">
+                    <a href="{{ $hrefClassement }}" class="@if(request()->route()->getName() == 'competition.classement') text-info @else text-secondary @endif font-weight-bold pr-3">
                         Le classement
                     </a>
                     @endif
                     @if ($hrefCalendrier)
-                    <a href="{{ $hrefCalendrier }}" class="d-flex flex-shrink-0 @if(request()->route()->getName() == 'competition.calendrier-resultats') text-danger @else text-secondary @endif font-weight-bold pr-3">
-                        Les résultats
+                    <a href="{{ $hrefCalendrier }}" class="d-flex @if(request()->route()->getName() == 'competition.calendrier-resultats') text-danger @else text-secondary @endif font-weight-bold pr-3">
+                        Calendrier et résultats
                     </a>
                     @endif
-                    <a href="{{ $hrefPalmares }}" class="flex-shrink-0 @if(request()->route()->getName() == 'competition.champions') text-success @else text-secondary @endif font-weight-bold">
+                    <a href="{{ $hrefPalmares }}" class="@if(request()->route()->getName() == 'competition.champions') text-success @else text-secondary @endif font-weight-bold">
                         Le palmarès
                     </a>
                 </div>

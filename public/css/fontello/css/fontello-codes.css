@@ -1,0 +1,13 @@
+
+.icon-plus:before { content: '\2b'; } /* '+' */
+.icon-edit:before { content: '\270d'; } /* '✍' */
+.icon-plus-circled:before { content: '\2795'; } /* '➕' */
+.icon-eye:before { content: '\e70a'; } /* '' */
+.icon-trash-empty:before { content: '\e729'; } /* '' */
+.icon-left-open:before { content: '\e75d'; } /* '' */
+.icon-right-open:before { content: '\e75e'; } /* '' */
+.icon-list:before { content: '\e782'; } /* '' */
+.icon-list-bullet:before { content: '\f0ca'; } /* '' */
+.icon-pencil-squared:before { content: '\f14b'; } /* '' */
+.icon-database:before { content: '\f1c0'; } /* '' */
+.icon-soccer-ball:before { content: '\f1e3'; } /* '' */

@@ -26,7 +26,7 @@
 
         @if (! $match['acces_bloque'])
             <div class="col-12 d-flex align-items-center justify-content-center p-3">
-                <a href="{{ $match['href_resultat'] }}"><button class="btn btn-success">Modifier le résultat</button></a>
+                <a href="{{ $match['href_resultat'] }}"><button class="btn btn-success">{{ $match['score_eq_dom'] ? 'Modifier' : 'Saisir' }} le résultat</button></a>
             </div>
             <div class="col-12 text-center">
                 <a href="{{ $match['href_horaire'] }}"><button class="btn btn-primary">Modifier l'horaire</button></a>
@@ -46,7 +46,7 @@
     {{-- Modèle de bloc de commentaire --}}
     <article class="comment d-none" id="model-bloc-comm">
         <span class="comment-img">
-            <img src="http://cdn.onlinewebfonts.com/svg/img_266351.png" alt="" width="50" height="50">
+            <img src="{{-- http://cdn.onlinewebfonts.com/svg/img_266351.png --}}" alt="" width="50" height="50">
         </span>
         <div class="comment-body">
             <div class="text"></div>
@@ -74,7 +74,7 @@
                         @csrf
                         <article class="comment">
                             <a class="comment-img" href="#non">
-                                <img src="https://pbs.twimg.com/profile_images/444197466133385216/UA08zh-B.jpeg" alt=""
+                                <img src="{{-- https://pbs.twimg.com/profile_images/444197466133385216/UA08zh-B.jpeg --}}" alt=""
                                     width="50" height="50">
                             </a>
                             <div class="comment-body">
@@ -90,7 +90,7 @@
                     @foreach ($match['commentaires'] as $commentaire)
                     <article class="comment">
                         <span class="comment-img">
-                            <img src="http://cdn.onlinewebfonts.com/svg/img_266351.png" alt="" width="50" height="50">
+                            <img src="{{-- http://cdn.onlinewebfonts.com/svg/img_266351.png --}}" alt="" width="50" height="50">
                         </span>
                         <div class="comment-body">
                             <div class="text">

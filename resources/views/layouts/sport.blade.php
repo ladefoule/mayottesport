@@ -25,10 +25,10 @@
     <section class="container-lg-fluid bg-white border-bottom">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
-                <div class="d-flex justify-content-start px-3 flex-shrink-0">
+                <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">
                     @foreach ($competitions as $competition)
-                        <a href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">
-                            <button class="btn btn-sm mx-2 px-3 btn-outline-dark">
+                        <a class="mr-3" href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">
+                            <button class="btn btn-sm px-3 btn-outline-dark">
                                 {{ $competition->nom }}
                             </button>
                         </a>

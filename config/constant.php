@@ -4,13 +4,13 @@ return [
     'activer_cache' => env('MISE_EN_CACHE', false),
 
     'boutons' => [
-        'supprimer' => '<i class="fas fa-trash-alt"></i>',
-        'ajouter' => '<i class="fas fa-plus"></i>',
-        'ajouter_cercle' => '<i class="fas fa-plus-circle"></i>',
-        'voir' => '<i class="fas fa-eye"></i>',
-        'editer' => '<i class="fas fa-edit"></i>',
-        'lister' => '<i class="fas fa-list-ul"></i>',
-        'database' => '<i class="fas fa-database"></i>'
+        'supprimer' => '<i class="icon-trash-empty"></i>',
+        'ajouter' => '<i class="icon-plus"></i>',
+        'ajouter_cercle' => '<i class="icon-plus-circled"></i>',
+        'voir' => '<i class="icon-eye"></i>',
+        'editer' => '<i class="icon-edit"></i>',
+        'lister' => '<i class="icon-list"></i>',
+        'database' => '<i class="icon-database"></i>'
     ],
 
     "crud-attribut" => [
