@@ -30,7 +30,7 @@
     {{-- Fin Section scroll X --}}
 
     {{-- Main --}}
-    <section class="container-lg p-3">
+    <section class="container-lg">
         @yield('content')
     </section>
     {{-- Fin Main --}}

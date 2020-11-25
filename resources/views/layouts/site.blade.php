@@ -19,7 +19,7 @@
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <section class="container-lg p-3">
+    <section class="container-lg">
         @yield('content')
     </section>
     {{-- Fin Section scroll X --}}

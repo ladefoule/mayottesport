@@ -3,7 +3,7 @@
 @section('title', request()->competition->nom . ' - Calendrier et résultats - '.niemeJournee($journee->numero).' - ' . request()->sport->nom)
 
 @section('content')
-<div class="row d-flex flex-wrap m-0 bg-white rounded p-3">
+<div class="row d-flex flex-wrap bg-white rounded p-2">
     <h1 class="h4 text-center col-12">{{ request()->competition->nom . ' - Calendrier et résultats'}}</h1>
     <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
     <a id="previous" data-id="{{ $journee->numero - 1 }}" href="" class="float-right pr-3 @if ($journee->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.left') !!}</a>

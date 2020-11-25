@@ -38,7 +38,7 @@
     </div>
     {{-- Fin Section scroll X --}}
 
-    <section class="crud container-lg p-3">
+    <section class="crud container-lg">
         @yield('content')
     </section>
 
