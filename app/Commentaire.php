@@ -32,4 +32,14 @@ class Commentaire extends Model
     {
         return $this->belongsTo('App\Match');
     }
+
+    /**
+     * Définition de l'affichage dans le CRUD (back-office)
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        return 'Match : ' . index('matches')[$this->match_id]->uniqid . ' - Pseudo : ' . index('users')[$this->user_id]->pseudo;
+    }
 }

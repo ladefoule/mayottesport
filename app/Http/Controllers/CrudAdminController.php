@@ -47,7 +47,8 @@ class CrudAdminController extends Controller
         foreach ($crudTables as $crudTable) {
             $request[$crudTable->id] = $request->has($crudTable->id);
             if($request[$crudTable->id])
-                $crudTable->update(['crudable' => 1]);
+                if(! in_array($crudTable->nom, config('constant.tables-non-crudables'))) // Ces tables ne sont pas administrables
+                    $crudTable->update(['crudable' => 1]);
             else
                 $crudTable->update(['crudable' => 0]);
         }

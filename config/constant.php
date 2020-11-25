@@ -43,6 +43,10 @@ return [
     ],
 
     "superadmin-tables" => [
-        'crud_tables', 'crud_attributs', 'crud_attribut_tables', 'roles', 'users', 'migrations', 'password_resets'
-    ]
+        'crud_tables', 'crud_attributs', 'crud_attribut_tables', 'roles', 'users'
+    ],
+
+    "tables-non-crudables" => [
+        'migrations', 'password_resets', 'failed_jobs'
+    ],
 ];

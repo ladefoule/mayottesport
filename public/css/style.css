@@ -186,7 +186,7 @@ a:hover{
     text-decoration: none;
 }
 
-#navbar-scroll-x .btn{
+#navbar-scroll-x .btn-sm{
     border-radius: 20px;
     font-family:"Nunito", sans-serif;
 }

@@ -16,7 +16,7 @@
           <div class="form-row mb-3">
               @foreach ($crudTables as $crudTable)
                 <div class="col-6 col-md-4 form-check px-5 py-2">
-                    <input type="checkbox" @if ($crudTable->crudable) checked @endif name="{{ $crudTable->id }}" class="form-check-input">
+                    <input type="checkbox" @if ($crudTable->crudable) checked @endif name="{{ $crudTable->id }}" class="form-check-input" @if(in_array($crudTable->nom, config('constant.tables-non-crudables'))) disabled @endif>
                     <label class="form-check-label">{{ $crudTable->nom }}</label>
                 </div>
               @endforeach

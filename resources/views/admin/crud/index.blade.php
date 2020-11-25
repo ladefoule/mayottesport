@@ -32,25 +32,28 @@
                     <tr>
                         <td class="px-2 align-middle"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
                         <td align="left" class="px-2 align-middle">{{ $ligne->crud_name }}</td>
-                        <td class="text-right d-block">
-                            <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none">
-                                <button class="btn-sm btn-success">
-                                    {!! \Config::get('constant.boutons.voir') !!}
-                                    <span class="d-none d-lg-inline">Voir</span>
-                                </button>
-                            </a>
-                            <a href="{{ $ligne->href_update }}" title="Editer" class="text-decoration-none">
-                                <button class="btn-sm btn-info text-white">
-                                    {!! \Config::get('constant.boutons.editer') !!}
-                                    <span class="d-none d-lg-inline">Éditer</span>
-                                </button>
-                            </a>
-                            <a href="" title="Supprimer" class="text-decoration-none">
-                                <button class="btn-sm btn-danger">
-                                    {!! \Config::get('constant.boutons.supprimer') !!}
-                                    <span class="d-none d-lg-inline">Supprimer</span>
-                                </button>
-                            </a>
+                        <td align="right" class="px-2 text-right">
+                            <div class="d-inline-flex flex-shrink-0">
+                                <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none flex-shrink-0">
+                                    <button class="btn-sm btn-success mr-1">
+                                        {!! \Config::get('constant.boutons.voir') !!}
+                                        <span class="d-none d-lg-inline">Voir</span>
+                                    </button>
+                                </a>
+                                <a href="{{ $ligne->href_update }}" title="Editer" class="text-decoration-none flex-shrink-0">
+                                    <button class="btn-sm btn-info text-white mr-1">
+                                        {!! \Config::get('constant.boutons.editer') !!}
+                                        <span class="d-none d-lg-inline">Éditer</span>
+                                    </button>
+                                </a>
+                                <a href="" title="Supprimer" class="text-decoration-none flex-shrink-0">
+                                    <button class="btn-sm btn-danger">
+                                        {!! \Config::get('constant.boutons.supprimer') !!}
+                                        <span class="d-none d-lg-inline">Supprimer</span>
+                                    </button>
+                                </a>
+                            </div>
+
                         </td>
                     </tr>
                 @endforeach

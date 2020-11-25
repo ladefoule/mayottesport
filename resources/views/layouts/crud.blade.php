@@ -27,7 +27,7 @@
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
                     @foreach ($navbarCrudTables as $table)
                     <a href="{{ $table['route'] }}">
-                        <button class="btn btn-sm mx-2 px-3 btn-outline-dark @if ($table['nom'] == request()->crudTable->nom) btn-dark text-white @endif">
+                        <button class="btn-sm mx-2 px-3 btn-outline-dark @if ($table['nom'] == request()->crudTable->nom) btn-dark text-white @endif">
                             {{ $table['nom_pascal_case'] }}
                         </button>
                     </a>
@@ -38,7 +38,7 @@
     </div>
     {{-- Fin Section scroll X --}}
 
-    <section class="container-lg p-3">
+    <section class="crud container-lg p-3">
         @yield('content')
     </section>
 
