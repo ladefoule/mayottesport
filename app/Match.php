@@ -106,7 +106,7 @@ class Match extends Model
      */
     public function getCrudNameAttribute()
     {
-        return index('journees')[$this->journee_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id_dom]['nom'] . ' # ' . index('equipes')[$this->equipe_id_ext]['nom'];
+        return index('journees')[$this->journee_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
     }
 
     /**
