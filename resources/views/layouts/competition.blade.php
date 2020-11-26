@@ -7,6 +7,38 @@
     $hrefCalendrier = request()->hrefCalendrier;
     $hrefPalmares = request()->hrefPalmares;
     $competition = request()->competition;
+    $routeName = request()->route()->getName();
+
+    $classement = [
+        'href' => $hrefClassement,
+        'class' => 'font-weight-bold pr-3 ' . ($routeName == 'competition.classement' ? 'text-info' : 'text-secondary'),
+        'nom' => 'Le classement'
+    ];
+    $calendrier = [
+        'href' => $hrefCalendrier,
+        'class' => 'font-weight-bold pr-3 ' . ($routeName == 'competition.calendrier-resultats' ? 'text-danger' : 'text-secondary'),
+        'nom' => 'Calendrier et résultats'
+    ];
+    $palmares = [
+        'href' => $hrefPalmares,
+        'class' => 'font-weight-bold pr-3 ' . ($routeName == 'competition.champions' ? 'text-success' : 'text-secondary'),
+        'nom' => 'Le palmarès'
+    ];
+
+    $collect = collect();
+    if ($hrefClassement)
+        $collect['competition.classement'] = $classement;
+    if ($hrefCalendrier)
+        $collect['competition.calendrier-resultats'] = $calendrier;
+    if ($hrefPalmares)
+        $collect['competition.champions'] = $palmares;
+
+    // On place le lien sur lequel on se trouve au début de la collection
+    if($routeName != 'competition.index'){
+        $page = $collect[$routeName];
+        $collect->pull($routeName);
+        $collect = $collect->prepend($page, $routeName);
+    }
 ?>
 
 <head>
@@ -37,7 +69,12 @@
                     <span class="mr-3">
                         {!! \Config::get('constant.boutons.right') !!}
                     </span>
-                    @if ($hrefClassement)
+                    @foreach ($collect as $lien)
+                    <a href="{{ $lien['href'] }}" class="{{ $lien['class'] }}">
+                        {{ $lien['nom'] }}
+                    </a>
+                    @endforeach
+                    {{-- @if ($hrefClassement)
                     <a href="{{ $hrefClassement }}" class="@if(request()->route()->getName() == 'competition.classement') text-info @else text-secondary @endif font-weight-bold pr-3">
                         Le classement
                     </a>
@@ -49,7 +86,7 @@
                     @endif
                     <a href="{{ $hrefPalmares }}" class="@if(request()->route()->getName() == 'competition.champions') text-success @else text-secondary @endif font-weight-bold">
                         Le palmarès
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>

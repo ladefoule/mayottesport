@@ -236,10 +236,6 @@ a:hover{
     /* line-height: 30px; */
 }
 
-/* .classement td, .classement th{
-    padding:10px 5px
-} */
-
 .note{
     width:50%
 }
@@ -294,6 +290,10 @@ a:hover{
 
         .fanion-page-equipe{
             width:35px;
+        }
+
+        .dernier-et-prochain-match{
+            padding-left: 5px !important;
         }
 
         .equipe-align-auto, .logo-align-auto{

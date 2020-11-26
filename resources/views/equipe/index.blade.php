@@ -4,9 +4,9 @@
 
 @section('content')
 
-<div class="row d-flex flex-wrap mx-0 bg-white rounded p-3">
-    <h1 class="h3 text-center col-12 text-body">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
-    <div class="row order-2 order-lg-1 col-lg-8 d-flex flex-wrap justify-content-center mt-3 px-0 mx-0">
+<div class="row d-flex flex-wrap bg-white rounded p-2">
+    <h1 class="h3 text-center pt-3 col-12 text-body">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
+    <div class="row order-2 order-lg-1 col-lg-8 d-flex flex-wrap justify-content-center my-3 px-0 mx-0">
         <div class="col-12 d-flex flex-wrap justify-content-center mb-auto">
             <div class="col-12 mb-3 d-flex justify-content-center">
                 <select class="form-control col-10 col-sm-6" name="journee" id="competition_id">
@@ -92,17 +92,22 @@
             @endforeach
         </div>
     </div>
-    <div class="order-1 order-lg-2 col-lg-4 mt-3 pr-0 text-center mb-3">
+    <div class="dernier-et-prochain-match d-flex {{-- align-items-start --}} flex-wrap order-1 order-lg-2 col-lg-4 mt-3 px-0 text-center mb-auto">
         @if ($dernierMatch)
+        <div class="col-md-6 col-12 col-lg-12 p-2 mb-auto">
             <h3 class="alert h5 alert-danger text-center text-body">Dernier match</h3>
             {!! $dernierMatch !!}
+        </div>
+
         @endif
         @if ($prochainMatch)
-            <h3 class="alert mt-3 h5 alert-success text-center text-body">Prochain match</h3>
+        <div class="col-md-6 col-12 col-lg-12 p-2 mb-auto">
+            <h3 class="alert {{-- mt-3 --}} h5 alert-success text-center text-body">Prochain match</h3>
             {!! $prochainMatch !!}
+        </div>
         @endif
     </div>
-    <div class="order-3 col-lg-4 pt-3 pr-0 text-center">
+    <div class="order-3 col-lg-4 pt-3 px-0 text-center">
         <div class="border h-100">
             PUB
         </div>

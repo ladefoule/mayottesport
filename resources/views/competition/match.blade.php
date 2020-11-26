@@ -3,7 +3,7 @@
 @section('title', $match['title'])
 
 @section('content')
-    <div class="row text-white bloc-match bloc-match-football mx-0 rounded py-4">
+    <div class="row text-white bloc-match bloc-match-football py-4">
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1">
             <div class="col-lg-4 d-lg-inline py-2 px-0">
                 <a href="{{ $match['href_eq_dom'] }}"><img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" class="fanion-match"></a>
@@ -55,11 +55,11 @@
     </article>
     {{-- Fin Modèle de bloc de commentaire --}}
 
-    <div class="row m-0 mt-3">
-        <div class="w-100 card">
-            <div class="card-header">
+    <div class="row bg-white">
+        <div class="w-100 {{-- card --}}">
+            {{-- <div class="card-header">
                 Les commentaires
-            </div>
+            </div> --}}
             @guest
                 <div class="pl-3 py-3">
                     <a href="{{ route('login') }}">Connectez-vous</a> ou <a href="{{ route('register') }}">Inscrivez-vous</a> pour commenter

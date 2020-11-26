@@ -57,7 +57,7 @@ class CrudTable extends Model
                     $tableKebabCase = str_replace('_', '-', $crudTable->nom);
                     $route = route('crud.index', ['table' => $tableKebabCase]);
 
-                    $navbarCrudTables[] = [
+                    $navbarCrudTables[$crudTable->nom] = [
                         'nom' => $crudTable->nom,
                         'id' => $crudTable->id,
                         'route' => $route,

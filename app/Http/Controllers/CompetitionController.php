@@ -73,16 +73,15 @@ class CompetitionController extends Controller
     public function classement(Request $request)
     {
         Log::info(" -------- CompetitionController : classement -------- ");
-        // $competition = $request->competition;
         $saison = $request->saison;
         $sport = strToUrl($request->sport->nom);
-        $title = $h1 = 'Football - Classement ' . Str::lower($saison->nom);
+        $competition = Str::lower(index('competitions')[$saison->competition_id]->nom);
+        $title = 'Football - Classement ' . $competition . ' ' . Str::lower($saison->annee('/'));
+        $h1 = 'Classement ' . $competition . ' ' . Str::lower($saison->annee('/'));
 
         $classement = $saison->classement();
         return view($sport.'.classement', [
             'classement' => $classement,
-            // 'saison' => $saison,
-            // 'sport' => $sport,
             'title' => $title,
             'h1' => $h1
         ]);
