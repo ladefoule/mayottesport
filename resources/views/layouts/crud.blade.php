@@ -27,13 +27,13 @@
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <div class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
+    <div class="container-lg-fluid border-bottom bg-white" {{-- style="background-color: rgba(255, 255, 255, 0.7) !important" --}}>
         <div class="container-lg">
-            <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
+            <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
                     @foreach ($navbarCrudTables as $table)
                     <a href="{{ $table['route'] }}">
-                        <button class="btn-sm mx-2 px-3 btn-outline-dark @if ($table['nom'] == $crudTable->nom) btn-dark text-white @endif">
+                        <button class="btn-sm mx-2 border px-3 btn-outline-dark @if ($table['nom'] == $crudTable->nom) btn-dark text-white @endif">
                             {{ $table['nom_pascal_case'] }}
                         </button>
                     </a>

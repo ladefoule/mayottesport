@@ -5,9 +5,9 @@
 @section('content')
 <div class="row card mx-1">
     <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> {{ $h1 }}</span>
+        <span class="d-inline mr-3 crud-titre"><i class="fas fa-database"></i> {{ $h1 }}</span>
         <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">
-            <i class="fas fa-long-arrow-alt-left"></i> retour
+            {!! config('constant.boutons.retour') !!} retour
         </a>
     </div>
 

@@ -12,7 +12,8 @@ return [
         'lister' => '<i class="icon-list"></i>',
         'database' => '<i class="icon-database"></i>',
         'left' => '<i class="icon-left-open"></i>',
-        'right' => '<i class="icon-right-open"></i>'
+        'right' => '<i class="icon-right-open"></i>',
+        'retour' => '<i class="icon-left"></i>',
     ],
 
     "crud-attribut" => [
@@ -43,7 +44,7 @@ return [
     ],
 
     "superadmin-tables" => [
-        'crud_tables', 'crud_attributs', 'crud_attribut_tables', 'roles', 'users'
+        'crud_tables', 'crud_attributs', 'crud_attribut_infos', 'roles', 'users'
     ],
 
     "tables-non-crudables" => [

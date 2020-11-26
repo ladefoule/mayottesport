@@ -22,7 +22,7 @@
     {{-- Section scroll X --}}
     <section class="container-lg-fluid border-bottom" style="background-color: rgba(255, 255, 255, 0.7) !important">
         <div class="container-lg">
-            <div class="row overflow-x-auto py-3 mx-0" id="navbar-scroll-x">
+            <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
                     @foreach ($tablesSuperAdmin as $table)
                     <a href="{{ route('crud.index', ['table' => str_replace('_', '-', $table->nom)]) }}">

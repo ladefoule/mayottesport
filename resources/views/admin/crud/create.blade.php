@@ -3,17 +3,14 @@
 @section('title', $title)
 
 @section('content')
-<div class="row card mx-1">
-    <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3" style="font-size: 1.6em">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
-        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">
-            <i class="fas fa-long-arrow-alt-left"></i> retour
-        </a>
+<div class="row card">
+    <div class="card-header d-flex align-items-center px-2">
+        <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
     </div>
 
     <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
-    <div class="card-body">
+    <div class="card-body px-3">
         <form action="" method="POST" class="needs-validation" id="formulaire">
             @csrf
             @foreach($donnees as $attribut => $infos)
@@ -109,7 +106,6 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     $('#formulaire select').select2();
-    retour()
     verifierMonFormulaireEnJS('formulaire')
 })
 </script>

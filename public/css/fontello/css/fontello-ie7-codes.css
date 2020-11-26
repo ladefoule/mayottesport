@@ -9,5 +9,6 @@
 .icon-list { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe782;&nbsp;'); }
 .icon-list-bullet { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0ca;&nbsp;'); }
 .icon-pencil-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf14b;&nbsp;'); }
+.icon-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf177;&nbsp;'); }
 .icon-database { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c0;&nbsp;'); }
 .icon-soccer-ball { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1e3;&nbsp;'); }

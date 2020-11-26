@@ -3,9 +3,9 @@
 @section('title', $title)
 
 @section('content')
-<div class="row card mx-1">
-    <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> {{ $h1 }}</span>
+<div class="row card">
+    <div class="card-header d-flex align-items-center px-2">
+        <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
         <a href="{{ $hrefs['index'] }}" title="Liste" class="text-decoration-none">
             <button class="btn-sm btn-warning text-body">
                 {!! \Config::get('constant.boutons.lister') !!}
@@ -24,9 +24,8 @@
                 <span class="d-none d-lg-inline ml-1">Supprimer</span>
             </button>
         </a>
-        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0"><i class="fas fa-long-arrow-alt-left"></i> retour</a>
     </div>
-    <div class="card-body">
+    <div class="card-body p-2">
         @foreach ($donnees as $infos)
             <ul class="list-group mb-3">
                 <li class="list-group-item disabled" aria-disabled="true">{{ $infos['label'] }}</li>
@@ -35,12 +34,4 @@
         @endforeach
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    retour()
-})
-</script>
 @endsection

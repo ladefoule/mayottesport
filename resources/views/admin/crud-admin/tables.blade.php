@@ -3,13 +3,13 @@
 @section('title', 'Gestion des tables "crudables"')
 
 @section('content')
-<div class="row card mx-1">
+<div class="row card">
     <div class="card-header d-flex align-items-center">
-       <span class="d-inline mr-3" style="font-size: 1.6em"><i class="fas fa-database"></i> CrudTables - Tables "crudables"</span>
-       <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0"><i class="fas fa-long-arrow-alt-left"></i> retour</a>
+       <span class="d-inline mr-3 crud-titre"><i class="fas fa-database"></i> CrudTables - Tables "crudables"</span>
+       <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">{!! config('constant.boutons.retour') !!} retour</a>
     </div>
 
-    <div class="card-body">
+    <div class="card-body px-3">
         <input type="checkbox" data-action="cocher" id="tout" title="Tout cocher/décocher">{{-- Tout cocher/décocher --}}
        <form action="" method="POST" class="needs-validation" id="formulaire">
           @csrf

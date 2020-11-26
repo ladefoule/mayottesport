@@ -82,7 +82,7 @@ class CrudController extends Controller
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
 
         $tablePascalCase = Str::ucfirst(Str::camel($table));
-        $h1 = $tablePascalCase . '/' . $id;
+        $h1 = $tablePascalCase;
         $title = 'CRUD - Voir : ' . $h1;
 
         $donnees = $crudTable->crud('show', $id);
@@ -166,7 +166,7 @@ class CrudController extends Controller
         Log::info(" -------- CrudController : update -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $tablePascalCase = Str::ucfirst(Str::camel($table));
-        $h1 = $tablePascalCase . '/'.$id . ' : Editer';
+        $h1 = $tablePascalCase;
         $title = 'CRUD - Editer : ' . $tablePascalCase . '/'.$id;
 
         $donnees = $crudTable->crud('update', $id);
@@ -251,10 +251,10 @@ class CrudController extends Controller
         $request = $validator->validate();
         foreach ($request['ids'] as $id) {
             $instance = $modele::findOrFail($id);
+            $this::forgetCaches($table, $instance);
             $instance->delete();
             Log::info("Suppression de l'id $id dans la table $nomTable");
         }
-        Cache::forget("index-$table"); // Effacement du cache associé
     }
 
     /**

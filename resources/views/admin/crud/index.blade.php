@@ -3,10 +3,10 @@
 @section('title', $title)
 
 @section('content')
-<div class="row card mx-1">
+<div class="row card">
     <div class="d-none">@csrf</div>
-    <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3" style="font-size: 1.6em">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
+    <div class="card-header d-flex align-items-center px-2">
+        <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
         <a href="{{ $hrefs['create'] }}" class="text-decoration-none mr-1">
             <button class="btn-sm btn-primary">
                 {!! \Config::get('constant.boutons.ajouter_cercle') !!}
@@ -18,7 +18,7 @@
             <span class="d-none d-md-inline">Supprimer la sélection</span>
         </button>
     </div>
-    <div class="col-12 card-body mt-2">
+    <div class="col-12 card-body mt-2 px-2">
         <table id="tab" class="table table-hover table-sm text-center w-100">
             <thead>
                 <tr>
