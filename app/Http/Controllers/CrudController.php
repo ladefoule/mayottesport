@@ -270,6 +270,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
         if($instance && in_array($table, ['matches', 'journees', 'saisons'])){
+            $match = $journee = '';
             if($table == 'matches'){
                 $match = $instance;
                 $journee = index('journees')[$match->journee_id];
@@ -282,7 +283,7 @@ class CrudController extends Controller
 
             $cacheClassement = "classement-".$saison->id;
             $cacheJournee = $journee ? "journee-".$journee->id : '';
-            $cacheMatch = $match ? "match-".$match->uniqid : '';
+            $cacheMatch = $match ? "match-" . $match->uniqid : '';
             Cache::forget($cacheClassement);
             Cache::forget($cacheJournee);
             Cache::forget($cacheMatch);

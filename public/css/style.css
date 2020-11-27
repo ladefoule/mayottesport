@@ -244,6 +244,12 @@ a:hover{
     width:50%
 }
 
+.border-bottom-calendrier{
+    /* border-bottom: 3px double black !important; */
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+}
+
 .nom-competition{
     font-size: 1.2rem;
     line-height: 1rem;

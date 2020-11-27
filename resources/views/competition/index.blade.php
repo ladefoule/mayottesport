@@ -19,8 +19,8 @@
         @if (isset($classement))
         <div class="col-12 p-0 mb-3 pb-3">
             {{-- <h1 class="h3 py-3 text-center">Le classement</h1> --}}
-            <h3 class="alert h5 alert-info text-center">Le classement</h3>
-            <table class="w-100 table table-striped text-center table-classement" id="classement">
+            <h3 class="alert h5 alert-primary text-center">Le classement</h3>
+            <table class="w-100 table text-center table-classement" id="classement">
                 <thead>
                     <th class="px-2">#</th>
                     <th>{{Str::ucfirst('équipe')}}</th>
@@ -33,7 +33,7 @@
                     <th class="px-2">+/-</th>
                     <th class="px-2">pts</th>
                 </thead>
-                <tbody>
+                <tbody class="border-bottom">
                     @php
                     $i = 1;
                     @endphp
@@ -61,7 +61,7 @@
                             <td class="px-2">{{ $equipe['diff'] }}</td>
                             <td class="font-weight-bold h5">{{ $equipe['points'] }}</td>
                         </tr>
-                        <?php if($i == 6) break; ?>
+                        <?php if($i == 5) break; ?>
                     @endforeach
                 </tbody>
             </table>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Saison;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -23,29 +24,28 @@ class SportController extends Controller
         Log::info(" -------- SportController : index -------- ");
         $sport = $request->sport;
         $competitions = $sport->competitions;
-        $liste = [];
+        $journees = [];
         foreach ($competitions as $competition) {
-            $saison = $competition->saisons->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
+            $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
             if($saison){
-                $journee = $saison->derniereJournee();
-                if(! $journee) $journee = $saison->prochaineJournee();
+                $journee = $saison->derniereJournee() ?? $saison->prochaineJournee();
                 if($journee){
                     $classement = '';
-                    if($competition->type == 1)
+                    if($competition->type == 1) // Championnat
                         $classement = $saison->classementSimpleRender();
 
-                    $liste[] = [
-                        'nom' => $competition->nom,
-                        'journee' => $journee->journeeRender(),
-                        'classement' => $classement
-                    ];
+                    $journees[] = collect([
+                        'competition_nom' => $competition->nom,
+                        'journee_render' => $journee->journeeRender(),
+                        'saison_classement' => $classement
+                    ]);
                 }
             }
         }
 
         return view('sport.index', [
-            'sport' => $sport->nom,
-            'liste' => $liste
+            'sport' => $sport,
+            'journees' => $journees
         ]);
     }
 }

@@ -20,7 +20,7 @@ class HomeController extends Controller
         $sports = index('sports')->where('home_position', '>=', 1)->sortBy('home_position');
         foreach ($sports as $sport) {
             $competitions = index('competitions')->where('sport_id', $sport->id)->where('home_position', '>=', 1)->sortBy('home_position');
-            $liste = [];
+            $listeDesJournees = [];
             foreach ($competitions as $competition) {
                 $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
                 if($saison){
@@ -30,16 +30,17 @@ class HomeController extends Controller
                         if($competition->type == 1) // Championnat
                             $classement = $saison->classementSimpleRender();
 
-                        $liste[] = [
-                            'nom' => $competition->nom,
-                            'journee' => $journee->journeeRender(),
-                            'classement' => $classement
-                        ];
+                        $listeDesJournees[] = collect([
+                            'competition_nom' => $competition->nom,
+                            'journee_render' => $journee->journeeRender(),
+                            'saison_classement' => $classement
+                        ]);
                     }
                 }
             }
-            $sport->liste = $liste;
+            $sport->journees = $listeDesJournees;
         }
+        // dd($sports);
 
         return view('home', [
             'sports' => $sports

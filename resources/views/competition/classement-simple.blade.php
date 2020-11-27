@@ -1,11 +1,11 @@
-<h4 class="h5 py-2 text-center">Classement</h4>
-<table class="table table-striped">
+<h4 class="h5 py-2 text-center">Le classement</h4>
+<table class="table">
     <thead>
         <th>Pos.</th>
         <th>{{ Str::ucfirst('équipe') }}</th>
         <th>Pts</th>
     </thead>
-    <tbody>
+    <tbody class="border-bottom">
         <?php $i = 1; ?>
         @foreach ($classement as $equipe)
             <tr>
