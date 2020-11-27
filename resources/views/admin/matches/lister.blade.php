@@ -11,7 +11,7 @@ use App\ChampJournee;
 @section('content')
 <div class="row card mx-1">
     <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3 crud-titre"><i class="fas fa-database"></i> {{ $h1 }}</span><br>
+        <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} {{ $h1 }}</span><br>
         <a href="{{ route('crud.create', ['table' => 'matches']) }}" class="text-decoration-none mr-1">
             <button class="btn-sm btn-success">
                 <i class="fas fa-plus-circle"></i>

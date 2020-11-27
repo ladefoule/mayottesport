@@ -34,7 +34,7 @@
         $collect['competition.champions'] = $palmares;
 
     // On place le lien sur lequel on se trouve au début de la collection
-    if($routeName != 'competition.index'){
+    if(in_array($routeName, ['competition.calendrier-resultats', 'competition.classement', 'competition.champions'])){
         $page = $collect[$routeName];
         $collect->pull($routeName);
         $collect = $collect->prepend($page, $routeName);

@@ -19,7 +19,7 @@ class CrudAdminController extends Controller
     public function tables()
     {
         $crudTables = CrudTable::orderBy('nom')->get();
-        return view('admin.crud-admin.tables', ['crudTables' => $crudTables]);
+        return view('admin.crud-superadmin.tables', ['crudTables' => $crudTables]);
     }
 
     /**
@@ -54,24 +54,26 @@ class CrudAdminController extends Controller
         }
 
         Cache::forget("crud-navbar-tables");
-        return redirect()->route('crud-gestion.tables');
+        return redirect()->route('crud-superadmin.tables');
     }
 
     // Todo :
     public function attributs()
     {
-        // $tables = CrudTable::orderBy('nom')->get();
-        // $crudTables = CrudTable::whereCrudable(1)->orderBy('nom')->get();
-        // return view('admin.crud-admin.attributs', [
-        //     'tables' => $tables,
-        //     'crudTables' => $crudTables
-        // ]);
+        $tables = CrudTable::orderBy('nom')->get();
+        $crudTables = CrudTable::whereCrudable(1)->orderBy('nom')->get();
+        $selects = config('constant');
+        return view('admin.crud-superadmin.attributs', [
+            'tables' => $tables,
+            'crudTables' => $crudTables,
+            'selects' => $selects
+        ]);
     }
 
     public function attributsAjax(Request $request)
     {
         // Todo : Version 2 => proposer la liste des attributs qui sont dans la table pour la gestion du Crud
-        return view('admin.crud-admin.ajax-attributs');
+        return view('admin.crud-superadmin.ajax-attributs');
     }
 
     public function parametres()

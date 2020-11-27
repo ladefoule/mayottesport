@@ -67,11 +67,12 @@ class Equipe extends Model
      */
     public static function rules(Equipe $equipe = null)
     {
-        request()->feminine = request()->has('feminine');
-        request()->non_mahoraise = request()->has('non_mahoraise');
+        $request = request();
+        $request['feminine'] = $request->has('feminine');
+        $request['non_mahoraise'] = $request->has('non_mahoraise');
 
-        $nom = request()->nom ?? '';
-        $sportId = request()->sport_id ?? '';
+        $nom = $request['nom'] ?? '';
+        $sportId = $request['sport_id'] ?? '';
         $unique = Rule::unique('equipes')->where(function ($query) use ($nom, $sportId) {
             return $query->whereNom($nom)->whereSportId($sportId);
         })->ignore($equipe);

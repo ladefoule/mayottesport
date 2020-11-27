@@ -64,14 +64,14 @@ Route::group(['middleware'=>'auth'], function () {
             }); /* FIN PREFIX AUTRES */
 
             /* DEBUT MIDDLEWARE SUPERADMIN */
-            Route::prefix('/crud-gestion')->middleware(['check-permission:superadmin'])->group(function () {
-                Route::get('/tables', 'CrudAdminController@tables')->name('crud-gestion.tables');
+            Route::prefix('/crud-superadmin')->middleware(['check-permission:superadmin'])->group(function () {
+                Route::get('/tables', 'CrudAdminController@tables')->name('crud-superadmin.tables');
                 Route::post('/tables', 'CrudAdminController@tablesPost');
 
                 // Todo : Routes non opérationneles
-                // Route::get('/attributs', 'CrudAdminController@attributs')->name('crud-gestion.attributs');
-                // Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-gestion.attributs.ajax');
-                // Route::get('/parametres', 'CrudAdminController@parametres')->name('crud-gestion.parametres');
+                Route::get('/attributs', 'CrudAdminController@attributs')->name('crud-superadmin.attributs');
+                Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-superadmin.attributs.ajax');
+                // Route::get('/parametres', 'CrudAdminController@parametres')->name('crud-superadmin.parametres');
 
                 /* ----- DEBUT ROUTES PDF PARSER ----- */
                 Route::get('/pdfparser', 'PdfParserController@get')->name('pdfParser');

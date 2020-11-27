@@ -46,13 +46,14 @@ class CrudAttribut extends Model
      */
     public static function rules(CrudAttribut $crudAttribut = null)
     {
-        $attribut = request()->attribut ?? '';
-        $crudTableId = request()->crud_table_id ?? '';
+        $request = request();
+        $attribut = $request['attribut'] ?? '';
+        $crudTableId = $request['crud_table_id'] ?? '';
         $unique = Rule::unique('crud_attributs')->where(function ($query) use ($attribut, $crudTableId) {
             return $query->whereAttribut($attribut)->wherecrudTableId($crudTableId);
         })->ignore($crudAttribut);
 
-        request()->optionnel = request()->has('optionnel');
+        $request['optionnel'] = $request->has('optionnel');
         $rules = [
             'attribut' => ['required','string','max:50',$unique],
             'crud_table_id' => 'required|integer|exists:crud_tables,id',

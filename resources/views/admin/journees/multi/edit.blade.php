@@ -5,7 +5,7 @@
 @section('content')
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3 crud-titre"><i class="fas fa-database"></i> {{ $h1 }}</span>
+        <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} {{ $h1 }}</span>
         <a href="{{ route('journees.multi.show', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
             <button class="btn-sm btn-success text-white">
                 <?= \Config::get('constant.boutons.voir') ?>

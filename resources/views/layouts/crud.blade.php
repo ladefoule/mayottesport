@@ -32,8 +32,8 @@
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
                     @foreach ($navbarCrudTables as $table)
-                    <a href="{{ $table['route'] }}">
-                        <button class="btn-sm mx-2 border px-3 btn-outline-dark @if ($table['nom'] == $crudTable->nom) btn-dark text-white @endif">
+                    <a class="mr-3" href="{{ $table['route'] }}">
+                        <button class="btn btn-sm px-3 btn-outline-dark @if ($table['nom'] == $crudTable->nom) btn-dark text-white @endif">
                             {{ $table['nom_pascal_case'] }}
                         </button>
                     </a>

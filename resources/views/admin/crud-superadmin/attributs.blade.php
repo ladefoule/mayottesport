@@ -3,9 +3,9 @@
 @section('title', 'Gestion des attributs du Crud')
 
 @section('content')
-<div class="row card mx-1">
+<div class="row card">
     <div class="card-header d-flex align-items-center">
-       <span class="d-inline mr-3 crud-titre"><i class="fas fa-database"></i> CrudAttributs :
+       <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} CrudAttributs :
           Ajouter</span>
        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">
           {!! config('constant.boutons.retour') !!} retour
@@ -14,7 +14,7 @@
 
     <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
-    <div class="card-body">
+    <div class="card-body px-3">
        <form action="" method="POST" class="needs-validation" id="formulaire">
           @csrf
           <div class="form-row mb-3">
@@ -65,27 +65,18 @@
                 rows="3">Le champ <span class='text-danger font-italic'>XXX</span></textarea>
           </div>
 
-          <div class="form-row mt-3">
-             <div class="col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
-          </div>
-
-          <div class="form-row mb-3">
-            <label for="liste_pos">Position (liste)<span class="text-danger text-weight-bold">*</span></label>
-            <input type="number" min="0" name="liste_pos" class="form-control" value="" data-msg="Merci de saisir un nombre supérieur à 0.">
-         </div>
-
          <div class="form-row mb-3">
-            <label for="vue_pos">Position (vue)<span class="text-danger text-weight-bold">*</span></label>
+            <label for="vue_pos">Position (vue)</label>
             <input type="number" min="0" name="vue_pos" class="form-control" value="" data-msg="Merci de saisir un nombre supérieur à 0.">
          </div>
 
          <div class="form-row mb-3">
-            <label for="edit_pos">Position (ajout/édition)<span class="text-danger text-weight-bold">*</span></label>
+            <label for="edit_pos">Position (ajout/édition)</label>
             <input type="number" min="0" name="edit_pos" class="form-control" value="" data-msg="Merci de saisir un nombre supérieur à 0.">
          </div>
 
          <div class="form-row mb-3">
-            <label for="input_type">Input type<span class="text-danger text-weight-bold">*</span></label>
+            <label for="input_type">Input type</label>
             <select name="input_type" class="form-control" data-msg="">
                 <option value=""></option>
                 <option value="number">number</option>
@@ -103,13 +94,31 @@
          </div>
 
          <div class="form-row mb-3">
-            <label for="pattern">Pattern<span class="text-danger text-weight-bold">*</span></label>
+            <label for="label">Liste liée (si type select)</label>
+            <select name="input_type" class="form-control" data-msg="">
+                @foreach ($selects as $nom => $liste)
+                    <option value="{{ $nom }}">{{ $nom }}</option>
+                @endforeach
+            </select>
+         </div>
+
+         <div class="form-row mb-3">
+            <label for="pattern">Pattern</label>
             <input type="text" name="pattern" class="form-control" value="" pattern="" data-msg="">
          </div>
 
          <div class="form-row mb-3">
-            <label for="label">Position (liste)<span class="text-danger text-weight-bold">*</span></label>
-            <input type="text" name="label" class="form-control" value="" pattern="" data-msg="">
+            <label for="min">Minimum</label>
+            <input type="number" min="0" name="min" class="form-control" value="" data-msg="Merci de saisir un nombre supérieur à 0.">
+         </div>
+
+         <div class="form-row mb-3">
+            <label for="max">Maximum</label>
+            <input type="number" min="0" name="max" class="form-control" value="" data-msg="Merci de saisir un nombre supérieur à 0.">
+         </div>
+
+         <div class="form-row mt-3">
+            <div class="col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
          </div>
 
           <div class="form-row justify-content-center">
@@ -134,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if(selectTables.value){
             selectAttributs.innerHTML = ''
-            fetch("<?php echo route('crud-gestion.attributs.ajax') ?>", {
+            fetch("<?php echo route('crud-superadmin.attributs.ajax') ?>", {
                 method:'POST',
                 body:JSON.stringify({crud_table_id:selectTables.value, _token:inputToken.value}),
                 headers: {"Content-type": "application/json; charset=UTF-8"}

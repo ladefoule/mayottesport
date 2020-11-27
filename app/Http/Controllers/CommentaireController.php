@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cache;
+use App\Match;
 use App\Commentaire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +28,10 @@ class CommentaireController extends Controller
             'match_id' => $matchId,
             'comm' => $comm,
         ]);
+
+        $match = Match::findOrFail($matchId);
+        Cache::forget('index-commentaires');
+        Cache::forget('match-' . $match->uniqid); // Les infos du match
 
         return [
             'nom' => $commentaire->user->pseudo,

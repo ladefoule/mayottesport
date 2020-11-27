@@ -288,6 +288,7 @@ class CrudController extends Controller
             $table = str_replace('_', '-' , $table);
             Cache::forget("attributs-visibles-$table-create");
             Cache::forget("attributs-visibles-$table-show");
+            // Cache::forget('index-' . $table);
 
             // On supprime les cches des tables liées à la gestion du Crud
             Cache::forget("index-crud-tables");
