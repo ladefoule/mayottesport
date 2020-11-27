@@ -249,12 +249,14 @@ class CrudController extends Controller
             return response(null, 404);
 
         $request = $validator->validate();
-        foreach ($request['ids'] as $id) {
-            $instance = $modele::findOrFail($id);
-            $this::forgetCaches($table, $instance);
-            $instance->delete();
-            Log::info("Suppression de l'id $id dans la table $nomTable");
-        }
+        $modele::destroy($request['ids']);
+        Cache::forget('index-' . $table);
+        // foreach ($request['ids'] as $id) {
+        //     $instance = $modele::findOrFail($id);
+        //     $this::forgetCaches($table, $instance);
+        //     $instance->delete();
+        //     Log::info("Suppression de l'id $id dans la table $nomTable");
+        // }
     }
 
     /**
@@ -267,11 +269,23 @@ class CrudController extends Controller
     private static function forgetCaches(string $table, object $instance)
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
-        if($instance && $table == 'matches'){
-            $cacheClassement = "classement-".$instance->journee->saison->id;
-            $cacheJournee = "journee-".$instance->journee->id;
+        if($instance && in_array($table, ['matches', 'journees', 'saisons'])){
+            if($table == 'matches'){
+                $match = $instance;
+                $journee = index('journees')[$match->journee_id];
+                $saison = index('saisons')[$journee->saison_id];
+            }else if($table == 'journees'){
+                $journee = $instance;
+                $saison = index('saisons')[$journee->saison_id];
+            }else
+                $saison = $instance;
+
+            $cacheClassement = "classement-".$saison->id;
+            $cacheJournee = $journee ? "journee-".$journee->id : '';
+            $cacheMatch = $match ? "match-".$match->uniqid : '';
             Cache::forget($cacheClassement);
             Cache::forget($cacheJournee);
+            Cache::forget($cacheMatch);
         }
 
         if($table == 'crud-tables' || $table == 'crud-attributs' || $table == 'crud-attribut-infos'){
@@ -290,7 +304,7 @@ class CrudController extends Controller
             Cache::forget("attributs-visibles-$table-show");
             // Cache::forget('index-' . $table);
 
-            // On supprime les cches des tables liées à la gestion du Crud
+            // On supprime les caches des tables liées à la gestion du Crud
             Cache::forget("index-crud-tables");
             Cache::forget("index-crud-attributs");
             Cache::forget("index-crud-attribut-infos");

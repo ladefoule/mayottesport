@@ -32,7 +32,7 @@ class VerifTableCrud
                 $request->layout = 'crud';
             }
 
-        if(Auth::user()->role->nom == 'superadmin'){
+        if(index('roles')[Auth::user()->role_id]->nom == 'superadmin'){
             $tables = config('constant.superadmin-tables');
             $position = array_search(str_replace('-', '_', $table), $tables);
             if($position !== false){

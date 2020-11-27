@@ -18,6 +18,8 @@ class CreateCompetitionsTable extends Migration {
 			$table->string('nom');
             $table->string('nom_complet')->nullable();
 			$table->integer('type');
+			$table->integer('home_position')->nullable();
+			$table->integer('index_position')->nullable();
             $table->unsignedBigInteger('sport_id');
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('restrict');
             $table->timestamps();

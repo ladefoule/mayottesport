@@ -11,7 +11,7 @@
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto">
-                @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
+                @if (index('roles')[auth()->user()->role_id]->niveau >= 40) {{-- superadmin --}}
                     <a class="nav-item nav-link px-2 @if ($layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-superadmin.tables') }}">Superadmin</a>
                 @endif
                <a class="nav-item nav-link px-2 @if ($layout == 'crud') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
@@ -35,7 +35,7 @@
             <li class="nav-item active px-2 border-bottom">
                 <a class="nav-link" href="/">Accueil du site</a>
             </li>
-            @if (\Auth::user()->role->niveau >= 40) {{-- superadmin --}}
+            @if (index('roles')[auth()->user()->role_id]->niveau >= 40) {{-- superadmin --}}
                 <a class="border-bottom nav-item nav-link px-2 @if ($layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-superadmin.tables') }}">Gestion du CRUD</a>
             @endif
             <a class="border-bottom nav-item nav-link px-2 @if ($layout == 'crud') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>

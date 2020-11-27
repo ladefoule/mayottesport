@@ -15,8 +15,8 @@ class CreateSportsTable extends Migration {
 		Schema::create('sports', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('nom')->unique('sport_unique');
-			$table->string('code')->nullable();
+            $table->string('nom')->unique('sport_unique');
+            $table->integer('home_position')->nullable();
 			$table->timestamps();
 		});
 	}

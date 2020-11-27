@@ -1,13 +1,4 @@
 <?php
-/**
- * Class Category | core/Category.class.php
- *
- * @package     MyApp XYZ
- * @subpackage  Categories
- * @author      Sandro Miguel Marques <sandromiguel@something.com>
- * @version     v.1.1 (06/12/2016)
- * @copyright   Copyright (c) 2016, Sandro
- */
 
 namespace App;
 
@@ -27,7 +18,7 @@ class Sport extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'code'];
+    protected $fillable = ['nom', 'home_position'];
 
     /**
      * Définition de l'affichage d'un objet dans le CRUD (back-office)
@@ -59,8 +50,8 @@ class Sport extends Model
     public static function rules(Sport $sport = null)
     {
         $rules = [
-            'code' => 'nullable|string|max:5',
-            'nom' => ['required','string','max:50','min:3',Rule::unique('sports')->ignore($sport)]
+            'nom' => ['required','string','max:50','min:3',Rule::unique('sports')->ignore($sport)],
+            'home_position' => 'nullable|integer|min:1',
         ];
         return ['rules' => $rules];
     }

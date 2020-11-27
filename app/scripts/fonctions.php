@@ -55,7 +55,7 @@ function modelName(string $table)
 }
 
 /**
- * On vérifie si le role de l'utilisateur est présent ou non dans les $roles
+ * On vérifie si le role de l'utilisateur connecté est présent ou non dans les $roles
  *
  * @param array $roles
  * @return boolean
@@ -66,7 +66,7 @@ function checkPermission(array $roles)
     if (auth()->user() == null)
         return false;
 
-    $userRole = auth()->user()->role->nom;
+    $userRole = index('roles')[auth()->user()->role_id]->nom;
 
     foreach ($roles as $role)
         if ($role == $userRole)
@@ -95,12 +95,12 @@ function fanion($equipeId)
 /**
  * Liste de tous les éléments de la table.
  *
- * @param string $table
+ * @param string $table - Table en camel_case
  * @return \Illuminate\Database\Eloquent\Collection
  */
 function index(string $table)
 {
-    $key = "index-$table";
+    $key = "index-" . str_replace('_', '-', $table);
     if (!Config::get('constant.activer_cache'))
         Cache::forget($key);
 
@@ -108,6 +108,7 @@ function index(string $table)
         return Cache::get($key);
     else
         return Cache::rememberForever($key, function () use($table){
+            // dd('ICI');
             return CrudTable::whereNom($table)->firstOrFail()->index();
         });
 }

@@ -69,14 +69,14 @@ return [
         'migrations', 'password_resets', 'failed_jobs'
     ],
 
-    'sport-position' => [
+    'sports-position' => [
         'football' => ['sport_id' => 1],
         'handball' => ['sport_id' => 2],
         'basketball' => ['sport_id' => 3],
         'volleyball' => ['sport_id' => 4],
     ],
 
-    'competition-position' => [
+    'competitions-position' => [
         'regional-1' => ['sport_id' => 1, 'competition_id' => 1, 'home' => 1, 'index' => 1],
         'regional-2' => ['sport_id' => 1, 'competition_id' => 2, 'home' => 2, 'index' => 2],
         'coupe-de-mayotte' => ['sport_id' => 1, 'competition_id' => 3, 'home' => 3, 'index' => 3],
