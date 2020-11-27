@@ -18,8 +18,7 @@ $terrains = [
 ];
 
 $rencontres = [
-    [], // 1ère journée
-    [
+    [// 1ère journée
         [81, 60],
         [35, 97],
         [21, 18],

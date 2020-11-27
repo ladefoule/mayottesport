@@ -1,5 +1,5 @@
 <?php
-$saisonId = 3;
+$saisonId = 4;
 $heure = '18:00';
 
 $terrains = [
@@ -18,8 +18,7 @@ $terrains = [
 ];
 
 $rencontres = [
-    [], // 1ère journée
-    [
+    [// 1ère journée
         [81, 60],
         [35, 97],
         [21, 18],
