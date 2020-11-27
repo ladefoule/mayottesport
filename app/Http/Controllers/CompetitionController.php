@@ -100,12 +100,17 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- CompetitionController : resultats -------- ");
         $saison = $request->saison;
-        $journees = $saison->journees;
-        $journee = Journee::whereSaisonId($saison->id)->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
-        if(! $journee)
-            $journee = Journee::whereSaisonId($saison->id)->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
-        if(! $journee)
+        $journees = $saison->journees->sortBy('numero');
+
+        if(! $journees)
             abort(404);
+
+        // On recherche la dernière journée jouée pour l'afficher
+        $journee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+
+        // Si pas de journée passée, alors on recherche la journée à venir
+        if(! $journee)
+            $journee = $journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
 
         return view('competition.calendrier-resultats', [
             'calendrierJourneeHtml' => $journee->journeeRender(),

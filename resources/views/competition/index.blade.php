@@ -61,7 +61,7 @@
                             <td class="px-2">{{ $equipe['diff'] }}</td>
                             <td class="font-weight-bold h5">{{ $equipe['points'] }}</td>
                         </tr>
-                        <?php if($i == 5) break; ?>
+                        <?php if($i == 6) break; ?>
                     @endforeach
                 </tbody>
             </table>

@@ -1,34 +1,45 @@
 <?php
-$saisonId = 4;
-$heure = '18:00';
+$saisonId = 3;
+$heure = '21:00';
 
 $terrains = [
-   81 => 1, // $idEquipe => $idTerrain
-   60 => 2,//
-   35 => 3,//
-   97 => 4,
-   21 => 5,//
-   18 => 6,//
-   40 => 7,//
-   120 => 8,//
-   139 => 9,
-   150 => 10,//
-   112 => 9,//
-   47 => 8//
+   209 => 1, // $idEquipe => $idTerrain
+   210 => 2,//
+   211 => 3,//
+   212 => 4,
+   213 => 5,//
+   214 => 6,//
 ];
 
 $rencontres = [
-    [// 1ère journée
-        [81, 60],
-        [35, 97],
-        [21, 18],
-        [40, 139],
-        [120, 150],
-        [112, 47]
-    ]
+    [
+        [209, 210],
+        [211, 212],
+        [213, 214],
+    ],
+    [
+        [214, 209],
+        [212, 211],
+        [210, 213],
+    ],
+    [
+        [212, 209],
+        [210, 211],
+        [214, 213],
+    ],
+    [
+        [209, 210],
+        [211, 212],
+        [213, 214],
+    ],
+    [
+        [209, 210],
+        [211, 212],
+        [213, 214],
+    ],
 ];
 
-$diffAllerRetour = 1; // Différence en nombre de jours entre le match aller et le retour
+$diffAllerRetour = 5; // Différence en nombre de jours entre le match aller et le retour
 
 $donnees = [
    'heure' => $heure,
