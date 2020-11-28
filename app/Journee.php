@@ -51,39 +51,16 @@ class Journee extends Model
      *
      * @return Collection
      */
-    public function calendrier()
+    public function matchesInfos()
     {
-        $key = 'journee-'.$this->id;
-        if(! Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
-        if (Cache::has($key))
-            return Cache::get($key);
-        else
-            return Cache::rememberForever($key, function () {
-                return $this->genererCalendrier();
-            });
-    }
-
-    /**
-     * Génération du calendrier s'il n'est plus en Cache.
-     * La fonction renvoie une collection qui contient les infos de tous les matches de la journée.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function genererCalendrier()
-    {
+        // L'ensemble des matches de la journée
         $matches = $this->matches->sortBy('date')->sortBy('heure');
 
-        $i = 0;
-        $calendrier = [];
-        foreach ($matches as $match) {
-            $calendrier[$i] = $match->infos();
+        $matchesInfos = [];
+        foreach ($matches as $match)
+            $matchesInfos[] = $match->infos();
 
-            $i++;
-        }
-
-        return collect($calendrier);
+        return collect($matchesInfos);
     }
 
     /**
@@ -95,7 +72,7 @@ class Journee extends Model
         $dateJournee = date('d/m/Y', strtotime($this->date));
         $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
         return view('competition.journee', [
-            'calendrier' => $this->calendrier(),
+            'matches' => $this->matchesInfos(),
             'journee' => $journee
         ])->render();
     }

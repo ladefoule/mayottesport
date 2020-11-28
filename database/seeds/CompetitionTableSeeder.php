@@ -32,8 +32,8 @@ class CompetitionTableSeeder extends Seeder
                 'nom' => $competition,
                 'type' => 2, // type coupe
                 'sport_id' => 1,
-                'home_position' => $i+1,
-                'index_position' => $i+1,
+                'home_position' => $i+4,
+                'index_position' => $i+4,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);

@@ -116,25 +116,6 @@ class Match extends Model
      */
     public function infos()
     {
-        $key = 'match-'.$this->uniqid;
-        if(! Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
-        if (Cache::has($key))
-            return Cache::get($key);
-        else
-            return Cache::rememberForever($key, function () {
-                return $this->genererInfos();
-            });
-    }
-
-    /**
-     * Génération des données du match
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function genererInfos()
-    {
         $equipeDom = index('equipes')[$this->equipe_id_dom];
         $equipeDomNomKebab = strToUrl($equipeDom->nom);
         $equipeExt = index('equipes')[$this->equipe_id_ext];
@@ -149,16 +130,14 @@ class Match extends Model
         $sportNomKebab = strToUrl($sport->nom);
         $commentaires = index('commentaires')->where('match_id', $this->id)->sortByDesc('created_at');//$this->commentaires->sortByDesc('created_at');
         foreach ($commentaires as $commentaire){
-            // dd($commentaire);
             $user = index('users')[$commentaire->user_id];
             $commentaire->pseudo = $user->pseudo;
         }
 
-
         return collect([
             'id' => $this->id,
-            'id_eq_dom' => $this->id_eq_dom,
-            'id_eq_ext' => $this->id_eq_ext,
+            'id_eq_dom' => $this->equipe_id_dom,
+            'id_eq_ext' => $this->equipe_id_ext,
             'nom_eq_dom' => $equipeDom->nom,
             'href_eq_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'id' => $equipeDom->uniqid]),
             'fanion_eq_dom' => fanion($equipeDom->id),
@@ -223,10 +202,10 @@ class Match extends Model
         $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '-' .$saison->annee_fin;
         $competition = index('competitions')[$saison->competition_id];
         $sport = index('sports')[$competition->sport_id];
-        $sport = strToUrl($sport->nom);
-        $competition = strToUrl($competition->nom);
+        $sportKebabCase = strToUrl($sport->nom);
+        $competitionKebabCase = strToUrl($competition->nom);
 
-        return "/$sport/$competition/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
+        return "/$sportKebabCase/$competitionKebabCase/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
     }
 
     /**

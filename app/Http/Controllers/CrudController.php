@@ -282,11 +282,7 @@ class CrudController extends Controller
                 $saison = $instance;
 
             $cacheClassement = "classement-".$saison->id;
-            $cacheJournee = $journee ? "journee-".$journee->id : '';
-            $cacheMatch = $match ? "match-" . $match->uniqid : '';
             Cache::forget($cacheClassement);
-            Cache::forget($cacheJournee);
-            Cache::forget($cacheMatch);
         }
 
         if($table == 'crud-tables' || $table == 'crud-attributs' || $table == 'crud-attribut-infos'){
