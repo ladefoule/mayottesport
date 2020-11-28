@@ -4,8 +4,8 @@
 
     // On place la table au début de la collection
     $crud = $navbarCrudTables[$crudTable->nom];
-    $navbarCrudTables->pull($crudTable->nom);
-    $navbarCrudTables = $navbarCrudTables->prepend($crud, $crudTable->nom);
+    // $navbarCrudTables->pull($crudTable->nom);
+    // $navbarCrudTables = $navbarCrudTables->prepend($crud, $crudTable->nom);
 ?>
 
 <!doctype html>
@@ -32,7 +32,7 @@
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
                     @foreach ($navbarCrudTables as $table)
-                    <a class="mr-3" href="{{ $table['route'] }}">
+                    <a class="mr-3 @if ($table['nom'] == $crudTable->nom) active @endif" href="{{ $table['route'] }}">
                         <button class="btn btn-sm px-3 btn-outline-dark @if ($table['nom'] == $crudTable->nom) btn-dark text-white @endif">
                             {{ $table['nom_pascal_case'] }}
                         </button>

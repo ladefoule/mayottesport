@@ -39,16 +39,16 @@
                         {!! \Config::get('constant.boutons.right') !!}
                     </span>
                     @if ($hrefClassement)
-                    <a href="{{ $hrefClassement }}" class="@if(request()->route()->getName() == 'competition.classement') text-body font-weight-bold @else text-secondary @endif pr-3">
+                    <a href="{{ $hrefClassement }}" class="@if(request()->route()->getName() == 'competition.classement') text-body font-weight-bold active @else text-secondary @endif pr-3">
                         Le classement
                     </a>
                     @endif
                     @if ($hrefCalendrier)
-                    <a href="{{ $hrefCalendrier }}" class="d-flex @if(request()->route()->getName() == 'competition.calendrier-resultats') text-body font-weight-bold @else text-secondary @endif pr-3">
+                    <a href="{{ $hrefCalendrier }}" class="d-flex @if(request()->route()->getName() == 'competition.calendrier-resultats') text-body font-weight-bold active @else text-secondary @endif pr-3">
                         Calendrier et résultats
                     </a>
                     @endif
-                    <a href="{{ $hrefPalmares }}" class="@if(request()->route()->getName() == 'competition.champions') text-body font-weight-bold @else text-secondary @endif">
+                    <a href="{{ $hrefPalmares }}" class="@if(request()->route()->getName() == 'competition.champions') text-body font-weight-bold active @else text-secondary @endif">
                         Le palmarès
                     </a>
                 </div>

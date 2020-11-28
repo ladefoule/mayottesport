@@ -79,6 +79,10 @@ $(document).ready(function(){
             navbarMobile.style.left = '-250px'
         }
     })
+
+    let navbarScrollX = $('#navbar-scroll-x')
+    let active = $('#navbar-scroll-x .active')
+    centerItVariableWidth(active, navbarScrollX)
 })
 </script>
 @yield('script')

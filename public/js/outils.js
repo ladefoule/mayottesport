@@ -50,6 +50,43 @@ function randInt(min, max) {
 }
 
 /**
+ *  Centrer un élément inclu dans un contenant (taille fixe) scrollable sur l'axe des X
+ *
+ * @param {object} target - Element à center
+ * @param {object} outer - Element scrollable de gauche à droite (X) qui contient target
+ */
+function centerItFixedWidth(target, outer){
+    var out = $(outer);
+    var tar = $(target);
+    var x = out.width();
+    var y = tar.outerWidth(true);
+    var z = tar.index();
+    out.scrollLeft(Math.max(0, (y * z) - (x - y)/2));
+}
+
+/**
+ *  Centrer un élément inclu dans un contenant (taille variable) scrollable sur l'axe des X
+ *
+ * @param {object} target - Element à center
+ * @param {object} outer - Element scrollable de gauche à droite (X) qui contient target
+ */
+function centerItVariableWidth(target, outer){
+    var out = $(outer);
+    var tar = $(target);
+    var x = out.width();
+    var y = tar.outerWidth(true);
+    var z = tar.index();
+
+    var q = 0;
+    var m = out.find('a');cl(m)
+    //Just need to add up the width of all the elements before our target.
+    for(var i = 0; i < z; i++){
+        q+= $(m[i]).outerWidth(true);
+    }
+    out.scrollLeft(Math.max(0, q - (x - y)/2));
+}
+
+/**
  * Cette méthode ajoute des EventListeners au formulaire,
  * ainsi qu'à tous les inputs/textarea/select/... inclus dans le formulaire.
  *
