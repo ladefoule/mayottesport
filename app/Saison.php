@@ -182,7 +182,7 @@ class Saison extends Model
      */
     public function getNomAttribute()
     {
-        return /* index('competitions')[$this->competition_id]->nom . ' ' . */ $this->annee('/');
+        return /* index('competitions')[$this->competition_id]->nom . ' ' .  */$this->annee('/');
     }
 
     /**
@@ -190,11 +190,13 @@ class Saison extends Model
      *
      * @return string
      */
-    public static function CrudName($id)
+    public function getCrudNameAttribute()
     {
-        $saison = index('saisons')[$id];
-        $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
-        return Competition::crudName($saison->competition_id) . ' - ' . $annee;
+        // $saison = index('saisons')[$id];
+        // dd(index('competitions'));
+        // $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
+        // return $this->competition->crud_name . ' ' . $this->annee('/');
+        return index('competitions')[$this->competition_id]->crud_name . ' ' . $this->annee('/');
     }
 
     /**

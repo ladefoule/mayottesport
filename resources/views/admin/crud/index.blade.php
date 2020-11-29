@@ -34,10 +34,10 @@
                 @foreach($liste as $id => $ligne)
                     <tr>
                         <td class="px-2 align-middle"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
-                        <td align="left" class="px-2 align-middle">{{ $ligne->nom }}</td>
-                        {{-- @for ($i = 0; $i < count($ligne['afficher']); $i++)
+                        {{-- <td align="left" class="px-2 align-middle">{{ $ligne->nom }}</td> --}}
+                        @for ($i = 0; $i < count($ligne['afficher']); $i++)
                             <td align="left" class="px-2">{{ $ligne['afficher'][$i] }}</td>
-                        @endfor --}}
+                        @endfor
                         <td align="right" class="px-2 text-right">
                             <div class="d-inline-flex flex-shrink-0">
                                 <a href="{{ $ligne['href_show'] }}" title="Voir" class="text-decoration-none flex-shrink-0">
@@ -66,10 +66,9 @@
             </tbody>
         </table>
     </div>
-    <div class="text-center">
+    {{-- <div class="text-center">
         {{ $liste->links() }}
-
-    </div>
+    </div> --}}
 </div>
 @endsection
 
@@ -77,7 +76,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var idTable = 'tab'
-    // triDataTables(idTable) // Tri du tableau avec DataTables
+    triDataTables(idTable) // Tri du tableau avec DataTables
     toutCocherDecocher(idTable) // Checkbox de suppressions multiples
 
     let urlSupprimer = "<?php echo $hrefs['delete-ajax'] ?>"

@@ -23,9 +23,9 @@ class CrudAttribut extends Model
      *
      * @return string
      */
-    public function getNomAttribute()
+    public function getCrudNameAttribute()
     {
-        return /* index('crud_tables')[$this->crud_table_id]->nom . '/' . */ $this->attribut;
+        return index('crud_tables')[$this->crud_table_id]->nom . '/' . $this->attribut;
     }
 
     /**

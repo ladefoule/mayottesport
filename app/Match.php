@@ -104,7 +104,7 @@ class Match extends Model
      */
     public function getNomAttribute()
     {
-        return $this->uniqid /* . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom */;
+        return $this->uniqid . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
     }
 
     /**

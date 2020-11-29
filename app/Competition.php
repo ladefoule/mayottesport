@@ -22,7 +22,7 @@ class Competition extends Model
      */
     public function getCrudNameAttribute()
     {
-        return index('sports')[$this->sport_id]->crud_name . ' - ' . $this->nom;
+        return index('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
     }
 
     public static function CrudName($id)

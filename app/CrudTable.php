@@ -196,7 +196,7 @@ class CrudTable extends Model
 
                 // Dans la page vue, on affiche le 'nom' de l'attribut référence, sinon on affiche la liste complète
                 if ($action == 'show' && $valeurAttribut)
-                    $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->nom;
+                    $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->crud_name;
                 else
                     $donnees[$attribut]['select'] = $crudTableAttribut->index();
             }
@@ -258,13 +258,13 @@ class CrudTable extends Model
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
-                    $collect = collect();
-                    foreach ($instance->attributes as $key => $value)
-                        $collect->$key = $value;
+                    // $collect = collect();
+                    // foreach ($instance->attributes as $key => $value)
+                    //     $collect->$key = $value;
 
-                    $collect->nom = $instance->nom;
+                    // $collect->nom = $instance->nom;
 
-                    $liste[$id] = $collect;
+                    $liste[$id] = $instance;//$collect;
                 }
                 return collect($liste);
             });
@@ -299,7 +299,8 @@ class CrudTable extends Model
 
             if ($infosAttribut['attribut_crud_table_id']){
                 $tableReference = index('crud_tables')[$infosAttribut['attribut_crud_table_id']]->nom;
-                $listeTableAttribut[$i] = index($tableReference);
+                $modeleReference = 'App\\' . modelName($tableReference);
+                $listeTableAttribut[$i] = /* $modeleReference::all(); */index($tableReference);
             }
 
             $checkbox[$i] = false;
@@ -309,8 +310,8 @@ class CrudTable extends Model
         }
         $nbAttributs = $i;
 
-        foreach ($listeComplete as $id => $instance) {
-            // $id = $instance->id;
+        foreach ($listeComplete as $instance) {
+            $id = $instance->id;
 
             $liste[$id]['nom'] = $instance->nom;
             // $liste[$id]['crud_name'] = $instance->crud_name;
@@ -324,8 +325,11 @@ class CrudTable extends Model
 
                 // Si l'attribut attribut_crud_table_id est renseigné, il faut donc récupérer
                 // le 'nom' de cette foreign key grace à son modele (info présente dans la table gestion_tables)
-                if(isset($listeTableAttribut[$i]))
-                    $contenu = $listeTableAttribut[$i][$contenu]->nom;
+                if(isset($listeTableAttribut[$i])){
+                    // if(! isset($listeTableAttribut[$i][$contenu]))
+                    //     dd($listeTableAttribut[$i]);
+                    $contenu = $listeTableAttribut[$i]->where('id', $contenu)->first()->crud_name;
+                }
 
                 if($checkbox[$i])
                     $contenu = $contenu ? 'Oui' : 'Non';

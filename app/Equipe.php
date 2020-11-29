@@ -28,6 +28,16 @@ class Equipe extends Model
     }
 
     /**
+     * Définition de l'affichage dans le CRUD
+     *
+     * @return string
+     */
+    public function getCrudNameAttribute()
+    {
+        return index('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
+    }
+
+    /**
      *
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
