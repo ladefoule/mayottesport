@@ -269,8 +269,10 @@ class CrudController extends Controller
     private static function forgetCaches(string $table, object $instance)
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
+
+        // On supprime le cache classement si on effectue une modif sur les tables :
+        // matches, journées ou saisons qui risquent d'impacter le classement
         if($instance && in_array($table, ['matches', 'journees', 'saisons'])){
-            $match = $journee = '';
             if($table == 'matches'){
                 $match = $instance;
                 $journee = index('journees')[$match->journee_id];

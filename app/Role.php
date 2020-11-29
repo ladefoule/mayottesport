@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -26,12 +27,28 @@ class Role extends Model
     }
 
     /**
-     * Définition de l'attribut nom pour un objet de la class Role
+     * Définition de l'affichage dans le CRUD
      *
      * @return string
      */
-    public function getCrudNameAttribute()
+    public static function crudName($id)
     {
-        return $this->nom;
+        return index('roles')[$id]->nom;
+    }
+
+    /**
+     * Les règles de validations
+     *
+     * @param Role $role
+     * @return array
+     */
+    public static function rules(Role $role = null)
+    {
+        $unique = Rule::unique('villes')->where(function ($query) {
+            return $query->whereNom(request()['nom']);
+        })->ignore($role);
+
+        $rules['nom'] = ['required','string','max:50','min:3',$unique];
+        return ['rules' => $rules];
     }
 }

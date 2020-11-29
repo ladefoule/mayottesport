@@ -23,12 +23,21 @@ class Ville extends Model
      */
     public static function rules(Ville $ville = null)
     {
-        $nom = request()->nom ?? '';
-        $unique = Rule::unique('villes')->where(function ($query) use ($nom) {
-            return $query->whereNom($nom);
+        $unique = Rule::unique('villes')->where(function ($query) {
+            return $query->whereNom(request()['nom']);
         })->ignore($ville);
 
         $rules['nom'] = ['required','string','max:50','min:3',$unique];
         return ['rules' => $rules];
+    }
+
+    /**
+     * Définition de l'affichage dans le CRUD
+     *
+     * @return string
+     */
+    public static function crudName($id)
+    {
+        return index('villes')[$id]->nom;
     }
 }

@@ -67,9 +67,15 @@ class CrudTable extends Model
                 }
                 return collect($navbarCrudTables);
             });
-
-
     }
+
+    // public function crudName(array $tables, string $attribut = 'nom')
+    // {
+    //     $str = '';
+    //     foreach ($tables as $key => $table) {
+    //         $str += index($table)
+    //     }
+    // }
 
     /**
      * Les règles de validations
@@ -237,36 +243,47 @@ class CrudTable extends Model
     {
         $table = $this->nom;
         $tableKebabCase = str_replace('_', '-', $table);
+        $modele = 'App\\' . modelName($table);
 
         $key = "index-$tableKebabCase";
         if (!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
-            return Cache::get($key);
+            $index = Cache::get($key);
         else
-            return Cache::rememberForever($key, function () use($table, $tableKebabCase){
-                $modele = 'App\\' . modelName($table);
+            $index = Cache::rememberForever($key, function () use($modele){
                 $triDefaut = $this->tri_defaut;
-
                 $liste = [];
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
                     $collect = collect();
-                    foreach ($instance->attributes as $key => $value) {
+                    foreach ($instance->attributes as $key => $value)
                         $collect->$key = $value;
-                    }
+
+                    // $collect->crud_name = $instance->crud_name;
                     // $collect[$id] = $instance->id;
-                    $collect->crud_name = $instance->crud_name;
-                    $collect->nom = $instance->nom ?? $instance->crud_name;
-                    $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                    $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+
 
                     $liste[$id] = $collect;
                     // dd($collect);
                 }
                 return collect($liste);
             });
+
+        // dd($index);
+        foreach ($index as $id => $instance) {
+            // $instance = $modele::find($id);
+            // dd($instance);
+            $instance->crud_name = $modele::crudName($instance->id);
+            // $instance->nom = $instance->nom; 
+            $instance->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
+            $instance->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+
+            $index[$id] = $instance;
+        }
+
+        return $index;
     }
 }

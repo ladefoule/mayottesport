@@ -26,10 +26,8 @@ class Saison extends Model
      */
     public static function rules(Saison $saison = null)
     {
-        $anneeDebut = request()->annee_debut ?? '';
-        $competitionId = request()->competition_id ?? '';
-        $unique = Rule::unique('saisons')->where(function ($query) use ($anneeDebut, $competitionId) {
-            return $query->whereAnneeDebut($anneeDebut)->whereCompetitionId($competitionId);
+        $unique = Rule::unique('saisons')->where(function ($query) {
+            return $query->whereAnneeDebut(request()['annee_debut'])->whereCompetitionId(request()['competition_id']);
         })->ignore($saison);
 
         request()->finie = request()->has('finie');
@@ -188,13 +186,15 @@ class Saison extends Model
     }
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
+     * Définition de l'affichage dans le CRUD
      *
      * @return string
      */
-    public function getCrudNameAttribute()
+    public static function CrudName($id)
     {
-        return index('competitions')[$this->competition_id]->crud_name . ' ' . $this->annee('/');
+        $saison = index('saisons')[$id];
+        $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
+        return Competition::crudName($saison->competition_id) . ' - ' . $annee;
     }
 
     /**

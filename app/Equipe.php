@@ -18,13 +18,14 @@ class Equipe extends Model
     protected $fillable = ['nom', 'nom_complet', 'sport_id', 'feminine', 'non_mahoraise'];
 
     /**
-     * Définition de l'affichage d'un objet dans le CRUD (back-office)
+     * Définition de l'affichage dans le CRUD
      *
      * @return string
      */
-    public function getCrudNameAttribute()
+    public static function CrudName($id)
     {
-        return index('sports')[$this->sport_id]->crud_name . ' - ' . $this->nom;
+        $equipe = index('equipes')[$id];
+        return Sport::crudName($equipe->sport_id) . ' - ' . $equipe->nom;
     }
 
     /**

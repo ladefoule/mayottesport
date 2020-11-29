@@ -68,15 +68,13 @@ class Match extends Model
      */
     public static function rules( Match $match = null)
     {
-        $equipeIdDom = request()->equipe_id_dom;
-        $equipeIdExt = request()->equipe_id_ext;
-        $journeeId = request()->journee_id;
-        $uniqueEquipeDom = Rule::unique('matches')->where(function ($query) use ($equipeIdDom, $journeeId) {
-            return $query->whereJourneeId($journeeId)
-                        ->whereEquipeIdDom($equipeIdDom);
+        $uniqueEquipeDom = Rule::unique('matches')->where(function ($query) {
+            return $query->whereJourneeId(request()['journee_id'])
+                        ->whereEquipeIdDom(request()['equipe_id_dom']);
         })->ignore($match);
-        $uniqueEquipeExt = Rule::unique('matches')->where(function ($query) use ($equipeIdExt, $journeeId) {
-            return $query->whereEquipeIdExt($equipeIdExt)->whereJourneeId($journeeId);
+
+        $uniqueEquipeExt = Rule::unique('matches')->where(function ($query) {
+            return $query->whereEquipeIdExt(request()['equipe_id_ext'])->whereJourneeId(request()['journee_id']);
         })->ignore($match);
 
         request()->acces_bloque = request()->has('acces_bloque');
@@ -100,13 +98,15 @@ class Match extends Model
     }
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
+     * Définition de l'affichage dans le CRUD
      *
      * @return string
      */
-    public function getCrudNameAttribute()
+    public static function crudName($id)
     {
-        return index('journees')[$this->journee_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
+        $match = index('matches')[$id];
+        $matchNom = index('equipes')[$match->equipe_id_dom]->nom . ' # ' . index('equipes')[$match->equipe_id_ext]->nom;
+        return Journee::crudName($match->journee_id) . ' - ' . $matchNom;
     }
 
     /**

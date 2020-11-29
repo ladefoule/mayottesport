@@ -33,12 +33,12 @@ class Region extends Model
     }
 
     /**
-     * Définition de l'affichage d'un objet dans le CRUD (back-office)
+     * Définition de l'affichage dans le CRUD
      *
      * @return string
      */
-    public function getCrudNameAttribute()
+    public static function crudName($id)
     {
-        return $this->nom;
+        return index('regions')[$id]->nom;
     }
 }

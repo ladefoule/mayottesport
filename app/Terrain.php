@@ -23,10 +23,8 @@ class Terrain extends Model
      */
     public static function rules(Terrain $terrain = null)
     {
-        $nom = request()->nom ?? '';
-        $villeId = request()->ville_id ?? '';
-        $unique = Rule::unique('terrains')->where(function ($query) use ($nom, $villeId) {
-            return $query->whereNom($nom)->whereVilleId($villeId);
+        $unique = Rule::unique('terrains')->where(function ($query) {
+            return $query->whereNom(request()['nom'])->whereVilleId(request()['ville_id']);
         })->ignore($terrain);
 
         $rules = [
@@ -35,5 +33,16 @@ class Terrain extends Model
         ];
         $messages = ['nom.unique' => "Ce nom de terrain, associé à cette ville, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];
+    }
+
+    /**
+     * Définition de l'affichage dans le CRUD
+     *
+     * @return string
+     */
+    public static function crudName($id)
+    {
+        $terrain = index('terrains')[$id];
+        return Ville::crudName($terrain->ville_id) . ' - ' . $terrain->nom;
     }
 }

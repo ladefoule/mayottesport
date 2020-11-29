@@ -78,15 +78,15 @@ class Journee extends Model
     }
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
+     * Définition de l'affichage dans le CRUD
      *
      * @return string
      */
-    public function getCrudNameAttribute()
+    public static function CrudName($id)
     {
-        $saison = index('saisons')[$this->saison_id]->crud_name;
-        $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
-        return $saison . ' - J' . $journee;
+        $journee = index('journees')[$id];
+        $journeeNom = 'J' . str_pad($journee->numero, 2, "0", STR_PAD_LEFT);
+        return Saison::crudName($journee->saison_id) . ' - ' . $journeeNom;
     }
 
     /**
