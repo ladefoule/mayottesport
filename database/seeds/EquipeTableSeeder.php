@@ -18,6 +18,7 @@ class EquipeTableSeeder extends Seeder
             App\Equipe::create([
                 'nom' => $nomEquipe,
                 'sport_id' => 1,
+                'ville_id' => rand(1,70),
                 'uniqid' => uniqid()
             ]);
         };

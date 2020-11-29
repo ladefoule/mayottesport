@@ -258,13 +258,14 @@ class CrudTable extends Model
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
-                    // $collect = collect();
-                    // foreach ($instance->attributes as $key => $value)
-                    //     $collect->$key = $value;
+                    $collect = collect();
+                    foreach ($instance->attributes as $key => $value)
+                        $collect->$key = $value;
 
-                    // $collect->nom = $instance->nom;
+                    $collect->nom = $instance->nom;
+                    $collect->crud_name = $instance->crud_name;
 
-                    $liste[$id] = $instance;//$collect;
+                    $liste[$id] = /* $instance; */$collect;
                 }
                 return collect($liste);
             });
@@ -281,11 +282,11 @@ class CrudTable extends Model
     {
         $table = $this->nom;
         $tableKebabCase = str_replace('_', '-', $table);
-        $modele = 'App\\' . modelName($table);
 
         $triDefaut = $this->tri_defaut;
         $liste = [];
-        $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
+        // $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
+        $listeComplete = $this->index();
 
         $listeAttributsVisibles = $this->listeAttributsVisibles();
         if ($listeAttributsVisibles == false)
@@ -321,13 +322,12 @@ class CrudTable extends Model
             // On parcourt la liste des attributs à afficher et on récupère à chaque fois la valeur correspondante
             // On les range dans le tableau $liste[$id]['afficher'][] avec des index numériques
             for ($i = 0; $i < $nbAttributs; $i++) {
-                $contenu = $instance[$attribut[$i]];
+                $attr = $attribut[$i];
+                $contenu = $instance->$attr;
 
                 // Si l'attribut attribut_crud_table_id est renseigné, il faut donc récupérer
                 // le 'nom' de cette foreign key grace à son modele (info présente dans la table gestion_tables)
                 if(isset($listeTableAttribut[$i])){
-                    // if(! isset($listeTableAttribut[$i][$contenu]))
-                    //     dd($listeTableAttribut[$i]);
                     $contenu = $listeTableAttribut[$i]->where('id', $contenu)->first()->crud_name;
                 }
 

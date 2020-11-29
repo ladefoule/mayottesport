@@ -40,8 +40,6 @@ class CrudController extends Controller
         $title = 'CRUD - Lister : ' . $h1;
 
         $liste = $crudTable->indexCrud();
-        // $modele = '\App\\'.modelName($crudTable->nom);
-        // $liste = $modele::paginate(10);
         $hrefs['create'] = route('crud.create', ['table' => $table]);
         $hrefs['delete-ajax'] = route('crud.delete-ajax', ['table' => $table]);
         $hrefs['index-ajax'] = route('crud.index-ajax', ['table' => $table]);
@@ -313,6 +311,9 @@ class CrudController extends Controller
         }else{
             $cache = "index-$table";
             Cache::forget($cache);
+
+            // if($table == 'sports')
+                // Cache::forget(['equipes', 'competitions', etc...])
         }
     }
 }

@@ -80,7 +80,7 @@ class Match extends Model
         request()->acces_bloque = request()->has('acces_bloque');
         $rules = [
             'journee_id' => 'required|exists:journees,id',
-            'terrain_id' => 'required|exists:terrains,id',
+            'terrain_id' => 'nullable|exists:terrains,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
             'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeDom],
@@ -104,7 +104,7 @@ class Match extends Model
      */
     public function getNomAttribute()
     {
-        return $this->uniqid . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
+        return index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
     }
 
     /**

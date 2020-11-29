@@ -15,7 +15,7 @@ class Equipe extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'nom_complet', 'sport_id', 'feminine', 'non_mahoraise'];
+    protected $fillable = ['nom', 'nom_complet', 'sport_id', 'feminine', 'non_mahoraise', 'ville_id'];
 
     /**
      * Le sport lié à cette équipe
@@ -80,6 +80,7 @@ class Equipe extends Model
         $rules = [
             'nom_complet' => 'nullable|string|min:3|max:50',
             'sport_id' => 'required|integer|exists:sports,id',
+            'ville_id' => 'required|integer|exists:villes,id',
             'feminine' => 'boolean',
             'non_mahoraise' => 'boolean',
             'nom' => ['required','max:50','min:3',$unique]
