@@ -20,7 +20,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : __construct -------- ");
         $this->middleware('verif-table-crud')->except('forgetCaches');
-        $this->middleware('attribut-visible')->only(['show', 'createForm', 'updateForm']);
+        $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }
 
     /**
@@ -39,7 +39,9 @@ class CrudController extends Controller
         $h1 = $tablePascalCase;
         $title = 'CRUD - Lister : ' . $h1;
 
-        $liste = $crudTable->index();
+        $liste = $crudTable->indexCrud();
+        $modele = '\App\\'.modelName($crudTable->nom);
+        $liste = $modele::paginate(10);
         $hrefs['create'] = route('crud.create', ['table' => $table]);
         $hrefs['delete-ajax'] = route('crud.delete-ajax', ['table' => $table]);
         $hrefs['index-ajax'] = route('crud.index-ajax', ['table' => $table]);
@@ -49,7 +51,8 @@ class CrudController extends Controller
             'table' => $table, // Le nom de la table en kebab-case
             'h1' => $h1,    // Titre du header de la card
             'title' => $title, // Title de la page
-            'hrefs' => $hrefs // Les liens présents dans la view
+            'hrefs' => $hrefs, // Les liens présents dans la view
+            'listeAttributsVisibles' => $request->listeAttributsVisibles
         ]);
     }
 
@@ -63,7 +66,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : indexAjax -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
-        $liste = $crudTable->index();
+        $liste = $crudTable->indexCrud();
         return view('admin.crud.index-ajax', [
             'liste' => $liste
         ]);

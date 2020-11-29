@@ -82,22 +82,23 @@ class Journee extends Model
      *
      * @return string
      */
-    public static function CrudName($id)
-    {
-        $journee = index('journees')[$id];
-        $journeeNom = 'J' . str_pad($journee->numero, 2, "0", STR_PAD_LEFT);
-        return Saison::crudName($journee->saison_id) . ' - ' . $journeeNom;
-    }
+    // public static function CrudName($id)
+    // {
+    //     $journee = index('journees')[$id];
+    //     $journeeNom = 'J' . str_pad($journee->numero, 2, "0", STR_PAD_LEFT);
+    //     return Saison::crudName($journee->saison_id) . ' - ' . $journeeNom;
+    // }
 
     /**
      * Définition de l'attribut nom qui affichera le numéro de la journée avec la saison accollée
      */
     public function getNomAttribute()
     {
-        $saison = index('saisons')[$this->saison_id]->nom;
+        // $saison = index('saisons')[$this->saison_id]->nom;
         // dd($saison);
-        $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
-        return 'J' . $journee . ' - ' . $saison;
+        return niemeJournee($this->numero);
+        // $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
+        // return 'J' . $journee;
     }
 
     /**

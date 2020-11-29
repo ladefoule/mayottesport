@@ -40,13 +40,13 @@ class User extends Authenticatable
     ];
 
     /**
-     * Définition de l'affichage dans le CRUD
+     * Définition de l'attribut nom pour un objet de la class User
      *
      * @return string
      */
-    public static function crudName($id)
+    public function getNomAttribute()
     {
-        return index('users')[$id]->pseudo;
+        return $this->pseudo;
     }
 
     /**

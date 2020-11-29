@@ -23,7 +23,10 @@
             <thead>
                 <tr>
                     <th scope="col" class="px-2"><input type="checkbox" id="tout" data-action="cocher"></th>
-                    <th scope="col" class="text-left px-2">{{ Str::singular($table) }}</th>
+                    {{-- <th scope="col" class="text-left px-2">{{ Str::singular($table) }}</th> --}}
+                    @for ($i = 0; $i < count($listeAttributsVisibles); $i++)
+                        <th scope="col" class="text-left px-2">{{ Str::lower($listeAttributsVisibles[$i]['label']) }}</th>
+                    @endfor
                     <th scope="col" class="text-right px-3">actions</th>
                 </tr>
             </thead>
@@ -31,16 +34,19 @@
                 @foreach($liste as $id => $ligne)
                     <tr>
                         <td class="px-2 align-middle"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
-                        <td align="left" class="px-2 align-middle">{{ $ligne->crud_name }}</td>
+                        <td align="left" class="px-2 align-middle">{{ $ligne->nom }}</td>
+                        {{-- @for ($i = 0; $i < count($ligne['afficher']); $i++)
+                            <td align="left" class="px-2">{{ $ligne['afficher'][$i] }}</td>
+                        @endfor --}}
                         <td align="right" class="px-2 text-right">
                             <div class="d-inline-flex flex-shrink-0">
-                                <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none flex-shrink-0">
+                                <a href="{{ $ligne['href_show'] }}" title="Voir" class="text-decoration-none flex-shrink-0">
                                     <button class="btn-sm btn-success mr-1">
                                         {!! \Config::get('constant.boutons.voir') !!}
                                         <span class="d-none d-lg-inline">Voir</span>
                                     </button>
                                 </a>
-                                <a href="{{ $ligne->href_update }}" title="Editer" class="text-decoration-none flex-shrink-0">
+                                <a href="{{ $ligne['href_update'] }}" title="Editer" class="text-decoration-none flex-shrink-0">
                                     <button class="btn-sm btn-info text-white mr-1">
                                         {!! \Config::get('constant.boutons.editer') !!}
                                         <span class="d-none d-lg-inline">Éditer</span>
@@ -60,6 +66,10 @@
             </tbody>
         </table>
     </div>
+    <div class="text-center">
+        {{ $liste->links() }}
+
+    </div>
 </div>
 @endsection
 
@@ -67,7 +77,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var idTable = 'tab'
-    triDataTables(idTable) // Tri du tableau avec DataTables
+    // triDataTables(idTable) // Tri du tableau avec DataTables
     toutCocherDecocher(idTable) // Checkbox de suppressions multiples
 
     let urlSupprimer = "<?php echo $hrefs['delete-ajax'] ?>"

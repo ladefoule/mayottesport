@@ -98,15 +98,13 @@ class Match extends Model
     }
 
     /**
-     * Définition de l'affichage dans le CRUD
+     * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string
      */
-    public static function crudName($id)
+    public function getNomAttribute()
     {
-        $match = index('matches')[$id];
-        $matchNom = index('equipes')[$match->equipe_id_dom]->nom . ' # ' . index('equipes')[$match->equipe_id_ext]->nom;
-        return Journee::crudName($match->journee_id) . ' - ' . $matchNom;
+        return $this->uniqid /* . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom */;
     }
 
     /**

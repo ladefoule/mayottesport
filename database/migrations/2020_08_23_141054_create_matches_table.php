@@ -20,7 +20,7 @@ class CreateMatchesTable extends Migration {
             $table->foreign('equipe_id_dom')->references('id')->on('equipes')->onDelete('restrict');
             $table->unsignedBigInteger('equipe_id_ext');
             $table->foreign('equipe_id_ext')->references('id')->on('equipes')->onDelete('restrict');
-            $table->unsignedBigInteger('terrain_id');
+            $table->unsignedBigInteger('terrain_id')->nullable();
             $table->foreign('terrain_id')->references('id')->on('terrains')->onDelete('restrict');
             $table->unsignedBigInteger('journee_id');
             $table->foreign('journee_id')->references('id')->on('journees')->onDelete('cascade');

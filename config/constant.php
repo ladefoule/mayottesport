@@ -17,7 +17,7 @@ return [
     ],
 
     "crud-attribut" => [
-        // 1 => ["index_position", "Position sur la page liste"],
+        1 => ["index_position", "Position sur la page liste"],
         2 => ["show_position", "Position sur la page vue"],
         3 => ["create_position", "Position sur la page ajout/édition"],
         4 => ["input_type", "Type de l'input"],

@@ -16,16 +16,6 @@ class Bareme extends Model
     protected $fillable = ['nom', 'victoire', 'nul', 'defaite', 'sport_id'];
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return $this->sport->crud_name . ' - ' . $this->nom;
-    }
-
-    /**
      * Toutes les saisons possédant le barème
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
