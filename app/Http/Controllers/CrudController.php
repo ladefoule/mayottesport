@@ -283,7 +283,7 @@ class CrudController extends Controller
             // Base URI is used with relative requests
             // 'base_uri' => 'http://v2.mayottesport.com',
             // You can set any number of default request options.
-            'timeout'  => 4.0,
+            'timeout'  => 2.0,
         ]);
         // // Send an asynchronous request.
         // $request = new \GuzzleHttp\Psr7\Request('GET', '/ajax/caches/reload', ['timeout' => 2]);
@@ -300,7 +300,7 @@ class CrudController extends Controller
         // $response = $client->get('http://v2.mayottesport.com');
         // Log::info((string) $response->getBody());
 
-        $promise = $client->getAsync('http://v2.mayottesport.com/ajax/caches/reload');
+        // $client->get('http://v2.mayottesport.com/ajax/caches/reload');
 
         $promise = $client->requestAsync('GET', 'http://v2.mayottesport.com/ajax/caches/reload');
         $promise->then(
@@ -314,6 +314,10 @@ class CrudController extends Controller
                 Log::info($e->getRequest()->getMethod());
             }
         );
+
+        // Notre requète n'est pas encore partie. Il faut lancer manuellement l'appel.
+        $client->wait();
+
 
         Log::info('OK');
         Log::info('OK');
