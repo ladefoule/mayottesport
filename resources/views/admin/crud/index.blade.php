@@ -36,9 +36,9 @@
                         <td class="px-2 align-middle"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
                         {{-- <td align="left" class="px-2 align-middle">{{ $ligne->nom }}</td> --}}
                         @for ($i = 0; $i < count($ligne['afficher']); $i++)
-                            <td align="left" class="px-2">{{ $ligne['afficher'][$i] }}</td>
+                            <td align="left" class="px-2 align-middle">{{ $ligne['afficher'][$i] }}</td>
                         @endfor
-                        <td align="right" class="px-2 text-right">
+                        <td align="right" class="px-2 text-right align-middle">
                             <div class="d-inline-flex flex-shrink-0">
                                 <a href="{{ $ligne['href_show'] }}" title="Voir" class="text-decoration-none flex-shrink-0">
                                     <button class="btn-sm btn-success mr-1">

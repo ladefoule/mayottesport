@@ -91,6 +91,7 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 })->name('ajax');
 
 Route::match(['get', 'post'], '/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
+Route::match(['get', 'post'], '/ajax/caches/reload', 'CacheController@reloadCrud')->name('caches.reload-crud');
 
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');

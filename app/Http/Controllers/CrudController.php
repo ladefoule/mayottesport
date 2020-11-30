@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cache;
+use App\CrudTable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -134,6 +135,7 @@ class CrudController extends Controller
     public function createStore(Request $request, string $table)
     {
         Log::info(" -------- CrudController : createStore -------- ");
+        $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $rules = $modele::rules();
 
@@ -151,7 +153,7 @@ class CrudController extends Controller
         // Todo : Erreur lors de la crétion d'un élément equipe_saison, impossible de récupérer l'id car table pivot
         // dd($instance);
 
-        $this::forgetCaches($table, $instance);
+        $this::forgetCaches($crudTable, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);
     }
 
@@ -194,6 +196,7 @@ class CrudController extends Controller
     public function updateStore(Request $request, string $table, int $id)
     {
         Log::info(" -------- CrudController : updateStore -------- ");
+        $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
         $rules = $modele::rules($instance);
@@ -204,7 +207,7 @@ class CrudController extends Controller
         $request = Validator::make($request->all(), $rules, $messages)->validate();
         $instance->update($request);
 
-        $this::forgetCaches($table, $instance);
+        $this::forgetCaches($crudTable, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $id]);
     }
 
@@ -221,7 +224,7 @@ class CrudController extends Controller
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
-        $this::forgetCaches($table, $instance);
+        $this::forgetCaches($crudTable, $instance);
         $instance->delete();
         Log::info("Suppression de l'id $id dans la table $crudTable->nom");
 
@@ -251,7 +254,8 @@ class CrudController extends Controller
 
         $request = $validator->validate();
         $modele::destroy($request['ids']);
-        Cache::forget('index-' . $table);
+        $this::forgetCaches($crudTable);
+        // Cache::forget('index-' . $table);
         // foreach ($request['ids'] as $id) {
         //     $instance = $modele::findOrFail($id);
         //     $this::forgetCaches($table, $instance);
@@ -267,53 +271,16 @@ class CrudController extends Controller
      * @param object $instance
      * @return void
      */
-    private static function forgetCaches(string $table, object $instance)
+    private static function forgetCaches(CrudTable $crudTable, object $instance = null)
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
+        $client = new \GuzzleHttp\Client(['base_uri' => config('app.url')]);
+        // Send an asynchronous request.
+        $request = new \GuzzleHttp\Psr7\Request('GET', '/ajax/caches/reload', ['timeout' => 2]);
+        $client->sendAsync($request)->then(function ($response) {
+            echo 'I completed! ' . $response->getBody();
+        });
 
-        // On supprime le cache classement si on effectue une modif sur les tables :
-        // matches, journées ou saisons qui risquent d'impacter le classement
-        if($instance && in_array($table, ['matches', 'journees', 'saisons'])){
-            if($table == 'matches'){
-                $match = $instance;
-                $journee = index('journees')[$match->journee_id];
-                $saison = index('saisons')[$journee->saison_id];
-            }else if($table == 'journees'){
-                $journee = $instance;
-                $saison = index('saisons')[$journee->saison_id];
-            }else
-                $saison = $instance;
-
-            $cacheClassement = "classement-".$saison->id;
-            Cache::forget($cacheClassement);
-        }
-
-        if($table == 'crud-tables' || $table == 'crud-attributs' || $table == 'crud-attribut-infos'){
-            Log::info("Opération effectuée dans la gestion du Crud");
-            Log::info("User : " . Auth::user()->email);
-            if($table == 'crud-attribut-infos')
-                $table = $instance->crudAttribut->crudTable->nom;
-            else if($table == 'crud-attributs')
-                $table = $instance->crudTable->nom;
-            else
-                $table = $instance->nom;
-
-            // La table sur laquelle on apporte des modifications
-            $table = str_replace('_', '-' , $table);
-            Cache::forget("attributs-visibles-$table-create");
-            Cache::forget("attributs-visibles-$table-show");
-            // Cache::forget('index-' . $table);
-
-            // On supprime les caches des tables liées à la gestion du Crud
-            Cache::forget("index-crud-tables");
-            Cache::forget("index-crud-attributs");
-            Cache::forget("index-crud-attribut-infos");
-        }else{
-            $cache = "index-$table";
-            Cache::forget($cache);
-
-            // if($table == 'sports')
-                // Cache::forget(['equipes', 'competitions', etc...])
-        }
+        Log::info('OK');
     }
 }
