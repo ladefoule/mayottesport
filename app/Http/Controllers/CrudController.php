@@ -284,12 +284,21 @@ class CrudController extends Controller
             'timeout'  => 2.0,
         ]);
 
-        $promise = $client->requestAsync('GET', '/ajax/caches/reload', [
-            'query' => [
-                'crud_table_id' => $crudTable->id,
-                'id' => $instance->id ?? ''
-            ]
-        ]);
+        // Create a PSR-7 request object to send
+        $headers = [
+            'crud_table_id' => $crudTable->id,
+            'instance_id' => $instance->id ?? ''
+        ];
+        $body = 'Hello!';
+        $request = new GuzzleRequest('GET', '/ajax/caches/reload', $headers, $body);
+        $promise = $client->sendAsync($request);
+
+        // $promise = $client->requestAsync('GET', '/ajax/caches/reload', [
+        //     'query' => [
+        //         'crud_table_id' => $crudTable->id,
+        //         'instance_id' => $instance->id ?? ''
+        //     ]
+        // ]);
         $promise->then(
             function (ResponseInterface $res) {
                 Log::info('Caches rechargés !');
@@ -301,6 +310,13 @@ class CrudController extends Controller
         );
 
         // Notre requète n'est pas encore partie. Il faut lancer manuellement l'appel.
-        $promise->wait();
+        // $promise->wait();
+
+        // return view('ajax.cache', [
+        //     'crudTableId' => $crudTable->id,
+        //     'instanceId' => $instance->id ?? ''
+        // ]);
+
+        // dd($view);
     }
 }

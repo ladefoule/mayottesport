@@ -16,7 +16,7 @@ class CacheController extends Controller
     {
         Log::info(" -------- CacheController : reloadCrud -------- ");
         $rules = [
-            'id' => 'nullable|integer|min:1',
+            'instance_id' => 'nullable|integer|min:1',
             'crud_table_id' => 'required|integer|min:1|exists:crud_tables,id'
         ];
 
@@ -24,7 +24,7 @@ class CacheController extends Controller
         if ($validator->fails())
             abort(404);
 
-        $id = $request['id'];
+        $id = $request['instance_id'];
         $crudTable = CrudTable::findOrFail($request['crud_table_id']);
 
         $table = $crudTable->nom;
@@ -78,6 +78,8 @@ class CacheController extends Controller
             Log::info("Rechargement du cache attributs-visibles-$tableKebabCase-show");
             $crudTable->listeAttributsVisibles('show');
         }
+
+        // dd('idfdfci');
 
         Cache::forget("index-$tableKebabCase");
         Log::info("Rechargement du cache index-$tableKebabCase");
