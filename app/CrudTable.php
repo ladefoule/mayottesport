@@ -300,7 +300,7 @@ class CrudTable extends Model
 
             if ($infosAttribut['attribut_crud_table_id']){
                 $tableReference = index('crud_tables')[$infosAttribut['attribut_crud_table_id']]->nom;
-                $modeleReference = 'App\\' . modelName($tableReference);
+                // $modeleReference = 'App\\' . modelName($tableReference);
                 $listeTableAttribut[$i] = /* $modeleReference::all(); */index($tableReference);
             }
 

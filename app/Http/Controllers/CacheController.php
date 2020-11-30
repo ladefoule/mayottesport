@@ -8,13 +8,29 @@ use App\CrudTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CacheController extends Controller
 {
-    public function reloadCrud(CrudTable $crudTable, $instance = null)
+    public function reloadCrud(Request $request)
     {
         Log::info(" -------- CacheController : reloadCrud -------- ");
+        $rules = [
+            'id' => 'nullable|integer|min:1',
+            'crud_table_id' => 'required|integer|min:1|exists:crud_tables,id'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+            abort(404);
+
+        $id = $request['id'];
+        $crudTable = CrudTable::findOrFail($request['crud_table_id']);
+
         $table = $crudTable->nom;
+        $modele = '\App\\' . modelName($crudTable->nom);
+
+        $instance = $modele::find($id);
         $tableKebabCase = str_replace('_', '-' , $table);
 
         // On recharge le cache classement si on effectue une modif sur les tables :
@@ -33,7 +49,9 @@ class CacheController extends Controller
             $cacheClassement = "classement-".$saison->id;
             Cache::forget($cacheClassement);
             Log::info("Rechargement du cache classement-" . $saison->id);
-            Saison::findOrFail($saison->id)->classement();
+            $saison = Saison::findOrFail($saison->id);
+            if($saison->championnat->type == 1) // Type championnat
+                $saison->classement();
         }
 
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
@@ -61,8 +79,8 @@ class CacheController extends Controller
             $crudTable->listeAttributsVisibles('show');
         }
 
-        $cache = "index-$tableKebabCase";
-        Cache::forget($cache);
+        Cache::forget("index-$tableKebabCase");
+        Log::info("Rechargement du cache index-$tableKebabCase");
         $crudTable->index();
 
         // On recharge les caches qui utilisent les données de cette table dans leur attribut nom ou crud_name

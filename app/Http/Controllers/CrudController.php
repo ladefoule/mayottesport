@@ -271,7 +271,7 @@ class CrudController extends Controller
     /**
      * Liste des caches à supprimer qui necessiteront donc un renouvellement
      *
-     * @param string $table
+     * @param CrudTable $crudTable
      * @param object $instance
      * @return void
      */
@@ -279,12 +279,17 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
         $client = new Client([
-            // 'base_uri' => 'http://v2.mayottesport.com',
+            'base_uri' => 'http://v2.mayottesport.com',
             'http_errors' => false,
             'timeout'  => 2.0,
         ]);
 
-        $promise = $client->requestAsync('GET', 'http://v2.mayottesport.com/ajax/caches/reload');
+        $promise = $client->requestAsync('GET', '/ajax/caches/reload', [
+            'query' => [
+                'crud_table_id' => $crudTable->id,
+                'id' => $instance->id ?? ''
+            ]
+        ]);
         $promise->then(
             function (ResponseInterface $res) {
                 Log::info('Caches rechargés !');
