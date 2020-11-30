@@ -68,10 +68,12 @@ class CacheController extends Controller
         // On recharge les caches qui utilisent les données de cette table dans leur attribut nom ou crud_name
         $cachesLies = explode(',', $crudTable->caches_lies);
         foreach ($cachesLies as $cache){
-            Cache::forget('index-' . $cache);
-            $cacheTable = str_replace('_', '-' , $cache);
-            Log::info("Rechargement du cache index-$cacheTable");
-            $crudTable = CrudTable::firstWhere('nom', $cacheTable)->index();
+            if($cache){
+                Cache::forget('index-' . $cache);
+                $cacheTable = str_replace('_', '-' , $cache);
+                Log::info("Rechargement du cache index-$cacheTable");
+                $crudTable = CrudTable::firstWhere('nom', $cacheTable)->index();
+            }
         }
     }
 }

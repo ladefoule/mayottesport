@@ -296,6 +296,6 @@ class CrudController extends Controller
         );
 
         // Notre requète n'est pas encore partie. Il faut lancer manuellement l'appel.
-        $promise->wait();
+        // $promise->wait();
     }
 }
