@@ -300,6 +300,8 @@ class CrudController extends Controller
         // $response = $client->get('http://v2.mayottesport.com');
         // Log::info((string) $response->getBody());
 
+        $promise = $client->getAsync('http://v2.mayottesport.com/ajax/caches/reload');
+
         $promise = $client->requestAsync('GET', 'http://v2.mayottesport.com/ajax/caches/reload');
         $promise->then(
             function (ResponseInterface $res) {
