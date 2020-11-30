@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Cache;
 use App\CrudTable;
+use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Psr\Http\Message\ResponseInterface;
 use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 class CrudController extends Controller
 {
@@ -274,13 +278,44 @@ class CrudController extends Controller
     private static function forgetCaches(CrudTable $crudTable, object $instance = null)
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
-        $client = new \GuzzleHttp\Client(['base_uri' => config('app.url')]);
-        // Send an asynchronous request.
-        $request = new \GuzzleHttp\Psr7\Request('GET', '/ajax/caches/reload', ['timeout' => 2]);
-        $client->sendAsync($request)->then(function ($response) {
-            echo 'I completed! ' . $response->getBody();
-        });
+        // $client = new \GuzzleHttp\Client(['base_uri' => 'http://v2.mayottesport.com']);
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'http://v2.mayottesport.com',
+            // You can set any number of default request options.
+            'timeout'  => 2.0,
+        ]);
+        // // Send an asynchronous request.
+        // $request = new \GuzzleHttp\Psr7\Request('GET', '/ajax/caches/reload', ['timeout' => 2]);
+        // $client->sendAsync($request)->then(function ($response) {
+        //     Log::info('I completed! ' . $response->getBody());
+        // });
 
+        // $request = new GuzzleRequest('GET', 'http://v2.mayottesport.com');
+        // $promise = $client->requestAsync('GET', 'http://v2.mayottesport.com');
+
+        // use Psr\Http\Message\ResponseInterface;
+        // use GuzzleHttp\Exception\RequestException;
+
+        $response = $client->get('http://v2.mayottesport.com');
+        dd((string) $response->getBody());
+
+        $promise = $client->requestAsync('GET', 'http://localhost');
+        $promise->then(
+            function (ResponseInterface $res) {
+                Log::info('LA');
+                echo $res->getStatusCode() . "\n";
+            },
+            function (RequestException $e) {
+                Log::info('LA');
+                echo $e->getMessage() . "\n";
+                echo $e->getRequest()->getMethod();
+            }
+        );
+
+        Log::info('OK');
+        Log::info('OK');
+        Log::info('OK');
         Log::info('OK');
     }
 }
