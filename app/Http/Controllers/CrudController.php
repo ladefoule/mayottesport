@@ -281,7 +281,7 @@ class CrudController extends Controller
         // $client = new \GuzzleHttp\Client(['base_uri' => 'http://v2.mayottesport.com']);
         $client = new Client([
             // Base URI is used with relative requests
-            'base_uri' => 'http://v2.mayottesport.com',
+            // 'base_uri' => 'http://v2.mayottesport.com',
             // You can set any number of default request options.
             'timeout'  => 2.0,
         ]);
@@ -298,9 +298,9 @@ class CrudController extends Controller
         // use GuzzleHttp\Exception\RequestException;
 
         $response = $client->get('http://v2.mayottesport.com');
-        dd((string) $response->getBody());
+        Log::info((string) $response->getBody());
 
-        $promise = $client->requestAsync('GET', 'http://localhost');
+        $promise = $client->requestAsync('GET', 'http://v2.mayottesport.com/ajax/caches/reload');
         $promise->then(
             function (ResponseInterface $res) {
                 Log::info('LA');
