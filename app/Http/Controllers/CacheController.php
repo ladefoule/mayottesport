@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cache;
+use App\Saison;
 use App\CrudTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -10,13 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CacheController extends Controller
 {
-    public function reloadCrud(Request $request, CrudTable $crudTable, $instance = null)
+    public function reloadCrud(CrudTable $crudTable, $instance = null)
     {
-        Log::info('ICI');
-        return 2;
+        Log::info(" -------- CacheController : reloadCrud -------- ");
         $table = $crudTable->nom;
+        $tableKebabCase = str_replace('_', '-' , $table);
 
-        // On supprime le cache classement si on effectue une modif sur les tables :
+        // On recharge le cache classement si on effectue une modif sur les tables :
         // matches, journées ou saisons qui risquent d'impacter le classement
         if($instance && in_array($table, ['matches', 'journees', 'saisons'])){
             if($table == 'matches'){
@@ -31,9 +32,12 @@ class CacheController extends Controller
 
             $cacheClassement = "classement-".$saison->id;
             Cache::forget($cacheClassement);
+            Log::info("Rechargement du cache classement-" . $saison->id);
+            Saison::findOrFail($saison->id)->classement();
         }
 
-        if($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos'){
+        // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
+        if($instance && ($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos')){
             Log::info("Opération effectuée dans la gestion du Crud");
             Log::info("User : " . Auth::user()->email);
             if($table == 'crud_attribut_infos')
@@ -43,24 +47,31 @@ class CacheController extends Controller
             else
                 $table = $instance->nom;
 
-            // La table sur laquelle on apporte des modifications
-            $table = str_replace('_', '-' , $table);
-            Cache::forget("attributs-visibles-$table-create");
-            Cache::forget("attributs-visibles-$table-show");
-            // Cache::forget('index-' . $table);
 
-            // On supprime les caches des tables liées à la gestion du Crud
-            Cache::forget("index-crud-tables");
-            Cache::forget("index-crud-attributs");
-            Cache::forget("index-crud-attribut-infos");
-        }else{
-            $cache = "index-$table";
-            Cache::forget($cache);
+            Cache::forget("attributs-visibles-$tableKebabCase-index");
+            Log::info("Rechargement du cache attributs-visibles-$tableKebabCase-index");
+            $crudTable->listeAttributsVisibles();
 
-            // On supprime les caches qui utilisent les données de cette table dans leur attribut nom ou crud_name
-            $cachesLies = explode(',', $crudTable->caches_lies);
-            foreach ($cachesLies as $cache)
-                Cache::forget('index-' . $cache);
+            Cache::forget("attributs-visibles-$tableKebabCase-create");
+            Log::info("Rechargement du cache attributs-visibles-$tableKebabCase-create");
+            $crudTable->listeAttributsVisibles('create');
+
+            Cache::forget("attributs-visibles-$tableKebabCase-show");
+            Log::info("Rechargement du cache attributs-visibles-$tableKebabCase-show");
+            $crudTable->listeAttributsVisibles('show');
+        }
+
+        $cache = "index-$tableKebabCase";
+        Cache::forget($cache);
+        $crudTable->index();
+
+        // On recharge les caches qui utilisent les données de cette table dans leur attribut nom ou crud_name
+        $cachesLies = explode(',', $crudTable->caches_lies);
+        foreach ($cachesLies as $cache){
+            Cache::forget('index-' . $cache);
+            $cacheTable = str_replace('_', '-' , $cache);
+            Log::info("Rechargement du cache index-$cacheTable");
+            $crudTable = CrudTable::firstWhere('nom', $cacheTable)->index();
         }
     }
 }

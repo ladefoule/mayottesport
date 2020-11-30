@@ -278,50 +278,24 @@ class CrudController extends Controller
     private static function forgetCaches(CrudTable $crudTable, object $instance = null)
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
-        // $client = new \GuzzleHttp\Client(['base_uri' => 'http://v2.mayottesport.com']);
         $client = new Client([
-            // Base URI is used with relative requests
             // 'base_uri' => 'http://v2.mayottesport.com',
-            // You can set any number of default request options.
+            'http_errors' => false,
             'timeout'  => 2.0,
         ]);
-        // // Send an asynchronous request.
-        // $request = new \GuzzleHttp\Psr7\Request('GET', '/ajax/caches/reload', ['timeout' => 2]);
-        // $client->sendAsync($request)->then(function ($response) {
-        //     Log::info('I completed! ' . $response->getBody());
-        // });
-
-        // $request = new GuzzleRequest('GET', 'http://v2.mayottesport.com');
-        // $promise = $client->requestAsync('GET', 'http://v2.mayottesport.com');
-
-        // use Psr\Http\Message\ResponseInterface;
-        // use GuzzleHttp\Exception\RequestException;
-
-        // $response = $client->get('http://v2.mayottesport.com');
-        // Log::info((string) $response->getBody());
-
-        // $client->get('http://v2.mayottesport.com/ajax/caches/reload');
 
         $promise = $client->requestAsync('GET', 'http://v2.mayottesport.com/ajax/caches/reload');
         $promise->then(
             function (ResponseInterface $res) {
-                Log::info('ICI');
-                Log::info($res->getStatusCode() . "\n");
+                Log::info('Caches rechargés !');
             },
             function (RequestException $e) {
-                Log::info('LA');
-                Log::info($e->getMessage() . "\n");
+                Log::info($e->getMessage());
                 Log::info($e->getRequest()->getMethod());
             }
         );
 
         // Notre requète n'est pas encore partie. Il faut lancer manuellement l'appel.
         $promise->wait();
-
-
-        Log::info('OK');
-        Log::info('OK');
-        Log::info('OK');
-        Log::info('OK');
     }
 }
