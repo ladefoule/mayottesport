@@ -38,6 +38,7 @@ class ProcessCrudTable implements ShouldQueue
      */
     public function handle()
     {
+        Log::info(" -------- ProcessCrudTable : handle -------- ");
         $client = new Client([
             'base_uri' => 'http://v2.mayottesport.com',
             'http_errors' => false,
@@ -61,7 +62,7 @@ class ProcessCrudTable implements ShouldQueue
             }
         );
 
+        // Execution de la requète
         $promise->wait();
-        Log::info('JOB APPELE');
     }
 }

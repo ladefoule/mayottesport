@@ -282,7 +282,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
 
-        // ProcessCrudTable::dispatchNow($crudTable, $instance);
-        ProcessCrudTable::dispatchAfterResponse($crudTable, $instance);
+        // On recharge les caches
+        ProcessCrudTable::dispatch($crudTable, $instance);
     }
 }
