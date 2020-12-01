@@ -3,7 +3,7 @@
 @section('title', "Vérifiez votre adresse email")
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center bg-white py-3">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">Vérifiez votre adresse email</div>

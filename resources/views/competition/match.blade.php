@@ -43,122 +43,27 @@
         </div>
     </div>
 
-    {{-- Modèle de bloc de commentaire --}}
-    <article class="comment d-none" id="model-bloc-comm">
-        <span class="comment-img">
-            <img src="{{-- http://cdn.onlinewebfonts.com/svg/img_266351.png --}}" alt="" width="50" height="50">
-        </span>
-        <div class="comment-body">
-            <div class="text"></div>
-            <p class="attribution">Posté par <span class="nom text-danger"></span> le <span class="date"></span> (<a href="" class="supprimer">Supprimer</a>)</p>
-        </div>
-    </article>
-    {{-- Fin Modèle de bloc de commentaire --}}
-
     <div class="row bg-white">
-        <div class="w-100 {{-- card --}}">
-            {{-- <div class="card-header">
-                Les commentaires
-            </div> --}}
-            @guest
-                <div class="pl-3 py-3">
-                    <a href="{{ route('login') }}">Connectez-vous</a> ou <a href="{{ route('register') }}">Inscrivez-vous</a> pour commenter
-                </div>
-
-                {{-- La ligne en dessous permettra à l'utilisateur de revenir sur cette page après la connexion --}}
-                <?php Session::put('url.intended', request()->url()); ?>
-            @endguest
-            <div class="card-body d-flex flex-wrap">
-                @auth
-                    <form action="" id="commenter" class="w-100">
-                        @csrf
-                        <article class="comment">
-                            <a class="comment-img" href="#non">
-                                <img src="{{-- https://pbs.twimg.com/profile_images/444197466133385216/UA08zh-B.jpeg --}}" alt=""
-                                    width="50" height="50">
-                            </a>
-                            <div class="comment-body">
-                                <textarea class="text form-control" name="comm" rows="2" id="commentaire"></textarea>
-                                <input type="hidden" name="match_id" id="match_id" value="{{ $match['id'] }}">
-                                <input type="hidden" name="user_id" id="user_id" value="{{ \Auth::id() }}">
-                                <button class="mt-2 btn-sm btn-success">Envoyer</button>
-                            </div>
-                        </article>
-                    </form>
-                @endauth
-                <section class="comments w-100">
-                    @foreach ($match['commentaires'] as $commentaire)
-                    <article class="comment">
-                        <span class="comment-img">
-                            <img src="{{-- http://cdn.onlinewebfonts.com/svg/img_266351.png --}}" alt="" width="50" height="50">
-                        </span>
-                        <div class="comment-body">
-                            <div class="text">
-                                {{ $commentaire->comm }}
-                            </div>
-                            <p class="attribution">Posté par <span class="nom text-danger">{{ $commentaire->pseudo }}</span> le <span class="date">{{ $commentaire->created_at/* ->format('d/m/Y à H:i:s') */ }}</span>@if($commentaire->user_id == \Auth::id()) (<a href="" class="supprimer" data-id="{{ $commentaire->id }}">Supprimer</a>)@endif</p>
-                        </div>
-                    </article>
-                    @endforeach
-
-                </section>
-            </div>
-        </div>
+        <section class="col-12">
+            <div id="disqus_thread"></div>
+            <script>
+                /**
+                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                /*
+                var disqus_config = function () {
+                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+                */
+                (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://mayottesport-v2.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </section>
     </div>
-@endsection
-
-@section('script')
-<script>
-$(document).ready(function(){
-    var form = qs('#commenter')
-    var commentaire = qs('#commentaire')
-    var match_id = qs('#match_id').value
-    var user_id = qs('#user_id').value
-    var _token = qs('[name=_token]').value
-    var comments = qs('.comments')
-    var model = qs('#model-bloc-comm')
-
-    // Ajout de commentaire
-    $('#commenter').on('submit', function (e) {
-        e.preventDefault()
-        comm = commentaire.value
-        if(commentaire.length < 2)
-            return false
-
-        $.ajax({
-            method:'POST',
-            url: "<?php echo route('comment') ?>",
-            data:{comm, match_id, user_id, _token},
-            success:function(data){
-                commentaire.value = ''
-                let bloc = model.cloneNode(true)
-                bloc.classList.remove('d-none')
-                bloc.removeAttribute('id')
-
-                qs('.text', bloc).innerHTML = data.comm
-                qs('.nom', bloc).innerHTML = data.nom
-                qs('.date', bloc).innerHTML = data.date
-                qs('.supprimer', bloc).dataset.id = data.id
-                comments.prepend(bloc)
-            }
-        })
-    })
-
-    // Suppression de commentaire
-    $('.comments').on('click', '.supprimer', function (e) {
-        e.preventDefault()
-        var id = this.dataset.id
-        var href = this
-
-        $.ajax({
-            method:'POST',
-            url: "<?php echo route('comment.delete') ?>",
-            data:{id, _token},
-            success:function(data){
-                href.closest('article').remove() // Suppression du bloc de commentaire
-            }
-        })
-    })
-})
-</script>
 @endsection

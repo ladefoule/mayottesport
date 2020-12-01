@@ -17,7 +17,7 @@ class CheckPermission
      */
     public function handle($request, Closure $next, $permission)
     {
-        Log::info(" -------- Middleware CheckPermission -------- ");
+        Log::info(" ---- Middleware CheckPermission ---- ");
         $permission = explode('|', $permission);
         if(checkPermission($permission))
             return $next($request);
