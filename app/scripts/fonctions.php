@@ -89,7 +89,7 @@ function fanion($equipeId)
     if($exists == false)
         $fanion = "defaut-2";
 
-    return "/storage/img/fanion/" . $fanion . '.png';
+    return config('app.url') . "/storage/img/fanion/" . $fanion . '.png';
 }
 
 /**

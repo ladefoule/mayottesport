@@ -40,7 +40,7 @@ class ProcessCrudTable implements ShouldQueue
     {
         Log::info(" -------- ProcessCrudTable : handle -------- ");
         $client = new Client([
-            'base_uri' => 'http://v2.mayottesport.com',
+            'base_uri' => config('app.url'),
             'http_errors' => false,
             'timeout'  => 10.0,
         ]);

@@ -4,7 +4,7 @@
 ?>
 <nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
     <div class="container">
-        <a class="navbar-brand ml-3" href="/"><img class="img-fluid" src="/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
+        <a class="navbar-brand ml-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ config('app.url') }}/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
         <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,7 @@
         </button>
           <ul class="navbar-nav w-100 border-bottom">
             <li class="nav-item active px-2 border-bottom">
-                <a class="nav-link" href="/">Accueil du site</a>
+                <a class="nav-link" href="{{ route('home') }}">Accueil du site</a>
             </li>
             @if (index('roles')[auth()->user()->role_id]->niveau >= 40) {{-- superadmin --}}
                 <a class="border-bottom nav-item nav-link px-2 @if ($layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-superadmin.tables') }}">Gestion du CRUD</a>

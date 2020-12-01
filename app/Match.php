@@ -203,7 +203,7 @@ class Match extends Model
         $sportKebabCase = strToUrl($sport->nom);
         $competitionKebabCase = strToUrl($competition->nom);
 
-        return "/$sportKebabCase/$competitionKebabCase/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
+        return config('app.url') . "/$sportKebabCase/$competitionKebabCase/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
     }
 
     /**
