@@ -95,19 +95,19 @@ class Saison extends Model
         });
 
         // Ici on associe complète le classement avec les noms d'équipes, fanions, etc...
-        foreach ($classement as $equipeId => $donnees) {
-            // $equipe = Equipe::findOrFail($equipeId);
-            $equipe = index('equipes')[$equipeId];
-            $sport = index('sports')[$equipe->sport_id];
-            $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
-            $nomEquipe = $equipe->nom;
-            $fanionEquipe = fanion($equipe->id);
+        // foreach ($classement as $equipeId => $donnees) {
+        //     // $equipe = Equipe::findOrFail($equipeId);
+        //     $equipe = index('equipes')[$equipeId];
+        //     $sport = index('sports')[$equipe->sport_id];
+        //     $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
+        //     $nomEquipe = $equipe->nom;
+        //     $fanionEquipe = fanion($equipe->id);
 
-            $donnees['nom'] = $nomEquipe;
-            $donnees['hrefEquipe'] = $hrefEquipe;
-            $donnees['fanion'] = $fanionEquipe;
-            $classement[$equipeId] = $donnees;
-        }
+        //     $donnees['nom'] = $nomEquipe;
+        //     $donnees['hrefEquipe'] = $hrefEquipe;
+        //     $donnees['fanion'] = $fanionEquipe;
+        //     $classement[$equipeId] = $donnees;
+        // }
 
         return $classement;
     }
@@ -137,6 +137,16 @@ class Saison extends Model
         })->first()->id ?? 0;
         $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
         foreach ($matches as $equipeId => $matchesEquipe) {
+            $equipe = index('equipes')[$equipeId];
+            $sport = index('sports')[$sport->id];
+            $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
+            $nomEquipe = $equipe->nom;
+            $fanionEquipe = fanion($equipe->id);
+
+            $classement[$equipeId]['nom'] = $nomEquipe;
+            $classement[$equipeId]['hrefEquipe'] = $hrefEquipe;
+            $classement[$equipeId]['fanion'] = $fanionEquipe;
+
             $classement[$equipeId]['points'] = 0;
             $classement[$equipeId]['joues'] = 0;
             $classement[$equipeId]['victoire'] = 0;
