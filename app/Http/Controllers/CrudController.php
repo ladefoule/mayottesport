@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cache;
 use App\CrudTable;
+use App\Jobs\ProcessCrudTable;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use GuzzleHttp\HandlerStack;
@@ -280,29 +281,8 @@ class CrudController extends Controller
     private static function forgetCaches(CrudTable $crudTable, object $instance = null)
     {
         Log::info(" -------- CrudController : forgetCaches -------- ");
-        $client = new Client([
-            'base_uri' => 'http://v2.mayottesport.com',
-            'http_errors' => false,
-            'timeout'  => 10.0,
-        ]);
 
-        $promise = $client->getAsync('/ajax/caches/reload' , [
-            'query' => [
-                'crud_table_id' => $crudTable->id,
-                'instance_id' => $instance->id ?? ''
-            ]
-        ] );
-
-        $promise->then(
-            function (ResponseInterface $res) {
-                Log::info('Caches rechargés !');
-            },
-            function (RequestException $e) {
-                Log::info($e->getMessage());
-                Log::info($e->getRequest()->getMethod());
-            }
-        );
-
-        $promise->wait();
+        // ProcessCrudTable::dispatchNow($crudTable, $instance);
+        ProcessCrudTable::dispatchAfterResponse($crudTable, $instance);
     }
 }
