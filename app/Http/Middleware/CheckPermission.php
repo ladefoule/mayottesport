@@ -19,8 +19,9 @@ class CheckPermission
     {
         Log::info(" ---- Middleware CheckPermission ---- ");
         $permission = explode('|', $permission);
-        if(checkPermission($permission))
+        if(checkPermission($permission)){
             return $next($request);
+        }
 
         abort(404);
     }

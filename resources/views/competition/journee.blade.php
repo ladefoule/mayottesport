@@ -4,10 +4,10 @@
         <div class="row d-flex flex-nowrap py-2 border-bottom @if($i==0) border-top @endif">
             <div class="col-5 p-0 d-flex justify-content-between align-items-center @if($match['score_eq_dom'] > $match['score_eq_ext']) font-weight-bold @endif">
                 <div>
-                    <img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" class="fanion-calendrier pr-2">
+                    <img src="{{ $match['fanion_equipe_dom'] }}" alt="{{ $match['equipe_dom']->nom }}" class="fanion-calendrier pr-2">
                 </div>
                 <div class="text-right">
-                    {{ $match['nom_eq_dom'] }}
+                    {{ $match['equipe_dom']->nom }}
                 </div>
             </div>
             <div class="col-2 d-flex justify-content-center align-items-center p-0">
@@ -15,10 +15,10 @@
             </div>
             <div class="col-5 p-0 d-flex justify-content-between align-items-center @if($match['score_eq_dom'] < $match['score_eq_ext']) font-weight-bold @endif">
                 <div class="text-left">
-                    {{ $match['nom_eq_ext'] }}
+                    {{ $match['equipe_ext']->nom }}
                 </div>
                 <div>
-                    <img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" class="fanion-calendrier pl-2">
+                    <img src="{{ $match['fanion_equipe_ext'] }}" alt="{{ $match['equipe_ext']->nom }}" class="fanion-calendrier pl-2">
                 </div>
             </div>
         </div>

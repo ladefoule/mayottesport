@@ -9,13 +9,13 @@
     <div class="col-12 row d-flex flex-nowrap py-2 px-0 mx-0 border-bottom @if($i==0) border-top @endif">
          <div class="col-4 p-0 d-flex flex-wrap justify-content-start text-left align-items-center">
             <div class="col-lg-4 d-lg-inline py-0 px-0 text-center logo-align-auto">
-               <img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" class="fanion-page-equipe">
+               <img src="{{ $match['fanion_equipe_dom'] }}" alt="{{ $match['equipe_dom']->nom }}" class="fanion-page-equipe">
             </div>
             <div class="equipe-domicile col-lg-8 d-lg-inline px-0 equipe-align-auto">
                @if ($equipeDomId != $equipe->id)
                      <a class="text-dark" href="{{ $match['href_eq_dom'] }}">
                @endif
-               {{ $match['nom_eq_dom'] }}
+               {{ $match['equipe_dom']->nom }}
                @if ($equipeDomId != $equipe->id)
                      </a>
                @endif
@@ -38,7 +38,7 @@
                @if ($equipeExtId != $equipe->id)
                      <a class="text-dark" href="{{ $match['href_eq_ext'] }}">
                @endif
-               {{ $match['nom_eq_ext'] }}
+               {{ $match['equipe_ext']->nom }}
                @if ($equipeExtId != $equipe->id)
                      </a>
                @endif
@@ -47,7 +47,7 @@
                @if ($equipeExtId != $equipe->id)
                      <a class="text-dark" href="{{ $match['href_eq_ext'] }}">
                @endif
-               <img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" class="fanion-page-equipe">
+               <img src="{{ $match['fanion_equipe_ext'] }}" alt="{{ $match['equipe_ext']->nom }}" class="fanion-page-equipe">
                @if ($equipeExtId != $equipe->id)
                      </a>
                @endif

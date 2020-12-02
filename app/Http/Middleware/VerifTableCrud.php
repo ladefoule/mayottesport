@@ -19,6 +19,7 @@ class VerifTableCrud
      */
     public function handle($request, Closure $next)
     {
+        Log::info(microtime(true));
         Log::info(" ---- Middleware VerifTableCrud ---- ");
         if (Validator::make(['table' => $request->table], ['table' => 'alpha_dash'])->fails())
             abort(404);
@@ -29,6 +30,7 @@ class VerifTableCrud
         foreach ($navbarCrudTables as $table_)
             if(array_search($table, $table_)){
                 $crudTable = CrudTable::findOrFail($table_['id']);
+                // $crudTable = index('crud_tables')[$table_['id']];
                 $request->layout = 'crud';
             }
 
@@ -46,6 +48,7 @@ class VerifTableCrud
             abort(404);
         }
         $request->crudTable = $crudTable;
+        Log::info(microtime(true));
         return $next($request);
     }
 }

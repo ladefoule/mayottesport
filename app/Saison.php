@@ -146,7 +146,7 @@ class Saison extends Model
             foreach ($matches as $equipeId => $matchesEquipe) {
                 $equipe = index('equipes')[$equipeId];
                 $sport = index('sports')[$sport->id];
-                $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
+                $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'uniqid' => $equipe->uniqid]);
                 $nomEquipe = $equipe->nom;
                 $fanionEquipe = fanion($equipe->id);
 

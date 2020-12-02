@@ -40,11 +40,23 @@ class EquipeController extends Controller
         // On recherche le dernier match de l'équipe toute compétition confondue
         $dernierMatch = $matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
         $dernierMatchRender = '';
-        if($dernierMatch)
-            $dernierMatchRender = ($dernierMatch->equipe_id_dom == $equipe->id) ? match($dernierMatch->id)['render_eq_dom'] : match($dernierMatch->id)->render_eq_ext;
+        if($dernierMatch){
+            // dd($dernierMatch->infos);
+            // $resultat = $this->resultat($equipe->id) ? $this->resultat($equipe->id)['resultat'] : '';
+            $journee = index('journees')[$dernierMatch->journee_id];
+            $saison = index('saisons')[$journee->saison_id];
+            $competition = index('competitions')[$saison->competition_id];
+            $dernierMatchRender = view('equipe.match', [
+                'equipe' => $equipe,
+                'match' => $dernierMatch->infos,
+                'competition' => $competition,
+                'sport' => $sport,
+            ])->render();
+        }
+            // $dernierMatchRender = ($dernierMatch->equipe_id_dom == $equipe->id) ? match($dernierMatch->id)['render_eq_dom'] : match($dernierMatch->id)->render_eq_ext;
 
         // Toutes les saisons dans lesquelles l'équipe a joué
-        $saisons = $equipe->saisons;
+        // $saisons = $equipe->saisons;
         $saisons = index('equipe_saison')->where('equipe_id', $equipe->id)->pluck('saison_id');
         // dd($saisons);
 

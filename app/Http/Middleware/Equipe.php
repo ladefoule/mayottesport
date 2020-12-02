@@ -18,27 +18,29 @@ class Equipe
      */
     public function handle($request, Closure $next)
     {
+        Log::info(microtime(true));
         Log::info(" ---- Middleware Equipe ---- ");
         $rules = [
             'equipe' => 'alpha_dash|min:3',
-            'id' => 'exists:equipes,uniqid'
+            'uniqid' => 'alpha_dash'//exists:equipes,uniqid'
         ];
 
         $validator = Validator::make([
             'equipe' => $request->equipe,
-            'id' => $request->id
+            'uniqid' => $request->uniqid
         ], $rules);
 
         if ($validator->fails())
             abort(404);
 
-        $equipe = EquipeModel::whereUniqid($request->id)->firstOrFail();
-        if (strToUrl($equipe->nom) != $request->equipe)
+        // $equipe = EquipeModel::whereUniqid($request->uniqid)->firstOrFail();
+        $equipe = index('equipes')->firstWhere('uniqid', $request->uniqid);
+        if (! $equipe || strToUrl($equipe->nom) != $request->equipe)
             abort(404);
 
         $request->equipe = $equipe;
         // $request->competitions = $competitions;
-
+        Log::info(microtime(true));
         return $next($request);
     }
 }

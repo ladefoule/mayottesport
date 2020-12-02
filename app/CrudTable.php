@@ -109,18 +109,6 @@ class CrudTable extends Model
      */
     public function listeAttributsVisibles(string $action = 'index')
     {
-        if($action == 'update') $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
-
-        $correspondances = config('constant.crud-attribut');
-        foreach ($correspondances as $id => $value)
-            if($value[0] == $action . '_position'){
-                $infoId = $id;
-                break;
-            }
-
-        if(! isset($infoId))
-            return false;
-
         $key = "attributs-visibles-" . str_replace('_', '-' ,$this->nom) . "-" . $action;
         if (! Config::get('constant.activer_cache'))
             Cache::forget($key);
@@ -128,7 +116,20 @@ class CrudTable extends Model
         if (Cache::has($key))
             return Cache::get($key);
         else
-            return Cache::rememberForever($key, function () use($infoId){
+            return Cache::rememberForever($key, function () use($action){
+                if($action == 'update')
+                    $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
+
+                $correspondances = config('constant.crud-attribut');
+                foreach ($correspondances as $id => $value)
+                    if($value[0] == $action . '_position'){
+                        $infoId = $id;
+                        break;
+                    }
+
+                if(! isset($infoId))
+                    return false;
+
                 $listeAttributsVisibles = DB::table('crud_tables')
                     ->join('crud_attributs', 'crud_table_id', 'crud_tables.id')
                     ->join('crud_attribut_infos', 'crud_attribut_id', 'crud_attributs.id')
@@ -174,8 +175,8 @@ class CrudTable extends Model
     public function crud(string $action, int $id = 0)
     {
         if ($id != 0) {
-            $modele = 'App\\' . modelName($this['nom']);
-            $instance = $modele::findOrFail($id);
+            // $modele = 'App\\' . modelName($this['nom']);
+            $instance = index($this->nom)[$id];
         }
         $listeAttributsVisibles = $this->listeAttributsVisibles($action);
 
@@ -191,14 +192,14 @@ class CrudTable extends Model
             // Si l'attribut attribut_crud_table_id est renseigné, il faut récupérer la liste complète
             // des éléments de cette table référence sous forme de select (pour pouvoir faire un choix dessus)
             if ($infosAttribut['attribut_crud_table_id']) {
-                $crudTableAttribut = CrudTable::find($infosAttribut['attribut_crud_table_id']);
+                $crudTableAttribut = index('crud_tables')[$infosAttribut['attribut_crud_table_id']];
                 $modeleTableAttribut = 'App\\' . modelName($crudTableAttribut->nom);
 
                 // Dans la page vue, on affiche le 'nom' de l'attribut référence, sinon on affiche la liste complète
                 if ($action == 'show' && $valeurAttribut)
                     $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->crud_name;
                 else
-                    $donnees[$attribut]['select'] = $crudTableAttribut->index();
+                    $donnees[$attribut]['select'] = index($crudTableAttribut->nom);
             }
 
             if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'select' && isset($infosAttribut['select_liste'])) {

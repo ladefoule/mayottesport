@@ -53,7 +53,7 @@ class MatchController extends Controller
         if(annee($saison->annee_debut, $saison->annee_fin) != $annee)
             abort(404);
             // Cache::forget('match-5fc1506c17110');
-dd($match->infos());
+            
         $infos = match($match->uniqid);
         // dd($infos);
         return view('competition.match', [
