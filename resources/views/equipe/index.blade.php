@@ -35,32 +35,29 @@
             <?php $i = 0 ?>
             @foreach ($matches as $match)
                 <?php
-                    $equipeDomId = $match['equipe_id_dom'];
-                    $equipeExtId = $match['equipe_id_ext'];
-                    $journee = index('journees')[$match['journee_id']];
-                    $saison = index('saisons')[$journee->saison_id];
-                    $competition = index('competitions')[$saison->competition_id];
-                    
                     $domicile = $match['equipe_id_dom'] == $equipe->id;
-                    $exterieur = $match['equipe_id_ext'] == $equipe->id;
+                    $hrefEqDom = $match['href_equipe_dom'];
+                    $hrefEqExt = $match['href_equipe_ext'];
                     $resultat = $domicile ? $match['resultat_eq_dom'] : $match['resultat_eq_ext'];
                     $resultat = $resultat['resultat'] ?? '';
-                    $hrefEqDom = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => $match['equipe_dom_nom_kebab'], 'uniqid' => $match['equipe_dom']->uniqid]);
-                    $hrefEqExt = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => $match['equipe_ext_nom_kebab'], 'uniqid' => $match['equipe_ext']->uniqid]);
-                    // $resultat = $match['resultat']['resultat'] ?? '';
-                    // $match = $match->infos();
                 ?>
                 <div class="col-12 row d-flex flex-nowrap py-2 px-0 mx-0 border-bottom @if($i==0) border-top @endif">
                     <div class="col-4 p-0 d-flex flex-wrap justify-content-start text-left align-items-center">
                         <div class="col-lg-4 d-lg-inline py-0 px-0 text-center logo-align-auto">
-                            <img src="{{ $match['fanion_equipe_dom'] }}" alt="{{ $match['equipe_dom']->nom }}" class="fanion-page-equipe">
-                        </div>
-                        <div class="equipe-domicile col-lg-8 d-lg-inline px-0 equipe-align-auto">
-                            @if ($equipeDomId != $equipe->id)
+                            @if (! $domicile)
                                 <a class="text-dark" href="{{ $hrefEqDom }}">
                             @endif
-                            {{ $match['equipe_dom']->nom }}
-                            @if ($equipeDomId != $equipe->id)
+                            <img src="{{ $match['fanion_equipe_dom'] }}" alt="{{ $match['equipe_dom_nom'] }}" class="fanion-page-equipe">
+                            @if (! $domicile)
+                                </a>
+                            @endif
+                        </div>
+                        <div class="equipe-domicile col-lg-8 d-lg-inline px-0 equipe-align-auto">
+                            @if (! $domicile)
+                                <a class="text-dark" href="{{ $hrefEqDom }}">
+                            @endif
+                            {{ $match['equipe_dom_nom'] }}
+                            @if (! $domicile)
                                 </a>
                             @endif
                         </div>
@@ -74,25 +71,25 @@
                             else
                                 echo '<span style="font-size: 1.5rem">' . date_format(new DateTime($match['date']), 'd/m') . '</span>';
 
-                            echo '<span class="col-12 text-center font-weight-bold" style="font-size:0.7rem">' . $competition->nom . '</span>';
+                            echo '<span class="col-12 text-center font-weight-bold" style="font-size:0.7rem">' . $match['competition'] . '</span>';
                         ?>
                     </a>
                     <div class="col-4 p-0 d-flex flex-wrap justify-content-end align-items-center text-right">
                         <div class="equipe-exterieur col-lg-8 d-lg-inline order-2 order-lg-1 px-0 equipe-align-auto">
-                            @if ($equipeExtId != $equipe->id)
+                            @if ($domicile)
                                 <a class="text-dark" href="{{ $hrefEqExt }}">
                             @endif
-                            {{ $match['equipe_ext']->nom }}
-                            @if ($equipeExtId != $equipe->id)
+                            {{ $match['equipe_ext_nom'] }}
+                            @if ($domicile)
                                 </a>
                             @endif
                         </div>
                         <div class="col-lg-4 d-lg-inline order-1 order-lg-2 py-0 px-0 text-center logo-align-auto">
-                            @if ($equipeExtId != $equipe->id)
+                            @if ($domicile)
                                 <a class="text-dark" href="{{ $hrefEqExt }}">
                             @endif
-                            <img src="{{ $match['fanion_equipe_ext'] }}" alt="{{ $match['equipe_ext']->nom }}" class="fanion-page-equipe">
-                            @if ($equipeExtId != $equipe->id)
+                            <img src="{{ $match['fanion_equipe_ext'] }}" alt="{{ $match['equipe_ext_nom'] }}" class="fanion-page-equipe">
+                            @if ($domicile)
                                 </a>
                             @endif
                         </div>

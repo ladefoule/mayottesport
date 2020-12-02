@@ -136,8 +136,7 @@ class CompetitionController extends Controller
 
     public function journeeRender(Request $request)
     {
-        // $journee = Journee::whereSaisonId($request['saison'])->whereNumero($request['journee'])->firstOrFail();
-        $id = $request['journee_id'];
-        return journee($id)->render;
+        $journee = Journee::whereSaisonId($request['saison'])->whereNumero($request['journee'])->firstOrFail();
+        return journee($journee->id)->render;
     }
 }

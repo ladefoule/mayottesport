@@ -13,7 +13,7 @@
             </div>
             <div class="equipe-domicile col-lg-8 d-lg-inline px-0 equipe-align-auto">
                @if ($equipeDomId != $equipe->id)
-                     <a class="text-dark" href="{{ $match['href_eq_dom'] }}">
+                     <a class="text-dark" href="{{ $match['href_equipe_dom'] }}">
                @endif
                {{ $match['equipe_dom']->nom }}
                @if ($equipeDomId != $equipe->id)
@@ -36,7 +36,7 @@
          <div class="col-4 p-0 d-flex flex-wrap justify-content-end align-items-center text-right">
             <div class="equipe-exterieur col-lg-8 d-lg-inline order-2 order-lg-1 px-0 equipe-align-auto">
                @if ($equipeExtId != $equipe->id)
-                     <a class="text-dark" href="{{ $match['href_eq_ext'] }}">
+                     <a class="text-dark" href="{{ $match['href_equipe_ext'] }}">
                @endif
                {{ $match['equipe_ext']->nom }}
                @if ($equipeExtId != $equipe->id)
@@ -45,7 +45,7 @@
             </div>
             <div class="col-lg-4 d-lg-inline order-1 order-lg-2 py-0 px-0 text-center logo-align-auto">
                @if ($equipeExtId != $equipe->id)
-                     <a class="text-dark" href="{{ $match['href_eq_ext'] }}">
+                     <a class="text-dark" href="{{ $match['href_equipe_ext'] }}">
                @endif
                <img src="{{ $match['fanion_equipe_ext'] }}" alt="{{ $match['equipe_ext']->nom }}" class="fanion-page-equipe">
                @if ($equipeExtId != $equipe->id)

@@ -69,7 +69,7 @@ class Journee extends Model
             foreach ($matches as $match)
                 $matchesCollect[] = $match->infos();
 
-            $journee->matches = $matchesCollect ?? [];
+            $journee->matches = $matchesCollect;
             $dateJournee = date('d/m/Y', strtotime($this->date));
             $journee->render = view('competition.journee', [
                 'matches' => $journee->matches,

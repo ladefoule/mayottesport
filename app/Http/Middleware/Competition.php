@@ -24,9 +24,7 @@ class Competition
             abort(404);
 
         $sport = $request->sport;
-        // $competitions = $sport->competitions;
         $competitions = index('competitions')->where('sport_id', $sport->id);
-        // dd($competitions);
 
         $find = false;
         foreach($competitions as $compet)

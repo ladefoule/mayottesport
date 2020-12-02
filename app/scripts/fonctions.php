@@ -174,7 +174,7 @@ function match(string $matchUniqid)
         return Cache::get($key);
     else
         return Cache::rememberForever($key, function () use($matchUniqid){
-            Log::info('NOW : ' . now() . ' ' . $matchUniqid);
+            // Log::info('NOW : ' . now() . ' ' . $matchUniqid);
             return Match::findOrFail($matchUniqid)->infos();
         });
 }

@@ -133,17 +133,17 @@ class Match extends Model
 
         return Cache::rememberForever($key, function (){
             $equipeDom = index('equipes')[$this->equipe_id_dom];
-            // $equipeDomNomKebab = strToUrl($equipeDom->nom);
+            $equipeDomNomKebab = strToUrl($equipeDom->nom);
             $equipeExt = index('equipes')[$this->equipe_id_ext];
-            // $equipeExtNomKebab = strToUrl($equipeExt->nom);
-            // $journee = $this->journee;//index('journees')[$this->journee_id];
-            // $saison = index('saisons')[$journee->saison_id];
+            $equipeExtNomKebab = strToUrl($equipeExt->nom);
+            $journee = $this->journee;//index('journees')[$this->journee_id];
+            $saison = index('saisons')[$journee->saison_id];
             // $saison = Saison::findOrFail($saison->id); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
-            // $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
-            // $competition = index('competitions')[$saison->competition_id];
-            // $competitionNomKebab = strToUrl($competition->nom);
-            // $sport = index('sports')[$competition->sport_id];
-            // $sportNomKebab = strToUrl($sport->nom);
+            $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
+            $competition = index('competitions')[$saison->competition_id];
+            $competitionNomKebab = strToUrl($competition->nom);
+            $sport = index('sports')[$competition->sport_id];
+            $sportNomKebab = strToUrl($sport->nom);
 
             $collect = [
                 'id' => $this->id,
@@ -151,38 +151,45 @@ class Match extends Model
                 'equipe_id_ext' => $this->equipe_id_ext,
                 'equipe_dom' => $equipeDom,
                 'journee_id' => $this->journee_id,
-                // 'equipe_dom_nom' => $equipeDom->nom,
+                'equipe_dom_nom' => $equipeDom->nom,
                 'equipe_dom_nom_kebab' => strToUrl($equipeDom->nom),
-                // 'href_eq_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'uniqid' => $equipeDom->uniqid]),
+                'href_equipe_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'uniqid' => $equipeDom->uniqid]),
                 'fanion_equipe_dom' => fanion($equipeDom->id),
                 'equipe_ext' => $equipeExt,
-                // 'equipe_ext_nom' => $equipeExt->nom,
+                'equipe_ext_nom' => $equipeExt->nom,
                 'equipe_ext_nom_kebab' => strToUrl($equipeExt->nom),
-                // 'href_eq_ext' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeExtNomKebab, 'uniqid' => $equipeExt->uniqid]),
+                'href_equipe_ext' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeExtNomKebab, 'uniqid' => $equipeExt->uniqid]),
                 'fanion_equipe_ext' => fanion($equipeExt->id),
-                'url' => '',//$this->url(),
+                'url' => route('competition.match', [
+                    'sport' => $sportNomKebab,
+                    'annee' => str_replace('/', '-', $annee),
+                    'competition' => $competitionNomKebab,
+                    'equipeDom' => $equipeDomNomKebab,
+                    'equipeExt' => $equipeExtNomKebab,
+                    'uniqid' => $this->uniqid
+                ]),
                 'score' => $this->score(),
                 'date_format' => $this->dateFormat(),
                 'date' => $this->date,
                 'heure' => $this->heure,
-                // 'title' => "Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $sport->nom . ' - ' . $competition->nom . ' ' . $annee,
+                'title' => "Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $sport->nom . ' - ' . $competition->nom . ' ' . $annee,
                 'acces_bloque' => $this->acces_bloque,
-                // 'journee' => niemeJournee($journee->numero),
-                // 'competition' => $competition->nom,
+                'journee' => niemeJournee($journee->numero),
+                'competition' => $competition->nom,
                 'score_eq_dom' => $this->score_eq_dom,
                 'score_eq_ext' => $this->score_eq_ext,
                 'resultat_eq_dom' => $this->resultat($this->equipe_id_dom),
                 'resultat_eq_ext' => $this->resultat($this->equipe_id_ext),
-                // 'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
-                // 'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
-                // 'href_match' => route('competition.match', [
-                //     'uniqid' => $this->uniqid,
-                //     'sport' => $sportNomKebab,
-                //     'competition' => $competitionNomKebab,
-                //     'annee' => str_replace('/', '-', $annee),
-                //     'equipeDom' => $equipeDomNomKebab,
-                //     'equipeExt' => $equipeExtNomKebab
-                // ])
+                'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
+                'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
+                'href_match' => route('competition.match', [
+                    'uniqid' => $this->uniqid,
+                    'sport' => $sportNomKebab,
+                    'competition' => $competitionNomKebab,
+                    'annee' => str_replace('/', '-', $annee),
+                    'equipeDom' => $equipeDomNomKebab,
+                    'equipeExt' => $equipeExtNomKebab
+                ])
             ];
 
             // $collect['render_eq_dom'] = $this->matchRender($collect, $equipeDom);
@@ -213,22 +220,22 @@ class Match extends Model
      *
      * @return void
      */
-    public function url()
-    {
-        $equipeDom = index('equipes')[$this->equipe_id_dom];
-        $equipeExt = index('equipes')[$this->equipe_id_ext];
-        $equipeDomKebabCase = strToUrl($equipeDom->nom);
-        $equipeExtKebabCase = strToUrl($equipeExt->nom);
-        $journee = index('journees')[$this->journee_id];
-        $saison = index('saisons')[$journee->saison_id];
-        $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '-' .$saison->annee_fin;
-        $competition = index('competitions')[$saison->competition_id];
-        $sport = index('sports')[$competition->sport_id];
-        $sportKebabCase = strToUrl($sport->nom);
-        $competitionKebabCase = strToUrl($competition->nom);
+    // public function url()
+    // {
+    //     $equipeDom = index('equipes')[$this->equipe_id_dom];
+    //     $equipeExt = index('equipes')[$this->equipe_id_ext];
+    //     $equipeDomKebabCase = strToUrl($equipeDom->nom);
+    //     $equipeExtKebabCase = strToUrl($equipeExt->nom);
+    //     $journee = index('journees')[$this->journee_id];
+    //     $saison = index('saisons')[$journee->saison_id];
+    //     $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '-' .$saison->annee_fin;
+    //     $competition = index('competitions')[$saison->competition_id];
+    //     $sport = index('sports')[$competition->sport_id];
+    //     $sportKebabCase = strToUrl($sport->nom);
+    //     $competitionKebabCase = strToUrl($competition->nom);
 
-        return config('app.url') . "/$sportKebabCase/$competitionKebabCase/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
-    }
+    //     return config('app.url') . "/$sportKebabCase/$competitionKebabCase/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
+    // }
 
     /**
      * Affiche le score si renseigné, sinon affiche l'heure du match sinon affiche la date

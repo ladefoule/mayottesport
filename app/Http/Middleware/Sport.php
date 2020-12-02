@@ -23,9 +23,8 @@ class Sport
         if (Validator::make(['sport' => $request->sport], ['sport' => 'alpha_dash|min:3'])->fails())
             abort(404);
 
-        // On remplace la chaine de caractère par la collection
+        // Le passage par Eloquent est plus lent ici
         // $sport = SportModel::where('nom', 'like', $request->sport)->firstOrFail();
-        // $sports = index('sports');//->whereStrict('nom', $request->sport)->first();
 
         $find = false;
         foreach(index('sports') as $sport)
@@ -38,13 +37,6 @@ class Sport
         if(! $find)
             abort(404);
 
-        // $sports->each(function ($sport, $key) use($sportKebabCase, $request) {
-        //     // strcasecmp(strToUrl($sport->nom), $request->sport) == 0
-        //     if (strToUrl($sport->nom) == $sportKebabCase) {
-        //         $request->sport = $sport;
-        //         return false;
-        //     }
-        // });
         Log::info(microtime(true));
         return $next($request);
     }

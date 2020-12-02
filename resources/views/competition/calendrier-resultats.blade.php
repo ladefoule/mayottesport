@@ -1,20 +1,24 @@
 @extends('layouts.competition')
 
-@section('title', request()->competition->nom . ' - Calendrier et résultats - '.niemeJournee($journee->numero).' - ' . request()->sport->nom)
+<?php
+$journeeActuelle = $journee;
+?>
+
+@section('title', request()->competition->nom . ' - Calendrier et résultats - '.niemeJournee($journeeActuelle->numero).' - ' . request()->sport->nom)
 
 @section('content')
 <div class="row d-flex flex-wrap bg-white py-3">
     <h1 class="h4 text-center col-12 mb-3">{{ request()->competition->nom . ' - Calendrier et résultats'}}</h1>
     <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
-        <a id="previous" data-id="{{ $journee->numero - 1 }}" href="" class="float-right pr-3 @if ($journee->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.left') !!}</a>
+        <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.left') !!}</a>
         <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
-            @foreach ($journees as $journee_)
-                <option value="{{ $journee_->numero }}" @if($journee->numero == $journee_->numero) selected @endif>
-                    {{ niemeJournee($journee_->numero) }}
+            @foreach ($journees as $journee)
+                <option value="{{ $journee->numero }}" @if($journeeActuelle->numero == $journee->numero) selected @endif>
+                    {{ niemeJournee($journee->numero) }}
                 </option>
             @endforeach
         </select>
-        <a id="next" data-id="{{ $journee->numero + 1 }}" href="" class="float-left pl-3 @if ($journee->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.right') !!}</a>
+        <a id="next" data-id="{{ $journeeActuelle->numero + 1 }}" href="" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.right') !!}</a>
     </div>
     <div class="col-lg-8 d-flex flex-wrap px-2">
         <div class="col-12" id="matches">
@@ -46,7 +50,7 @@ $(document).ready(function(){
     })
 })
 
-function ajax(journee_id)
+function ajax(journee)
 {
     var matches = qs('#matches')
     var journees = qs('#journees')
@@ -56,7 +60,7 @@ function ajax(journee_id)
     $.ajax({
         type: 'GET',
         url: "<?php echo route('journee.render') ?>",
-        data:{journee_id},
+        data:{journee,saison},
         success:function(data){
             matches.innerHTML = data
             previous.classList.remove('cursor-default', 'non-cliquable')

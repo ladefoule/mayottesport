@@ -22,7 +22,7 @@ class Equipe
         Log::info(" ---- Middleware Equipe ---- ");
         $rules = [
             'equipe' => 'alpha_dash|min:3',
-            'uniqid' => 'alpha_dash'//exists:equipes,uniqid'
+            'uniqid' => 'alpha_dash|size:13'
         ];
 
         $validator = Validator::make([
@@ -39,7 +39,6 @@ class Equipe
             abort(404);
 
         $request->equipe = $equipe;
-        // $request->competitions = $competitions;
         Log::info(microtime(true));
         return $next($request);
     }

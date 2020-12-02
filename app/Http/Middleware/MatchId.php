@@ -18,16 +18,17 @@ class MatchId
      */
     public function handle($request, Closure $next)
     {
+        Log::info(microtime(true));
         Log::info(" ---- Middleware MatchId ---- ");
         if (Validator::make(['uniqid' => $request->uniqid], ['uniqid' => 'alpha_dash|min:3'])->fails())
             abort(404);
 
-        // $match = Match::whereUniqid($request->uniqid)->firstOrFail();
-        // dd($request);
-        $match = index('matches')->where('uniqid', $request->uniqid)->first();
-        // dd($match);
-        $request->match = $match;
+        // La requète Eloquent est plus rapide
+        $match = Match::whereUniqid($request->uniqid)->firstOrFail();
+        // $match = index('matches')->where('uniqid', $request->uniqid)->first();
 
+        $request->match = $match;
+        Log::info(microtime(true));
         return $next($request);
     }
 }
