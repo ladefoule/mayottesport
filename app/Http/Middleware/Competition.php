@@ -23,7 +23,9 @@ class Competition
             abort(404);
 
         $sport = $request->sport;
-        $competitions = $sport->competitions;
+        // $competitions = $sport->competitions;
+        $competitions = index('competitions')->where('sport_id', $sport->id);
+        // dd($competitions);
 
         $find = false;
         foreach($competitions as $compet)
@@ -39,11 +41,11 @@ class Competition
         $competitionKebab = $request->competition;
         $sportKebab = strToUrl($request->sport->nom);
 
-        $saison = Saison::where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
+        $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
 
         // Les infos requises pour toutes les pages du middleware
-        $request->competition = $competition; // On remplace la chaine de caractère par l'objet
-        $request->saison = $saison;
+        $request->competition = $competition; // la collection
+        $request->saison = $saison; // la collection
         $request->hrefIndex = route('competition.index', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
         $request->hrefPalmares = route('competition.champions', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
 

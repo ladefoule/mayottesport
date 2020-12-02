@@ -38,7 +38,7 @@ class ProcessCrudTable implements ShouldQueue
      */
     public function handle()
     {
-        Log::info(" -------- ProcessCrudTable : handle -------- ");
+        Log::info(" ------ Job : ProcessCrudTable ------ ");
         $client = new Client([
             'base_uri' => config('app.url'),
             'http_errors' => false,

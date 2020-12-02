@@ -44,7 +44,7 @@
     </div>
 
     <div class="row bg-white">
-        <section class="col-12">
+        <section class="col-12 pt-1">
             <div id="disqus_thread"></div>
             <script>
                 /**

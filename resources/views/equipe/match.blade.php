@@ -1,20 +1,20 @@
 <div class="col-12 row d-flex flex-nowrap py-0 px-0 mx-0">
    <div class="col-4 p-0 d-flex flex-wrap justify-content-center align-items-center">
        <div class="col-12 py-0 px-0 text-center mt-auto">
-           @if ($match['id_eq_dom'] != $equipe->id)
+           @if ($match['equipe_id_dom'] != $equipe->id)
                <a class="text-dark" href="{{ $match['href_eq_dom'] }}">
            @endif
            <img src="{{ $match['fanion_eq_dom'] }}" alt="{{ $match['nom_eq_dom'] }}" style="width:25px">
-           @if ($match['id_eq_dom'] != $equipe->id)
+           @if ($match['equipe_id_dom'] != $equipe->id)
                </a>
            @endif
        </div>
        <div class="col-12 px-0 mb-auto">
-           @if ($match['id_eq_dom'] != $equipe->id)
+           @if ($match['equipe_id_dom'] != $equipe->id)
                <a class="text-dark" href="{{ $match['href_eq_dom'] }}">
            @endif
            {{ $match['nom_eq_dom'] }}
-           @if ($match['id_eq_dom'] != $equipe->id)
+           @if ($match['equipe_id_dom'] != $equipe->id)
                </a>
            @endif
        </div>
@@ -33,20 +33,20 @@
    </a>
    <div class="col-4 p-0 d-flex flex-wrap justify-content-center align-items-center">
        <div class="col-12 py-0 px-0 mt-auto">
-           @if ($match['id_eq_ext'] != $equipe->id)
+           @if ($match['equipe_id_ext'] != $equipe->id)
                <a class="text-dark" href="{{ $match['href_eq_ext'] }}">
            @endif
            <img src="{{ $match['fanion_eq_ext'] }}" alt="{{ $match['nom_eq_ext'] }}" style="width:25px">
-           @if ($match['id_eq_ext'] != $equipe->id)
+           @if ($match['equipe_id_ext'] != $equipe->id)
                </a>
            @endif
        </div>
        <div class="col-12 px-0 mb-auto">
-           @if ($match['id_eq_ext'] != $equipe->id)
+           @if ($match['equipe_id_ext'] != $equipe->id)
                <a class="text-dark" href="{{ $match['href_eq_ext'] }}">
            @endif
            {{ $match['nom_eq_ext'] }}
-           @if ($match['id_eq_ext'] != $equipe->id)
+           @if ($match['equipe_id_ext'] != $equipe->id)
                </a>
            @endif
        </div>

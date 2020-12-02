@@ -51,31 +51,46 @@ class Journee extends Model
      *
      * @return Collection
      */
-    public function matchesInfos()
+    public function infos()
     {
-        // L'ensemble des matches de la journée
-        $matches = $this->matches->sortBy('date')->sortBy('heure');
+        $key = 'journee-'.$this->id;
+        if(! Config::get('constant.activer_cache'))
+            Cache::forget($key);
 
-        $matchesInfos = [];
-        foreach ($matches as $match)
-            $matchesInfos[] = $match->infos();
+        if (Cache::has($key))
+            return Cache::get($key);
 
-        return collect($matchesInfos);
+        return Cache::rememberForever($key, function (){
+            // L'ensemble des matches de la journée
+            $matches = $this->matches->sortBy('date')->sortBy('heure');
+
+            $journee = collect();$matchesCollect = [];
+            foreach ($matches as $match)
+                $matchesCollect[] = $match->infos();
+
+            $journee->matches = $matchesCollect ?? [];
+            $dateJournee = date('d/m/Y', strtotime($this->date));
+            $journee->render = view('competition.journee', [
+                'matches' => $journee->matches,
+                'journee' => niemeJournee($this->numero) . ' : ' . $dateJournee
+            ])->render();
+
+            return $journee;
+        });
     }
 
     /**
      * Affiche le résultat du calendrier de la journée envoyé à la view 'football.calendrier-journee'
      */
-    public function journeeRender()
-    {
-        // $sport = strToUrl($this->saison->championnat->sport->nom);
-        $dateJournee = date('d/m/Y', strtotime($this->date));
-        $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
-        return view('competition.journee', [
-            'matches' => $this->matchesInfos(),
-            'journee' => $journee
-        ])->render();
-    }
+    // public function journeeRender()
+    // {
+    //     $dateJournee = date('d/m/Y', strtotime($this->date));
+    //     $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
+    //     return view('competition.journee', [
+    //         'matches' => $this->matchesInfos(),
+    //         'journee' => $journee
+    //     ])->render();
+    // }
 
     /**
      * Définition de l'affichage dans le CRUD

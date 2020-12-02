@@ -35,10 +35,10 @@
             <?php $i = 0 ?>
             @foreach ($matches as $match)
                 <?php
-                    $equipeDomId = $match->equipe_id_dom;
-                    $equipeExtId = $match->equipe_id_ext;
-                    $resultat = $match['resultat'];
-                    $match = $match->infos();
+                    $equipeDomId = $match['equipe_id_dom'];
+                    $equipeExtId = $match['equipe_id_ext'];
+                    $resultat = $match['resultat'] ?? '';
+                    // $match = $match->infos();
                 ?>
                 <div class="col-12 row d-flex flex-nowrap py-2 px-0 mx-0 border-bottom @if($i==0) border-top @endif">
                     <div class="col-4 p-0 d-flex flex-wrap justify-content-start text-left align-items-center">

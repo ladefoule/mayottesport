@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Sport;
-use App\Equipe;
-use App\Terrain;
 use App\Match;
 use App\Modif;
-use App\Competition;
+use App\Sport;
+use App\Equipe;
 use App\Saison;
+use App\Terrain;
+use App\CrudTable;
+use App\Competition;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -43,14 +45,17 @@ class MatchController extends Controller
     {
         Log::info(" -------- MatchController : match -------- ");
         $match = $request->match;
-        $saison = $match->journee->saison;
+        $match = Match::find($match->id);
+        $journee = index('journees')[$match->journee_id];
+        $saison = index('saisons')[$journee->saison_id];
 
         // On vérifie l'année
-        if($saison->annee() != $annee){
+        if(annee($saison->annee_debut, $saison->annee_fin) != $annee)
             abort(404);
-        }
-
-        $infos = $match->infos();
+            // Cache::forget('match-5fc1506c17110');
+dd($match->infos());
+        $infos = match($match->uniqid);
+        // dd($infos);
         return view('competition.match', [
             'match' => $infos
         ]);
@@ -72,7 +77,7 @@ class MatchController extends Controller
             abort(403);
         }
 
-        $infos = $match->infos();
+        $infos = match($match->uniqid);
         return view('competition.resultat', [
             'match' => $infos
         ]);
@@ -94,7 +99,8 @@ class MatchController extends Controller
             'note' => 'nullable|max:200'
         ])->validate();
 
-        $match = $request->match;
+        $match = Match::findOrFail($request->match->id);
+
         $score_eq_dom = $request['score_eq_dom'];
         $score_eq_ext = $request['score_eq_ext'];
         $note = $request['note'];
@@ -184,8 +190,10 @@ class MatchController extends Controller
     private static function forgetCaches(Match $match)
     {
         Log::info(" -------- MatchController : forgetCaches -------- ");
-        Cache::forget('match-' . $match->uniqid); // Les infos du match
-        Cache::forget('journee-' . $match->journee->id); // Les infos de la journée
-        Cache::forget('classement-' . $match->journee->saison->id); // Le classement de la saison
+        $crudTable = CrudTable::firstWhere('nom', 'matches');
+        ProcessCrudTable::dispatch($crudTable, $match);
+        // Cache::forget('match-' . $match->uniqid); // Les infos du match
+        // Cache::forget('journee-' . $match->journee->id); // Les infos de la journée
+        // Cache::forget('classement-' . $match->journee->saison->id); // Le classement de la saison
     }
 }

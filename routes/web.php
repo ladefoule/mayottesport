@@ -27,13 +27,13 @@ Route::group(['middleware'=>'auth'], function () {
     Route::post('/comment', 'CommentaireController@store')->name('comment');
     Route::post('/comment/delete', 'CommentaireController@delete')->name('comment.delete');
 
-    Route::get('/{sport}/{competition}/resultat/{id}', 'MatchController@resultat')->name('competition.match.resultat');
-    Route::post('/{sport}/{competition}/resultat/{id}', 'MatchController@resultatPost');
+    Route::get('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultat')->name('competition.match.resultat');
+    Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost');
 
     /* MIDDLEWARE PREMIUM */
     Route::group(['check-permission:premium|admin|superadmin'], function () {
-        Route::get('/{sport}/{competition}/horaire/{id}', 'MatchController@horaire')->name('competition.match.horaire');
-        Route::post('/{sport}/{competition}/horaire/{id}', 'MatchController@horairePost');
+        Route::get('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horaire')->name('competition.match.horaire');
+        Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost');
 
         /* MIDDLEWARE ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
@@ -93,7 +93,7 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 Route::match(['get', 'post'], '/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
 Route::match(['get', 'post'], '/ajax/caches/reload', 'CacheController@reloadCrud')->name('caches.reload-crud');
 
-Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{id}.html', 'MatchController@match')->name('competition.match');
+Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
 Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@resultats')->name('competition.calendrier-resultats');
 Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@champions')->name('competition.champions');

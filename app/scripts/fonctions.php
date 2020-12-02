@@ -2,6 +2,7 @@
 use App\Cache;
 use App\Match;
 use App\Sport;
+use App\Saison;
 use App\Journee;
 use App\CrudTable;
 use App\EquipeSaison;
@@ -75,6 +76,11 @@ function checkPermission(array $roles)
     return false;
 }
 
+function annee($debut, $fin, $separateur = '-')
+{
+    return ($debut == $fin) ? $debut : $debut. $separateur .$fin;
+}
+
 /**
  * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
  * Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
@@ -108,8 +114,68 @@ function index(string $table)
         return Cache::get($key);
     else
         return Cache::rememberForever($key, function () use($table){
-            // dd('ICI');
             return CrudTable::whereNom($table)->firstOrFail()->index();
+        });
+}
+
+/**
+ *
+ *
+ * @param int $journeeId
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function journee(int $journeeId)
+{
+    $key = "journee-" . $journeeId;
+    if (!Config::get('constant.activer_cache'))
+        Cache::forget($key);
+
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use($journeeId){
+            return Journee::findOrFail($journeeId)->infos();
+        });
+}
+
+/**
+ *
+ *
+ * @param int $journeeId
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function saison(int $saisonId)
+{
+    $key = "saison-" . $saisonId;
+    if (!Config::get('constant.activer_cache'))
+        Cache::forget($key);
+
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use($saisonId){
+            return Saison::findOrFail($saisonId)->infos();
+        });
+}
+
+/**
+ *
+ *
+ * @param int $journeeId
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function match(string $matchUniqid)
+{
+    $key = "match-" . $matchUniqid;
+    if (!Config::get('constant.activer_cache'))
+        Cache::forget($key);
+
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use($matchUniqid){
+            Log::info('NOW : ' . now() . ' ' . $matchUniqid);
+            return Match::findOrFail($matchUniqid)->infos();
         });
 }
 

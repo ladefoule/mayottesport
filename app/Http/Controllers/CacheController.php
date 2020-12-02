@@ -38,21 +38,35 @@ class CacheController extends Controller
         if($instance && in_array($table, ['matches', 'journees', 'saisons'])){
             if($table == 'matches'){
                 $match = $instance;
-                $journee = index('journees')[$match->journee_id];
-                $saison = index('saisons')[$journee->saison_id];
+                $journee = $match->journee;
+                $saison = $journee->saison;
             }else if($table == 'journees'){
                 $journee = $instance;
-                $saison = index('saisons')[$journee->saison_id];
+                $saison = $journee->saison;
             }else
                 $saison = $instance;
 
-            $cacheClassement = "classement-".$saison->id;
-            Cache::forget($cacheClassement);
-            Log::info("Rechargement du cache classement-" . $saison->id);
-            $saison = Saison::findOrFail($saison->id);
-            if($saison->championnat->type == 1) // Type championnat
-                $saison->classement();
+            if(isset($match)){
+                $cacheMatch = "match-".$match->uniqid;
+                Cache::forget($cacheMatch);
+                Log::info("Rechargement du cache match-" . $match->uniqid);
+                match($match->uniqid);
+            }
+
+            if(isset($journee)){
+                $cacheJournee = "journee-".$journee->id;
+                Cache::forget($cacheJournee);
+                Log::info("Rechargement du cache journee-" . $journee->id);
+                journee($journee->id);
+            }
+
+            $cacheSaison = "saison-".$saison->id;
+            Cache::forget($cacheSaison);
+            Log::info("Rechargement du cache saison-" . $saison->id);
+            saison($saison->id);
         }
+        // Cache::forget('match-5fc1506c17110');
+        return false;
 
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
         if($instance && ($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos')){

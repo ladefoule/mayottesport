@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Champion extends Model
 {
-    public $fillable = ['equipe_id', 'saison', 'competition_id'];
+    public $fillable = ['equipe_id', 'saison_id', 'competition_id'];
 
     /**
      *

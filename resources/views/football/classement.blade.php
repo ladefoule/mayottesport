@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         searching:false,
         "info": false,
         language: {
-            url : "/json/datatables.json" // Traduction en français
+            url : "<?php echo config('app.url') ?>/json/datatables.json" // Traduction en français
         },
         order : [[ 9, 'desc' ]], // Colonne et sens de tri
         columnDefs: [

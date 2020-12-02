@@ -101,7 +101,6 @@ a:hover{
 .bloc-match-football{
     background-image: url('../../storage/img/terrain-de-foot-6.jpg');
     background-size :cover;
-    background-color:rgb(109, 102, 102)
 }
 
 .bloc-equipe-dom, .bloc-equipe-ext{

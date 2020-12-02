@@ -46,7 +46,7 @@ $(document).ready(function(){
     })
 })
 
-function ajax(journee)
+function ajax(journee_id)
 {
     var matches = qs('#matches')
     var journees = qs('#journees')
@@ -55,8 +55,8 @@ function ajax(journee)
     var saison = "<?php echo $saison->id ?>"
     $.ajax({
         type: 'GET',
-        url: "<?php echo route('journee.calendrier') ?>",
-        data:{journee, saison},
+        url: "<?php echo route('journee.render') ?>",
+        data:{journee_id},
         success:function(data){
             matches.innerHTML = data
             previous.classList.remove('cursor-default', 'non-cliquable')

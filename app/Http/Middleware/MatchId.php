@@ -19,10 +19,13 @@ class MatchId
     public function handle($request, Closure $next)
     {
         Log::info(" ---- Middleware MatchId ---- ");
-        if (Validator::make(['id' => $request->id], ['id' => 'alpha_dash|exists:matches,uniqid'])->fails())
+        if (Validator::make(['uniqid' => $request->uniqid], ['uniqid' => 'alpha_dash|min:3'])->fails())
             abort(404);
 
-        $match = Match::whereUniqid($request->id)->firstOrFail();
+        // $match = Match::whereUniqid($request->uniqid)->firstOrFail();
+        // dd($request);
+        $match = index('matches')->where('uniqid', $request->uniqid)->first();
+        // dd($match);
         $request->match = $match;
 
         return $next($request);

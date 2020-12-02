@@ -48,9 +48,9 @@ class Saison extends Model
      *
      * @return Journee
      */
-    public function derniereJournee()
+    public function derniereJourneeId()
     {
-        return $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+        return index('journees')->where('saison_id', $this->id)->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first()->id ?? '';
     }
 
     /**
@@ -58,9 +58,9 @@ class Saison extends Model
      *
      * @return Journee
      */
-    public function prochaineJournee()
+    public function prochaineJourneeId()
     {
-        return $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+        return index('journees')->where('saison_id', $this->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? '';
     }
 
     public function classementSimpleRender(bool $complet = false)
@@ -81,35 +81,34 @@ class Saison extends Model
      *
      * @return \Illuminate\Support\Collection
      */
-    public function classement()
+    public function infos()
     {
-        $key = 'classement-'.$this->id;
+        $key = 'saison-'.$this->id;
         if(! Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
-            $classement = Cache::get($key);
+            return Cache::get($key);
 
-        $classement = Cache::rememberForever($key, function (){
-            return $this->genererClassement();
+        return Cache::rememberForever($key, function (){
+            $type = $this->competition->type;
+            $collect = collect();
+            if($type == 1){
+                $collect['classement'] = $this->classement();
+                $collect['classement_simple_render'] = $this->classementSimpleRender();
+            }
+
+            $collect['derniere_journee_id'] = $this->derniereJourneeId();
+            $collect['prochaine_journee_id'] = $this->prochaineJourneeId();
+            return $collect;
+            // return collect([
+            //     'classement' => $type == 1 ? $this->classement() : '',
+            //     'classement_simple_render' => $type == 1 ? $this->classementSimpleRender() : '',
+            //     'derniere_journee_id' => $this->derniereJourneeId(),
+            //     'prochaine_journee_id' => $this->prochaineJourneeId(),
+            // ]);
+            // return $this->classement();
         });
-
-        // Ici on associe complète le classement avec les noms d'équipes, fanions, etc...
-        // foreach ($classement as $equipeId => $donnees) {
-        //     // $equipe = Equipe::findOrFail($equipeId);
-        //     $equipe = index('equipes')[$equipeId];
-        //     $sport = index('sports')[$equipe->sport_id];
-        //     $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
-        //     $nomEquipe = $equipe->nom;
-        //     $fanionEquipe = fanion($equipe->id);
-
-        //     $donnees['nom'] = $nomEquipe;
-        //     $donnees['hrefEquipe'] = $hrefEquipe;
-        //     $donnees['fanion'] = $fanionEquipe;
-        //     $classement[$equipeId] = $donnees;
-        // }
-
-        return $classement;
     }
 
     /**
@@ -118,70 +117,79 @@ class Saison extends Model
      * @param int $sportId
      * @return \Illuminate\Support\Collection
      */
-    private function genererClassement()
+    public function classement()
     {
-        $bareme = $this->bareme;
-        $sport = $bareme->sport;
-        $matches = [];
-        foreach($this->equipes as $equipe){
-            $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);
-            $matchesRetour = $this->matches->where('equipe_id_ext', $equipe->id);
-            $matches[$equipe->id] = $matchesAller->merge($matchesRetour);
-        }
+        $key = 'classement-'.$this->id;
+        if(! Config::get('constant.activer_cache'))
+            Cache::forget($key);
 
-        $classement = [];
-        $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
-        // $idBasketball = index('sports')->where('nom', 'like', 'basketball')->first() ?? 0;
-        $idBasketball = index('sports')->filter(function ($value, $key) {
-            return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
-        })->first()->id ?? 0;
-        $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
-        foreach ($matches as $equipeId => $matchesEquipe) {
-            $equipe = index('equipes')[$equipeId];
-            $sport = index('sports')[$sport->id];
-            $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
-            $nomEquipe = $equipe->nom;
-            $fanionEquipe = fanion($equipe->id);
+        if (Cache::has($key))
+            return Cache::get($key);
 
-            $classement[$equipeId]['nom'] = $nomEquipe;
-            $classement[$equipeId]['hrefEquipe'] = $hrefEquipe;
-            $classement[$equipeId]['fanion'] = $fanionEquipe;
-
-            $classement[$equipeId]['points'] = 0;
-            $classement[$equipeId]['joues'] = 0;
-            $classement[$equipeId]['victoire'] = 0;
-            $classement[$equipeId]['marques'] = 0;
-            $classement[$equipeId]['encaisses'] = 0;
-
-            if($sport->id != $idBasketball && $sport->id != $idVolleyball)
-                $classement[$equipeId]['nul'] = 0;
-
-            $classement[$equipeId]['defaite'] = 0;
-            foreach ($matchesEquipe as $match) {
-                if($match->resultat($equipeId) != false){
-                    $classement[$equipeId]['joues']++;
-
-                    $resultat = $match->resultat($equipeId);
-                    $marques = $resultat['marques'];
-                    $encaisses = $resultat['encaisses'];
-                    $resultat = $resultat['resultat'];
-
-                    $classement[$equipeId][$resultat]++;
-                    $classement[$equipeId]['points'] += $bareme->$resultat;
-
-                    $classement[$equipeId]['marques'] += $marques;
-                    $classement[$equipeId]['encaisses'] += $encaisses;
-                }
+        return Cache::rememberForever($key, function (){
+            $bareme = $this->bareme;
+            $sport = $bareme->sport;
+            $matches = [];
+            foreach($this->equipes as $equipe){
+                $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);
+                $matchesRetour = $this->matches->where('equipe_id_ext', $equipe->id);
+                $matches[$equipe->id] = $matchesAller->merge($matchesRetour);
             }
 
-            $classement[$equipeId]['diff'] = $classement[$equipeId]['marques'] - $classement[$equipeId]['encaisses'];
-        };
+            $classement = [];
+            $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
+            // $idBasketball = index('sports')->where('nom', 'like', 'basketball')->first() ?? 0;
+            $idBasketball = index('sports')->filter(function ($value, $key) {
+                return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
+            })->first()->id ?? 0;
+            $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
+            foreach ($matches as $equipeId => $matchesEquipe) {
+                $equipe = index('equipes')[$equipeId];
+                $sport = index('sports')[$sport->id];
+                $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'id' => $equipe->uniqid]);
+                $nomEquipe = $equipe->nom;
+                $fanionEquipe = fanion($equipe->id);
 
-        $classement = new Collection($classement);
-        return $classement->sortByDesc(function ($ligne, $key) {
-            // Tri des classements par points/diff/buts marques/matches joués
-            // \Log::info($ligne['points'] . $ligne['diff'] . $ligne['marques'] . $ligne['joues']);
-            return $ligne['points'] . $ligne['diff'] . $ligne['marques'] . $ligne['joues'];
+                $classement[$equipeId]['nom'] = $nomEquipe;
+                $classement[$equipeId]['hrefEquipe'] = $hrefEquipe;
+                $classement[$equipeId]['fanion'] = $fanionEquipe;
+
+                $classement[$equipeId]['points'] = 0;
+                $classement[$equipeId]['joues'] = 0;
+                $classement[$equipeId]['victoire'] = 0;
+                $classement[$equipeId]['marques'] = 0;
+                $classement[$equipeId]['encaisses'] = 0;
+
+                if($sport->id != $idBasketball && $sport->id != $idVolleyball)
+                    $classement[$equipeId]['nul'] = 0;
+
+                $classement[$equipeId]['defaite'] = 0;
+                foreach ($matchesEquipe as $match) {
+                    if($match->resultat($equipeId) != false){
+                        $classement[$equipeId]['joues']++;
+
+                        $resultat = $match->resultat($equipeId);
+                        $marques = $resultat['marques'];
+                        $encaisses = $resultat['encaisses'];
+                        $resultat = $resultat['resultat'];
+
+                        $classement[$equipeId][$resultat]++;
+                        $classement[$equipeId]['points'] += $bareme->$resultat;
+
+                        $classement[$equipeId]['marques'] += $marques;
+                        $classement[$equipeId]['encaisses'] += $encaisses;
+                    }
+                }
+
+                $classement[$equipeId]['diff'] = $classement[$equipeId]['marques'] - $classement[$equipeId]['encaisses'];
+            };
+
+            $classement = new Collection($classement);
+            return $classement->sortByDesc(function ($ligne, $key) {
+                // Tri des classements par points/diff/buts marques/matches joués
+                // \Log::info($ligne['points'] . $ligne['diff'] . $ligne['marques'] . $ligne['joues']);
+                return $ligne['points'] . $ligne['diff'] . $ligne['marques'] . $ligne['joues'];
+            });
         });
     }
 

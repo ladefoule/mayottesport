@@ -78,7 +78,7 @@ function centerItVariableWidth(target, outer){
     var z = tar.index();
 
     var q = 0;
-    var m = out.find('a');cl(m)
+    var m = out.find('a');
     //Just need to add up the width of all the elements before our target.
     for(var i = 0; i < z; i++){
         q+= $(m[i]).outerWidth(true);
@@ -331,7 +331,7 @@ function triDataTables(idTable, numeroColonne = 1, sens = 'asc') {
         destroy: true, // On "vide le cache" de l'objet DataTables
         paging: true, // Activation de la pagination
         language: {
-            url : "/json/datatables.json" // Traduction en français
+            url : "../json/datatables.json" // Traduction en français
         },
         order : [[ numeroColonne, sens ]], // Colonne et sens de tri
         "columnDefs": [ {

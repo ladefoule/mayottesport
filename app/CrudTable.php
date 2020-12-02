@@ -264,6 +264,7 @@ class CrudTable extends Model
 
                     $collect->nom = $instance->nom;
                     $collect->crud_name = $instance->crud_name;
+                    // $collect->infos =  method_exists($instance, 'infos') ? $instance->infos() : [];
 
                     $liste[$id] = /* $instance; */$collect;
                 }
