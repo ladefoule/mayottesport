@@ -64,11 +64,12 @@ class Journee extends Model
             // L'ensemble des matches de la journée
             $matches = $this->matches->sortBy('date')->sortBy('heure');
 
-            $journee = collect();$matchesCollect = [];
-            foreach ($matches as $match)
-                $matchesCollect[] = $match->infos();
+            $journee = collect();
+            // $matchesCollect = [];
+            // foreach ($matches as $match)
+            //     $matchesCollect[] = $match->infos();
 
-            $journee->matches = $matchesCollect ?? [];
+            $journee->matches = $matches->pluck('id');//$matchesCollect ?? [];
             $dateJournee = date('d/m/Y', strtotime($this->date));
             $journee->render = view('competition.journee', [
                 'matches' => $journee->matches,

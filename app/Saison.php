@@ -98,8 +98,8 @@ class Saison extends Model
                 $collect['classement_simple_render'] = $this->classementSimpleRender();
             }
 
-            $collect['derniere_journee_id'] = $this->derniereJourneeId();
-            $collect['prochaine_journee_id'] = $this->prochaineJourneeId();
+            $collect['derniere_journee_id'] = 0;//$this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? ''; // $this->derniereJourneeId();
+            $collect['prochaine_journee_id'] = 0;//$this->journees->where('date', '<', date('Y-m-d'))->sortBy('date')->first()->id ?? ''; //$this->prochaineJourneeId();
             return $collect;
             // return collect([
             //     'classement' => $type == 1 ? $this->classement() : '',

@@ -47,7 +47,7 @@ class CrudController extends Controller
         $h1 = $tablePascalCase;
         $title = 'CRUD - Lister : ' . $h1;
 
-        $liste = $crudTable->indexCrud();
+        $liste = $crudTable->index();
         $hrefs['create'] = route('crud.create', ['table' => $table]);
         $hrefs['delete-ajax'] = route('crud.delete-ajax', ['table' => $table]);
         $hrefs['index-ajax'] = route('crud.index-ajax', ['table' => $table]);
@@ -72,7 +72,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- CrudController : indexAjax -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
-        $liste = $crudTable->indexCrud();
+        $liste = $crudTable->index();
         return view('admin.crud.index-ajax', [
             'liste' => $liste
         ]);

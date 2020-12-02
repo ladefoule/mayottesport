@@ -128,7 +128,7 @@ class Match extends Model
             $equipeExtNomKebab = strToUrl($equipeExt->nom);
             $journee = index('journees')[$this->journee_id];
             $saison = index('saisons')[$journee->saison_id];
-            // $saison = Saison::findOrFail($saison->id); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
+            $saison = Saison::findOrFail($saison->id); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
             $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
             $competition = index('competitions')[$saison->competition_id];
             $competitionNomKebab = strToUrl($competition->nom);
@@ -137,9 +137,8 @@ class Match extends Model
 
             $collect = [
                 'id' => $this->id,
-                'uniqid' => $this->uniqid,
-                'equipe_id_dom' => $this->equipe_id_dom,
-                'equipe_id_ext' => $this->equipe_id_ext,
+                'id_eq_dom' => $this->equipe_id_dom,
+                'id_eq_ext' => $this->equipe_id_ext,
                 'nom_eq_dom' => $equipeDom->nom,
                 'href_eq_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'id' => $equipeDom->uniqid]),
                 'fanion_eq_dom' => fanion($equipeDom->id),
@@ -157,10 +156,10 @@ class Match extends Model
                 'competition' => $competition->nom,
                 'score_eq_dom' => $this->score_eq_dom,
                 'score_eq_ext' => $this->score_eq_ext,
-                'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
-                'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
+                'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'id' => $this->uniqid]),
+                'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'id' => $this->uniqid]),
                 'href_match' => route('competition.match', [
-                    'uniqid' => $this->uniqid,
+                    'id' => $this->uniqid,
                     'sport' => $sportNomKebab,
                     'competition' => $competitionNomKebab,
                     'annee' => str_replace('/', '-', $annee),
