@@ -37,8 +37,8 @@ class Region extends Model
      *
      * @return string
      */
-    public static function crudName($id)
+    public function getCrudNameAttribute()
     {
-        return index('regions')[$id]->nom;
+        return $this->nom;
     }
 }

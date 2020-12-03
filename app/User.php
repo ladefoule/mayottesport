@@ -44,7 +44,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function getNomAttribute()
+    public function getCrudNameAttribute()
     {
         return $this->pseudo;
     }

@@ -31,9 +31,9 @@ class Role extends Model
      *
      * @return string
      */
-    public static function crudName($id)
+    public function getCrudNameAttribute()
     {
-        return index('roles')[$id]->nom;
+        return $this->nom;
     }
 
     /**

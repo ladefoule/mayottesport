@@ -40,9 +40,9 @@ class Terrain extends Model
      *
      * @return string
      */
-    public static function crudName($id)
+    public function getCrudNameAttribute()
     {
-        $terrain = index('terrains')[$id];
-        return Ville::crudName($terrain->ville_id) . ' - ' . $terrain->nom;
+        $ville = index('villes')[$this->ville_id];
+        return $ville->nom . ' - ' . $this->nom;
     }
 }

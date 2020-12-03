@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class JourneeTableSeeder extends Seeder
@@ -15,7 +16,7 @@ class JourneeTableSeeder extends Seeder
         for ($i = 1; $i <= 22; $i++) {
             App\Journee::create([
                 'numero' => $i,
-                'date' => date('Y-m-d'),
+                'date' => new Carbon(now()->addDays($i)),
                 'saison_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now()

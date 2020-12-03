@@ -30,7 +30,7 @@ class SportController extends Controller
             $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
             if($saison){
                 $saison = saison($saison->id);
-                $journeeId = $saison['derniere_journee_id'] ?? $saison['prochaine_journee_id'];
+                $journeeId = $saison['derniere_journee_id'] != '' ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
                 if($journeeId){
                     $classement = '';
                     if($competition->type == 1) // Championnat

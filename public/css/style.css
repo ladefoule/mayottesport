@@ -5,7 +5,7 @@ html{
 body{
     background-color: rgba(197, 226, 230, 0.281);
     min-width: 350px;
-    background-image: url('../../storage/img/fond-mayotte.jpg');
+    /* background-image: url('../../storage/img/fond-mayotte.jpg'); */
     /* background-size:1950px 1000px; */
     /* background-attachment: fixed; */
 }
@@ -65,8 +65,16 @@ a.non-cliquable, a.non-cliquable:hover{
     background-color: #000;
 }
 
-/* .{
-    border-bottom: 3px solid gray !important;
+.thead-fixed th {
+    position: -webkit-sticky;
+    position: sticky;
+    /* background: gray; */
+    top: 50px;
+    z-index: 2;
+}
+/*
+.relegable{
+    background-color: rgb(243, 192, 192) !important;
 } */
 
 .border-bottom-dashed{

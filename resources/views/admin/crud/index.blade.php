@@ -23,10 +23,10 @@
             <thead>
                 <tr>
                     <th scope="col" class="px-2"><input type="checkbox" id="tout" data-action="cocher"></th>
-                    <th scope="col" class="text-left px-2">{{ Str::singular($table) }}</th>
-                    {{-- @for ($i = 0; $i < count($listeAttributsVisibles); $i++)
+                    {{-- <th scope="col" class="text-left px-2">{{ Str::singular($table) }}</th> --}}
+                    @for ($i = 0; $i < count($listeAttributsVisibles); $i++)
                         <th scope="col" class="text-left px-2">{{ Str::lower($listeAttributsVisibles[$i]['label']) }}</th>
-                    @endfor --}}
+                    @endfor
                     <th scope="col" class="text-right px-3">actions</th>
                 </tr>
             </thead>
@@ -34,10 +34,10 @@
                 @foreach($liste as $id => $ligne)
                     <tr>
                         <td class="px-2 align-middle"><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
-                        <td align="left" class="px-2 align-middle">{{ $ligne->crud_name }}</td>
-                        {{-- @for ($i = 0; $i < count($ligne->afficher); $i++)
+                        {{-- <td align="left" class="px-2 align-middle">{{ $ligne->crud_name }}</td> --}}
+                        @for ($i = 0; $i < count($ligne->afficher); $i++)
                             <td align="left" class="px-2 align-middle">{{ $ligne->afficher[$i] }}</td>
-                        @endfor --}}
+                        @endfor
                         <td align="right" class="px-2 text-right align-middle">
                             <div class="d-inline-flex flex-shrink-0">
                                 <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none flex-shrink-0">
@@ -73,7 +73,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var idTable = 'tab'
-    triDataTables("<?php config('app.url') ?>", idTable) // Tri du tableau avec DataTables
+    triDataTables("<?php echo config('app.url') ?>", idTable) // Tri du tableau avec DataTables
     toutCocherDecocher(idTable) // Checkbox de suppressions multiples
 
     let urlSupprimer = "<?php echo $hrefs['delete-ajax'] ?>"

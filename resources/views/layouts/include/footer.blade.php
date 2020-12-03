@@ -60,6 +60,8 @@
 <script>
 $(document).ready(function(){
     var navbarMobile = qs('.navbar-mobile')
+
+    // Affichage du menu Mobile
     $('.navbar-toggler').on('click', function(){
         let state = navbarMobile.dataset.state
         if(state == 'hidden'){
@@ -73,6 +75,7 @@ $(document).ready(function(){
         navbarMobile.dataset.state = state
     })
 
+    // Masquage du menu Mobile
     $('footer,section').on('click', function(e){
         if(e.target != navbarMobile && navbarMobile.dataset.state == 'visible'){
             navbarMobile.dataset.state = 'hidden'
@@ -80,9 +83,15 @@ $(document).ready(function(){
         }
     })
 
+    // Centrage du lien actif dans le menu déroulant
     let navbarScrollX = $('#navbar-scroll-x')
     let active = $('#navbar-scroll-x .active')
     centerItVariableWidth(active, navbarScrollX)
+
+    // On empèche de cliquer sur les liens non-cliquables
+    $('.non-cliquable').on('click', function(e) {
+        e.preventDefault()
+    })
 })
 </script>
 @yield('script')

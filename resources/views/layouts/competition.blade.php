@@ -24,9 +24,9 @@
                     <a href="{{ $hrefIndex }}" class="text-body font-weight-bold mr-3 nom-competition">
                         {{ $competition->nom }}
                     </a>
-                    <span class="mr-3">
+                    <a href="" class="mr-3 non-cliquable cursor-default">
                         {!! \Config::get('constant.boutons.right') !!}
-                    </span>
+                    </a>
                     @if ($hrefClassement)
                     <a href="{{ $hrefClassement }}" class="@if(request()->route()->getName() == 'competition.classement') text-body font-weight-bold active @else text-secondary @endif pr-3">
                         Le classement

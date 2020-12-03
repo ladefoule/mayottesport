@@ -319,6 +319,7 @@ function trAvecHref(idTable){
 /**
  * On applique la librairie DataTables au tableau en le triant par la 2ème colonne par défaut
  *
+ * @param {string} appUrl - url du site
  * @param {integer} idTable
  * @param {integer} numeroColonne - Le numéro de la colonne
  * @param {string} sens - Le sens de tri asc ou desc
@@ -331,7 +332,7 @@ function triDataTables(appUrl, idTable, numeroColonne = 1, sens = 'asc') {
         destroy: true, // On "vide le cache" de l'objet DataTables
         paging: true, // Activation de la pagination
         language: {
-            url : "/json/datatables.json" // Traduction en français
+            url : appUrl + "/json/datatables.json" // Traduction en français
         },
         order : [[ numeroColonne, sens ]], // Colonne et sens de tri
         "columnDefs": [ {

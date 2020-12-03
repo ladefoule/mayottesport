@@ -189,11 +189,15 @@ class MatchController extends Controller
      */
     private static function forgetCaches(Match $match)
     {
+        Log::info(microtime(true));
         Log::info(" -------- MatchController : forgetCaches -------- ");
         $crudTable = CrudTable::firstWhere('nom', 'matches');
+        $journee = $match->journee;
+        $saison = $journee->saison;
         Cache::forget('match-' . $match->uniqid);
-        Cache::forget('journee-' . $match->journee_id);
-        // Cache::forget('saison-' . $saison->journee_id);
+        Cache::forget('journee-' . $journee->id);
+        Cache::forget('saison-' . $saison->id);
         ProcessCrudTable::dispatch($crudTable, $match);
+        Log::info(microtime(true));
     }
 }

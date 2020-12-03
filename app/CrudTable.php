@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -209,8 +210,11 @@ class CrudTable extends Model
             }
 
             // On affiche le bon format pour les timestamps s'ils sont renseignés
-            if ($valeurAttribut && $attribut == 'created_at' || $attribut == 'updated_at')
-                $valeurAttribut = /* $valeurAttribut->format('d/m/Y à H:i:s') ??  */$valeurAttribut;
+            if ($valeurAttribut && $attribut == 'created_at' || $attribut == 'updated_at'){
+                $date = new Carbon($valeurAttribut);
+                $date = $date->format('d/m/Y à H:i:s');
+                $valeurAttribut = $date;
+            }
 
             $inputType = $infosAttribut['input_type'] ?? 'text';
             $donnees[$attribut]['input_type'] = $inputType;
@@ -331,14 +335,16 @@ class CrudTable extends Model
 
             foreach ($listeComplete as $instance) {
                 $id = $instance->id;
+                $collect = collect();
 
-                $liste[$id]['nom'] = $instance->nom;
-                // $liste[$id]['crud_name'] = $instance->crud_name;
-                $liste[$id]['href_show'] = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                $liste[$id]['href_update'] = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+                $collect->nom = $instance->nom;
+                // $collect->crud_name = $instance->crud_name;
+                $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
+                $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
 
                 // On parcourt la liste des attributs à afficher et on récupère à chaque fois la valeur correspondante
-                // On les range dans le tableau $liste[$id]['afficher'][] avec des index numériques
+                // On les range dans le tableau $collect->afficher[] avec des index numériques
+                $afficher = [];
                 for ($i = 0; $i < $nbAttributs; $i++) {
                     $attr = $attribut[$i];
                     $contenu = $instance->$attr;
@@ -352,8 +358,10 @@ class CrudTable extends Model
                     if($checkbox[$i])
                         $contenu = $contenu ? 'Oui' : 'Non';
 
-                    $liste[$id]['afficher'][$i] = $contenu;
+                    $afficher[] = $contenu;
                 }
+                $collect->afficher = $afficher;
+                $liste[$id] = $collect;
             }
             return collect($liste);
         });
