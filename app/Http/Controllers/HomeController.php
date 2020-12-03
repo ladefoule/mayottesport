@@ -26,13 +26,11 @@ class HomeController extends Controller
                 $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
                 if($saison){
                     $saison = saison($saison->id);
-                    $journeeId = $saison['derniere_journee_id'] ?? $saison['prochaine_journee_id'];
-                    // $journeeId = $saison->derniereJourneeId() ?? $saison->prochaineJourneeId();
+                    $journeeId = $saison['derniere_journee_id'] != '' ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];                    // $journeeId = $saison->derniereJourneeId() ?? $saison->prochaineJourneeId();
                     if($journeeId){
                         $classement = '';
                         if($competition->type == 1) // Championnat
                             $classement = $saison['classement_simple_render'];
-                            // $classement = $saison->classementSimpleRender();
 
                         $listeDesJournees[] = collect([
                             'competition_nom' => $competition->nom,
