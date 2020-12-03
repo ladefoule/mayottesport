@@ -112,8 +112,8 @@ class Saison extends Model
      */
     public function classement()
     {
-        $bareme = $this->bareme;
-        $sport = $bareme->sport;
+        $bareme = index('baremes')[$this->bareme_id];
+        $sport = index('sports')[$bareme->sport_id];
         $matches = [];
         foreach($this->equipes as $equipe){
             $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);
