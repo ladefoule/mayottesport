@@ -210,7 +210,7 @@ class CrudTable extends Model
 
             // On affiche le bon format pour les timestamps s'ils sont renseignés
             if ($valeurAttribut && $attribut == 'created_at' || $attribut == 'updated_at')
-                $valeurAttribut = $valeurAttribut->format('d/m/Y à H:i:s');
+                $valeurAttribut = /* $valeurAttribut->format('d/m/Y à H:i:s') ??  */$valeurAttribut;
 
             $inputType = $infosAttribut['input_type'] ?? 'text';
             $donnees[$attribut]['input_type'] = $inputType;
@@ -266,7 +266,7 @@ class CrudTable extends Model
                     $collect->nom = $instance->nom;
                     $collect->crud_name = $instance->crud_name;
 
-                    $collect->infos =  method_exists($instance, 'infos') ? $instance->infos() : [];
+                    // $collect->infos =  method_exists($instance, 'infos') ? $instance->infos() : [];
                     $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
                     $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
 

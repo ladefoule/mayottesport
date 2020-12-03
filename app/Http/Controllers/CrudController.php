@@ -260,15 +260,10 @@ class CrudController extends Controller
             return response(null, 404);
 
         $request = $validator->validate();
+        foreach ($request['ids'] as $id)
+            $this::forgetCaches($crudTable, $modele::findOrFail($id));
         $modele::destroy($request['ids']);
-        $this::forgetCaches($crudTable);
-        // Cache::forget('index-' . $table);
-        // foreach ($request['ids'] as $id) {
-        //     $instance = $modele::findOrFail($id);
-        //     $this::forgetCaches($table, $instance);
-        //     $instance->delete();
-        //     Log::info("Suppression de l'id $id dans la table $nomTable");
-        // }
+
     }
 
     /**
@@ -283,6 +278,7 @@ class CrudController extends Controller
         Log::info(" -------- CrudController : forgetCaches -------- ");
 
         // On recharge les caches
+        Cache::forget('index-' . strToUrl($crudTable->nom));
         ProcessCrudTable::dispatch($crudTable, $instance);
     }
 }

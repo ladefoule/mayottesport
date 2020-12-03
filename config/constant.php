@@ -82,4 +82,16 @@ return [
         'coupe-de-mayotte' => ['sport_id' => 1, 'competition_id' => 3, 'home' => 3, 'index' => 3],
         'coupe-de-france' => ['sport_id' => 1, 'competition_id' => 4, 'home' => 4, 'index' => 4],
     ],
+
+    /* $key => $values */
+    /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
+    'caches-lies' => [
+        'equipes' => ['matches', 'equipe_saison'],
+        'saisons' => ['journees', 'equipe_saison'],
+        'competitions' => ['saisons'],
+        'baremes' => ['saisons'],
+        'sports' => ['equipes', 'competitions', 'baremes'],
+        'crud_attributs' => ['crud-attribut-infos'],
+        'crud-tables' => ['crud_attributs'],
+    ],
 ];

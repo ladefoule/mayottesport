@@ -65,11 +65,11 @@ class Journee extends Model
             $matches = $this->matches->sortBy('date')->sortBy('heure');
 
             $journee = collect();
-            $matchesCollect = [];
+            $matchesInfos = [];
             foreach ($matches as $match)
-                $matchesCollect[] = $match->infos();
+                $matchesInfos[] = $match->infos();
 
-            $journee->matches = $matchesCollect;
+            $journee->matches = $matchesInfos;
             $dateJournee = date('d/m/Y', strtotime($this->date));
             $journee->render = view('competition.journee', [
                 'matches' => $journee->matches,

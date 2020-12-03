@@ -74,7 +74,7 @@
 @endsection
 
 @section('script')
-<script src="/js/journees-multiples-ajout.js"></script>
+<script src="{{ config('app.url') }}/js/journees-multiples-ajout.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var selects = '#sport_id, #competition_id, #saison_id'

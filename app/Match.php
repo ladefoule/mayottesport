@@ -136,7 +136,8 @@ class Match extends Model
             $equipeDomNomKebab = strToUrl($equipeDom->nom);
             $equipeExt = index('equipes')[$this->equipe_id_ext];
             $equipeExtNomKebab = strToUrl($equipeExt->nom);
-            $journee = $this->journee;//index('journees')[$this->journee_id];
+            // $journee = $this->journee;
+            $journee = index('journees')[$this->journee_id];
             $saison = index('saisons')[$journee->saison_id];
             // $saison = Saison::findOrFail($saison->id); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
             $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;

@@ -65,8 +65,6 @@ class CacheController extends Controller
             Log::info("Rechargement du cache saison-" . $saison->id);
             saison($saison->id);
         }
-        // Cache::forget('match-5fc1506c17110');
-        return false;
 
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
         if($instance && ($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos')){
@@ -93,20 +91,17 @@ class CacheController extends Controller
             $crudTable->listeAttributsVisibles('show');
         }
 
-        // dd('idfdfci');
-
         Cache::forget("index-$tableKebabCase");
         Log::info("Rechargement du cache index-$tableKebabCase");
         $crudTable->index();
 
         // On recharge les caches qui utilisent les données de cette table dans leur attribut nom ou crud_name
-        $cachesLies = explode(',', $crudTable->caches_lies);
+        $cachesLies = config('constant.caches-lies')[$tableKebabCase] ?? [];
         foreach ($cachesLies as $cache){
             if($cache){
                 Cache::forget('index-' . $cache);
-                $cacheTable = str_replace('_', '-' , $cache);
-                Log::info("Rechargement du cache index-$cacheTable");
-                $crudTable = CrudTable::firstWhere('nom', $cacheTable)->index();
+                Log::info("Rechargement du cache index-$cache");
+                $crudTable = CrudTable::where('nom', str_replace('-', '_', $cache))->firstOrFail()->index();
             }
         }
     }

@@ -81,7 +81,6 @@ class CompetitionController extends Controller
         $title = 'Football - Classement ' . $competition . ' ' . $annee;
         $h1 = 'Classement ' . $competition . ' ' . $annee;
 
-        // dd(saison($saison->id));
         $classement = saison($saison->id)['classement'];
         return view($sport.'.classement', [
             'classement' => $classement,
@@ -127,7 +126,7 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- CompetitionController : champions -------- ");
         $competition = $request->competition;
-        $champions = index('champions')->where('competition_id', $competition->id);
+        $champions = index('saisons')->whereNotNull('vainqueur');
         return view('competition.champions', [
             'champions' => $champions,
             'competition' => $competition->nom

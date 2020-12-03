@@ -99,7 +99,7 @@
             @endforeach
         </div>
     </div>
-    <div class="dernier-et-prochain-match d-flex {{-- align-items-start --}} flex-wrap order-1 order-lg-2 col-lg-4 mt-3 px-0 text-center mb-auto">
+    <div class="dernier-et-prochain-match d-flex justify-content-center flex-wrap order-1 order-lg-2 col-lg-4 mt-3 px-0 text-center mb-auto">
         @if ($dernierMatch)
         <div class="col-md-6 col-12 col-lg-12 p-2 mb-auto">
             <h3 class="alert h5 alert-danger text-center text-body">Dernier match</h3>

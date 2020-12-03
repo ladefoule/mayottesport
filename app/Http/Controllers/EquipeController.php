@@ -34,69 +34,69 @@ class EquipeController extends Controller
         // On recherche le prochain match de l'équipe toute compétition confondue
         $prochainMatch = $matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
         $prochainMatchRender = '';
-        if($prochainMatch)
-            $prochainMatchRender = ($prochainMatch->equipe_id_dom == $equipe->id) ? match($prochainMatch->id)['render_eq_dom'] : match($prochainMatch->id)->render_eq_ext;
+        if($prochainMatch){
+            $journee = index('journees')[$prochainMatch->journee_id];
+            $saison = index('saisons')[$journee->saison_id];
+            $competition = index('competitions')[$saison->competition_id];
+            $prochainMatchRender = view('equipe.match', [
+                'equipe' => $equipe,
+                'match' => match($prochainMatch->uniqid),
+                'competition' => $competition,
+                'sport' => $sport,
+            ])->render();
+        }
 
         // On recherche le dernier match de l'équipe toute compétition confondue
         $dernierMatch = $matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
         $dernierMatchRender = '';
         if($dernierMatch){
-            // dd($dernierMatch->infos);
-            // $resultat = $this->resultat($equipe->id) ? $this->resultat($equipe->id)['resultat'] : '';
             $journee = index('journees')[$dernierMatch->journee_id];
             $saison = index('saisons')[$journee->saison_id];
             $competition = index('competitions')[$saison->competition_id];
             $dernierMatchRender = view('equipe.match', [
                 'equipe' => $equipe,
-                'match' => $dernierMatch->infos,
+                'match' => match($dernierMatch->uniqid),
                 'competition' => $competition,
                 'sport' => $sport,
             ])->render();
         }
-            // $dernierMatchRender = ($dernierMatch->equipe_id_dom == $equipe->id) ? match($dernierMatch->id)['render_eq_dom'] : match($dernierMatch->id)->render_eq_ext;
 
         // Toutes les saisons dans lesquelles l'équipe a joué
-        // $saisons = $equipe->saisons;
         $saisons = index('equipe_saison')->where('equipe_id', $equipe->id)->pluck('saison_id');
-        // dd($saisons);
 
         // On récupère la liste des compétitions à partir de la liste des saisons
         $competitions = collect();
+
         foreach ($saisons as $id => $saisonId){
             $saison = index('saisons')[$saisonId];
             $competitions[] = index('competitions')[$saison->competition_id];
             $saisons[$id] = $saison;
         }
 
+        // On filtre la collection pour garder que des résultats distincts
         $competitions = $competitions->unique();
+        $saisons = $saisons->sortBy('annee_debut');
 
         $derniereSaison = $derniereCompetition = '';
-        if(count($competitions) > 0){
+        if(count($saisons) > 0){
             // On affiche en priorité la dernière saison de championnat
-            $derniereCompetition = $competitions->where('type', 1)->first();
-            if(! $derniereCompetition)
-                $derniereCompetition = $competitions->first();
+            $derniereSaison = $saisons->filter(function ($saison, $key) {
+                $competition = index('competitions')[$saison->competition_id];
+                return $saison->finie . ' - ' . $competition->type;
+            })->first();
+
+            $derniereCompetition = index('competitions')[$derniereSaison->competition_id];
 
             // On affiche les saisons de la compétition sélectionnée dans le 2ème select
             $saisons = $saisons->where('competition_id', $derniereCompetition->id);
-            $derniereSaison = $saisons->sortBy('annee_debut')->first();
 
-            $journees = index('journees')->where('saison_id', $saison->id)->pluck('id');
+            // On récupère tous les matches de la saisons
+            $journees = index('journees')->where('saison_id', $derniereSaison->id)->pluck('id');
             $matches = $matches->whereIn('journee_id', $journees);
-            // dd($matchesDeLaSaison);
-            // $matchesAller = $matchesDeLaSaison->where('saison_id', $derniereSaison->id)->where('equipe_id_dom', $equipe->id);
-            // $matchesRetour = $matchesDeLaSaison->where('saison_id', $derniereSaison->id)->where('equipe_id_ext', $equipe->id);
-            // $matches = $matchesAller->union($matchesRetour)->sortBy('date');
-
-
-            foreach ($matches as $id => $match){
-                $matches[$id] = match($match->id);
-                // $match->resultat = Match::find($match->id)->resultat($equipe->id)['resultat'] ?? '';
-                // dd($match);
-            }
+            foreach ($matches as $id => $match)
+                $matches[$id] = match($match->uniqid);
         }
 
-        // dd($matches);
         $title = $equipe->nom . ' - ' . $sport->nom;
         return view('equipe.index', [
             'equipe' => $equipe,

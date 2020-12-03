@@ -40,12 +40,12 @@ class ProcessCrudTable implements ShouldQueue
     {
         Log::info(" ------ Job : ProcessCrudTable ------ ");
         $client = new Client([
-            'base_uri' => config('app.url'),
-            'http_errors' => false,
+            // 'base_uri' => config('app.url'),
+            // 'http_errors' => true,
             'timeout'  => 10.0,
         ]);
 
-        $promise = $client->getAsync('/ajax/caches/reload' , [
+        $promise = $client->getAsync(config('app.url') . '/ajax/caches/reload' , [
             'query' => [
                 'crud_table_id' => $this->crudTable->id,
                 'instance_id' => $this->instance->id ?? ''
@@ -53,7 +53,7 @@ class ProcessCrudTable implements ShouldQueue
         ] );
 
         $promise->then(
-            function () {
+            function (ResponseInterface $res) {
                 Log::info('Caches rechargés !');
             },
             function (RequestException $e) {

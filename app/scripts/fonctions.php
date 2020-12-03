@@ -99,6 +99,26 @@ function fanion($equipeId)
 }
 
 /**
+ * Fonction de comparaison pour générer les classements
+ *
+ * @param array $a
+ * @param array $b
+ * @return void
+ */
+function cmp($a, $b)
+{
+    if ($a['points'] == $b['points']){
+        if($a['diff'] == $b['diff']){
+            if($a['marques'] == $b['marques'])
+                return 0;
+            return ($a['marques'] < $b['marques']) ? 1 : -1;
+        }
+        return ($a['diff'] < $b['diff']) ? 1 : -1;
+    }
+    return ($a['points'] < $b['points']) ? 1 : -1;
+}
+
+/**
  * Liste de tous les éléments de la table.
  *
  * @param string $table - Table en camel_case
@@ -175,7 +195,7 @@ function match(string $matchUniqid)
     else
         return Cache::rememberForever($key, function () use($matchUniqid){
             // Log::info('NOW : ' . now() . ' ' . $matchUniqid);
-            return Match::findOrFail($matchUniqid)->infos();
+            return Match::whereUniqid($matchUniqid)->firstOrFail()->infos();
         });
 }
 

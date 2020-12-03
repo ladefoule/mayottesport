@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cache;
 use App\Match;
 use App\Modif;
 use App\Sport;
@@ -14,7 +15,6 @@ use Illuminate\Http\Request;
 use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class MatchController extends Controller
@@ -53,7 +53,7 @@ class MatchController extends Controller
         if(annee($saison->annee_debut, $saison->annee_fin) != $annee)
             abort(404);
             // Cache::forget('match-5fc1506c17110');
-            
+
         $infos = match($match->uniqid);
         // dd($infos);
         return view('competition.match', [
@@ -191,9 +191,9 @@ class MatchController extends Controller
     {
         Log::info(" -------- MatchController : forgetCaches -------- ");
         $crudTable = CrudTable::firstWhere('nom', 'matches');
+        Cache::forget('match-' . $match->uniqid);
+        Cache::forget('journee-' . $match->journee_id);
+        // Cache::forget('saison-' . $saison->journee_id);
         ProcessCrudTable::dispatch($crudTable, $match);
-        // Cache::forget('match-' . $match->uniqid); // Les infos du match
-        // Cache::forget('journee-' . $match->journee->id); // Les infos de la journée
-        // Cache::forget('classement-' . $match->journee->saison->id); // Le classement de la saison
     }
 }
