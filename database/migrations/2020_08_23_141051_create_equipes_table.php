@@ -19,6 +19,8 @@ class CreateEquipesTable extends Migration {
             $table->string('nom');
             $table->unsignedBigInteger('sport_id');
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('restrict');
+            $table->unsignedBigInteger('ville_id');
+            $table->foreign('ville_id')->references('id')->on('villes')->onDelete('restrict');
 			$table->string('nom_complet')->nullable();
 			$table->boolean('feminine')->nullable();
 			$table->boolean('non_mahoraise')->nullable();
