@@ -217,7 +217,7 @@ const serialize = function(formEle) {
  * @param {string} url - url de la liste (requète envoyée en Ajax)
  * @param {string} idTable - id de la table
  */
-function listeAjax(url, idTable)
+function listeAjax(appUrl, url, idTable)
 {
     $.ajax({
         type: 'GET',
@@ -228,7 +228,7 @@ function listeAjax(url, idTable)
             let newTbody = dce('tbody')
             newTbody.innerHTML = data
             table.replaceChild(newTbody, tbody)
-            triDataTables(idTable)
+            triDataTables(appUrl, idTable)
         }
     })
 }
@@ -323,7 +323,7 @@ function trAvecHref(idTable){
  * @param {integer} numeroColonne - Le numéro de la colonne
  * @param {string} sens - Le sens de tri asc ou desc
  */
-function triDataTables(idTable, numeroColonne = 1, sens = 'asc') {
+function triDataTables(appUrl, idTable, numeroColonne = 1, sens = 'asc') {
     if((sens != 'asc' && sens != 'desc') || numeroColonne < 0)
         return false;
 
@@ -331,7 +331,7 @@ function triDataTables(idTable, numeroColonne = 1, sens = 'asc') {
         destroy: true, // On "vide le cache" de l'objet DataTables
         paging: true, // Activation de la pagination
         language: {
-            url : "../json/datatables.json" // Traduction en français
+            url : "/json/datatables.json" // Traduction en français
         },
         order : [[ numeroColonne, sens ]], // Colonne et sens de tri
         "columnDefs": [ {

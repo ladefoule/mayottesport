@@ -273,12 +273,6 @@ class CrudTable extends Model
                     $liste[$id] = /* $instance; */$collect;
                 }
 
-                // dd($liste);
-                // foreach ($listeComplete as $instance) {
-                //     if(method_exists($instance, 'infos'))
-                //         dd($instance->infos());
-                // }
-
                 return collect($liste);
             });
 

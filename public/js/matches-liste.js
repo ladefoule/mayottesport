@@ -75,7 +75,7 @@ function ajaxTbodyMatches(idTable, urls)
             }
 
             table.replaceChild(tbodyNew, tbody)
-            triDataTables(idTable)
+            triDataTables(appUrl, idTable)
         }
     })
     .catch(err => cl(err))
@@ -136,7 +136,7 @@ function listeMatches(idTable, selects, urls)
 
                 ajaxSelect(donneesRequeteAjax) // On récupère la liste des competitions
                 table.replaceChild(tbodyNew, tbody)
-                triDataTables(idTable)
+                triDataTables(appUrl, idTable)
                 return false; // On évite de charger tous les matches d'un même sport
                             // On le fait que quand on aura la saison
             }
@@ -154,7 +154,7 @@ function listeMatches(idTable, selects, urls)
 
                 ajaxSelect(donneesRequeteAjax) // On récupère la liste des saisons
                 table.replaceChild(tbodyNew, tbody)
-                triDataTables(idTable)
+                triDataTables(appUrl, idTable)
                 return false; // On évite de charger tous les matches d'un même championnat
                             // On le fait que quand on aura la saison
             }
@@ -183,7 +183,7 @@ function listeMatches(idTable, selects, urls)
                     ajaxSelect(donneesRequeteAjax2)
                 }else{
                     table.replaceChild(tbodyNew, tbody)
-                    triDataTables(idTable)
+                    triDataTables(appUrl, idTable)
                     return false;
                 }
             }

@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var token = qs('input[name=_token]').value
     var urlSupprimer = "<?php echo route('crud.delete-ajax', ['table' => 'matches']) ?>"
     var urlLister = ""
-    triDataTables(idTable)
+    triDataTables(appUrl, idTable)
     toutCocherDecocher(idTable)
 
     let params = {urlSupprimer,idTable,urlLister,token}

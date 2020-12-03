@@ -19,11 +19,11 @@
 
     <h1 class="page-title">Source: outils.js</h1>
 
-    
 
 
 
-    
+
+
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const BOUTONSUPPRESSION = '&lt;i class="fas fa-trash-alt">&lt;/i>';
@@ -249,7 +249,7 @@ function listeAjax(url, idTable)
             let newTbody = dce('tbody')
             newTbody.innerHTML = data
             table.replaceChild(newTbody, tbody)
-            triDataTables(idTable)
+            triDataTables(appUrl, idTable)
         }
     })
 }

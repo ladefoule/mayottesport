@@ -66,9 +66,6 @@
             </tbody>
         </table>
     </div>
-    {{-- <div class="text-center">
-        {{ $liste->links() }}
-    </div> --}}
 </div>
 @endsection
 
@@ -76,7 +73,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var idTable = 'tab'
-    triDataTables(idTable) // Tri du tableau avec DataTables
+    triDataTables("<?php config('app.url') ?>", idTable) // Tri du tableau avec DataTables
     toutCocherDecocher(idTable) // Checkbox de suppressions multiples
 
     let urlSupprimer = "<?php echo $hrefs['delete-ajax'] ?>"
