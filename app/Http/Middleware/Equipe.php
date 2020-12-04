@@ -18,7 +18,7 @@ class Equipe
      */
     public function handle($request, Closure $next)
     {
-        Log::info(" ---- Middleware Equipe ---- ");
+        Log::info(" -------- Middleware Equipe -------- ");
         $rules = [
             'equipe' => 'alpha_dash|min:3',
             'uniqid' => 'alpha_dash|size:13'

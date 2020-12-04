@@ -16,7 +16,7 @@ class CacheController extends Controller
     {
         Log::info(" -------- Controller Cache : reloadCrud -------- ");
         $rules = [
-            'instance_id' => 'nullable|integer|min:1',
+            'instance_id' => 'required|integer|min:1',
             'crud_table_id' => 'required|integer|min:1|exists:crud_tables,id'
         ];
 
@@ -30,12 +30,12 @@ class CacheController extends Controller
         $table = $crudTable->nom;
         $modele = '\App\\' . modelName($crudTable->nom);
 
-        $instance = $modele::find($id);
+        $instance = $modele::findOrFail($id);
         $tableKebabCase = str_replace('_', '-' , $table);
 
         // On recharge le cache classement si on effectue une modif sur les tables :
         // matches, journées ou saisons qui risquent d'impacter le classement
-        if($instance && in_array($table, ['matches', 'journees', 'saisons'])){
+        if(in_array($table, ['matches', 'journees', 'baremes', 'saisons'])){
             if($table == 'matches'){
                 $match = $instance;
                 $journee = $match->journee;
@@ -43,28 +43,43 @@ class CacheController extends Controller
             }else if($table == 'journees'){
                 $journee = $instance;
                 $saison = $journee->saison;
+            }else if($table == 'baremes'){
+                $bareme = $instance;
+                $saisons = $bareme->saisons;
+
+                // Rechargement de tous les caches saisons liés au barème
+                foreach ($saisons as $saisonTemp) {
+                    $cacheSaison = "saison-".$saisonTemp->id;
+                    Cache::forget($cacheSaison);
+                    saison($saisonTemp->id);
+                }
             }else
                 $saison = $instance;
 
+            // Rechargement du cache qui contient les infos sur le match : urls, fanions, scores, etc...
             if(isset($match)){
                 $cacheMatch = "match-".$match->uniqid;
                 Cache::forget($cacheMatch);
                 match($match->uniqid);
             }
 
+            // Rechargement du cache qui contient les infos sur la journée : render, matches, etc...
             if(isset($journee)){
                 $cacheJournee = "journee-".$journee->id;
                 Cache::forget($cacheJournee);
                 journee($journee->id);
             }
 
-            $cacheSaison = "saison-".$saison->id;
-            Cache::forget($cacheSaison);
-            saison($saison->id);
+            // Rechargement du cache qui contient les infos sur la saison : classement, render classement simplifié, etc...
+            if(isset($saison)){
+                $cacheSaison = "saison-".$saison->id;
+                Cache::forget($cacheSaison);
+                saison($saison->id);
+            }
         }
 
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
-        if($instance && ($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos')){
+        if($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos'){
             Log::info("Opération effectuée dans la gestion du Crud");
             Log::info("User : " . Auth::user()->email);
             if($table == 'crud_attribut_infos')
@@ -87,14 +102,10 @@ class CacheController extends Controller
 
         Cache::forget("index-$tableKebabCase");
         $crudTable->index();
+        Cache::forget("indexcrud-$tableKebabCase");
+        $crudTable->indexCrud();
 
-        // On recharge les caches qui utilisent les données de cette table dans leur attribut nom ou crud_name
-        $cachesLies = config('constant.caches-lies')[$tableKebabCase] ?? [];
-        foreach ($cachesLies as $cache){
-            if($cache){
-                Cache::forget('index-' . $cache);
-                $crudTable = CrudTable::where('nom', str_replace('-', '_', $cache))->firstOrFail()->index();
-            }
-        }
+        // On recharge les caches 'index' qui utilisent les données de cette table dans leur attribut nom ou crud_name
+        refreshCachesLies($tableKebabCase);
     }
 }

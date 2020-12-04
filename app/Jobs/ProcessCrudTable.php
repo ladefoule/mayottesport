@@ -11,7 +11,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ProcessCrudTable implements ShouldQueue
 {
@@ -25,7 +24,7 @@ class ProcessCrudTable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(CrudTable $crudTable, $instance = null)
+    public function __construct(CrudTable $crudTable, $instance)
     {
         $this->crudTable = $crudTable->withoutRelations();
         $this->instance = $instance;
@@ -38,7 +37,7 @@ class ProcessCrudTable implements ShouldQueue
      */
     public function handle()
     {
-        Log::info(" ------ Job : ProcessCrudTable ------ ");
+        Log::info(" -------- Job : ProcessCrudTable ------ ");
         $client = new Client([
             // 'base_uri' => config('app.url'),
             // 'http_errors' => true,
@@ -48,13 +47,13 @@ class ProcessCrudTable implements ShouldQueue
         $promise = $client->getAsync(config('app.url') . '/ajax/caches/reload' , [
             'query' => [
                 'crud_table_id' => $this->crudTable->id,
-                'instance_id' => $this->instance->id ?? ''
+                'instance_id' => $this->instance->id
             ]
         ] );
 
         $promise->then(
-            function (ResponseInterface $res) {
-                Log::info('Caches rechargés !');
+            function () {
+                Log::info('Caches rechargés avec succès !');
             },
             function (RequestException $e) {
                 Log::info($e->getMessage());

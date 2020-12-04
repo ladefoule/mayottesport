@@ -18,7 +18,7 @@ class MatchId
      */
     public function handle($request, Closure $next)
     {
-        Log::info(" ---- Middleware MatchId ---- ");
+        Log::info(" -------- Middleware MatchId -------- ");
         if (Validator::make(['uniqid' => $request->uniqid], ['uniqid' => 'alpha_dash|min:3'])->fails())
             abort(404);
 

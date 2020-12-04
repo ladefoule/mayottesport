@@ -1,7 +1,6 @@
 <?php
 use App\Cache;
 use App\Match;
-use App\Sport;
 use App\Saison;
 use App\Journee;
 use App\CrudTable;
@@ -45,9 +44,9 @@ function stripAccents(string $str) {
 }
 
 /**
- * Renvoie le nom du model correspondant à la table (nom de la table en snake_case).
+ * Renvoie le nom du model correspondant à la table.
  *
- * @param string $table
+ * @param string $table - nom de la table en snake_case
  * @return string
  */
 function modelName(string $table)
@@ -76,9 +75,17 @@ function checkPermission(array $roles)
     return false;
 }
 
-function annee($debut, $fin, $separateur = '-')
+/**
+ * Style procédural de la méthode annee() de la classe Saison
+ *
+ * @param int $debut
+ * @param int $fin
+ * @param string $separateur
+ * @return string
+ */
+function annee(int $debut, int $fin, string $separateur = '-')
 {
-    return ($debut == $fin) ? $debut : $debut. $separateur .$fin;
+    return ($debut == $fin) ? $debut : $debut . $separateur . $fin;
 }
 
 /**
@@ -96,6 +103,26 @@ function fanion($equipeId)
         $fanion = "defaut-2";
 
     return config('app.url') . "/storage/img/fanion/" . $fanion . '.png';
+}
+
+/**
+ * Rechargement de tous les caches index des tables qui utilisent les données de la $table
+ * On ne doit recharger le cache que SI ET SEULEMENT SI les données des tables sont utilisées dans la génération des attributs nom ou crud_name
+ * Ex: Saison->crudname = Competititon->crud_name . annee() ==> SEUL la table competitions peut engendrer le rechargement de la table saisons
+ *
+ * @param string $table - en kebab-case
+ * @return void
+ */
+function refreshCachesLies(string $table){
+    $tablesLiees = config('constant.caches-lies')[$table] ?? [];
+    foreach ($tablesLiees as $tableKebabCase){
+        if(isset(config('constant.caches-lies')[$tableKebabCase]))
+            refreshCachesLies($tableKebabCase);
+
+        Cache::forget('index-' . $tableKebabCase);
+        index(str_replace('-', '_', $tableKebabCase));
+        // CrudTable::where('nom', str_replace('-', '_', $tableKebabCase))->firstOrFail()->index();
+    }
 }
 
 /**
@@ -119,6 +146,7 @@ function cmp($a, $b)
 }
 
 /**
+ * Style procédural de la méthode infos() de la classe CrudTable
  * Liste de tous les éléments de la table.
  *
  * @param string $table - Table en camel_case
@@ -139,7 +167,29 @@ function index(string $table)
 }
 
 /**
+ * Style procédural de la méthode infos() de la classe CrudTable
+ * Liste de tous les éléments de la table (avec les infos sur les attributs à afficher dans le CRUD : position, type, max, ...).
  *
+ * @param string $table - Table en camel_case
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function indexCrud(string $table)
+{
+    $key = "indexcrud-" . str_replace('_', '-', $table);
+    if (!Config::get('constant.activer_cache'))
+        Cache::forget($key);
+
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use($table){
+            return CrudTable::whereNom($table)->firstOrFail()->indexCrud();
+        });
+}
+
+/**
+ * Style procédural de la méthode infos() de la classe Journee
+ * Renvoie une collection qui contient les matches de la journée ainsi que le render (le html de l'affichage du calendrier)
  *
  * @param int $journeeId
  * @return \Illuminate\Database\Eloquent\Collection
@@ -159,7 +209,8 @@ function journee(int $journeeId)
 }
 
 /**
- *
+ * Style procédural de la méthode infos() de la classe Saison
+ * Retourne une collection qui contient le classement si c'est un championnat et d'autres infos sur la saison
  *
  * @param int $journeeId
  * @return \Illuminate\Database\Eloquent\Collection
@@ -179,9 +230,10 @@ function saison(int $saisonId)
 }
 
 /**
+ * Style procédural de la méthode infos() de la classe Match
+ * Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, ...
  *
- *
- * @param int $journeeId
+ * @param string $matchUniqid
  * @return \Illuminate\Database\Eloquent\Collection
  */
 function match(string $matchUniqid)
@@ -194,13 +246,12 @@ function match(string $matchUniqid)
         return Cache::get($key);
     else
         return Cache::rememberForever($key, function () use($matchUniqid){
-            // Log::info('NOW : ' . now() . ' ' . $matchUniqid);
             return Match::whereUniqid($matchUniqid)->firstOrFail()->infos();
         });
 }
 
 /**
- * Génère tous les matches d'une saison dans la bdd
+ * Insère tous les matches d'une saison dans la bdd
  *
  * @param array $donnees
  * @return void

@@ -18,7 +18,7 @@ class Competition
      */
     public function handle($request, Closure $next)
     {
-        Log::info(" ---- Middleware Competition ---- ");
+        Log::info(" -------- Middleware Competition -------- ");
         if (Validator::make(['competition' => $request->competition], ['competition' => 'alpha_dash|min:3'])->fails())
             abort(404);
 

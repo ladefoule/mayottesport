@@ -86,12 +86,12 @@ return [
     /* $key => $values */
     /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
     'caches-lies' => [
-        'equipes' => ['matches', 'equipe_saison'],
-        'saisons' => ['journees', 'equipe_saison'],
+        'equipes' => ['matches', 'equipe-saison'],
+        'saisons' => ['journees', 'equipe-saison'],
         'competitions' => ['saisons'],
-        'baremes' => ['saisons'],
+        'villes' => ['terrains'],
         'sports' => ['equipes', 'competitions', 'baremes'],
-        'crud_attributs' => ['crud-attribut-infos'],
-        'crud-tables' => ['crud_attributs'],
+        'crud-attributs' => ['crud-attribut-infos'],
+        'crud-tables' => ['crud-attributs'],
     ],
 ];

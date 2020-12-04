@@ -19,7 +19,7 @@ class VerifTableCrud
      */
     public function handle($request, Closure $next)
     {
-        Log::info(" ---- Middleware VerifTableCrud ---- ");
+        Log::info(" -------- Middleware VerifTableCrud -------- ");
         if (Validator::make(['table' => $request->table], ['table' => 'alpha_dash'])->fails())
             abort(404);
 

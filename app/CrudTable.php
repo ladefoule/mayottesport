@@ -197,14 +197,16 @@ class CrudTable extends Model
             // Si l'attribut attribut_crud_table_id est renseigné, il faut récupérer la liste complète
             // des éléments de cette table référence sous forme de select (pour pouvoir faire un choix dessus)
             if ($infosAttribut['attribut_crud_table_id']) {
-                $crudTableAttribut = index('crud_tables')[$infosAttribut['attribut_crud_table_id']];
-                $modeleTableAttribut = 'App\\' . modelName($crudTableAttribut->nom);
+                $tableReference = index('crud_tables')[$infosAttribut['attribut_crud_table_id']]->nom;
+                $indexTableReference = index($tableReference);
+                // $modeleTableAttribut = 'App\\' . modelName($crudTableAttribut->nom); // ORM Eloquent
 
-                // Dans la page vue, on affiche le 'nom' de l'attribut référence, sinon on affiche la liste complète
+                // Dans la page vue, on affiche le 'crud_name' de l'attribut référence, sinon on affiche la liste complète
                 if ($action == 'show' && $valeurAttribut)
-                    $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->crud_name;
+                    $valeurAttribut = $indexTableReference[$valeurAttribut]->crud_name;
+                    // $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->crud_name; // ORM Eloquent
                 else
-                    $donnees[$attribut]['select'] = index($crudTableAttribut->nom);
+                    $donnees[$attribut]['select'] = $indexTableReference;
             }
 
             if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'select' && isset($infosAttribut['select_liste'])) {
@@ -280,7 +282,7 @@ class CrudTable extends Model
                     $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
                     $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
 
-                    $liste[$id] = /* $instance; */$collect;
+                    $liste[$id] = $collect;
                 }
 
                 return collect($liste);
@@ -314,9 +316,9 @@ class CrudTable extends Model
                 $tableKebabCase = str_replace('_', '-', $table);
 
                 $triDefaut = $this->tri_defaut;
-                $liste = [];
+                $listeComplete = $triDefaut ? $this->index()->sortBy($triDefaut) : $this->index();
                 // $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
-                $listeComplete = $this->index();
+                $liste = [];
 
                 $listeAttributsVisibles = $this->listeAttributsVisibles();
                 if ($listeAttributsVisibles == false)
@@ -346,7 +348,7 @@ class CrudTable extends Model
                     $collect = collect();
 
                     $collect->nom = $instance->nom;
-                    // $collect->crud_name = $instance->crud_name;
+                    $collect->crud_name = $instance->crud_name;
                     $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
                     $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
 

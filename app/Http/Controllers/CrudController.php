@@ -279,6 +279,7 @@ class CrudController extends Controller
 
         // On recharge les caches
         Cache::forget('index-' . strToUrl($crudTable->nom));
+        Cache::forget('indexcrud-' . strToUrl($crudTable->nom));
         ProcessCrudTable::dispatch($crudTable, $instance);
     }
 }
