@@ -3,12 +3,16 @@ html{
 }
 
 body{
-    background-color: rgba(197, 226, 230, 0.281);
+    /* background-color: rgba(197, 226, 230, 0.281); */
     min-width: 350px;
     height: 100vh;
     /* background-image: url('../../storage/img/fond-mayotte.jpg'); */
     /* background-size:1950px 1000px; */
     /* background-attachment: fixed; */
+}
+
+.bg-fond{
+    background-color: #f8fafc;
 }
 
 .class-ignoree{
@@ -29,6 +33,10 @@ body{
     width:250px;
     font-size:1.1rem;
     transition:1s;
+}
+
+.mx--7{
+    margin:-7px
 }
 
 .overflow-x-auto{

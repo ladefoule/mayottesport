@@ -9,7 +9,7 @@ use App\ChampJournee;
 @section('title', $title)
 
 @section('content')
-<div class="row card mx-1">
+<div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} {{ $h1 }}</span><br>
         <a href="{{ route('crud.create', ['table' => 'matches']) }}" class="text-decoration-none mr-1">

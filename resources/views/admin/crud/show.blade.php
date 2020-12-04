@@ -3,7 +3,7 @@
 @section('title', $title)
 
 @section('content')
-<div class="row card">
+<div class="row card mx-0">
     <div class="card-header d-flex align-items-center px-2">
         <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
         <a href="{{ $hrefs['index'] }}" title="Liste" class="text-decoration-none">

@@ -4,14 +4,14 @@
 
 @section('content')
 
-<div class="row bg-white py-3 justify-content-center border">
+<div class="row mx-0 bg-white py-3 justify-content-center border rounded">
     {{-- <div class="col-12 text-center">
         <h1 class="h4">Mayotte sport : l'ensemble des résultats de l'île</h1>
     </div> --}}
 
 
     @foreach ($sports as $sport)
-        <div class="col-12 text-center mb-3 px-2">
+        <div class="col-12 text-center mb-2 px-2">
             <span class="h2 font-italic"><a class="text-body" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a></span>
         </div>
         @foreach ($sport->journees as $journee)

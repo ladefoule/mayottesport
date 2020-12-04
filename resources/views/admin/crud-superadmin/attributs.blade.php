@@ -3,7 +3,7 @@
 @section('title', 'Gestion des attributs du Crud')
 
 @section('content')
-<div class="row card">
+<div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
        <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} CrudAttributs :
           Ajouter</span>

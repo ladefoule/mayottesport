@@ -3,7 +3,7 @@
 @section('title', $h1)
 
 @section('content')
-<div class="row card mx-1">
+<div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} {{ $h1 }}</span>
         <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">

@@ -10,7 +10,7 @@ use App\Saison;
 @section('title', $h1)
 
 @section('content')
-<div class="row card">
+<div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3" style="font-size: 1.3em">{!! config('constant.boutons.database') !!} {{ $h1 }}</span>
 

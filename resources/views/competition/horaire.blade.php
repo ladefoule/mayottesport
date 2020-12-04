@@ -5,7 +5,7 @@
 @section('content')
 <form action="" method="post" id="formulaire">
     @csrf
-    <div class="row text-white bloc-match bloc-match-football py-3 py-4">
+    <div class="row text-white bloc-match bloc-match-football py-4 mx-0 rounded">
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1">
             <div class="col-lg-4 d-lg-inline py-2 px-0">
                 <img src="{{ $match['fanion_equipe_dom'] }}" alt="{{ $match['equipe_dom']->nom }}" class="fanion-match">

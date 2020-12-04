@@ -3,8 +3,7 @@
 @section('title', $title)
 
 @section('content')
-
-<div class="row d-flex flex-wrap bg-white rounded p-2">
+<div class="row mx-0 d-flex flex-wrap bg-white rounded p-2 border">
     <h1 class="h3 text-center pt-3 col-12 text-body">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
     <div class="row order-2 order-lg-1 col-lg-8 d-flex flex-wrap justify-content-center my-3 px-0 mx-0">
         <div class="col-12 d-flex flex-wrap justify-content-center mb-auto">
@@ -120,7 +119,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('script')

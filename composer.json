@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "graphp/graphviz": "^0.2.2",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel-lang/lang": "~5.0",
         "laravel/framework": "^6.18.35",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.0",

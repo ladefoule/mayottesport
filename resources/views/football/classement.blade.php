@@ -3,9 +3,9 @@
 @section('title', $title)
 
 @section('content')
-<div class="row border bg-white rounded d-flex justify-content-center p-2">
-    <h1 class="col-12 h5 pb-3 pt-3 text-center">{{ $h1 }}</h1>
-    <div class="col-12 pb-3 px-0">
+<div class="row border bg-white rounded d-flex justify-content-center mx-0">
+    <h1 class="col-12 h5 p-3 text-center">{{ $h1 }}</h1>
+    <div class="col-12 pb-3 px-1">
         <table class="table text-center classement w-100" id="classement">
             <thead class="thead-light thead-fixed">
                 <th class="px-2">#</th>
