@@ -1,14 +1,15 @@
 @extends('layouts.competition')
 
 <?php
-$journeeActuelle = $journee;
+    $journeeActuelle = $journee;
+    $competition = request()->competition;
 ?>
 
-@section('title', request()->competition->nom . ' - Calendrier et résultats - '.niemeJournee($journeeActuelle->numero).' - ' . request()->sport->nom)
+@section('title', $competition->nom . ' - Calendrier et résultats - '.niemeJournee($journeeActuelle->numero).' - ' . request()->sport->nom)
 
 @section('content')
 <div class="row d-flex flex-wrap bg-white border mx-0">
-    <h1 class="h4 text-center col-12 p-3">{{ request()->competition->nom . ' - Calendrier et résultats'}}</h1>
+    <h1 class="h4 text-center col-12 p-3">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
     <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
         <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.left') !!}</a>
         <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
@@ -20,13 +21,13 @@ $journeeActuelle = $journee;
         </select>
         <a id="next" data-id="{{ $journeeActuelle->numero + 1 }}" href="" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.right') !!}</a>
     </div>
-    <div class="col-lg-8 d-flex flex-wrap px-2">
+    <div class="col-lg-9 d-flex flex-wrap px-2 pb-2">
         <div class="col-12" id="matches">
             {!! $calendrierJourneeHtml !!}
         </div>
     </div>
-    <div class="d-flex col-lg-4 justify-content-center px-2">
-        <div class="border h-100 p-3" style="width:100%">
+    <div class="d-flex col-lg-3 justify-content-center px-2 pb-2">
+        <div class="border h-100 w-100 p-3 text-center">
             PUB
         </div>
     </div>

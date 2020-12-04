@@ -10,18 +10,28 @@
     <div class="col-lg-9 d-flex flex-wrap px-2">
         @if ($derniereJournee)
             <div class="col-12 p-0 pb-3 mb-3">
-                <h3 class="alert h5 alert-danger text-center">Les derniers résultats</h3>
+                <h3 class="h5 border-bottom-calendrier text-danger text-center">Les derniers résultats</h3>
                 <div class="px-3">
                     {!! $derniereJournee !!}
                 </div>
             </div>
         @endif
+
+        @if ($prochaineJournee)
+            <div class="col-12 px-0 pb-4">
+                <h3 class="h5 border-bottom-calendrier text-success text-center">La prochaine journée</h3>
+                <div class="px-3">
+                    {!! $prochaineJournee !!}
+                </div>
+            </div>
+        @endif
+
         @if (isset($classement))
-        <div class="col-12 p-0 mb-3 pb-3">
+        <div class="col-12 p-0 mb-2 pb-2">
             {{-- <h1 class="h3 py-3 text-center">Le classement</h1> --}}
-            <h3 class="alert h5 alert-primary text-center">Le classement</h3>
+            <h3 class="h5 border-bottom-calendrier text-primary text-center pb-2">Le classement</h3>
             <table class="w-100 table text-center table-classement" id="classement">
-                <thead>
+                <thead class="thead-light">
                     <th class="px-2">#</th>
                     <th>{{Str::ucfirst('équipe')}}</th>
                     <th class="px-2">J</th>
@@ -65,21 +75,12 @@
                     @endforeach
                 </tbody>
             </table>
-            <a class="d-block text-center" href="{{ $hrefClassement }}">Classement complet</a>
+            <a class="d-block text-center" href="{{ $hrefClassement }}">Le classement complet</a>
         </div>
         @endif
-
-        @if ($prochaineJournee)
-            <div class="col-12 px-0">
-                <h3 class="alert h5 alert-success text-center">La prochaine journée</h3>
-                <div class="px-3">
-                    {!! $prochaineJournee !!}
-                </div>
-            </div>
-        @endif
     </div>
-    <div class="d-flex col-lg-3 justify-content-center border p-3">
-        <div class="border h-100 p-3" style="width:100%">
+    <div class="d-flex col-lg-3 justify-content-center px-2 pb-2">
+        <div class="border h-100 w-100 p-3 text-center">
             PUB
         </div>
     </div>

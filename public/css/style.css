@@ -11,6 +11,10 @@ body{
     /* background-attachment: fixed; */
 }
 
+h1{
+    font-size: 1rem !important;
+}
+
 .bg-fond{
     background-color: #f8fafc;
 }
@@ -192,6 +196,10 @@ a:hover{
         font-size: 90%;
     }
 
+    h1{
+        font-size: 1.2rem !important;
+    }
+
     .fanion-page-equipe{
         width:30px;
     }
@@ -227,6 +235,10 @@ a:hover{
     @media (min-width: 992px) {
         html{
             font-size: 100%;
+        }
+
+        h1{
+            font-size: 1.4rem !important;
         }
 
         .fanion-page-equipe{
