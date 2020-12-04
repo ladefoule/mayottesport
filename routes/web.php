@@ -19,10 +19,10 @@ Route::get('script.html', function(){ // Page pour tester une fonction ou un scr
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 /* MIDDLEWARE AUTH */
-Route::group(['middleware'=>'auth'], function () {
+Route::group(['middleware'=> 'verified'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
     Route::post('/comment', 'CommentaireController@store')->name('comment');
     Route::post('/comment/delete', 'CommentaireController@delete')->name('comment.delete');

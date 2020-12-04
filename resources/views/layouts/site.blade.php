@@ -8,7 +8,7 @@
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <section class="container-lg">
+    <section class="container-lg top-50">
         @yield('content')
     </section>
     {{-- Fin Section scroll X --}}

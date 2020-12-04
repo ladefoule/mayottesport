@@ -19,6 +19,10 @@ body{
     margin-top:50px
 }
 
+.top-50{
+    margin-top: 50px
+}
+
 .navbar-mobile{
     left:-250px;
     z-index:2;
