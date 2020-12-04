@@ -11,13 +11,13 @@
 @include('layouts.include.header')
 {{-- Fin Header --}}
 
-<body>
+<body class="d-flex flex-column">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-sports')
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <div class="container-lg-fluid bg-white border-bottom"{{--  style="background-color: rgba(255, 255, 255, 0.7) !important" --}}>
+    <div class="navbar-scroll-x container-lg-fluid bg-white border-bottom"{{--  style="background-color: rgba(255, 255, 255, 0.7) !important" --}}>
         <div class="container">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">

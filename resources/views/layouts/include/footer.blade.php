@@ -3,7 +3,7 @@
     $competitions = index('competitions');
 ?>
 <!-- Footer -->
-<footer class="page-footer font-small indigo text-white bg-dark">
+<footer class="footer font-small indigo text-white bg-dark mt-auto">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
         <div class="row d-flex {{-- flex-nowrap --}} flex-basis-1 text-center">

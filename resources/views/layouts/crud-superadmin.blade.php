@@ -6,13 +6,13 @@
 @include('layouts.include.header')
 {{-- Fin Header --}}
 
-<body>
+<body class="d-flex flex-column">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-admin')
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <section class="container-lg-fluid border-bottom bg-white">
+    <section class="navbar-scroll-x container-lg-fluid border-bottom bg-white">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0">

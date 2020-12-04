@@ -5,7 +5,7 @@
 @section('title', 'Connexion')
 
 @section('content')
-<div class="row justify-content-center bg-white py-3">
+<div class="row justify-content-center py-3">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">Connexion</div>

@@ -5,6 +5,7 @@ html{
 body{
     background-color: rgba(197, 226, 230, 0.281);
     min-width: 350px;
+    height: 100vh;
     /* background-image: url('../../storage/img/fond-mayotte.jpg'); */
     /* background-size:1950px 1000px; */
     /* background-attachment: fixed; */
@@ -12,6 +13,10 @@ body{
 
 .class-ignoree{
     font-size: 1em;
+}
+
+.navbar-scroll-x{
+    margin-top:50px
 }
 
 .navbar-mobile{

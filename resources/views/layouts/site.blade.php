@@ -2,7 +2,7 @@
 @include('layouts.include.header')
 {{-- Fin Header --}}
 
-<body>
+<body class="d-flex flex-column">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-sports')
     {{-- Fin Navbar principal --}}
@@ -16,6 +16,7 @@
     {{-- Footer --}}
     @include('layouts.include.footer')
     {{-- Fin Footer --}}
+
 </body>
 
 </html>
