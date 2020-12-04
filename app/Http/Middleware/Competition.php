@@ -18,7 +18,6 @@ class Competition
      */
     public function handle($request, Closure $next)
     {
-        Log::info(microtime(true));
         Log::info(" ---- Middleware Competition ---- ");
         if (Validator::make(['competition' => $request->competition], ['competition' => 'alpha_dash|min:3'])->fails())
             abort(404);
@@ -54,7 +53,6 @@ class Competition
             if($competition->type == 1) // Type Championnat
                 $request->hrefClassement = route('competition.classement', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
         }
-        Log::info(microtime(true));
         return $next($request);
     }
 }

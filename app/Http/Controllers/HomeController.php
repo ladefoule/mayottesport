@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        Log::info(" -------- HomeController : index -------- ");
+        Log::info(" -------- Controller Home : index -------- ");
         $sports = index('sports')->where('home_position', '>=', 1)->sortBy('home_position');
         foreach ($sports as $sport) {
             $competitions = index('competitions')->where('sport_id', $sport->id)->where('home_position', '>=', 1)->sortBy('home_position');

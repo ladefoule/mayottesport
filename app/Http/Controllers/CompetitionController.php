@@ -19,7 +19,7 @@ class CompetitionController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- CompetitionController : __construct -------- ");
+        Log::info(" -------- Controller Competition : __construct -------- ");
         $this->middleware(['sport', 'competition'])->except('journeeRender');
     }
 
@@ -31,7 +31,7 @@ class CompetitionController extends Controller
      */
     public function index(Request $request)
     {
-        Log::info(" -------- CompetitionController : index -------- ");
+        Log::info(" -------- Controller Competition : index -------- ");
         $competition = $request->competition;
         $saison = $request->saison;
         $saisonInfosSup = saison($saison->id);
@@ -73,7 +73,7 @@ class CompetitionController extends Controller
 
     public function classement(Request $request)
     {
-        Log::info(" -------- CompetitionController : classement -------- ");
+        Log::info(" -------- Controller Competition : classement -------- ");
         $saison = $request->saison;
         $sport = strToUrl($request->sport->nom);
         $competition = Str::lower(index('competitions')[$saison->competition_id]->nom);
@@ -100,7 +100,7 @@ class CompetitionController extends Controller
      */
     public function resultats(Request $request)
     {
-        Log::info(" -------- CompetitionController : resultats -------- ");
+        Log::info(" -------- Controller Competition : resultats -------- ");
         $saison = $request->saison;
         $journees = index('journees')->where('saison_id', $saison->id)->sortBy('numero');
 
@@ -124,7 +124,7 @@ class CompetitionController extends Controller
 
     public function champions(Request $request)
     {
-        Log::info(" -------- CompetitionController : champions -------- ");
+        Log::info(" -------- Controller Competition : champions -------- ");
         $competition = $request->competition;
         $champions = index('saisons')->whereNotNull('vainqueur');
         return view('competition.champions', [

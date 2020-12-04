@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class Journee extends Model
 {
@@ -61,6 +62,8 @@ class Journee extends Model
             return Cache::get($key);
 
         return Cache::rememberForever($key, function (){
+            Log::info('Rechargement du cache : journee-' . $this->id);
+
             // L'ensemble des matches de la journée
             $matches = $this->matches->sortBy('date')->sortBy('heure');
 

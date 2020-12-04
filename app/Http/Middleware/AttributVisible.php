@@ -16,7 +16,6 @@ class AttributVisible
      */
     public function handle($request, Closure $next)
     {
-        Log::info(microtime(true));
         Log::info(" ---- Middleware AttributVisible ---- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $route = $request->route()->getName();
@@ -27,7 +26,6 @@ class AttributVisible
             abort(404);
 
         $request->listeAttributsVisibles = $listeAttributsVisibles;
-        Log::info(microtime(true));
         return $next($request);
     }
 }

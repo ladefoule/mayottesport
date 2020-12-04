@@ -14,7 +14,7 @@ class CacheController extends Controller
 {
     public function reloadCrud(Request $request)
     {
-        Log::info(" -------- CacheController : reloadCrud -------- ");
+        Log::info(" -------- Controller Cache : reloadCrud -------- ");
         $rules = [
             'instance_id' => 'nullable|integer|min:1',
             'crud_table_id' => 'required|integer|min:1|exists:crud_tables,id'
@@ -49,20 +49,17 @@ class CacheController extends Controller
             if(isset($match)){
                 $cacheMatch = "match-".$match->uniqid;
                 Cache::forget($cacheMatch);
-                Log::info("Rechargement du cache match-" . $match->uniqid);
                 match($match->uniqid);
             }
 
             if(isset($journee)){
                 $cacheJournee = "journee-".$journee->id;
                 Cache::forget($cacheJournee);
-                Log::info("Rechargement du cache journee-" . $journee->id);
                 journee($journee->id);
             }
 
             $cacheSaison = "saison-".$saison->id;
             Cache::forget($cacheSaison);
-            Log::info("Rechargement du cache saison-" . $saison->id);
             saison($saison->id);
         }
 
@@ -79,20 +76,16 @@ class CacheController extends Controller
 
 
             Cache::forget("attributs-visibles-$tableKebabCase-index");
-            Log::info("Rechargement du cache attributs-visibles-$tableKebabCase-index");
             $crudTable->listeAttributsVisibles();
 
             Cache::forget("attributs-visibles-$tableKebabCase-create");
-            Log::info("Rechargement du cache attributs-visibles-$tableKebabCase-create");
             $crudTable->listeAttributsVisibles('create');
 
             Cache::forget("attributs-visibles-$tableKebabCase-show");
-            Log::info("Rechargement du cache attributs-visibles-$tableKebabCase-show");
             $crudTable->listeAttributsVisibles('show');
         }
 
         Cache::forget("index-$tableKebabCase");
-        Log::info("Rechargement du cache index-$tableKebabCase");
         $crudTable->index();
 
         // On recharge les caches qui utilisent les données de cette table dans leur attribut nom ou crud_name
@@ -100,7 +93,6 @@ class CacheController extends Controller
         foreach ($cachesLies as $cache){
             if($cache){
                 Cache::forget('index-' . $cache);
-                Log::info("Rechargement du cache index-$cache");
                 $crudTable = CrudTable::where('nom', str_replace('-', '_', $cache))->firstOrFail()->index();
             }
         }

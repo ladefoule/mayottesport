@@ -15,13 +15,13 @@ class SportController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- SportController : __construct -------- ");
+        Log::info(" -------- Controller Sport : __construct -------- ");
         $this->middleware('sport');
     }
 
     public function index(Request $request)
     {
-        Log::info(" -------- SportController : index -------- ");
+        Log::info(" -------- Controller Sport : index -------- ");
         $sport = $request->sport;
         $competitions = index('competitions')->where('sport_id', $sport->id);
         $journees = [];

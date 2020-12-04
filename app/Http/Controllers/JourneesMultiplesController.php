@@ -8,6 +8,7 @@ use App\Saison;
 use App\Journee;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class JourneesMultiplesController extends Controller
@@ -19,6 +20,7 @@ class JourneesMultiplesController extends Controller
      */
     public function select()
     {
+        Log::info(" -------- Controller JourneesMultiples : select -------- ");
         $sports = Sport::orderBy('nom')->get();
         $h1 = $title = 'Saison : Ajout de toutes les journées';
 
@@ -37,6 +39,7 @@ class JourneesMultiplesController extends Controller
      */
     public function edit($saisonId)
     {
+        Log::info(" -------- Controller JourneesMultiples : edit -------- ");
         $saison = Saison::findOrFail($saisonId);
         $nbJournees = $saison->nb_journees;
         $h1 = $title = 'Journees/SaisonId : ' . $saison->id;
@@ -73,6 +76,7 @@ class JourneesMultiplesController extends Controller
      */
     public function editPost(Request $request, $saisonId)
     {
+        Log::info(" -------- Controller JourneesMultiples : editPost -------- ");
         // Todo : fire une validation du tbleau reçu
         $nbJournees = Saison::findOrFail($saisonId)->nb_journees;
         for ($i=1; $i <= $nbJournees; $i++) {
@@ -127,6 +131,7 @@ class JourneesMultiplesController extends Controller
      */
     public function show(int $saisonId)
     {
+        Log::info(" -------- Controller JourneesMultiples : show -------- ");
         $saison = Saison::findOrFail($saisonId);
         $h1 = $title = 'Journees/SaisonId : ' . $saisonId;
         $journees = $saison->journees->sortBy('numero');

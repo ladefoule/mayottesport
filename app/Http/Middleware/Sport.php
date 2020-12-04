@@ -18,7 +18,6 @@ class Sport
      */
     public function handle($request, Closure $next)
     {
-        Log::info(microtime(true));
         Log::info(" ---- Middleware Sport ---- ");
         if (Validator::make(['sport' => $request->sport], ['sport' => 'alpha_dash|min:3'])->fails())
             abort(404);
@@ -37,7 +36,6 @@ class Sport
         if(! $find)
             abort(404);
 
-        Log::info(microtime(true));
         return $next($request);
     }
 }

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
@@ -91,6 +92,8 @@ class Saison extends Model
             return Cache::get($key);
 
         return Cache::rememberForever($key, function (){
+            Log::info('Rechargement du cache : saison-' . $this->id);
+
             $type = $this->competition->type;
             $collect = collect();
             if($type == 1){

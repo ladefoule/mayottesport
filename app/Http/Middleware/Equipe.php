@@ -18,7 +18,6 @@ class Equipe
      */
     public function handle($request, Closure $next)
     {
-        Log::info(microtime(true));
         Log::info(" ---- Middleware Equipe ---- ");
         $rules = [
             'equipe' => 'alpha_dash|min:3',
@@ -39,7 +38,6 @@ class Equipe
             abort(404);
 
         $request->equipe = $equipe;
-        Log::info(microtime(true));
         return $next($request);
     }
 }

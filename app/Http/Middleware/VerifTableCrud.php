@@ -19,7 +19,6 @@ class VerifTableCrud
      */
     public function handle($request, Closure $next)
     {
-        Log::info(microtime(true));
         Log::info(" ---- Middleware VerifTableCrud ---- ");
         if (Validator::make(['table' => $request->table], ['table' => 'alpha_dash'])->fails())
             abort(404);
@@ -48,7 +47,6 @@ class VerifTableCrud
             abort(404);
         }
         $request->crudTable = $crudTable;
-        Log::info(microtime(true));
         return $next($request);
     }
 }

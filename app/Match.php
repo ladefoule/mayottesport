@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
@@ -132,6 +133,8 @@ class Match extends Model
             return Cache::get($key);
 
         return Cache::rememberForever($key, function (){
+            Log::info('Rechargement du cache : match-' . $this->uniqid);
+
             $equipeDom = index('equipes')[$this->equipe_id_dom];
             $equipeDomNomKebab = strToUrl($equipeDom->nom);
             $equipeExt = index('equipes')[$this->equipe_id_ext];
@@ -207,7 +210,6 @@ class Match extends Model
      */
     public function matchRender($infos, $equipe)
     {
-        // $infos = $this->infos();
         $resultat = $this->resultat($equipe->id) ? $this->resultat($equipe->id)['resultat'] : '';
         return view('equipe.match', [
             'equipe' => $equipe,

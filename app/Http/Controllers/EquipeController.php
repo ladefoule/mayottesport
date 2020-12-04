@@ -19,12 +19,13 @@ class EquipeController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- EquipeController : __construct -------- ");
+        Log::info(" -------- Controller Equipe : __construct -------- ");
         $this->middleware(['sport', 'equipe'])->except('matchesAjax');
     }
 
     public function index(Request $request)
     {
+        Log::info(" -------- Controller Equipe : index -------- ");
         $equipe = $request->equipe;
         $sport = $request->sport;
         // $matches = $equipe->matches; // Tous les matches de l'équipe
@@ -114,6 +115,7 @@ class EquipeController extends Controller
 
     public function matchesAjax(Request $request)
     {
+        Log::info(" -------- Controller Equipe : matchesAjax -------- ");
         $equipeId = $request['equipe_id'];
         $saisonId = $request['saison_id'];
 

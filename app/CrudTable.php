@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -47,7 +48,8 @@ class CrudTable extends Model
         if (Cache::has($key))
             return Cache::get($key);
         else
-            return Cache::rememberForever($key, function () {
+            return Cache::rememberForever($key, function () use($key) {
+                Log::info('Rechargement du cache : ' . $key);
                 $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)
                         ->whereNotIn('nom', ['crud_tables', 'crud_attributs', 'crud_attribut_infos', 'users', 'roles', 'migrations', 'password_resets'])
                         ->get() ?? [];
@@ -117,7 +119,9 @@ class CrudTable extends Model
         if (Cache::has($key))
             return Cache::get($key);
         else
-            return Cache::rememberForever($key, function () use($action){
+            return Cache::rememberForever($key, function () use($action, $key){
+                Log::info('Rechargement du cache : ' . $key);
+
                 if($action == 'update')
                     $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
 
@@ -257,7 +261,9 @@ class CrudTable extends Model
         if (Cache::has($key))
             $index = Cache::get($key);
         else
-            $index = Cache::rememberForever($key, function () use($modele, $tableKebabCase){
+            $index = Cache::rememberForever($key, function () use($modele, $tableKebabCase, $key){
+                Log::info('Rechargement du cache : ' . $key);
+
                 $triDefaut = $this->tri_defaut;
                 $liste = [];
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
@@ -301,69 +307,71 @@ class CrudTable extends Model
         if (Cache::has($key))
             return Cache::get($key);
         else
-            return Cache::rememberForever($key, function (){
-            $table = $this->nom;
-            $tableKebabCase = str_replace('_', '-', $table);
+            return Cache::rememberForever($key, function () use($key){
+                Log::info('Rechargement du cache : ' . $key);
 
-            $triDefaut = $this->tri_defaut;
-            $liste = [];
-            // $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
-            $listeComplete = $this->index();
+                $table = $this->nom;
+                $tableKebabCase = str_replace('_', '-', $table);
 
-            $listeAttributsVisibles = $this->listeAttributsVisibles();
-            if ($listeAttributsVisibles == false)
-                return [];
+                $triDefaut = $this->tri_defaut;
+                $liste = [];
+                // $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
+                $listeComplete = $this->index();
 
-            $i = 0;
-            foreach($listeAttributsVisibles as $infosAttribut){
-                $crudAttributId = $infosAttribut['crud_attribut_id'];
-                $crudAttribut = index('crud_attributs')[$crudAttributId];
-                $attribut[$i] = $crudAttribut->attribut;
+                $listeAttributsVisibles = $this->listeAttributsVisibles();
+                if ($listeAttributsVisibles == false)
+                    return [];
 
-                if ($infosAttribut['attribut_crud_table_id']){
-                    $tableReference = index('crud_tables')[$infosAttribut['attribut_crud_table_id']]->nom;
-                    // $modeleReference = 'App\\' . modelName($tableReference);
-                    $listeTableAttribut[$i] = /* $modeleReference::all(); */index($tableReference);
-                }
+                $i = 0;
+                foreach($listeAttributsVisibles as $infosAttribut){
+                    $crudAttributId = $infosAttribut['crud_attribut_id'];
+                    $crudAttribut = index('crud_attributs')[$crudAttributId];
+                    $attribut[$i] = $crudAttribut->attribut;
 
-                $checkbox[$i] = false;
-                if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'checkbox')
-                    $checkbox[$i] = true;
-                $i++;
-            }
-            $nbAttributs = $i;
-
-            foreach ($listeComplete as $instance) {
-                $id = $instance->id;
-                $collect = collect();
-
-                $collect->nom = $instance->nom;
-                // $collect->crud_name = $instance->crud_name;
-                $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
-
-                // On parcourt la liste des attributs à afficher et on récupère à chaque fois la valeur correspondante
-                // On les range dans le tableau $collect->afficher[] avec des index numériques
-                $afficher = [];
-                for ($i = 0; $i < $nbAttributs; $i++) {
-                    $attr = $attribut[$i];
-                    $contenu = $instance->$attr;
-
-                    // Si l'attribut attribut_crud_table_id est renseigné, il faut donc récupérer
-                    // le 'nom' de cette foreign key grace à son modele (info présente dans la table gestion_tables)
-                    if(isset($listeTableAttribut[$i])){
-                        $contenu = $listeTableAttribut[$i]->where('id', $contenu)->first()->crud_name;
+                    if ($infosAttribut['attribut_crud_table_id']){
+                        $tableReference = index('crud_tables')[$infosAttribut['attribut_crud_table_id']]->nom;
+                        // $modeleReference = 'App\\' . modelName($tableReference);
+                        $listeTableAttribut[$i] = /* $modeleReference::all(); */index($tableReference);
                     }
 
-                    if($checkbox[$i])
-                        $contenu = $contenu ? 'Oui' : 'Non';
-
-                    $afficher[] = $contenu;
+                    $checkbox[$i] = false;
+                    if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'checkbox')
+                        $checkbox[$i] = true;
+                    $i++;
                 }
-                $collect->afficher = $afficher;
-                $liste[$id] = $collect;
-            }
-            return collect($liste);
+                $nbAttributs = $i;
+
+                foreach ($listeComplete as $instance) {
+                    $id = $instance->id;
+                    $collect = collect();
+
+                    $collect->nom = $instance->nom;
+                    // $collect->crud_name = $instance->crud_name;
+                    $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
+                    $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+
+                    // On parcourt la liste des attributs à afficher et on récupère à chaque fois la valeur correspondante
+                    // On les range dans le tableau $collect->afficher[] avec des index numériques
+                    $afficher = [];
+                    for ($i = 0; $i < $nbAttributs; $i++) {
+                        $attr = $attribut[$i];
+                        $contenu = $instance->$attr;
+
+                        // Si l'attribut attribut_crud_table_id est renseigné, il faut donc récupérer
+                        // le 'nom' de cette foreign key grace à son modele (info présente dans la table gestion_tables)
+                        if(isset($listeTableAttribut[$i])){
+                            $contenu = $listeTableAttribut[$i]->where('id', $contenu)->first()->crud_name;
+                        }
+
+                        if($checkbox[$i])
+                            $contenu = $contenu ? 'Oui' : 'Non';
+
+                        $afficher[] = $contenu;
+                    }
+                    $collect->afficher = $afficher;
+                    $liste[$id] = $collect;
+                }
+                return collect($liste);
         });
     }
 }

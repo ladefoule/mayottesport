@@ -26,7 +26,7 @@ class CrudController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- CrudController : __construct -------- ");
+        Log::info(" -------- Controller Crud : __construct -------- ");
         $this->middleware('verif-table-crud')->except('forgetCaches');
         $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }
@@ -41,7 +41,7 @@ class CrudController extends Controller
      */
     public function index(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : index -------- ");
+        Log::info(" -------- Controller Crud : index -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase;
@@ -70,7 +70,7 @@ class CrudController extends Controller
      */
     public function indexAjax(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : indexAjax -------- ");
+        Log::info(" -------- Controller Crud : indexAjax -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $liste = $crudTable->index();
         return view('admin.crud.index-ajax', [
@@ -87,7 +87,7 @@ class CrudController extends Controller
      */
     public function show(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : show -------- ");
+        Log::info(" -------- Controller Crud : show -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
 
         $tablePascalCase = Str::ucfirst(Str::camel($table));
@@ -115,7 +115,7 @@ class CrudController extends Controller
      */
     public function createForm(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : create -------- ");
+        Log::info(" -------- Controller Crud : create -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase . ' : Ajouter';
@@ -141,7 +141,7 @@ class CrudController extends Controller
      */
     public function createStore(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : createStore -------- ");
+        Log::info(" -------- Controller Crud : createStore -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $rules = $modele::rules();
@@ -173,7 +173,7 @@ class CrudController extends Controller
      */
     public function updateForm(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : update -------- ");
+        Log::info(" -------- Controller Crud : update -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase;
@@ -202,7 +202,7 @@ class CrudController extends Controller
      */
     public function updateStore(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : updateStore -------- ");
+        Log::info(" -------- Controller Crud : updateStore -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
@@ -227,7 +227,7 @@ class CrudController extends Controller
      */
     public function delete(Request $request, string $table, int $id)
     {
-        Log::info(" -------- CrudController : delete -------- ");
+        Log::info(" -------- Controller Crud : delete -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
@@ -247,7 +247,7 @@ class CrudController extends Controller
      */
     public function deleteAjax(Request $request, string $table)
     {
-        Log::info(" -------- CrudController : deleteAjax -------- ");
+        Log::info(" -------- Controller Crud : deleteAjax -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $nomTable = $crudTable->nom;
@@ -275,7 +275,7 @@ class CrudController extends Controller
      */
     private static function forgetCaches(CrudTable $crudTable, object $instance = null)
     {
-        Log::info(" -------- CrudController : forgetCaches -------- ");
+        Log::info(" -------- Controller Crud : forgetCaches -------- ");
 
         // On recharge les caches
         Cache::forget('index-' . strToUrl($crudTable->nom));

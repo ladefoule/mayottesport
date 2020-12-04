@@ -30,7 +30,7 @@ class CrudAdminController extends Controller
      */
     public function tablesPost(Request $request)
     {
-        Log::info(" -------- CrudAdminController : tablesPost -------- ");
+        Log::info(" -------- Controller CrudAdmin : tablesPost -------- ");
         if(isset($request['maj'])){
             Log::info('Mise à jour de la liste des tables dans la table crud_tables');
             Log::info('Demande faite par : ' . Auth::user()->email);

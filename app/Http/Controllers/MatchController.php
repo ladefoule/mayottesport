@@ -26,7 +26,7 @@ class MatchController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- CompetitionController : __construct -------- ");
+        Log::info(" --------  Match : __construct -------- ");
         $this->middleware(['sport', 'competition', 'match-id'])->except('forgetCaches');
     }
 
@@ -43,7 +43,7 @@ class MatchController extends Controller
      */
     public function match(Request $request, $sport, $competition, $annee, $equipeDom, $equipeExt)
     {
-        Log::info(" -------- MatchController : match -------- ");
+        Log::info(" -------- Controller Match : match -------- ");
         $match = $request->match;
         $match = Match::find($match->id);
         $journee = index('journees')[$match->journee_id];
@@ -69,7 +69,7 @@ class MatchController extends Controller
      */
     public function resultat(Request $request)
     {
-        Log::info(" -------- MatchController : resultat -------- ");
+        Log::info(" -------- Controller Match : resultat -------- ");
         $match = $request->match;
         $accesBloque = $match->acces_bloque;
         if ($accesBloque){
@@ -92,7 +92,7 @@ class MatchController extends Controller
      */
     public function resultatPost(Request $request)
     {
-        Log::info(" -------- MatchController : resultatPost -------- ");
+        Log::info(" -------- Controller Match : resultatPost -------- ");
         Validator::make($request->all(), [
             'score_eq_dom' => 'required|integer|min:0|max:30',
             'score_eq_ext' => 'required|integer|min:0|max:30',
@@ -134,7 +134,7 @@ class MatchController extends Controller
      */
     public function horaire(Request $request)
     {
-        Log::info(" -------- MatchController : horaire -------- ");
+        Log::info(" -------- Controller Match : horaire -------- ");
         $match = $request->match;
 
         $infos = $match->infos();
@@ -152,7 +152,7 @@ class MatchController extends Controller
      */
     public function horairePost(Request $request)
     {
-        Log::info(" -------- MatchController : horairePost -------- ");
+        Log::info(" -------- Controller Match : horairePost -------- ");
         $match = $request->match;
         Validator::make($request->all(), [
             'date' => 'required|date',
@@ -189,8 +189,7 @@ class MatchController extends Controller
      */
     private static function forgetCaches(Match $match)
     {
-        Log::info(microtime(true));
-        Log::info(" -------- MatchController : forgetCaches -------- ");
+        Log::info(" -------- Controller Match : forgetCaches -------- ");
         $crudTable = CrudTable::firstWhere('nom', 'matches');
         $journee = $match->journee;
         $saison = $journee->saison;
@@ -198,6 +197,5 @@ class MatchController extends Controller
         Cache::forget('journee-' . $journee->id);
         Cache::forget('saison-' . $saison->id);
         ProcessCrudTable::dispatch($crudTable, $match);
-        Log::info(microtime(true));
     }
 }

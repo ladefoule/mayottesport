@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PdfParserController extends Controller
 {
     public function get()
     {
+        Log::info(" -------- Controller PdfParser : get -------- ");
         return view('admin.pdfparser');
     }
 
     public function post(Request $request)
     {
+        Log::info(" -------- Controller PdfParser : post -------- ");
         PdfParserController::validPosts($request);
 
         $file = $request->pdf;
