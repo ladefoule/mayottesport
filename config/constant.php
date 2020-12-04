@@ -66,7 +66,7 @@ return [
     ],
 
     "tables-non-crudables" => [
-        'migrations', 'password_resets', 'failed_jobs'
+        'migrations', 'password_resets', 'failed_jobs', 'jobs'
     ],
 
     'sports-position' => [

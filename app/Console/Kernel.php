@@ -2,7 +2,11 @@
 
 namespace App\Console;
 
+use App\Cache;
+use App\Match;
+use App\Saison;
 use App\CrudTable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -38,11 +42,39 @@ class Kernel extends ConsoleKernel
         // On vide tout le cache une fois par jour à 03:00
         $schedule->command('cache:clear')->dailyAt('03:00');
 
+        // On recharge tous les caches à 03:01
         $schedule->call(function () {
+
+            // Les caches index et indexCrud
             $crudTables = CrudTable::all();
-            foreach ($crudTables as $crudTable)
-                $crudTable->index();
-        })->dailyAt('03:05');
+            foreach ($crudTables as $crudTable){
+                if(! in_array($crudTable->nom, config('constant.tables-non-crudables'))){
+                    $crudTable->index();
+                    $crudTable->listeAttributsVisibles();
+                    $crudTable->listeAttributsVisibles('create');
+                    $crudTable->listeAttributsVisibles('update');
+                    $crudTable->indexCrud();
+                }
+            }
+
+            // Les caches saisons/journees et matches QUE pour les saisons en cours
+            $saisons = Saison::all();
+            foreach ($saisons as $saison){
+                if(! $saison->finie){
+                    $saison->infos();
+
+                    $matches = $saison->matches;
+                    foreach ($matches as $match)
+                        $match->infos();
+
+                    $journees = $saison->journees;
+                    foreach ($journees as $journee)
+                        $journee->infos();
+
+                }
+            }
+
+        })->dailyAt('03:01');
     }
 
     /**

@@ -2,7 +2,7 @@
     $layout = request()->layout;
     $url = request()->url();
 ?>
-<nav class="navbar sticky-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
+<nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
     <div class="container">
         <a class="navbar-brand ml-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ config('app.url') }}/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
         <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
