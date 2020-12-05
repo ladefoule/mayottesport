@@ -29,7 +29,7 @@
         @if (isset($classement))
         <div class="col-12 p-0 mb-2 pb-2">
             {{-- <h1 class="h3 py-3 text-center">Le classement</h1> --}}
-            <h3 class="h5 border-bottom-calendrier text-primary text-center pb-2">Le classement</h3>
+            <h3 class="h5 border-bottom-calendrier text-body text-center pb-2">Le classement</h3>
             <table class="w-100 table text-center table-classement" id="classement">
                 <thead class="thead-light">
                     <th class="px-2">#</th>

@@ -9,11 +9,12 @@ return [
         'ajouter_cercle' => '<i class="icon-plus-circled"></i>',
         'voir' => '<i class="icon-eye"></i>',
         'editer' => '<i class="icon-edit"></i>',
-        'lister' => '<i class="icon-list"></i>',
+        'lister' => '<i class="icon-list-bullet"></i>',
         'database' => '<i class="icon-database"></i>',
         'left' => '<i class="icon-left-open"></i>',
         'right' => '<i class="icon-right-open"></i>',
         'retour' => '<i class="icon-left"></i>',
+        'football' => '<i class="icon-soccer-ball"></i>',
     ],
 
     "crud-attribut" => [
