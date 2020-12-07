@@ -9,12 +9,12 @@
         <div class="row d-flex {{-- flex-nowrap --}} flex-basis-1 text-center">
             @foreach ($sports as $sport)
             <div class="col-4 col-md-2 mx-auto px-2">
-                <a href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}"><h5 class="font-weight-bold mt-3 mb-2 text-white">{{ $sport->nom }}</h5></a>
+                <a href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}"><h5 class="font-weight-bold mt-3 mb-2 text-white">{{ $sport->nom }}</h5></a>
                 <ul class="list-unstyled">
                     <?php $i = 1 ?>
                     @foreach ($competitions->where('sport_id', $sport->id) as $competition)
                     <li>
-                        <a href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">{{ $competition->nom }}</a>
+                        <a href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
                     </li>
                     <?php if($i++ == 5) break; ?>
                 @endforeach

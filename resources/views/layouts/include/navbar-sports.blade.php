@@ -15,7 +15,7 @@ $i = 0;
        <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto bg-white">
                @foreach ($sports as $sport)
-                   <a class="nav-item nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif px-2" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a>
+                   <a class="nav-item nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif px-2" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
                     <?php if($i++ == 5) break; ?>
                 @endforeach
                <a class="nav-item nav-link px-2" href="{{ config('app.url') }}/autres">Autres</a>
@@ -42,18 +42,18 @@ $i = 0;
                 @if ($competitions->where('sport_id', $sport->id)->all() > 0)
                     <li class="nav-item dropdown border-bottom px-2">
                         <a class="nav-link dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {!! config('constant.boutons.' . strToUrl($sport->nom)) !!} {{ $sport->nom }}
+                            {!! config('constant.boutons.' . \Str::slug($sport->nom)) !!} {{ $sport->nom }}
                         </a>
                         <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
-                            <a class="dropdown-item" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
+                            <a class="dropdown-item" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
                             @foreach ($competitions->where('sport_id', $sport->id) as $competition)
-                                <a class="dropdown-item" href="{{ route('competition.index', ['sport' => strToUrl($sport->nom), 'competition' => strToUrl($competition->nom)]) }}">{{ $competition->nom }}</a>
+                                <a class="dropdown-item" href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
                             @endforeach
                         </div>
                     </li>
                 @else
                     <li class="nav-item border-bottom px-2">
-                        <a class="nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="{{ route('sport.index', ['sport' => strToUrl($sport->nom)]) }}">{{ $sport->nom }}</a>
+                        <a class="nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
                     </li>
                 @endif
             @endforeach

@@ -136,18 +136,18 @@ class Match extends Model
             Log::info('Rechargement du cache : match-' . $this->uniqid);
 
             $equipeDom = index('equipes')[$this->equipe_id_dom];
-            $equipeDomNomKebab = strToUrl($equipeDom->nom);
+            $equipeDomNomKebab = \Str::slug($equipeDom->nom);
             $equipeExt = index('equipes')[$this->equipe_id_ext];
-            $equipeExtNomKebab = strToUrl($equipeExt->nom);
+            $equipeExtNomKebab = \Str::slug($equipeExt->nom);
             // $journee = $this->journee;
             $journee = index('journees')[$this->journee_id];
             $saison = index('saisons')[$journee->saison_id];
             // $saison = Saison::findOrFail($saison->id); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
             $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
             $competition = index('competitions')[$saison->competition_id];
-            $competitionNomKebab = strToUrl($competition->nom);
+            $competitionNomKebab = \Str::slug($competition->nom);
             $sport = index('sports')[$competition->sport_id];
-            $sportNomKebab = strToUrl($sport->nom);
+            $sportNomKebab = \Str::slug($sport->nom);
 
             $collect = [
                 'id' => $this->id,
@@ -156,12 +156,12 @@ class Match extends Model
                 'equipe_dom' => $equipeDom,
                 'journee_id' => $this->journee_id,
                 'equipe_dom_nom' => $equipeDom->nom,
-                'equipe_dom_nom_kebab' => strToUrl($equipeDom->nom),
+                'equipe_dom_nom_kebab' => \Str::slug($equipeDom->nom),
                 'href_equipe_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'uniqid' => $equipeDom->uniqid]),
                 'fanion_equipe_dom' => fanion($equipeDom->id),
                 'equipe_ext' => $equipeExt,
                 'equipe_ext_nom' => $equipeExt->nom,
-                'equipe_ext_nom_kebab' => strToUrl($equipeExt->nom),
+                'equipe_ext_nom_kebab' => \Str::slug($equipeExt->nom),
                 'href_equipe_ext' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeExtNomKebab, 'uniqid' => $equipeExt->uniqid]),
                 'fanion_equipe_ext' => fanion($equipeExt->id),
                 'url' => route('competition.match', [
@@ -227,15 +227,15 @@ class Match extends Model
     // {
     //     $equipeDom = index('equipes')[$this->equipe_id_dom];
     //     $equipeExt = index('equipes')[$this->equipe_id_ext];
-    //     $equipeDomKebabCase = strToUrl($equipeDom->nom);
-    //     $equipeExtKebabCase = strToUrl($equipeExt->nom);
+    //     $equipeDomKebabCase = \Str::slug($equipeDom->nom);
+    //     $equipeExtKebabCase = \Str::slug($equipeExt->nom);
     //     $journee = index('journees')[$this->journee_id];
     //     $saison = index('saisons')[$journee->saison_id];
     //     $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '-' .$saison->annee_fin;
     //     $competition = index('competitions')[$saison->competition_id];
     //     $sport = index('sports')[$competition->sport_id];
-    //     $sportKebabCase = strToUrl($sport->nom);
-    //     $competitionKebabCase = strToUrl($competition->nom);
+    //     $sportKebabCase = \Str::slug($sport->nom);
+    //     $competitionKebabCase = \Str::slug($competition->nom);
 
     //     return config('app.url') . "/$sportKebabCase/$competitionKebabCase/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
     // }

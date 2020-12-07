@@ -219,18 +219,21 @@ const serialize = function(formEle) {
  * @param {string} url - url de la liste (requète envoyée en Ajax)
  * @param {string} idTable - id de la table
  */
-function listeAjax(appUrl, url, idTable)
+function listeAjax(params)
 {
+    urlApp = params['urlApp']
+    urlLister = params['urlLister']
+    idTable = params['idTable']
     $.ajax({
         type: 'GET',
-        url: url,
+        url: urlLister,
         success:function(data){
             let table = qs('#'+idTable)
             let tbody = qs('tbody', table)
             let newTbody = dce('tbody')
             newTbody.innerHTML = data
             table.replaceChild(newTbody, tbody)
-            triDataTables(appUrl, idTable)
+            triDataTables({urlApp, idTable})
         }
     })
 }
@@ -252,7 +255,7 @@ function suppressionAjax(params)
         url: urlSupprimer,
         data: {ids:ids, _token:token},
         success: function(){
-            listeAjax(urlLister, idTable)
+            listeAjax({urlApp, urlLister, idTable})
         }
     });
 }
@@ -321,12 +324,16 @@ function trAvecHref(idTable){
 /**
  * On applique la librairie DataTables au tableau en le triant par la 2ème colonne par défaut
  *
- * @param {string} appUrl - url du site
+ * @param {string} urlApp - url du site
  * @param {integer} idTable
  * @param {integer} numeroColonne - Le numéro de la colonne
  * @param {string} sens - Le sens de tri asc ou desc
  */
-function triDataTables(appUrl, idTable, numeroColonne = 1, sens = 'asc') {
+function triDataTables(params) {
+    urlApp = params['urlApp']
+    idTable = params['idTable']
+    numeroColonne = params['numeroColonne'] ?? 1
+    sens = params['sens'] ?? 'asc'
     if((sens != 'asc' && sens != 'desc') || numeroColonne < 0)
         return false;
 
@@ -334,7 +341,7 @@ function triDataTables(appUrl, idTable, numeroColonne = 1, sens = 'asc') {
         destroy: true, // On "vide le cache" de l'objet DataTables
         paging: true, // Activation de la pagination
         language: {
-            url : appUrl + "/json/datatables.json" // Traduction en français
+            url : urlApp + "/json/datatables.json" // Traduction en français
         },
         order : [[ numeroColonne, sens ]], // Colonne et sens de tri
         "columnDefs": [ {

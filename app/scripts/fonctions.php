@@ -28,10 +28,10 @@ function niemeJournee(int $numero)
  * @param string $str
  * @return string
  */
-function strToUrl(string $str)
-{
-    return str_replace([' ', '/', '_', '\\', '\'', '\"', '(', ')'], '-', Str::lower(stripAccents($str)));
-}
+// function \Str::slug(string $str)
+// {
+//     return str_replace([' ', '/', '_', '\\', '\'', '\"', '(', ')'], '-', Str::lower(stripAccents($str)));
+// }
 
 /**
  * Enlèvement des accents.

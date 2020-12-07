@@ -68,7 +68,7 @@ class Saison extends Model
     {
         $competition = index('competitions')[$this->competition_id];
         $sport = index('sports')[$competition->sport_id];
-        $hrefClassementComplet = route('competition.classement', ['competition' => strToUrl($competition->nom), 'sport' => strToUrl($sport->nom)]);
+        $hrefClassementComplet = route('competition.classement', ['competition' => \Str::slug($competition->nom), 'sport' => \Str::slug($sport->nom)]);
         $classement = $this->classement();
         return view('competition.classement-simple', [
             'classement' => $classement,
@@ -133,7 +133,7 @@ class Saison extends Model
         foreach ($matches as $equipeId => $matchesEquipe) {
             $equipe = index('equipes')[$equipeId];
             $sport = index('sports')[$sport->id];
-            $hrefEquipe = route('equipe.index', ['sport' => strToUrl($sport->nom), 'equipe' => strToUrl($equipe->nom), 'uniqid' => $equipe->uniqid]);
+            $hrefEquipe = route('equipe.index', ['sport' => \Str::slug($sport->nom), 'equipe' => \Str::slug($equipe->nom), 'uniqid' => $equipe->uniqid]);
             $nomEquipe = $equipe->nom;
             $fanionEquipe = fanion($equipe->id);
 

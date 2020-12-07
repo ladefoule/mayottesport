@@ -25,7 +25,7 @@
             </button>
         </a>
     </div>
-    <div class="card-body px-3 col-md-8 offset-md-2">
+    <div class="card-body pb-0 px-3 {{-- col-md-8 offset-md-2 --}}">
         @foreach ($donnees as $infos)
             <ul class="list-group mb-3">
                 <li class="list-group-item disabled" aria-disabled="true">{{ $infos['label'] }}</li>

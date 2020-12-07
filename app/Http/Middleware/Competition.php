@@ -27,7 +27,7 @@ class Competition
 
         $find = false;
         foreach($competitions as $compet)
-            if(strToUrl($compet->nom) == ($request->competition)){
+            if(\Str::slug($compet->nom) == ($request->competition)){
                 $competition = $compet;
                 $find = true;
                 break;
@@ -37,7 +37,7 @@ class Competition
             abort(404);
 
         $competitionKebab = $request->competition;
-        $sportKebab = strToUrl($request->sport->nom);
+        $sportKebab = \Str::slug($request->sport->nom);
 
         $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
 

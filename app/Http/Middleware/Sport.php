@@ -27,7 +27,7 @@ class Sport
 
         $find = false;
         foreach(index('sports') as $sport)
-            if(strToUrl($sport->nom) == ($request->sport)){
+            if(\Str::slug($sport->nom) == ($request->sport)){
                 $request->sport = $sport;
                 $find = true;
                 break;

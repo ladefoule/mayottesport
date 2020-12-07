@@ -34,7 +34,7 @@ class Equipe
 
         // $equipe = EquipeModel::whereUniqid($request->uniqid)->firstOrFail();
         $equipe = index('equipes')->firstWhere('uniqid', $request->uniqid);
-        if (! $equipe || strToUrl($equipe->nom) != $request->equipe)
+        if (! $equipe || \Str::slug($equipe->nom) != $request->equipe)
             abort(404);
 
         $request->equipe = $equipe;

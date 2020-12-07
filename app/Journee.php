@@ -133,8 +133,8 @@ class Journee extends Model
         $competition = $saison->competition;
         $sport = $competition->sport;
         return route('competition.calendrier-resultats', [
-            'sport' => strToUrl($sport->nom),
-            'competition' => strToUrl($competition->nom),
+            'sport' => \Str::slug($sport->nom),
+            'competition' => \Str::slug($competition->nom),
             'journee' => $this->numero
         ]);
     }

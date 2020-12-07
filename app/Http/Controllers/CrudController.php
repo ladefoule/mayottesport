@@ -27,7 +27,7 @@ class CrudController extends Controller
     public function __construct()
     {
         Log::info(" -------- Controller Crud : __construct -------- ");
-        $this->middleware('verif-table-crud')->except('forgetCaches', 'indexAjax');
+        $this->middleware('verif-table-crud')->except('forgetCaches', 'indexAjax', 'deleteAjax');
         $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }
 
@@ -71,8 +71,9 @@ class CrudController extends Controller
     public function indexAjax(Request $request, string $table)
     {
         Log::info(" -------- Controller Crud : indexAjax -------- ");
-        $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
-        $liste = $crudTable->index();
+        $table = str_replace('-', '_', $table);
+        $crudTable = CrudTable::whereNom($table)->firstOrFail();
+        $liste = $crudTable->indexCrud();
         return view('admin.crud.index-ajax', [
             'liste' => $liste
         ]);
@@ -248,12 +249,12 @@ class CrudController extends Controller
     public function deleteAjax(Request $request, string $table)
     {
         Log::info(" -------- Controller Crud : deleteAjax -------- ");
-        $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
-        $modele = 'App\\'.modelName(str_replace('-', '_', $table));
-        $nomTable = $crudTable->nom;
+        $table = str_replace('-', '_', $table);
+        $crudTable = CrudTable::whereNom($table)->firstOrFail();
+        $modele = 'App\\'.modelName($table);
         $validator = Validator::make($request->all(), [
             'ids' => 'required|array',
-            'ids.*' => "integer|exists:$nomTable,id"
+            'ids.*' => "integer|exists:$table,id"
         ]);
 
         if ($validator->fails())
@@ -263,7 +264,6 @@ class CrudController extends Controller
         foreach ($request['ids'] as $id)
             $this::forgetCaches($crudTable, $modele::findOrFail($id));
         $modele::destroy($request['ids']);
-
     }
 
     /**
@@ -278,8 +278,8 @@ class CrudController extends Controller
         Log::info(" -------- Controller Crud : forgetCaches -------- ");
 
         // On recharge les caches
-        Cache::forget('index-' . strToUrl($crudTable->nom));
-        Cache::forget('indexcrud-' . strToUrl($crudTable->nom));
+        Cache::forget('index-' . Str::slug($crudTable->nom));
+        Cache::forget('indexcrud-' . Str::slug($crudTable->nom));
         ProcessCrudTable::dispatch($crudTable, $instance);
     }
 }

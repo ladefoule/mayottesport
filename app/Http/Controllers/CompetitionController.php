@@ -59,8 +59,8 @@ class CompetitionController extends Controller
             if($saison){
                 $classement = saison($saison->id)['classement'];
                 $hrefClassement = route('competition.classement', [
-                    'sport' => strToUrl($sport->nom),
-                    'competition' => strToUrl($competition->nom)
+                    'sport' => \Str::slug($sport->nom),
+                    'competition' => \Str::slug($competition->nom)
                 ]);
             }
 
@@ -75,7 +75,7 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- Controller Competition : classement -------- ");
         $saison = $request->saison;
-        $sport = strToUrl($request->sport->nom);
+        $sport = \Str::slug($request->sport->nom);
         $competition = Str::lower(index('competitions')[$saison->competition_id]->nom);
         $annee = annee($saison->annee_debut, $saison->annee_fin, '/');
         $title = 'Football - Classement ' . $competition . ' ' . $annee;
