@@ -1,7 +1,10 @@
 @foreach($liste as $id => $ligne)
 <tr>
     <td><input type="checkbox" id="check{{ $id }}" value="{{ $id }}"></td>
-    <td align="left" class="px-2 align-middle">{{ $ligne->crud_name }}</td>
+    {{-- <td align="left" class="px-2 align-middle">{{ $ligne->crud_name }}</td> --}}
+    @for ($i = 0; $i < count($ligne->afficher); $i++)
+        <td align="left" class="px-2 align-middle">{{ $ligne->afficher[$i] }}</td>
+    @endfor
     <td class="text-right">
         <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none">
             <button class="btn-sm btn-success">

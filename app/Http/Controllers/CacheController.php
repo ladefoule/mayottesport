@@ -81,23 +81,24 @@ class CacheController extends Controller
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
         if($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos'){
             Log::info("Opération effectuée dans la gestion du Crud");
-            Log::info("User : " . Auth::user()->email);
+            // Log::info("User : " . Auth::user()->email);
             if($table == 'crud_attribut_infos')
-                $table = $instance->crudAttribut->crudTable->nom;
+                $crudTableCible = $instance->crudAttribut->crudTable;
             else if($table == 'crud_attributs')
-                $table = $instance->crudTable->nom;
+                $crudTableCible = $instance->crudTable;
             else
-                $table = $instance->nom;
+                $crudTableCible = $instance;
 
 
-            Cache::forget("attributs-visibles-$tableKebabCase-index");
-            $crudTable->listeAttributsVisibles();
+            $table = $crudTableCible->nom;
+            Cache::forget("attributs-visibles-$table-index");
+            $crudTableCible->listeAttributsVisibles();
 
-            Cache::forget("attributs-visibles-$tableKebabCase-create");
-            $crudTable->listeAttributsVisibles('create');
+            Cache::forget("attributs-visibles-$table-create");
+            $crudTableCible->listeAttributsVisibles('create');
 
-            Cache::forget("attributs-visibles-$tableKebabCase-show");
-            $crudTable->listeAttributsVisibles('show');
+            Cache::forget("attributs-visibles-$table-show");
+            $crudTableCible->listeAttributsVisibles('show');
         }
 
         Cache::forget("index-$tableKebabCase");

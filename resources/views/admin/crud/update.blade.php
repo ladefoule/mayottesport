@@ -29,7 +29,7 @@
 
     <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
-    <div class="card-body px-3">
+    <div class="card-body px-3 col-md-8 offset-md-2">
         <form action="" method="POST" class="needs-validation" id="formulaire">
             @csrf
             @foreach($donnees as $attribut => $infos)
@@ -109,7 +109,7 @@
                 </div>
             @endforeach
 
-            <div class="form-row mt-3">
+            <div class="form-row">
                 <div class="col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
             </div>
 

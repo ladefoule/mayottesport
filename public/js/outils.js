@@ -3,9 +3,12 @@ const BOUTONAJOUTER = '<i class="fas fa-plus"></i>';
 const BOUTONVUE = '<i class="fas fa-eye"></i>';
 const BOUTONEDIT = '<i class="fas fa-edit"></i>';
 const BOUTONLISTE = '<i class="fas fa-list-ul"></i>';
-const INPUTSAVERIFIER = `textarea:not([disabled]),
-                        select:not([disabled]),
-                        input:not([disabled]):not([type=hidden]):not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox])`
+
+
+const INPUTSAVERIFIER = `textarea[name]:not([disabled]),
+                        select[name]:not([disabled]),
+                        input[name]:not([disabled]):not([type=checkbox])`
+
 
 /* FONCTIONS DE RACCOURCIS */
     /**
@@ -102,9 +105,6 @@ function verifierMonFormulaireEnJS(idFormulaire){
     qsa(INPUTSAVERIFIER, form).forEach(function(elem){
         elem.addEventListener('change', e => checkOne(e.target))
     })
-
-    // Evénements pour tous les inputs
-    // $('#'+idFormulaire).on('change', ':input', function(){checkOne($(this)[0])})
 }
 
 /**
@@ -129,23 +129,25 @@ function checkAll(idFormulaire){
  * @param {object} elem - élément à vérifier
  */
 function checkOne(elem) {
-    let messageErreur = elem.dataset['msg']
-    let divMessageErreur = qs('#messageErreur')
-    divMessageErreur.innerHTML = messageErreur
+    let divErreurs = qs('#messageErreur')
+    divErreurs.innerHTML = ''
 
-    if((elem.value == '' && !elem.classList.contains('input-optionnel')) // Si le champ est vide mais qu'il n'a pas la classe input-optionnel
-         || elem.checkValidity() == false){ // ou si la validation est fausse (type incorrect par exemple)
-        divMessageErreur.style.display = 'block'
-        divMessageErreur.classList.remove('d-none')
+    // Si le champ est vide mais obligatoire
+    if((elem.value == '' && !elem.classList.contains('input-optionnel'))
+        // si la validation est fausse (format type ou regex incorrect)
+        ||  elem.checkValidity() == false
+        // si la confirmation du mot de passe n'est pas bonne
+        ||  (elem.name == 'password_confirmation' && qs('[name=password]').value != elem.value)){
+        let messageErreur = elem.dataset['msg']
+        divErreurs.innerHTML = messageErreur
+        divErreurs.classList.remove('d-none')
         elem.classList.add('is-invalid')
         elem.classList.remove('is-valid')
         elem.focus()
-        // cl(elem.nodeName)
         return false
     }
 
-    divMessageErreur.style.display = 'none'
-    divMessageErreur.classList.add('d-none')
+    divErreurs.classList.add('d-none')
     elem.classList.remove('is-invalid')
     elem.classList.add('is-valid')
     return true
@@ -402,16 +404,5 @@ function toutCocherDecocher(idBloc) {
 
             tout.dataset['action'] = 'cocher'
         }
-    })
-}
-
-/**
- * Retour sur la page précédente
- */
-function retour()
-{
-    qs('a.back').addEventListener('click', (e) => {
-        e.preventDefault()
-        window.history.back()
     })
 }

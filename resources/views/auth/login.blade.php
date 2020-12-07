@@ -10,17 +10,19 @@
         <div class="card">
             <div class="card-header">Connexion</div>
 
+            <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
+
             <div class="card-body">
                 <form method="POST" action="{{ route('login') }}" id="formulaire">
                     @csrf
 
                     <div class="form-group row pb-3">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                        <label for="email" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Email</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                                 value="magik.systematik@hotmail.com" value="{{ old('email') }}" required autocomplete="email" autofocus
-                                data-msg="Le champ <span class='text-danger font-italic'>Email</span> doit être un email valide.">
+                                data-msg="Le champ <span class='text-danger font-italic'>Email</span> n'est pas valide.">
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -30,13 +32,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group row pb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">Mot de passe</label>
+                    <div class="form-group row">
+                        <label for="password" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Mot de passe</label>
 
                         <div class="col-md-6">
                             <input
                                 id="password" pattern=".{8,100}" type="password" class="form-control @error('password') is-invalid @enderror"
-                                value="01010101" name="password" required autocomplete="current-password"
+                                value="00000000" name="password" required autocomplete="current-password"
                                 data-msg="Le champ <span class='text-danger font-italic'>Mot de passe</span> doit comporter au moins 8 caractères.">
 
                             @error('password')
@@ -47,7 +49,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row pb-3">
+                    <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -59,8 +61,8 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
+                    <div class="form-group row">
+                        <div class="offset-md-4 col-md-6 mt-3 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
                     </div>
 
                     <div class="form-group row pb-3 mb-0">

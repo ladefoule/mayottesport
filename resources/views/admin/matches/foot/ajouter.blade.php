@@ -189,7 +189,7 @@ use App\Saison;
             </div>
 
             <div class="col-12 form-row mt-3">
-                <div class="col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
+                <div class="mt-3 col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
              </div>
 
              <div class="form-row justify-content-center">

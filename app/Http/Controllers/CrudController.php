@@ -27,7 +27,7 @@ class CrudController extends Controller
     public function __construct()
     {
         Log::info(" -------- Controller Crud : __construct -------- ");
-        $this->middleware('verif-table-crud')->except('forgetCaches');
+        $this->middleware('verif-table-crud')->except('forgetCaches', 'indexAjax');
         $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }
 

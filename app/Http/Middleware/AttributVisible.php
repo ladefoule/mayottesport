@@ -25,7 +25,7 @@ class AttributVisible
         if(! $listeAttributsVisibles && $action != 'index') // On autorise à afficher la liste même s'il n'y a pas d'attribut visible. On affiche le crud_name pour chaque élément.
             abort(404);
 
-        $request->listeAttributsVisibles = $listeAttributsVisibles;
+        $request->listeAttributsVisibles = $listeAttributsVisibles ? $listeAttributsVisibles : [];
         return $next($request);
     }
 }

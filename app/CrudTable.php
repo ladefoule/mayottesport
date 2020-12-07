@@ -72,14 +72,6 @@ class CrudTable extends Model
             });
     }
 
-    // public function crudName(array $tables, string $attribut = 'nom')
-    // {
-    //     $str = '';
-    //     foreach ($tables as $key => $table) {
-    //         $str += index($table)
-    //     }
-    // }
-
     /**
      * Les règles de validations
      *
@@ -112,6 +104,9 @@ class CrudTable extends Model
      */
     public function listeAttributsVisibles(string $action = 'index')
     {
+        if($action == 'update')
+                $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
+
         $key = "attributs-visibles-" . str_replace('_', '-' ,$this->nom) . "-" . $action;
         if (! Config::get('constant.activer_cache'))
             Cache::forget($key);
@@ -121,9 +116,6 @@ class CrudTable extends Model
         else
             return Cache::rememberForever($key, function () use($action, $key){
                 Log::info('Rechargement du cache : ' . $key);
-
-                if($action == 'update')
-                    $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
 
                 $correspondances = config('constant.crud-attribut');
                 foreach ($correspondances as $id => $value)
