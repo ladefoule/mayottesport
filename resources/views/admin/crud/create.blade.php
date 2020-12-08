@@ -47,7 +47,7 @@
                                 @foreach ($infos['select'] as $id => $instanceFK)
                                     <option value="{{ $id }}"
                                         @if (old($attribut) == $id) selected @endif>
-                                        {{ $instanceFK->crud_name }}
+                                        {{ isset($instanceFK->crud_name) ? $instanceFK->crud_name : $instanceFK->nom }}
                                     </option>
                                 @endforeach
                             </select>

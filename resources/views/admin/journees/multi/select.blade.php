@@ -79,7 +79,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     var selects = '#sport_id, #competition_id, #saison_id'
     $(selects).select2();
-    retour()
+
     verifierMonFormulaireEnJS('formulaire')
 
     let params = {

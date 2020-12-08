@@ -183,7 +183,7 @@ class CrudTable extends Model
                 // $modeleTableAttribut = 'App\\' . modelName($crudTableAttribut->nom); // ORM Eloquent
 
                 if ($action == 'show' && $valeurAttribut)
-                    $valeurAttribut = $indexTableReference[$valeurAttribut]->crud_name;
+                    $valeurAttribut = isset($indexTableReference[$valeurAttribut]->crud_name) ? $indexTableReference[$valeurAttribut]->crud_name : $indexTableReference[$valeurAttribut]->nom;
                     // $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->crud_name; // ORM Eloquent
                 else
                     $donnees[$attribut]['select'] = $indexTableReference;

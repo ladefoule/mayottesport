@@ -39,7 +39,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     $('#formulaire select').select2();
-    retour()
+
     toutCocherDecocher('formulaire')
 })
 </script>

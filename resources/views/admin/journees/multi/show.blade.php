@@ -47,7 +47,7 @@
 @section('script')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-   retour()
+
 })
 </script>
 @endsection

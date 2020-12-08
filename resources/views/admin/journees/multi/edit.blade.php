@@ -93,7 +93,7 @@
 document.addEventListener('DOMContentLoaded', function () {
    verifierMonFormulaireEnJS('formulaire')
    toutCocherDecocher('formulaire')
-   retour()
+
 })
 </script>
 @endsection

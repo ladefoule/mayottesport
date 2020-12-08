@@ -55,7 +55,7 @@
 @section('script')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // retour()
+    //
     verifierMonFormulaireEnJS('formulaire')
 })
 </script>
