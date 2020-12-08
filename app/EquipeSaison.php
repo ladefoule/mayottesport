@@ -49,11 +49,6 @@ class EquipeSaison extends Pivot
         return index('saisons')[$this->saison_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id]->nom;
     }
 
-    public function getNomAttribute()
-    {
-        return index('saisons')[$this->saison_id]->nom . ' - ' . index('equipes')[$this->equipe_id]->nom;
-    }
-
     /**
      *
      *

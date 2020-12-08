@@ -51,15 +51,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         Log::info("Validation des données du nouvel utilisateur.");
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'min:3', 'max:50'],
-            'pseudo' => ['nullable', 'string', 'min:3', 'max:50', 'unique:users'],
-            'first_name' => ['nullable', 'string', 'min:3', 'max:50'],
-            'role_id' => ['required', 'exists:roles,id'],
-            'region_id' => ['required', 'exists:regions,id'],
-            'email' => ['required', 'string', 'email', 'max:80', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        $rules = User::rules()['rules'];
+        return Validator::make($data, $rules);
     }
 
     /**

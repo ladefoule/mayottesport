@@ -70,19 +70,19 @@ return [
         'migrations', 'password_resets', 'failed_jobs', 'jobs'
     ],
 
-    'sports-position' => [
-        'football' => ['sport_id' => 1],
-        'handball' => ['sport_id' => 2],
-        'basketball' => ['sport_id' => 3],
-        'volleyball' => ['sport_id' => 4],
-    ],
+    // 'sports-position' => [
+    //     'football' => ['sport_id' => 1],
+    //     'handball' => ['sport_id' => 2],
+    //     'basketball' => ['sport_id' => 3],
+    //     'volleyball' => ['sport_id' => 4],
+    // ],
 
-    'competitions-position' => [
-        'regional-1' => ['sport_id' => 1, 'competition_id' => 1, 'home' => 1, 'index' => 1],
-        'regional-2' => ['sport_id' => 1, 'competition_id' => 2, 'home' => 2, 'index' => 2],
-        'coupe-de-mayotte' => ['sport_id' => 1, 'competition_id' => 3, 'home' => 3, 'index' => 3],
-        'coupe-de-france' => ['sport_id' => 1, 'competition_id' => 4, 'home' => 4, 'index' => 4],
-    ],
+    // 'competitions-position' => [
+    //     'regional-1' => ['sport_id' => 1, 'competition_id' => 1, 'home' => 1, 'index' => 1],
+    //     'regional-2' => ['sport_id' => 1, 'competition_id' => 2, 'home' => 2, 'index' => 2],
+    //     'coupe-de-mayotte' => ['sport_id' => 1, 'competition_id' => 3, 'home' => 3, 'index' => 3],
+    //     'coupe-de-france' => ['sport_id' => 1, 'competition_id' => 4, 'home' => 4, 'index' => 4],
+    // ],
 
     /* $key => $values */
     /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */

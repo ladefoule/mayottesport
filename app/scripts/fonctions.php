@@ -115,13 +115,13 @@ function fanion($equipeId)
  */
 function refreshCachesLies(string $table){
     $tablesLiees = config('constant.caches-lies')[$table] ?? [];
-    foreach ($tablesLiees as $tableKebabCase){
-        if(isset(config('constant.caches-lies')[$tableKebabCase]))
-            refreshCachesLies($tableKebabCase);
+    foreach ($tablesLiees as $tableSlug){
+        if(isset(config('constant.caches-lies')[$tableSlug]))
+            refreshCachesLies($tableSlug);
 
-        Cache::forget('index-' . $tableKebabCase);
-        index(str_replace('-', '_', $tableKebabCase));
-        // CrudTable::where('nom', str_replace('-', '_', $tableKebabCase))->firstOrFail()->index();
+        Cache::forget('index-' . $tableSlug);
+        index(str_replace('-', '_', $tableSlug));
+        // CrudTable::where('nom', str_replace('-', '_', $tableSlug))->firstOrFail()->index();
     }
 }
 
@@ -154,7 +154,7 @@ function cmp($a, $b)
  */
 function index(string $table)
 {
-    $key = "index-" . str_replace('_', '-', $table);
+    $key = "index-" . Str::slug($table);
     if (!Config::get('constant.activer_cache'))
         Cache::forget($key);
 
@@ -175,7 +175,7 @@ function index(string $table)
  */
 function indexCrud(string $table)
 {
-    $key = "indexcrud-" . str_replace('_', '-', $table);
+    $key = "indexcrud-" . Str::slug($table);
     if (!Config::get('constant.activer_cache'))
         Cache::forget($key);
 

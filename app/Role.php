@@ -27,16 +27,6 @@ class Role extends Model
     }
 
     /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return $this->nom;
-    }
-
-    /**
      * Les règles de validations
      *
      * @param Role $role

@@ -31,7 +31,7 @@ class CacheController extends Controller
         $modele = '\App\\' . modelName($crudTable->nom);
 
         $instance = $modele::findOrFail($id);
-        $tableKebabCase = str_replace('_', '-' , $table);
+        $tableSlug = str_replace('_', '-' , $table);
 
         // On recharge le cache classement si on effectue une modif sur les tables :
         // matches, journées ou saisons qui risquent d'impacter le classement
@@ -101,12 +101,12 @@ class CacheController extends Controller
             $crudTableCible->listeAttributsVisibles('show');
         }
 
-        Cache::forget("index-$tableKebabCase");
+        Cache::forget("index-$tableSlug");
         $crudTable->index();
-        Cache::forget("indexcrud-$tableKebabCase");
+        Cache::forget("indexcrud-$tableSlug");
         $crudTable->indexCrud();
 
         // On recharge les caches 'index' qui utilisent les données de cette table dans leur attribut nom ou crud_name
-        refreshCachesLies($tableKebabCase);
+        refreshCachesLies($tableSlug);
     }
 }

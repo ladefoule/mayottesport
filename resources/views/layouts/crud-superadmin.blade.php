@@ -17,7 +17,7 @@
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0">
                     @foreach ($tablesSuperAdmin as $table)
-                    <a class="@if (isset(request()->crudTable) && $table->nom == request()->crudTable->nom) active @endif" href="{{ route('crud.index', ['table' => str_replace('_', '-', $table->nom)]) }}">
+                    <a class="@if (isset(request()->crudTable) && $table->nom == request()->crudTable->nom) active @endif" href="{{ route('crud.index', ['table' => Str::slug($table->nom)]) }}">
                         {{-- Le isset en dessous c'est pour pouvoir accéder à la page des tables 'crudables' qui n'est pas liée au middleware VerifTable --}}
                         <button class="btn btn-sm mx-2 px-3 btn-outline-dark @if (isset(request()->crudTable) && $table->nom == request()->crudTable->nom) btn-dark text-white @endif">
                             {{ \Str::ucfirst(\Str::camel($table->nom)) }}

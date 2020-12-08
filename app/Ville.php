@@ -30,14 +30,4 @@ class Ville extends Model
         $rules['nom'] = ['required','string','max:50','min:3',$unique];
         return ['rules' => $rules];
     }
-
-    /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return $this->nom;
-    }
 }

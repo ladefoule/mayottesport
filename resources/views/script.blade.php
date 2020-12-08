@@ -7,5 +7,7 @@
 
 // echo array_search('test', [5 => ['test', 'test'], 55 => 'test5']);
 
+// dd(Str::slug('crud_ na_me'));
+
 echo 'Cache vidée !';
 Cache::flush();

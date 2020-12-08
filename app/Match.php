@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;

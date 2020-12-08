@@ -5,17 +5,10 @@ namespace App\Http\Controllers;
 use App\Cache;
 use App\CrudTable;
 use App\Jobs\ProcessCrudTable;
-use GuzzleHttp\Client;
 use Illuminate\Support\Str;
-use GuzzleHttp\HandlerStack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Handler\CurlMultiHandler;
 use Illuminate\Support\Facades\Validator;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 class CrudController extends Controller
 {
@@ -27,19 +20,17 @@ class CrudController extends Controller
     public function __construct()
     {
         Log::info(" -------- Controller Crud : __construct -------- ");
-        $this->middleware('verif-table-crud')->except('forgetCaches', 'indexAjax', 'deleteAjax');
+        $this->middleware('verif-table-crud')->except('refreshCaches', 'indexAjax', 'deleteAjax');
         $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }
 
     /**
      * Affichage de tous les élements d'une table.
-     * Ensuite, elle vérifie s'il y a des attributs de cette table à afficher lors de l'appel à la liste (infos présentes dans la table crud_attributs).
-     * Enfin, si on trouve au moins un attribut, on affiche les données.
      *
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function index(Request $request, string $table)
+    public function index(Request $request, $table)
     {
         Log::info(" -------- Controller Crud : index -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
@@ -55,9 +46,9 @@ class CrudController extends Controller
         return view('admin.crud.index', [
             'liste' => $liste,  // La liste des éléments de la classe
             'table' => $table, // Le nom de la table en kebab-case
-            'h1' => $h1,    // Titre du header de la card
-            'title' => $title, // Title de la page
-            'hrefs' => $hrefs, // Les liens présents dans la view
+            'h1' => $h1,
+            'title' => $title,
+            'hrefs' => $hrefs,
             'listeAttributsVisibles' => $request->listeAttributsVisibles
         ]);
     }
@@ -68,7 +59,7 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function indexAjax(Request $request, string $table)
+    public function indexAjax($table)
     {
         Log::info(" -------- Controller Crud : indexAjax -------- ");
         $table = str_replace('-', '_', $table);
@@ -86,7 +77,7 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\View\View|void
      */
-    public function show(Request $request, string $table, int $id)
+    public function show(Request $request, $table, $id)
     {
         Log::info(" -------- Controller Crud : show -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
@@ -114,7 +105,7 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\View\View|void
      */
-    public function createForm(Request $request, string $table)
+    public function createForm(Request $request, $table)
     {
         Log::info(" -------- Controller Crud : create -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
@@ -140,7 +131,7 @@ class CrudController extends Controller
      * @param string $table
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createStore(Request $request, string $table)
+    public function createStore(Request $request, $table)
     {
         Log::info(" -------- Controller Crud : createStore -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
@@ -158,10 +149,10 @@ class CrudController extends Controller
         $instance = new $modele($request);
         $instance->save();
 
-        // Todo : Erreur lors de la crétion d'un élément equipe_saison, impossible de récupérer l'id car table pivot
+        // Todo : Erreur lors de la création d'un élément de la table equipe_saison, impossible de récupérer l'id car table pivot ?
         // dd($instance);
 
-        $this::forgetCaches($crudTable, $instance);
+        $this::refreshCaches($crudTable, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);
     }
 
@@ -172,7 +163,7 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\View\View|void
      */
-    public function updateForm(Request $request, string $table, int $id)
+    public function updateForm(Request $request, $table, $id)
     {
         Log::info(" -------- Controller Crud : update -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
@@ -201,7 +192,7 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateStore(Request $request, string $table, int $id)
+    public function updateStore(Request $request, $table, $id)
     {
         Log::info(" -------- Controller Crud : updateStore -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
@@ -215,7 +206,7 @@ class CrudController extends Controller
         $request = Validator::make($request->all(), $rules, $messages)->validate();
         $instance->update($request);
 
-        $this::forgetCaches($crudTable, $instance);
+        $this::refreshCaches($crudTable, $instance);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $id]);
     }
 
@@ -226,13 +217,13 @@ class CrudController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse|void
      */
-    public function delete(Request $request, string $table, int $id)
+    public function delete(Request $request, $table, $id)
     {
         Log::info(" -------- Controller Crud : delete -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
-        $this::forgetCaches($crudTable, $instance);
+        $this::refreshCaches($crudTable, $instance);
         $instance->delete();
         Log::info("Suppression de l'id $id dans la table $crudTable->nom");
 
@@ -246,7 +237,7 @@ class CrudController extends Controller
      * @param string $table
      * @return void
      */
-    public function deleteAjax(Request $request, string $table)
+    public function deleteAjax(Request $request, $table)
     {
         Log::info(" -------- Controller Crud : deleteAjax -------- ");
         $table = str_replace('-', '_', $table);
@@ -262,24 +253,26 @@ class CrudController extends Controller
 
         $request = $validator->validate();
         foreach ($request['ids'] as $id)
-            $this::forgetCaches($crudTable, $modele::findOrFail($id));
+            $this::refreshCaches($crudTable, $modele::findOrFail($id));
         $modele::destroy($request['ids']);
     }
 
     /**
-     * Liste des caches à supprimer qui necessiteront donc un renouvellement
+     * Rechargement des caches
      *
      * @param CrudTable $crudTable
      * @param object $instance
      * @return void
      */
-    private static function forgetCaches(CrudTable $crudTable, object $instance = null)
+    private static function refreshCaches(CrudTable $crudTable, object $instance)
     {
-        Log::info(" -------- Controller Crud : forgetCaches -------- ");
+        Log::info(" -------- Controller Crud : refreshCaches -------- ");
 
-        // On recharge les caches
+        // On supprime les caches index directement liés à la table
         Cache::forget('index-' . Str::slug($crudTable->nom));
         Cache::forget('indexcrud-' . Str::slug($crudTable->nom));
+
+        // On recharge tous les caches dépendants en Asynchrone (Laravel Queues)
         ProcessCrudTable::dispatch($crudTable, $instance);
     }
 }

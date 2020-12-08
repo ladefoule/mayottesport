@@ -25,12 +25,6 @@ class Competition extends Model
         return index('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
     }
 
-    public static function CrudName($id)
-    {
-        $competition = index('competitions')[$id];
-        return Sport::crudName($competition->sport_id) . ' - ' . $competition->nom;
-    }
-
     /**
      * Le sport lié à cette compétition
      *

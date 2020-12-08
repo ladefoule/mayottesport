@@ -21,16 +21,6 @@ class Sport extends Model
     protected $fillable = ['nom', 'home_position'];
 
     /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return $this->nom;
-    }
-
-    /**
      * Les competitions associés à ce sport
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

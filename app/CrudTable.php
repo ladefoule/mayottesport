@@ -25,16 +25,6 @@ class CrudTable extends Model
     public $timestamps = false;
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return $this->nom;
-    }
-
-    /**
      * navbarCrudTables
      *
      * @return \Illuminate\Support\Collection
@@ -57,14 +47,14 @@ class CrudTable extends Model
                 $navbarCrudTables = [];
                 foreach ($crudTables as $crudTable) {
                     $nomPascalCase = Str::ucfirst(Str::camel($crudTable->nom));
-                    $tableKebabCase = str_replace('_', '-', $crudTable->nom);
-                    $route = route('crud.index', ['table' => $tableKebabCase]);
+                    $tableSlug = Str::slug($crudTable->nom);
+                    $route = route('crud.index', ['table' => $tableSlug]);
 
                     $navbarCrudTables[$crudTable->nom] = [
                         'nom' => $crudTable->nom,
                         'id' => $crudTable->id,
                         'route' => $route,
-                        'nom_kebab_case' => $tableKebabCase,
+                        'nom_kebab_case' => $tableSlug,
                         'nom_pascal_case' => $nomPascalCase
                     ];
                 }
@@ -95,9 +85,9 @@ class CrudTable extends Model
     }
 
     /**
-     * La fonction récupère la liste (dans le bon ordre) des attributs qu'on doit afficher
-     * soit dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement.
-     * Elle renvoie false sinon la liste est vide.
+     * La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu'on doit afficher
+     * soit dans la page liste, dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement.
+     * Elle renvoie false si la liste est vide.
      *
      * @param string $action
      * @return \Illuminate\Support\Collection|false
@@ -139,22 +129,22 @@ class CrudTable extends Model
                 if ($listeAttributsVisibles == null || count($listeAttributsVisibles) == 0)
                     return false;
 
-                foreach ($listeAttributsVisibles as $key => $infosAttribut) {
-                    $infosAttribut = (array) $infosAttribut;
+                foreach ($listeAttributsVisibles as $key => $attributInfos) {
+                    $attributInfos = (array) $attributInfos;
 
                     // Correspondance entre les propriete_id et leur vraie signification
                     $correspondances = config('constant.crud-attribut');
 
                     // On récupère les infos supplémentaires liés à cet attribut et qui sont présents dans la table crud_attribut_infos
                     // Par exemple : le pattern, le min et max si c'est un nombre, etc...
-                    $infosSupplementaires = CrudAttributInfo::whereCrudAttributId($infosAttribut['crud_attribut_id'])->get();
+                    $infosSupplementaires = CrudAttributInfo::whereCrudAttributId($attributInfos['crud_attribut_id'])->get();
                     foreach ($infosSupplementaires as $infoSup) {
                         $infoId = $infoSup->propriete_id;
                         $valeur = $infoSup->valeur;
-                        $infosAttribut[$correspondances[$infoId][0]] = $valeur;
+                        $attributInfos[$correspondances[$infoId][0]] = $valeur;
                     }
 
-                    $listeAttributsVisibles[$key] = $infosAttribut;
+                    $listeAttributsVisibles[$key] = $attributInfos;
                 }
 
                 return collect($listeAttributsVisibles);
@@ -178,22 +168,20 @@ class CrudTable extends Model
         $listeAttributsVisibles = $this->listeAttributsVisibles($action);
 
         $donnees = [];
-        foreach ($listeAttributsVisibles as $infosAttribut) {
-            $attribut = $infosAttribut['attribut']; // Le nom de l'attribut
+        foreach ($listeAttributsVisibles as $attributInfos) {
+            $attribut = $attributInfos['attribut']; // Le nom de l'attribut
             $valeurAttribut = ($id == 0) ? '' : $instance->$attribut; // Sa valeur
 
-            // Si c'est une date, alors on la convertit au bon format si elle est non null
-            if ($valeurAttribut && $action == 'show' && isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'date')
+            // Si c'est une date, alors on la convertit au format jj/mm/aaaa si elle est non null
+            if ($valeurAttribut && $action == 'show' && isset($attributInfos['input_type']) && $attributInfos['input_type'] == 'date')
                 $valeurAttribut = date('d/m/Y', strtotime($valeurAttribut));
 
-            // Si l'attribut attribut_crud_table_id est renseigné, il faut récupérer la liste complète
-            // des éléments de cette table référence sous forme de select (pour pouvoir faire un choix dessus)
-            if ($infosAttribut['attribut_crud_table_id']) {
-                $tableReference = index('crud_tables')[$infosAttribut['attribut_crud_table_id']]->nom;
+            // Si attribut_crud_table_id est renseigné, on récupère la liste complète des éléments de cette table référence
+            if ($attributInfos['attribut_crud_table_id']) {
+                $tableReference = index('crud_tables')[$attributInfos['attribut_crud_table_id']]->nom;
                 $indexTableReference = index($tableReference);
                 // $modeleTableAttribut = 'App\\' . modelName($crudTableAttribut->nom); // ORM Eloquent
 
-                // Dans la page vue, on affiche le 'crud_name' de l'attribut référence, sinon on affiche la liste complète
                 if ($action == 'show' && $valeurAttribut)
                     $valeurAttribut = $indexTableReference[$valeurAttribut]->crud_name;
                     // $valeurAttribut = $modeleTableAttribut::find($valeurAttribut)->crud_name; // ORM Eloquent
@@ -201,35 +189,39 @@ class CrudTable extends Model
                     $donnees[$attribut]['select'] = $indexTableReference;
             }
 
-            if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'select' && isset($infosAttribut['select_liste'])) {
-                $selectListe = config('constant.' . $infosAttribut['select_liste']);
+            // Si l'attribut est lié à une liste, on récupère la liste dans les configs
+            if (isset($attributInfos['input_type']) && $attributInfos['input_type'] == 'select' && isset($attributInfos['select_liste'])) {
+                $selectListe = config('constant.' . $attributInfos['select_liste']);
                 if($action == 'show' && $valeurAttribut)
                     $valeurAttribut = $selectListe[$valeurAttribut][1];
             }
 
             // On affiche le bon format pour les timestamps s'ils sont renseignés
+            // Todo : introduire un type input timestamps pour pouvoir gérer tous les timestamps
             if ($valeurAttribut && $attribut == 'created_at' || $attribut == 'updated_at'){
                 $date = new Carbon($valeurAttribut);
                 $date = $date->format('d/m/Y à H:i:s');
                 $valeurAttribut = $date;
             }
 
-            $inputType = $infosAttribut['input_type'] ?? 'text';
+            $inputType = $attributInfos['input_type'] ?? 'text';
             $donnees[$attribut]['input_type'] = $inputType;
-            $donnees[$attribut]['label'] = $infosAttribut['label'];
+            $donnees[$attribut]['label'] = $attributInfos['label'];
             $donnees[$attribut]['valeur'] = $valeurAttribut;
 
+            // Si c'est un booléen
             if ($action == 'show' && $inputType == 'checkbox')
                 $donnees[$attribut]['valeur'] = $valeurAttribut ? 'Oui' : 'Non';
 
-            if ($action != 'show') { // On n'a pas besoin de ces infos dans la page show
-                $optionnel = $infosAttribut['optionnel'];
+            // On n'a pas besoin de ces infos dans la page show, on les utilise que dans les formulaires
+            if ($action != 'show') {
+                $optionnel = $attributInfos['optionnel'];
                 $donnees[$attribut]['optionnel'] = $optionnel;
                 $donnees[$attribut]['select_liste'] = $selectListe ?? [];
-                $donnees[$attribut]['data_msg'] = $infosAttribut['data_msg'] ? 'data-msg="' . htmlspecialchars($infosAttribut['data_msg']) . '"' : '';
-                $donnees[$attribut]['pattern'] = isset($infosAttribut['pattern']) ? 'pattern="' . htmlspecialchars($infosAttribut['pattern']) . '"' : '';
-                $donnees[$attribut]['min'] = isset($infosAttribut['min']) && ($infosAttribut['min'] || $infosAttribut['min'] === 0) ? 'min="' . $infosAttribut['min'] . '"' : '';
-                $donnees[$attribut]['max'] = isset($infosAttribut['max']) && ($infosAttribut['max'] || $infosAttribut['max'] === 0) ? 'max="' . $infosAttribut['max'] . '"' : '';
+                $donnees[$attribut]['data_msg'] = $attributInfos['data_msg'] ? 'data-msg="' . htmlspecialchars($attributInfos['data_msg']) . '"' : '';
+                $donnees[$attribut]['pattern'] = isset($attributInfos['pattern']) ? 'pattern="' . htmlspecialchars($attributInfos['pattern']) . '"' : '';
+                $donnees[$attribut]['min'] = isset($attributInfos['min']) && ($attributInfos['min'] || $attributInfos['min'] === 0) ? 'min="' . $attributInfos['min'] . '"' : '';
+                $donnees[$attribut]['max'] = isset($attributInfos['max']) && ($attributInfos['max'] || $attributInfos['max'] === 0) ? 'max="' . $attributInfos['max'] . '"' : '';
                 $donnees[$attribut]['class'] = ($inputType == 'checkbox' ? 'form-check-input' : 'form-control')
                     . ($optionnel ? ' input-optionnel' : '');
             }
@@ -245,41 +237,41 @@ class CrudTable extends Model
     public function index()
     {
         $table = $this->nom;
-        $tableKebabCase = str_replace('_', '-', $table);
+        $tableSlug = Str::slug($table);
         $modele = 'App\\' . modelName($table);
 
-        $key = "index-$tableKebabCase";
+        $key = "index-$tableSlug";
         if (!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
         if (Cache::has($key))
             $index = Cache::get($key);
         else
-            $index = Cache::rememberForever($key, function () use($modele, $tableKebabCase, $key){
+            $index = Cache::rememberForever($key, function () use($modele, $key){
                 Log::info('Rechargement du cache : ' . $key);
 
-                $triDefaut = $this->tri_defaut;
                 $liste = [];
+                $triDefaut = $this->tri_defaut;
                 $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 foreach ($listeComplete as $instance) {
                     $id = $instance->id;
                     $collect = collect();
+                    // On ajoute tous les attributs de l'objet dans une collection
                     foreach ($instance->attributes as $key => $value)
                         $collect->$key = $value;
 
-                    $collect->nom = $instance->nom;
-                    $collect->crud_name = $instance->crud_name;
+                    // Tous les éléments auront un attribut nom même vide
+                    $collect->nom = $instance->nom ?? '';
 
-                    // $collect->infos =  method_exists($instance, 'infos') ? $instance->infos() : [];
-                    $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                    $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+                    // On ajoute l'attribut crud_name qu'aux classes qui possèdent la méthode suivante
+                    if(method_exists($modele, 'getCrudNameAttribute'))
+                        $collect->crud_name = $instance->crud_name;
 
                     $liste[$id] = $collect;
                 }
 
                 return collect($liste);
             });
-
         return $index;
     }
 
@@ -291,10 +283,10 @@ class CrudTable extends Model
     public function indexCrud()
     {
         $table = $this->nom;
-        $tableKebabCase = str_replace('_', '-', $table);
+        $tableSlug = Str::slug($table);
         // $modele = 'App\\' . modelName($table);
 
-        $key = "indexcrud-$tableKebabCase";
+        $key = "indexcrud-$tableSlug";
         if (!Config::get('constant.activer_cache'))
             Cache::forget($key);
 
@@ -305,7 +297,7 @@ class CrudTable extends Model
                 Log::info('Rechargement du cache : ' . $key);
 
                 $table = $this->nom;
-                $tableKebabCase = str_replace('_', '-', $table);
+                $tableSlug = Str::slug($table);
 
                 $triDefaut = $this->tri_defaut;
                 $listeComplete = $triDefaut ? $this->index()->sortBy($triDefaut) : $this->index();
@@ -317,19 +309,19 @@ class CrudTable extends Model
                     return [];
 
                 $i = 0;
-                foreach($listeAttributsVisibles as $infosAttribut){
-                    $crudAttributId = $infosAttribut['crud_attribut_id'];
+                foreach($listeAttributsVisibles as $attributInfos){
+                    $crudAttributId = $attributInfos['crud_attribut_id'];
                     $crudAttribut = index('crud_attributs')[$crudAttributId];
                     $attribut[$i] = $crudAttribut->attribut;
 
-                    if ($infosAttribut['attribut_crud_table_id']){
-                        $tableReference = index('crud_tables')[$infosAttribut['attribut_crud_table_id']]->nom;
+                    if ($attributInfos['attribut_crud_table_id']){
+                        $tableReference = index('crud_tables')[$attributInfos['attribut_crud_table_id']]->nom;
                         // $modeleReference = 'App\\' . modelName($tableReference);
                         $listeTableAttribut[$i] = /* $modeleReference::all(); */index($tableReference);
                     }
 
                     $checkbox[$i] = false;
-                    if (isset($infosAttribut['input_type']) && $infosAttribut['input_type'] == 'checkbox')
+                    if (isset($attributInfos['input_type']) && $attributInfos['input_type'] == 'checkbox')
                         $checkbox[$i] = true;
                     $i++;
                 }
@@ -339,10 +331,10 @@ class CrudTable extends Model
                     $id = $instance->id;
                     $collect = collect();
 
-                    $collect->nom = $instance->nom;
-                    $collect->crud_name = $instance->crud_name;
-                    $collect->href_show = route('crud.show', ['table' => $tableKebabCase, 'id' => $id]);
-                    $collect->href_update = route('crud.update', ['table' => $tableKebabCase, 'id' => $id]);
+                    // $collect->nom = $instance->nom;
+                    // $collect->crud_name = $instance->crud_name;
+                    $collect->href_show = route('crud.show', ['table' => $tableSlug, 'id' => $id]);
+                    $collect->href_update = route('crud.update', ['table' => $tableSlug, 'id' => $id]);
 
                     // On parcourt la liste des attributs à afficher et on récupère à chaque fois la valeur correspondante
                     // On les range dans le tableau $collect->afficher[] avec des index numériques
@@ -352,9 +344,12 @@ class CrudTable extends Model
                         $contenu = $instance->$attr;
 
                         // Si l'attribut attribut_crud_table_id est renseigné, il faut donc récupérer
-                        // le 'nom' de cette foreign key grace à son modele (info présente dans la table gestion_tables)
+                        // le 'crud_name' de cette foreign key grace à son modele (info présente dans la table gestion_tables)
                         if(isset($listeTableAttribut[$i])){
-                            $contenu = $listeTableAttribut[$i]->where('id', $contenu)->first()->crud_name;
+                            $instanceReference = $listeTableAttribut[$i]->firstWhere('id', $contenu);
+                            if(! $instanceReference)
+                                abort(404);
+                            $contenu = isset($instanceReference->crud_name) ? $instanceReference->crud_name : $instanceReference->nom;
                         }
 
                         if($checkbox[$i])
