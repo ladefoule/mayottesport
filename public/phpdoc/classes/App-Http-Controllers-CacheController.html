@@ -54,23 +54,19 @@
                         <li><a href="../namespaces/app.html">App</a></li>
                     <li><a href="../namespaces/app-http.html">Http</a></li>
                     <li><a href="../namespaces/app-http-controllers.html">Controllers</a></li>
-                    <li><a href="../namespaces/app-http-controllers-auth.html">Auth</a></li>
             </ul>
 
     <article class="phpdocumentor-element phpdocumentor-class">
         <h2 class="phpdocumentor-content__title">
-            ConfirmPasswordController
+            CacheController
                             <span class="phpdocumentor-class__extends">
                     extends <a href="../classes/App-Http-Controllers-Controller.html"><abbr title="\App\Http\Controllers\Controller">Controller</abbr></a>
                 </span>
-                                                                <span class="phpdocumentor-class__extends">
-                    Uses
-                                            <abbr title="\Illuminate\Foundation\Auth\ConfirmsPasswords">ConfirmsPasswords</abbr>                                    </span>
-                    </h2>
+                                                        </h2>
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/Auth/ConfirmPasswordController.php"><a href="../files/app-http-controllers-auth-confirmpasswordcontroller.html"><abbr title="app/Http/Controllers/Auth/ConfirmPasswordController.php">ConfirmPasswordController.php</abbr></a></abbr>
+            <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CacheController.php"><a href="../files/app-http-controllers-cachecontroller.html"><abbr title="app/Http/Controllers/CacheController.php">CacheController.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">9</span>
+            <span class="phpdocumentor-element-found-in__line">13</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -78,70 +74,55 @@
 
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/App-Http-Controllers-Auth-ConfirmPasswordController.html#property_redirectTo">$redirectTo</a></th>
-                    <td class="phpdocumentor-cell">Where to redirect users when the intended url fails.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/App-Http-Controllers-Auth-ConfirmPasswordController.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Create a new controller instance.</td>
-                    <td class="phpdocumentor-cell">void</td>
+                                                                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/App-Http-Controllers-CacheController.html#method_reloadCrud">reloadCrud()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                                             </table>
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_redirectTo"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$redirectTo</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/Auth/ConfirmPasswordController.php"><a href="../files/app-http-controllers-auth-confirmpasswordcontroller.html"><abbr title="app/Http/Controllers/Auth/ConfirmPasswordController.php">ConfirmPasswordController.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">29</span>
-    </aside>
-            <p class="phpdocumentor-summary">Where to redirect users when the intended url fails.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$redirectTo</span>
-         = <span class="phpdocumentor-signature__default-value">\App\Providers\RouteServiceProvider::HOME</span>    </code>
-    </article>
-                                                            </section>
         
                     <section>
                 <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method___construct"></a>
+                                    <a id="method_reloadCrud"></a>
 <article
         class="
             phpdocumentor-method
             phpdocumentor-method--public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <h4 class="phpdocumentor-method__name">reloadCrud()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/Auth/ConfirmPasswordController.php"><a href="../files/app-http-controllers-auth-confirmpasswordcontroller.html"><abbr title="app/Http/Controllers/Auth/ConfirmPasswordController.php">ConfirmPasswordController.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CacheController.php"><a href="../files/app-http-controllers-cachecontroller.html"><abbr title="app/Http/Controllers/CacheController.php">CacheController.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">36</span>
+        <span class="phpdocumentor-element-found-in__line">15</span>
     </aside>
-        <p class="phpdocumentor-summary">Create a new controller instance.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
+                                <span class="phpdocumentor-signature__name">reloadCrud</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$request</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Illuminate\Http\Request">Request</abbr></span>
+                            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
     </code>
 
     
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$request</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Illuminate\Http\Request">Request</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
     
         
-    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
 </article>
                                                             </section>
             </article>
