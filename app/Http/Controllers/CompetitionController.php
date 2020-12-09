@@ -1,11 +1,13 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Controllers;
 
-use App\Sport;
-use App\Saison;
 use App\Journee;
-use App\Competition;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

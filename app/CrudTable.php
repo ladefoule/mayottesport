@@ -1,14 +1,17 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 class CrudTable extends Model
 {
     /**
-     * Champs autorisés lors de la création
+     * Champs autorisés lors de la création/modification d'un objet de la classe
      *
      * @var array
      */
@@ -25,7 +28,7 @@ class CrudTable extends Model
     public $timestamps = false;
 
     /**
-     * navbarCrudTables
+     * La liste des tables 'crudables' hors tables de gestion du CRUD.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -41,7 +44,8 @@ class CrudTable extends Model
             return Cache::rememberForever($key, function () use($key) {
                 Log::info('Rechargement du cache : ' . $key);
                 $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)
-                        ->whereNotIn('nom', ['crud_tables', 'crud_attributs', 'crud_attribut_infos', 'users', 'roles', 'migrations', 'password_resets'])
+                        ->whereNotIn('nom', config('constant.tables-non-crudables'))
+                        ->whereNotIn('nom', config('constant.superadmin-tables'))
                         ->get() ?? [];
 
                 $navbarCrudTables = [];
@@ -54,7 +58,7 @@ class CrudTable extends Model
                         'nom' => $crudTable->nom,
                         'id' => $crudTable->id,
                         'route' => $route,
-                        'nom_kebab_case' => $tableSlug,
+                        'nom_slug' => $tableSlug,
                         'nom_pascal_case' => $nomPascalCase
                     ];
                 }
@@ -85,9 +89,7 @@ class CrudTable extends Model
     }
 
     /**
-     * La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu'on doit afficher
-     * soit dans la page liste, dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement.
-     * Elle renvoie false si la liste est vide.
+     * La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu'on doit afficher soit dans la page liste, dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement. Elle renvoie false si la liste est vide.
      *
      * @param string $action
      * @return \Illuminate\Support\Collection|false
@@ -152,11 +154,11 @@ class CrudTable extends Model
     }
 
     /**
-     * L'ensemble des données à afficher soit dans la page show, lors de l'ajout ou lors d'une modification d'un élément.
-     * Dans ces données, on retrouve entre autres : le nom d'un attribut, sa valeur, s'il est optionnel ou non, son pattern, etc ...
+     * L'ensemble des données à afficher soit dans la page show, lors de l'ajout ou lors d'une modification d'un élément. Dans ces données, on retrouve entre autres : le nom d'un attribut, sa valeur, s'il est optionnel ou non, son pattern, etc ...
      *
      * @param string $action
      * @param integer $id
+     * @todo timestamps : introduire un type input timestamps pour pouvoir gérer tous les timestamps
      * @return \Illuminate\Support\Collection|false
      */
     public function crud(string $action, int $id = 0)

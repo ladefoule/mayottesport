@@ -1,13 +1,16 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Controllers;
 
 use App\Cache;
-use App\Saison;
 use App\CrudTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CacheController extends Controller

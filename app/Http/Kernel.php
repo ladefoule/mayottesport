@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http;
 
@@ -61,7 +66,7 @@ class Kernel extends HttpKernel
         'competition' => \App\Http\Middleware\Competition::class,
         'equipe' => \App\Http\Middleware\Equipe::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'match-id' => \App\Http\Middleware\MatchId::class,
+        'match-uniqid' => \App\Http\Middleware\MatchUniqid::class,
         'verif-table-crud' => \App\Http\Middleware\VerifTableCrud::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,

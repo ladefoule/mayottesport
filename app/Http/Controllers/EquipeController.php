@@ -1,13 +1,15 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Controllers;
 
-use App\Match;
 use App\Equipe;
 use App\Saison;
-use App\Competition;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class EquipeController extends Controller

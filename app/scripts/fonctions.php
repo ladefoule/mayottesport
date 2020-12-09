@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
+
 use App\Cache;
 use App\Match;
 use App\Saison;

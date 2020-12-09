@@ -1,16 +1,16 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Controllers;
 
 use App\Cache;
 use App\Match;
 use App\Modif;
-use App\Sport;
-use App\Equipe;
-use App\Saison;
-use App\Terrain;
 use App\CrudTable;
-use App\Competition;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
@@ -27,7 +27,7 @@ class MatchController extends Controller
     public function __construct()
     {
         Log::info(" --------  Match : __construct -------- ");
-        $this->middleware(['sport', 'competition', 'match-id'])->except('forgetCaches');
+        $this->middleware(['sport', 'competition', 'match-uniqid'])->except('forgetCaches');
     }
 
     /**
@@ -182,7 +182,7 @@ class MatchController extends Controller
     }
 
     /**
-     * Suppression des caches liés au match
+     * Suppression et rechargement des caches liés au match
      *
      * @param  Match $match
      * @return void

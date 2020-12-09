@@ -1,16 +1,19 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use App\Providers\RouteServiceProvider;
 
 class CheckPermission
 {
     /**
-     * Handle an incoming request.
+     * On contrôle si le membre connecté a bien les droits d'accès à cette ressource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

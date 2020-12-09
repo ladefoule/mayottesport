@@ -1,16 +1,22 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Equipe as EquipeModel;
+use Illuminate\Support\Str;
+// use App\Equipe as EquipeModel;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class Equipe
 {
     /**
-     * Handle an incoming request.
+     * Vérification du nom de l'équipe et de son uniqid.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -34,7 +40,7 @@ class Equipe
 
         // $equipe = EquipeModel::whereUniqid($request->uniqid)->firstOrFail();
         $equipe = index('equipes')->firstWhere('uniqid', $request->uniqid);
-        if (! $equipe || \Str::slug($equipe->nom) != $request->equipe)
+        if (! $equipe || Str::slug($equipe->nom) != $request->equipe)
             abort(404);
 
         $request->equipe = $equipe;

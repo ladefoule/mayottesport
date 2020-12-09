@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Middleware;
 
@@ -8,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class AttributVisible
 {
     /**
-     * Handle an incoming request.
+     * On vérifie s'il y a au moins 1 attribut à afficher (en fonction de la route) dans la table demandée.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

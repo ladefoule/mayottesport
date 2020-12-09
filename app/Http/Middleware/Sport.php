@@ -1,16 +1,22 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Sport as SportModel;
+use Illuminate\Support\Str;
+// use App\Sport as SportModel;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class Sport
 {
     /**
-     * Handle an incoming request.
+     * On contrôle que le nom de sport renseigné est bien présent dans la base de données.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -27,7 +33,7 @@ class Sport
 
         $find = false;
         foreach(index('sports') as $sport)
-            if(\Str::slug($sport->nom) == ($request->sport)){
+            if(Str::slug($sport->nom) == ($request->sport)){
                 $request->sport = $sport;
                 $find = true;
                 break;

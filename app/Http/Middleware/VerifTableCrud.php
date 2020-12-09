@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Middleware;
 
@@ -11,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class VerifTableCrud
 {
     /**
-     * Handle an incoming request.
+     * On vérifie si la table renseignée est 'crudable' ou non. On limite aussi l'accès à la gestion du CRUD au super-administrateurs.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Middleware;
 
@@ -7,10 +12,10 @@ use App\Match;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class MatchId
+class MatchUniqid
 {
     /**
-     * Handle an incoming request.
+     * On vérifie la valeur uniqid du match, saisie dans l'url.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -18,7 +23,7 @@ class MatchId
      */
     public function handle($request, Closure $next)
     {
-        Log::info(" -------- Middleware MatchId -------- ");
+        Log::info(" -------- Middleware MatchUniqid -------- ");
         if (Validator::make(['uniqid' => $request->uniqid], ['uniqid' => 'alpha_dash|min:3'])->fails())
             abort(404);
 

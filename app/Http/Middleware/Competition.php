@@ -1,16 +1,21 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Saison;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class Competition
 {
     /**
-     * Handle an incoming request.
+     * On vérifie si le nom de compétition saisi est bien dans la base.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -27,7 +32,7 @@ class Competition
 
         $find = false;
         foreach($competitions as $compet)
-            if(\Str::slug($compet->nom) == ($request->competition)){
+            if(Str::slug($compet->nom) == ($request->competition)){
                 $competition = $compet;
                 $find = true;
                 break;
@@ -37,7 +42,7 @@ class Competition
             abort(404);
 
         $competitionKebab = $request->competition;
-        $sportKebab = \Str::slug($request->sport->nom);
+        $sportKebab = Str::slug($request->sport->nom);
 
         $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
 

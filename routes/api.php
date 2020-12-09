@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author ALI MOUSSA Moussa <admin@mayottesport.com>
+ * @copyright 2020 ALI MOUSSA Moussa
+ * @license MIT
+ */
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
