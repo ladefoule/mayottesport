@@ -19,13 +19,21 @@ class AttributVisible
         Log::info(" -------- Middleware AttributVisible -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $route = $request->route()->getName();
-        $action = explode('.', $route)[1]; // les différentes routes : crud.create / crud.show / crud.update
+        if(! in_array($route, ['crud.index', 'crud.show', 'crud.update', 'crud.create'])){
+            Log::info("La route '$route' n'est pas gérée par le middleware AttributVisible");
+            abort(404);
+        }
+
+        $action = explode('.', $route)[1]; // les différentes routes : crud.create / crud.show / crud.update / crud.index
 
         $listeAttributsVisibles = $crudTable->listeAttributsVisibles($action);
-        if(! $listeAttributsVisibles && $action != 'index') // On autorise à afficher la liste même s'il n'y a pas d'attribut visible. On affiche le crud_name pour chaque élément.
+        if(! $listeAttributsVisibles){
+            Log::info('Aucun attribut à afficher pour la table : ' . $crudTable->nom);
             abort(404);
+        }
 
-        $request->listeAttributsVisibles = $listeAttributsVisibles ? $listeAttributsVisibles : [];
+        // On insère la liste dans la requète
+        $request->listeAttributsVisibles = $listeAttributsVisibles;
         return $next($request);
     }
 }

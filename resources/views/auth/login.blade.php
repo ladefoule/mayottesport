@@ -16,7 +16,7 @@
                 <form method="POST" action="{{ route('login') }}" id="formulaire">
                     @csrf
 
-                    <div class="form-group row pb-3">
+                    <div class="form-group row pb-2">
                         <label for="email" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Email</label>
 
                         <div class="col-md-6">
@@ -39,7 +39,7 @@
                             <input
                                 id="password" pattern=".{8,100}" type="password" class="form-control @error('password') is-invalid @enderror"
                                 value="00000000" name="password" required autocomplete="current-password"
-                                data-msg="Le champ <span class='text-danger font-italic'>Mot de passe</span> doit comporter au moins 8 caractères.">
+                                data-msg="Le champ <span class='text-danger font-italic'>Mot de passe</span> doit comporter entre 8 et 50 caractères.">
 
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -61,11 +61,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row px-3">
                         <div class="offset-md-4 col-md-6 mt-3 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
                     </div>
 
-                    <div class="form-group row pb-3 mb-0">
+                    <div class="form-group row pb-2 mb-0">
                         <div class="col-md-8 offset-md-4">
                             {{-- <div id="submit" class="btn btn-primary">
                                 Se connecter
@@ -77,6 +77,11 @@
                                     Mot de passe oublié?
                                 </a>
                             @endif
+                        </div>
+                        <div class="col-md-8 offset-md-4 mt-3">
+                            <a class="btn btn-success" href="{{ route('register') }}">
+                                Pas encore inscrit(e) ? Créez votre accès.
+                            </a>
                         </div>
                     </div>
                 </form>

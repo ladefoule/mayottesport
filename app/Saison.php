@@ -173,7 +173,7 @@ class Saison extends Model
         };
 
         // Tri du classement : Points/Diff/Marques
-        usort($classement , 'cmp');
+        usort($classement , 'compare');
 
         return $classement;
     }

@@ -23,17 +23,6 @@ function niemeJournee(int $numero)
 }
 
 /**
- * Transforme la chaine $str en kebabCase et enlève les accents
- *
- * @param string $str
- * @return string
- */
-// function \Str::slug(string $str)
-// {
-//     return str_replace([' ', '/', '_', '\\', '\'', '\"', '(', ')'], '-', Str::lower(stripAccents($str)));
-// }
-
-/**
  * Enlèvement des accents.
  *
  * @param string $str
@@ -52,27 +41,6 @@ function stripAccents(string $str) {
 function modelName(string $table)
 {
     return Str::ucfirst(Str::camel(Str::singular($table)));
-}
-
-/**
- * On vérifie si le role de l'utilisateur connecté est présent ou non dans les $roles
- *
- * @param array $roles
- * @return boolean
- */
-function checkPermission(array $roles)
-{
-    // S'il n'y a pas encore de connexion
-    if (auth()->user() == null)
-        return false;
-
-    $userRole = index('roles')[auth()->user()->role_id]->nom;
-
-    foreach ($roles as $role)
-        if ($role == $userRole)
-            return true;
-
-    return false;
 }
 
 /**
@@ -130,9 +98,9 @@ function refreshCachesLies(string $table){
  *
  * @param array $a
  * @param array $b
- * @return void
+ * @return int
  */
-function cmp($a, $b)
+function compare($a, $b)
 {
     if ($a['points'] == $b['points']){
         if($a['diff'] == $b['diff']){

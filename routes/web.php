@@ -24,8 +24,6 @@ Auth::routes(['verify' => true]);
 /* MIDDLEWARE AUTH */
 Route::group(['middleware'=> 'verified'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
-    Route::post('/comment', 'CommentaireController@store')->name('comment');
-    Route::post('/comment/delete', 'CommentaireController@delete')->name('comment.delete');
 
     Route::get('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultat')->name('competition.match.resultat');
     Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost');
@@ -42,14 +40,14 @@ Route::group(['middleware'=> 'verified'], function () {
             /* DEBUT PREFIX CRUD */
             Route::prefix('/crud')->group(function () {
                 Route::get('/', function(){return redirect()->route('crud.index', ['table' => 'sports']);})->name('crud');
+                Route::get('/{table}', 'CrudController@index')->name('crud.index');
                 Route::get('/{table}/create', 'CrudController@createForm')->name('crud.create');
                 Route::post('/{table}/create', 'CrudController@createStore');
                 Route::get('/{table}/ajax', 'CrudController@indexAjax')->name('crud.index-ajax');
                 Route::get('/{table}/{id}', 'CrudController@show')->name('crud.show');
-                Route::get('/{table}', 'CrudController@index')->name('crud.index');
-                Route::get('/{table}/update/{id}', 'CrudController@updateForm')->name('crud.update');
-                Route::post('/{table}/update/{id}', 'CrudController@updateStore');
-                Route::get('/{table}/delete/{id}', 'CrudController@delete')->name('crud.delete');
+                Route::get('/{table}/{id}/update', 'CrudController@updateForm')->name('crud.update');
+                Route::post('/{table}/{id}/update', 'CrudController@updateStore');
+                Route::get('/{table}/{id}/delete', 'CrudController@delete')->name('crud.delete');
                 Route::post('/{table}/delete', 'CrudController@deleteAjax')->name('crud.delete-ajax');
             }); /* FIN PREFIX CRUD */
 

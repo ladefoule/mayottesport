@@ -16,6 +16,7 @@
         "laravel/framework": "^6.18.35",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.0",
+        "phpdocumentor/graphviz": "^1.0",
         "predis/predis": "1.*"
     },
     "require-dev": {

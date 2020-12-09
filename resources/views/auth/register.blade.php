@@ -59,12 +59,12 @@
                     @php
                         $regions = App\Region::all();
 
-                        // On récupère l'ID de la catégorie 'Administrateur'
+                        // On récupère l'ID de la catégorie 'Super-Administrateur'
                         $idSuperAdmin = App\Role::firstWhere('nom', 'LIKE', "superadmin")->id;
                     @endphp
 
                     <div class="form-group row mb-3">
-                        <label for="region_id" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Lieu</label>
+                        <label for="region_id" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Région</label>
 
                         <div class="col-md-6">
                             <select data-msg="Le champ <span class='text-danger font-italic'>Lieu</span> doit être égal à l'une des options proposées." name="region_id" class="form-control @error('region_id') is-invalid @enderror">
@@ -106,14 +106,14 @@
                     {{-- Par défaut (en dev) les utilisateurs seront des superadmin --}}
                     <input type="hidden" name="role_id" value="{{ $idSuperAdmin }}">
 
-                    <div class="form-group row mb-0">
+                    <div class="form-group row mb-0 px-3">
                         <div class="col-md-6 offset-md-4 alert alert-danger text-dark d-none" id="messageErreur"></div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-6 offset-md-4 d-flex justify-content-center">
                             {{-- <div id="submit" class="btn btn-primary">S'inscrire</div> --}}
-                            <button class="btn btn-primary">S'inscrire</button>
+                            <button class="btn btn-primary px-5">S'inscrire</button>
                         </div>
                     </div>
                 </form>
@@ -127,10 +127,6 @@
 <script>
     $(document).ready(function(){
         verifierMonFormulaireEnJS('formRegister')
-
-      //   $('#cancel').click(function(){
-      //      $('#formRegister').reset()
-      //   })
     });
 </script>
 @endsection

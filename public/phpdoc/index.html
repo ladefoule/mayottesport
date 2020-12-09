@@ -1,406 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/template.css">
-    <link rel="icon" href="images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="js/search.js"></script>
-    <script defer src="js/searchIndex.js"></script>
-    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prism.css" rel="stylesheet" media="all"/>
+    <link href="css/template.css" rel="stylesheet" media="all"/>
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <![endif]-->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.smooth-scroll.js"></script>
+    <script src="js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"/>
+</head>
 <body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
-    <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
 
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/app.html"><abbr title="\App">App</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="namespaces/app-console.html"><abbr title="\App\Console">Console</abbr></a></li>
-                                    <li><a href="namespaces/app-exceptions.html"><abbr title="\App\Exceptions">Exceptions</abbr></a></li>
-                                    <li><a href="namespaces/app-http.html"><abbr title="\App\Http">Http</abbr></a></li>
-                            </ul>
-            
-        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                    </ul>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="packages/MyAppXYZ.html"><abbr title="\MyAppXYZ">MyAppXYZ</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                            <li><a href="packages/MyAppXYZ-Categories.html"><abbr title="\MyAppXYZ\Categories">Categories</abbr></a></li>
-                    </ul>
-        
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h2>
-</aside>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="index.html">API Documentation</a>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <h2>Documentation</h2>
-
-            <h3>Namespaces</h3>
-        <dl>
-                            <dt><a href="namespaces/app.html"><abbr title="\App">App</abbr></a></dt>
-                    </dl>
-    
-            <h3>Packages</h3>
-        <dl>
-                            <dt><a href="packages/Default.html"><abbr title="\Default">Default</abbr></a></dt>
-                            <dt><a href="packages/MyAppXYZ.html"><abbr title="\MyAppXYZ">MyAppXYZ</abbr></a></dt>
-                    </dl>
-    
-    
-        <h3>Table of Contents</h3>
-    <table class="phpdocumentor-table_of_contents">
-                            <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_infosAttributCrud"><abbr title="\infosAttributCrud()">infosAttributCrud()</abbr></a></th>
-                <td class="phpdocumentor-cell">La liste des correspondances entre l&#039;id (information dans la table crud_attribut_infos) et sa signification.</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_infosChampMatch"><abbr title="\infosChampMatch()">infosChampMatch()</abbr></a></th>
-                <td class="phpdocumentor-cell">La liste des correspondances entre l&#039;id (information dans la table champ_match_infos) et sa signification.</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_niemeJournee"><abbr title="\niemeJournee()">niemeJournee()</abbr></a></th>
-                <td class="phpdocumentor-cell">Revoie &#039;1ère journée&#039; si $numero = 1, Xème journée si $numero &gt; 1, false dans les autres cas de figure</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_stripAccents"><abbr title="\stripAccents()">stripAccents()</abbr></a></th>
-                <td class="phpdocumentor-cell">Enlèvement des accents.</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_modelName"><abbr title="\modelName()">modelName()</abbr></a></th>
-                <td class="phpdocumentor-cell">Renvoie le nom du model correspondant à la table (nom de la table en snake_case).</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_checkPermission"><abbr title="\checkPermission()">checkPermission()</abbr></a></th>
-                <td class="phpdocumentor-cell">On vérifie si le role de l&#039;utilisateur est présent ou non dans les $roles</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_genererCalendrier"><abbr title="\genererCalendrier()">genererCalendrier()</abbr></a></th>
-                <td class="phpdocumentor-cell">Génère tous les matches d&#039;une saison dans la bdd</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-            </table>
-    
-    
-            <section>
-            <h3 class="phpdocumentor-functions__header">Functions</h3>
-                            <a id="function_infosAttributCrud"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">infosAttributCrud()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">14</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">La liste des correspondances entre l&#039;id (information dans la table crud_attribut_infos) et sa signification.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">infosAttributCrud</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Support\Collection">Collection</abbr></span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Support\Collection">Collection</abbr></span>
-            
-</article>
-                            <a id="function_infosChampMatch"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">infosChampMatch()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">26</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">La liste des correspondances entre l&#039;id (information dans la table champ_match_infos) et sa signification.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">infosChampMatch</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Support\Collection">Collection</abbr></span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Support\Collection">Collection</abbr></span>
-            
-</article>
-                            <a id="function_niemeJournee"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">niemeJournee()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">39</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Revoie &#039;1ère journée&#039; si $numero = 1, Xème journée si $numero &gt; 1, false dans les autres cas de figure</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">niemeJournee</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$numero</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void|bool</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$numero</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">void|bool</span>
-            
-</article>
-                            <a id="function_stripAccents"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">stripAccents()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">51</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Enlèvement des accents.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">stripAccents</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$str</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$str</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                            <a id="function_modelName"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">modelName()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">61</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Renvoie le nom du model correspondant à la table (nom de la table en snake_case).</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">modelName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                            <a id="function_checkPermission"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">checkPermission()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">72</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">On vérifie si le role de l&#039;utilisateur est présent ou non dans les $roles</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">checkPermission</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$roles</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$roles</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                            <a id="function_genererCalendrier"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">genererCalendrier()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">94</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Génère tous les matches d&#039;une saison dans la bdd</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">genererCalendrier</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$donnees</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$donnees</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                    </section>
-                <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
-
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
-
+            <div class="nav-collapse">
+                <ul class="nav pull-right">                    <li class="dropdown">
+                        <a href="index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">                            <li><a href="namespaces/App.html">\App</a></li>                        </ul>
+                    </li>                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="reports/errors.html">                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">91</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="reports/markers.html">                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="reports/deprecated.html">                                    <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-</main>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">    <section class="row-fluid">
+        <div class="span2 sidebar">    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">                    <a class="accordion-toggle" data-toggle="collapse" data-target="#namespace-1378354447"></a>                <a href="namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1378354447" class="accordion-body collapsein">
+                <div class="accordion-inner">    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">                    <a class="accordion-togglecollapsed" data-toggle="collapse" data-target="#namespace-1265907650"></a>                <a href="namespaces/App.html" style="margin-left: 30px; padding-left: 0">App</a>
+            </div>
+            <div id="namespace-1265907650" class="accordion-body collapse">
+                <div class="accordion-inner">    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">                    <a class="accordion-togglecollapsed" data-toggle="collapse" data-target="#namespace-833868977"></a>                <a href="namespaces/App.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
+            </div>
+            <div id="namespace-833868977" class="accordion-body collapse">
+                <div class="accordion-inner">    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">                    <a class="accordion-togglecollapsed" data-toggle="collapse" data-target="#namespace-1232764417"></a>                <a href="namespaces/App.Http.Controllers.html" style="margin-left: 30px; padding-left: 0">Controllers</a>
+            </div>
+            <div id="namespace-1232764417" class="accordion-body collapse">
+                <div class="accordion-inner">    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">                    <a class="accordion-togglecollapsed" data-toggle="collapse" data-target="#namespace-1562157263"></a>                <a href="namespaces/App.Http.Controllers.Auth.html" style="margin-left: 30px; padding-left: 0">Auth</a>
+            </div>
+            <div id="namespace-1562157263" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <ul>                            <li class="class"><a href="classes/App.Http.Controllers.Auth.ConfirmPasswordController.html">ConfirmPasswordController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.Auth.ForgotPasswordController.html">ForgotPasswordController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.Auth.LoginController.html">LoginController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.Auth.RegisterController.html">RegisterController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.Auth.ResetPasswordController.html">ResetPasswordController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.Auth.VerificationController.html">VerificationController</a></li>                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+                    <ul>                            <li class="class"><a href="classes/App.Http.Controllers.CacheController.html">CacheController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.CompetitionController.html">CompetitionController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.Controller.html">Controller</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.CrudAdminController.html">CrudAdminController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.CrudController.html">CrudController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.EquipeController.html">EquipeController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.HomeController.html">HomeController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.JourneesMultiplesController.html">JourneesMultiplesController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.MatchController.html">MatchController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.PdfParserController.html">PdfParserController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.SportController.html">SportController</a></li>                            <li class="class"><a href="classes/App.Http.Controllers.UserController.html">UserController</a></li>                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+                    <ul>                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+                    <ul>                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+                    <ul>                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>                    </nav>
+                    <h1><small></small>\</h1>                    <h2>Namespaces</h2>
+                    <table class="table table-hover">                            <tr>
+                                <td><a href="namespaces/App.html">App</a></td>
+                            </tr>                    </table>                </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">                            <div class="namespace-wrapper">\</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+        </div>
+    </section>
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">                            <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>                                        <li><a href="namespaces/App.html">\App</a></li>                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">                            <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">                            <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="reports/errors.html">Errors</a></li>
+                                    <li><a href="reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    onDecember 9th, 2020 at 16:27.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
 
 </body>
 </html>

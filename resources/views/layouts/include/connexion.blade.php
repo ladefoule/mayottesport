@@ -20,7 +20,7 @@
                 <a class="dropdown-item" href="{{ route('profil') }}">
                     Mon profil
                 </a>
-                @if(checkPermission(['admin', 'superadmin']))
+                @if(in_array(index('roles')[Auth::user()->role_id]->nom, ['admin', 'superadmin']))
                     <a class="dropdown-item" href="{{ route('crud') }}">
                         Back-office
                     </a>
