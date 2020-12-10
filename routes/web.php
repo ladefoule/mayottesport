@@ -40,7 +40,7 @@ Route::group(['middleware'=> 'verified'], function () {
 
         /* MIDDLEWARE ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
-            Route::get('/', function(){return view('admin.calendrier');})->name('administration');
+            // Route::get('/', function(){return view('admin.calendrier');})->name('administration');
 
             /* DEBUT PREFIX CRUD */
             Route::prefix('/crud')->group(function () {

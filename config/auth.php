@@ -46,6 +46,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'sharp' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ]
     ],
 
     /*
