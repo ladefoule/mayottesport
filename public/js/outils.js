@@ -1,10 +1,3 @@
-const BOUTONSUPPRESSION = '<i class="fas fa-trash-alt"></i>';
-const BOUTONAJOUTER = '<i class="fas fa-plus"></i>';
-const BOUTONVUE = '<i class="fas fa-eye"></i>';
-const BOUTONEDIT = '<i class="fas fa-edit"></i>';
-const BOUTONLISTE = '<i class="fas fa-list-ul"></i>';
-
-
 const INPUTSAVERIFIER = `textarea[name]:not([disabled]),
                         select[name]:not([disabled]),
                         input[name]:not([disabled]):not([type=checkbox])`
@@ -216,13 +209,12 @@ const serialize = function(formEle) {
 /**
  * Récupère la liste de tous les éléments en AJAX et met à jour le contenu du tableau
  *
- * @param {string} url - url de la liste (requète envoyée en Ajax)
- * @param {string} idTable - id de la table
+ * @param {array} params
  */
 function listeAjax(params)
 {
-    urlApp = params['urlApp']
-    urlLister = params['urlLister']
+    urlApp = params['urlApp'] // url du site
+    urlLister = params['urlLister'] // url de récupération de la liste
     idTable = params['idTable']
     $.ajax({
         type: 'GET',

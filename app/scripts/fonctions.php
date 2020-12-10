@@ -120,8 +120,7 @@ function compare($a, $b)
 }
 
 /**
- * Style procédural de la méthode infos() de la classe CrudTable
- * Liste de tous les éléments de la table.
+ * Style procédural de la méthode infos() de la classe CrudTable : Liste de tous les éléments de la table.
  *
  * @param string $table - Table en camel_case
  * @return \Illuminate\Database\Eloquent\Collection

@@ -21,22 +21,22 @@ class ProcessCrudTable implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $crudTable;
-    protected $instance;
+    protected $table;
+    protected $id;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(CrudTable $crudTable, $instance)
+    public function __construct(string $table, int $id)
     {
-        $this->crudTable = $crudTable->withoutRelations();
-        $this->instance = $instance;
+        $this->table = $table;
+        $this->id = $id;
     }
 
     /**
-     * Execute the job.
+     * Envoi d'une requète GET sur le lien de rechargement des caches avec Guzzle.
      *
      * @return void
      */
@@ -45,14 +45,14 @@ class ProcessCrudTable implements ShouldQueue
         Log::info(" -------- Job : ProcessCrudTable ------ ");
         $client = new Client([
             // 'base_uri' => config('app.url'),
-            // 'http_errors' => true,
-            'timeout'  => 10.0,
+            'http_errors' => true,
+            // 'timeout'  => 10.0,
         ]);
 
-        $promise = $client->getAsync(config('app.url') . '/ajax/caches/reload' , [
+        $promise = $client->getAsync(route('caches.reload-crud') , [
             'query' => [
-                'crud_table_id' => $this->crudTable->id,
-                'instance_id' => $this->instance->id
+                'table' => $this->table,
+                'id' => $this->id
             ]
         ] );
 

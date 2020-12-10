@@ -19,16 +19,16 @@ class CacheController extends Controller
     {
         Log::info(" -------- Controller Cache : reloadCrud -------- ");
         $rules = [
-            'instance_id' => 'required|integer|min:1',
-            'crud_table_id' => 'required|integer|min:1|exists:crud_tables,id'
+            'id' => 'required|integer|min:1',
+            'table' => 'required|min:3|exists:crud_tables,nom'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             abort(404);
 
-        $id = $request['instance_id'];
-        $crudTable = CrudTable::findOrFail($request['crud_table_id']);
+        $id = $request['id'];
+        $crudTable = CrudTable::whereNom($request['table'])->firstOrFail();
 
         $table = $crudTable->nom;
         $modele = '\App\\' . modelName($crudTable->nom);
