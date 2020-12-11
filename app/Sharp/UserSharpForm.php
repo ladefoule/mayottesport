@@ -3,24 +3,30 @@
 namespace App\Sharp;
 
 use App\User;
-use Code16\Sharp\Form\SharpSingleForm;
+use Code16\Sharp\Form\SharpForm;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
-class ProfilSharpForm extends SharpSingleForm
+class UserSharpForm extends SharpForm
 {
-    use WithSharpFormEloquentUpdater;
 
-    /**
-     * Retrieve a Model for the form and pack all its data as JSON.
-     *
-     * @param $id
-     * @return array
-     */
-    public function findSingle()
+    public function find($id): array
     {
-        return $this->transform(User::findOrFail(auth()->id()));
+        $user = User::findOrFail($id)->makeVisible('secret');
+        return $this->transform(
+            $user
+        );
+    }
+
+    public function update($id, array $data)
+    {
+        User::findOrFail($id)->update($data);
+    }
+
+    public function delete($id)
+    {
+        User::findOrFail($id)->delete();
     }
 
     /**
@@ -57,14 +63,5 @@ class ProfilSharpForm extends SharpSingleForm
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('first_name|6','name|6', 'email|6', 'pseudo|6');
         });
-    }
-
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    protected function updateSingle(array $data)
-    {
-        $this->save(User::findOrFail(auth()->id()), $data);
     }
 }

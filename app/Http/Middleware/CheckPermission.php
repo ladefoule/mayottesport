@@ -9,6 +9,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class CheckPermission
 {
@@ -26,10 +27,10 @@ class CheckPermission
         $roles = explode('|', $permissions);
 
         // S'il n'y a pas encore de connexion
-        if (auth()->user() == null)
+        if (! Auth::check())
             abort(404);
 
-        $userRole = index('roles')[auth()->user()->role_id]->nom;
+        $userRole = index('roles')[Auth::user()->role_id]->nom;
 
         if(in_array($userRole, $roles))
             return $next($request);

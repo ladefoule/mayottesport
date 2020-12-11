@@ -29,6 +29,9 @@ Auth::routes(['verify' => true]);
 /* MIDDLEWARE AUTH */
 Route::group(['middleware'=> 'verified'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
+    Route::get('/profil/update', 'UserController@updateForm')->name('profil.update');
+    Route::post('/profil/update', 'UserController@updatePost')->name('profil.update.store');
+    Route::get('/profil/delete', 'UserController@delete')->name('profil.delete');
 
     Route::get('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultat')->name('competition.match.resultat');
     Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost');
@@ -38,8 +41,9 @@ Route::group(['middleware'=> 'verified'], function () {
         Route::get('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horaire')->name('competition.match.horaire');
         Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost');
 
-        /* MIDDLEWARE ADMIN */
+        /* PREFIX ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
+            Route::get('/login', function(){return redirect()->route('login');})->name('code16.sharp.login');
             // Route::get('/', function(){return view('admin.calendrier');})->name('administration');
 
             /* DEBUT PREFIX CRUD */
@@ -71,9 +75,8 @@ Route::group(['middleware'=> 'verified'], function () {
                 Route::get('/tables', 'CrudAdminController@tables')->name('crud-superadmin.tables');
                 Route::post('/tables', 'CrudAdminController@tablesPost');
 
-                // Todo : Routes non opérationneles
-                Route::get('/attributs', 'CrudAdminController@attributs')->name('crud-superadmin.attributs');
-                Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-superadmin.attributs.ajax');
+                // Route::get('/attributs', 'CrudAdminController@attributs')->name('crud-superadmin.attributs');
+                // Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-superadmin.attributs.ajax');
                 // Route::get('/parametres', 'CrudAdminController@parametres')->name('crud-superadmin.parametres');
 
                 /* ----- DEBUT ROUTES PDF PARSER ----- */
@@ -81,7 +84,7 @@ Route::group(['middleware'=> 'verified'], function () {
                 Route::post('/pdfparser', 'PdfParserController@post');
                 /* ----- FIN ROUTES PDF PARSER ----- */
             }); /* FIN MIDDLEWARE SUPERADMIN */
-        }); /* FIN MIDDLWARE ADMIN */
+        }); /* FIN PREFIX ADMIN */
     });/* FIN MIDDLEWARE PREMIUM */
 }); /* FIN MIDDLEWARE AUTH */
 

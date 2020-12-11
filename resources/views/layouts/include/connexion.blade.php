@@ -21,8 +21,8 @@
                     Mon profil
                 </a>
                 @if(in_array(index('roles')[Auth::user()->role_id]->nom, ['admin', 'superadmin']))
-                    <a class="dropdown-item" href="{{ route('crud') }}">
-                        Back-office
+                    <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
+                        Administration
                     </a>
                 @endif
                 <a class="dropdown-item" href="{{ route('logout') }}"

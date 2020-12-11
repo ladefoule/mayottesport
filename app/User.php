@@ -84,4 +84,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo('App\Role');
     }
+
+    /**
+     * La région de l'utilisateur.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function region()
+    {
+        return $this->belongsTo('App\Region');
+    }
 }

@@ -15,6 +15,7 @@ return [
         'right' => '<i class="icon-right-open"></i>',
         'retour' => '<i class="icon-left"></i>',
         'football' => '<i class="icon-soccer-ball"></i>',
+        'user' => '<i class="icon-user"></i>',
     ],
 
     "crud-attribut" => [
@@ -87,12 +88,14 @@ return [
     /* $key => $values */
     /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
     'caches-lies' => [
-        'equipes' => ['matches', 'equipe-saison'],
-        'saisons' => ['journees', 'equipe-saison'],
         'competitions' => ['saisons'],
-        'villes' => ['terrains'],
-        'sports' => ['equipes', 'competitions', 'baremes'],
         'crud-attributs' => ['crud-attribut-infos'],
         'crud-tables' => ['crud-attributs'],
+        'equipes' => ['matches', 'equipe-saison'],
+        'matches' => ['modifs'],
+        'saisons' => ['journees', 'equipe-saison'],
+        'sports' => ['equipes', 'competitions', 'baremes'],
+        'users' => ['modifs'],
+        'villes' => ['terrains'],
     ],
 ];

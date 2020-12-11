@@ -27,19 +27,25 @@ return [
     // Required. Your entities list; each one must define a "list",
     // and can define "form", "validator", "policy" and "authorizations".
     "entities" => [
-       "profil" => [
-           "show" => \App\Sharp\ProfilSharpShow::class,
-           "form" => \App\Sharp\ProfilSharpForm::class,
+       "user" => [
+           "list" => \App\Sharp\UserSharpList::class,
+           "form" => \App\Sharp\UserSharpForm::class,
         //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
         //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
+       ],
+       "crud" => [
+        //    "show" => \App\Sharp\ProfilSharpShow::class,
+        //    "form" => \App\Sharp\ProfilSharpForm::class,
+        //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
+           "policy" => \App\Sharp\Policies\CrudPolicy::class,
        ],
     ],
 
     // Optional. Your dashboards list; each one must define a "view", and can define "policy".
     "dashboards" => [
-    //    "profil" => [
-        //    "view" => \App\Sharp\Profil::class,
-        //    "policy" => \App\Sharp\Policies\MyDashboardPolicy::class,
+    //    "dash" => [
+            // "view" => \App\Sharp\DashAdmin::class,
+            // "policy" => \App\Sharp\Policies\DashAdminPolicy::class,
     //    ],
     ],
 
@@ -52,15 +58,18 @@ return [
     // or external URLs, grouped in categories.
     "menu" => [
         [
-            "label" => "Profil",
+            "label" => "Membres",
             "icon" => "fa-user",
-            "entity" => "profil",
-            "single" => true
+            "entity" => "user",
+        ],
+        [
+            "label" => "Les journées",
+            "icon" => "fa-user",
+            "url" => "/admin/autres/journees/multi/select",
         ],
         [
             "label" => "CRUD",
             "icon" => "fa-database",
-            // "dashboard" => "CRUD",
             "url" => '/admin/crud'
         ],
     ],
