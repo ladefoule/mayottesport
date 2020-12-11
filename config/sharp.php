@@ -33,6 +33,12 @@ return [
         //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
         //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
        ],
+       "match" => [
+            "list" => \App\Sharp\MatchSharpList::class,
+            "form" => \App\Sharp\MatchSharpForm::class,
+        //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
+        //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
+        ],
        "crud" => [
         //    "show" => \App\Sharp\ProfilSharpShow::class,
         //    "form" => \App\Sharp\ProfilSharpForm::class,
@@ -61,6 +67,11 @@ return [
             "label" => "Membres",
             "icon" => "fa-user",
             "entity" => "user",
+        ],
+        [
+            "label" => "Matches",
+            "icon" => "fa-football",
+            "entity" => "match",
         ],
         [
             "label" => "Les journées",
