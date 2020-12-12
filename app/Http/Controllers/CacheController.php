@@ -7,17 +7,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Cache;
 use App\CrudTable;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class CacheController extends Controller
 {
-    public function reloadCrud(Request $request)
+    public function reload(Request $request)
     {
-        Log::info(" -------- Controller Cache : reloadCrud -------- ");
+        Log::info(" -------- Controller Cache : reload -------- ");
         $rules = [
             'id' => 'required|integer|min:1',
             'table' => 'required|min:3|exists:crud_tables,nom'
@@ -34,11 +34,10 @@ class CacheController extends Controller
         $modele = '\App\\' . modelName($crudTable->nom);
 
         $instance = $modele::findOrFail($id);
-        $tableSlug = str_replace('_', '-' , $table);
+        $tableSlug = Str::slug($table);
 
-        // On recharge le cache classement si on effectue une modif sur les tables :
-        // matches, journées ou saisons qui risquent d'impacter le classement
-        if(in_array($table, ['matches', 'journees', 'baremes', 'saisons'])){
+        // On recharge les caches directement liés au match, à la journée ou à la saison
+        if(in_array($table, ['matches', 'journees', 'saisons'])){
             if($table == 'matches'){
                 $match = $instance;
                 $journee = $match->journee;
@@ -46,45 +45,29 @@ class CacheController extends Controller
             }else if($table == 'journees'){
                 $journee = $instance;
                 $saison = $journee->saison;
-            }else if($table == 'baremes'){
-                $bareme = $instance;
-                $saisons = $bareme->saisons;
-
-                // Rechargement de tous les caches saisons liés au barème
-                foreach ($saisons as $saisonTemp) {
-                    $cacheSaison = "saison-".$saisonTemp->id;
-                    Cache::forget($cacheSaison);
-                    saison($saisonTemp->id);
-                }
             }else
                 $saison = $instance;
 
-            // Rechargement du cache qui contient les infos sur le match : urls, fanions, scores, etc...
-            if(isset($match)){
-                $cacheMatch = "match-".$match->uniqid;
-                Cache::forget($cacheMatch);
+            if(isset($match))
                 match($match->uniqid);
-            }
 
-            // Rechargement du cache qui contient les infos sur la journée : render, matches, etc...
-            if(isset($journee)){
-                $cacheJournee = "journee-".$journee->id;
-                Cache::forget($cacheJournee);
+            if(isset($journee))
                 journee($journee->id);
-            }
 
-            // Rechargement du cache qui contient les infos sur la saison : classement, render classement simplifié, etc...
-            if(isset($saison)){
-                $cacheSaison = "saison-".$saison->id;
-                Cache::forget($cacheSaison);
+            if(isset($saison))
                 saison($saison->id);
-            }
-        }
+
+        // Suppression de tous les caches saisons liés au barème
+        }else if(in_array($table, ['baremes'])){
+            $bareme = $instance;
+            $saisons = $bareme->saisons;
+
+            foreach ($saisons as $saison)
+                saison($saison->id);
 
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
-        if($table == 'crud_tables' || $table == 'crud_attributs' || $table == 'crud_attribut_infos'){
+        }else if(in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])){
             Log::info("Opération effectuée dans la gestion du Crud");
-            // Log::info("User : " . Auth::user()->email);
             if($table == 'crud_attribut_infos')
                 $crudTableCible = $instance->crudAttribut->crudTable;
             else if($table == 'crud_attributs')
@@ -92,21 +75,12 @@ class CacheController extends Controller
             else
                 $crudTableCible = $instance;
 
-
-            $table = $crudTableCible->nom;
-            Cache::forget("attributs-visibles-$table-index");
             $crudTableCible->listeAttributsVisibles();
-
-            Cache::forget("attributs-visibles-$table-create");
             $crudTableCible->listeAttributsVisibles('create');
-
-            Cache::forget("attributs-visibles-$table-show");
             $crudTableCible->listeAttributsVisibles('show');
         }
 
-        Cache::forget("index-$tableSlug");
         $crudTable->index();
-        Cache::forget("indexcrud-$tableSlug");
         $crudTable->indexCrud();
 
         // On recharge les caches 'index' qui utilisent les données de cette table dans leur attribut nom ou crud_name

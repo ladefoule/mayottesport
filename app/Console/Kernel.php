@@ -54,7 +54,7 @@ class Kernel extends ConsoleKernel
                     $crudTable->index();
                     $crudTable->listeAttributsVisibles();
                     $crudTable->listeAttributsVisibles('create');
-                    $crudTable->listeAttributsVisibles('update');
+                    $crudTable->listeAttributsVisibles('show');
                     $crudTable->indexCrud();
                 }
             }

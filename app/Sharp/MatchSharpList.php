@@ -5,6 +5,7 @@ namespace App\Sharp;
 use App\User;
 use App\Match;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
@@ -19,8 +20,8 @@ class MatchSharpList extends SharpEntityList
     public function buildListDataContainers()
     {
         $this->addDataContainer(
-            EntityListDataContainer::make('uniqid')
-                ->setLabel('Uniqid')
+            EntityListDataContainer::make('id')
+                ->setLabel('id')
                 ->setSortable()
         )->addDataContainer(
             EntityListDataContainer::make('sport')
@@ -37,7 +38,6 @@ class MatchSharpList extends SharpEntityList
         )->addDataContainer(
             EntityListDataContainer::make('rencontre')
                 ->setLabel('Rencontre')
-                ->setSortable()
         );
     }
 
@@ -48,7 +48,7 @@ class MatchSharpList extends SharpEntityList
     */
     public function buildListLayout()
     {
-        $this->addColumn('uniqid', 2)
+        $this->addColumn('id', 2)
         ->addColumn('sport', 2)
         ->addColumn('competition', 2)
         ->addColumn('annee', 2)
@@ -64,7 +64,7 @@ class MatchSharpList extends SharpEntityList
     {
         $this->setInstanceIdAttribute('id')
             ->setSearchable()
-            ->setDefaultSort('uniqid', 'desc')
+            ->setDefaultSort('annee', 'desc')
             ->setPaginated();
     }
 
@@ -78,19 +78,22 @@ class MatchSharpList extends SharpEntityList
     {
         // Jointure par ORM Eloquent
         $matches = Match::orderBy($params->sortedBy(), $params->sortedDir())
-                        ->join('equipes', function ($join) {
-                            $join->on('equipe_id_dom', '=', 'equipes.id')->orOn('equipe_id_ext', '=', 'equipes.id');
-                        })
                         ->join('journees', 'journee_id', '=', 'journees.id')
                         ->join('saisons', 'saison_id', '=', 'saisons.id')
                         ->join('competitions', 'competition_id', '=', 'competitions.id')
                         ->join('sports', 'competitions.sport_id', '=', 'sports.id')
-                        ->select('matches.*', 'sports.nom as sport', 'matches.uniqid as uniqid', 'competitions.nom as competition', 'saisons.annee_debut as annee');
+                        ->select('matches.*', 'sports.nom as sport', 'competitions.nom as competition', 'saisons.annee_debut as annee')
+                        ->distinct();
 
-        // Recherche sur le nom
+        // Recherche
         collect($params->searchWords())
             ->each(function ($word) use ($matches) {
-                $matches->where(function ($query) use ($word) {
+                $matches
+                ->join('equipes', function ($join) {
+                    // Pour pouvoir faire la recherche sur les noms des équipes
+                    $join->on('equipe_id_dom', '=', 'equipes.id')->orOn('equipe_id_ext', '=', 'equipes.id');
+                })
+                ->where(function ($query) use ($word) {
                     $query->orWhere('sports.nom', 'like', $word)
                     ->orWhere('matches.uniqid', 'like', $word)
                     ->orWhere('saisons.annee_debut', 'like', $word)
@@ -100,19 +103,10 @@ class MatchSharpList extends SharpEntityList
             });
 
         return $this->setCustomTransformer(
-            "saison",
+            "id",
             function ($label, $match) {
-                return $match->journee->saison->nom;
-            }
-        )->setCustomTransformer(
-            "sport",
-            function ($label, $match) {
-                return $match->journee->saison->competition->sport->nom;
-            }
-        )->setCustomTransformer(
-            "competition",
-            function ($label, $match) {
-                return $match->journee->saison->competition->nom;
+                Log::info($match);
+                return $match->uniqid;
             }
         )->setCustomTransformer(
             "rencontre",

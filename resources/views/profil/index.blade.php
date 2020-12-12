@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-8 p-3">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header d-flex align-items-center px-2">
                 <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.user') !!} Mon compte </span>

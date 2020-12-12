@@ -97,7 +97,11 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 })->name('ajax');
 
 Route::match(['get', 'post'], '/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
-Route::match(['get', 'post'], '/ajax/caches/reload', 'CacheController@reloadCrud')->name('caches.reload-crud');
+Route::match(['get', 'post'], '/ajax/caches/reload', 'CacheController@reload')->name('caches.reload');
+
+Route::get('notre-politique-de-confidentialite.php', function(){
+    return view('rgpd');
+});
 
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');

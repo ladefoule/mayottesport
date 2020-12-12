@@ -49,7 +49,7 @@ class ProcessCrudTable implements ShouldQueue
             // 'timeout'  => 10.0,
         ]);
 
-        $promise = $client->getAsync(route('caches.reload-crud') , [
+        $promise = $client->getAsync(route('caches.reload') , [
             'query' => [
                 'table' => $this->table,
                 'id' => $this->id

@@ -7,6 +7,7 @@
 
 use App\Cache;
 use App\Match;
+use App\Bareme;
 use App\Saison;
 use App\Journee;
 use App\CrudTable;
@@ -80,6 +81,57 @@ function fanion($equipeId)
 }
 
 /**
+     * Suppression des caches
+     *
+     * @param string $table - en camel_case
+     * @param int $id
+     * @return void
+     */
+    function forgetCaches(string $table, int $id)
+    {
+    Log::info(" -------- Controller Crud : forgetCaches -------- ");
+
+    // On supprime le cache index de la table
+    Cache::forget('index-' . Str::slug($table));
+    Cache::forget('indexcrud-' . Str::slug($table));
+
+    // On supprime les caches directement liés au match, à la journée ou à la saison
+    if(in_array($table, ['matches', 'journees', 'saisons'])){
+        if($table == 'matches'){
+            $match = Match::findOrFail($id);
+            $journee = $match->journee;
+            $saison = $journee->saison;
+        }else if($table == 'journees'){
+            $journee = Journee::findOrFail($id);
+            $saison = $journee->saison;
+        }else
+            $saison = Saison::findOrFail($id);
+
+        if(isset($match))
+            Cache::forget("match-" . $match->uniqid);
+
+        if(isset($journee))
+            Cache::forget("journee-" . $journee->id);
+
+        if(isset($saison))
+            Cache::forget("saison-" . $saison->id);
+
+    // Suppression de tous les caches saisons liés au barème
+    }else if($table == 'baremes'){
+        $bareme = Bareme::findOrFail($id);
+        $saisons = $bareme->saisons;
+        foreach ($saisons as $saisonTemp)
+            Cache::forget("saison-".$saisonTemp->id);
+
+    // On supprime les caches des attributs visibles si on a effectuer une action sur les tables CRUD
+    }else if(in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])){
+        Cache::forget("attributs-visibles-$table-index");
+        Cache::forget("attributs-visibles-$table-create");
+        Cache::forget("attributs-visibles-$table-show");
+    }
+}
+
+/**
  * Rechargement de tous les caches index des tables qui utilisent les données de la $table
  * On ne doit recharger le cache que SI ET SEULEMENT SI les données des tables sont utilisées dans la génération des attributs nom ou crud_name
  * Ex: Saison->crudname = Competititon->crud_name . annee() ==> SEUL la table competitions peut engendrer le rechargement de la table saisons
@@ -88,6 +140,7 @@ function fanion($equipeId)
  * @return void
  */
 function refreshCachesLies(string $table){
+    Log::info("Rechargement des caches des tables utilisant les données de : $table");
     $tablesLiees = config('constant.caches-lies')[$table] ?? [];
     foreach ($tablesLiees as $tableSlug){
         if(isset(config('constant.caches-lies')[$tableSlug]))

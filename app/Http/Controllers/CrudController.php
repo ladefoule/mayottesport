@@ -8,10 +8,14 @@
 namespace App\Http\Controllers;
 
 use App\Cache;
+use App\Match;
+use App\Bareme;
+use App\Saison;
+use App\Journee;
 use App\CrudTable;
-use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,7 +29,7 @@ class CrudController extends Controller
     public function __construct()
     {
         Log::info(" -------- Controller Crud : __construct -------- ");
-        $this->middleware('verif-table-crud')->except('refreshCaches', 'indexAjax', 'deleteAjax');
+        $this->middleware('verif-table-crud')->except('forgetCaches', 'indexAjax', 'deleteAjax');
         $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }
 
@@ -157,7 +161,8 @@ class CrudController extends Controller
         // Todo : Erreur lors de la création d'un élément de la table equipe_saison, impossible de récupérer l'id car table pivot ?
         // dd($instance);
 
-        $this::refreshCaches($crudTable->nom, $instance->id);
+        forgetCaches($crudTable->nom, $instance->id);
+        ProcessCrudTable::dispatch($crudTable->nom, $instance->id);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);
     }
 
@@ -211,7 +216,8 @@ class CrudController extends Controller
         $request = Validator::make($request->all(), $rules, $messages)->validate();
         $instance->update($request);
 
-        $this::refreshCaches($crudTable->nom, $instance->id);
+        forgetCaches($crudTable->nom, $instance->id);
+        ProcessCrudTable::dispatch($crudTable->nom, $id);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $id]);
     }
 
@@ -228,7 +234,7 @@ class CrudController extends Controller
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
-        $this::refreshCaches($crudTable->nom, $instance->id);
+        forgetCaches($crudTable->nom, $instance->id);
         $instance->delete();
         Log::info("Suppression de l'id $id dans la table $crudTable->nom");
 
@@ -258,26 +264,7 @@ class CrudController extends Controller
 
         $request = $validator->validate();
         foreach ($request['ids'] as $id)
-            $this::refreshCaches($crudTable->nom, $id);
+            forgetCaches($crudTable->nom, $id);
         $modele::destroy($request['ids']);
-    }
-
-    /**
-     * Rechargement des caches
-     *
-     * @param string $table - en camel_case
-     * @param int $id
-     * @return void
-     */
-    private static function refreshCaches(string $table, int $id)
-    {
-        Log::info(" -------- Controller Crud : refreshCaches -------- ");
-
-        // On supprime les caches index directement liés à la table
-        Cache::forget('index-' . Str::slug($table));
-        Cache::forget('indexcrud-' . Str::slug($table));
-
-        // On recharge tous les caches dépendants en Asynchrone (Laravel Queues)
-        ProcessCrudTable::dispatch($table, $id);
     }
 }

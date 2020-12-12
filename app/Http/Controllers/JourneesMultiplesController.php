@@ -12,6 +12,7 @@ use App\Sport;
 use App\Saison;
 use App\Journee;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessCrudTable;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -84,6 +85,11 @@ class JourneesMultiplesController extends Controller
         Log::info(" -------- Controller JourneesMultiples : editPost -------- ");
         // Todo : fire une validation du tbleau reçu
         $nbJournees = Saison::findOrFail($saisonId)->nb_journees;
+
+        // On supprime le cache index de la table
+        Cache::forget('index-journees');
+        Cache::forget('indexcrud-journees');
+
         for ($i=1; $i <= $nbJournees; $i++) {
             if ($request['numero' . $i]) {
                 $journeeId = $request['id' . $i];
@@ -114,18 +120,25 @@ class JourneesMultiplesController extends Controller
                 if($journeeId == 0){ // Si la journée n'existe pas encore dans la bdd, alors on la crée
                     $journee = new Journee($donnees);
                     $journee->save();
+                    $id = $journee->id;
+                    ProcessCrudTable::dispatch('journees', $id);
                 }else{
                     $journee = Journee::findOrFail($journeeId);
+                    $id = $journee->id;
+                    forgetCaches('journees', $id);
+
                     $journeeDelete = $request->has('delete' . $i);
                     if($journeeDelete) // Si la checkbox de suppression a été cochée alors on supprime la Journée
                         $journee->delete();
-                    else // Sinon on fait une maj
+                    else{ // Sinon on fait une maj
                         $journee->update($donnees);
+                        ProcessCrudTable::dispatch('journees', $id);
+                    }
                 }
             }
         }
 
-        Cache::forget('index-journees');
+        // Cache::forget('index-journees');
         return redirect()->route('journees.multi.show', ['id' => $saisonId]);
     }
 
