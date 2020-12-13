@@ -27,7 +27,7 @@ class SportController extends Controller
     {
         Log::info(" -------- Controller Sport : index -------- ");
         $sport = $request->sport;
-        $competitions = index('competitions')->where('sport_id', $sport->id);
+        $competitions = index('competitions')->where('sport_id', $sport->id)->where('index_position', '>=', 1)->sortBy('index_position');;
         $journees = [];
         foreach ($competitions as $competition) {
             // $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours

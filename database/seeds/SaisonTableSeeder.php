@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class SaisonTableSeeder extends Seeder
 {
@@ -11,47 +12,13 @@ class SaisonTableSeeder extends Seeder
      */
     public function run()
     {
-        // On insère une saison de Régional 1 (football)
-        App\Saison::create([
-            'annee_debut' => date('Y'),
-            'annee_fin' => date('Y')+1,
-            'nb_journees' => 22,
-            'bareme_id' => 1,
-            'competition_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        // On insère une saison de Régional 2 (football)
-        App\Saison::create([
-            'annee_debut' => date('Y'),
-            'annee_fin' => date('Y')+1,
-            'nb_journees' => 22,
-            'bareme_id' => 1,
-            'competition_id' => 2,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        // On insère une saison de Ligue 1 (football)
-        App\Saison::create([
-            'annee_debut' => date('Y'),
-            'annee_fin' => date('Y')+1,
-            'nb_journees' => 10,
-            'bareme_id' => 1,
-            'competition_id' => 3,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        // On insère une saison de Coupe de Mayotte (football)
-        App\Saison::create([
-            'annee_debut' => date('Y'),
-            'annee_fin' => date('Y'),
-            'nb_journees' => 2,
-            'competition_id' => 4,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        Log::info("Seed des saisons de Régional 1");
+        require 'app/scripts/import-saison-1.php';
+        Log::info("Seed des saisons de Régional 2");
+        require 'app/scripts/import-saison-2.php';
+        Log::info("Seed des saisons de Ligue 1");
+        require 'app/scripts/import-saison-3.php';
+        Log::info("Seed des saisons de Coupe de Mayotte");
+        require 'app/scripts/import-saison-4.php';
     }
 }

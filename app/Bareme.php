@@ -27,7 +27,7 @@ class Bareme extends Model
      */
     public function getCrudNameAttribute()
     {
-        return index('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
+        return indexCrud('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
     }
 
     /**

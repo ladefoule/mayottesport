@@ -29,7 +29,9 @@ $crudTables = [
     [31, 'bareme_infos', 1, 'bareme_id'],
     [32, 'match_infos', 1, 'match_id'],
     [34, 'equipe_saison', 1, 'saison_id'],
-    [39, 'jobs', NULL, NULL]
+    [39, 'jobs', NULL, NULL],
+    [40, 'champions', NULL, NULL],
+    [41, 'commentaires', NULL, NULL]
 ];
 foreach ($crudTables as $donnees) {
     $crudTable = new App\CrudTable([
@@ -43,8 +45,8 @@ foreach ($crudTables as $donnees) {
 
 // On insère les crud_attributs
 $crudAttributs = [
-    [1, 1, 'nom', 'Sport', NULL, NULL, 'Le champ <span class=\'text-danger font-italic\'>Sport</span> est obligatoire et doit contenir entre 3 et 50 caractères.'],
-    [3, 2, 'nom', 'Nom', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Championnat</span> est obligatoire et doit contenir entre 3 et 50 caractères.'],
+    [1, 1, 'nom', 'Sport', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Sport</span> doit contenir entre 3 et 50 caractères.'],
+    [3, 2, 'nom', 'Nom', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Nom</span> doit contenir entre 3 et 50 caractères.'],
     [4, 2, 'sport_id', 'Sport', 1, NULL, 'Merci de sélectionner un <span class=\'text-danger font-italic\'>Sport</span>.'],
     [6, 4, 'nom', 'Barème', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Barème</span> est obligatoire et doit contenir entre 3 et 50 caractères.'],
     [7, 4, 'sport_id', 'Sport', 1, NULL, 'Veuillez faire un choix de <span class=\'text-danger font-italic\'>Sport</span>'],
@@ -110,7 +112,8 @@ $crudAttributs = [
     [94, 2, 'index_position', 'Position page Index sport', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Position (index)</span> doit être supérieur à 0 ou vide'],
     [95, 1, 'home_position', 'Position page d\'accueil', NULL, 1, 'Le champ <span class=\'text-danger font-italic\'>Position (accueil)</span> doit être supérieur à 0'],
     [96, 13, 'uniqid', 'Uniqid', NULL, 0, NULL],
-    [97, 5, 'ville_id', 'Ville', 11, 0, 'Veuillez sélectionner une <span class=\'text-danger font-italic\'>Ville</span>.']
+    [97, 5, 'ville_id', 'Ville', 11, 0, 'Veuillez sélectionner une <span class=\'text-danger font-italic\'>Ville</span>.'],
+    [98, 16, 'nom', 'Nom', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Nom</span> doit contenir au moins 3 caractères.']
 ];
 foreach ($crudAttributs as $donnees) {
     $crudAttribut = new App\CrudAttribut([
@@ -324,7 +327,10 @@ $crudAttributInfos = [
     [96, 1, '1'],
     [96, 2, '1'],
     [97, 2, '6'],
-    [97, 3, '6']
+    [97, 3, '6'],
+    [98, 1, '1'],
+    [1, 5, '.{3,50}'],
+    [3, 5, '.{3,50}']
 ];
 foreach ($crudAttributInfos as $donnees) {
     $crudAttributInfo = new App\CrudAttributInfo([

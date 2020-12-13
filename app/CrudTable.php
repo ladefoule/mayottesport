@@ -181,7 +181,7 @@ class CrudTable extends Model
             // Si attribut_crud_table_id est renseigné, on récupère la liste complète des éléments de cette table référence
             if ($attributInfos['attribut_crud_table_id']) {
                 $tableReference = index('crud_tables')[$attributInfos['attribut_crud_table_id']]->nom;
-                $indexTableReference = index($tableReference);
+                $indexTableReference = indexCrud($tableReference);
                 // $modeleTableAttribut = 'App\\' . modelName($crudTableAttribut->nom); // ORM Eloquent
 
                 if ($action == 'show' && $valeurAttribut)
@@ -247,9 +247,9 @@ class CrudTable extends Model
             Cache::forget($key);
 
         if (Cache::has($key))
-            $index = Cache::get($key);
+            return Cache::get($key);
         else
-            $index = Cache::rememberForever($key, function () use($modele, $key){
+            return Cache::rememberForever($key, function () use($modele, $key){
                 Log::info('Rechargement du cache : ' . $key);
 
                 $liste = [];
@@ -263,18 +263,14 @@ class CrudTable extends Model
                         $collect->$key = $value;
 
                     // Tous les éléments auront un attribut nom même vide
+                    // Cet attribut ne doit pas utilisé des données d'une autre table
                     $collect->nom = $instance->nom ?? '';
-
-                    // On ajoute l'attribut crud_name qu'aux classes qui possèdent la méthode suivante
-                    if(method_exists($modele, 'getCrudNameAttribute'))
-                        $collect->crud_name = $instance->crud_name;
 
                     $liste[$id] = $collect;
                 }
 
                 return collect($liste);
             });
-        return $index;
     }
 
     /**
@@ -286,7 +282,7 @@ class CrudTable extends Model
     {
         $table = $this->nom;
         $tableSlug = Str::slug($table);
-        // $modele = 'App\\' . modelName($table);
+        $modele = 'App\\' . modelName($table);
 
         $key = "indexcrud-$tableSlug";
         if (!Config::get('constant.activer_cache'))
@@ -295,7 +291,7 @@ class CrudTable extends Model
         if (Cache::has($key))
             return Cache::get($key);
         else
-            return Cache::rememberForever($key, function () use($key){
+            return Cache::rememberForever($key, function () use($key, $modele){
                 Log::info('Rechargement du cache : ' . $key);
 
                 $table = $this->nom;
@@ -319,7 +315,7 @@ class CrudTable extends Model
                     if ($attributInfos['attribut_crud_table_id']){
                         $tableReference = index('crud_tables')[$attributInfos['attribut_crud_table_id']]->nom;
                         // $modeleReference = 'App\\' . modelName($tableReference);
-                        $listeTableAttribut[$i] = /* $modeleReference::all(); */index($tableReference);
+                        $listeTableAttribut[$i] = /* $modeleReference::all(); */indexCrud($tableReference);
                     }
 
                     $checkbox[$i] = false;
@@ -333,10 +329,13 @@ class CrudTable extends Model
                     $id = $instance->id;
                     $collect = collect();
 
-                    // $collect->nom = $instance->nom;
-                    // $collect->crud_name = $instance->crud_name;
+                    $collect->id = $id;
+                    $collect->nom = $instance->nom;
                     $collect->href_show = route('crud.show', ['table' => $tableSlug, 'id' => $id]);
                     $collect->href_update = route('crud.update', ['table' => $tableSlug, 'id' => $id]);
+                    // On ajoute l'attribut crud_name qu'aux classes qui possèdent la méthode suivante
+                    if(method_exists($modele, 'getCrudNameAttribute'))
+                        $collect->crud_name = $modele::findOrFail($id)->crud_name;
 
                     // On parcourt la liste des attributs à afficher et on récupère à chaque fois la valeur correspondante
                     // On les range dans le tableau $collect->afficher[] avec des index numériques

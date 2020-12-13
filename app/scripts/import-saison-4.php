@@ -1,5 +1,15 @@
 <?php
-$saisonId = 4;
+// On insère une saison de Coupe de Mayotte (football)
+$saison = App\Saison::create([
+    'annee_debut' => date('Y'),
+    'annee_fin' => date('Y'),
+    'nb_journees' => 2,
+    'competition_id' => 4,
+    'created_at' => now(),
+    'updated_at' => now()
+]);
+
+$saisonId = $saison->id;
 $heure = '18:00';
 
 $terrains = [

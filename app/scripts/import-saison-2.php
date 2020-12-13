@@ -1,5 +1,16 @@
 <?php
-$saisonId = 2;
+// On insère une saison de Régional 2 (football)
+$saison = App\Saison::create([
+    'annee_debut' => date('Y'),
+    'annee_fin' => date('Y')+1,
+    'nb_journees' => 22,
+    'bareme_id' => 1,
+    'competition_id' => 2,
+    'created_at' => now(),
+    'updated_at' => now()
+]);
+
+$saisonId = $saison->id;
 $heure = '18:30';
 
 $terrains = [

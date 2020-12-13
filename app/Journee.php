@@ -108,7 +108,7 @@ class Journee extends Model
     public function getCrudNameAttribute()
     {
         $journeeNom = 'J' . str_pad($this->numero, 2, "0", STR_PAD_LEFT);
-        return index('saisons')[$this->saison_id]->crud_name . ' - ' . $journeeNom;
+        return indexCrud('saisons')[$this->saison_id]->crud_name . ' - ' . $journeeNom;
     }
 
     /**

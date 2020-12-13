@@ -146,8 +146,8 @@ function refreshCachesLies(string $table){
         if(isset(config('constant.caches-lies')[$tableSlug]))
             refreshCachesLies($tableSlug);
 
-        Cache::forget('index-' . $tableSlug);
-        index(str_replace('-', '_', $tableSlug));
+        Cache::forget('indexcrud-' . $tableSlug);
+        indexCrud(str_replace('-', '_', $tableSlug));
         // CrudTable::where('nom', str_replace('-', '_', $tableSlug))->firstOrFail()->index();
     }
 }

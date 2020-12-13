@@ -30,14 +30,6 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
         ]);
 
-        Log::info("Seed de la saison 1");
-        require 'app/scripts/import-saison-1.php';
-        Log::info("Seed de la saison 2");
-        require 'app/scripts/import-saison-2.php';
-        Log::info("Seed de la saison 3");
-        require 'app/scripts/import-saison-3.php';
-        Log::info("Seed de la saison 4");
-        require 'app/scripts/import-saison-4.php';
         Log::info("Seed du CRUD");
         require 'app/scripts/gestion-crud-bdd.php';
 

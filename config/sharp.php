@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 return [
@@ -13,51 +14,45 @@ return [
     "display_sharp_version_in_title" => false,
 
     // Optional. Handle extensions.
-//    "extensions" => [
-//        "assets" => [
-//            "strategy" => "asset",
-//            "head" => [
-//                "/css/inject.css",
-//            ],
-//        ],
-//
-//        "activate_custom_fields" => false,
-//    ],
+    //    "extensions" => [
+    //        "assets" => [
+    //            "strategy" => "asset",
+    //            "head" => [
+    //                "/css/inject.css",
+    //            ],
+    //        ],
+    //
+    //        "activate_custom_fields" => false,
+    //    ],
 
     // Required. Your entities list; each one must define a "list",
     // and can define "form", "validator", "policy" and "authorizations".
     "entities" => [
-       "user" => [
-           "list" => \App\Sharp\UserSharpList::class,
-           "form" => \App\Sharp\UserSharpForm::class,
-        //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
-        //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
-       ],
-       "match" => [
+        "user" => [
+            "list" => \App\Sharp\UserSharpList::class,
+            "form" => \App\Sharp\UserSharpForm::class,
+            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
+            //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
+        ],
+        "match" => [
             "list" => \App\Sharp\MatchSharpList::class,
             "form" => \App\Sharp\MatchSharpForm::class,
-        //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
-        //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
+            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
+            //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
         ],
-       "crud" => [
-        //    "show" => \App\Sharp\ProfilSharpShow::class,
-        //    "form" => \App\Sharp\ProfilSharpForm::class,
-        //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
-           "policy" => \App\Sharp\Policies\CrudPolicy::class,
-       ],
     ],
 
     // Optional. Your dashboards list; each one must define a "view", and can define "policy".
     "dashboards" => [
-    //    "dash" => [
-            // "view" => \App\Sharp\DashAdmin::class,
-            // "policy" => \App\Sharp\Policies\DashAdminPolicy::class,
-    //    ],
+        //    "dash" => [
+        // "view" => \App\Sharp\DashAdmin::class,
+        // "policy" => \App\Sharp\Policies\DashAdminPolicy::class,
+        //    ],
     ],
 
     // Optional. Your global filters list, which will be displayed in the main menu.
     "global_filters" => [
-//        "my_global_filter" => \App\Sharp\Filters\MyGlobalFilter::class
+        //        "my_global_filter" => \App\Sharp\Filters\MyGlobalFilter::class
     ],
 
     // Required. The main menu (left bar), which may contain links to entities, dashboards
@@ -70,18 +65,23 @@ return [
         ],
         [
             "label" => "Matches",
-            "icon" => "fa-football",
+            "icon" => "fa-list",
             "entity" => "match",
         ],
         [
             "label" => "Les journées",
-            "icon" => "fa-user",
+            "icon" => "fa-calendar",
             "url" => "/admin/autres/journees/multi/select",
         ],
         [
             "label" => "CRUD",
             "icon" => "fa-database",
             "url" => '/admin/crud'
+        ],
+        [
+            "label" => "Accueil",
+            "icon" => "fa-home",
+            "url" => '/'
         ],
     ],
 
@@ -105,12 +105,12 @@ return [
         "display_attribute" => "name",
 
         // Optional additional auth check.
-    //    "check_handler" => \App\Sharp\Auth\SharpCheckHandler::class,
+        "check_handler" => \App\Sharp\Auth\SharpCheckHandler::class,
 
         // Optional custom guard
-    //    "guard" => "sharp",
+        //    "guard" => "web",
     ],
 
-//    "login_page_message_blade_path" => env("SHARP_LOGIN_PAGE_MESSAGE_BLADE_PATH", "sharp/_login-page-message"),
+    //    "login_page_message_blade_path" => env("SHARP_LOGIN_PAGE_MESSAGE_BLADE_PATH", "sharp/_login-page-message"),
 
 ];
