@@ -109,7 +109,7 @@ class EquipeController extends Controller
             'competitions' => $competitions,
             'derniereCompetition' => $derniereCompetition,
             'sport' => $sport,
-            'matches' => $matches,
+            'matches' => $matches->sortBy('date'),
             'dernierMatch' => $dernierMatchRender,
             'prochainMatch' => $prochainMatchRender,
         ]);

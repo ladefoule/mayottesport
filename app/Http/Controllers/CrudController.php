@@ -161,7 +161,7 @@ class CrudController extends Controller
         // Todo : Erreur lors de la création d'un élément de la table equipe_saison, impossible de récupérer l'id car table pivot ?
         // dd($instance);
 
-        forgetCaches($crudTable->nom, $instance->id);
+        forgetCaches($crudTable->nom, $instance);
         ProcessCrudTable::dispatch($crudTable->nom, $instance->id);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $instance->id]);
     }
@@ -216,7 +216,7 @@ class CrudController extends Controller
         $request = Validator::make($request->all(), $rules, $messages)->validate();
         $instance->update($request);
 
-        forgetCaches($crudTable->nom, $instance->id);
+        forgetCaches($crudTable->nom, $instance);
         ProcessCrudTable::dispatch($crudTable->nom, $id);
         return redirect()->route('crud.show', ['table' => $table, 'id' => $id]);
     }
@@ -234,7 +234,7 @@ class CrudController extends Controller
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
-        forgetCaches($crudTable->nom, $instance->id);
+        forgetCaches($crudTable->nom, $instance);
         $instance->delete();
         Log::info("Suppression de l'id $id dans la table $crudTable->nom");
 
@@ -264,7 +264,7 @@ class CrudController extends Controller
 
         $request = $validator->validate();
         foreach ($request['ids'] as $id)
-            forgetCaches($crudTable->nom, $id);
+            forgetCaches($crudTable->nom, $modele::findOrFail($id));
         $modele::destroy($request['ids']);
     }
 }

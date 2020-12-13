@@ -190,7 +190,7 @@ class MatchController extends Controller
     private static function forgetCaches(Match $match)
     {
         Log::info(" -------- Controller Match : forgetCaches -------- ");
-        forgetCaches('matches', $match->id);
+        forgetCaches('matches', $match);
         ProcessCrudTable::dispatch('matches', $match->id);
     }
 }

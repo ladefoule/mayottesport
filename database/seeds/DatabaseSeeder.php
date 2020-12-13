@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SportTableSeeder::class,
+            VilleTableSeeder::class,
+            TerrainTableSeeder::class,
+            EquipeTableSeeder::class,
             CompetitionTableSeeder::class,
             BaremeTableSeeder::class,
             SaisonTableSeeder::class,
             JourneeTableSeeder::class,
-            VilleTableSeeder::class,
-            TerrainTableSeeder::class,
-            EquipeTableSeeder::class,
             RoleTableSeeder::class,
             RegionTableSeeder::class,
             // UserSeeder::class,

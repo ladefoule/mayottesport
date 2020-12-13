@@ -13,6 +13,7 @@ use App\Journee;
 use App\CrudTable;
 use App\EquipeSaison;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
@@ -84,28 +85,31 @@ function fanion($equipeId)
      * Suppression des caches
      *
      * @param string $table - en camel_case
-     * @param int $id
+     * @param object $instance
      * @return void
      */
-    function forgetCaches(string $table, int $id)
+    function forgetCaches(string $table, object $instance)
     {
     Log::info(" -------- Controller Crud : forgetCaches -------- ");
 
     // On supprime le cache index de la table
-    Cache::forget('index-' . Str::slug($table));
-    Cache::forget('indexcrud-' . Str::slug($table));
+    $tableSlug = Str::slug($table);
+    Cache::forget('index-' . $tableSlug);
+    Cache::forget('indexcrud-' . $tableSlug);
 
     // On supprime les caches directement liés au match, à la journée ou à la saison
     if(in_array($table, ['matches', 'journees', 'saisons'])){
         if($table == 'matches'){
-            $match = Match::findOrFail($id);
+            // $match = Match::findOrFail($id);
+            $match = $instance;
             $journee = $match->journee;
             $saison = $journee->saison;
         }else if($table == 'journees'){
-            $journee = Journee::findOrFail($id);
+            // $journee = Journee::findOrFail($id);
+            $journee = $instance;
             $saison = $journee->saison;
         }else
-            $saison = Saison::findOrFail($id);
+            $saison = $instance;
 
         if(isset($match))
             Cache::forget("match-" . $match->uniqid);
@@ -118,16 +122,25 @@ function fanion($equipeId)
 
     // Suppression de tous les caches saisons liés au barème
     }else if($table == 'baremes'){
-        $bareme = Bareme::findOrFail($id);
+        // $bareme = Bareme::findOrFail($id);
+        $bareme = $instance;
         $saisons = $bareme->saisons;
         foreach ($saisons as $saisonTemp)
             Cache::forget("saison-".$saisonTemp->id);
 
     // On supprime les caches des attributs visibles si on a effectuer une action sur les tables CRUD
     }else if(in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])){
-        Cache::forget("attributs-visibles-$table-index");
-        Cache::forget("attributs-visibles-$table-create");
-        Cache::forget("attributs-visibles-$table-show");
+        if($table == 'crud_attribut_infos')
+            $crudTableCible = $instance->crudAttribut->crudTable->nom;
+        else if($table == 'crud_attributs')
+            $crudTableCible = $instance->crudTable->nom;
+        else
+            $crudTableCible = $instance->nom;
+
+        $crudTableCibleSlug = Str::slug($crudTableCible);
+        Cache::forget("attributs-visibles-$crudTableCibleSlug-index");
+        Cache::forget("attributs-visibles-$crudTableCibleSlug-create");
+        Cache::forget("attributs-visibles-$crudTableCibleSlug-show");
     }
 }
 
@@ -338,16 +351,20 @@ function genererCalendrier($donnees)
         $journeeNumero = $i+1;
         /* ALLER */
         $journeeAller = Journee::firstWhere(['numero' => $journeeNumero, 'saison_id' => $saisonId]);
-        if(! $journeeAller) // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
-            $journeeAller = Journee::create(['numero' => $journeeNumero, 'date' => date('Y-m-d'), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
+        if(! $journeeAller){ // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
+            $date = new Carbon(date('Y-m-d'));
+            $journeeAller = Journee::create(['numero' => $journeeNumero, 'date' => $date->addWeeks($i), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
+        }
 
         // Si le tableau de correspondance est précisé alors on l'applique, sinon on applique une diff aller retour unique pour tous les matches
         $diffAllerRetour = $correspondanceAllerRetour[$journeeNumero] ?? $diffAllerRetour;
 
         /* RETOUR */
         $journeeRetour = Journee::firstWhere(['numero' => $journeeNumero + $diffAllerRetour, 'saison_id' => $saisonId]);
-        if(! $journeeRetour) // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
-            $journeeRetour = Journee::create(['numero' => $journeeNumero + $diffAllerRetour, 'date' => date('Y-m-d'), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
+        if(! $journeeRetour){ // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
+            $date = new Carbon(date('Y-m-d'));
+            $journeeRetour = Journee::create(['numero' => $journeeNumero + $diffAllerRetour, 'date' => $date->addWeeks($i + $diffAllerRetour), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
+        }
 
         foreach ($matchesMemeJournee as $rencontre) {
             $equipeDomId = $rencontre[0];

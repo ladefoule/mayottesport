@@ -125,7 +125,7 @@ class JourneesMultiplesController extends Controller
                 }else{
                     $journee = Journee::findOrFail($journeeId);
                     $id = $journee->id;
-                    forgetCaches('journees', $id);
+                    forgetCaches('journees', $journee);
 
                     $journeeDelete = $request->has('delete' . $i);
                     if($journeeDelete) // Si la checkbox de suppression a été cochée alors on supprime la Journée
