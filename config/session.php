@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'encrypt' => false,
+    'encrypt' => true, // defaut false
 
     /*
     |--------------------------------------------------------------------------
@@ -126,7 +126,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+        '__SECURE-' . Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
     ),
 
     /*
@@ -194,6 +194,6 @@ return [
     |
     */
 
-    'same_site' => null,
+    'same_site' => 'strict', // defaut : none
 
 ];
