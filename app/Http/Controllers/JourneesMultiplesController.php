@@ -83,7 +83,7 @@ class JourneesMultiplesController extends Controller
     public function editPost(Request $request, $saisonId)
     {
         Log::info(" -------- Controller JourneesMultiples : editPost -------- ");
-        // Todo : fire une validation du tbleau reçu
+        // Todo : fire une validation du tableau reçu
         $nbJournees = Saison::findOrFail($saisonId)->nb_journees;
 
         // On supprime le cache index de la table
@@ -100,6 +100,7 @@ class JourneesMultiplesController extends Controller
                 $unique = Rule::unique('journees', 'numero')->where(function ($query) use ($numero, $saisonId) {
                     return $query->whereNumero($numero)->whereSaisonId($saisonId);
                 })->ignore($journee);
+
                 $rules = [
                     'date' . $i => 'required|date',
                     'numero' . $i => ["required","integer","min:1","max:$nbJournees", $unique],
@@ -109,7 +110,7 @@ class JourneesMultiplesController extends Controller
                     'numero'.$i => $numero,
                     'date'.$i => $date
                 ];
-                // dd($rules);
+
                 Validator::make($donnees, $rules)->validate();
                 $donnees = [
                     'numero' => $numero,
@@ -138,7 +139,6 @@ class JourneesMultiplesController extends Controller
             }
         }
 
-        // Cache::forget('index-journees');
         return redirect()->route('journees.multi.show', ['id' => $saisonId]);
     }
 

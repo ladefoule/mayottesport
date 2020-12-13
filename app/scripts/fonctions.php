@@ -141,6 +141,7 @@ function fanion($equipeId)
         Cache::forget("attributs-visibles-$crudTableCibleSlug-index");
         Cache::forget("attributs-visibles-$crudTableCibleSlug-create");
         Cache::forget("attributs-visibles-$crudTableCibleSlug-show");
+        Cache::forget('indexcrud-' . $crudTableCibleSlug);
     }
 }
 

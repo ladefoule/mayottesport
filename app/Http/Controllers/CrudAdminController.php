@@ -50,12 +50,8 @@ class CrudAdminController extends Controller
 
         $crudTables = CrudTable::all();
         foreach ($crudTables as $crudTable) {
-            $request[$crudTable->id] = $request->has($crudTable->id);
-            if($request[$crudTable->id])
-                if(! in_array($crudTable->nom, config('constant.tables-non-crudables'))) // Ces tables ne sont pas administrables
-                    $crudTable->update(['crudable' => 1]);
-            else
-                $crudTable->update(['crudable' => 0]);
+            $crudable = $request->has($crudTable->id);
+            $crudTable->update(['crudable' => $crudable]);
         }
 
         Cache::forget("crud-navbar-tables");

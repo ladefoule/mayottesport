@@ -69,7 +69,6 @@ class EquipeController extends Controller
 
         // On récupère la liste des compétitions à partir de la liste des saisons
         $competitions = collect();
-
         foreach ($saisons as $id => $saisonId){
             $saison = index('saisons')[$saisonId];
             $competitions[] = index('competitions')[$saison->competition_id];
@@ -78,22 +77,22 @@ class EquipeController extends Controller
 
         // On filtre la collection pour garder que des résultats distincts
         $competitions = $competitions->unique();
-        $saisons = $saisons->sortBy('annee_debut');
+
+        // Filtrage de la saison par année
+        $saisons = $saisons->sortByDesc('annee_debut');
 
         $derniereSaison = $derniereCompetition = '';
         if(count($saisons) > 0){
-            // On affiche en priorité la dernière saison de championnat
-            $derniereSaison = $saisons->filter(function ($saison, $key) {
-                $competition = index('competitions')[$saison->competition_id];
-                return $saison->finie . ' - ' . $competition->type;
-            })->first();
+            // On sélectionne la saison la plus récente non finie
+            $derniereSaison = $saisons->sortBy('finie')->first();
 
+            // On récupère la compétition de la dernière saison
             $derniereCompetition = index('competitions')[$derniereSaison->competition_id];
 
             // On affiche les saisons de la compétition sélectionnée dans le 2ème select
-            $saisons = $saisons->where('competition_id', $derniereCompetition->id);
+            $saisons = $saisons->where('competition_id', $derniereCompetition->id)->sortByDesc('annee_debut');
 
-            // On récupère tous les matches de la saisons
+            // On récupère tous les matches de la saison
             $journees = index('journees')->where('saison_id', $derniereSaison->id)->pluck('id');
             $matches = $matches->whereIn('journee_id', $journees);
             foreach ($matches as $id => $match)

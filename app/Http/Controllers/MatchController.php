@@ -27,7 +27,7 @@ class MatchController extends Controller
     public function __construct()
     {
         Log::info(" -------- Controller Match : __construct -------- ");
-        $this->middleware(['sport', 'competition', 'match-uniqid'])->except('forgetCaches');
+        $this->middleware(['sport', 'competition', 'match-uniqid']);
     }
 
     /**
@@ -119,7 +119,8 @@ class MatchController extends Controller
                 'note' => $note,
             ]);
 
-            $this::forgetCaches($match);
+            forgetCaches('matches', $match);
+            ProcessCrudTable::dispatch('matches', $match->id);
         }
 
         $urlMatch = $match->infos()['href_match'];
@@ -174,23 +175,11 @@ class MatchController extends Controller
                 'note' => "Modification de l'horaire du match.",
             ]);
 
-            $this::forgetCaches($match);
+            forgetCaches('matches', $match);
+            ProcessCrudTable::dispatch('matches', $match->id);
         }
 
         $urlMatch = $match->infos()['href_match'];
         return redirect($urlMatch);
-    }
-
-    /**
-     * Suppression et rechargement des caches liés au match
-     *
-     * @param  Match $match
-     * @return void
-     */
-    private static function forgetCaches(Match $match)
-    {
-        Log::info(" -------- Controller Match : forgetCaches -------- ");
-        forgetCaches('matches', $match);
-        ProcessCrudTable::dispatch('matches', $match->id);
     }
 }

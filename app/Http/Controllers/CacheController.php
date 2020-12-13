@@ -78,6 +78,7 @@ class CacheController extends Controller
             $crudTableCible->listeAttributsVisibles();
             $crudTableCible->listeAttributsVisibles('create');
             $crudTableCible->listeAttributsVisibles('show');
+            $crudTableCible->indexCrud();
         }
 
         $crudTable->index();

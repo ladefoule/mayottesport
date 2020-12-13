@@ -34,7 +34,7 @@ class Saison extends Model
             return $query->whereAnneeDebut(request()['annee_debut'])->whereCompetitionId(request()['competition_id']);
         })->ignore($saison);
 
-        request()->finie = request()->has('finie');
+        request()['finie'] = request()->has('finie');
         $rules = [
             'annee_debut' => ['required','integer','min:2000','max:3000',$unique],
             'annee_fin' => 'required|integer|min:2000|max:3000|gte:annee_debut',
