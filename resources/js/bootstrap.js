@@ -11,6 +11,9 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require( 'datatables.net' )(window.$);
+    // require('../../public/js/select2.min')
+    // require( "select2" )(window.$);
 } catch (e) {}
 
 /**

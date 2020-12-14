@@ -52,7 +52,7 @@
 <!-- Footer -->
 
 <script src="{{ config('app.url') }}{{ mix('js/app.js') }}"></script>
-{{-- <script src="{{ config('app.url') }}/js/select2.min.js"></script> --}}
+<script src="{{ config('app.url') }}/js/select2.min.js"></script>
 <script src="{{ config('app.url') }}/js/outils.js"></script>
 <script>
 $(document).ready(function(){
