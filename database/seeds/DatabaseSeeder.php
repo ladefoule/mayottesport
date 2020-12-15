@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             CompetitionTableSeeder::class,
             BaremeTableSeeder::class,
             SaisonTableSeeder::class,
-            JourneeTableSeeder::class,
+            // JourneeTableSeeder::class,
             RoleTableSeeder::class,
             RegionTableSeeder::class,
             // UserSeeder::class,

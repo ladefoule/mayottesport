@@ -85,7 +85,7 @@
                         <label for="password" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Mot de passe</label>
 
                         <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="01010101" pattern=".{8,50}" data-msg="Le champ <span class='text-danger font-italic'>Mot de passe</span> doit comporter entre 8 et 50 caractères." name="password" required autocomplete="new-password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="00000000" pattern=".{8,50}" data-msg="Le champ <span class='text-danger font-italic'>Mot de passe</span> doit comporter entre 8 et 50 caractères." name="password" required autocomplete="new-password">
 
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -99,7 +99,7 @@
                         <label for="password-confirm" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Confirmation</label>
 
                         <div class="col-md-6">
-                            <input id="password-confirm" type="password" class="form-control" pattern=".{8,50}" data-msg="Le champ <span class='text-danger font-italic'>Confirmation</span> doit être identique au mot de passe." name="password_confirmation" value="01010101" required autocomplete="new-password">
+                            <input id="password-confirm" type="password" class="form-control" pattern=".{8,50}" data-msg="Le champ <span class='text-danger font-italic'>Confirmation</span> doit être identique au mot de passe." name="password_confirmation" value="00000000" required autocomplete="new-password">
                         </div>
                     </div>
 

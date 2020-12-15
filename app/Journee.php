@@ -7,6 +7,7 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
@@ -31,8 +32,8 @@ class Journee extends Model
      */
     public static function rules(Journee $journee = null)
     {
-        $numero = request()->numero ?? '';
-        $saisonId = request()->saison_id ?? '';
+        $numero = request()['numero'] ?? '';
+        $saisonId = request()['saison_id'] ?? '';
         $saison = Saison::find($saisonId);
 
         // Si $saison == null, la validation ne passera pas à cause de la règle 'saison_id' qui doit exister dans la base
@@ -47,7 +48,7 @@ class Journee extends Model
             'saison_id' => 'required|exists:saisons,id',
             'numero' => ['required','integer',"max:$nbJournees",'min:1',$unique]
         ];
-        $messages = ['numero.unique' => "Ce numéro de journée, associé à cette saison, existe déjà."];
+        $messages = ['numero.unique' => "Cette journée existe déjà dans cette saison."];
         return ['rules' => $rules, 'messages' => $messages];
     }
 
@@ -88,19 +89,6 @@ class Journee extends Model
     }
 
     /**
-     * Affiche le résultat du calendrier de la journée envoyé à la view 'football.calendrier-journee'
-     */
-    // public function journeeRender()
-    // {
-    //     $dateJournee = date('d/m/Y', strtotime($this->date));
-    //     $journee = niemeJournee($this->numero) . ' : ' . $dateJournee;
-    //     return view('competition.journee', [
-    //         'matches' => $this->matchesInfos(),
-    //         'journee' => $journee
-    //     ])->render();
-    // }
-
-    /**
      * Définition de l'affichage dans le CRUD
      *
      * @return string
@@ -116,11 +104,7 @@ class Journee extends Model
      */
     public function getNomAttribute()
     {
-        // $saison = index('saisons')[$this->saison_id]->nom;
-        // dd($saison);
         return niemeJournee($this->numero);
-        // $journee = str_pad($this->numero, 2, "0", STR_PAD_LEFT);
-        // return 'J' . $journee;
     }
 
     /**
@@ -137,8 +121,8 @@ class Journee extends Model
         $competition = $saison->competition;
         $sport = $competition->sport;
         return route('competition.calendrier-resultats', [
-            'sport' => \Str::slug($sport->nom),
-            'competition' => \Str::slug($competition->nom),
+            'sport' => Str::slug($sport->nom),
+            'competition' => Str::slug($competition->nom),
             'journee' => $this->numero
         ]);
     }

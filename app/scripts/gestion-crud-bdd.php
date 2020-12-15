@@ -113,7 +113,8 @@ $crudAttributs = [
     [95, 1, 'home_position', 'Position page d\'accueil', NULL, 1, 'Le champ <span class=\'text-danger font-italic\'>Position (accueil)</span> doit être supérieur à 0'],
     [96, 13, 'uniqid', 'Uniqid', NULL, 0, NULL],
     [97, 5, 'ville_id', 'Ville', 11, 0, 'Veuillez sélectionner une <span class=\'text-danger font-italic\'>Ville</span>.'],
-    [98, 16, 'nom', 'Nom', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Nom</span> doit contenir au moins 3 caractères.']
+    [98, 16, 'nom', 'Nom', NULL, 0, 'Le champ <span class=\'text-danger font-italic\'>Nom</span> doit contenir au moins 3 caractères.'],
+    [99, 6, 'finie', 'Terminée', NULL, 1, NULL]
 ];
 foreach ($crudAttributs as $donnees) {
     $crudAttribut = new App\CrudAttribut([
@@ -330,7 +331,11 @@ $crudAttributInfos = [
     [97, 3, '6'],
     [98, 1, '1'],
     [1, 5, '.{3,50}'],
-    [3, 5, '.{3,50}']
+    [3, 5, '.{3,50}'],
+    [99, 2, '6'],
+    [99, 3, '6'],
+    [99, 4, 'checkbox'],
+    [99, 1, '3']
 ];
 foreach ($crudAttributInfos as $donnees) {
     $crudAttributInfo = new App\CrudAttributInfo([

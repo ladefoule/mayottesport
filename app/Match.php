@@ -103,26 +103,6 @@ class Match extends Model
     }
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
-     *
-     * @return string
-     */
-    public function getNomAttribute()
-    {
-        return index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
-    }
-
-    /**
-     * Définition de l'affichage dans le CRUD (back-office)
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return $this->uniqid . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
-    }
-
-    /**
      * Les informations du match dont ont besoin les views match/resultat et horaire
      *
      * @return \Illuminate\Support\Collection
@@ -223,26 +203,14 @@ class Match extends Model
     }
 
     /**
-     * L'url du match
+     * Définition de l'affichage dans le CRUD (back-office)
      *
-     * @return void
+     * @return string
      */
-    // public function url()
-    // {
-    //     $equipeDom = index('equipes')[$this->equipe_id_dom];
-    //     $equipeExt = index('equipes')[$this->equipe_id_ext];
-    //     $equipeDomKebabCase = Str::slug($equipeDom->nom);
-    //     $equipeExtKebabCase = Str::slug($equipeExt->nom);
-    //     $journee = index('journees')[$this->journee_id];
-    //     $saison = index('saisons')[$journee->saison_id];
-    //     $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '-' .$saison->annee_fin;
-    //     $competition = index('competitions')[$saison->competition_id];
-    //     $sport = index('sports')[$competition->sport_id];
-    //     $sportKebabCase = Str::slug($sport->nom);
-    //     $competitionKebabCase = Str::slug($competition->nom);
-
-    //     return config('app.url') . "/$sportKebabCase/$competitionKebabCase/$annee/match-" . $equipeDomKebabCase ."_". $equipeExtKebabCase ."_" . $this->uniqid .".html";
-    // }
+    public function getCrudNameAttribute()
+    {
+        return $this->uniqid . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
+    }
 
     /**
      * Affiche le score si renseigné, sinon affiche l'heure du match sinon affiche la date

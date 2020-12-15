@@ -263,7 +263,7 @@ class CrudTable extends Model
                         $collect->$key = $value;
 
                     // Tous les éléments auront un attribut nom même vide
-                    // Cet attribut ne doit pas utilisé des données d'une autre table
+                    // Cet attribut ne doit pas utilisé des données d'une autre table pour éviter un temps de chargement trop long de la liste
                     $collect->nom = $instance->nom ?? '';
 
                     $liste[$id] = $collect;
@@ -342,7 +342,7 @@ class CrudTable extends Model
                     $afficher = [];
                     for ($i = 0; $i < $nbAttributs; $i++) {
                         $attr = $attribut[$i];
-                        $contenu = $instance->$attr;
+                        $contenu = ($attr == 'crud_name') ? $collect->crud_name : $instance->$attr;
 
                         // Si l'attribut attribut_crud_table_id est renseigné, il faut donc récupérer
                         // le 'crud_name' de cette foreign key grace à son modele (info présente dans la table gestion_tables)

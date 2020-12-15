@@ -21,9 +21,10 @@ class CrudAdminController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tables()
+    public function tables(Request $request)
     {
         $crudTables = CrudTable::orderBy('nom')->get();
+        $request->layout = 'crud-superadmin';
         return view('admin.crud-superadmin.tables', ['crudTables' => $crudTables]);
     }
 

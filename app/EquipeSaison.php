@@ -31,10 +31,8 @@ class EquipeSaison extends Pivot
      */
     public static function rules(EquipeSaison $equipeSaison = null)
     {
-        $equipeId = request()->equipe_id ?? '';
-        $saisonId = request()->saison_id ?? '';
-        $unique = Rule::unique('equipe_saison')->where(function ($query) use ($equipeId, $saisonId) {
-            return $query->whereEquipeId($equipeId)->whereSaisonId($saisonId);
+        $unique = Rule::unique('equipe_saison')->where(function ($query) {
+            return $query->whereEquipeId(request()['equipe_id'] ?? '')->whereSaisonId(request()['saison_id'] ?? '');
         })->ignore($equipeSaison);
 
         $rules =[
@@ -51,7 +49,7 @@ class EquipeSaison extends Pivot
      */
     public function getCrudNameAttribute()
     {
-        return index('saisons')[$this->saison_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id]->nom;
+        return indexCrud('saisons')[$this->saison_id]->crud_name . ' - ' . index('equipes')[$this->equipe_id]->nom;
     }
 
     /**
