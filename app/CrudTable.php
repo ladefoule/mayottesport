@@ -303,8 +303,10 @@ class CrudTable extends Model
                 $liste = [];
 
                 $listeAttributsVisibles = $this->listeAttributsVisibles();
+
+                // Si on a pas d'attributs visibles à afficher, alors on renvoie la liste classique
                 if ($listeAttributsVisibles == false)
-                    return [];
+                    return $listeComplete;
 
                 $i = 0;
                 foreach($listeAttributsVisibles as $attributInfos){

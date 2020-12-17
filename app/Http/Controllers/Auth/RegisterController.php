@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Cache;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -67,6 +68,9 @@ class RegisterController extends Controller
         Log::info("L'email : "  . $data['email']);
         // On génère automatiquement un pseudo à partir de l'email
         $pseudo = explode('@', $data['email'])[0] . rand(0, 1000);
+
+        Cache::forget('index-users');
+        Cache::forget('indexcrud-users');
         return User::create([
             'name' => $data['name'],
             'first_name' => $data['first_name'],
