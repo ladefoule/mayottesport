@@ -6,7 +6,10 @@
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
        <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} CrudTables - Tables "crudables"</span>
-       <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">{!! config('constant.boutons.retour') !!} retour</a>
+       <button class="btn-sm btn-danger" id="vider-cache">
+        {!! \Config::get('constant.boutons.supprimer') !!}
+        <span class="d-none d-md-inline">Vider le cache</span>
+    </button>
     </div>
 
     <div class="card-body px-3">
@@ -38,9 +41,16 @@
 @section('script')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    $('#formulaire select').select2();
-
     toutCocherDecocher('formulaire')
+
+    $('#vider-cache').on('click', function () {
+        let _token = qs('input[name=_token]').value
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo route('cache-flush') ?>",
+            data: {_token}
+        });
+    })
 })
 </script>
 @endsection

@@ -29,6 +29,20 @@ class CrudAdminController extends Controller
     }
 
     /**
+     * Suppression de tout le cache
+     *
+     * @return void
+     */
+    public function cacheFlush(Request $request)
+    {
+        if(Auth::user()->role->niveau < 40)
+            abort(404);
+
+        Cache::flush();
+        Log::info('Suppression de tout le cache !');
+    }
+
+    /**
      * Mise à jour du choix sur les tables 'crudables'
      *
      * @param Request $request
@@ -42,11 +56,20 @@ class CrudAdminController extends Controller
             Log::info('Demande faite par : ' . Auth::user()->email);
             $tables = DB::select('SHOW TABLES');
             $tables = array_map('current', $tables);
+
             foreach ($tables as $table) {
                 $crudTable = CrudTable::firstWhere('nom', $table);
                 if($crudTable == null)
                     CrudTable::create(['nom' => $table]);
             }
+
+            $crudTables = CrudTable::all();
+            foreach ($crudTables as $crudTable) {
+                // Si la table n'existe plus dans la base de données, on la supprime de crud_tables
+                if(! in_array($crudTable->nom, $tables))
+                    $crudTable->delete();
+            }
+
         }
 
         $crudTables = CrudTable::all();

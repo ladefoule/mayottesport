@@ -24,7 +24,7 @@
                 <label for="name" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Nom</label>
 
                 <div class="col-md-6">
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" pattern=".{3,50}" data-msg="Le <span class='text-danger font-italic'>Nom</span> doit contenir plus de 3 caractères." name="name"  value="ALI MOUSSA" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" pattern=".{3,50}" data-msg="Le <span class='text-danger font-italic'>Nom</span> doit contenir plus de 3 caractères." name="name"  value="{{ old('name') ?? $user->name }}" required autocomplete="name" autofocus>
 
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -38,7 +38,7 @@
                 <label for="first_name" class="col-md-4 col-form-label text-md-right">Prénom</label>
 
                 <div class="col-md-6">
-                    <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror input-optionnel" pattern="\0|.{3,50}" data-msg="Le <span class='text-danger font-italic'>Prénom</span> doit comporter plus de 3 caractères." name="first_name" value="Moussa" value="{{ old('first_name') }}" autocomplete="first_name" autofocus>
+                    <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror input-optionnel" pattern="\0|.{3,50}" data-msg="Le <span class='text-danger font-italic'>Prénom</span> doit comporter plus de 3 caractères." name="first_name" value="{{ old('first_name') ?? $user->first_name }}" autocomplete="first_name" autofocus>
 
                     @error('first_name')
                         <span class="invalid-feedback" role="alert">
@@ -52,7 +52,7 @@
                 <label for="pseudo" class="col-md-4 col-form-label text-md-right">Pseudo</label>
 
                 <div class="col-md-6">
-                    <input id="pseudo" type="text" class="form-control @error('pseudo') is-invalid @enderror input-optionnel" pattern="\0|.{3,50}" data-msg="Le <span class='text-danger font-italic'>Pseudo</span> doit comporter au moins 3 caractères." name="pseudo" value="Moussa" value="{{ old('pseudo') }}" autocomplete="pseudo" autofocus>
+                    <input id="pseudo" type="text" class="form-control @error('pseudo') is-invalid @enderror input-optionnel" pattern="\0|.{3,50}" data-msg="Le <span class='text-danger font-italic'>Pseudo</span> doit comporter au moins 3 caractères." name="pseudo" value="{{ old('pseudo') ?? $user->pseudo }}" autocomplete="pseudo" autofocus>
 
                     @error('pseudo')
                         <span class="invalid-feedback" role="alert">

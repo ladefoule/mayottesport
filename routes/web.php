@@ -79,6 +79,8 @@ Route::group(['middleware'=> 'verified'], function () {
                 // Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-superadmin.attributs.ajax');
                 // Route::get('/parametres', 'CrudAdminController@parametres')->name('crud-superadmin.parametres');
 
+                Route::post('/cache-flush', 'CrudAdminController@cacheFlush')->name('cache-flush');
+
                 /* ----- DEBUT ROUTES PDF PARSER ----- */
                 Route::get('/pdfparser', 'PdfParserController@get')->name('pdfParser');
                 Route::post('/pdfparser', 'PdfParserController@post');

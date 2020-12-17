@@ -30,8 +30,8 @@ $crudTables = [
     [32, 'match_infos', 1, 'match_id'],
     [34, 'equipe_saison', 1, 'saison_id'],
     [39, 'jobs', NULL, NULL],
-    [40, 'champions', NULL, NULL],
-    [41, 'commentaires', NULL, NULL]
+    // [40, 'champions', NULL, NULL],
+    // [41, 'commentaires', NULL, NULL]
 ];
 foreach ($crudTables as $donnees) {
     $crudTable = new App\CrudTable([
