@@ -22,7 +22,12 @@
                 </a>
                 @if(in_array(index('roles')[Auth::user()->role_id]->nom, ['admin', 'superadmin']))
                     <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
-                        Administration
+                        Admin{{-- istration --}} (sharp)
+                    </a>
+                @endif
+                @if(in_array(index('roles')[Auth::user()->role_id]->nom, ['admin', 'superadmin']))
+                    <a class="dropdown-item" href="{{ route('crud') }}">
+                        Le Crud
                     </a>
                 @endif
                 <a class="dropdown-item" href="{{ route('logout') }}"
