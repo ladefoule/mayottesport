@@ -165,6 +165,11 @@ class CrudTable extends Model
     {
         if ($id != 0) {
             // $modele = 'App\\' . modelName($this['nom']);
+
+            // Si l'id n'existe pas
+            if(! isset(index($this->nom)[$id]))
+                abort(404);
+
             $instance = index($this->nom)[$id];
         }
         $listeAttributsVisibles = $this->listeAttributsVisibles($action);
