@@ -44,6 +44,7 @@
                                     <li><a href="../namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
                                     <li><a href="../namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
                                     <li><a href="../namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
+                                    <li><a href="../namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
                             </ul>
             
     
@@ -69,7 +70,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">10</span>
+            <span class="phpdocumentor-element-found-in__line">16</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -94,16 +95,6 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
                     <td class="phpdocumentor-cell">array</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/App-Match.html#method_getNomAttribute">getNomAttribute()</a></th>
-                    <td class="phpdocumentor-cell">Définition de l&#039;affichage dans le CRUD (back-office)</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/App-Match.html#method_getCrudNameAttribute">getCrudNameAttribute()</a></th>
-                    <td class="phpdocumentor-cell">Définition de l&#039;affichage dans le CRUD (back-office)</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/App-Match.html#method_infos">infos()</a></th>
                     <td class="phpdocumentor-cell">Les informations du match dont ont besoin les views match/resultat et horaire</td>
                     <td class="phpdocumentor-cell"><abbr title="\Illuminate\Support\Collection">Collection</abbr></td>
@@ -112,6 +103,11 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
                     <th class="phpdocumentor-heading"><a href="../classes/App-Match.html#method_matchRender">matchRender()</a></th>
                     <td class="phpdocumentor-cell">Undocumented function</td>
                     <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/App-Match.html#method_getCrudNameAttribute">getCrudNameAttribute()</a></th>
+                    <td class="phpdocumentor-cell">Définition de l&#039;affichage dans le CRUD (back-office)</td>
+                    <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/App-Match.html#method_score">score()</a></th>
@@ -169,7 +165,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">17</span>
+        <span class="phpdocumentor-element-found-in__line">23</span>
     </aside>
             <p class="phpdocumentor-summary">Champs autorisés lors de la création</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -193,7 +189,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">27</span>
+        <span class="phpdocumentor-element-found-in__line">33</span>
     </aside>
         <p class="phpdocumentor-summary">La fonction nous renvoie le résultat du matchpar rapport à l&#039;équipe $equipeId
 Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne correspond pas aux équipes</p>
@@ -232,7 +228,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">68</span>
+        <span class="phpdocumentor-element-found-in__line">74</span>
     </aside>
         <p class="phpdocumentor-summary">Les règles de validations</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -261,62 +257,6 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
         <span class="phpdocumentor-signature__response_type">array</span>
             
 </article>
-                                    <a id="method_getNomAttribute"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getNomAttribute()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">104</span>
-    </aside>
-        <p class="phpdocumentor-summary">Définition de l&#039;affichage dans le CRUD (back-office)</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getNomAttribute</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_getCrudNameAttribute"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getCrudNameAttribute()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">114</span>
-    </aside>
-        <p class="phpdocumentor-summary">Définition de l&#039;affichage dans le CRUD (back-office)</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getCrudNameAttribute</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
                                     <a id="method_infos"></a>
 <article
         class="
@@ -328,7 +268,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">124</span>
+        <span class="phpdocumentor-element-found-in__line">110</span>
     </aside>
         <p class="phpdocumentor-summary">Les informations du match dont ont besoin les views match/resultat et horaire</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -356,7 +296,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">209</span>
+        <span class="phpdocumentor-element-found-in__line">195</span>
     </aside>
         <p class="phpdocumentor-summary">Undocumented function</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -392,6 +332,34 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
         
     
 </article>
+                                    <a id="method_getCrudNameAttribute"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getCrudNameAttribute()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">210</span>
+    </aside>
+        <p class="phpdocumentor-summary">Définition de l&#039;affichage dans le CRUD (back-office)</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getCrudNameAttribute</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
                                     <a id="method_score"></a>
 <article
         class="
@@ -403,7 +371,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">246</span>
+        <span class="phpdocumentor-element-found-in__line">220</span>
     </aside>
         <p class="phpdocumentor-summary">Affiche le score si renseigné, sinon affiche l&#039;heure du match sinon affiche la date</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -431,7 +399,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">265</span>
+        <span class="phpdocumentor-element-found-in__line">239</span>
     </aside>
         <p class="phpdocumentor-summary">Retourne la date au format demandé.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -471,7 +439,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">278</span>
+        <span class="phpdocumentor-element-found-in__line">252</span>
     </aside>
         <p class="phpdocumentor-summary">Les infos supplémentaires liées au match</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -499,7 +467,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">288</span>
+        <span class="phpdocumentor-element-found-in__line">262</span>
     </aside>
         <p class="phpdocumentor-summary">Les commentaires du match</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -527,7 +495,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">298</span>
+        <span class="phpdocumentor-element-found-in__line">272</span>
     </aside>
         <p class="phpdocumentor-summary">La journée (dans la table journees) du match</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -555,7 +523,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">308</span>
+        <span class="phpdocumentor-element-found-in__line">282</span>
     </aside>
         <p class="phpdocumentor-summary">Le terrain ou se joue le match</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -583,7 +551,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">318</span>
+        <span class="phpdocumentor-element-found-in__line">292</span>
     </aside>
         <p class="phpdocumentor-summary">L&#039;équipe qui reçoit ce match de competition</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -611,7 +579,7 @@ Elle renvoie false si le match ne s&#039;est pas encore joué ou si l&#039;id ne
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Match.php"><a href="../files/app-match.html"><abbr title="app/Match.php">Match.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">328</span>
+        <span class="phpdocumentor-element-found-in__line">302</span>
     </aside>
         <p class="phpdocumentor-summary">L&#039;équipe qui se déplace pour ce match de competition</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

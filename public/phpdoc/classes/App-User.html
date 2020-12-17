@@ -44,6 +44,7 @@
                                     <li><a href="../namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
                                     <li><a href="../namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
                                     <li><a href="../namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
+                                    <li><a href="../namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
                             </ul>
             
     
@@ -75,7 +76,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">11</span>
+            <span class="phpdocumentor-element-found-in__line">16</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -113,6 +114,11 @@
                     <td class="phpdocumentor-cell">Le role de l&#039;utilisateur.</td>
                     <td class="phpdocumentor-cell"><abbr title="\Illuminate\Database\Eloquent\Relations\BelongsTo">BelongsTo</abbr></td>
                 </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/App-User.html#method_region">region()</a></th>
+                    <td class="phpdocumentor-cell">La région de l&#039;utilisateur.</td>
+                    <td class="phpdocumentor-cell"><abbr title="\Illuminate\Database\Eloquent\Relations\BelongsTo">BelongsTo</abbr></td>
+                </tr>
                                             </table>
 
         
@@ -129,7 +135,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">20</span>
+        <span class="phpdocumentor-element-found-in__line">25</span>
     </aside>
             <p class="phpdocumentor-summary">The attributes that are mass assignable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -149,7 +155,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">29</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
     </aside>
             <p class="phpdocumentor-summary">The attributes that should be hidden for arrays.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -169,7 +175,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">38</span>
+        <span class="phpdocumentor-element-found-in__line">43</span>
     </aside>
             <p class="phpdocumentor-summary">The attributes that should be cast to native types.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -193,7 +199,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">47</span>
+        <span class="phpdocumentor-element-found-in__line">52</span>
     </aside>
         <p class="phpdocumentor-summary">Définition de l&#039;attribut nom pour un objet de la class User</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -221,7 +227,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">58</span>
+        <span class="phpdocumentor-element-found-in__line">63</span>
     </aside>
         <p class="phpdocumentor-summary">Les règles de validations</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -261,12 +267,40 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">78</span>
+        <span class="phpdocumentor-element-found-in__line">83</span>
     </aside>
         <p class="phpdocumentor-summary">Le role de l&#039;utilisateur.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">role</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\BelongsTo">BelongsTo</abbr></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\BelongsTo">BelongsTo</abbr></span>
+            
+</article>
+                                    <a id="method_region"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">region()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="app/User.php"><a href="../files/app-user.html"><abbr title="app/User.php">User.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">93</span>
+    </aside>
+        <p class="phpdocumentor-summary">La région de l&#039;utilisateur.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">region</span>(
                 )
         : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\BelongsTo">BelongsTo</abbr></span>
     </code>

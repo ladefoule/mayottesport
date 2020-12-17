@@ -44,6 +44,7 @@
                                     <li><a href="../namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
                                     <li><a href="../namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
                                     <li><a href="../namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
+                                    <li><a href="../namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
                             </ul>
             
     
@@ -71,7 +72,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CrudAdminController.php"><a href="../files/app-http-controllers-crudadmincontroller.html"><abbr title="app/Http/Controllers/CrudAdminController.php">CrudAdminController.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">12</span>
+            <span class="phpdocumentor-element-found-in__line">17</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -83,6 +84,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/App-Http-Controllers-CrudAdminController.html#method_tables">tables()</a></th>
                     <td class="phpdocumentor-cell">Choix des tables sur lesquelles on peut effectuer du CRUD</td>
                     <td class="phpdocumentor-cell"><abbr title="\Illuminate\Http\RedirectResponse">RedirectResponse</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/App-Http-Controllers-CrudAdminController.html#method_cacheFlush">cacheFlush()</a></th>
+                    <td class="phpdocumentor-cell">Suppression de tout le cache</td>
+                    <td class="phpdocumentor-cell">void</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/App-Http-Controllers-CrudAdminController.html#method_tablesPost">tablesPost()</a></th>
@@ -121,22 +127,72 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CrudAdminController.php"><a href="../files/app-http-controllers-crudadmincontroller.html"><abbr title="app/Http/Controllers/CrudAdminController.php">CrudAdminController.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">19</span>
+        <span class="phpdocumentor-element-found-in__line">24</span>
     </aside>
         <p class="phpdocumentor-summary">Choix des tables sur lesquelles on peut effectuer du CRUD</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">tables</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$request</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Illuminate\Http\Request">Request</abbr></span>
+                            </span>
                 )
         : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Http\RedirectResponse">RedirectResponse</abbr></span>
     </code>
 
     
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$request</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Illuminate\Http\Request">Request</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Http\RedirectResponse">RedirectResponse</abbr></span>
             
+</article>
+                                    <a id="method_cacheFlush"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">cacheFlush()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CrudAdminController.php"><a href="../files/app-http-controllers-crudadmincontroller.html"><abbr title="app/Http/Controllers/CrudAdminController.php">CrudAdminController.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+        <p class="phpdocumentor-summary">Suppression de tout le cache</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">cacheFlush</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$request</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Illuminate\Http\Request">Request</abbr></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$request</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Illuminate\Http\Request">Request</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
 </article>
                                     <a id="method_tablesPost"></a>
 <article
@@ -149,7 +205,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CrudAdminController.php"><a href="../files/app-http-controllers-crudadmincontroller.html"><abbr title="app/Http/Controllers/CrudAdminController.php">CrudAdminController.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">31</span>
+        <span class="phpdocumentor-element-found-in__line">51</span>
     </aside>
         <p class="phpdocumentor-summary">Mise à jour du choix sur les tables &#039;crudables&#039;</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -189,7 +245,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CrudAdminController.php"><a href="../files/app-http-controllers-crudadmincontroller.html"><abbr title="app/Http/Controllers/CrudAdminController.php">CrudAdminController.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">61</span>
+        <span class="phpdocumentor-element-found-in__line">86</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -216,7 +272,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CrudAdminController.php"><a href="../files/app-http-controllers-crudadmincontroller.html"><abbr title="app/Http/Controllers/CrudAdminController.php">CrudAdminController.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">73</span>
+        <span class="phpdocumentor-element-found-in__line">98</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -255,7 +311,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/CrudAdminController.php"><a href="../files/app-http-controllers-crudadmincontroller.html"><abbr title="app/Http/Controllers/CrudAdminController.php">CrudAdminController.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">79</span>
+        <span class="phpdocumentor-element-found-in__line">104</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>

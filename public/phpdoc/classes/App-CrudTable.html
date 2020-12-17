@@ -44,6 +44,7 @@
                                     <li><a href="../namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
                                     <li><a href="../namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
                                     <li><a href="../namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
+                                    <li><a href="../namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
                             </ul>
             
     
@@ -69,7 +70,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">17</span>
+            <span class="phpdocumentor-element-found-in__line">20</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -79,7 +80,7 @@
         <table class="phpdocumentor-table_of_contents">
                                         <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/App-CrudTable.html#property_fillable">$fillable</a></th>
-                    <td class="phpdocumentor-cell">Champs autorisés lors de la création</td>
+                    <td class="phpdocumentor-cell">Champs autorisés lors de la création/modification d&#039;un objet de la classe</td>
                     <td class="phpdocumentor-cell">array</td>
                 </tr>
                             <tr>
@@ -89,7 +90,7 @@
                 </tr>
                                                                 <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/App-CrudTable.html#method_navbarCrudTables">navbarCrudTables()</a></th>
-                    <td class="phpdocumentor-cell">navbarCrudTables</td>
+                    <td class="phpdocumentor-cell">La liste des tables &#039;crudables&#039; hors tables de gestion du CRUD.</td>
                     <td class="phpdocumentor-cell"><abbr title="\Illuminate\Support\Collection">Collection</abbr></td>
                 </tr>
                             <tr>
@@ -99,8 +100,7 @@
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/App-CrudTable.html#method_listeAttributsVisibles">listeAttributsVisibles()</a></th>
-                    <td class="phpdocumentor-cell">La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu&#039;on doit afficher
-soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#039;édition/ajout d&#039;un élement.</td>
+                    <td class="phpdocumentor-cell">La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu&#039;on doit afficher soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#039;édition/ajout d&#039;un élement. Elle renvoie false si la liste est vide.</td>
                     <td class="phpdocumentor-cell"><abbr title="\Illuminate\Support\Collection">Collection</abbr>|bool</td>
                 </tr>
                             <tr>
@@ -134,9 +134,9 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">24</span>
+        <span class="phpdocumentor-element-found-in__line">27</span>
     </aside>
-            <p class="phpdocumentor-summary">Champs autorisés lors de la création</p>
+            <p class="phpdocumentor-summary">Champs autorisés lors de la création/modification d&#039;un objet de la classe</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">array</span>
@@ -154,7 +154,7 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">25</span>
+        <span class="phpdocumentor-element-found-in__line">28</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -177,9 +177,9 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">32</span>
+        <span class="phpdocumentor-element-found-in__line">35</span>
     </aside>
-        <p class="phpdocumentor-summary">navbarCrudTables</p>
+        <p class="phpdocumentor-summary">La liste des tables &#039;crudables&#039; hors tables de gestion du CRUD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">navbarCrudTables</span>(
@@ -205,7 +205,7 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">71</span>
+        <span class="phpdocumentor-element-found-in__line">75</span>
     </aside>
         <p class="phpdocumentor-summary">Les règles de validations</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -245,10 +245,9 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">95</span>
+        <span class="phpdocumentor-element-found-in__line">97</span>
     </aside>
-        <p class="phpdocumentor-summary">La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu&#039;on doit afficher
-soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#039;édition/ajout d&#039;un élement.</p>
+        <p class="phpdocumentor-summary">La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu&#039;on doit afficher soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#039;édition/ajout d&#039;un élement. Elle renvoie false si la liste est vide.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">listeAttributsVisibles</span>(
@@ -260,7 +259,6 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
         : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Support\Collection">Collection</abbr>|bool</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>Elle renvoie false si la liste est vide.</p></section>
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
@@ -287,7 +285,7 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">162</span>
+        <span class="phpdocumentor-element-found-in__line">164</span>
     </aside>
         <p class="phpdocumentor-summary">L&#039;ensemble des données à afficher soit dans la page show, lors de l&#039;ajout ou lors d&#039;une modification d&#039;un élément. Dans ces données, on retrouve entre autres : le nom d&#039;un attribut, sa valeur, s&#039;il est optionnel ou non, son pattern, etc .</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -344,7 +342,7 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">237</span>
+        <span class="phpdocumentor-element-found-in__line">244</span>
     </aside>
         <p class="phpdocumentor-summary">Liste de tous les éléments de la table.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -372,7 +370,7 @@ soit dans la page liste, dans la page show (affichage d&#039;un élement) ou l&#
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/CrudTable.php"><a href="../files/app-crudtable.html"><abbr title="app/CrudTable.php">CrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">283</span>
+        <span class="phpdocumentor-element-found-in__line">286</span>
     </aside>
         <p class="phpdocumentor-summary">Liste de tous les éléments de la table.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

@@ -44,6 +44,7 @@
                                     <li><a href="../namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
                                     <li><a href="../namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
                                     <li><a href="../namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
+                                    <li><a href="../namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
                             </ul>
             
     
@@ -73,7 +74,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="app/Jobs/ProcessCrudTable.php"><a href="../files/app-jobs-processcrudtable.html"><abbr title="app/Jobs/ProcessCrudTable.php">ProcessCrudTable.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">15</span>
+            <span class="phpdocumentor-element-found-in__line">20</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -82,12 +83,12 @@
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
                                         <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/App-Jobs-ProcessCrudTable.html#property_crudTable">$crudTable</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/App-Jobs-ProcessCrudTable.html#property_table">$table</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/App-Jobs-ProcessCrudTable.html#property_instance">$instance</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/App-Jobs-ProcessCrudTable.html#property_id">$id</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
                 </tr>
@@ -98,7 +99,7 @@
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/App-Jobs-ProcessCrudTable.html#method_handle">handle()</a></th>
-                    <td class="phpdocumentor-cell">Execute the job.</td>
+                    <td class="phpdocumentor-cell">Envoi d&#039;une requète GET sur le lien de rechargement des caches avec Guzzle.</td>
                     <td class="phpdocumentor-cell">void</td>
                 </tr>
                                             </table>
@@ -106,42 +107,42 @@
         
                     <section>
                 <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_crudTable"></a>
+                                    <a id="property_table"></a>
 <article
         class="
             phpdocumentor-property
             phpdocumentor-property--protected
                                 "
 >
-    <h4 class="phpdocumentor-property__name">$crudTable</h4>
+    <h4 class="phpdocumentor-property__name">$table</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Jobs/ProcessCrudTable.php"><a href="../files/app-jobs-processcrudtable.html"><abbr title="app/Jobs/ProcessCrudTable.php">ProcessCrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">19</span>
+        <span class="phpdocumentor-element-found-in__line">24</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$crudTable</span>
+        <span class="phpdocumentor-signature__name">$table</span>
             </code>
     </article>
-                                    <a id="property_instance"></a>
+                                    <a id="property_id"></a>
 <article
         class="
             phpdocumentor-property
             phpdocumentor-property--protected
                                 "
 >
-    <h4 class="phpdocumentor-property__name">$instance</h4>
+    <h4 class="phpdocumentor-property__name">$id</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Jobs/ProcessCrudTable.php"><a href="../files/app-jobs-processcrudtable.html"><abbr title="app/Jobs/ProcessCrudTable.php">ProcessCrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">20</span>
+        <span class="phpdocumentor-element-found-in__line">25</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$instance</span>
+        <span class="phpdocumentor-signature__name">$id</span>
             </code>
     </article>
                                                             </section>
@@ -159,19 +160,19 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Jobs/ProcessCrudTable.php"><a href="../files/app-jobs-processcrudtable.html"><abbr title="app/Jobs/ProcessCrudTable.php">ProcessCrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">27</span>
+        <span class="phpdocumentor-element-found-in__line">32</span>
     </aside>
         <p class="phpdocumentor-summary">Create a new job instance.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">__construct</span>(
                     <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$crudTable</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/App-CrudTable.html"><abbr title="\App\CrudTable">CrudTable</abbr></a></span>
+                            <span class="phpdocumentor-signature__argument__name">$table</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$instance</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+            ,                 <span class="phpdocumentor-signature__argument__name">$id</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">void</span>
@@ -181,13 +182,13 @@
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$crudTable</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/App-CrudTable.html"><abbr title="\App\CrudTable">CrudTable</abbr></a></span>
+                    <span class="phpdocumentor-signature__argument__name">$table</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$instance</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    <span class="phpdocumentor-signature__argument__name">$id</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
@@ -206,9 +207,9 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Jobs/ProcessCrudTable.php"><a href="../files/app-jobs-processcrudtable.html"><abbr title="app/Jobs/ProcessCrudTable.php">ProcessCrudTable.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">38</span>
+        <span class="phpdocumentor-element-found-in__line">43</span>
     </aside>
-        <p class="phpdocumentor-summary">Execute the job.</p>
+        <p class="phpdocumentor-summary">Envoi d&#039;une requète GET sur le lien de rechargement des caches avec Guzzle.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">handle</span>(

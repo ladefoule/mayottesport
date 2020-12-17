@@ -44,6 +44,7 @@
                                     <li><a href="../namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
                                     <li><a href="../namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
                                     <li><a href="../namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
+                                    <li><a href="../namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
                             </ul>
             
     
@@ -70,7 +71,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Kernel.php"><a href="../files/app-http-kernel.html"><abbr title="app/Http/Kernel.php">Kernel.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">7</span>
+            <span class="phpdocumentor-element-found-in__line">12</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -114,7 +115,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Kernel.php"><a href="../files/app-http-kernel.html"><abbr title="app/Http/Kernel.php">Kernel.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">16</span>
+        <span class="phpdocumentor-element-found-in__line">21</span>
     </aside>
             <p class="phpdocumentor-summary">The application&#039;s global HTTP middleware stack.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -135,7 +136,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Kernel.php"><a href="../files/app-http-kernel.html"><abbr title="app/Http/Kernel.php">Kernel.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">29</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
     </aside>
             <p class="phpdocumentor-summary">The application&#039;s route middleware groups.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -163,14 +164,14 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Kernel.php"><a href="../files/app-http-kernel.html"><abbr title="app/Http/Kernel.php">Kernel.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">53</span>
+        <span class="phpdocumentor-element-found-in__line">58</span>
     </aside>
             <p class="phpdocumentor-summary">The application&#039;s route middleware.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">array</span>
         <span class="phpdocumentor-signature__name">$routeMiddleware</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;attribut-visible&#039; =&gt; \App\Http\Middleware\AttributVisible::class, &#039;auth&#039; =&gt; \App\Http\Middleware\Authenticate::class, &#039;auth.basic&#039; =&gt; \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class, &#039;bindings&#039; =&gt; \Illuminate\Routing\Middleware\SubstituteBindings::class, &#039;cache.headers&#039; =&gt; \Illuminate\Http\Middleware\SetCacheHeaders::class, &#039;can&#039; =&gt; \Illuminate\Auth\Middleware\Authorize::class, &#039;check-permission&#039; =&gt; \App\Http\Middleware\CheckPermission::class, &#039;competition&#039; =&gt; \App\Http\Middleware\Competition::class, &#039;equipe&#039; =&gt; \App\Http\Middleware\Equipe::class, &#039;guest&#039; =&gt; \App\Http\Middleware\RedirectIfAuthenticated::class, &#039;match-id&#039; =&gt; \App\Http\Middleware\MatchId::class, &#039;verif-table-crud&#039; =&gt; \App\Http\Middleware\VerifTableCrud::class, &#039;password.confirm&#039; =&gt; \Illuminate\Auth\Middleware\RequirePassword::class, &#039;signed&#039; =&gt; \Illuminate\Routing\Middleware\ValidateSignature::class, &#039;sport&#039; =&gt; \App\Http\Middleware\Sport::class, &#039;throttle&#039; =&gt; \Illuminate\Routing\Middleware\ThrottleRequests::class, &#039;verified&#039; =&gt; \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class]</span>    </code>
+         = <span class="phpdocumentor-signature__default-value">[&#039;attribut-visible&#039; =&gt; \App\Http\Middleware\AttributVisible::class, &#039;auth&#039; =&gt; \App\Http\Middleware\Authenticate::class, &#039;auth.basic&#039; =&gt; \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class, &#039;bindings&#039; =&gt; \Illuminate\Routing\Middleware\SubstituteBindings::class, &#039;cache.headers&#039; =&gt; \Illuminate\Http\Middleware\SetCacheHeaders::class, &#039;can&#039; =&gt; \Illuminate\Auth\Middleware\Authorize::class, &#039;check-permission&#039; =&gt; \App\Http\Middleware\CheckPermission::class, &#039;competition&#039; =&gt; \App\Http\Middleware\Competition::class, &#039;equipe&#039; =&gt; \App\Http\Middleware\Equipe::class, &#039;guest&#039; =&gt; \App\Http\Middleware\RedirectIfAuthenticated::class, &#039;match-uniqid&#039; =&gt; \App\Http\Middleware\MatchUniqid::class, &#039;verif-table-crud&#039; =&gt; \App\Http\Middleware\VerifTableCrud::class, &#039;password.confirm&#039; =&gt; \Illuminate\Auth\Middleware\RequirePassword::class, &#039;signed&#039; =&gt; \Illuminate\Routing\Middleware\ValidateSignature::class, &#039;sport&#039; =&gt; \App\Http\Middleware\Sport::class, &#039;throttle&#039; =&gt; \Illuminate\Routing\Middleware\ThrottleRequests::class, &#039;verified&#039; =&gt; \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class]</span>    </code>
         <section class="phpdocumentor-description">These middleware may be assigned to groups or used individually.</section>
     </article>
                                     <a id="property_middlewarePriority"></a>
@@ -184,7 +185,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Kernel.php"><a href="../files/app-http-kernel.html"><abbr title="app/Http/Kernel.php">Kernel.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">80</span>
+        <span class="phpdocumentor-element-found-in__line">85</span>
     </aside>
             <p class="phpdocumentor-summary">The priority-sorted list of middleware.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

@@ -146,10 +146,10 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/App-CrudAttributInfo.html"
         },                {
-            "fqsen": "\\App\\CrudAttributInfo\u003A\u003AgetNomAttribute\u0028\u0029",
-            "name": "getNomAttribute",
+            "fqsen": "\\App\\CrudAttributInfo\u003A\u003AgetCrudNameAttribute\u0028\u0029",
+            "name": "getCrudNameAttribute",
             "summary": "D\u00E9finition\u0020de\u0020l\u0027affichage\u0020dans\u0020le\u0020CRUD\u0020\u0028back\u002Doffice\u0029",
-            "url": "../classes/App-CrudAttributInfo.html#method_getNomAttribute"
+            "url": "../classes/App-CrudAttributInfo.html#method_getCrudNameAttribute"
         },                {
             "fqsen": "\\App\\CrudAttributInfo\u003A\u003Arules\u0028\u0029",
             "name": "rules",
@@ -178,7 +178,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\CrudTable\u003A\u003AnavbarCrudTables\u0028\u0029",
             "name": "navbarCrudTables",
-            "summary": "navbarCrudTables",
+            "summary": "La\u0020liste\u0020des\u0020tables\u0020\u0027crudables\u0027\u0020hors\u0020tables\u0020de\u0020gestion\u0020du\u0020CRUD.",
             "url": "../classes/App-CrudTable.html#method_navbarCrudTables"
         },                {
             "fqsen": "\\App\\CrudTable\u003A\u003Arules\u0028\u0029",
@@ -188,7 +188,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\CrudTable\u003A\u003AlisteAttributsVisibles\u0028\u0029",
             "name": "listeAttributsVisibles",
-            "summary": "La\u0020fonction\u0020r\u00E9cup\u00E8re\u0020la\u0020liste\u0020\u0028dans\u0020le\u0020bon\u0020ordre\u0029\u0020des\u0020attributs\u0020et\u0020de\u0020leurs\u0020propri\u00E9t\u00E9s\u0020qu\u0027on\u0020doit\u0020afficher\nsoit\u0020dans\u0020la\u0020page\u0020liste,\u0020dans\u0020la\u0020page\u0020show\u0020\u0028affichage\u0020d\u0027un\u0020\u00E9lement\u0029\u0020ou\u0020l\u0027\u00E9dition\/ajout\u0020d\u0027un\u0020\u00E9lement.",
+            "summary": "La\u0020fonction\u0020r\u00E9cup\u00E8re\u0020la\u0020liste\u0020\u0028dans\u0020le\u0020bon\u0020ordre\u0029\u0020des\u0020attributs\u0020et\u0020de\u0020leurs\u0020propri\u00E9t\u00E9s\u0020qu\u0027on\u0020doit\u0020afficher\u0020soit\u0020dans\u0020la\u0020page\u0020liste,\u0020dans\u0020la\u0020page\u0020show\u0020\u0028affichage\u0020d\u0027un\u0020\u00E9lement\u0029\u0020ou\u0020l\u0027\u00E9dition\/ajout\u0020d\u0027un\u0020\u00E9lement.\u0020Elle\u0020renvoie\u0020false\u0020si\u0020la\u0020liste\u0020est\u0020vide.",
             "url": "../classes/App-CrudTable.html#method_listeAttributsVisibles"
         },                {
             "fqsen": "\\App\\CrudTable\u003A\u003Acrud\u0028\u0029",
@@ -208,7 +208,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\CrudTable\u003A\u003A\u0024fillable",
             "name": "fillable",
-            "summary": "Champs\u0020autoris\u00E9s\u0020lors\u0020de\u0020la\u0020cr\u00E9ation",
+            "summary": "Champs\u0020autoris\u00E9s\u0020lors\u0020de\u0020la\u0020cr\u00E9ation\/modification\u0020d\u0027un\u0020objet\u0020de\u0020la\u0020classe",
             "url": "../classes/App-CrudTable.html#property_fillable"
         },                {
             "fqsen": "\\App\\CrudTable\u003A\u003A\u0024timestamps",
@@ -401,10 +401,10 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/App-Http-Controllers-CacheController.html"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\CacheController\u003A\u003AreloadCrud\u0028\u0029",
-            "name": "reloadCrud",
+            "fqsen": "\\App\\Http\\Controllers\\CacheController\u003A\u003Areload\u0028\u0029",
+            "name": "reload",
             "summary": "",
-            "url": "../classes/App-Http-Controllers-CacheController.html#method_reloadCrud"
+            "url": "../classes/App-Http-Controllers-CacheController.html#method_reload"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\CompetitionController",
             "name": "CompetitionController",
@@ -455,6 +455,11 @@ Search.appendIndex(
             "name": "tables",
             "summary": "Choix\u0020des\u0020tables\u0020sur\u0020lesquelles\u0020on\u0020peut\u0020effectuer\u0020du\u0020CRUD",
             "url": "../classes/App-Http-Controllers-CrudAdminController.html#method_tables"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\CrudAdminController\u003A\u003AcacheFlush\u0028\u0029",
+            "name": "cacheFlush",
+            "summary": "Suppression\u0020de\u0020tout\u0020le\u0020cache",
+            "url": "../classes/App-Http-Controllers-CrudAdminController.html#method_cacheFlush"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\CrudAdminController\u003A\u003AtablesPost\u0028\u0029",
             "name": "tablesPost",
@@ -530,11 +535,6 @@ Search.appendIndex(
             "name": "deleteAjax",
             "summary": "Suppressions\u0020multiples\u0020d\u0027\u00E9lements\u0020de\u0020la\u0020table\u0020\u0024table",
             "url": "../classes/App-Http-Controllers-CrudController.html#method_deleteAjax"
-        },                {
-            "fqsen": "\\App\\Http\\Controllers\\CrudController\u003A\u003ArefreshCaches\u0028\u0029",
-            "name": "refreshCaches",
-            "summary": "Rechargement\u0020des\u0020caches",
-            "url": "../classes/App-Http-Controllers-CrudController.html#method_refreshCaches"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\EquipeController",
             "name": "EquipeController",
@@ -626,11 +626,6 @@ Search.appendIndex(
             "summary": "Traitement\u0020de\u0020la\u0020modification\u0020de\u0020l\u0027horaire\u0020du\u0020match",
             "url": "../classes/App-Http-Controllers-MatchController.html#method_horairePost"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\MatchController\u003A\u003AforgetCaches\u0028\u0029",
-            "name": "forgetCaches",
-            "summary": "Suppression\u0020des\u0020caches\u0020li\u00E9s\u0020au\u0020match",
-            "url": "../classes/App-Http-Controllers-MatchController.html#method_forgetCaches"
-        },                {
             "fqsen": "\\App\\Http\\Controllers\\PdfParserController",
             "name": "PdfParserController",
             "summary": "",
@@ -675,6 +670,26 @@ Search.appendIndex(
             "name": "profil",
             "summary": "Tableau\u0020de\u0020bord\u0020\u0028profil\u0029\u0020de\u0020l\u0027utilisateur",
             "url": "../classes/App-Http-Controllers-UserController.html#method_profil"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\UserController\u003A\u003AupdateForm\u0028\u0029",
+            "name": "updateForm",
+            "summary": "Tableau\u0020de\u0020bord\u0020\u0028profil\u0029\u0020de\u0020l\u0027utilisateur",
+            "url": "../classes/App-Http-Controllers-UserController.html#method_updateForm"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\UserController\u003A\u003AupdatePost\u0028\u0029",
+            "name": "updatePost",
+            "summary": "Tableau\u0020de\u0020bord\u0020\u0028profil\u0029\u0020de\u0020l\u0027utilisateur",
+            "url": "../classes/App-Http-Controllers-UserController.html#method_updatePost"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\UserController\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "Tableau\u0020de\u0020bord\u0020\u0028profil\u0029\u0020de\u0020l\u0027utilisateur",
+            "url": "../classes/App-Http-Controllers-UserController.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\UserController\u003A\u003ArefreshCaches\u0028\u0029",
+            "name": "refreshCaches",
+            "summary": "Rechargement\u0020des\u0020caches",
+            "url": "../classes/App-Http-Controllers-UserController.html#method_refreshCaches"
         },                {
             "fqsen": "\\App\\Http\\Kernel",
             "name": "Kernel",
@@ -773,7 +788,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Middleware\\AttributVisible\u003A\u003Ahandle\u0028\u0029",
             "name": "handle",
-            "summary": "Handle\u0020an\u0020incoming\u0020request.",
+            "summary": "On\u0020v\u00E9rifie\u0020s\u0027il\u0020y\u0020a\u0020au\u0020moins\u00201\u0020attribut\u0020\u00E0\u0020afficher\u0020\u0028en\u0020fonction\u0020de\u0020la\u0020route\u0029\u0020dans\u0020la\u0020table\u0020demand\u00E9e.",
             "url": "../classes/App-Http-Middleware-AttributVisible.html#method_handle"
         },                {
             "fqsen": "\\App\\Http\\Middleware\\Authenticate",
@@ -803,7 +818,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Middleware\\CheckPermission\u003A\u003Ahandle\u0028\u0029",
             "name": "handle",
-            "summary": "Handle\u0020an\u0020incoming\u0020request.",
+            "summary": "On\u0020contr\u00F4le\u0020si\u0020le\u0020membre\u0020connect\u00E9\u0020a\u0020bien\u0020les\u0020droits\u0020d\u0027acc\u00E8s\u0020\u00E0\u0020cette\u0020ressource.",
             "url": "../classes/App-Http-Middleware-CheckPermission.html#method_handle"
         },                {
             "fqsen": "\\App\\Http\\Middleware\\Competition",
@@ -813,7 +828,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Middleware\\Competition\u003A\u003Ahandle\u0028\u0029",
             "name": "handle",
-            "summary": "Handle\u0020an\u0020incoming\u0020request.",
+            "summary": "On\u0020v\u00E9rifie\u0020si\u0020le\u0020nom\u0020de\u0020comp\u00E9tition\u0020saisi\u0020est\u0020bien\u0020dans\u0020la\u0020base.",
             "url": "../classes/App-Http-Middleware-Competition.html#method_handle"
         },                {
             "fqsen": "\\App\\Http\\Middleware\\EncryptCookies",
@@ -833,18 +848,8 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Middleware\\Equipe\u003A\u003Ahandle\u0028\u0029",
             "name": "handle",
-            "summary": "Handle\u0020an\u0020incoming\u0020request.",
+            "summary": "V\u00E9rification\u0020du\u0020nom\u0020de\u0020l\u0027\u00E9quipe\u0020et\u0020de\u0020son\u0020uniqid.",
             "url": "../classes/App-Http-Middleware-Equipe.html#method_handle"
-        },                {
-            "fqsen": "\\App\\Http\\Middleware\\MatchId",
-            "name": "MatchId",
-            "summary": "",
-            "url": "../classes/App-Http-Middleware-MatchId.html"
-        },                {
-            "fqsen": "\\App\\Http\\Middleware\\MatchId\u003A\u003Ahandle\u0028\u0029",
-            "name": "handle",
-            "summary": "Handle\u0020an\u0020incoming\u0020request.",
-            "url": "../classes/App-Http-Middleware-MatchId.html#method_handle"
         },                {
             "fqsen": "\\App\\Http\\Middleware\\RedirectIfAuthenticated",
             "name": "RedirectIfAuthenticated",
@@ -863,7 +868,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Middleware\\Sport\u003A\u003Ahandle\u0028\u0029",
             "name": "handle",
-            "summary": "Handle\u0020an\u0020incoming\u0020request.",
+            "summary": "On\u0020contr\u00F4le\u0020que\u0020le\u0020nom\u0020de\u0020sport\u0020renseign\u00E9\u0020est\u0020bien\u0020pr\u00E9sent\u0020dans\u0020la\u0020base\u0020de\u0020donn\u00E9es.",
             "url": "../classes/App-Http-Middleware-Sport.html#method_handle"
         },                {
             "fqsen": "\\App\\Http\\Middleware\\TrimStrings",
@@ -908,7 +913,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Middleware\\VerifTableCrud\u003A\u003Ahandle\u0028\u0029",
             "name": "handle",
-            "summary": "Handle\u0020an\u0020incoming\u0020request.",
+            "summary": "On\u0020v\u00E9rifie\u0020si\u0020la\u0020table\u0020renseign\u00E9e\u0020est\u0020\u0027crudable\u0027\u0020ou\u0020non.\u0020On\u0020limite\u0020aussi\u0020l\u0027acc\u00E8s\u0020\u00E0\u0020la\u0020gestion\u0020du\u0020CRUD\u0020au\u0020super\u002Dadministrateurs.",
             "url": "../classes/App-Http-Middleware-VerifTableCrud.html#method_handle"
         },                {
             "fqsen": "\\App\\Http\\Middleware\\VerifyCsrfToken",
@@ -938,18 +943,18 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Jobs\\ProcessCrudTable\u003A\u003Ahandle\u0028\u0029",
             "name": "handle",
-            "summary": "Execute\u0020the\u0020job.",
+            "summary": "Envoi\u0020d\u0027une\u0020requ\u00E8te\u0020GET\u0020sur\u0020le\u0020lien\u0020de\u0020rechargement\u0020des\u0020caches\u0020avec\u0020Guzzle.",
             "url": "../classes/App-Jobs-ProcessCrudTable.html#method_handle"
         },                {
-            "fqsen": "\\App\\Jobs\\ProcessCrudTable\u003A\u003A\u0024crudTable",
-            "name": "crudTable",
+            "fqsen": "\\App\\Jobs\\ProcessCrudTable\u003A\u003A\u0024table",
+            "name": "table",
             "summary": "",
-            "url": "../classes/App-Jobs-ProcessCrudTable.html#property_crudTable"
+            "url": "../classes/App-Jobs-ProcessCrudTable.html#property_table"
         },                {
-            "fqsen": "\\App\\Jobs\\ProcessCrudTable\u003A\u003A\u0024instance",
-            "name": "instance",
+            "fqsen": "\\App\\Jobs\\ProcessCrudTable\u003A\u003A\u0024id",
+            "name": "id",
             "summary": "",
-            "url": "../classes/App-Jobs-ProcessCrudTable.html#property_instance"
+            "url": "../classes/App-Jobs-ProcessCrudTable.html#property_id"
         },                {
             "fqsen": "\\App\\Journee",
             "name": "Journee",
@@ -1026,16 +1031,6 @@ Search.appendIndex(
             "summary": "Les\u0020r\u00E8gles\u0020de\u0020validations",
             "url": "../classes/App-Match.html#method_rules"
         },                {
-            "fqsen": "\\App\\Match\u003A\u003AgetNomAttribute\u0028\u0029",
-            "name": "getNomAttribute",
-            "summary": "D\u00E9finition\u0020de\u0020l\u0027affichage\u0020dans\u0020le\u0020CRUD\u0020\u0028back\u002Doffice\u0029",
-            "url": "../classes/App-Match.html#method_getNomAttribute"
-        },                {
-            "fqsen": "\\App\\Match\u003A\u003AgetCrudNameAttribute\u0028\u0029",
-            "name": "getCrudNameAttribute",
-            "summary": "D\u00E9finition\u0020de\u0020l\u0027affichage\u0020dans\u0020le\u0020CRUD\u0020\u0028back\u002Doffice\u0029",
-            "url": "../classes/App-Match.html#method_getCrudNameAttribute"
-        },                {
             "fqsen": "\\App\\Match\u003A\u003Ainfos\u0028\u0029",
             "name": "infos",
             "summary": "Les\u0020informations\u0020du\u0020match\u0020dont\u0020ont\u0020besoin\u0020les\u0020views\u0020match\/resultat\u0020et\u0020horaire",
@@ -1045,6 +1040,11 @@ Search.appendIndex(
             "name": "matchRender",
             "summary": "Undocumented\u0020function",
             "url": "../classes/App-Match.html#method_matchRender"
+        },                {
+            "fqsen": "\\App\\Match\u003A\u003AgetCrudNameAttribute\u0028\u0029",
+            "name": "getCrudNameAttribute",
+            "summary": "D\u00E9finition\u0020de\u0020l\u0027affichage\u0020dans\u0020le\u0020CRUD\u0020\u0028back\u002Doffice\u0029",
+            "url": "../classes/App-Match.html#method_getCrudNameAttribute"
         },                {
             "fqsen": "\\App\\Match\u003A\u003Ascore\u0028\u0029",
             "name": "score",
@@ -1356,6 +1356,11 @@ Search.appendIndex(
             "summary": "Teste\u0020si\u0020l\u0027\u00E9quipe\u0020poss\u00E8de\u0020un\u0020fanion\u0020pr\u00E9sent\u0020dans\u0020le\u0020repertoire\u0020app\/public\/img\/fanion.",
             "url": "../namespaces/default.html#function_fanion"
         },                {
+            "fqsen": "\\forgetCaches\u0028\u0029",
+            "name": "forgetCaches",
+            "summary": "Suppression\u0020des\u0020caches",
+            "url": "../namespaces/default.html#function_forgetCaches"
+        },                {
             "fqsen": "\\refreshCachesLies\u0028\u0029",
             "name": "refreshCachesLies",
             "summary": "Rechargement\u0020de\u0020tous\u0020les\u0020caches\u0020index\u0020des\u0020tables\u0020qui\u0020utilisent\u0020les\u0020donn\u00E9es\u0020de\u0020la\u0020\u0024table\nOn\u0020ne\u0020doit\u0020recharger\u0020le\u0020cache\u0020que\u0020SI\u0020ET\u0020SEULEMENT\u0020SI\u0020les\u0020donn\u00E9es\u0020des\u0020tables\u0020sont\u0020utilis\u00E9es\u0020dans\u0020la\u0020g\u00E9n\u00E9ration\u0020des\u0020attributs\u0020nom\u0020ou\u0020crud_name\nEx\u003A\u0020Saison\u002D\u003Ecrudname\u0020\u003D\u0020Competititon\u002D\u003Ecrud_name\u0020.\u0020annee\u0028\u0029\u0020\u003D\u003D\u003E\u0020SEUL\u0020la\u0020table\u0020competitions\u0020peut\u0020engendrer\u0020le\u0020rechargement\u0020de\u0020la\u0020table\u0020saisons",
@@ -1368,7 +1373,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\index\u0028\u0029",
             "name": "index",
-            "summary": "Style\u0020proc\u00E9dural\u0020de\u0020la\u0020m\u00E9thode\u0020infos\u0028\u0029\u0020de\u0020la\u0020classe\u0020CrudTable\nListe\u0020de\u0020tous\u0020les\u0020\u00E9l\u00E9ments\u0020de\u0020la\u0020table.",
+            "summary": "Style\u0020proc\u00E9dural\u0020de\u0020la\u0020m\u00E9thode\u0020infos\u0028\u0029\u0020de\u0020la\u0020classe\u0020CrudTable\u0020\u003A\u0020Liste\u0020de\u0020tous\u0020les\u0020\u00E9l\u00E9ments\u0020de\u0020la\u0020table.",
             "url": "../namespaces/default.html#function_index"
         },                {
             "fqsen": "\\indexCrud\u0028\u0029",
@@ -1456,6 +1461,11 @@ Search.appendIndex(
             "summary": "Le\u0020role\u0020de\u0020l\u0027utilisateur.",
             "url": "../classes/App-User.html#method_role"
         },                {
+            "fqsen": "\\App\\User\u003A\u003Aregion\u0028\u0029",
+            "name": "region",
+            "summary": "La\u0020r\u00E9gion\u0020de\u0020l\u0027utilisateur.",
+            "url": "../classes/App-User.html#method_region"
+        },                {
             "fqsen": "\\App\\User\u003A\u003A\u0024fillable",
             "name": "fillable",
             "summary": "The\u0020attributes\u0020that\u0020are\u0020mass\u0020assignable.",
@@ -1485,6 +1495,181 @@ Search.appendIndex(
             "name": "fillable",
             "summary": "Champs\u0020autoris\u00E9s\u0020lors\u0020de\u0020la\u0020cr\u00E9ation",
             "url": "../classes/App-Ville.html#property_fillable"
+        },                {
+            "fqsen": "\\App\\Http\\Middleware\\MatchUniqid",
+            "name": "MatchUniqid",
+            "summary": "",
+            "url": "../classes/App-Http-Middleware-MatchUniqid.html"
+        },                {
+            "fqsen": "\\App\\Http\\Middleware\\MatchUniqid\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "On\u0020v\u00E9rifie\u0020la\u0020valeur\u0020uniqid\u0020du\u0020match,\u0020saisie\u0020dans\u0020l\u0027url.",
+            "url": "../classes/App-Http-Middleware-MatchUniqid.html#method_handle"
+        },                {
+            "fqsen": "\\App\\Presentation",
+            "name": "Presentation",
+            "summary": "",
+            "url": "../classes/App-Presentation.html"
+        },                {
+            "fqsen": "\\App\\Presentation\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Les\u0020r\u00E8gles\u0020de\u0020validations",
+            "url": "../classes/App-Presentation.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Presentation\u003A\u003A\u0024fillable",
+            "name": "fillable",
+            "summary": "Champs\u0020autoris\u00E9s\u0020lors\u0020de\u0020la\u0020cr\u00E9ation",
+            "url": "../classes/App-Presentation.html#property_fillable"
+        },                {
+            "fqsen": "\\App\\Sharp\\Auth\\SharpCheckHandler",
+            "name": "SharpCheckHandler",
+            "summary": "",
+            "url": "../classes/App-Sharp-Auth-SharpCheckHandler.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\Auth\\SharpCheckHandler\u003A\u003Acheck\u0028\u0029",
+            "name": "check",
+            "summary": "",
+            "url": "../classes/App-Sharp-Auth-SharpCheckHandler.html#method_check"
+        },                {
+            "fqsen": "\\App\\Sharp\\DashAdmin",
+            "name": "DashAdmin",
+            "summary": "",
+            "url": "../classes/App-Sharp-DashAdmin.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\DashAdmin\u003A\u003AbuildWidgets\u0028\u0029",
+            "name": "buildWidgets",
+            "summary": "Build\u0020dashboard\u0027s\u0020widget\u0020using\u0020\u002D\u003EaddWidget.",
+            "url": "../classes/App-Sharp-DashAdmin.html#method_buildWidgets"
+        },                {
+            "fqsen": "\\App\\Sharp\\DashAdmin\u003A\u003AbuildWidgetsLayout\u0028\u0029",
+            "name": "buildWidgetsLayout",
+            "summary": "Build\u0020dashboard\u0027s\u0020widgets\u0020layout.",
+            "url": "../classes/App-Sharp-DashAdmin.html#method_buildWidgetsLayout"
+        },                {
+            "fqsen": "\\App\\Sharp\\DashAdmin\u003A\u003AbuildWidgetsData\u0028\u0029",
+            "name": "buildWidgetsData",
+            "summary": "Build\u0020dashboard\u0027s\u0020widgets\u0020data,\u0020using\u0020\u002D\u003EaddGraphDataSet\u0020and\u0020\u002D\u003EsetPanelData",
+            "url": "../classes/App-Sharp-DashAdmin.html#method_buildWidgetsData"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpForm",
+            "name": "MatchSharpForm",
+            "summary": "",
+            "url": "../classes/App-Sharp-MatchSharpForm.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpForm\u003A\u003Afind\u0028\u0029",
+            "name": "find",
+            "summary": "Retrieve\u0020a\u0020Model\u0020for\u0020the\u0020form\u0020and\u0020pack\u0020all\u0020its\u0020data\u0020as\u0020JSON.",
+            "url": "../classes/App-Sharp-MatchSharpForm.html#method_find"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpForm\u003A\u003Aupdate\u0028\u0029",
+            "name": "update",
+            "summary": "",
+            "url": "../classes/App-Sharp-MatchSharpForm.html#method_update"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpForm\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "",
+            "url": "../classes/App-Sharp-MatchSharpForm.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpForm\u003A\u003AbuildFormFields\u0028\u0029",
+            "name": "buildFormFields",
+            "summary": "Build\u0020form\u0020fields\u0020using\u0020\u002D\u003EaddField\u0028\u0029",
+            "url": "../classes/App-Sharp-MatchSharpForm.html#method_buildFormFields"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpForm\u003A\u003AbuildFormLayout\u0028\u0029",
+            "name": "buildFormLayout",
+            "summary": "Build\u0020form\u0020layout\u0020using\u0020\u002D\u003EaddTab\u0028\u0029\u0020or\u0020\u002D\u003EaddColumn\u0028\u0029",
+            "url": "../classes/App-Sharp-MatchSharpForm.html#method_buildFormLayout"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpList",
+            "name": "MatchSharpList",
+            "summary": "",
+            "url": "../classes/App-Sharp-MatchSharpList.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpList\u003A\u003AbuildListDataContainers\u0028\u0029",
+            "name": "buildListDataContainers",
+            "summary": "Build\u0020list\u0020containers\u0020using\u0020\u002D\u003EaddDataContainer\u0028\u0029",
+            "url": "../classes/App-Sharp-MatchSharpList.html#method_buildListDataContainers"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpList\u003A\u003AbuildListLayout\u0028\u0029",
+            "name": "buildListLayout",
+            "summary": "Build\u0020list\u0020layout\u0020using\u0020\u002D\u003EaddColumn\u0028\u0029",
+            "url": "../classes/App-Sharp-MatchSharpList.html#method_buildListLayout"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpList\u003A\u003AbuildListConfig\u0028\u0029",
+            "name": "buildListConfig",
+            "summary": "Build\u0020list\u0020config",
+            "url": "../classes/App-Sharp-MatchSharpList.html#method_buildListConfig"
+        },                {
+            "fqsen": "\\App\\Sharp\\MatchSharpList\u003A\u003AgetListData\u0028\u0029",
+            "name": "getListData",
+            "summary": "Retrieve\u0020all\u0020rows\u0020data\u0020as\u0020array.",
+            "url": "../classes/App-Sharp-MatchSharpList.html#method_getListData"
+        },                {
+            "fqsen": "\\App\\Sharp\\Policies\\CrudPolicy",
+            "name": "CrudPolicy",
+            "summary": "",
+            "url": "../classes/App-Sharp-Policies-CrudPolicy.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\Policies\\CrudPolicy\u003A\u003Aview\u0028\u0029",
+            "name": "view",
+            "summary": "",
+            "url": "../classes/App-Sharp-Policies-CrudPolicy.html#method_view"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpForm",
+            "name": "UserSharpForm",
+            "summary": "",
+            "url": "../classes/App-Sharp-UserSharpForm.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpForm\u003A\u003Afind\u0028\u0029",
+            "name": "find",
+            "summary": "",
+            "url": "../classes/App-Sharp-UserSharpForm.html#method_find"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpForm\u003A\u003Aupdate\u0028\u0029",
+            "name": "update",
+            "summary": "",
+            "url": "../classes/App-Sharp-UserSharpForm.html#method_update"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpForm\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "",
+            "url": "../classes/App-Sharp-UserSharpForm.html#method_delete"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpForm\u003A\u003AbuildFormFields\u0028\u0029",
+            "name": "buildFormFields",
+            "summary": "Build\u0020form\u0020fields\u0020using\u0020\u002D\u003EaddField\u0028\u0029",
+            "url": "../classes/App-Sharp-UserSharpForm.html#method_buildFormFields"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpForm\u003A\u003AbuildFormLayout\u0028\u0029",
+            "name": "buildFormLayout",
+            "summary": "Build\u0020form\u0020layout\u0020using\u0020\u002D\u003EaddTab\u0028\u0029\u0020or\u0020\u002D\u003EaddColumn\u0028\u0029",
+            "url": "../classes/App-Sharp-UserSharpForm.html#method_buildFormLayout"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpList",
+            "name": "UserSharpList",
+            "summary": "",
+            "url": "../classes/App-Sharp-UserSharpList.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpList\u003A\u003AbuildListDataContainers\u0028\u0029",
+            "name": "buildListDataContainers",
+            "summary": "Build\u0020list\u0020containers\u0020using\u0020\u002D\u003EaddDataContainer\u0028\u0029",
+            "url": "../classes/App-Sharp-UserSharpList.html#method_buildListDataContainers"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpList\u003A\u003AbuildListLayout\u0028\u0029",
+            "name": "buildListLayout",
+            "summary": "Build\u0020list\u0020layout\u0020using\u0020\u002D\u003EaddColumn\u0028\u0029",
+            "url": "../classes/App-Sharp-UserSharpList.html#method_buildListLayout"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpList\u003A\u003AbuildListConfig\u0028\u0029",
+            "name": "buildListConfig",
+            "summary": "Build\u0020list\u0020config",
+            "url": "../classes/App-Sharp-UserSharpList.html#method_buildListConfig"
+        },                {
+            "fqsen": "\\App\\Sharp\\UserSharpList\u003A\u003AgetListData\u0028\u0029",
+            "name": "getListData",
+            "summary": "Retrieve\u0020all\u0020rows\u0020data\u0020as\u0020array.",
+            "url": "../classes/App-Sharp-UserSharpList.html#method_getListData"
         },                {
             "fqsen": "\\",
             "name": "\\",
@@ -1545,5 +1730,20 @@ Search.appendIndex(
             "name": "Providers",
             "summary": "",
             "url": "../namespaces/app-providers.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\Auth",
+            "name": "Auth",
+            "summary": "",
+            "url": "../namespaces/app-sharp-auth.html"
+        },                {
+            "fqsen": "\\App\\Sharp",
+            "name": "Sharp",
+            "summary": "",
+            "url": "../namespaces/app-sharp.html"
+        },                {
+            "fqsen": "\\App\\Sharp\\Policies",
+            "name": "Policies",
+            "summary": "",
+            "url": "../namespaces/app-sharp-policies.html"
         }            ]
 );

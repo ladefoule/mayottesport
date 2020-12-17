@@ -44,6 +44,7 @@
                                     <li><a href="../namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
                                     <li><a href="../namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
                                     <li><a href="../namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
+                                    <li><a href="../namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
                             </ul>
             
     
@@ -142,8 +143,6 @@
                 <dd></dd>
                             <dt><a href="../classes/App-Http-Middleware-Equipe.html"><abbr title="\App\Http\Middleware\Equipe">Equipe</abbr></a></dt>
                 <dd></dd>
-                            <dt><a href="../classes/App-Http-Middleware-MatchId.html"><abbr title="\App\Http\Middleware\MatchId">MatchId</abbr></a></dt>
-                <dd></dd>
                             <dt><a href="../classes/App-Http-Middleware-RedirectIfAuthenticated.html"><abbr title="\App\Http\Middleware\RedirectIfAuthenticated">RedirectIfAuthenticated</abbr></a></dt>
                 <dd></dd>
                             <dt><a href="../classes/App-Http-Middleware-Sport.html"><abbr title="\App\Http\Middleware\Sport">Sport</abbr></a></dt>
@@ -194,6 +193,24 @@
                 <dd></dd>
                             <dt><a href="../classes/App-Ville.html"><abbr title="\App\Ville">Ville</abbr></a></dt>
                 <dd></dd>
+                            <dt><a href="../classes/App-Http-Middleware-MatchUniqid.html"><abbr title="\App\Http\Middleware\MatchUniqid">MatchUniqid</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Presentation.html"><abbr title="\App\Presentation">Presentation</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Sharp-Auth-SharpCheckHandler.html"><abbr title="\App\Sharp\Auth\SharpCheckHandler">SharpCheckHandler</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Sharp-DashAdmin.html"><abbr title="\App\Sharp\DashAdmin">DashAdmin</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Sharp-MatchSharpForm.html"><abbr title="\App\Sharp\MatchSharpForm">MatchSharpForm</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Sharp-MatchSharpList.html"><abbr title="\App\Sharp\MatchSharpList">MatchSharpList</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Sharp-Policies-CrudPolicy.html"><abbr title="\App\Sharp\Policies\CrudPolicy">CrudPolicy</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Sharp-UserSharpForm.html"><abbr title="\App\Sharp\UserSharpForm">UserSharpForm</abbr></a></dt>
+                <dd></dd>
+                            <dt><a href="../classes/App-Sharp-UserSharpList.html"><abbr title="\App\Sharp\UserSharpList">UserSharpList</abbr></a></dt>
+                <dd></dd>
             
                     </dl>
     
@@ -225,6 +242,11 @@
                 <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
             </tr>
                     <tr>
+                <th class="phpdocumentor-heading"><a href="../namespaces/default.html#function_forgetCaches"><abbr title="\forgetCaches()">forgetCaches()</abbr></a></th>
+                <td class="phpdocumentor-cell">Suppression des caches</td>
+                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+            </tr>
+                    <tr>
                 <th class="phpdocumentor-heading"><a href="../namespaces/default.html#function_refreshCachesLies"><abbr title="\refreshCachesLies()">refreshCachesLies()</abbr></a></th>
                 <td class="phpdocumentor-cell">Rechargement de tous les caches index des tables qui utilisent les données de la $table
 On ne doit recharger le cache que SI ET SEULEMENT SI les données des tables sont utilisées dans la génération des attributs nom ou crud_name
@@ -238,8 +260,7 @@ Ex: Saison-&gt;crudname = Competititon-&gt;crud_name . annee() ==&gt; SEUL la ta
             </tr>
                     <tr>
                 <th class="phpdocumentor-heading"><a href="../namespaces/default.html#function_index"><abbr title="\index()">index()</abbr></a></th>
-                <td class="phpdocumentor-cell">Style procédural de la méthode infos() de la classe CrudTable
-Liste de tous les éléments de la table.</td>
+                <td class="phpdocumentor-cell">Style procédural de la méthode infos() de la classe CrudTable : Liste de tous les éléments de la table.</td>
                 <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
             </tr>
                     <tr>
@@ -289,7 +310,7 @@ Retourne une collection contenant toutes les infos sur le match : competition, s
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">19</span>
+        <span class="phpdocumentor-element-found-in__line">27</span>
     </aside>
 
         <p class="phpdocumentor-summary">Revoie &#039;1ère journée&#039; si $numero = 1, Xème journée si $numero &gt; 1, false dans les autres cas de figure</p>
@@ -332,7 +353,7 @@ Retourne une collection contenant toutes les infos sur le match : competition, s
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">31</span>
+        <span class="phpdocumentor-element-found-in__line">39</span>
     </aside>
 
         <p class="phpdocumentor-summary">Enlèvement des accents.</p>
@@ -375,7 +396,7 @@ Retourne une collection contenant toutes les infos sur le match : competition, s
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">41</span>
+        <span class="phpdocumentor-element-found-in__line">49</span>
     </aside>
 
         <p class="phpdocumentor-summary">Renvoie le nom du model correspondant à la table.</p>
@@ -420,7 +441,7 @@ Retourne une collection contenant toutes les infos sur le match : competition, s
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">54</span>
+        <span class="phpdocumentor-element-found-in__line">62</span>
     </aside>
 
         <p class="phpdocumentor-summary">Style procédural de la méthode annee() de la classe Saison</p>
@@ -481,7 +502,7 @@ Retourne une collection contenant toutes les infos sur le match : competition, s
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">66</span>
+        <span class="phpdocumentor-element-found-in__line">74</span>
     </aside>
 
         <p class="phpdocumentor-summary">Teste si l&#039;équipe possède un fanion présent dans le repertoire app/public/img/fanion.</p>
@@ -513,6 +534,58 @@ Sinon on renvoie le lien vers le fanion par défaut.</p></section>
         <span class="phpdocumentor-signature__response_type">string</span>
             
 </article>
+                            <a id="function_forgetCaches"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-function
+            phpdocumentor-function--
+                    "
+>
+    <h4 class="phpdocumentor-function__name">forgetCaches()</h4>
+
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">91</span>
+    </aside>
+
+        <p class="phpdocumentor-summary">Suppression des caches</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+                                <span class="phpdocumentor-signature__name">forgetCaches</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$table</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$instance</span> :
+                <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$table</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><ul>
+<li>en camel_case</li>
+</ul></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$instance</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
                             <a id="function_refreshCachesLies"></a>
 <article
         class="
@@ -526,7 +599,7 @@ Sinon on renvoie le lien vers le fanion par défaut.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">84</span>
+        <span class="phpdocumentor-element-found-in__line">161</span>
     </aside>
 
         <p class="phpdocumentor-summary">Rechargement de tous les caches index des tables qui utilisent les données de la $table
@@ -571,7 +644,7 @@ Ex: Saison-&gt;crudname = Competititon-&gt;crud_name . annee() ==&gt; SEUL la ta
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">103</span>
+        <span class="phpdocumentor-element-found-in__line">181</span>
     </aside>
 
         <p class="phpdocumentor-summary">Fonction de comparaison pour générer les classements</p>
@@ -623,11 +696,10 @@ Ex: Saison-&gt;crudname = Competititon-&gt;crud_name . annee() ==&gt; SEUL la ta
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">123</span>
+        <span class="phpdocumentor-element-found-in__line">200</span>
     </aside>
 
-        <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe CrudTable
-Liste de tous les éléments de la table.</p>
+        <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe CrudTable : Liste de tous les éléments de la table.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
                                 <span class="phpdocumentor-signature__name">index</span>(
@@ -669,7 +741,7 @@ Liste de tous les éléments de la table.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">144</span>
+        <span class="phpdocumentor-element-found-in__line">221</span>
     </aside>
 
         <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe CrudTable
@@ -715,7 +787,7 @@ Liste de tous les éléments de la table (avec les infos sur les attributs à af
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">165</span>
+        <span class="phpdocumentor-element-found-in__line">242</span>
     </aside>
 
         <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe Journee
@@ -759,7 +831,7 @@ Renvoie une collection qui contient les matches de la journée ainsi que le rend
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">186</span>
+        <span class="phpdocumentor-element-found-in__line">263</span>
     </aside>
 
         <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe Saison
@@ -803,7 +875,7 @@ Retourne une collection qui contient le classement si c&#039;est un championnat 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">207</span>
+        <span class="phpdocumentor-element-found-in__line">284</span>
     </aside>
 
         <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe Match
@@ -848,7 +920,7 @@ Retourne une collection contenant toutes les infos sur le match : competition, s
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="../files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">227</span>
+        <span class="phpdocumentor-element-found-in__line">304</span>
     </aside>
 
         <p class="phpdocumentor-summary">Insère tous les matches d&#039;une saison dans la bdd</p>

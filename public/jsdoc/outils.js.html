@@ -19,18 +19,17 @@
 
     <h1 class="page-title">Source: outils.js</h1>
 
+    
 
 
 
-
-
+    
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const BOUTONSUPPRESSION = '&lt;i class="fas fa-trash-alt">&lt;/i>';
-const BOUTONAJOUTER = '&lt;i class="fas fa-plus">&lt;/i>';
-const BOUTONVUE = '&lt;i class="fas fa-eye">&lt;/i>';
-const BOUTONEDIT = '&lt;i class="fas fa-edit">&lt;/i>';
-const BOUTONLISTE = '&lt;i class="fas fa-list-ul">&lt;/i>';
+            <pre class="prettyprint source linenums"><code>const INPUTSAVERIFIER = `textarea[name]:not([disabled]),
+                        select[name]:not([disabled]),
+                        input[name]:not([disabled]):not([type=checkbox])`
+
 
 /* FONCTIONS DE RACCOURCIS */
     /**
@@ -75,19 +74,58 @@ function randInt(min, max) {
 }
 
 /**
- * Cette méthode ajoute des EventListeners au formulaire, à la div #submit,
+ *  Centrer un élément inclu dans un contenant (taille fixe) scrollable sur l'axe des X
+ *
+ * @param {object} target - Element à center
+ * @param {object} outer - Element scrollable de gauche à droite (X) qui contient target
+ */
+function centerItFixedWidth(target, outer){
+    var out = $(outer);
+    var tar = $(target);
+    var x = out.width();
+    var y = tar.outerWidth(true);
+    var z = tar.index();
+    out.scrollLeft(Math.max(0, (y * z) - (x - y)/2));
+}
+
+/**
+ *  Centrer un élément inclu dans un contenant (taille variable) scrollable sur l'axe des X
+ *
+ * @param {object} target - Element à center
+ * @param {object} outer - Element scrollable de gauche à droite (X) qui contient target
+ */
+function centerItVariableWidth(target, outer){
+    var out = $(outer);
+    var tar = $(target);
+    var x = out.width();
+    var y = tar.outerWidth(true);
+    var z = tar.index();
+
+    var q = 0;
+    var m = out.find('a');
+    //Just need to add up the width of all the elements before our target.
+    for(var i = 0; i &lt; z; i++){
+        q+= $(m[i]).outerWidth(true);
+    }
+    out.scrollLeft(Math.max(0, q - (x - y)/2));
+}
+
+/**
+ * Cette méthode ajoute des EventListeners au formulaire,
  * ainsi qu'à tous les inputs/textarea/select/... inclus dans le formulaire.
  *
  * @param {string} idFormulaire - id du formulaire
  */
 function verifierMonFormulaireEnJS(idFormulaire){
     var form = qs('#'+idFormulaire)
-    form.addEventListener('submit', function(){submitForm(idFormulaire)})
-    var submit = qs('#submit')
-    submit.addEventListener('click', function(){submitForm(idFormulaire)})
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        submitForm(idFormulaire)
+    })
 
-    // Evénements pour tous les inputs
-    $('#'+idFormulaire).on('change', ':input', function(){checkOne($(this)[0])})
+    qsa(INPUTSAVERIFIER, form).forEach(function(elem){
+        elem.addEventListener('change', e => checkOne(e.target))
+    })
 }
 
 /**
@@ -96,8 +134,8 @@ function verifierMonFormulaireEnJS(idFormulaire){
  * @param {string} idFormulaire
  */
 function checkAll(idFormulaire){
-    // let inputs1 = qsa('#formAddOrEdit :not(select)')
-    let inputs = $('#'+idFormulaire + ' :input[name!=_token]')
+    var form = qs('#'+idFormulaire)
+    let inputs = qsa(INPUTSAVERIFIER, form)
 
     for (let i = 0; i &lt; inputs.length; i++)
         if(checkOne(inputs[i]) == false)
@@ -109,29 +147,28 @@ function checkAll(idFormulaire){
 /**
  * Vérifie si le contenu de l'élement est valide ou non.
  *
- * @param {object} elem - input à vérifier
+ * @param {object} elem - élément à vérifier
  */
 function checkOne(elem) {
-    let messageErreur = elem.dataset['msg']
-    let divMessageErreur = qs('#messageErreur')
-    divMessageErreur.innerHTML = messageErreur
+    let divErreurs = qs('#messageErreur')
+    divErreurs.innerHTML = ''
 
-    // On valide automatiquement les checkbox
-    if(elem.type == 'checkbox' || elem.disabled == true)
-        return true;
-
-    if((elem.value == '' &amp;&amp; !elem.classList.contains('input-optionnel')) // Si le champ est vide mais qu'il n'a pas la classe input-optionnel
-         || elem.checkValidity() == false){ // ou si la validation est fausse (type incorrect par exemple)
-        divMessageErreur.style.display = 'block'
-        divMessageErreur.classList.remove('d-none')
+    // Si le champ est vide mais obligatoire
+    if((elem.value == '' &amp;&amp; !elem.classList.contains('input-optionnel'))
+        // si la validation est fausse (format type ou regex incorrect)
+        ||  elem.checkValidity() == false
+        // si la confirmation du mot de passe n'est pas bonne
+        ||  (elem.name == 'password_confirmation' &amp;&amp; qs('[name=password]').value != elem.value)){
+        let messageErreur = elem.dataset['msg']
+        divErreurs.innerHTML = messageErreur
+        divErreurs.classList.remove('d-none')
         elem.classList.add('is-invalid')
         elem.classList.remove('is-valid')
         elem.focus()
         return false
     }
 
-    divMessageErreur.style.display = 'none'
-    divMessageErreur.classList.add('d-none')
+    divErreurs.classList.add('d-none')
     elem.classList.remove('is-invalid')
     elem.classList.add('is-valid')
     return true
@@ -198,13 +235,81 @@ const serialize = function(formEle) {
 };
 
 /**
+ * Récupère la liste de tous les éléments en AJAX et met à jour le contenu du tableau
+ *
+ * @param {array} params
+ */
+function listeAjax(params)
+{
+    urlApp = params['urlApp'] // url du site
+    urlLister = params['urlLister'] // url de récupération de la liste
+    idTable = params['idTable']
+    $.ajax({
+        type: 'GET',
+        url: urlLister,
+        success:function(data){
+            let table = qs('#'+idTable)
+            let tbody = qs('tbody', table)
+            let newTbody = dce('tbody')
+            newTbody.innerHTML = data
+            table.replaceChild(newTbody, tbody)
+            triDataTables({urlApp, idTable})
+        }
+    })
+}
+
+/**
+ * Suppression de plusieurs éléments (dont l'id est inclu dans le tableau ids) en AJAX.
+ *
+ * @param {array} params - tableau des paramètres. Doit contenir les clés : urlSupprimer, urlLister, idTable, token, ids
+ */
+function suppressionAjax(params)
+{
+    let urlSupprimer = params['urlSupprimer']
+    let urlLister = params['urlLister']
+    let ids = params['ids']
+    let token = params['token']
+    let idTable = params['idTable']
+    $.ajax({
+        type: 'POST',
+        url: urlSupprimer,
+        data: {ids:ids, _token:token},
+        success: function(){
+            listeAjax({urlApp, urlLister, idTable})
+        }
+    });
+}
+
+/**
+ * Demande de confirmation sur les boutons supprimer + Envoi de la requète en AJAX si confirmé
+ *
+ * @param {array} params - tableau de paramètres avec les index suivants : urlSupprimer, urlLister, idTable, token
+ */
+function supprimerUnElement(params){
+    let idTable = params['idTable']
+
+    $('#'+idTable).on("click", 'a[title="Supprimer"]', function(e){
+        e.preventDefault()
+        let element = qs('td:nth-child(2)', this.closest('tr')).innerHTML
+        let tdAvecInput = qs('td:nth-child(1)', this.closest('tr'))
+        let id = qs('input[type=checkbox]', tdAvecInput).value
+        params['ids'] = [id]
+        let ok = confirm("Supprimer définitivement : " + element + "?")
+        if(ok){
+            suppressionAjax(params)
+        }
+    });
+}
+
+/**
  * Ajout d'un EventListener (click) sur le bouton qui a l'id #multi-suppressions.
  * Suppression de tous les éléments cochés en cas d'action sur ce bouton.
  *
- * @param {string} idTable - id de la table qui contient la liste
+ * @param {string} params - tableau de paramètres avec les index suivants : urlSupprimer, urlLister, idTable, token
  */
-function supprimerSelection(idTable)
+function supprimerSelection(params)
 {
+    let idTable = params['idTable']
     $('#multi-suppressions').on("click", function(){
         let ok = confirm("Supprimer définitivement les éléments sélectionnés ?")
         if(ok){
@@ -216,95 +321,11 @@ function supprimerSelection(idTable)
                     ids.push(id)
                 }
 
-            let url = document.location.href + '/supprimer'
-            let urlAjax = document.location.href + '/ajax'
-            let token = qs('input[name=_token]').value
-            let params = {
-                ids:ids,
-                urlAjax:urlAjax,
-                url:url,
-                token:token,
-                idTable:idTable
-            }
+            params['ids'] = ids
             suppressionAjax(params)
         }
 
     })
-}
-
-/**
- * Récupère la liste de tous les éléments en AJAX et met à jour le contenu du tableau
- *
- * @param {string} url - url de la liste (requète envoyée en Ajax)
- * @param {string} idTable - id de la table
- */
-function listeAjax(url, idTable)
-{
-    $.ajax({
-        type: 'GET',
-        url: url,
-        success:function(data){
-            let table = qs('#'+idTable)
-            let tbody = qs('tbody', table)
-            let newTbody = dce('tbody')
-            newTbody.innerHTML = data
-            table.replaceChild(newTbody, tbody)
-            triDataTables(appUrl, idTable)
-        }
-    })
-}
-
-/**
- * Suppression de plusieurs éléments (dont l'id est inclu dans le tableau ids) en AJAX.
- *
- * @param {array} params - tableau des paramètres. Doit contenir les clés : url, urlAjax, idTable, token, ids
- */
-function suppressionAjax(params)
-{
-    let url = params['url']
-    let urlAjax = params['urlAjax']
-    let ids = params['ids']
-    let token = params['token']
-    let idTable = params['idTable']
-    $.ajax({
-        type: 'POST',
-        url: url,
-        data: {ids:ids, _token:token},
-        success: function(){
-            listeAjax(urlAjax, idTable)
-        }
-    });
-}
-
-/**
- * Demande de confirmation sur les boutons supprimer + Envoi de la requète en AJAX si confirmé
- *
- * @param {string} idTable - id de la table
- */
-function confirmerAvantSuppression(idTable){
-    $('#'+idTable).on("click", 'a[title="Supprimer"]', function(e){
-        e.preventDefault()
-        e.stopPropagation()
-
-        // Grace à closest on remonte directement sur le tr qui contient le lien
-        let element = qs('td:nth-child(2)', this.closest('tr')).innerHTML
-        let tdAvecInput = qs('td:nth-child(1)', this.closest('tr'))
-        let id = qs('input[type=checkbox]', tdAvecInput).value
-        let url = document.location.href + '/supprimer'
-        let urlAjax = document.location.href + '/ajax'
-        let token = qs('input[name=_token]').value
-        let params = {
-            ids:[id],
-            urlAjax:urlAjax,
-            url:url,
-            token:token,
-            idTable:idTable
-        }
-        let ok = confirm("Supprimer définitivement : " + element + "?")
-        if(ok){
-            suppressionAjax(params)
-        }
-    });
 }
 
 /**
@@ -323,11 +344,16 @@ function trAvecHref(idTable){
 /**
  * On applique la librairie DataTables au tableau en le triant par la 2ème colonne par défaut
  *
+ * @param {string} urlApp - url du site
  * @param {integer} idTable
  * @param {integer} numeroColonne - Le numéro de la colonne
  * @param {string} sens - Le sens de tri asc ou desc
  */
-function triDataTables(idTable, numeroColonne = 1, sens = 'asc') {
+function triDataTables(params) {
+    urlApp = params['urlApp']
+    idTable = params['idTable']
+    numeroColonne = params['numeroColonne'] ?? 1
+    sens = params['sens'] ?? 'asc'
     if((sens != 'asc' &amp;&amp; sens != 'desc') || numeroColonne &lt; 0)
         return false;
 
@@ -335,7 +361,7 @@ function triDataTables(idTable, numeroColonne = 1, sens = 'asc') {
         destroy: true, // On "vide le cache" de l'objet DataTables
         paging: true, // Activation de la pagination
         language: {
-            url : "/json/datatables.json" // Traduction en français
+            url : urlApp + "/json/datatables.json" // Traduction en français
         },
         order : [[ numeroColonne, sens ]], // Colonne et sens de tri
         "columnDefs": [ {
@@ -355,32 +381,30 @@ function triDataTables(idTable, numeroColonne = 1, sens = 'asc') {
 function ajaxSelect(params)
 {
     var select = qs('#'+params['idSelect'])
-    var texteOptionDefaut = params['texteOptionDefaut']
 
-    $.ajax({
-        url: params['url'],
-        method: params['method'],
-        data: params['data'],
-        success: function(data) {
+    fetch(params['url'], {
+        method:params['method'],
+        body:JSON.stringify(params['data']),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(res.length > 0){
             select.innerHTML = ''
-            if(data != 'Erreur'){
-                let optionDefaut = dce('option')
-                optionDefaut.innerHTML = texteOptionDefaut
-                optionDefaut.value = ''
-                select.appendChild(optionDefaut)
-                data = data.split('|')
-                data.forEach(element => {
-                    element = element.split('$$')
-                    let value = element[0] ?? '' // On récupère l'ID
-                    let innerHTML = element[1] ?? '' // On récupère le nom de l'élement
-                    let option = dce('option')
-                    option.value = value
-                    option.innerHTML = innerHTML
-                    select.appendChild(option)
-                })
+            let optionDefaut = dce('option')
+            optionDefaut.innerHTML = 'Sélectionner'
+            optionDefaut.value = ''
+            select.appendChild(optionDefaut)
+
+            for(let i in res){
+                let option = dce('option')
+                option.value = res[i]['id']
+                option.innerHTML = res[i]['nom']
+                select.appendChild(option)
             }
         }
     })
+    .catch(err => cl(err))
 }
 
 /**
@@ -396,26 +420,17 @@ function toutCocherDecocher(idBloc) {
         let action = this.dataset['action']
         if(action == 'cocher'){
             for (let i = 0; i &lt; lesCheckbox.length; i++)
-                lesCheckbox[i].checked = true
+                if(lesCheckbox[i].disabled == false)
+                    lesCheckbox[i].checked = true
 
-            tout.dataset['action'] = 'décocher'
-        }else if(action == 'décocher'){
+            tout.dataset['action'] = 'decocher'
+        }else if(action == 'decocher'){
             for (let i = 0; i &lt; lesCheckbox.length; i++)
-                lesCheckbox[i].checked = false
+                if(lesCheckbox[i].disabled == false)
+                    lesCheckbox[i].checked = false
 
             tout.dataset['action'] = 'cocher'
         }
-    })
-}
-
-/**
- * Retour sur la page précédente
- */
-function retour()
-{
-    qs('a.back').addEventListener('click', (e) => {
-        e.preventDefault()
-        window.history.back()
     })
 }
 </code></pre>
@@ -428,13 +443,13 @@ function retour()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ajaxSelect">ajaxSelect</a></li><li><a href="global.html#checkAll">checkAll</a></li><li><a href="global.html#checkOne">checkOne</a></li><li><a href="global.html#cl">cl</a></li><li><a href="global.html#confirmerAvantSuppression">confirmerAvantSuppression</a></li><li><a href="global.html#dce">dce</a></li><li><a href="global.html#listeAjax">listeAjax</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#qsa">qsa</a></li><li><a href="global.html#randInt">randInt</a></li><li><a href="global.html#retour">retour</a></li><li><a href="global.html#serialize">serialize</a></li><li><a href="global.html#submitForm">submitForm</a></li><li><a href="global.html#suppressionAjax">suppressionAjax</a></li><li><a href="global.html#supprimerSelection">supprimerSelection</a></li><li><a href="global.html#toutCocherDecocher">toutCocherDecocher</a></li><li><a href="global.html#trAvecHref">trAvecHref</a></li><li><a href="global.html#triDataTables">triDataTables</a></li><li><a href="global.html#verifierMonFormulaireEnJS">verifierMonFormulaireEnJS</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ajaxSelect">ajaxSelect</a></li><li><a href="global.html#centerItFixedWidth">centerItFixedWidth</a></li><li><a href="global.html#centerItVariableWidth">centerItVariableWidth</a></li><li><a href="global.html#checkAll">checkAll</a></li><li><a href="global.html#checkOne">checkOne</a></li><li><a href="global.html#cl">cl</a></li><li><a href="global.html#dce">dce</a></li><li><a href="global.html#listeAjax">listeAjax</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#qsa">qsa</a></li><li><a href="global.html#randInt">randInt</a></li><li><a href="global.html#serialize">serialize</a></li><li><a href="global.html#submitForm">submitForm</a></li><li><a href="global.html#suppressionAjax">suppressionAjax</a></li><li><a href="global.html#supprimerSelection">supprimerSelection</a></li><li><a href="global.html#supprimerUnElement">supprimerUnElement</a></li><li><a href="global.html#toutCocherDecocher">toutCocherDecocher</a></li><li><a href="global.html#trAvecHref">trAvecHref</a></li><li><a href="global.html#triDataTables">triDataTables</a></li><li><a href="global.html#verifierMonFormulaireEnJS">verifierMonFormulaireEnJS</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Oct 03 2020 17:28:42 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Dec 17 2020 22:26:40 GMT+0100 (heure normale d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
