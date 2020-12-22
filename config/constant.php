@@ -68,7 +68,7 @@ return [
     ],
 
     "tables-non-crudables" => [
-        'migrations', 'password_resets', 'failed_jobs', 'jobs'
+        'migrations', 'password_resets', 'matches', 'failed_jobs', 'jobs'
     ],
 
     // 'sports-position' => [
@@ -91,8 +91,8 @@ return [
         'competitions' => ['saisons'],
         'crud-attributs' => ['crud-attribut-infos'],
         'crud-tables' => ['crud-attributs'],
-        'equipes' => ['matches', 'equipe-saison'],
-        'matches' => ['modifs'],
+        'equipes' => [/*'matches',*/ 'equipe-saison'],
+        //'matches' => ['modifs'], Les matches ne sont plus gérés dans le crud
         'saisons' => ['journees', 'equipe-saison'],
         'sports' => ['equipes', 'competitions', 'baremes'],
         'users' => ['modifs'],
