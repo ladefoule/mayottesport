@@ -7,10 +7,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Cache;
 use App\Match;
 use App\Modif;
-use App\CrudTable;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
@@ -28,6 +26,7 @@ class MatchController extends Controller
     {
         Log::info(" -------- Controller Match : __construct -------- ");
         $this->middleware(['sport', 'competition', 'match-uniqid']);
+        $this->middleware(['modification-match'])->except('match');
     }
 
     /**

@@ -34,12 +34,12 @@ Route::group(['middleware'=> 'verified'], function () {
     Route::get('/profil/delete', 'UserController@delete')->name('profil.delete');
 
     Route::get('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultat')->name('competition.match.resultat');
-    Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost');
+    Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost')->name('competition.match.resultat.store');
 
     /* MIDDLEWARE PREMIUM */
     Route::group(['check-permission:premium|admin|superadmin'], function () {
         Route::get('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horaire')->name('competition.match.horaire');
-        Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost');
+        Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost')->name('competition.match.horaire.store');
 
         /* PREFIX ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {

@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'equipe' => \App\Http\Middleware\Equipe::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'match-uniqid' => \App\Http\Middleware\MatchUniqid::class,
+        'modification-match' => \App\Http\Middleware\ModificationMatch::class,
         'verif-table-crud' => \App\Http\Middleware\VerifTableCrud::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,

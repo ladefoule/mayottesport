@@ -10,6 +10,7 @@ namespace App\Console\Commands;
 use App\Saison;
 use App\CrudTable;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class CachesRefresh extends Command
 {
@@ -44,6 +45,7 @@ class CachesRefresh extends Command
      */
     public function handle()
     {
+        Log::info(" -------- Command refresh:cache -------- ");
         // Les caches index et indexCrud ainsi que les listeAttributsVisibles pour chaque table
         $crudTables = CrudTable::all();
         foreach ($crudTables as $crudTable) {

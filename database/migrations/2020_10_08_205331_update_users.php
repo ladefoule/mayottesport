@@ -18,6 +18,8 @@ class UpdateUsers extends Migration
             $table->foreign('role_id')->references('id')->on('roles');
             $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +31,7 @@ class UpdateUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            // $table->dropForeign(['role_id']);
             $table->dropForeign(['role_id']);
             $table->dropForeign(['region_id']);
         });

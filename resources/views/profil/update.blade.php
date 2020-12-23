@@ -49,10 +49,10 @@
             </div>
 
             <div class="form-group row mb-3">
-                <label for="pseudo" class="col-md-4 col-form-label text-md-right">Pseudo</label>
+                <label for="pseudo" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Pseudo</label>
 
                 <div class="col-md-6">
-                    <input id="pseudo" type="text" class="form-control @error('pseudo') is-invalid @enderror input-optionnel" pattern="\0|.{3,50}" data-msg="Le <span class='text-danger font-italic'>Pseudo</span> doit comporter au moins 3 caractères." name="pseudo" value="{{ old('pseudo') ?? $user->pseudo }}" autocomplete="pseudo" autofocus>
+                    <input id="pseudo" type="text" class="form-control @error('pseudo') is-invalid @enderror" pattern=".{3,50}" data-msg="Le <span class='text-danger font-italic'>Pseudo</span> doit comporter au moins 3 caractères." name="pseudo" value="{{ old('pseudo') ?? $user->pseudo }}" autocomplete="pseudo" autofocus>
 
                     @error('pseudo')
                         <span class="invalid-feedback" role="alert">
