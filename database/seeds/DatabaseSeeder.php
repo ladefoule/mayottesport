@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             // JourneeTableSeeder::class,
             RoleTableSeeder::class,
             RegionTableSeeder::class,
-            // UserSeeder::class,
+            UserTableSeeder::class,
         ]);
 
         Log::info("Seed du CRUD");
