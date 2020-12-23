@@ -21,7 +21,7 @@
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="magik.systematik@hotmail.com" value="{{ old('email') }}" required autocomplete="email" autofocus
+                                value="superadmin@superadmin.fr" value="{{ old('email') }}" required autocomplete="email" autofocus
                                 data-msg="Le champ <span class='text-danger font-italic'>Email</span> n'est pas valide.">
 
                             @error('email')

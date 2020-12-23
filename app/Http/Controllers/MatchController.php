@@ -25,8 +25,7 @@ class MatchController extends Controller
     public function __construct()
     {
         Log::info(" -------- Controller Match : __construct -------- ");
-        $this->middleware(['sport', 'competition', 'match-uniqid']);
-        $this->middleware(['modification-match'])->except('match');
+        $this->middleware(['sport', 'competition', 'match-uniqid', 'modification-match']);
     }
 
     /**
@@ -44,19 +43,18 @@ class MatchController extends Controller
     {
         Log::info(" -------- Controller Match : match -------- ");
         $match = $request->match;
-        $match = Match::find($match->id);
         $journee = index('journees')[$match->journee_id];
         $saison = index('saisons')[$journee->saison_id];
 
         // On vérifie l'année
         if(annee($saison->annee_debut, $saison->annee_fin) != $annee)
             abort(404);
-            // Cache::forget('match-5fc1506c17110');
 
         $infos = match($match->uniqid);
-        // dd($infos);
         return view('competition.match', [
-            'match' => $infos
+            'match' => $infos,
+            'accesModifHoraire' => $request->accesModifHoraire,
+            'accesModifResultat' => $request->accesModifResultat,
         ]);
     }
 
@@ -106,14 +104,17 @@ class MatchController extends Controller
 
         // S'il y a un changement au niveau du score
         if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
+            $userId = Auth::id();
+
             $match->update([
                 'score_eq_dom' => $score_eq_dom,
                 'score_eq_ext' => $score_eq_ext,
-                'nb_modifs' => $match->nb_modifs + 1
+                'nb_modifs' => $match->nb_modifs + 1,
+                'user_id' => $userId
             ]);
 
             Modif::create([
-                'user_id' => Auth::id(),
+                'user_id' => $userId,
                 'match_id' => $match->id,
                 'note' => $note,
             ]);

@@ -24,20 +24,15 @@
         </div>
     </div>
 
-    @if (! $match['acces_bloque'])
-        {{-- Accès à la saisie de résultat que pour les matches déjà joués (aujourd'hui compris) --}}
-        @if ($match['date'] <= date('Y-m-d'))
-            <div class="col-12 d-flex align-items-center justify-content-center p-3">
-                <a href="{{ $match['href_resultat'] }}"><button class="btn btn-success">{{ $match['score_eq_dom'] ? 'Modifier' : 'Saisir' }} le résultat</button></a>
-            </div>
-        @endif
-
-        {{-- Accès à la modification de l'horaire qu'aux membres premium/admin/superadmin --}}
-        @if (Auth::check() && Auth::user()->role->niveau > 10)
-            <div class="col-12 text-center">
-                <a href="{{ $match['href_horaire'] }}"><button class="btn btn-primary">Modifier l'horaire</button></a>
-            </div>
-        @endif
+    @if ($accesModifResultat)
+        <div class="col-12 d-flex align-items-center justify-content-center p-3">
+            <a href="{{ $match['href_resultat'] }}"><button class="btn btn-success">{{ $match['score_eq_dom'] ? 'Modifier' : 'Saisir' }} le résultat</button></a>
+        </div>
+    @endif
+    @if ($accesModifHoraire)
+        <div class="col-12 text-center">
+            <a href="{{ $match['href_horaire'] }}"><button class="btn btn-primary">Modifier l'horaire</button></a>
+        </div>
     @endif
 
     <div class="row col-12 d-flex justify-content-center align-items-center mx-0 p-3">

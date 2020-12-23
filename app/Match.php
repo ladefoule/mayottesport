@@ -21,7 +21,7 @@ class Match extends Model
      * @var array
      */
     protected $fillable = ['date', 'heure', 'acces_bloque', 'nb_modifs', 'score_eq_dom', 'score_eq_ext',
-                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext', 'uniqid'];
+                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext', 'uniqid', 'user_id'];
 
     /**
      * La fonction nous renvoie le résultat du matchpar rapport à l'équipe $equipeId
@@ -86,6 +86,7 @@ class Match extends Model
         $rules = [
             'journee_id' => 'required|exists:journees,id',
             'terrain_id' => 'nullable|exists:terrains,id',
+            'user_id' => 'nullable|exists:users,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
             'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeDom],
@@ -302,5 +303,15 @@ class Match extends Model
     public function equipeExt()
     {
         return $this->belongsTo('App\Equipe', 'equipe_id_ext');
+    }
+
+    /**
+     * Le dernier utilisateur ayant modifié le match.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

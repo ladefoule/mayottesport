@@ -65,6 +65,56 @@ function annee(int $debut, int $fin, string $separateur = '-')
 }
 
 /**
+ * On vérifie si l'utilisateur a le droit de modifier le résultats du match ou non
+ *
+ * @param Match|\Illuminate\Database\Eloquent\Collection $match
+ * @param User|\Illuminate\Database\Eloquent\Collection $user
+ * @return bool
+ */
+function accesModifResultat($match, $user)
+{
+    if(! $user)
+        return false;
+
+    $niveauUser = index('roles')[$user->role_id]->niveau;
+    $lastUserId = $match->user_id;
+    $lastUser = index('users')[$lastUserId] ?? '';
+    $niveauLastUser = $lastUser ? index('roles')[$lastUser->role_id]->niveau : 0;
+
+    // Les conditions d'accès refusé
+    // - Match bloqué
+    // - Date du match > aujourd'hui
+    // - Niveau de l'utilisateur ayant modifié le match > Niveau du membre connecté (ne concerne pas les admins)
+    if($match->bloque || ($niveauLastUser > $niveauUser && $niveauUser < 30) || $match->date > date('Y-m-d'))
+        return false;
+
+    return true;
+}
+
+/**
+ * On vérifie si l'utilisateur a le droit de modifier l'horaire du match ou non
+ *
+ * @param Match|\Illuminate\Database\Eloquent\Collection $match
+ * @param User|\Illuminate\Database\Eloquent\Collection $user
+ * @return bool
+ */
+function accesModifHoraire($match, $user)
+{
+    if(! $user)
+        return false;
+
+    $niveauUser = index('roles')[$user->role_id]->niveau;
+
+    // Les conditions d'accès refusé
+    // - Match bloqué
+    // - Niveau de l'utilisateur connecté < 20 cad niveau membre (10)
+    if($match->bloque || $niveauUser < 20)
+        return false;
+
+    return true;
+}
+
+/**
  * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
  * Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
  * Sinon on renvoie le lien vers le fanion par défaut.
