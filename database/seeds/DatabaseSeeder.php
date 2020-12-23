@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
         ]);
 
-        Log::info("Seed du CRUD");
+        // Log::info("Seed du CRUD");
         require 'app/scripts/gestion-crud-bdd.php';
 
         // Re enable all mass assignment restrictions

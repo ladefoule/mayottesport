@@ -387,7 +387,7 @@ function genererCalendrier($donnees)
             ];
 
             $matchAller = Match::create($matchAller);
-            Log::info("Ajout d'un match : " . $matchAller);
+            // Log::info("Ajout d'un match : " . $matchAller);
 
             $equipeDomId = $rencontre[1];
             $equipeExtId = $rencontre[0];
@@ -403,7 +403,7 @@ function genererCalendrier($donnees)
             ];
 
             $matchRetour = Match::create($matchRetour);
-            Log::info("Ajout d'un match : " . $matchRetour);
+            // Log::info("Ajout d'un match : " . $matchRetour);
         }
 
 
