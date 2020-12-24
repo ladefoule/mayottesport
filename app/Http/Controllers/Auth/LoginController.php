@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -37,8 +39,21 @@ class LoginController extends Controller
     public function __construct()
     {
         Log::info("Accès à la page de connexion.");
-        // $this->middleware('membre')->except('logout');
-        // $this->middleware('privilege')->except('logout');
-        //$this->middleware('administrateur')->except('logout');
+
+        // Retour sur le lien précédent après connexion
+        if(url()->previous() != route('login'))
+            session(['previous' => url()->previous()]);
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect(session('previous'));
     }
 }
