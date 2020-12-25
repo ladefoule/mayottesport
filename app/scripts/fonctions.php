@@ -145,7 +145,9 @@ function fanion($equipeId)
     // On supprime le cache index de la table
     $tableSlug = Str::slug($table);
     Cache::forget('index-' . $tableSlug);
-    Cache::forget('indexcrud-' . $tableSlug);
+
+    if(! in_array($table, config('constant.tables-non-crudables')))
+        Cache::forget('indexcrud-' . $tableSlug);
 
     // On supprime les caches directement liés au match, à la journée ou à la saison
     if(in_array($table, ['matches', 'journees', 'saisons'])){

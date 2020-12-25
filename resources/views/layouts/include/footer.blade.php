@@ -1,5 +1,5 @@
 <?php
-    $sports = index('sports');
+    $sports = index('sports')->sortBy('home_position')->slice(0,5);
     $competitions = index('competitions');
 ?>
 <!-- Footer -->
@@ -11,13 +11,11 @@
             <div class="col-4 col-md-2 mx-auto px-2">
                 <a href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}"><h5 class="font-weight-bold mt-3 mb-2 text-white">{{ $sport->nom }}</h5></a>
                 <ul class="list-unstyled">
-                    <?php $i = 1 ?>
-                    @foreach ($competitions->where('sport_id', $sport->id) as $competition)
-                    <li>
-                        <a href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
-                    </li>
-                    <?php if($i++ == 5) break; ?>
-                @endforeach
+                    @foreach ($competitions->where('sport_id', $sport->id)->sortBy('index_position')->slice(0,5) as $competition)
+                        <li>
+                            <a class="text-primary" href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             @endforeach
@@ -25,16 +23,16 @@
                 <h5 class="font-weight-bold mt-3 mb-2">MS.com</h5>
                 <ul class="list-unstyled">
                     <li>
-                    <a href="#!">S'inscrire</a>
+                        <a class="text-primary" href="#!">S'inscrire</a>
                     </li>
                     <li>
-                    <a href="#!">Se connecter</a>
+                        <a class="text-primary" href="#!">Se connecter</a>
                     </li>
                     <li>
-                    <a href="#!">Contact</a>
+                        <a class="text-primary" href="#!">Contact</a>
                     </li>
                     <li>
-                    <a href="#!">Cookies</a>
+                        <a class="text-primary" href="#!">Cookies</a>
                     </li>
                 </ul>
                 </div>

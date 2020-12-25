@@ -2,9 +2,7 @@
 
 namespace App\Sharp;
 
-use App\User;
 use App\Match;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Code16\Sharp\EntityList\EntityListQueryParams;
@@ -64,7 +62,7 @@ class MatchSharpList extends SharpEntityList
     {
         $this->setInstanceIdAttribute('id')
             ->setSearchable()
-            ->setDefaultSort('annee', 'desc')
+            ->setDefaultSort('updated_at', 'desc') // On affiche en premier les matches modifiés récemment
             ->setPaginated();
     }
 
@@ -105,7 +103,6 @@ class MatchSharpList extends SharpEntityList
         return $this->setCustomTransformer(
             "id",
             function ($label, $match) {
-                Log::info($match);
                 return $match->uniqid;
             }
         )->setCustomTransformer(

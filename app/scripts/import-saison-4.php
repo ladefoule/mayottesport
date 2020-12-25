@@ -4,6 +4,7 @@ for ($i=0; $i < 5; $i++) {
     $saison = App\Saison::create([
         'annee_debut' => date('Y') - $i,
         'annee_fin' => date('Y') - $i,
+        'finie' => $i==0 ? 0 : 1,
         'nb_journees' => 1,
         'competition_id' => 4,
         'created_at' => now(),

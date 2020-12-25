@@ -37,7 +37,7 @@ return [
         "match" => [
             "list" => \App\Sharp\MatchSharpList::class,
             "form" => \App\Sharp\MatchSharpForm::class,
-            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
+            "validator" => \App\Sharp\MatchSharpValidator::class,
             //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
         ],
     ],

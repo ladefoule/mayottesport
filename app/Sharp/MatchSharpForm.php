@@ -2,18 +2,28 @@
 
 namespace App\Sharp;
 
+use App\User;
 use App\Match;
+use App\Equipe;
 use App\Journee;
+use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
+use Illuminate\Support\Facades\Log;
+use App\Sharp\Auth\SharpCheckHandler;
+use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
-use Code16\Sharp\Show\Layout\ShowLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
-use Code16\Sharp\Show\Fields\SharpShowListField;
+use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
+use Code16\Sharp\Form\Fields\SharpFormAutocompleteField;
+use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
+use Code16\Sharp\Form\Fields\SharpFormAutocompleteListField;
 
 class MatchSharpForm extends SharpForm
 {
+    use WithSharpFormEloquentUpdater;
+
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
      *
@@ -22,19 +32,19 @@ class MatchSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $match = Match::findOrFail($id);
-        $journee = $match->journee;
-        $saison = $journee->saison;
-        $competition = $saison->competition;
-        $sport = $competition->sport;
-
-        $match->sport = $sport->nom;
-        $match->competition = $competition->nom;
-        $match->saison = $saison->nom;
-        $match->journee = $journee->nom;
-        return $this->transform(
-            $match
-        );
+        $match = Match::where('uniqid', $id)->firstOrFail();
+        $matchInfos = $match->infos();
+        return $this->setCustomTransformer("saison", function ($label, $match) {
+            return $match->journee->saison->crud_name;
+        })->setCustomTransformer("forfait_eq_dom", function ($label, $match) use($matchInfos){
+            return isset($matchInfos['forfait_eq_dom']);
+        })->setCustomTransformer("forfait_eq_ext", function ($label, $match) use($matchInfos){
+            return isset($matchInfos['forfait_eq_ext']);
+        })->setCustomTransformer("penalite_eq_dom", function ($label, $match) use($matchInfos){
+            return isset($matchInfos['penalite_eq_dom']);
+        })->setCustomTransformer("penalite_eq_ext", function ($label, $match) use($matchInfos){
+            return isset($matchInfos['penalite_eq_ext']);
+        })->transform($match);
     }
 
     /**
@@ -44,7 +54,17 @@ class MatchSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        Match::findOrFail($id)->update($data);
+        $ignore = ['saison', 'uniqid'];
+        $match = Match::where('uniqid', $id)->firstOrFail();
+
+        // On valide la requète
+        Validator::make($data, Match::rules($match)['rules'])->validate();
+
+        $this->ignore($ignore)->save($match, $data);
+
+        // Rechargement des caches liés au match
+        forgetCaches('matches', $match);
+        ProcessCrudTable::dispatch('matches', $match->id);
     }
 
     /**
@@ -52,7 +72,14 @@ class MatchSharpForm extends SharpForm
      */
     public function delete($id)
     {
-        Match::findOrFail($id)->delete();
+        $match = Match::where('uniqid', $id)->firstOrFail();
+        // Suppression des caches liés au match
+        forgetCaches('matches', $match);
+
+        $match->delete();
+
+        // Rechargement du cache index-matches
+        index('matches');
     }
 
     /**
@@ -62,31 +89,74 @@ class MatchSharpForm extends SharpForm
      */
     public function buildFormFields()
     {
-        $journees = Journee::get()->all();
         $this
             ->addField(
                 SharpFormTextField::make("uniqid")
                     ->setLabel("Id")
                     ->setReadOnly()
             )->addField(
-                SharpFormTextField::make("sport")
-                    ->setLabel("Sport")
-            )->addField(
-                SharpFormTextField::make("competition")
-                    ->setLabel("Competition")
-            )->addField(
                 SharpFormTextField::make("saison")
                     ->setLabel("saison")
-            )/* ->addField(
-                SharpFormListField::make("journees",
-                    $column->withSingleField("pieces", function(FormLayoutColumn $listItem) {
-                        $listItem->withSingleField("acquisition_date")
-                            ->withSingleField("title")
-                            ->withSingleField("artist_id");
-                    });
+                    ->setReadOnly()
+            )->addField(
+                SharpFormCheckField::make("acces_bloque", "Accès bloqué")
+                    ->setLabel("Accès bloqué")
+                    // ->setReadOnly()
+            )->addField(
+                SharpFormTextField::make("score_eq_dom")
+                    ->setLabel("Score (domicile)")
+            )->addField(
+                SharpFormTextField::make("score_eq_ext")
+                    ->setLabel("Score (extérieur)")
+            )->addField(
+                SharpFormCheckField::make("forfait_eq_dom", "Forfait (domicile)")
+                    ->setLabel("Forfait (domicile)")
+            )->addField(
+                SharpFormCheckField::make("forfait_eq_ext", "Forfait (exterieur)")
+                    ->setLabel("Forfait (extérieur)")
+            )->addField(
+                SharpFormCheckField::make("penalite_eq_dom", "penalite (domicile)")
+                    ->setLabel("Pénalité (domicile)")
+            )->addField(
+                SharpFormCheckField::make("penalite_eq_ext", "penalite (exterieur)")
+                    ->setLabel("Pénalité (extérieur)")
+            )->addField(
+                SharpFormSelectField::make("journee_id",
+                    Journee::orderBy("saison_id")->orderBy('numero')->get()->map(function($journee) {
+                        return [
+                            "id" => $journee->id,
+                            "label" => $journee->crud_name
+                        ];
+                    })->all()
                 )
-                    ->setLabel("Journée")
-            ) */;
+                ->setLabel("Journée")
+                ->setDisplayAsDropdown()
+                ->setMultiple(false)
+            )->addField(
+                SharpFormSelectField::make("equipe_id_dom",
+                    Equipe::orderBy("sport_id")->orderBy('nom')->get()->map(function($equipe) {
+                        return [
+                            "id" => $equipe->id,
+                            "label" => $equipe->crud_name
+                        ];
+                    })->all()
+                )
+                ->setLabel("Domicile")
+                ->setDisplayAsDropdown()
+                ->setMultiple(false)
+            )->addField(
+                SharpFormSelectField::make("equipe_id_ext",
+                    Equipe::orderBy("sport_id")->orderBy('nom')->get()->map(function($equipe) {
+                        return [
+                            "id" => $equipe->id,
+                            "label" => $equipe->crud_name
+                        ];
+                    })->all()
+                )
+                ->setLabel("Exterieur")
+                ->setDisplayAsDropdown()
+                ->setMultiple(false)
+            );
     }
 
     /**
@@ -97,7 +167,8 @@ class MatchSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('uniqid|6','sport|6', 'competition|6', 'saison|6', 'journees|6');
+            $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'equipe_id_dom|6', 'equipe_id_ext|6');
+            $column->withFields('score_eq_dom|6', 'score_eq_ext|6', 'forfait_eq_dom|3', 'penalite_eq_dom|3', 'forfait_eq_ext|3', 'penalite_eq_ext|3');
         });
 
     }

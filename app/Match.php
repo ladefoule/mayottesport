@@ -181,8 +181,16 @@ class Match extends Model
                 ])
             ];
 
+            $infosSup = $this->matchInfos()->get();
+            $correspondances = config('constant.match');
+            // dd($infosSup);
+            foreach ($infosSup as $info)
+                // dd($correspondances[$info->propriete_id][0]);
+                $collect[$correspondances[$info->propriete_id][0]] = $info->valeur;
+
             // $collect['render_eq_dom'] = $this->matchRender($collect, $equipeDom);
             // $collect['render_eq_ext'] = $this->matchRender($collect, $equipeExt);
+            // dd($collect);
             return collect($collect);
         });
     }
