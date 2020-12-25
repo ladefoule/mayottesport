@@ -181,11 +181,10 @@ class Match extends Model
                 ])
             ];
 
+            // On rajoute les infos supplémentaires du match : forfaits, pénalités, tab, etc...
             $infosSup = $this->matchInfos()->get();
             $correspondances = config('constant.match');
-            // dd($infosSup);
             foreach ($infosSup as $info)
-                // dd($correspondances[$info->propriete_id][0]);
                 $collect[$correspondances[$info->propriete_id][0]] = $info->valeur;
 
             // $collect['render_eq_dom'] = $this->matchRender($collect, $equipeDom);

@@ -6,6 +6,7 @@ use App\User;
 use App\Match;
 use App\Equipe;
 use App\Journee;
+use App\MatchInfo;
 use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Log;
@@ -54,11 +55,27 @@ class MatchSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $ignore = ['saison', 'uniqid'];
+        $ignore = ['saison', 'uniqid', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext'];
         $match = Match::where('uniqid', $id)->firstOrFail();
 
         // On valide la requète
         Validator::make($data, Match::rules($match)['rules'])->validate();
+
+        // On supprime toutes les infos supplémentaires du match : forfaits, pénalités, etc...
+        MatchInfo::destroy($match->matchInfos->pluck('id'));
+
+        // On insère les nouvelles propriétés supplémentaires
+        $proprietes = config('constant.match');
+        foreach ($proprietes as $id => $propriete){
+            if($data[$propriete[0]])
+                MatchInfo::create([
+                    'match_id' => $match->id,
+                    'propriete_id' => $id,
+                    'valeur' => $data[$propriete[0]]
+                ]);
+        }
+
+        //     $collect[$correspondances[$info->propriete_id][0]] = $info->valeur;
 
         $this->ignore($ignore)->save($match, $data);
 
