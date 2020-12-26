@@ -8,7 +8,7 @@ use Code16\Sharp\EntityList\SharpEntityList;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 
-class MatchSharpList extends SharpEntityList
+class MatchFootSharpList extends SharpEntityList
 {
     /**
     * Build list containers using ->addDataContainer()
@@ -80,6 +80,7 @@ class MatchSharpList extends SharpEntityList
                         ->join('saisons', 'saison_id', '=', 'saisons.id')
                         ->join('competitions', 'competition_id', '=', 'competitions.id')
                         ->join('sports', 'competitions.sport_id', '=', 'sports.id')
+                        ->where('sports.nom', 'like', 'football')
                         ->select('matches.*', 'sports.nom as sport', 'competitions.nom as competition', 'saisons.annee_debut as annee')
                         ->distinct();
 
@@ -102,12 +103,12 @@ class MatchSharpList extends SharpEntityList
 
         return $this->setCustomTransformer(
             "id",
-            function ($label, $match) {
+            function ($id, $match) {
                 return $match->uniqid;
             }
         )->setCustomTransformer(
             "rencontre",
-            function ($label, $match) {
+            function ($rencontre, $match) {
                 return $match->equipeDom->nom . ' # ' . $match->equipeExt->nom;
             }
         )->transform($matches->paginate(10));

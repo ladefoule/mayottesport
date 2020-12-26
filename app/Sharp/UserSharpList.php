@@ -81,12 +81,12 @@ class UserSharpList extends SharpEntityList
 
         return $this->setCustomTransformer(
             "created_at",
-            function ($label, $user) {
+            function ($created_at, $user) {
                 return $user->created_at ? date_format($user->created_at, 'd/m/Y à H:i:s') : '';
             }
         )->setCustomTransformer(
             "role",
-            function ($label, $user) {
+            function ($role, $user) {
                 return $user->role->nom;
             }
         )->transform($users->paginate(12));

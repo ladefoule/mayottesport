@@ -29,11 +29,13 @@ return [
         8 => ["select_liste", "Liste à afficher"]
     ],
 
-    "match" => [
-        1 => ["forfait_eq_dom", "Forfait équipe dom."],
-        2 => ["forfait_eq_ext", "Forfait équipe ext."],
-        3 => ["penalite_eq_dom", "Pénalité équipe dom."],
-        4 => ["penalite_eq_ext", "Pénalité équipe ext."]
+    "matches" => [
+        1 => ["forfait_eq_dom", "Forfait (dom.)"],
+        2 => ["forfait_eq_ext", "Forfait (ext.)"],
+        3 => ["penalite_eq_dom", "Pénalité (dom.)"],
+        4 => ["penalite_eq_ext", "Pénalité (ext.)"],
+        5 => ["tab_eq_dom", "Tirs au but (dom.)"],
+        6 => ["tab_eq_ext", "Tirs au but (ext.)"],
     ],
 
     "type-competition" => [

@@ -34,9 +34,9 @@ return [
             //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
             //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
         ],
-        "match" => [
-            "list" => \App\Sharp\MatchSharpList::class,
-            "form" => \App\Sharp\MatchSharpForm::class,
+        "match-foot" => [
+            "list" => \App\Sharp\MatchFootSharpList::class,
+            "form" => \App\Sharp\MatchFootSharpForm::class,
             // "validator" => \App\Sharp\MatchSharpValidator::class,
             //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
         ],
@@ -64,9 +64,14 @@ return [
             "entity" => "user",
         ],
         [
-            "label" => "Matches",
-            "icon" => "fa-list",
-            "entity" => "match",
+            "label" => "Les Matches",
+            "entities" => [
+                [
+                    "label" => "Football",
+                    "icon" => "fa-list",
+                    "entity" => "match-foot",
+                ],
+            ]
         ],
         [
             "label" => "Les journées",
