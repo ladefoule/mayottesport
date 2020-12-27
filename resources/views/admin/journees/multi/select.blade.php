@@ -5,9 +5,9 @@
 @section('content')
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} {{ $h1 }}</span>
+        <span class="d-inline mr-3 crud-titre">{!! config('listes.boutons.database') !!} {{ $h1 }}</span>
         <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">
-            {!! config('constant.boutons.retour') !!} retour
+            {!! config('listes.boutons.retour') !!} retour
         </a>
     </div>
 

@@ -22,5 +22,38 @@ class EquipeTableSeeder extends Seeder
                 'uniqid' => uniqid()
             ]);
         };
+
+        // On insère les équipes de Basketball
+        $equipes = ['Etoile bleue','Fuz\'ellips','TCO','Jeunesse canon','BC Mtsapéré','Jeux d\'Afrique','Vautour','Gladiator','CB Mangajou','Rapide éclair','Golden force','Scolo dunks','Chicago club','BC Iloni','Koropa fusion','Colorado Beetle','Labattoir BC','Rapides Eclairs','ABS Sada','ASBB Dembéni','BC Acoua','Entente Sportive CSSM','Raptorz','BAK7','TCO 2','Etoile bleue 2','Wenka city','BO Ouangani','BC Tsararano','Flash','Vautour 2','ASC Tsimkoura','BC Chiconi','Barakani Coconi','Tonic club','BC Mtsapéré (f)','Vautour (f)','Chicago club (f)','Golden force (f)','Fuz\'ellips (f)','Etoile bleue (f)','BC Iloni (f)','BAK7 (f)','Barakani Coconi (f)','Jeunesse canon (f)'];
+        foreach ($equipes as $nomEquipe) {
+            App\Equipe::create([
+                'nom' => $nomEquipe,
+                'sport_id' => 4,
+                'ville_id' => rand(1,69),
+                'uniqid' => uniqid()
+            ]);
+        };
+
+        // On insère les équipes de Handball
+        $equipes = ["Tchanga HB","ASC Tsingoni","CH Combani","AJH Tsimkoura","HC Kani-Kéli","HC Mtsapéré","HC Acoua","AC Chiconi","HC Labattoir","HC Bandrélé","Alakarabu HB","PC Bouéni","HC Passamainty","Haïma Sada","US Mbouanatsa","FJS Sohoa","HC Chirongui","MS Mtsangadoua","HC Doujani","HCMK Majicavo","Bandraboua HC","HCMK Majicavo 2","Bandraboua HC 2","TH Mamoudzou","AJH Koungou","HC Dembéni","HC Dzoumogné","Rinasport","Moidrou Sport","Poroani HB","CH Combani (f)","AJH Tsimkoura (f)","HC Kani-kéli (f)","ASC Tsingoni (f)","PC Bouéni (f)","Haïma Sada (f)","Tchanga HB (f)","HC Bandrélé (f)","HC Dembéni (f)","AC Chiconi (f)","HC Labattoir (f)","Moidrou sport (f)","TCO Mamoudzou","AJH Tsimkoura 2","Nyambadao HC","ASC Tsingoni 2","HC Passamainty (f)","AJH Tsimkoura 2 (f)","CAM Mtsahara (f)","TCO Mamoudzou (f)","HC Acoua (f)","Rinasport (f)","HC Chirongui (f)","Bandraboua HC (f)","Tsingoni HB","CAM Mtsahara","CH Combani 2","Alakarabu HB (f)","AC Chiconi 2","HC Iloni","HC Mtsapéré 2","HC Dzoumogné 2"];
+        foreach ($equipes as $nomEquipe) {
+            App\Equipe::create([
+                'nom' => $nomEquipe,
+                'sport_id' => 3,
+                'ville_id' => rand(1,69),
+                'uniqid' => uniqid()
+            ]);
+        };
+
+        // On insère les équipes de Volleyball
+        $equipes = ["Zamfi Mtsamboro","VC Mtsapéré","VC Vahibé","Mtsangadoua AV","VC Petite-Terre","VC Barakani","VA Bouéni","SVC Mtsamoudou","VB Mtsangamouji","CV Choungui","VC Kani-bé (f)","JV Mzouazia","VO Sada","CV Choungui (f)","VC Tsingoni","AOCJ Ouangani","6VC Chiconi","Mbouini VC","Passamainty VC","VCN Acoua","Mronabéja VB","Moinatrindri OV","Lareec Mtsamboro","VBC du Nord","AVB Mronabéja","ASCJ Dapani","All Stars Pamandzi","Ouréwaguini Bandrélé","Lunos Kani-kéli","Dembéni","VC Mtsapéré (f)","Mbouini VC (f)","Mronabéja VB (f)","All Stars (f)","VC Tsingoni (f)","VB Mtsangamouji (f)","Zamfi Mtsamboro (f)","Ouangani","VO Sada (f)","VC Vahibé (f)","AOCJ Ouangani (f)"];
+        foreach ($equipes as $nomEquipe) {
+            App\Equipe::create([
+                'nom' => $nomEquipe,
+                'sport_id' => 2,
+                'ville_id' => rand(1,69),
+                'uniqid' => uniqid()
+            ]);
+        };
     }
 }

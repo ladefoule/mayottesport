@@ -30,7 +30,7 @@ class CrudAttributInfo extends Model
      */
     public function getCrudNameAttribute()
     {
-        $crudProprietes = config('constant.crud-attribut');
+        $crudProprietes = config('listes.proprietes-crud-attributs');
         return indexCrud('crud_attributs')[$this->crud_attribut_id]->crud_name . ' - ' . $crudProprietes[$this->propriete_id][0];
     }
 
@@ -42,16 +42,14 @@ class CrudAttributInfo extends Model
      */
     public static function rules(CrudAttributInfo $crudAttributInfo = null)
     {
-        $proprieteId = request()->propriete_id ?? '';
-        $crudAttributId = request()->crud_attribut_id ?? '';
-        $unique = Rule::unique('crud_attribut_infos')->where(function ($query) use ($proprieteId, $crudAttributId) {
-            return $query->whereProprieteId($proprieteId)->whereCrudAttributId($crudAttributId);
+        $unique = Rule::unique('crud_attribut_infos')->where(function ($query) {
+            return $query->whereProprieteId(request()->propriete_id ?? '')->whereCrudAttributId(request()->crud_attribut_id ?? '');
         })->ignore($crudAttributInfo);
 
         $rules = [
             'crud_attribut_id' => ['required','integer','exists:crud_attributs,id',$unique],
             'propriete_id' => 'required|integer|min:0',
-            'valeur' => 'required|string|max:255',
+            'valeur' => 'nullable|string|max:255',
         ];
         $messages = ['attribut.unique' => "Cet attribut est déjà présent."];
         return ['rules' => $rules, 'messages' => $messages];

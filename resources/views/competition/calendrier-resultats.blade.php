@@ -11,7 +11,7 @@
 <div class="row d-flex flex-wrap bg-white border mx-0">
     <h1 class="h4 text-center col-12 p-3">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
     <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
-        <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.left') !!}</a>
+        <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.left') !!}</a>
         <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
             @foreach ($journees as $journee)
                 <option value="{{ $journee->numero }}" @if($journeeActuelle->numero == $journee->numero) selected @endif>
@@ -19,7 +19,7 @@
                 </option>
             @endforeach
         </select>
-        <a id="next" data-id="{{ $journeeActuelle->numero + 1 }}" href="" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('constant.boutons.right') !!}</a>
+        <a id="next" data-id="{{ $journeeActuelle->numero + 1 }}" href="" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.right') !!}</a>
     </div>
     <div class="col-lg-9 d-flex flex-wrap px-2 pb-2">
         <div class="col-12" id="matches">

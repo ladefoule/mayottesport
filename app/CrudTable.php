@@ -35,17 +35,14 @@ class CrudTable extends Model
     public static function navbarCrudTables()
     {
         $key = "crud-navbar-tables";
-        if(! Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
         if (Cache::has($key))
             return Cache::get($key);
         else
             return Cache::rememberForever($key, function () use($key) {
                 Log::info('Rechargement du cache : ' . $key);
                 $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)
-                        ->whereNotIn('nom', config('constant.tables-non-crudables'))
-                        ->whereNotIn('nom', config('constant.superadmin-tables'))
+                        ->whereNotIn('nom', config('listes.tables-non-crudables'))
+                        ->whereNotIn('nom', config('listes.superadmin-tables'))
                         ->get() ?? [];
 
                 $navbarCrudTables = [];
@@ -100,16 +97,13 @@ class CrudTable extends Model
                 $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
 
         $key = "attributs-visibles-" . str_replace('_', '-' ,$this->nom) . "-" . $action;
-        if (! Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
         if (Cache::has($key))
             return Cache::get($key);
         else
             return Cache::rememberForever($key, function () use($action, $key){
                 Log::info('Rechargement du cache : ' . $key);
 
-                $correspondances = config('constant.crud-attribut');
+                $correspondances = config('listes.proprietes-crud-attributs');
                 foreach ($correspondances as $id => $value)
                     if($value[0] == $action . '_position'){
                         $infoId = $id;
@@ -135,7 +129,7 @@ class CrudTable extends Model
                     $attributInfos = (array) $attributInfos;
 
                     // Correspondance entre les propriete_id et leur vraie signification
-                    $correspondances = config('constant.crud-attribut');
+                    $correspondances = config('listes.proprietes-crud-attributs');
 
                     // On récupère les infos supplémentaires liés à cet attribut et qui sont présents dans la table crud_attribut_infos
                     // Par exemple : le pattern, le min et max si c'est un nombre, etc...
@@ -198,7 +192,7 @@ class CrudTable extends Model
 
             // Si l'attribut est lié à une liste, on récupère la liste dans les configs
             if (isset($attributInfos['input_type']) && $attributInfos['input_type'] == 'select' && isset($attributInfos['select_liste'])) {
-                $selectListe = config('constant.' . $attributInfos['select_liste']);
+                $selectListe = config('listes.' . $attributInfos['select_liste']);
                 if($action == 'show' && $valeurAttribut)
                     $valeurAttribut = $selectListe[$valeurAttribut][1];
             }
@@ -248,9 +242,6 @@ class CrudTable extends Model
         $modele = 'App\\' . modelName($table);
 
         $key = "index-$tableSlug";
-        if (!Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
         if (Cache::has($key))
             return Cache::get($key);
         else
@@ -290,9 +281,6 @@ class CrudTable extends Model
         $modele = 'App\\' . modelName($table);
 
         $key = "indexcrud-$tableSlug";
-        if (!Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
         if (Cache::has($key))
             return Cache::get($key);
         else
@@ -326,7 +314,7 @@ class CrudTable extends Model
                     }
 
                     if (isset($attributInfos['input_type']) && $attributInfos['input_type'] == 'select' && isset($attributInfos['select_liste'])) {
-                        $selectListe[$i] = config('constant.' . $attributInfos['select_liste']);
+                        $selectListe[$i] = config('listes.' . $attributInfos['select_liste']);
                     }
 
                     $checkbox[$i] = false;

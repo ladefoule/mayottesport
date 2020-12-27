@@ -5,7 +5,7 @@
 @section('content')
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center px-2">
-        <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
+        <span class="d-inline mr-3 crud-titre">{!! \Config::get('listes.boutons.database') !!} {{ $h1 }}</span>
     </div>
 
     <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>

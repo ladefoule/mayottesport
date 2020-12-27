@@ -12,9 +12,9 @@ use App\Saison;
 @section('content')
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
-        <span class="d-inline mr-3" style="font-size: 1.3em">{!! config('constant.boutons.database') !!} {{ $h1 }}</span>
+        <span class="d-inline mr-3" style="font-size: 1.3em">{!! config('listes.boutons.database') !!} {{ $h1 }}</span>
 
-        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">{!! config('constant.boutons.retour') !!} retour</a>
+        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">{!! config('listes.boutons.retour') !!} retour</a>
     </div>
 
     <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>

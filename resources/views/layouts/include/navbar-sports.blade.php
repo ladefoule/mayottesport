@@ -42,7 +42,7 @@ $i = 0;
                 @if ($competitions->where('sport_id', $sport->id)->all() > 0)
                     <li class="nav-item dropdown border-bottom px-2">
                         <a class="nav-link dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {!! config('constant.boutons.' . \Str::slug($sport->nom)) !!} {{ $sport->nom }}
+                            {!! config('listes.boutons.' . \Str::slug($sport->nom)) !!} {{ $sport->nom }}
                         </a>
                         <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
                             <a class="dropdown-item" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>

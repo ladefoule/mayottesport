@@ -28,9 +28,9 @@
             </div>
         </div>
 
-        <div class="col-12 d-flex justify-content-center p-3">
+        {{-- <div class="col-12 d-flex justify-content-center p-3">
             <textarea name="note" class="note form-control input-optionnel" cols="2" placeholder="Laisser un commentaire."></textarea>
-        </div>
+        </div> --}}
 
         <div class="col-12 text-center p-3">
             <button class="btn btn-outline-danger">Valider</button>

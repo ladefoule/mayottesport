@@ -40,7 +40,7 @@ class CompetitionController extends Controller
         $sport = $request->sport;
         // dd($saisonInfosSup);
 
-        $types = config('constant.type-competition');
+        $types = config('listes.types-competitions');
         $type = $types[$competition->type][0];
 
         $derniereJourneeId = $saisonInfosSup['derniere_journee_id'];

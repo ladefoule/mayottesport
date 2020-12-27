@@ -5,9 +5,9 @@
 @section('content')
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center">
-       <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.database') !!} CrudTables - Tables "crudables"</span>
+       <span class="d-inline mr-3 crud-titre">{!! config('listes.boutons.database') !!} CrudTables - Tables "crudables"</span>
        <button class="btn-sm btn-danger" id="vider-cache">
-        {!! \Config::get('constant.boutons.supprimer') !!}
+        {!! \Config::get('listes.boutons.supprimer') !!}
         <span class="d-none d-md-inline">Vider le cache</span>
     </button>
     </div>
@@ -19,7 +19,7 @@
           <div class="form-row mb-3">
               @foreach ($crudTables as $crudTable)
                 <div class="col-6 col-md-4 form-check px-5 py-2">
-                    <input type="checkbox" @if ($crudTable->crudable) checked @endif name="{{ $crudTable->id }}" class="form-check-input" @if(in_array($crudTable->nom, config('constant.tables-non-crudables'))) disabled @endif>
+                    <input type="checkbox" @if ($crudTable->crudable) checked @endif name="{{ $crudTable->id }}" class="form-check-input" @if(in_array($crudTable->nom, config('listes.tables-non-crudables'))) disabled @endif>
                     <label class="form-check-label">{{ $crudTable->nom }}</label>
                 </div>
               @endforeach

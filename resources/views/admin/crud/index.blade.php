@@ -6,15 +6,15 @@
 <div class="row card mx-0">
     <div class="d-none">@csrf</div>
     <div class="card-header d-flex align-items-center px-2">
-        <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
+        <span class="d-inline mr-3 crud-titre">{!! \Config::get('listes.boutons.database') !!} {{ $h1 }}</span>
         <a href="{{ $hrefs['create'] }}" class="text-decoration-none mr-1">
             <button class="btn-sm btn-primary">
-                {!! \Config::get('constant.boutons.ajouter_cercle') !!}
+                {!! \Config::get('listes.boutons.ajouter_cercle') !!}
                 <span class="d-none d-md-inline">Ajouter</span>
             </button>
         </a>
         <button class="btn-sm btn-danger" id="multi-suppressions">
-            {!! \Config::get('constant.boutons.supprimer') !!}
+            {!! \Config::get('listes.boutons.supprimer') !!}
             <span class="d-none d-md-inline">Supprimer la sélection</span>
         </button>
     </div>
@@ -42,19 +42,19 @@
                             <div class="d-inline-flex flex-shrink-0">
                                 <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none flex-shrink-0">
                                     <button class="btn-sm btn-success mr-1">
-                                        {!! \Config::get('constant.boutons.voir') !!}
+                                        {!! \Config::get('listes.boutons.voir') !!}
                                         <span class="d-none d-lg-inline">Voir</span>
                                     </button>
                                 </a>
                                 <a href="{{ $ligne->href_update }}" title="Editer" class="text-decoration-none flex-shrink-0">
                                     <button class="btn-sm btn-info text-white mr-1">
-                                        {!! \Config::get('constant.boutons.editer') !!}
+                                        {!! \Config::get('listes.boutons.editer') !!}
                                         <span class="d-none d-lg-inline">Éditer</span>
                                     </button>
                                 </a>
                                 <a href="" title="Supprimer" class="text-decoration-none flex-shrink-0">
                                     <button class="btn-sm btn-danger">
-                                        {!! \Config::get('constant.boutons.supprimer') !!}
+                                        {!! \Config::get('listes.boutons.supprimer') !!}
                                         <span class="d-none d-lg-inline">Supprimer</span>
                                     </button>
                                 </a>

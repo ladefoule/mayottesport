@@ -88,9 +88,6 @@ class Saison extends Model
     public function infos()
     {
         $key = 'saison-'.$this->id;
-        if(! Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
         if (Cache::has($key))
             return Cache::get($key);
 
@@ -178,7 +175,7 @@ class Saison extends Model
         // Tri du classement : Points/Diff/Marques
         usort($classement , 'compare');
 
-        return $classement;
+        return collect($classement);
     }
 
     /**

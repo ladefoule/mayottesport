@@ -15,7 +15,8 @@ class CreateModifsTable extends Migration {
 		Schema::create('modifs', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-            $table->text('note')->nullable();
+            $table->integer('type');
+            $table->text('note');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('match_id');

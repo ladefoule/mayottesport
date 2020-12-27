@@ -7,7 +7,7 @@
     <h1 class="col-12 h5 p-3 text-center">{{ $h1 }}</h1>
     <div class="col-12 pb-3 px-1">
         <table class="table text-center classement w-100" id="classement">
-            <thead class="thead-light thead-fixed">
+            <thead {{-- class="thead-light thead-fixed" --}}>
                 <th class="px-2">#</th>
                 <th>{{Str::ucfirst('équipe')}}</th>
                 <th class="px-2" title="Joués">J</th>
@@ -58,24 +58,4 @@
         <span>Classement sous réserve d'homologation</span>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    $('#classement').DataTable( {
-        destroy: true, // On "vide le cache" de l'objet DataTables
-        paging: false, // Activation de la pagination
-        searching:false,
-        "info": false,
-        language: {
-            url : "<?php echo config('app.url') ?>/json/datatables.json" // Traduction en français
-        },
-        order : [[ 10, 'desc' ]], // Colonne et sens de tri
-        columnDefs: [
-            { targets: [1], orderable: false },
-        ]
-    } );
-})
-</script>
 @endsection

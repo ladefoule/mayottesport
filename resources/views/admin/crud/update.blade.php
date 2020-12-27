@@ -6,22 +6,22 @@
 
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center px-2">
-        <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.database') !!} {{ $h1 }}</span>
+        <span class="d-inline mr-3 crud-titre">{!! \Config::get('listes.boutons.database') !!} {{ $h1 }}</span>
         <a href="{{ $hrefs['index'] }}" title="Liste" class="text-decoration-none ml-2">
             <button class="btn-sm btn-warning text-body">
-                {!! \Config::get('constant.boutons.lister') !!}
+                {!! \Config::get('listes.boutons.lister') !!}
                 <span class="d-none d-lg-inline ml-1">Liste</span>
             </button>
         </a>
         <a href="{{ $hrefs['show'] }}" title="Voir" class="text-decoration-none ml-2">
             <button class="btn-sm btn-success text-white">
-                {!! \Config::get('constant.boutons.voir') !!}
+                {!! \Config::get('listes.boutons.voir') !!}
                 <span class="d-none d-lg-inline ml-1">Voir</span>
             </button>
         </a>
         <a href="{{ $hrefs['delete'] }}" title="Supprimer" class="text-decoration-none ml-2">
             <button class="btn-sm btn-danger">
-                {!! \Config::get('constant.boutons.supprimer') !!}
+                {!! \Config::get('listes.boutons.supprimer') !!}
                 <span class="d-none d-lg-inline ml-1">Supprimer</span>
             </button>
         </a>

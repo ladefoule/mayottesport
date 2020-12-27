@@ -7,10 +7,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Cache;
 use App\Match;
 use App\Modif;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessCrudTable;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -93,7 +95,6 @@ class MatchController extends Controller
         Validator::make($request->all(), [
             'score_eq_dom' => 'required|integer|min:0|max:30',
             'score_eq_ext' => 'required|integer|min:0|max:30',
-            'note' => 'nullable|max:200'
         ])->validate();
 
         $match = Match::findOrFail($request->match->id);
@@ -116,9 +117,11 @@ class MatchController extends Controller
             Modif::create([
                 'user_id' => $userId,
                 'match_id' => $match->id,
-                'note' => $note,
+                'type' => 1,
+                'note' => $score_eq_dom . '-' . $score_eq_ext,
             ]);
 
+            Cache::forget('index-modifs');
             forgetCaches('matches', $match);
             ProcessCrudTable::dispatch('matches', $match->id);
         }
@@ -169,12 +172,15 @@ class MatchController extends Controller
                 'heure' => $heure
             ]);
 
+            $date = new Carbon($date);
             Modif::create([
                 'user_id' => Auth::id(),
                 'match_id' => $match->id,
-                'note' => "Modification de l'horaire du match.",
+                'type' => 2,
+                'note' => $date->format('d/m/Y') . ' à ' . $heure,
             ]);
 
+            Cache::forget('index-modifs');
             forgetCaches('matches', $match);
             ProcessCrudTable::dispatch('matches', $match->id);
         }

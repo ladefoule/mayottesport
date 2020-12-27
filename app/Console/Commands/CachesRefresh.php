@@ -49,7 +49,7 @@ class CachesRefresh extends Command
         // Les caches index et indexCrud ainsi que les listeAttributsVisibles pour chaque table
         $crudTables = CrudTable::all();
         foreach ($crudTables as $crudTable) {
-            if (!in_array($crudTable->nom, config('constant.tables-non-crudables'))) {
+            if (!in_array($crudTable->nom, config('listes.tables-non-crudables'))) {
                 $crudTable->index();
                 $crudTable->listeAttributsVisibles();
                 $crudTable->listeAttributsVisibles('create');

@@ -60,9 +60,6 @@ class Journee extends Model
     public function infos()
     {
         $key = 'journee-'.$this->id;
-        if(! Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
         if (Cache::has($key))
             return Cache::get($key);
 

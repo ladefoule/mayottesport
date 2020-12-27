@@ -146,7 +146,7 @@ function fanion($equipeId)
     $tableSlug = Str::slug($table);
     Cache::forget('index-' . $tableSlug);
 
-    if(! in_array($table, config('constant.tables-non-crudables')))
+    if(! in_array($table, config('listes.tables-non-crudables')))
         Cache::forget('indexcrud-' . $tableSlug);
 
     // On supprime les caches directement liés au match, à la journée ou à la saison
@@ -212,9 +212,9 @@ function fanion($equipeId)
  */
 function refreshCachesLies(string $table){
     Log::info("Rechargement des caches des tables utilisant les données de : $table");
-    $tablesLiees = config('constant.caches-lies')[$table] ?? [];
+    $tablesLiees = config('listes.caches-lies')[$table] ?? [];
     foreach ($tablesLiees as $tableSlug){
-        if(isset(config('constant.caches-lies')[$tableSlug]))
+        if(isset(config('listes.caches-lies')[$tableSlug]))
             refreshCachesLies($tableSlug);
 
         Cache::forget('indexcrud-' . $tableSlug);
@@ -252,9 +252,6 @@ function compare($a, $b)
 function index(string $table)
 {
     $key = "index-" . Str::slug($table);
-    if (!Config::get('constant.activer_cache'))
-        Cache::forget($key);
-
     if (Cache::has($key))
         return Cache::get($key);
     else
@@ -273,9 +270,6 @@ function index(string $table)
 function indexCrud(string $table)
 {
     $key = "indexcrud-" . Str::slug($table);
-    if (!Config::get('constant.activer_cache'))
-        Cache::forget($key);
-
     if (Cache::has($key))
         return Cache::get($key);
     else
@@ -294,9 +288,6 @@ function indexCrud(string $table)
 function journee(int $journeeId)
 {
     $key = "journee-" . $journeeId;
-    if (!Config::get('constant.activer_cache'))
-        Cache::forget($key);
-
     if (Cache::has($key))
         return Cache::get($key);
     else
@@ -315,9 +306,6 @@ function journee(int $journeeId)
 function saison(int $saisonId)
 {
     $key = "saison-" . $saisonId;
-    if (!Config::get('constant.activer_cache'))
-        Cache::forget($key);
-
     if (Cache::has($key))
         return Cache::get($key);
     else
@@ -336,9 +324,6 @@ function saison(int $saisonId)
 function match(string $matchUniqid)
 {
     $key = "match-" . $matchUniqid;
-    if (!Config::get('constant.activer_cache'))
-        Cache::forget($key);
-
     if (Cache::has($key))
         return Cache::get($key);
     else
@@ -435,7 +420,7 @@ function genererCalendrier($donnees)
                 'equipe_id_ext' => $equipeExtId,
                 'terrain_id' => $terrains[$equipeDomId],
                 'uniqid' => uniqid()
-                // 'uuid' => rand(config('constant.UUID_MIN'), config('constant.UUID_MAX'))
+                // 'uuid' => rand(config('listes.UUID_MIN'), config('listes.UUID_MAX'))
             ];
 
             $matchAller = Match::create($matchAller);
@@ -451,7 +436,7 @@ function genererCalendrier($donnees)
                 'equipe_id_ext' => $equipeExtId,
                 'terrain_id' => $terrains[$equipeDomId],
                 'uniqid' => uniqid()
-                // 'uuid' => rand(config('constant.UUID_MIN'), config('constant.UUID_MAX'))
+                // 'uuid' => rand(config('listes.UUID_MIN'), config('listes.UUID_MAX'))
             ];
 
             $matchRetour = Match::create($matchRetour);

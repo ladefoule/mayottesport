@@ -5,10 +5,10 @@
 @section('content')
 <div class="row card mx-0">
     <div class="card-header d-flex align-items-center px-2">
-        <span class="d-inline mr-3 crud-titre">{!! \Config::get('constant.boutons.user') !!} Mise à jour de mon compte</span>
+        <span class="d-inline mr-3 crud-titre">{!! \Config::get('listes.boutons.user') !!} Mise à jour de mon compte</span>
         <a href="{{ route('profil') }}" title="Voir" class="text-decoration-none ml-2">
             <button class="btn-sm btn-success text-white">
-                {!! \Config::get('constant.boutons.voir') !!}
+                {!! \Config::get('listes.boutons.voir') !!}
                 <span class="d-none d-lg-inline ml-1">Profil</span>
             </button>
         </a>

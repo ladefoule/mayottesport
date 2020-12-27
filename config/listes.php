@@ -1,8 +1,6 @@
 <?php
 // use Illuminate\Support\Facades\Config;
 return [
-    'activer_cache' => env('MISE_EN_CACHE', true),
-
     'boutons' => [
         'supprimer' => '<i class="icon-trash-empty"></i>',
         'ajouter' => '<i class="icon-plus"></i>',
@@ -18,7 +16,30 @@ return [
         'user' => '<i class="icon-user"></i>',
     ],
 
-    "crud-attribut" => [
+    /* $key => $values */
+    /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
+    'caches-lies' => [
+        'competitions' => ['saisons'],
+        'crud-attributs' => ['crud-attribut-infos'],
+        'crud-tables' => ['crud-attributs'],
+        'equipes' => [/*'matches',*/ 'equipe-saison'],
+        'matches' => ['modifs'],
+        'saisons' => ['journees', 'equipe-saison'],
+        'sports' => ['equipes', 'competitions', 'baremes'],
+        'users' => ['modifs'],
+        'villes' => ['terrains'],
+    ],
+
+    "proprietes-baremes" => [
+        1 => ["victoire_3_0", "Victoire 3-0"],
+        2 => ["victoire_3_1", "Victoire 3-1"],
+        3 => ["victoire_3_2", "Victoire 3-2"],
+        4 => ["defaite_0_3", "Défaite 0-3"],
+        5 => ["defaite_1_3", "Défaite 1-3"],
+        6 => ["defaite_2_3", "Défaite 2-3"],
+    ],
+
+    "proprietes-crud-attributs" => [
         1 => ["index_position", "Position sur la page liste"],
         2 => ["show_position", "Position sur la page vue"],
         3 => ["create_position", "Position sur la page ajout/édition"],
@@ -29,7 +50,7 @@ return [
         8 => ["select_liste", "Liste à afficher"]
     ],
 
-    "matches" => [
+    "proprietes-matches" => [
         1 => ["forfait_eq_dom", "Forfait (dom.)"],
         2 => ["forfait_eq_ext", "Forfait (ext.)"],
         3 => ["penalite_eq_dom", "Pénalité (dom.)"],
@@ -39,12 +60,20 @@ return [
         7 => ["tab_eq_ext", "Tirs au but (ext.)"],
     ],
 
-    "type-competition" => [
+    "superadmin-tables" => [
+        'crud_tables', 'crud_attributs', 'crud_attribut_infos', 'roles', 'users'
+    ],
+
+    "tables-non-crudables" => [
+        'migrations', 'password_resets', /* 'matches', */ 'failed_jobs', 'jobs'
+    ],
+
+    "types-competitions" => [
         1 => ["championnat", "Championnat"],
         2 => ["coupe", "Coupe"]
     ],
 
-    "journees" => [
+    "types-journees" => [
         1 => ['finale', 'Finale'],
         2 => ['demi-finales', 'Demi-finales'],
         3 => ['quarts-de-finales', 'Quarts de finale'],
@@ -62,16 +91,9 @@ return [
         19 => ['9eme-tour', '9ème tour'],
     ],
 
-    "bareme" => [
-        1 => ["victoire_3_0", "Victoire 3-0"]
-    ],
-
-    "superadmin-tables" => [
-        'crud_tables', 'crud_attributs', 'crud_attribut_infos', 'roles', 'users'
-    ],
-
-    "tables-non-crudables" => [
-        'migrations', 'password_resets', /* 'matches', */ 'failed_jobs', 'jobs'
+    "types-modifs" => [
+        1 => ["score", "Score"],
+        2 => ["horaire", "Horaire"]
     ],
 
     // 'sports-position' => [
@@ -87,18 +109,4 @@ return [
     //     'coupe-de-mayotte' => ['sport_id' => 1, 'competition_id' => 3, 'home' => 3, 'index' => 3],
     //     'coupe-de-france' => ['sport_id' => 1, 'competition_id' => 4, 'home' => 4, 'index' => 4],
     // ],
-
-    /* $key => $values */
-    /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
-    'caches-lies' => [
-        'competitions' => ['saisons'],
-        'crud-attributs' => ['crud-attribut-infos'],
-        'crud-tables' => ['crud-attributs'],
-        'equipes' => [/*'matches',*/ 'equipe-saison'],
-        //'matches' => ['modifs'], Les matches ne sont plus gérés dans le crud
-        'saisons' => ['journees', 'equipe-saison'],
-        'sports' => ['equipes', 'competitions', 'baremes'],
-        'users' => ['modifs'],
-        'villes' => ['terrains'],
-    ],
 ];

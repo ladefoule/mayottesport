@@ -32,7 +32,7 @@ class MatchFootSharpForm extends SharpForm
         $matchInfos = $match->infos();
 
         // On insère les propriétés supplémentaires dans l'objet $match
-        $proprietes = config('constant.matches');
+        $proprietes = config('listes.proprietes-matches');
         foreach ($proprietes as $id => $propriete){
             $match[$propriete[0]] = '';
             if(isset($matchInfos[$propriete[0]]))
@@ -69,7 +69,7 @@ class MatchFootSharpForm extends SharpForm
         MatchInfo::destroy($match->matchInfos->pluck('id'));
 
         // On insère les nouvelles propriétés supplémentaires du match : pénalités, forfaits, etc...
-        $proprietes = config('constant.matches');
+        $proprietes = config('listes.proprietes-matches');
         foreach ($proprietes as $id => $propriete){
             if(isset($data[$propriete[0]]) && $data[$propriete[0]] !== false && $data[$propriete[0]] !== NULL) // Pour prendre en compte le tab à 0 par exemple
                 MatchInfo::create([

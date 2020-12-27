@@ -1,5 +1,5 @@
 <?php
-    $tablesSuperAdmin = App\CrudTable::whereIn('nom', config('constant.superadmin-tables'))->orderBy('nom')->get();
+    $tablesSuperAdmin = App\CrudTable::whereIn('nom', config('listes.superadmin-tables'))->orderBy('nom')->get();
 ?>
 
 {{-- Header --}}

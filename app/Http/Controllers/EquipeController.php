@@ -95,9 +95,11 @@ class EquipeController extends Controller
             // On récupère tous les matches de la saison
             $journees = index('journees')->where('saison_id', $derniereSaison->id)->pluck('id');
             $matches = $matches->whereIn('journee_id', $journees);
-            foreach ($matches as $id => $match)
-                $matches[$id] = match($match->uniqid);
         }
+
+        // On récupère les infos pour chaque match
+        foreach ($matches as $id => $match)
+            $matches[$id] = match($match->uniqid);
 
         $title = $equipe->nom . ' - ' . $sport->nom;
         return view('equipe.index', [

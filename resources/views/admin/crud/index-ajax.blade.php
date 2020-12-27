@@ -8,19 +8,19 @@
     <td class="text-right">
         <a href="{{ $ligne->href_show }}" title="Voir" class="text-decoration-none">
             <button class="btn-sm btn-success">
-                {!! \Config::get('constant.boutons.voir') !!}
+                {!! \Config::get('listes.boutons.voir') !!}
                 <span class="d-none d-lg-inline">Voir</span>
             </button>
         </a>
         <a href="{{ $ligne->href_update }}" title="Editer" class="text-decoration-none">
             <button class="btn-sm btn-info text-white">
-                {!! \Config::get('constant.boutons.editer') !!}
+                {!! \Config::get('listes.boutons.editer') !!}
                 <span class="d-none d-lg-inline">Éditer</span>
             </button>
         </a>
         <a href="" title="Supprimer" class="text-decoration-none">
             <button class="btn-sm btn-danger">
-                {!! \Config::get('constant.boutons.supprimer') !!}
+                {!! \Config::get('listes.boutons.supprimer') !!}
                 <span class="d-none d-lg-inline">Supprimer</span>
             </button>
         </a>

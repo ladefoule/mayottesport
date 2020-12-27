@@ -7,16 +7,16 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header d-flex align-items-center px-2">
-                <span class="d-inline mr-3 crud-titre">{!! config('constant.boutons.user') !!} Mon compte </span>
+                <span class="d-inline mr-3 crud-titre">{!! config('listes.boutons.user') !!} Mon compte </span>
                 <a href="{{ route('profil.update') }}" title="Modifier" class="text-decoration-none ml-2">
                     <button class="btn-sm btn-info text-white">
-                        {!! config('constant.boutons.editer') !!}
+                        {!! config('listes.boutons.editer') !!}
                         <span class="d-none d-lg-inline ml-1">Modifier</span>
                     </button>
                 </a>
                 <a href="{{ route('profil.delete') }}" title="Supprimer" id="supprimer" class="text-decoration-none ml-2">
                     <button class="btn-sm btn-danger">
-                        {!! config('constant.boutons.supprimer') !!}
+                        {!! config('listes.boutons.supprimer') !!}
                         <span class="d-none d-lg-inline ml-1">Supprimer mon compte</span>
                     </button>
                 </a>

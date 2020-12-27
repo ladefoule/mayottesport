@@ -39,7 +39,7 @@ class VerifTableCrud
             }
 
         if(index('roles')[Auth::user()->role_id]->nom == 'superadmin'){
-            $tables = config('constant.superadmin-tables');
+            $tables = config('listes.superadmin-tables');
             $position = array_search(str_replace('-', '_', $table), $tables);
             if($position !== false){
                 $crudTable = CrudTable::whereNom($tables[$position])->firstOrFail();

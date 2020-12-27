@@ -129,9 +129,6 @@ class Match extends Model
     public function infos()
     {
         $key = 'match-'.$this->uniqid;
-        if(! Config::get('constant.activer_cache'))
-            Cache::forget($key);
-
         if (Cache::has($key))
             return Cache::get($key);
 
@@ -201,7 +198,7 @@ class Match extends Model
 
             // On rajoute les infos supplémentaires du match : forfaits, pénalités, tab, etc...
             $infosSup = $this->matchInfos()->get();
-            $correspondances = config('constant.matches');
+            $correspondances = config('listes.proprietes-matches');
             foreach ($infosSup as $info)
                 $collect[$correspondances[$info->propriete_id][0]] = $info->valeur;
 
@@ -229,13 +226,13 @@ class Match extends Model
     }
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
+     * Définition de l'attribut nom du match
      *
      * @return string
      */
-    public function getCrudNameAttribute()
+    public function getNomAttribute()
     {
-        return $this->uniqid . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom;
+        return $this->uniqid /* . ' - ' . index('equipes')[$this->equipe_id_dom]->nom . ' # ' . index('equipes')[$this->equipe_id_ext]->nom */;
     }
 
     /**

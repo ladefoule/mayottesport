@@ -6,16 +6,12 @@
         <th class="px-2">pts</th>
     </thead>
     <tbody class="border-bottom">
-        <?php $i = 1; ?>
-        @foreach ($classement as $equipe)
+        @foreach ($classement->slice(0,5) as $i => $equipe)
             <tr>
-                <td class="px-2">{{ $i++ }}</td>
-                <td align="left" class="px-2"><a href="{{ $equipe['hrefEquipe'] }}" class="text-dark"><img class="d-none d-xl-block float-left mr-2" width="20" src="{{ $equipe['fanion'] }}">{{ $equipe['nom'] }}</a></td>
+                <td class="px-2">{{ $i+1 }}</td>
+                <td align="left" class="px-2"><a href="{{ $equipe['hrefEquipe'] }}" class="text-dark">{{-- <img class="d-none d-xl-block float-left mr-2" width="20" src="{{ $equipe['fanion'] }}"> --}}{{ $equipe['nom'] }}</a></td>
                 <td class="px-2">{{ $equipe['points'] }}</td>
             </tr>
-            @php
-                if($i == 6) break;
-            @endphp
         @endforeach
     </tbody>
 </table>

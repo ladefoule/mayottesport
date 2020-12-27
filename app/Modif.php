@@ -16,7 +16,7 @@ class Modif extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'match_id', 'note'];
+    protected $fillable = ['user_id', 'match_id', 'note', 'type'];
 
     /**
      * Définition de l'affichage dans le CRUD
