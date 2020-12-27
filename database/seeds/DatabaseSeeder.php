@@ -1,7 +1,6 @@
 <?php
+use App\Cache;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Suppression de tout le cache
+        Cache::flush();
+
         // Disable all mass assignment restrictions
         Model::unguard();
 

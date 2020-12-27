@@ -3,7 +3,7 @@
 @section('title', $match['title'])
 
 @section('content')
-<div class="row text-white bloc-match bloc-match-football py-4 rounded mx-0">
+<div class="row text-white bloc-match bloc-match-football py-4 {{-- rounded mx-0 --}}">
     <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1">
         <div class="col-lg-4 d-lg-inline py-2 px-0">
             <a href="{{ $match['href_equipe_dom'] }}"><img src="{{ $match['fanion_equipe_dom'] }}" alt="{{ $match['equipe_dom_nom'] }}" class="fanion-match"></a>
@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="row bg-white border mt-2 mx-0 rounded">
+<div class="row bg-white border pt-2 {{-- mx-0 rounded --}}">
     <section class="col-12 pt-1">
         <div id="disqus_thread"></div>
         <script>
