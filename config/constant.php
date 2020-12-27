@@ -34,8 +34,9 @@ return [
         2 => ["forfait_eq_ext", "Forfait (ext.)"],
         3 => ["penalite_eq_dom", "Pénalité (dom.)"],
         4 => ["penalite_eq_ext", "Pénalité (ext.)"],
-        5 => ["tab_eq_dom", "Tirs au but (dom.)"],
-        6 => ["tab_eq_ext", "Tirs au but (ext.)"],
+        5 => ["avec_tirs_au_but", "Avec tirs au but?"],
+        6 => ["tab_eq_dom", "Tirs au but (dom.)"],
+        7 => ["tab_eq_ext", "Tirs au but (ext.)"],
     ],
 
     "type-competition" => [
@@ -70,7 +71,7 @@ return [
     ],
 
     "tables-non-crudables" => [
-        'migrations', 'password_resets', 'matches', 'failed_jobs', 'jobs'
+        'migrations', 'password_resets', /* 'matches', */ 'failed_jobs', 'jobs'
     ],
 
     // 'sports-position' => [

@@ -32,7 +32,7 @@
                         <div class="form-check form-check-inline">
                             <input
                                 type="checkbox" name="{{ $attribut }}" class="{{ $className }} @error($attribut) is-invalid @enderror"
-                                    @if (old($attribut) OR $valeur) checked @endif>
+                                    @if (old($attribut) OR $valeur) checked @endif value="1">
                             <label class="form-check-label">{{ $labelAttribut }}</label>
                         </div>
 

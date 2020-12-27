@@ -21,7 +21,8 @@ class Match extends Model
      * @var array
      */
     protected $fillable = ['date', 'heure', 'acces_bloque', 'nb_modifs', 'score_eq_dom', 'score_eq_ext',
-                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext', 'uniqid', 'user_id'];
+                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext', 'uniqid', 'user_id',
+                            'avec_tirs_au_but', 'tab_eq_dom', 'tab_eq_ext'];
 
     /**
      * La fonction nous renvoie le résultat du matchpar rapport à l'équipe $equipeId
@@ -82,7 +83,12 @@ class Match extends Model
             return $query->whereEquipeIdExt(request()['equipe_id_ext'])->whereJourneeId(request()['journee_id']);
         })->ignore($match);
 
-        request()->acces_bloque = request()->has('acces_bloque');
+        request()['acces_bloque'] = request()->has('acces_bloque');
+        request()['forfait_eq_dom'] = request()->has('forfait_eq_dom');
+        request()['forfait_eq_ext'] = request()->has('forfait_eq_ext');
+        request()['penalite_eq_dom'] = request()->has('penalite_eq_dom');
+        request()['penalite_eq_ext'] = request()->has('penalite_eq_ext');
+        request()['avec_tirs_au_but'] = request()->has('avec_tirs_au_but');
         $rules = [
             'journee_id' => 'required|exists:journees,id',
             'terrain_id' => 'nullable|exists:terrains,id',
@@ -93,12 +99,24 @@ class Match extends Model
             'equipe_id_ext' => ['required','integer','exists:equipes,id',$uniqueEquipeExt],
             'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
             'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
-            'acces_bloque' => 'boolean'
+            'acces_bloque' => 'boolean',
+            'forfait_eq_dom' => 'boolean',
+            'forfait_eq_ext' => 'boolean',
+            'penalite_eq_dom' => 'boolean',
+            'penalite_eq_ext' => 'boolean',
+            'avec_tirs_au_but' => 'boolean',
+            'tab_eq_dom' => ['required_with:tab_eq_ext','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:20'],
+            'tab_eq_ext' => ['required_with:tab_eq_dom','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:20'],
         ];
-        $msg = "Cette équipe participe déjà à une rencontre de cette journée.";
+
         $messages = [
-            'equipe_id_dom.unique' => $msg,
-            'equipe_id_ext.unique' => $msg
+            'unique' => "Cette équipe participe déjà à une rencontre de cette journée.",
+            'tab_eq_dom.required_with' => "Merci de renseigner le score aux tirs au but.",
+            'tab_eq_ext.required_with' => "Merci de renseigner le score aux tirs au but.",
+            'score_eq_dom.required_with' => "Merci de renseigner le score.",
+            'score_eq_ext.required_with' => "Merci de renseigner le score.",
+            'required_if' => "Merci de renseigner le score aux tirs au but.",
+
         ];
         return ['rules' => $rules, 'messages' => $messages];
     }

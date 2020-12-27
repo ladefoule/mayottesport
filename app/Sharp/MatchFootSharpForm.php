@@ -55,18 +55,15 @@ class MatchFootSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $ignore = ['saison', 'uniqid', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext', 'tab_eq_dom', 'tab_eq_ext'];
+        $ignore = ['saison', 'uniqid', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext', 'avec_tirs_au_but', 'tab_eq_dom', 'tab_eq_ext'];
         $match = Match::where('uniqid', $id)->firstOrFail();
 
         // On valide la requète
-        $rules = Match::rules($match)['rules'];
-        $rules['forfait_eq_dom'] = 'boolean';
-        $rules['forfait_eq_ext'] = 'boolean';
-        $rules['penalite_eq_dom'] = 'boolean';
-        $rules['penalite_eq_ext'] = 'boolean';
-        $rules['tab_eq_dom'] = 'nullable|required_with:tab_eq_ext|integer|min:0|max:20';
-        $rules['tab_eq_ext'] = 'nullable|required_with:tab_eq_dom|integer|min:0|max:20';
-        Validator::make($data, $rules)->validate();
+        $rules = Match::rules($match);
+        $messages = $rules['messages'];
+        $rules = $rules['rules'];
+        Log::info($data);
+        $data = Validator::make($data, $rules, $messages)->validate();
 
         // On supprime toutes les infos supplémentaires du match : forfaits, pénalités, etc...
         MatchInfo::destroy($match->matchInfos->pluck('id'));
@@ -74,7 +71,7 @@ class MatchFootSharpForm extends SharpForm
         // On insère les nouvelles propriétés supplémentaires du match : pénalités, forfaits, etc...
         $proprietes = config('constant.matches');
         foreach ($proprietes as $id => $propriete){
-            if($data[$propriete[0]] !== false) // Pour prendre en compte le tab à 0 par exemple
+            if(isset($data[$propriete[0]]) && $data[$propriete[0]] !== false && $data[$propriete[0]] !== NULL) // Pour prendre en compte le tab à 0 par exemple
                 MatchInfo::create([
                     'match_id' => $match->id,
                     'propriete_id' => $id,
@@ -138,6 +135,9 @@ class MatchFootSharpForm extends SharpForm
             )->addField(
                 SharpFormCheckField::make("forfait_eq_ext", "Forfait (exterieur)")
                     ->setLabel("Forfait (extérieur)")
+            )->addField(
+                SharpFormCheckField::make("avec_tirs_au_but", "Tirs au but?")
+                    ->setLabel("Tirs au but?")
             )->addField(
                 SharpFormTextField::make("tab_eq_dom", "Tirs au but (domicile)")
                     ->setLabel("Tirs au but (domicile)")
@@ -214,7 +214,7 @@ class MatchFootSharpForm extends SharpForm
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'equipe_id_dom|6', 'equipe_id_ext|6');
             $column->withFields('score_eq_dom|6', 'score_eq_ext|6', 'forfait_eq_dom|3', 'penalite_eq_dom|3', 'forfait_eq_ext|3', 'penalite_eq_ext|3');
-            $column->withFields('tab_eq_dom|6', 'tab_eq_ext|6');
+            $column->withFields('avec_tirs_au_but', 'tab_eq_dom|6', 'tab_eq_ext|6');
         });
 
     }
