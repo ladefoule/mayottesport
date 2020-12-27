@@ -325,6 +325,10 @@ class CrudTable extends Model
                         $listeTableAttribut[$i] = /* $modeleReference::all(); */indexCrud($tableReference);
                     }
 
+                    if (isset($attributInfos['input_type']) && $attributInfos['input_type'] == 'select' && isset($attributInfos['select_liste'])) {
+                        $selectListe[$i] = config('constant.' . $attributInfos['select_liste']);
+                    }
+
                     $checkbox[$i] = false;
                     if (isset($attributInfos['input_type']) && $attributInfos['input_type'] == 'checkbox')
                         $checkbox[$i] = true;
@@ -359,6 +363,10 @@ class CrudTable extends Model
                                 abort(404);
                             $contenu = isset($instanceReference->crud_name) ? $instanceReference->crud_name : $instanceReference->nom;
                         }
+
+                        // Si l'attribut est lié à une liste, on affiche la propriété liée à l'id saisie en bdd
+                        if (isset($selectListe[$i]))
+                            $contenu = $selectListe[$i][$contenu][1];
 
                         if($checkbox[$i])
                             $contenu = $contenu ? 'Oui' : 'Non';
