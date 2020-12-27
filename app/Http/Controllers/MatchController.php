@@ -101,7 +101,6 @@ class MatchController extends Controller
 
         $score_eq_dom = $request['score_eq_dom'];
         $score_eq_ext = $request['score_eq_ext'];
-        $note = $request['note'];
 
         // S'il y a un changement au niveau du score
         if ($score_eq_dom != $match->score_eq_dom || $score_eq_ext != $match->score_eq_ext) {
@@ -122,6 +121,7 @@ class MatchController extends Controller
             ]);
 
             Cache::forget('index-modifs');
+            Cache::forget('indexcrud-modifs');
             forgetCaches('matches', $match);
             ProcessCrudTable::dispatch('matches', $match->id);
         }
@@ -181,6 +181,7 @@ class MatchController extends Controller
             ]);
 
             Cache::forget('index-modifs');
+            Cache::forget('indexcrud-modifs');
             forgetCaches('matches', $match);
             ProcessCrudTable::dispatch('matches', $match->id);
         }

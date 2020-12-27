@@ -21,7 +21,7 @@ class BaremeTableSeeder extends Seeder
                 'nul' => 1,
                 'defaite' => 0,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         }
     }

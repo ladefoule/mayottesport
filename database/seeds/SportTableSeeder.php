@@ -19,7 +19,7 @@ class SportTableSeeder extends Seeder
                 'nom' => $sport,
                 'home_position' => $i++,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         }
     }

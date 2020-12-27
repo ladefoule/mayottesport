@@ -21,7 +21,7 @@ class CompetitionTableSeeder extends Seeder
                 'home_position' => $i+1,
                 'index_position' => $i+1,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         }
 
@@ -35,7 +35,7 @@ class CompetitionTableSeeder extends Seeder
                 'home_position' => $i+4,
                 'index_position' => $i+4,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         }
     }

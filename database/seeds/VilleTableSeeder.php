@@ -17,7 +17,7 @@ class VilleTableSeeder extends Seeder
             App\Ville::create([
                 'nom' => $ville,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         };
     }

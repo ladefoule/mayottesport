@@ -17,7 +17,7 @@ class TerrainTableSeeder extends Seeder
                 'nom' => 'Terrain ' . $i,
                 'ville_id' => $i,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         }
     }

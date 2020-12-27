@@ -17,7 +17,7 @@ class RegionTableSeeder extends Seeder
             App\Region::create([
                 'nom' => $region,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         }
     }

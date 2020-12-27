@@ -19,7 +19,7 @@ class JourneeTableSeeder extends Seeder
                 'date' => new Carbon(now()->addDays($i)),
                 'saison_id' => 1,
                 'created_at' => now(),
-                'updated_at' => now()
+                // 'updated_at' => now()
             ]);
         }
     }

@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('00000000'),
             'email_verified_at' => now(),
             'created_at' => now(),
-            'updated_at' => now()
+            // 'updated_at' => now()
         ]);
 
         // Utilisateur Premium
@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('00000000'),
             'email_verified_at' => now(),
             'created_at' => now(),
-            'updated_at' => now()
+            // 'updated_at' => now()
         ]);
 
         // Utilisateur Admin
@@ -48,7 +48,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('00000000'),
             'email_verified_at' => now(),
             'created_at' => now(),
-            'updated_at' => now()
+            // 'updated_at' => now()
         ]);
 
         // Utilisateur Superadmin
@@ -61,7 +61,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('00000000'),
             'email_verified_at' => now(),
             'created_at' => now(),
-            'updated_at' => now()
+            // 'updated_at' => now()
         ]);
     }
 }
