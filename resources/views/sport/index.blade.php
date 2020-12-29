@@ -3,6 +3,7 @@
 @section('title', "$sport->nom - Les derniers résultats")
 
 @section('content')
+
 <div class="row justify-content-center">
     @foreach ($journees as $journee)
     <div class="col-12 text-center px-3 row justify-content-between">

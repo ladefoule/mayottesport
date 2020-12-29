@@ -5,11 +5,12 @@ html{
 body{
     /* background-color: rgba(197, 226, 230, 0.281); */
     min-width: 350px;
-    height: 100vh;
-    background-color: #fff;
-    /* background-image: url('../storage/img/fond-mayotte.jpg'); */
+    height: 100%;
+    /* background-color: rgba(255, 255, 255); */
+    /* background-color: rgba(134, 134, 134, 0.157); */
+    background-image: url('../storage/img/fond-mayotte.jpg');
     /* background-size:1950px 1000px; */
-    /* background-attachment: fixed; */
+    background-attachment: fixed;
 }
 
 h1{
@@ -26,7 +27,12 @@ h1{
 }
 
 .navbar-scroll-x{
-    margin-top:70px
+    margin-top:60px;
+    /* height: auto; */
+}
+
+main{
+    /* margin-top:116px */
 }
 
 .top-50{
@@ -109,9 +115,19 @@ a.non-cliquable, a.non-cliquable:hover{
     border-top: 1px dashed #000
 }
 
-.border-bottom-nav{
-    border-top: 8px solid white;
-    border-bottom: 8px solid blue;
+.border-bottom-nav.active,.border-bottom-nav:hover{
+    border-top: 5px solid white;
+    border-bottom: 5px solid blue;
+    color: blue !important;
+    /* background-color: rgba(211, 211, 235, 0.521); */
+}
+
+.border-bottom-scroll-x.active,.border-bottom-scroll-x:hover{
+    /* border-top: 5px solid white; */
+    /* border-bottom: 5px solid red; */
+    color: red !important;
+    /* font-size: 1.1rem; */
+    /* background-color: rgba(211, 211, 235, 0.521); */
 }
 
 .fanion-classement{
@@ -132,6 +148,8 @@ a:hover{
 
 #navbar-scroll-x .btn-sm{
     border-radius: 20px;
+    /* background-color: rgb(255, 255, 255); */
+    /* border: 0; */
     font-family:"Nunito", sans-serif;
 }
 
@@ -193,9 +211,13 @@ a:hover{
     text-decoration-style: dotted;
 }
 
-.nom-competition{
+.nom-competition,.nom-sport{
     font-size: 1.2rem;
     line-height: 1rem;
+}
+
+.text-red{
+    color:red
 }
 
 /* Medium devices (tablets, 576px and up) => point de rupture bootstrap : SM */

@@ -12,13 +12,13 @@
 @include('layouts.include.header')
 {{-- Fin Header --}}
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-wrap">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-admin')
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <div class="navbar-scroll-x container-lg-fluid border-bottom bg-white" {{-- style="background-color: rgba(255, 255, 255, 0.7) !important" --}}>
+    <div class="col-12 navbar-scroll-x container-lg-fluid border-bottom bg-white" {{-- style="background-color: rgba(255, 255, 255, 0.7) !important" --}}>
         <div class="container-lg">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center pl-3 flex-shrink-0" style="margin:0;font-size:0.9rem">
@@ -35,7 +35,7 @@
     </div>
     {{-- Fin Section scroll X --}}
 
-    <section class="container-lg h-100 bg-white">
+    <section class="container-lg {{-- h-100 --}} bg-white mb-auto">
         @yield('content')
     </section>
 
