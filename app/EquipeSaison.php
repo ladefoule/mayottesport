@@ -32,7 +32,7 @@ class EquipeSaison extends Pivot
     public static function rules(EquipeSaison $equipeSaison = null)
     {
         $unique = Rule::unique('equipe_saison')->where(function ($query) {
-            return $query->whereEquipeId(request()['equipe_id'] ?? '')->whereSaisonId(request()['saison_id'] ?? '');
+            return $query->whereEquipeId(request()['equipe_id'])->whereSaisonId(request()['saison_id']);
         })->ignore($equipeSaison);
 
         $rules =[

@@ -35,7 +35,7 @@ class BaremeInfo extends Model
     public static function rules(Bareme $bareme = null)
     {
         $unique = Rule::unique('bareme_infos')->where(function ($query){
-            return $query->whereProprieteId(request()['propriete_id'] ?? '')->whereBaremeId(request()['bareme_id'] ?? '');
+            return $query->whereProprieteId(request()['propriete_id'])->whereBaremeId(request()['bareme_id']);
         })->ignore($bareme);
 
         $rules = [

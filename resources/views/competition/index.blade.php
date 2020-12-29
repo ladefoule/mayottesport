@@ -3,11 +3,11 @@
 @section('title', $competition . ' - ' . $sport)
 
 @section('content')
-<div class="row d-flex flex-wrap justify-content-between text-center">
-    <div class="col-12">
+<div class="row d-flex flex-wrap justify-content-between text-center pb-3">
+    <div class="col-12 py-3">
         <h1 class="h4">{{ $sport . ' - ' . $competition }}</h1>
     </div>
-    <div class="col-lg-9 d-flex flex-wrap mt-3">
+    <div class="col-lg-9 d-flex flex-wrap">
         @if ($derniereJournee)
             <div class="col-12">
                 <h3 class="h5 border-bottom-calendrier text-danger">Les derniers résultats</h3>
@@ -27,7 +27,7 @@
         @endif
 
         @if (isset($classement))
-        <div class="col-12 mt-4 px-0">
+        <div class="col-12 mt-4">
             {{-- <h1 class="h3 py-3">Le classement</h1> --}}
             <h3 class="h5 border-bottom-calendrier text-body">Le classement</h3>
             <table class="mt-3 w-100 table table-classement" id="classement">
@@ -79,7 +79,7 @@
         </div>
         @endif
     </div>
-    <div class="d-flex col-lg-3 justify-content-center px-3">
+    <div class="d-flex col-lg-3 justify-content-center">
         <div class="border h-100 w-100 p-3">
             PUB
         </div>

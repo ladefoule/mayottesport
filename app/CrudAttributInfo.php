@@ -43,7 +43,7 @@ class CrudAttributInfo extends Model
     public static function rules(CrudAttributInfo $crudAttributInfo = null)
     {
         $unique = Rule::unique('crud_attribut_infos')->where(function ($query) {
-            return $query->whereProprieteId(request()->propriete_id ?? '')->whereCrudAttributId(request()->crud_attribut_id ?? '');
+            return $query->whereProprieteId(request()['propriete_id'])->whereCrudAttributId(request()['crud_attribut_id']);
         })->ignore($crudAttributInfo);
 
         $rules = [

@@ -67,9 +67,8 @@ class Competition extends Model
      */
     public static function rules(Competition $competition = null)
     {
-        $request = request();
-        $unique = Rule::unique('competitions')->where(function ($query) use ($request) {
-            return $query->whereNom($request['nom'] ?? '')->whereSportId($request['sport'] ?? '');
+        $unique = Rule::unique('competitions')->where(function ($query) {
+            return $query->whereNom(request()['nom'])->whereSportId(request()['sport']);
         })->ignore($competition);
 
         $rules = [

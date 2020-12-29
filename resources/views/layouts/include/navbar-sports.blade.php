@@ -18,9 +18,9 @@
                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active font-weight-bold @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
                 </li>
                 @endforeach
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ config('app.url') }}/autres">Autres</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ config('app.url') }}/contact">Contact</a>
                 </li>

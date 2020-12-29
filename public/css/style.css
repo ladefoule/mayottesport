@@ -6,9 +6,9 @@ body{
     /* background-color: rgba(197, 226, 230, 0.281); */
     min-width: 350px;
     height: 100%;
-    /* background-color: rgba(255, 255, 255); */
+    background-color: rgba(255, 255, 255);
     /* background-color: rgba(134, 134, 134, 0.157); */
-    background-image: url('../storage/img/fond-mayotte.jpg');
+    /* background-image: url('../storage/img/fond-mayotte.jpg'); */
     /* background-size:1950px 1000px; */
     background-attachment: fixed;
 }
@@ -31,8 +31,12 @@ h1{
     /* height: auto; */
 }
 
+.min-height{
+    min-height: 600px;
+}
+
 main{
-    /* margin-top:116px */
+    /* margin-top:0px */
 }
 
 .top-50{

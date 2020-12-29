@@ -18,6 +18,8 @@ class CreateSaisonsTable extends Migration {
 			$table->integer('annee_debut');
 			$table->integer('annee_fin');
             $table->integer('nb_journees');
+            $table->integer('nb_montees')->nullable();
+            $table->integer('nb_descentes')->nullable();
             $table->boolean('finie')->default(0);
             $table->unsignedBigInteger('competition_id');
             $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('restrict');

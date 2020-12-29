@@ -7,10 +7,10 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
 class Saison extends Model
@@ -20,7 +20,7 @@ class Saison extends Model
      *
      * @var array
      */
-    protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'nb_journees', 'bareme_id', 'competition_id'];
+    protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'nb_journees', 'bareme_id', 'competition_id', 'nb_descentes', 'nb_montees'];
 
     /**
      * Les règles de validations
@@ -39,6 +39,8 @@ class Saison extends Model
             'annee_debut' => ['required','integer','min:2000','max:3000',$unique],
             'annee_fin' => 'required|integer|min:2000|max:3000|gte:annee_debut',
             'nb_journees' => 'required|integer|min:1|max:100',
+            'nb_descentes' => 'nullable|integer|min:0|max:10',
+            'nb_montees' => 'nullable|integer|min:0|max:10',
             'bareme_id' => 'nullable|exists:baremes,id',
             'competition_id' => 'required|exists:competitions,id',
             'finie' => 'boolean'
@@ -71,7 +73,7 @@ class Saison extends Model
     {
         $competition = index('competitions')[$this->competition_id];
         $sport = index('sports')[$competition->sport_id];
-        $hrefClassementComplet = route('competition.classement', ['competition' => \Str::slug($competition->nom), 'sport' => \Str::slug($sport->nom)]);
+        $hrefClassementComplet = route('competition.classement', ['competition' => Str::slug($competition->nom), 'sport' => Str::slug($sport->nom)]);
         $classement = $this->classement();
         return view('competition.classement-simple', [
             'classement' => $classement,
@@ -133,7 +135,7 @@ class Saison extends Model
         foreach ($matches as $equipeId => $matchesEquipe) {
             $equipe = index('equipes')[$equipeId];
             $sport = index('sports')[$sport->id];
-            $hrefEquipe = route('equipe.index', ['sport' => \Str::slug($sport->nom), 'equipe' => \Str::slug($equipe->nom), 'uniqid' => $equipe->uniqid]);
+            $hrefEquipe = route('equipe.index', ['sport' => Str::slug($sport->nom), 'equipe' => Str::slug($equipe->nom), 'uniqid' => $equipe->uniqid]);
             $nomEquipe = $equipe->nom;
             $fanionEquipe = fanion($equipe->id);
 

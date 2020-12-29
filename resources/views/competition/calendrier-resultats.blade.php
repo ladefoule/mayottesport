@@ -8,7 +8,7 @@
 @section('title', $competition->nom . ' - Calendrier et résultats - '.niemeJournee($journeeActuelle->numero).' - ' . request()->sport->nom)
 
 @section('content')
-<div class="row d-flex flex-wrap">
+<div class="row d-flex flex-wrap align-items-start {{-- min-height --}}">
     <h1 class="h4 text-center col-12 p-3">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
     <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
         <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.left') !!}</a>

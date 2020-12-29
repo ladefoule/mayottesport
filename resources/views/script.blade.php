@@ -10,4 +10,5 @@
 // dd(Str::slug('crud_ na_me'));
 
 echo 'Cache vidée !';
-Cache::flush();
+dd(\App\Saison::rules())
+// Cache::flush();

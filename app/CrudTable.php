@@ -13,7 +13,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Support\Facades\Redis;
 
@@ -71,11 +70,9 @@ class CrudTable extends Model
      */
     public static function rules(CrudTable $crudTable = null)
     {
-        $unique = Rule::unique('crud_tables');
-        if ($crudTable)
-            $unique = $unique->ignore($crudTable);
-
+        $unique = Rule::unique('crud_tables')->ignore($crudTable);
         request()->crudable = request()->has('crudable');
+
         $rules = [
             'nom' => ['required', 'string', 'min:3', 'max:50', $unique],
             'tri_defaut' => 'required|max:50',

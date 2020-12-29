@@ -55,7 +55,7 @@
     {{-- Fin Section scroll X --}}
 
     {{-- Main --}}
-    <main class="container-lg bg-white main">
+    <main class="container-lg bg-white">
         @yield('content')
     </main>
     {{-- Fin Main --}}
