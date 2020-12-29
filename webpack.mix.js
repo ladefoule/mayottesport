@@ -13,3 +13,9 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css').version();
+
+mix.scripts([
+    'node_modules/quill/dist/quill.js',
+    'node_modules/select2/dist/js/select2.js',
+    // 'public/js/dashboard.js'
+], 'public/js/all.js').version();

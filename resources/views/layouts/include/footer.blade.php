@@ -3,7 +3,7 @@
     $competitions = index('competitions');
 ?>
 <!-- Footer -->
-<footer class="footer font-small indigo text-white bg-dark mt-auto">
+<footer class="col-12 footer font-small indigo text-white bg-dark mt-auto">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
         <div class="row d-flex {{-- flex-nowrap --}} flex-basis-1 text-center">
@@ -42,7 +42,7 @@
     <!-- Footer Links -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3 bg-body">© {{ date('Y') }} Copyright:
+    <div class="row footer-copyright justify-content-center text-center py-3 bg-body">© {{ date('Y') }} Copyright:
         <a href="{{ config('app.url') }}"> mayottesport.com</a> - FB - TW
     </div>
     <!-- Copyright -->
@@ -50,7 +50,8 @@
 <!-- Footer -->
 
 <script src="{{ config('app.url') }}{{ mix('js/app.js') }}"></script>
-<script src="{{ config('app.url') }}/js/select2.min.js"></script>
+<script src="{{ config('app.url') }}{{ mix('js/all.js') }}"></script>
+{{-- <script src="{{ config('app.url') }}/js/select2.min.js"></script> --}}
 <script src="{{ config('app.url') }}/js/outils.js"></script>
 <script>
 $(document).ready(function(){

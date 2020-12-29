@@ -31,7 +31,7 @@
     {{-- Fin Section scroll X --}}
 
     {{-- Main --}}
-    <section class="container-lg p-2 bg-fond">
+    <section class="container-lg h-100 bg-white">
         @yield('content')
     </section>
     {{-- Fin Main --}}

@@ -3,34 +3,34 @@
 @section('title', $competition . ' - ' . $sport)
 
 @section('content')
-<div class="row d-flex flex-wrap justify-content-between bg-white rounded mx-0 border">
-    <div class="col-12 p-3">
-        <h1 class="h4 text-center">{{ $sport . ' - ' . $competition }}</h1>
+<div class="row d-flex flex-wrap justify-content-between text-center">
+    <div class="col-12">
+        <h1 class="h4">{{ $sport . ' - ' . $competition }}</h1>
     </div>
-    <div class="col-lg-9 d-flex flex-wrap px-2">
+    <div class="col-lg-9 d-flex flex-wrap mt-3">
         @if ($derniereJournee)
-            <div class="col-12 p-0 pb-3 mb-3">
-                <h3 class="h5 border-bottom-calendrier text-danger text-center">Les derniers résultats</h3>
-                <div class="px-3">
+            <div class="col-12">
+                <h3 class="h5 border-bottom-calendrier text-danger">Les derniers résultats</h3>
+                <div>
                     {!! $derniereJournee !!}
                 </div>
             </div>
         @endif
 
         @if ($prochaineJournee)
-            <div class="col-12 px-0 pb-4">
-                <h3 class="h5 border-bottom-calendrier text-success text-center">La prochaine journée</h3>
-                <div class="px-3">
+            <div class="col-12 mt-4">
+                <h3 class="h5 border-bottom-calendrier text-success">La prochaine journée</h3>
+                <div>
                     {!! $prochaineJournee !!}
                 </div>
             </div>
         @endif
 
         @if (isset($classement))
-        <div class="col-12 p-0 mb-2 pb-2">
-            {{-- <h1 class="h3 py-3 text-center">Le classement</h1> --}}
-            <h3 class="h5 border-bottom-calendrier text-body text-center pb-2">Le classement</h3>
-            <table class="w-100 table text-center table-classement" id="classement">
+        <div class="col-12 mt-4 px-0">
+            {{-- <h1 class="h3 py-3">Le classement</h1> --}}
+            <h3 class="h5 border-bottom-calendrier text-body">Le classement</h3>
+            <table class="mt-3 w-100 table table-classement" id="classement">
                 <thead class="thead-light">
                     <th class="px-2">#</th>
                     <th>{{Str::ucfirst('équipe')}}</th>
@@ -75,12 +75,12 @@
                     @endforeach
                 </tbody>
             </table>
-            <a class="d-block text-center" href="{{ $hrefClassement }}">Le classement complet</a>
+            <a class="d-block" href="{{ $hrefClassement }}">Le classement complet</a>
         </div>
         @endif
     </div>
-    <div class="d-flex col-lg-3 justify-content-center px-2 pb-2">
-        <div class="border h-100 w-100 p-3 text-center">
+    <div class="d-flex col-lg-3 justify-content-center px-3">
+        <div class="border h-100 w-100 p-3">
             PUB
         </div>
     </div>

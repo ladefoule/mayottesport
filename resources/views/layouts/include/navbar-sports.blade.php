@@ -1,26 +1,52 @@
 <?php
-$i = 0;
-    $sports = index('sports');
+    $sports = index('sports')->sortBy('home_position')->slice(0, 5);
     $competitions = index('competitions');
 ?>
 
 {{-- NAVBAR LARGE SCREEN --}}
-<nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
+<nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom border-primary bg-white p-0">
    <div class="container">
-       <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ config('app.url') }}/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
+       <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ config('app.url') }}/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 60px"></a>
        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
        </button>
-       <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
-           <div class="navbar-nav mr-auto bg-white">
+       <div class="d-none d-lg-block collapse navbar-collapse pr-2 align-self-stretch" id="navbarSupportedContent">
+        {{-- <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul> --}}
+           <ul class="navbar-nav mr-auto bg-white align-self-stretch" style="font-size: 1.1rem">
                @foreach ($sports as $sport)
-                   <a class="nav-item nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif px-2" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
-                    <?php if($i++ == 5) break; ?>
+                <li class="nav-item @if (request()->sport && $sport->nom == request()->sport->nom) active border-bottom-nav text-body font-weight-bold @endif">
+                   <a class="nav-link px-2 h-100 d-flex align-items-center" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
+                </li>
                 @endforeach
-               <a class="nav-item nav-link px-2" href="{{ config('app.url') }}/autres">Autres</a>
-               <a class="nav-item nav-link px-2" href="{{ config('app.url') }}/contact">Contact</a>
-           </div>
+                <li class="nav-item">
+                    <a class="nav-link px-2 h-100 d-flex align-items-center" href="{{ config('app.url') }}/autres">Autres</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-2 h-100 d-flex align-items-center" href="{{ config('app.url') }}/contact">Contact</a>
+                </li>
+           </ul>
            @include('layouts.include.connexion')
        </div>
    </div>

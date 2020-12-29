@@ -26,6 +26,7 @@
     "dependencies": {
         "datatables.net": "^1.10.22",
         "datatables.net-dt": "^1.10.22",
+        "quill": "^1.3.6",
         "select2": "^4.0.13"
     }
 }

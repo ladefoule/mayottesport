@@ -2,13 +2,13 @@
 @include('layouts.include.header')
 {{-- Fin Header --}}
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-wrap align-items-stretch">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-sports')
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <section class="container-lg top-50 {{-- p-2 --}} bg-fond">
+    <section class="container-lg top-50 bg-white p-3">
         @yield('content')
     </section>
     {{-- Fin Section scroll X --}}

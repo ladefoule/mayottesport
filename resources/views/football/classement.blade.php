@@ -3,7 +3,7 @@
 @section('title', $title)
 
 @section('content')
-<div class="row border bg-white rounded d-flex justify-content-center mx-0">
+<div class="row bg-white d-flex justify-content-center">
     <h1 class="col-12 h5 p-3 text-center">{{ $h1 }}</h1>
     <div class="col-12 pb-3 px-1">
         <table class="table text-center classement w-100" id="classement">
@@ -57,5 +57,4 @@
     <div class="col-12 text-center pb-2">
         <span>Classement sous réserve d'homologation</span>
     </div>
-</div>
 @endsection

@@ -54,7 +54,7 @@
 
 @section('script')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function(){
     //
     verifierMonFormulaireEnJS('formulaire')
 })

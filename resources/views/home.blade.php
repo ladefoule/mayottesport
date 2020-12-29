@@ -4,11 +4,10 @@
 
 @section('content')
 
-<div class="row {{-- mx-0  --}}bg-white py-3 justify-content-center {{-- border rounded --}}">
+<div class="row bg-white justify-content-center">
     {{-- <div class="col-12 text-center">
-        <h1 class="h4">Mayotte sport : l'ensemble des résultats de l'île</h1>
+        <h1 class="h4">Mayotte sport : l'actualité sportive de l'île de Mayotte</h1>
     </div> --}}
-
 
     @foreach ($sports as $sport)
         <div class="col-12 text-center mb-2 px-3">

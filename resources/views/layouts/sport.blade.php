@@ -7,13 +7,13 @@
 @include('layouts.include.header')
 {{-- Fin Header --}}
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-wrap align-items-stretch">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-sports')
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <section class="navbar-scroll-x container-lg-fluid bg-white border-bottom">
+    <section class="col-12 navbar-scroll-x container-lg-fluid bg-white border-bottom">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">
@@ -31,7 +31,7 @@
     {{-- Fin Section scroll X --}}
 
     {{-- Main --}}
-    <section class="container-lg p-2 bg-fond">
+    <section class="container-lg bg-white p-3">
         @yield('content')
     </section>
     {{-- Fin Main --}}
