@@ -3,16 +3,15 @@
 @section('title', "Rédaction d'un article")
 
 @section('content')
-<div class="row pt-3">
-    <h1 class="col-12 h3 text-center">{{ $article->titre }}</h1>
-    {{-- <div class="col-12">
-        <img src="/storage/img/{{ $article->img }}" alt="" class="img-fluid">
-    </div> --}}
+<div class="row">
+    <div class="col-lg-8 p-0 d-flex flex-wrap justify-content-center">
+        <h2 class="col-12 h2 pt-3 font-weight-bold">{{ $article->titre }}</h2>
+        <div class="col-lg-8 d-flex justify-content-center">
+            <img src="/storage/img/{{ $article->img }}" alt="" class="img-fluid">
+        </div>
 
-    <!-- Create the editor container -->
-    {{-- <label for="about">About me</label> --}}
-    <div id="scrolling-container">
-        <div id="editor" class="col-12">
+        <!-- Create the editor container -->
+        <div id="editor" class="col-12 border-0" style="font-size:1.0rem">
 
         </div>
     </div>
@@ -20,55 +19,14 @@
 @endsection
 
 @section('script')
-<!-- Initialize Quill editor -->
-{{-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> --}}
-{{-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> --}}
 <script>
     $(document).ready(function(){
-        var toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-            ['blockquote', 'code-block'],
-
-            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-            [{ 'direction': 'rtl' }],                         // text direction
-
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-            [{ 'font': [] }],
-            [{ 'align': [] }],
-
-            ['clean']                                         // remove formatting button
-        ];
-
-        // var quill = new Quill('#editor', {
-        //     theme: 'snow',
-        //     modules: {
-        //         toolbar: toolbarOptions
-        //     },
-        // });
-
-        // var quill = new Quill('#editor', {
-        //     modules: {
-        //         toolbar: [
-        //         ['bold', 'italic'],
-        //         ['link', 'blockquote', 'code-block', 'image'],
-        //         [{ list: 'ordered' }, { list: 'bullet' }],
-        //         ['clean']
-        //         ]
-        //     },
-        //     placeholder: 'Rédiger votre article...',
-        //     theme: 'snow',
-        // });
-
         var quill = new Quill('#editor', {
-            theme: 'snow',
-            scrollingContainer: '#scrolling-container',
-            readOnly: true
+            theme: 'bubble',
+            modules: {
+                toolbar: []
+            },
+            readOnly: true,
         });
 
         let token = qs('input[name=_token]').value

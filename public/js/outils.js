@@ -301,19 +301,6 @@ function supprimerSelection(params)
 }
 
 /**
- * On met un lien à tous les tr qui ont la classe tr_lien
- *
- * @param {string} idTable - id de la table
- */
-function trAvecHref(idTable){
-    $('#'+idTable).on("click", 'tr.tr_lien', function(){
-        let href = this.dataset['href'] ?? ''
-        if(href != '')
-            window.location.href = href
-    });
-}
-
-/**
  * On applique la librairie DataTables au tableau en le triant par la 2ème colonne par défaut
  *
  * @param {string} urlApp - url du site

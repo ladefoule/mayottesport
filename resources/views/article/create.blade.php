@@ -13,22 +13,21 @@
             <div class="col-12 form-row justify-content-center mb-3">
                 <div class="col-md-6 d-flex flex-wrap">
                     <label>Titre</label>
-                    <input name="titre" type="text" value="{{ $titre ?? '' }}" class="form-control">
+                    <input name="titre" type="text" value="{{ old('titre') }}" pattern=".{3,50}" data-msg="Le titre doit contenir au moins 3 caractères" class="form-control">
                 </div>
             </div>
 
             <div class="col-12 form-row justify-content-center mb-4">
                 <div class="col-md-6 d-flex flex-wrap">
                     <label>Image</label>
-                    <input name="img" type="text" value="{{ $img ?? '' }}" class="form-control">
+                    <input name="img" type="text" value="{{ old('img') }}" class="form-control input-optionnel">
                 </div>
             </div>
 
             <!-- Create the editor container -->
             {{-- <label for="about">About me</label> --}}
             <input name="texte" type="hidden">
-            <input name="about" type="hidden">
-            <div id="editor-container" class="w-100 border">
+            <div id="editor-container" class="col-12 border">
 
             </div>
 
@@ -52,7 +51,8 @@
     $(document).ready(function(){
         var toolbarOptions = [
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-            ['blockquote', 'code-block'],
+            ['link', 'blockquote', 'code-block', /* 'image' */],
+
 
             [{ 'header': 1 }, { 'header': 2 }],               // custom button values
             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -70,53 +70,46 @@
             ['clean']                                         // remove formatting button
         ];
 
-        // var quill = new Quill('#editor', {
-        //     theme: 'snow',
-        //      placeholder: 'Rédiger votre article...',
-        //     modules: {
-        //         toolbar: toolbarOptions
-        //     },
-        // });
-
         var quill = new Quill('#editor-container', {
-        modules: {
-            toolbar: [
-            ['bold', 'italic'],
-            ['link', 'blockquote', 'code-block', 'image'],
-            [{ list: 'ordered' }, { list: 'bullet' }]
-            ]
-        },
-        placeholder: 'Rédiger votre article...',
-        theme: 'snow'
+            modules: {
+                toolbar: toolbarOptions
+            },
+            placeholder: 'Rédiger votre article...',
+            theme: 'snow'
         });
 
         var form = document.querySelector('#formulaire');
+        var titre = document.querySelector('input[name=titre]');
+        titre.addEventListener('change', e => checkOne(e.target))
+        var img = document.querySelector('input[name=img]');
+        img.addEventListener('change', e => checkOne(e.target))
+        var divErreurs = qs('#messageErreur')
         form.onsubmit = function(e) {
-            // e.preventDefault()
-        // Populate hidden form on submit
-        var about = document.querySelector('input[name=texte]');
-        about.value = JSON.stringify(quill.getContents());
+            e.preventDefault()
 
-        console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+            // On transfère le contenu de l'article (en json) dans l'input hidden texte
+            var texte = document.querySelector('input[name=texte]');
+            texte.value = JSON.stringify(quill.getContents());
 
-        // No back end to actually submit to!
-        alert('Open the console to see the submit data!')
-        return true;
+            if(!checkOne(titre) || !checkOne(img))
+                return false
+
+            if (texte.value.length < 56){
+                divErreurs.innerHTML = "L'article doit contenir au moins 30 caractères."
+                divErreurs.classList.remove('d-none')
+                texte.classList.add('is-invalid')
+                texte.classList.remove('is-valid')
+                texte.focus()
+                return false;
+            }
+
+            form.submit()
+            // console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+
+            // No back end to actually submit to!
+            // alert('Open the console to see the submit data!')
+            // return true;
         };
-
-        // var form = document.querySelector('#formulaire');
-        // form.addEventListener('submit', function(e) {
-        //     // e.preventDefault()
-        //     // Populate hidden form on submit
-        //     var texte = document.querySelector('input[name=texte]');
-        //     texte.value = JSON.stringify(quill.getContents());
-
-        //     console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-
-        //     // No back end to actually submit to!
-        //     // alert('Open the console to see the submit data!')
-        //     // return false;
-        // });
     })
 </script>
 @endsection
