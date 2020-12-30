@@ -90,6 +90,13 @@ Route::group(['middleware'=> 'verified'], function () {
     });/* FIN MIDDLEWARE PREMIUM */
 }); /* FIN MIDDLEWARE AUTH */
 
+Route::prefix('/article')->middleware(['check-permission:superadmin'])->group(function () {
+    Route::get('/rediger', 'ArticleController@createForm')->name('article.create');
+    Route::post('/rediger', 'ArticleController@createStore')->name('article.create.store');
+    Route::get('/{uniqid}-{titre}.html', 'ArticleController@show')->name('article.show');
+    Route::post('/ajax/{uniqid}', 'ArticleController@ajax')->name('article.ajax');
+});
+
 Route::post('/ajax/journees-url-editer', function () {
     return view('admin.journees.ajax-url-editer');
 })->name('journees.ajax-url-editer'); // Récupérer l'url d'édition de journées multiples en AJAX

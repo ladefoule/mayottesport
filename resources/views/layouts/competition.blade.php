@@ -1,6 +1,7 @@
 <?php
     $hrefSport= request()->hrefSport;
     $hrefIndex = request()->hrefIndex;
+    $hrefActualite = request()->hrefActualite;
     $hrefClassement = request()->hrefClassement;
     $hrefCalendrier = request()->hrefCalendrier;
     $hrefPalmares = request()->hrefPalmares;
@@ -35,17 +36,20 @@
                     <a href="" class="mr-3 non-cliquable cursor-default">
                         {!! \Config::get('listes.boutons.right') !!}
                     </a>
+                    <a href="{{ $hrefActualite }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.actualite') active @else text-secondary @endif pr-3">
+                        L'actu
+                    </a>
                     @if ($hrefClassement)
-                    <a href="{{ $hrefClassement }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.classement') active text-red @else text-body @endif pr-3">
+                    <a href="{{ $hrefClassement }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.classement') active @else text-secondary @endif pr-3">
                         Le classement
                     </a>
                     @endif
                     @if ($hrefCalendrier)
-                    <a href="{{ $hrefCalendrier }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.calendrier-resultats') active text-red @else text-body @endif pr-3">
+                    <a href="{{ $hrefCalendrier }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.calendrier-resultats') active @else text-secondary @endif pr-3">
                         Calendrier et résultats
                     </a>
                     @endif
-                    <a href="{{ $hrefPalmares }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.champions') active text-red @else text-body @endif">
+                    <a href="{{ $hrefPalmares }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.champions') active @else text-secondary @endif">
                         Le palmarès
                     </a>
                 </div>

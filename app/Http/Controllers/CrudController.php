@@ -7,11 +7,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Cache;
-use App\Match;
-use App\Bareme;
-use App\Saison;
-use App\Journee;
 use App\CrudTable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -150,9 +145,9 @@ class CrudController extends Controller
         $messages = $rules['messages'] ?? []; // On récupère éventuellement les messages associés
         $rules = $rules['rules']; // On récupère les règles de validations
 
+        if(in_array($table, config('listes.tables-avec-colonne-uniqid')))
+            $request['uniqid'] = uniqid(); // On génére un uniqid pour les tables qui possède une colonne uniqid
         $request = Validator::make($request->all(), $rules, $messages)->validate();
-        if(in_array($table, ['matches', 'equipes']))
-            $request['uniqid'] = uniqid(); // On génére un uniqid pour les matches et les équipes
 
         // $instance = $modele::create($request);
         $instance = new $modele($request);
@@ -213,6 +208,8 @@ class CrudController extends Controller
         $messages = $rules['messages'] ?? []; // On récupère éventuellement les messages associés
         $rules = $rules['rules']; // On récupère les règles de validations
 
+        if(in_array($table, config('listes.tables-avec-colonne-uniqid')))
+            $request['uniqid'] = $instance->uniqid; // On récupère la valeur uniqid pour les tables qui possède une colonne uniqid
         $request = Validator::make($request->all(), $rules, $messages)->validate();
         $instance->update($request);
 

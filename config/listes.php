@@ -64,6 +64,8 @@ return [
         'crud_tables', 'crud_attributs', 'crud_attribut_infos', 'roles', 'users'
     ],
 
+    "tables-avec-colonne-uniqid" => ['matches', 'equipes', 'articles'],
+
     "tables-non-crudables" => [
         'migrations', 'password_resets', /* 'matches', */ 'failed_jobs', 'jobs'
     ],

@@ -27,6 +27,26 @@ class CrudTable extends Model
     public $timestamps = false;
 
     /**
+     * Les règles de validations
+     *
+     * @param CrudTable $crudTable
+     * @return array
+     */
+    public static function rules(CrudTable $crudTable = null)
+    {
+        $unique = Rule::unique('crud_tables')->ignore($crudTable);
+        request()['crudable'] = request()->has('crudable');
+
+        $rules = [
+            'nom' => ['required', 'string', 'min:3', 'max:50', $unique],
+            'tri_defaut' => 'required|max:50',
+            'crudable' => 'boolean'
+        ];
+
+        return ['rules' => $rules];
+    }
+
+    /**
      * La liste des tables 'crudables' hors tables de gestion du CRUD.
      *
      * @return \Illuminate\Support\Collection
@@ -60,26 +80,6 @@ class CrudTable extends Model
                 }
                 return collect($navbarCrudTables);
             });
-    }
-
-    /**
-     * Les règles de validations
-     *
-     * @param CrudTable $crudTable
-     * @return array
-     */
-    public static function rules(CrudTable $crudTable = null)
-    {
-        $unique = Rule::unique('crud_tables')->ignore($crudTable);
-        request()->crudable = request()->has('crudable');
-
-        $rules = [
-            'nom' => ['required', 'string', 'min:3', 'max:50', $unique],
-            'tri_defaut' => 'required|max:50',
-            'crudable' => 'boolean'
-        ];
-
-        return ['rules' => $rules];
     }
 
     /**

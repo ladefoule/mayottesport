@@ -74,12 +74,13 @@ class Match extends Model
      */
     public static function rules( Match $match = null)
     {
-        $uniqueEquipeDom = Rule::unique('matches')->where(function ($query) {
+        $uniqid = Rule::unique('matches')->ignore($match);
+        $uniqueEquipeIdDomEtJourneeId = Rule::unique('matches')->where(function ($query) {
             return $query->whereJourneeId(request()['journee_id'])
                         ->whereEquipeIdDom(request()['equipe_id_dom']);
         })->ignore($match);
 
-        $uniqueEquipeExt = Rule::unique('matches')->where(function ($query) {
+        $uniqueEquipeIdExtEtJourneeId = Rule::unique('matches')->where(function ($query) {
             return $query->whereEquipeIdExt(request()['equipe_id_ext'])->whereJourneeId(request()['journee_id']);
         })->ignore($match);
 
@@ -95,8 +96,9 @@ class Match extends Model
             'user_id' => 'nullable|exists:users,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
-            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeDom],
-            'equipe_id_ext' => ['required','integer','exists:equipes,id',$uniqueEquipeExt],
+            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeIdDomEtJourneeId],
+            'equipe_id_ext' => ['required','integer','exists:equipes,id',$uniqueEquipeIdExtEtJourneeId],
+            'uniqid' => ['required','string','max:50','min:3',$uniqid],
             'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
             'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
             'acces_bloque' => 'boolean',

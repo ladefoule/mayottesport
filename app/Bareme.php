@@ -59,7 +59,7 @@ class Bareme extends Model
      */
     public static function rules(Bareme $bareme = null)
     {
-        $unique = Rule::unique('baremes')->where(function ($query) {
+        $uniqueNomEtSportId = Rule::unique('baremes')->where(function ($query) {
             return $query->whereNom(request()['nom'])->whereSportId(request()['sport_id']);
         })->ignore($bareme);
 
@@ -68,7 +68,7 @@ class Bareme extends Model
             'nul' => 'nullable|integer|min:0|max:30',
             'defaite' => 'nullable|integer|min:0|max:30',
             'sport_id' => 'required|exists:sports,id',
-            'nom' => ['required','string','max:50','min:3',$unique]
+            'nom' => ['required','string','max:50','min:3',$uniqueNomEtSportId]
         ];
         $messages = ['nom.unique' => "Ce nom de barème, associé à ce sport, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];

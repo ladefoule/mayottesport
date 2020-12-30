@@ -72,9 +72,11 @@ class Equipe extends Model
         request()['feminine'] = request()->has('feminine');
         request()['non_mahoraise'] = request()->has('non_mahoraise');
 
-        $unique = Rule::unique('equipes')->where(function ($query) {
+        $uniqueNomEtSportId = Rule::unique('equipes')->where(function ($query) {
             return $query->whereNom(request()['nom'])->whereSportId(request()['sport_id']);
         })->ignore($equipe);
+
+        $uniqid = Rule::unique('equipes')->ignore($equipe);
 
         $rules = [
             'nom_complet' => 'nullable|string|min:3|max:50',
@@ -82,7 +84,8 @@ class Equipe extends Model
             'ville_id' => 'required|integer|exists:villes,id',
             'feminine' => 'boolean',
             'non_mahoraise' => 'boolean',
-            'nom' => ['required','max:50','min:3',$unique]
+            'nom' => ['required','max:50','min:3',$uniqueNomEtSportId],
+            'uniqid' => ['required','string','max:50','min:3',$uniqid],
         ];
         $messages = ['nom.unique' => "Ce nom d'équipe, associé à ce sport, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];
