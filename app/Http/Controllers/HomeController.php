@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sport;
 use App\Saison;
+use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -35,17 +36,30 @@ class HomeController extends Controller
                         $listeDesJournees[] = collect([
                             'competition_nom' => $competition->nom,
                             'journee_render' => journee($journeeId)->render,
-                            'saison_classement' => $classement
+                            // 'saison_classement' => $classement
                         ]);
                     }
                 }
             }
             $sport->journees = $listeDesJournees;
         }
+
+        $articles = Article::orderBy('created_at', 'desc')->limit(10)->get();
+
+        $liste = '';//$articles->pluck('uniqid');
+        foreach ($articles as $key => $article) {
+            $liste .= ($key ? ',' : '') . $article->uniqid;
+        }
+        // dd($liste);
+
+        // return view('articl')
+        // dd(route('article.ajax', ['uniqid' => $articles[0]->uniqid]));
         // dd($sports);
 
         return view('home', [
-            'sports' => $sports
+            'sports' => $sports,
+            'articles' => $articles,
+            'liste' => $liste
         ]);
     }
 }

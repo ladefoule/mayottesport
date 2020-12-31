@@ -44,6 +44,7 @@ class ArticleController extends Controller
 
     public function ajax(Request $request, $uniqid)
     {
+        // return $uniqid;
         $article = Article::whereUniqid($uniqid)->firstOrFail();
 
         return $article->texte;

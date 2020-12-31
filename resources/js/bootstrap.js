@@ -12,6 +12,7 @@ try {
 
     require('bootstrap');
     require( 'datatables.net' )(window.$);
+    require('tinymce');
     // require('~quill/dist/quill.js');
     // require('../../public/js/select2.min')
     // require( "select2" )(window.$);

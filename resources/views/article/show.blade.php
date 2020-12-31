@@ -23,9 +23,6 @@
     $(document).ready(function(){
         var quill = new Quill('#editor', {
             theme: 'bubble',
-            modules: {
-                toolbar: []
-            },
             readOnly: true,
         });
 
