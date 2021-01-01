@@ -1,5 +1,6 @@
 <?php
-    $tablesSuperAdmin = App\CrudTable::whereIn('nom', config('listes.superadmin-tables'))->orderBy('nom')->get();
+    $tablesSuperAdmin = index('crud_tables')->whereIn('nom', config('listes.tables-superadmin'))
+        ->merge(index('crud_tables')->whereIn('nom', config('listes.tables-gestion-crud')));
 ?>
 
 {{-- Header --}}

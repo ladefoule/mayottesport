@@ -66,7 +66,7 @@ class CacheController extends Controller
                 saison($saison->id);
 
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
-        }else if(in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])){
+        }else if(in_array($table, config('listes.tables-gestion-crud'))){
             Log::info("Opération effectuée dans la gestion du Crud");
             if($table == 'crud_attribut_infos')
                 $crudTableCible = $instance->crudAttribut->crudTable;
@@ -79,6 +79,12 @@ class CacheController extends Controller
             $crudTableCible->listeAttributsVisibles('create');
             $crudTableCible->listeAttributsVisibles('show');
             $crudTableCible->indexCrud();
+
+            // On recharge les caches des tables de gestion du crud
+            foreach (config('listes.tables-gestion-crud') as $table) {
+                index($table);
+                indexCrud($table);
+            }
         }
 
         $crudTable->index();

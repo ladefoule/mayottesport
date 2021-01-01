@@ -21,7 +21,7 @@
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="superadmin@superadmin.fr" value="{{ old('email') }}" required autocomplete="email" autofocus
+                                value="{{ old('email') }}" required autocomplete="email" autofocus
                                 data-msg="Le champ <span class='text-danger font-italic'>Email</span> n'est pas valide.">
 
                             @error('email')
@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                             <input
                                 id="password" pattern=".{8,100}" type="password" class="form-control @error('password') is-invalid @enderror"
-                                value="00000000" name="password" required autocomplete="current-password"
+                                name="password" required autocomplete="current-password"
                                 data-msg="Le champ <span class='text-danger font-italic'>Mot de passe</span> doit comporter entre 8 et 50 caractères.">
 
                             @error('password')

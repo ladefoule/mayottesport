@@ -21,7 +21,7 @@ class EquipeController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- Controller Equipe : __construct -------- ");
+        Log::info("Accès au controller Equipe - Ip : " . request()->ip());
         $this->middleware(['sport', 'equipe'])->except('matchesAjax');
     }
 

@@ -38,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        Log::info("Accès à la page de connexion.");
+        Log::info("Accès au controller Login - Ip : " . request()->ip());
 
         // Retour sur le lien précédent après connexion
         if(url()->previous() != route('login'))

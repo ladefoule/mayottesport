@@ -21,7 +21,7 @@ class CompetitionController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- Controller Competition : __construct -------- ");
+        Log::info("Accès au controller Competition - Ip : " . request()->ip());
         $this->middleware(['sport', 'competition'])->except('journeeRender');
     }
 
@@ -38,7 +38,6 @@ class CompetitionController extends Controller
         $saison = $request->saison;
         $saisonInfosSup = saison($saison->id);
         $sport = $request->sport;
-        // dd($saisonInfosSup);
 
         $types = config('listes.types-competitions');
         $type = $types[$competition->type][0];

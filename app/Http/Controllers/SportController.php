@@ -19,7 +19,7 @@ class SportController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- Controller Sport : __construct -------- ");
+        Log::info("Accès au controller Sport - Ip : " . request()->ip());
         $this->middleware('sport');
     }
 

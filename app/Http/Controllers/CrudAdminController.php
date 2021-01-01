@@ -17,6 +17,16 @@ use Illuminate\Support\Facades\Cache;
 class CrudAdminController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        Log::info("Accès au controller CrudAdmin - Ip : " . request()->ip());
+    }
+
+    /**
      * Choix des tables sur lesquelles on peut effectuer du CRUD
      *
      * @return \Illuminate\Http\RedirectResponse

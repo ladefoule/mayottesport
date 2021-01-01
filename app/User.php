@@ -7,7 +7,6 @@
 
 namespace App;
 
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -63,9 +62,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function rules(User $user = null)
     {
         $unique = Rule::unique('users')->ignore($user);
+
         $rules = [
             'name' => ['required', 'string', 'min:3', 'max:50'],
-            'pseudo' => ['nullable', 'string', 'min:3', 'max:50', $unique],
+            'pseudo' => ['required', 'string', 'min:3', 'max:50', $unique],
             'first_name' => ['nullable', 'string', 'min:3', 'max:50'],
             'role_id' => ['required', 'exists:roles,id'],
             'region_id' => ['required', 'exists:regions,id'],

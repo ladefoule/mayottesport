@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
             'email' => 'membre@membre.fr',
             'role_id' => 1,
             'region_id' => 1,
-            'password' => Hash::make('00000000'),
+            'password' => Hash::make('PVR7tP2CqXPgiJsRgE88'),
             'email_verified_at' => now(),
             'created_at' => now(),
             // 'updated_at' => now()
@@ -32,7 +32,7 @@ class UserTableSeeder extends Seeder
             'email' => 'premium@premium.fr',
             'role_id' => 2,
             'region_id' => 1,
-            'password' => Hash::make('00000000'),
+            'password' => Hash::make('UlV1dW94clekWktkAn3v'),
             'email_verified_at' => now(),
             'created_at' => now(),
             // 'updated_at' => now()
@@ -45,7 +45,7 @@ class UserTableSeeder extends Seeder
             'email' => 'admin@admin.fr',
             'role_id' => 3,
             'region_id' => 1,
-            'password' => Hash::make('00000000'),
+            'password' => Hash::make('X4oqY5dOK2AiK0NRqDVS'),
             'email_verified_at' => now(),
             'created_at' => now(),
             // 'updated_at' => now()
@@ -58,7 +58,7 @@ class UserTableSeeder extends Seeder
             'email' => 'superadmin@superadmin.fr',
             'role_id' => 4,
             'region_id' => 1,
-            'password' => Hash::make('00000000'),
+            'password' => Hash::make('ypENj8bCyAIR7jH5aDBH'),
             'email_verified_at' => now(),
             'created_at' => now(),
             // 'updated_at' => now()

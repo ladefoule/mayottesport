@@ -23,7 +23,7 @@ class CrudController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- Controller Crud : __construct -------- ");
+        Log::info("Accès au controller Crud - Ip : " . request()->ip());
         $this->middleware('verif-table-crud')->except('forgetCaches', 'indexAjax', 'deleteAjax');
         $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }

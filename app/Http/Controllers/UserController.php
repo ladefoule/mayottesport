@@ -19,6 +19,16 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        Log::info("Accès au controller User - Ip : " . request()->ip());
+    }
+
+    /**
      * Tableau de bord (profil) de l'utilisateur
      *
      */
@@ -61,7 +71,9 @@ class UserController extends Controller
 
         $request = Validator::make($request->all(), $rules)->validate();
         $user->update($request);
-        $this::refreshCaches($user->id);
+
+        forgetCaches('users', $user);
+        ProcessCrudTable::dispatch('users', $user);
         return redirect()->route('profil');
     }
 
@@ -73,25 +85,9 @@ class UserController extends Controller
     {
         Log::info(" -------- Controller User : delete -------- ");
         $user = User::findOrFail(Auth::id());
-        $this::refreshCaches($user->id);
+        forgetCaches('users', $user);
+        Auth::logout();
         $user->delete();
-    }
-
-    /**
-     * Rechargement des caches
-     *
-     * @param int $id
-     * @return void
-     */
-    private static function refreshCaches(int $id)
-    {
-        Log::info(" -------- Controller Crud : refreshCaches -------- ");
-
-        // On supprime les caches index directement liés à la table
-        Cache::forget('index-users');
-        Cache::forget('indexcrud-users');
-
-        // On recharge tous les caches dépendants en Asynchrone (Laravel Queues)
-        ProcessCrudTable::dispatch('users', $id);
+        return redirect(route('home'));
     }
 }

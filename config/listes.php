@@ -60,14 +60,18 @@ return [
         7 => ["tab_eq_ext", "Tirs au but (ext.)"],
     ],
 
-    "superadmin-tables" => [
-        'crud_tables', 'crud_attributs', 'crud_attribut_infos', 'roles', 'users'
-    ],
-
     "tables-avec-colonne-uniqid" => ['matches', 'equipes', 'articles'],
+
+    "tables-gestion-crud" => [
+        'crud_tables', 'crud_attributs', 'crud_attribut_infos'
+    ],
 
     "tables-non-crudables" => [
         'migrations', 'password_resets', /* 'matches', */ 'failed_jobs', 'jobs'
+    ],
+
+    "tables-superadmin" => [
+        'roles', 'users', 'matches'
     ],
 
     "types-competitions" => [

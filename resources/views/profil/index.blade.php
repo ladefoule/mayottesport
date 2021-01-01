@@ -69,7 +69,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     $('#supprimer').on('click', function(e){
-        let ok = confirm("Supprimer définitivement mon compte?")
+        let ok = confirm("Supprimer définitivement votre compte?")
         if(! ok){
             e.preventDefault()
         }

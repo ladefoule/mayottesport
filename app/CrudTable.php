@@ -47,7 +47,7 @@ class CrudTable extends Model
     }
 
     /**
-     * La liste des tables 'crudables' hors tables de gestion du CRUD.
+     * La liste des tables 'crudables' affichées dans le CRUD.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -61,7 +61,8 @@ class CrudTable extends Model
                 Log::info('Rechargement du cache : ' . $key);
                 $crudTables = CrudTable::orderBy('nom')->where('crudable', 1)
                         ->whereNotIn('nom', config('listes.tables-non-crudables'))
-                        ->whereNotIn('nom', config('listes.superadmin-tables'))
+                        ->whereNotIn('nom', config('listes.tables-superadmin'))
+                        ->whereNotIn('nom', config('listes.tables-gestion-crud'))
                         ->get() ?? [];
 
                 $navbarCrudTables = [];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author ALI MOUSSA Moussa <admin@mayottesport.com>
  * @copyright 2020 ALI MOUSSA Moussa
@@ -26,8 +27,8 @@ use Illuminate\Support\Facades\Storage;
  */
 function niemeJournee(int $numero)
 {
-    if($numero <= 0) return false;
-    return ($numero == 1 ? '1ère' : $numero.'ème') . ' journée';
+    if ($numero <= 0) return false;
+    return ($numero == 1 ? '1ère' : $numero . 'ème') . ' journée';
 }
 
 /**
@@ -36,7 +37,8 @@ function niemeJournee(int $numero)
  * @param string $str
  * @return string
  */
-function stripAccents(string $str) {
+function stripAccents(string $str)
+{
     return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
 }
 
@@ -73,7 +75,7 @@ function annee(int $debut, int $fin, string $separateur = '-')
  */
 function accesModifResultat($match, $user)
 {
-    if(! $user)
+    if (!$user)
         return false;
 
     $niveauUser = index('roles')[$user->role_id]->niveau;
@@ -85,7 +87,7 @@ function accesModifResultat($match, $user)
     // - Match bloqué
     // - Date du match > aujourd'hui
     // - Niveau de l'utilisateur ayant modifié le match > Niveau du membre connecté (ne concerne pas les admins)
-    if($match->bloque || ($niveauLastUser > $niveauUser && $niveauUser < 30) || $match->date > date('Y-m-d'))
+    if ($match->bloque || ($niveauLastUser > $niveauUser && $niveauUser < 30) || $match->date > date('Y-m-d'))
         return false;
 
     return true;
@@ -100,7 +102,7 @@ function accesModifResultat($match, $user)
  */
 function accesModifHoraire($match, $user)
 {
-    if(! $user)
+    if (!$user)
         return false;
 
     $niveauUser = index('roles')[$user->role_id]->niveau;
@@ -108,7 +110,7 @@ function accesModifHoraire($match, $user)
     // Les conditions d'accès refusé
     // - Match bloqué
     // - Niveau de l'utilisateur connecté < 20 cad niveau membre (10)
-    if($match->bloque || $niveauUser < 20)
+    if ($match->bloque || $niveauUser < 20)
         return false;
 
     return true;
@@ -125,66 +127,64 @@ function fanion($equipeId)
 {
     $fanion = 'foot-' . $equipeId;
     $exists = Storage::disk('public')->exists('img/fanion/' . $fanion . '.png');
-    if($exists == false)
+    if ($exists == false)
         $fanion = "defaut-2";
 
     return config('app.url') . "/storage/img/fanion/" . $fanion . '.png';
 }
 
 /**
-     * Suppression des caches
-     *
-     * @param string $table - en camel_case
-     * @param object $instance
-     * @return void
-     */
-    function forgetCaches(string $table, object $instance)
-    {
+ * Suppression des caches
+ *
+ * @param string $table - en camel_case
+ * @param object $instance
+ * @return void
+ */
+function forgetCaches(string $table, object $instance)
+{
     Log::info(" -------- Controller Crud : forgetCaches -------- ");
 
-    // On supprime le cache index de la table
     $tableSlug = Str::slug($table);
+    // On supprime le cache index de la table
     Cache::forget('index-' . $tableSlug);
 
-    if(! in_array($table, config('listes.tables-non-crudables')))
+    // On supprime le cache indexcrud de la table
+    if (!in_array($table, config('listes.tables-non-crudables')))
         Cache::forget('indexcrud-' . $tableSlug);
 
     // On supprime les caches directement liés au match, à la journée ou à la saison
-    if(in_array($table, ['matches', 'journees', 'saisons'])){
-        if($table == 'matches'){
-            // $match = Match::findOrFail($id);
+    if (in_array($table, ['matches', 'journees', 'saisons'])) {
+        if ($table == 'matches') {
             $match = $instance;
             $journee = $match->journee;
             $saison = $journee->saison;
-        }else if($table == 'journees'){
-            // $journee = Journee::findOrFail($id);
+        } else if ($table == 'journees') {
             $journee = $instance;
             $saison = $journee->saison;
-        }else
+        } else
             $saison = $instance;
 
-        if(isset($match))
+        if (isset($match))
             Cache::forget("match-" . $match->uniqid);
 
-        if(isset($journee))
+        if (isset($journee))
             Cache::forget("journee-" . $journee->id);
 
-        if(isset($saison))
+        if (isset($saison))
             Cache::forget("saison-" . $saison->id);
 
-    // Suppression de tous les caches saisons liés au barème
-    }else if($table == 'baremes'){
-        // $bareme = Bareme::findOrFail($id);
+        // Suppression de tous les caches saisons liés au barème
+    } else if ($table == 'baremes') {
         $bareme = $instance;
         $saisons = $bareme->saisons;
         foreach ($saisons as $saisonTemp)
-            Cache::forget("saison-".$saisonTemp->id);
+            Cache::forget("saison-" . $saisonTemp->id);
 
-    // On supprime les caches des attributs visibles si on a effectuer une action sur les tables CRUD
-    }else if(in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])){
-        if($table == 'crud_attribut_infos')
+        // On supprime les caches des attributs visibles si on a effectué une action sur les tables CRUD
+    } else if (in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])) {
+        if ($table == 'crud_attribut_infos')
             $crudTableCible = $instance->crudAttribut->crudTable->nom;
-        else if($table == 'crud_attributs')
+        else if ($table == 'crud_attributs')
             $crudTableCible = $instance->crudTable->nom;
         else
             $crudTableCible = $instance->nom;
@@ -195,10 +195,13 @@ function fanion($equipeId)
         Cache::forget("attributs-visibles-$crudTableCibleSlug-show");
         Cache::forget('indexcrud-' . $crudTableCibleSlug);
 
-        // À chaque modif sur les tables attributs, on doit recharger les caches index de ces tables
+        // À chaque modif sur les tables attributs, on doit recharger les caches index et indexcrud de ces tables
         Cache::forget('index-crud-attribut-infos');
         Cache::forget('index-crud-attributs');
         Cache::forget('index-crud-tables');
+        Cache::forget('indexcrud-crud-attribut-infos');
+        Cache::forget('indexcrud-crud-attributs');
+        Cache::forget('indexcrud-crud-tables');
     }
 }
 
@@ -210,11 +213,12 @@ function fanion($equipeId)
  * @param string $table - en kebab-case
  * @return void
  */
-function refreshCachesLies(string $table){
+function refreshCachesLies(string $table)
+{
     Log::info("Rechargement des caches des tables utilisant les données de : $table");
     $tablesLiees = config('listes.caches-lies')[$table] ?? [];
-    foreach ($tablesLiees as $tableSlug){
-        if(isset(config('listes.caches-lies')[$tableSlug]))
+    foreach ($tablesLiees as $tableSlug) {
+        if (isset(config('listes.caches-lies')[$tableSlug]))
             refreshCachesLies($tableSlug);
 
         Cache::forget('indexcrud-' . $tableSlug);
@@ -232,9 +236,9 @@ function refreshCachesLies(string $table){
  */
 function compare($a, $b)
 {
-    if ($a['points'] == $b['points']){
-        if($a['diff'] == $b['diff']){
-            if($a['marques'] == $b['marques'])
+    if ($a['points'] == $b['points']) {
+        if ($a['diff'] == $b['diff']) {
+            if ($a['marques'] == $b['marques'])
                 return 0;
             return ($a['marques'] < $b['marques']) ? 1 : -1;
         }
@@ -255,7 +259,7 @@ function index(string $table)
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use($table){
+        return Cache::rememberForever($key, function () use ($table) {
             return CrudTable::whereNom($table)->firstOrFail()->index();
         });
 }
@@ -273,7 +277,7 @@ function indexCrud(string $table)
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use($table){
+        return Cache::rememberForever($key, function () use ($table) {
             return CrudTable::whereNom($table)->firstOrFail()->indexCrud();
         });
 }
@@ -291,7 +295,7 @@ function journee(int $journeeId)
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use($journeeId){
+        return Cache::rememberForever($key, function () use ($journeeId) {
             return Journee::findOrFail($journeeId)->infos();
         });
 }
@@ -309,7 +313,7 @@ function saison(int $saisonId)
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use($saisonId){
+        return Cache::rememberForever($key, function () use ($saisonId) {
             return Saison::findOrFail($saisonId)->infos();
         });
 }
@@ -327,7 +331,7 @@ function match(string $matchUniqid)
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use($matchUniqid){
+        return Cache::rememberForever($key, function () use ($matchUniqid) {
             return Match::whereUniqid($matchUniqid)->firstOrFail()->infos();
         });
 }
@@ -391,10 +395,10 @@ function genererCalendrier($donnees)
     $correspondanceAllerRetour = $donnees['correspondanceAllerRetour'] ?? [];
 
     foreach ($rencontres as $i => $matchesMemeJournee) {
-        $journeeNumero = $i+1;
+        $journeeNumero = $i + 1;
         /* ALLER */
         $journeeAller = Journee::firstWhere(['numero' => $journeeNumero, 'saison_id' => $saisonId]);
-        if(! $journeeAller){ // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
+        if (!$journeeAller) { // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
             $date = new Carbon(date('Y-m-d'));
             $journeeAller = Journee::create(['numero' => $journeeNumero, 'date' => $date->addWeeks($i), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
         }
@@ -404,7 +408,7 @@ function genererCalendrier($donnees)
 
         /* RETOUR */
         $journeeRetour = Journee::firstWhere(['numero' => $journeeNumero + $diffAllerRetour, 'saison_id' => $saisonId]);
-        if(! $journeeRetour){ // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
+        if (!$journeeRetour) { // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
             $date = new Carbon(date('Y-m-d'));
             $journeeRetour = Journee::create(['numero' => $journeeNumero + $diffAllerRetour, 'date' => $date->addWeeks($i + $diffAllerRetour), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
         }
@@ -442,7 +446,5 @@ function genererCalendrier($donnees)
             $matchRetour = Match::create($matchRetour);
             // Log::info("Ajout d'un match : " . $matchRetour);
         }
-
-
     }
 }

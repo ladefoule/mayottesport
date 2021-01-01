@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Sport;
-use App\Saison;
 use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -29,9 +27,9 @@ class HomeController extends Controller
                     $saison = saison($saison->id);
                     $journeeId = $saison['derniere_journee_id'] != '' ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];                    // $journeeId = $saison->derniereJourneeId() ?? $saison->prochaineJourneeId();
                     if($journeeId){
-                        $classement = '';
-                        if($competition->type == 1) // Championnat
-                            $classement = $saison['classement_simple_render'];
+                        // $classement = '';
+                        // if($competition->type == 1) // Championnat
+                        //     $classement = $saison['classement_simple_render'];
 
                         $listeDesJournees[] = collect([
                             'competition_nom' => $competition->nom,

@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Validator;
 
 class PdfParserController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        Log::info("Accès au controller PdfParser - Ip : " . request()->ip());
+    }
+
     public function get()
     {
         Log::info(" -------- Controller PdfParser : get -------- ");

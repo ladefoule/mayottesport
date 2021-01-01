@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Cache;
+use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        //
+        Log::info("Accès au controller Register - Ip : " . request()->ip());
     }
 
     /**
@@ -51,8 +51,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        Log::info("Validation des données du nouvel utilisateur.");
+        Log::info(" -------- Controller Register : validator -------- ");
         $rules = User::rules()['rules'];
+
+        // Les nouveaux utilisateurs auront le niveau d'accès 'membre'
+        $data['role_id'] = index('roles')->firstWhere('nom', 'membre')->id;
+
+        // On génère automatiquement un pseudo à partir de l'email
+        try {
+            $data['pseudo'] = explode('@', $data['email'])[0] . rand(0, 1000);
+        } catch (\Throwable $th) {
+            abort(404);
+        }
+        request()['role_id'] = $data['role_id'];
+        request()['pseudo'] = $data['pseudo'];
+
         return Validator::make($data, $rules);
     }
 
@@ -64,21 +77,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        Log::info("Création d'un nouvel utilisateur.");
-        Log::info("L'email : "  . $data['email']);
-        // On génère automatiquement un pseudo à partir de l'email
-        $pseudo = explode('@', $data['email'])[0] . rand(0, 1000);
+        Log::info(" -------- Controller Register : create -------- ");
+        $data['password'] = Hash::make($data['password']);
+        $user = User::create($data);
+        Log::info("Nouveau membre créé avec succès : " . $user->email);
 
-        Cache::forget('index-users');
-        Cache::forget('indexcrud-users');
-        return User::create([
-            'name' => $data['name'],
-            'first_name' => $data['first_name'],
-            'email' => $data['email'],
-            'pseudo' => $pseudo,
-            'region_id' => $data['region_id'],
-            'role_id' => $data['role_id'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // On recharge tous les caches dépendants en Asynchrone (Laravel Queues)
+        forgetCaches('users', $user);
+        ProcessCrudTable::dispatch('users', $user->id);
+
+        return $user;
     }
 }

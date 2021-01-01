@@ -20,6 +20,16 @@ use Illuminate\Support\Facades\Validator;
 class JourneesMultiplesController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        Log::info("Accès au controller JourneesMultiples - Ip : " . request()->ip());
+    }
+
+    /**
      * Ajout de toutes les journées d'une même saison
      *
      * @return \Illuminate\View\View

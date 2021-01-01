@@ -26,7 +26,7 @@ class MatchController extends Controller
      */
     public function __construct()
     {
-        Log::info(" -------- Controller Match : __construct -------- ");
+        Log::info("Accès au controller Match - Ip : " . request()->ip());
         $this->middleware(['sport', 'competition', 'match-uniqid', 'modification-match']);
     }
 

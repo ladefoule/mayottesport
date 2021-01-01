@@ -6,10 +6,21 @@ use App\Cache;
 use App\Article;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        Log::info("Accès au controller Article - Ip : " . request()->ip());
+    }
+
     public function createForm()
     {
         return view('article.create');
