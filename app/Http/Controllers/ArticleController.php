@@ -19,6 +19,7 @@ class ArticleController extends Controller
     public function __construct()
     {
         Log::info("Accès au controller Article - Ip : " . request()->ip());
+        $this->middleware('article')->only(['show', 'showAdmin', 'updateForm', 'updateStore']);
     }
 
     public function createForm()
@@ -36,28 +37,39 @@ class ArticleController extends Controller
         Cache::forget('index-articles');
         Cache::forget('indexcrud-articles');
 
-        return redirect()->route('article.show', ['uniqid' => $article->uniqid, 'titre' => Str::slug($article->titre)]);
+        return redirect()->route('article.show.admin', ['uniqid' => $article->uniqid]);
     }
 
     public function show(Request $request, $uniqid, $titre)
     {
-        $article = Article::whereUniqid($uniqid)->firstOrFail();
-
-        $texte = $article->texte;
-        // foreach ($texte as $key => $value) {
-        //     $texteR =
-        // }
-        // $texte
-        // dd(json_encode($texte));
-
-        return view('article.show', ['article' => $article, 'texte' => $texte]);
+        $article = $request->article;
+        if(! $article->valide)
+            abort(404);
+        return view('article.show', ['article' => $article]);
     }
 
-    public function ajax(Request $request, $uniqid)
+    public function showAdmin(Request $request, $uniqid)
     {
-        // return $uniqid;
-        $article = Article::whereUniqid($uniqid)->firstOrFail();
+        $article = $request->article;
+        return view('article.show', ['article' => $article]);
+    }
 
-        return $article->texte;
+    public function updateForm(Request $request, $uniqid)
+    {
+        $article = $request->article;
+        return view('article.update', ['article' => $article]);
+    }
+
+    public function updateStore(Request $request, $uniqid)
+    {
+        $article = Article::findOrFail($request->article->id);
+        $rules = Article::rules($article)['rules'];
+        $data = Validator::make($request->all(), $rules)->validate();
+        $article->update($data);
+
+        Cache::forget('index-articles');
+        Cache::forget('indexcrud-articles');
+
+        return redirect()->route('article.show.admin', ['uniqid' => $article->uniqid]);
     }
 }

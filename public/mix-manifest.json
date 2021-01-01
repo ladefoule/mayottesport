@@ -1,5 +1,9 @@
 {
-    "/js/app.js": "/js/app.js?id=4051e2d6ac2b0c00092c",
+    "/js/app.js": "/js/app.js?id=2ada6ca814df9c15f22d",
     "/css/app.css": "/css/app.css?id=eb9f92d7b07f68ee0fbc",
-    "/js/all.js": "/js/all.js?id=b5ba34a325c837979539"
+    "/node_modules/select2/select2.js": "/node_modules/select2/select2.js?id=8b9e61ffc46edc5610a2",
+    "/node_modules/tinymce/jquery.tinymce.js": "/node_modules/tinymce/jquery.tinymce.js?id=a154c15cd3488c8f93b3",
+    "/node_modules/tinymce/jquery.tinymce.min.js": "/node_modules/tinymce/jquery.tinymce.min.js?id=a154c15cd3488c8f93b3",
+    "/node_modules/tinymce/tinymce.js": "/node_modules/tinymce/tinymce.js?id=9fd5af6720cd128b3aec",
+    "/node_modules/tinymce/tinymce.min.js": "/node_modules/tinymce/tinymce.min.js?id=4ccf580a00d831e7fc36"
 }

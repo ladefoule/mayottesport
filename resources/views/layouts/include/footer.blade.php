@@ -50,8 +50,8 @@
 <!-- Footer -->
 
 <script src="{{ config('app.url') }}{{ mix('js/app.js') }}"></script>
-<script src="{{ config('app.url') }}{{ mix('js/all.js') }}"></script>
-{{-- <script src="{{ config('app.url') }}/js/select2.min.js"></script> --}}
+<script src="{{ asset('node_modules/select2/select2.js') }}"></script>
+<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script src="{{ config('app.url') }}/js/outils.js"></script>
 <script>
 $(document).ready(function(){

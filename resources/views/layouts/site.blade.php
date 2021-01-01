@@ -8,7 +8,7 @@
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <main class="container-lg top-50 bg-white p-3">
+    <main class="container-lg top-main-site bg-white">
         @yield('content')
     </main>
     {{-- Fin Section scroll X --}}

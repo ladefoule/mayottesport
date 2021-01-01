@@ -19,6 +19,8 @@ class CreateArticlesTable extends Migration
             $table->string('uniqid')->unique();
             $table->string('titre');
             $table->longText('texte');
+            $table->text('preambule');
+            $table->boolean('valide');
             $table->timestamps();
         });
     }

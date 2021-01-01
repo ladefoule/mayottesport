@@ -10,5 +10,5 @@
 // dd(Str::slug('crud_ na_me'));
 
 echo 'Cache vidée !';
-dd(\Hash::make("X4oqY5dOK2AiK0NRqDVS"));
-// Cache::flush();
+// dd(\Storage::disk('public')->exists('img/fanion/defaut-2.png'));
+Cache::flush();

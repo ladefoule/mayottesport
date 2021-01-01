@@ -46,6 +46,14 @@ Route::group(['middleware'=> 'verified'], function () {
             Route::get('/login', function(){return redirect()->route('login');})->name('code16.sharp.login');
             // Route::get('/', function(){return view('admin.calendrier');})->name('administration');
 
+            Route::prefix('/article')->middleware(['check-permission:superadmin'])->group(function () {
+                Route::get('/create', 'ArticleController@createForm')->name('article.create');
+                Route::post('/create', 'ArticleController@createStore')->name('article.create.store');
+                Route::get('/update/{uniqid}', 'ArticleController@updateForm')->name('article.update');
+                Route::post('/update/{uniqid}', 'ArticleController@updateStore')->name('article.update.store');
+                Route::get('/show/{uniqid}', 'ArticleController@showAdmin')->name('article.show.admin');
+            });
+
             /* DEBUT PREFIX CRUD */
             Route::prefix('/crud')->group(function () {
                 Route::get('/', function(){return redirect()->route('crud.index', ['table' => 'sports']);})->name('crud');
@@ -90,12 +98,7 @@ Route::group(['middleware'=> 'verified'], function () {
     });/* FIN MIDDLEWARE PREMIUM */
 }); /* FIN MIDDLEWARE AUTH */
 
-Route::prefix('/article')->middleware(['check-permission:superadmin'])->group(function () {
-    Route::get('/rediger', 'ArticleController@createForm')->name('article.create');
-    Route::post('/rediger', 'ArticleController@createStore')->name('article.create.store');
-    Route::get('/{uniqid}-{titre}.html', 'ArticleController@show')->name('article.show');
-    Route::post('/ajax/{uniqid}', 'ArticleController@ajax')->name('article.ajax');
-});
+Route::get('/article/{uniqid}-{titre}.html', 'ArticleController@show')->name('article.show');
 
 Route::post('/ajax/journees-url-editer', function () {
     return view('admin.journees.ajax-url-editer');

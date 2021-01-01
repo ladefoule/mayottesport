@@ -1,34 +1,36 @@
 @extends('layouts.site')
 
-@section('title', "Rédaction d'un article")
+@section('title', "Modification d'un article")
 
 @section('content')
 <div class="row pt-3">
-    <h1 class="col-12 h3 text-center">Rédaction d'un nouvel article</h1>
+    <div class="col-lg-8 p-0">
+        <h1 class="col-12 h3 text-center">Modification d'un article</h1>
 
-    <div class="card-body">
         <form action="" method="POST" class="needs-validation col-12 d-flex flex-wrap p-0" id="formulaire">
             @csrf
 
             <div class="col-12 justify-content-center pb-3">
                 <label>Titre</label>
-                <input name="titre" type="text" value="{{ old('titre') }}" pattern=".{10,200}" data-msg="Le titre doit contenir au moins 10 caractères" class="form-control">
+                <input name="titre" type="text" value="{{ old('titre') ?? $article->titre }}" pattern=".{10,200}" data-msg="Le titre doit contenir au moins 10 caractères" class="form-control">
             </div>
 
             <div class="col-12 justify-content-center pb-3">
                 <label>Image</label>
-                <input name="img" type="text" value="{{ old('img') }}" class="form-control input-optionnel">
+                <input name="img" type="text" value="{{ old('img') ?? $article->img }}" class="form-control input-optionnel">
             </div>
 
             <div class="col-12 pb-3">
                 <label for="preambule">Préambule</label>
-                <textarea id="preambule" name="preambule" class="form-control">{{ old('preambule') }}</textarea>
+                <textarea id="preambule" name="preambule" class="form-control">{{ old('preambule') ?? $article->preambule }}</textarea>
             </div>
 
             <div class="col-12 pb-3">
                 <label for="texte">Article</label>
-                <textarea id="texte" name="texte" class="form-control">{{ old('texte') }}</textarea>
+                <textarea id="texte" name="texte" class="form-control">{{ old('texte') ?? $article->texte }}</textarea>
             </div>
+
+            <input type="hidden" name="uniqid" value="{{ $article->uniqid }}">
 
             <div class="col-12 mt-3">
                 <div class="mt-3 col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>

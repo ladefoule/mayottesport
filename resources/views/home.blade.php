@@ -5,22 +5,22 @@
 @section('content')
 
 <div class="row bg-white justify-content-center">
-    <div class="col-12 text-center pt-3">
-        <h1 class="h4">MayotteSport.com : l'actualité sportive de l'île de Mayotte</h1>
+    <div class="col-12 text-center py-3">
+        <h1 class="h4">MayotteSport.com : l'actualité sportive de Mayotte</h1>
     </div>
 
-    <div class="col-lg-8">
+    <div class="col-lg-8 p-0">
         @csrf
         @foreach ($articles as $article)
         <div class="p-0 d-flex flex-wrap justify-content-center">
-            <h2 class="col-12 h2 pt-3 font-weight-bold">{{ $article->titre }}</h2>
-            <div class="col-8 d-flex justify-content-center">
+            <h1 class="col-12 h2 py-3 font-weight-bold">{{ $article->titre }}</h1>
+            <div class="col-10 d-flex justify-content-center pb-3">
                 <img src="/storage/img/{{ $article->img }}" alt="" class="img-fluid">
             </div>
 
-            <!-- Create the editor container -->
-            <div id="editor-{{ $article->uniqid }}" data-url="{{ route('article.ajax', ['uniqid' => $article->uniqid]) }}" class="col-12 border-0" style="font-size:1.0rem">
 
+            <div id="" class="col-12 border-0">
+                {!! $article->preambule !!}
             </div>
         </div>
         @endforeach
@@ -49,35 +49,4 @@
         @endforeach
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-    $(document).ready(function(){
-        var token = qs('input[name=_token]').value
-
-        let uniqids = "<?php echo $liste; ?>"
-        uniqids = uniqids.split(',')
-        uniqids.forEach(uniqid => {
-            var quill = new Quill('#editor-' + uniqid, {
-                theme: 'bubble',
-                modules: {
-                    toolbar: []
-                },
-                readOnly: true,
-            });
-
-            $.ajax({
-                type: 'POST',
-                url: qs('#editor-' + uniqid).dataset.url,
-                data: {_token:token},
-                success:function(data){
-                    quill.setContents(
-                        JSON.parse(data)
-                    )
-                }
-            })
-        });
-    })
-</script>
 @endsection
