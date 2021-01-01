@@ -35,7 +35,7 @@
             </div>
 
             <div class="col-12 d-flex justify-content-center pb-3">
-                <button class="btn btn-primary px-5">Mettre à jour</button>
+                <button class="btn btn-primary px-5">Validerr</button>
             </div>
         </form>
     </div>
