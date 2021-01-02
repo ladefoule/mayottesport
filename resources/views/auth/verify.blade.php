@@ -3,8 +3,8 @@
 @section('title', "Vérifiez votre adresse email")
 
 @section('content')
-<div class="row justify-content-center p-3 min-height">
-    <div class="col-md-8 px-0">
+<div class="row justify-content-center min-height">
+    <div class="col-md-8 p-3">
         <div class="card">
             <div class="card-header">Vérifiez votre adresse email</div>
 

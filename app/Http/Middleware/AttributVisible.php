@@ -31,7 +31,7 @@ class AttributVisible
 
         $action = explode('.', $route)[1]; // les différentes routes : crud.create / crud.show / crud.update / crud.index
 
-        $listeAttributsVisibles = $crudTable->listeAttributsVisibles($action);
+        $listeAttributsVisibles = listeAttributsVisibles($crudTable->nom, $action);
         if(! $listeAttributsVisibles){
             Log::info('Aucun attribut à afficher pour la table : ' . $crudTable->nom);
             abort(404);

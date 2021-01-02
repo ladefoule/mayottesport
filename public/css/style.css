@@ -14,8 +14,28 @@ body{
     background-attachment: fixed;
 }
 
-h1{
-    /* font-size: 1rem !important; */
+.titre-article,.titre-premier-article{
+    font-weight: bold;
+    font-family:"Tahoma", "Geneva", "Verdana", "sans-serif";
+}
+
+.titre-premier-article{
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.titre-article{
+    font-size: 17px;
+    line-height: 19px;
+}
+
+.img-ratio{
+    width: 100%;
+	height: auto;
+}
+
+.preambule{
+    font-size: 0.8rem !important;
 }
 
 /* a{
@@ -238,8 +258,9 @@ a:hover{
         font-size: 90%;
     }
 
-    h1{
-        /* font-size: 1.2rem !important; */
+    .titre-premier-article{
+        font-size: 27px;
+        line-height: 29px;
     }
 
     .fanion-page-equipe{
@@ -279,8 +300,9 @@ a:hover{
             font-size: 100%;
         }
 
-        h1{
-            /* font-size: 1.4rem !important; */
+        .titre-premier-article{
+            font-size: 30px;
+            line-height: 32px;
         }
 
         .fanion-page-equipe{

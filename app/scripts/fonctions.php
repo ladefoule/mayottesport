@@ -248,6 +248,25 @@ function compare($a, $b)
 }
 
 /**
+     * La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu'on doit afficher soit dans la page liste, dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement. Elle renvoie false si la liste est vide.
+     *
+     * @param string $table - en camel_case
+     * @param string $action
+     * @return \Illuminate\Support\Collection|false
+     */
+    function listeAttributsVisibles(string $table, string $action = 'index')
+    {
+        if($action == 'update')
+                $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
+
+        $key = "attributs-visibles-" . Str::slug($table) . "-" . $action;
+        if (Cache::has($key))
+            return Cache::get($key);
+        else
+            return CrudTable::where('nom', $table)->firstOrFail()->listeAttributsVisibles($action);
+    }
+
+/**
  * Style procédural de la méthode infos() de la classe CrudTable : Liste de tous les éléments de la table.
  *
  * @param string $table - Table en camel_case

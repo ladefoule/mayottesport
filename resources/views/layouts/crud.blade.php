@@ -4,8 +4,6 @@
 
     // On place la table au début de la collection
     $crud = $navbarCrudTables[$crudTable->nom];
-    // $navbarCrudTables->pull($crudTable->nom);
-    // $navbarCrudTables = $navbarCrudTables->prepend($crud, $crudTable->nom);
 ?>
 
 {{-- Header --}}
@@ -35,7 +33,7 @@
     </div>
     {{-- Fin Section scroll X --}}
 
-    <section class="container-lg {{-- h-100 --}} bg-white mb-auto">
+    <section class="container-lg bg-white mb-auto">
         @yield('content')
     </section>
 

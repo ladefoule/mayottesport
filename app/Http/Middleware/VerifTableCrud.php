@@ -8,7 +8,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\CrudTable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -30,27 +29,29 @@ class VerifTableCrud
 
         $table = $request['table'];
         $crudTable = false;
-        $navbarCrudTables = CrudTable::navbarCrudTables();
-        foreach ($navbarCrudTables as $table_)
-            if(array_search($table, $table_)){
-                $crudTable = CrudTable::findOrFail($table_['id']);
-                // $crudTable = index('crud_tables')[$table_['id']];
-                $request->layout = 'crud';
-            }
 
-        if(index('roles')[Auth::user()->role_id]->nom == 'superadmin'){
-            $tables = config('listes.tables-superadmin');
-            $position = array_search(str_replace('-', '_', $table), $tables);
-            if($position !== false){
-                $crudTable = CrudTable::whereNom($tables[$position])->firstOrFail();
+        $request->layout = 'crud';
+        $crudTable = index('crud_tables')->where('nom', str_replace('-', '_', $table))
+                                        ->where('crudable', 1)
+                                        ->whereNotIn('nom', config('listes.tables-gestion-crud'))
+                                        ->whereNotIn('nom', config('listes.tables-superadmin'))
+                                        ->first();
+
+        // Si on n'a pas trouvé la table et que c'est un superadmin qui est connecté, on recherche toutes les tables crudables
+        if(! $crudTable && index('roles')[Auth::user()->role_id]->nom == 'superadmin'){
+            $crudTable = index('crud_tables')->where('nom', str_replace('-', '_', $table))
+                                            ->where('crudable', 1)
+                                            ->first();
+
+            if($crudTable)
                 $request->layout = 'crud-superadmin';
-            }
         }
 
         if(! $crudTable){
             Log::info('Table non gérée ou introuvable : ' . $table);
             abort(404);
         }
+
         $request->crudTable = $crudTable;
         return $next($request);
     }

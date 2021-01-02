@@ -24,7 +24,7 @@ class CrudController extends Controller
     public function __construct()
     {
         Log::info("Accès au controller Crud - Ip : " . request()->ip());
-        $this->middleware('verif-table-crud')->except('forgetCaches', 'indexAjax', 'deleteAjax');
+        $this->middleware('verif-table-crud')->except('forgetCaches');
         $this->middleware('attribut-visible')->only(['index', 'show', 'createForm', 'updateForm']);
     }
 
@@ -42,7 +42,7 @@ class CrudController extends Controller
         $h1 = $tablePascalCase;
         $title = 'CRUD - Lister : ' . $h1;
 
-        $liste = $crudTable->indexCrud();
+        $liste = indexCrud($crudTable->nom);
         $hrefs['create'] = route('crud.create', ['table' => $table]);
         $hrefs['delete-ajax'] = route('crud.delete-ajax', ['table' => $table]);
         $hrefs['index-ajax'] = route('crud.index-ajax', ['table' => $table]);
@@ -67,8 +67,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- Controller Crud : indexAjax -------- ");
         $table = str_replace('-', '_', $table);
-        $crudTable = CrudTable::whereNom($table)->firstOrFail();
-        $liste = $crudTable->indexCrud();
+        $liste = indexCrud($table);
         return view('admin.crud.index-ajax', [
             'liste' => $liste
         ]);
@@ -90,11 +89,12 @@ class CrudController extends Controller
         $h1 = $tablePascalCase;
         $title = 'CRUD - Voir : ' . $h1;
 
+        $crudTable = CrudTable::findOrFail($crudTable->id);
         $donnees = $crudTable->crud('show', $id);
+
         $hrefs['index'] = route('crud.index', ['table' => $table]);
         $hrefs['update'] = route('crud.update', ['table' => $table, 'id' => $id]);
         $hrefs['delete'] = route('crud.delete', ['table' => $table, 'id' => $id]);
-
         return view('admin.crud.show', [
             'donnees' => $donnees,
             'hrefs' => $hrefs,
@@ -113,13 +113,15 @@ class CrudController extends Controller
     {
         Log::info(" -------- Controller Crud : create -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
+
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase . ' : Ajouter';
         $title = 'CRUD - Ajouter : ' . $tablePascalCase;
 
+        $crudTable = CrudTable::findOrFail($crudTable->id);
         $donnees = $crudTable->crud('create');
-        $hrefs['index'] = route('crud.index', ['table' => $table]);
 
+        $hrefs['index'] = route('crud.index', ['table' => $table]);
         return view('admin.crud.create', [
             'donnees' => $donnees,
             'h1' => $h1,
@@ -172,15 +174,17 @@ class CrudController extends Controller
     {
         Log::info(" -------- Controller Crud : update -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
+
         $tablePascalCase = Str::ucfirst(Str::camel($table));
         $h1 = $tablePascalCase;
         $title = 'CRUD - Editer : ' . $tablePascalCase . '/'.$id;
 
+        $crudTable = CrudTable::findOrFail($crudTable->id);
         $donnees = $crudTable->crud('update', $id);
+
         $hrefs['index'] = route('crud.index', ['table' => $table]);
         $hrefs['show'] = route('crud.show', ['table' => $table, 'id' => $id]);
         $hrefs['delete'] = route('crud.delete', ['table' => $table, 'id' => $id]);
-
         return view('admin.crud.update', [
             'donnees' => $donnees,
             'h1' => $h1,
@@ -201,6 +205,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- Controller Crud : updateStore -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
+
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
         $rules = $modele::rules($instance);
@@ -229,6 +234,7 @@ class CrudController extends Controller
     {
         Log::info(" -------- Controller Crud : delete -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
+
         $modele = 'App\\'.modelName(str_replace('-', '_', $table));
         $instance = $modele::findOrFail($id);
         forgetCaches($crudTable->nom, $instance);
@@ -248,8 +254,9 @@ class CrudController extends Controller
     public function deleteAjax(Request $request, $table)
     {
         Log::info(" -------- Controller Crud : deleteAjax -------- ");
-        $table = str_replace('-', '_', $table);
-        $crudTable = CrudTable::whereNom($table)->firstOrFail();
+        $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
+        // $table = str_replace('-', '_', $table);
+        // $crudTable = CrudTable::whereNom($table)->firstOrFail();
         $modele = 'App\\'.modelName($table);
         $validator = Validator::make($request->all(), [
             'ids' => 'required|array',
