@@ -43,21 +43,9 @@ class HomeController extends Controller
         }
 
         $articles = Article::orderBy('created_at', 'desc')->limit(10)->get();
-
-        $liste = '';//$articles->pluck('uniqid');
-        foreach ($articles as $key => $article) {
-            $liste .= ($key ? ',' : '') . $article->uniqid;
-        }
-        // dd($liste);
-
-        // return view('articl')
-        // dd(route('article.ajax', ['uniqid' => $articles[0]->uniqid]));
-        // dd($sports);
-
         return view('home', [
             'sports' => $sports,
             'articles' => $articles,
-            'liste' => $liste
         ]);
     }
 }

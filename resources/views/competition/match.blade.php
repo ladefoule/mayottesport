@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="row bg-white border pt-2 {{-- mx-0 rounded --}}">
+<div class="row bg-white border pt-2">
     <section class="col-12 pt-1">
         <div id="disqus_thread"></div>
         <script>
@@ -65,7 +65,7 @@
             (d.head || d.body).appendChild(s);
             })();
         </script>
-        <noscript>Veuillez activer JavaScript pour voir les <a href="https://disqus.com/?ref_noscript">commentaires alimentés par Disqus.</a></noscript>
+        <noscript>Veuillez activer JavaScript pour voir les commentaires alimentés par Disqus.</noscript>
     </section>
 </div>
 @endsection

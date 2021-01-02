@@ -235,7 +235,8 @@ class CrudController extends Controller
         Log::info(" -------- Controller Crud : delete -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
 
-        $modele = 'App\\'.modelName(str_replace('-', '_', $table));
+        // $modele = 'App\\'.modelName(str_replace('-', '_', $table));
+        $modele = 'App\\'.modelName($crudTable->nom);
         $instance = $modele::findOrFail($id);
         forgetCaches($crudTable->nom, $instance);
         $instance->delete();
@@ -255,8 +256,8 @@ class CrudController extends Controller
     {
         Log::info(" -------- Controller Crud : deleteAjax -------- ");
         $crudTable = $request->crudTable; // Récupérer depuis le middleware VerifTableCrud
-        // $table = str_replace('-', '_', $table);
-        // $crudTable = CrudTable::whereNom($table)->firstOrFail();
+
+        $table = $crudTable->nom; // nom de la table en snake_case
         $modele = 'App\\'.modelName($table);
         $validator = Validator::make($request->all(), [
             'ids' => 'required|array',
@@ -266,9 +267,10 @@ class CrudController extends Controller
         if ($validator->fails())
             return response(null, 404);
 
+            Log::info($modele);
         $request = $validator->validate();
         foreach ($request['ids'] as $id)
-            forgetCaches($crudTable->nom, $modele::findOrFail($id));
+            forgetCaches($table, $modele::findOrFail($id));
         $modele::destroy($request['ids']);
     }
 }

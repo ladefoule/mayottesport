@@ -14,9 +14,9 @@ body{
     background-attachment: fixed;
 }
 
-.titre-article,.titre-premier-article{
+.titre-article,.titre-premier-article,.titre-article{
     font-weight: bold;
-    font-family:"Tahoma", "Geneva", "Verdana", "sans-serif";
+    font-family:Verdana,sans-serif;
 }
 
 .titre-premier-article{
@@ -25,8 +25,8 @@ body{
 }
 
 .titre-article{
-    font-size: 17px;
-    line-height: 19px;
+    font-size: 15px;
+    line-height: 17px;
 }
 
 .img-ratio{
@@ -259,8 +259,13 @@ a:hover{
     }
 
     .titre-premier-article{
-        font-size: 27px;
-        line-height: 29px;
+        font-size: 23px;
+        line-height: 25px;
+    }
+
+    .titre-article{
+        font-size: 20px;
+        line-height: 22px;
     }
 
     .fanion-page-equipe{
@@ -301,8 +306,13 @@ a:hover{
         }
 
         .titre-premier-article{
-            font-size: 30px;
-            line-height: 32px;
+            font-size: 28px;
+            line-height: 30px;
+        }
+
+        .titre-article{
+            font-size: 22px;
+            line-height: 24px;
         }
 
         .fanion-page-equipe{
