@@ -10,6 +10,7 @@ use App\Cache;
 use App\Match;
 use App\Bareme;
 use App\Saison;
+use App\Article;
 use App\Journee;
 use App\CrudTable;
 use App\EquipeSaison;
@@ -115,6 +116,19 @@ function accesModifHoraire($match, $user)
 
     return true;
 }
+
+/**
+ * Affiche une date au format saisi et en français (config)
+ *
+ * @param mixed $str
+ * @param string $format
+ * @return string
+ */
+// function translatedFormat($str, string $format)
+// {
+//     $str = new Carbon($str);
+//     return $str->translatedFormat($format);
+// }
 
 /**
  * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
@@ -338,20 +352,38 @@ function saison(int $saisonId)
 }
 
 /**
- * Style procédural de la méthode infos() de la classe Match
- * Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, ...
+ * Style procédural de la méthode infos() de la classe Article
+ * Retourne une collection contenant toutes les infos sur l'article
  *
- * @param string $matchUniqid
+ * @param string $uniqid
  * @return \Illuminate\Database\Eloquent\Collection
  */
-function match(string $matchUniqid)
+function article(string $uniqid)
 {
-    $key = "match-" . $matchUniqid;
+    $key = "article-" . $uniqid;
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use ($matchUniqid) {
-            return Match::whereUniqid($matchUniqid)->firstOrFail()->infos();
+        return Cache::rememberForever($key, function () use ($uniqid) {
+            return Article::whereUniqid($uniqid)->firstOrFail()->infos();
+        });
+}
+
+/**
+ * Style procédural de la méthode infos() de la classe Match
+ * Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, ...
+ *
+ * @param string $uniqid
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function match(string $uniqid)
+{
+    $key = "match-" . $uniqid;
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use ($uniqid) {
+            return Match::whereUniqid($uniqid)->firstOrFail()->infos();
         });
 }
 

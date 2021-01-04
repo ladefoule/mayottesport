@@ -30,6 +30,16 @@
                 <textarea id="texte" name="texte" class="form-control">{{ old('texte') ?? $article->texte }}</textarea>
             </div>
 
+            <div class="col-12 pb-3">
+                <label for="texte">Sport</label>
+                <select name="sport_id" class="form-control">
+                    <option value="">Aucun</option>
+                    @foreach ($sports as $sport)
+                        <option value="{{ $sport->id }}" @if($sport->id == $article->sport_id) selected @endif>{{ $sport->nom }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="form-check form-check-inline ml-3">
                 <input type="checkbox" name="valide" class="form-check-input" @if(old('texte') ?? $article->valide) checked @endif>
                 <label class="form-check-label">Validé</label>
@@ -56,12 +66,13 @@
         verifierMonFormulaireEnJS('formulaire')
 
         tinymce.init({
-            menubar: false,
+            menubar: true,
             selector: '#preambule,#texte',
             width:'100%',
+            font_formats:"Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
             plugins: 'quickbars,link,advlist,autoresize',
             advlist_bullet_styles: 'square',
-            advlist_number_styles: 'lower-alpha,lower-roman,upper-alpha,upper-roman'
+            advlist_number_styles: 'lower-alpha,lower-roman,upper-alpha,upper-roman',
         });
     })
 </script>

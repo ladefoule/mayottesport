@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Cache;
 use App\Article;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +23,10 @@ class ArticleController extends Controller
 
     public function createForm()
     {
-        return view('article.create');
+        $sports = index('sports')->sortBy('nom');
+        return view('article.create', [
+            'sports' => $sports
+        ]);
     }
 
     public function createStore(Request $request)
@@ -57,7 +59,11 @@ class ArticleController extends Controller
     public function updateForm(Request $request, $uniqid)
     {
         $article = $request->article;
-        return view('article.update', ['article' => $article]);
+        $sports = index('sports')->sortBy('nom');
+        return view('article.update', [
+            'article' => $article,
+            'sports' => $sports
+        ]);
     }
 
     public function updateStore(Request $request, $uniqid)
@@ -70,6 +76,8 @@ class ArticleController extends Controller
         Cache::forget('index-articles');
         Cache::forget('indexcrud-articles');
 
-        return redirect()->route('article.show.admin', ['uniqid' => $article->uniqid]);
+        return redirect()->route('article.show.admin', [
+            'uniqid' => $article->uniqid,
+        ]);
     }
 }

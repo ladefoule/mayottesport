@@ -98,7 +98,8 @@ Route::group(['middleware'=> 'verified'], function () {
     });/* FIN MIDDLEWARE PREMIUM */
 }); /* FIN MIDDLEWARE AUTH */
 
-Route::get('/article/{uniqid}-{titre}.html', 'ArticleController@show')->name('article.show');
+Route::get('/actualites/{titre}__{uniqid}.html', 'ArticleController@show')->name('article.show');
+Route::get('/{sport}/actualites/{titre}__{uniqid}.html', 'ArticleController@show')->name('article.sport.show');
 
 Route::post('/ajax/journees-url-editer', function () {
     return view('admin.journees.ajax-url-editer');
