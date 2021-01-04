@@ -137,77 +137,71 @@ class Match extends Model
         return Cache::rememberForever($key, function (){
             Log::info('Rechargement du cache : match-' . $this->uniqid);
 
+            $infos = collect();
+            // On associe d'abord tous les attributs
+            foreach ($this->attributes as $key => $value)
+                $infos->$key = $value;
+
+            // Les infos supplémentaires
             $equipeDom = index('equipes')[$this->equipe_id_dom];
-            $equipeDomNomKebab = Str::slug($equipeDom->nom);
+            $equipeDomNomSlug = Str::slug($equipeDom->nom);
             $equipeExt = index('equipes')[$this->equipe_id_ext];
-            $equipeExtNomKebab = Str::slug($equipeExt->nom);
-            // $journee = $this->journee;
+            $equipeExtNomSlug = Str::slug($equipeExt->nom);
             $journee = index('journees')[$this->journee_id];
             $saison = index('saisons')[$journee->saison_id];
-            // $saison = Saison::findOrFail($saison->id); // On en a besoin pour pouvoir utiliser la méthode annee() de la classe Saison
             $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
             $competition = index('competitions')[$saison->competition_id];
-            $competitionNomKebab = Str::slug($competition->nom);
+            $competitionNomSlug = Str::slug($competition->nom);
             $sport = index('sports')[$competition->sport_id];
-            $sportNomKebab = Str::slug($sport->nom);
+            $sportNomSlug = Str::slug($sport->nom);
 
-            $collect = [
+            $infosPlus = [
                 'id' => $this->id,
-                'equipe_id_dom' => $this->equipe_id_dom,
-                'equipe_id_ext' => $this->equipe_id_ext,
                 'equipe_dom' => $equipeDom,
-                'journee_id' => $this->journee_id,
-                'equipe_dom_nom' => $equipeDom->nom,
-                'equipe_dom_nom_kebab' => Str::slug($equipeDom->nom),
-                'href_equipe_dom' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeDomNomKebab, 'uniqid' => $equipeDom->uniqid]),
+                'href_equipe_dom' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => $equipeDomNomSlug, 'uniqid' => $equipeDom->uniqid]),
                 'fanion_equipe_dom' => fanion($equipeDom->id),
                 'equipe_ext' => $equipeExt,
-                'equipe_ext_nom' => $equipeExt->nom,
-                'equipe_ext_nom_kebab' => Str::slug($equipeExt->nom),
-                'href_equipe_ext' => route('equipe.index', ['sport' => $sportNomKebab, 'equipe' => $equipeExtNomKebab, 'uniqid' => $equipeExt->uniqid]),
+                'href_equipe_ext' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => $equipeExtNomSlug, 'uniqid' => $equipeExt->uniqid]),
                 'fanion_equipe_ext' => fanion($equipeExt->id),
                 'url' => route('competition.match', [
-                    'sport' => $sportNomKebab,
+                    'sport' => $sportNomSlug,
                     'annee' => str_replace('/', '-', $annee),
-                    'competition' => $competitionNomKebab,
-                    'equipeDom' => $equipeDomNomKebab,
-                    'equipeExt' => $equipeExtNomKebab,
+                    'competition' => $competitionNomSlug,
+                    'equipeDom' => $equipeDomNomSlug,
+                    'equipeExt' => $equipeExtNomSlug,
                     'uniqid' => $this->uniqid
                 ]),
                 'score' => $this->score(),
                 'date_format' => $this->dateFormat(),
-                'date' => $this->date,
-                'heure' => $this->heure,
                 'title' => "Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $sport->nom . ' - ' . $competition->nom . ' ' . $annee,
                 'acces_bloque' => $this->acces_bloque,
                 'journee' => niemeJournee($journee->numero),
                 'competition' => $competition->nom,
-                'score_eq_dom' => $this->score_eq_dom,
-                'score_eq_ext' => $this->score_eq_ext,
                 'resultat_eq_dom' => $this->resultat($this->equipe_id_dom),
                 'resultat_eq_ext' => $this->resultat($this->equipe_id_ext),
-                'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
-                'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomKebab, 'competition' => $competitionNomKebab,'uniqid' => $this->uniqid]),
+                'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomSlug, 'competition' => $competitionNomSlug,'uniqid' => $this->uniqid]),
+                'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomSlug, 'competition' => $competitionNomSlug,'uniqid' => $this->uniqid]),
                 'href_match' => route('competition.match', [
                     'uniqid' => $this->uniqid,
-                    'sport' => $sportNomKebab,
-                    'competition' => $competitionNomKebab,
+                    'sport' => $sportNomSlug,
+                    'competition' => $competitionNomSlug,
                     'annee' => str_replace('/', '-', $annee),
-                    'equipeDom' => $equipeDomNomKebab,
-                    'equipeExt' => $equipeExtNomKebab
+                    'equipeDom' => $equipeDomNomSlug,
+                    'equipeExt' => $equipeExtNomSlug
                 ])
             ];
 
-            // On rajoute les infos supplémentaires du match : forfaits, pénalités, tab, etc...
+            // On insère les infos supplémentaires
+            foreach ($infosPlus as $key => $value)
+                $infos->$key = $value;
+
+            // On ajoute les infos supplémentaires du match : forfaits, pénalités, tab, etc...
             $infosSup = $this->matchInfos()->get();
             $correspondances = config('listes.proprietes-matches');
             foreach ($infosSup as $info)
-                $collect[$correspondances[$info->propriete_id][0]] = $info->valeur;
+                $infos->$correspondances[$info->propriete_id][0] = $info->valeur;
 
-            // $collect['render_eq_dom'] = $this->matchRender($collect, $equipeDom);
-            // $collect['render_eq_ext'] = $this->matchRender($collect, $equipeExt);
-            // dd($collect);
-            return collect($collect);
+            return $infos;
         });
     }
 

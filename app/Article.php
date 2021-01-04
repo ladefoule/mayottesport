@@ -65,23 +65,28 @@ class Article extends Model
         return Cache::rememberForever($key, function () use($key){
             Log::info('Rechargement du cache : ' . $key);
 
-            $collect = collect();
+            $infos = collect();
+            // On associe d'abord tous les attributs
             foreach ($this->attributes as $key => $value)
-                $collect[$key] = $value;
+                $infos->$key = $value;
 
             $titreSlug = Str::slug($this->titre);
             if($this->sport_id)
                 $href = route('article.sport.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid, 'sport' => $this->uniqid]);
             else
                 $href = route('article.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid]);
-            $infos = collect([
+            $infosPlus = [
                 'href' => $href,
                 'titreSlug' => $titreSlug,
                 'publie_le' => $this->created_at->translatedFormat('d F Y'),
                 'src_img' => ($this->img) ? config('app.url') . '/storage/img/' . $this->img : '' // Todo : Image par défaut !?
-            ]);
+            ];
 
-            return $collect->union($infos);
+            // Ensuite on associe les infos supplémentaires
+            foreach ($infosPlus as $key => $value)
+                $infos->$key = $value;
+
+            return $infos;
         });
     }
 }

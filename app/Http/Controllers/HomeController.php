@@ -35,14 +35,17 @@ class HomeController extends Controller
             $sport->journees = $listeDesJournees;
         }
 
+        // dd(infos('saisons', 2));
+
         // $articles = Article::orderBy('created_at', 'desc')->limit(10)->get();
         $articles = index('articles')->sortByDesc('created_at')->where('valide', 1)->slice(0,5);
-        foreach ($articles as $key => $article)
-            $articles[$key] = article($article->uniqid);
+        $articlesHome = collect();
+        foreach ($articles as $id => $article)
+            $articlesHome[] = article($article->uniqid);
 
         return view('home', [
             'sports' => $sports,
-            'articles' => $articles,
+            'articles' => $articlesHome,
         ]);
     }
 }

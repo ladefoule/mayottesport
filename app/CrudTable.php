@@ -233,45 +233,6 @@ class CrudTable extends Model
      *
      * @return \Illuminate\Support\Collection
      */
-    public function index()
-    {
-        $table = $this->nom;
-        $tableSlug = Str::slug($table);
-        $modele = 'App\\' . modelName($table);
-
-        $key = "index-$tableSlug";
-        if (Cache::has($key))
-            return Cache::get($key);
-        else
-            return Cache::rememberForever($key, function () use($modele, $key){
-                Log::info('Rechargement du cache : ' . $key);
-
-                $liste = [];
-                $triDefaut = $this->tri_defaut;
-                $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
-                foreach ($listeComplete as $instance) {
-                    $id = $instance->id;
-                    $collect = collect();
-                    // On ajoute tous les attributs de l'objet dans une collection
-                    foreach ($instance->attributes as $key => $value)
-                        $collect->$key = $value;
-
-                    // Tous les éléments auront un attribut nom même vide
-                    // Cet attribut ne doit pas utilisé des données d'une autre table pour éviter un temps de chargement trop long de la liste
-                    $collect->nom = $instance->nom ?? '';
-
-                    $liste[$id] = $collect;
-                }
-
-                return collect($liste);
-            });
-    }
-
-    /**
-     * Liste de tous les éléments de la table.
-     *
-     * @return \Illuminate\Support\Collection
-     */
     public function indexCrud()
     {
         $table = $this->nom;
@@ -288,8 +249,8 @@ class CrudTable extends Model
                 $table = $this->nom;
                 $tableSlug = Str::slug($table);
 
-                $triDefaut = $this->tri_defaut;
-                $listeComplete = $triDefaut ? $this->index()->sortBy($triDefaut) : $this->index();
+                // $triDefaut = $this->tri_defaut;
+                $listeComplete = index($this->nom);
                 // $listeComplete = $triDefaut ? $modele::orderBy($triDefaut)->get() : $modele::all();
                 $liste = [];
 

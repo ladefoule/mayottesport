@@ -262,26 +262,47 @@ function compare($a, $b)
 }
 
 /**
-     * La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu'on doit afficher soit dans la page liste, dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement. Elle renvoie false si la liste est vide.
-     *
-     * @param string $table - en camel_case
-     * @param string $action
-     * @return \Illuminate\Support\Collection|false
-     */
-    function listeAttributsVisibles(string $table, string $action = 'index')
-    {
-        if($action == 'update')
-                $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
+ * La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu'on doit afficher soit dans la page liste, dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement. Elle renvoie false si la liste est vide.
+ *
+ * @param string $table - en camel_case
+ * @param string $action
+ * @return \Illuminate\Support\Collection|false
+ */
+function listeAttributsVisibles(string $table, string $action = 'index')
+{
+    if($action == 'update')
+            $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
 
-        $key = "attributs-visibles-" . Str::slug($table) . "-" . $action;
-        if (Cache::has($key))
-            return Cache::get($key);
-        else
-            return CrudTable::where('nom', $table)->firstOrFail()->listeAttributsVisibles($action);
-    }
+    $key = "attributs-visibles-" . Str::slug($table) . "-" . $action;
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return CrudTable::where('nom', $table)->firstOrFail()->listeAttributsVisibles($action);
+}
+
+// function infos(string $table, $id)
+// {
+//     $key = Str::slug($table) . '-' . $id;
+//     if (Cache::has($key))
+//         return Cache::get($key);
+//     else
+//         return Cache::rememberForever($key, function () use ($id, $table) {
+//         try {
+//                 $modele = 'App\\' . modelName($table);
+//                 $instance = $modele::findOrFail($id);
+//                 if(method_exists($instance, 'infos'))
+//                     return $instance->infos();
+
+//                 return collect($instance->getAttributes());
+//             } catch (\Throwable $th) {
+//                 Log::info($th);
+//                 abort(404);
+//             }
+//         });
+// }
 
 /**
- * Style procédural de la méthode infos() de la classe CrudTable : Liste de tous les éléments de la table.
+ * Liste de tous les éléments de la table.
  *
  * @param string $table - Table en camel_case
  * @return \Illuminate\Database\Eloquent\Collection
@@ -290,11 +311,24 @@ function index(string $table)
 {
     $key = "index-" . Str::slug($table);
     if (Cache::has($key))
-        return Cache::get($key);
+    return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use ($table) {
-            return CrudTable::whereNom($table)->firstOrFail()->index();
-        });
+    return Cache::rememberForever($key, function () use ($table, $key) {
+        Log::info('Rechargement du cache : ' . $key);
+        $index = [];
+        $modele = 'App\\' . modelName($table);
+        $instances = $modele::all();
+        foreach ($instances as $instance){
+            $collect = collect();
+            foreach ($instance->getAttributes() as $key => $value)
+                $collect->$key = $value;;
+
+            $collect->nom = $instance->nom ?? '';
+            $index[$instance->id] = $collect;
+        }
+
+        return collect($index);
+    });
 }
 
 /**

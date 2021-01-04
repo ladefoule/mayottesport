@@ -87,7 +87,7 @@ class CacheController extends Controller
             }
         }
 
-        $crudTable->index();
+        index($table);
 
         // On recharge les caches 'index' qui utilisent les données de cette table dans leur attribut nom ou crud_name
         if(! in_array($crudTable->nom, config('listes.tables-non-crudables'))){

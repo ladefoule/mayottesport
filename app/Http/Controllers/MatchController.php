@@ -126,7 +126,7 @@ class MatchController extends Controller
             ProcessCrudTable::dispatch('matches', $match->id);
         }
 
-        $urlMatch = $match->infos()['href_match'];
+        $urlMatch = $match->infos()->href_match;
         return redirect($urlMatch);
     }
 
@@ -186,7 +186,7 @@ class MatchController extends Controller
             ProcessCrudTable::dispatch('matches', $match->id);
         }
 
-        $urlMatch = $match->infos()['href_match'];
+        $urlMatch = $match->infos()->href_match;
         return redirect($urlMatch);
     }
 }
