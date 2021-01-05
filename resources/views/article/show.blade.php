@@ -16,10 +16,11 @@
             {!! $article->texte !!}
         </div>
 
-        {{-- <div class="col-12 pb-3">
-            <a href="{{ route('article.update', ['uniqid' => $article->uniqid]) }}"><button class="btn btn-primary">Modifier l'article</button></a>
-        </div> --}}
-
+        @if(Auth::check() && Auth::user()->role->niveau >= 30)
+            <div class="col-12 pb-3">
+                <a href="{{ route('article.update', ['uniqid' => $article->uniqid]) }}"><button class="btn btn-primary">Modifier l'article</button></a>
+            </div>
+        @endif
         <div class="col-12 bg-white pt-2">
             <div id="disqus_thread"></div>
             <script>

@@ -99,7 +99,7 @@ Route::group(['middleware'=> 'verified'], function () {
 }); /* FIN MIDDLEWARE AUTH */
 
 Route::get('/actualites/{titre}__{uniqid}.html', 'ArticleController@show')->name('article.show');
-Route::get('/{sport}/actualites/{titre}__{uniqid}.html', 'ArticleController@show')->name('article.sport.show');
+Route::get('/{sport}/actualites/{titre}__{uniqid}.html', 'ArticleController@showSport')->name('article.sport.show');
 
 Route::post('/ajax/journees-url-editer', function () {
     return view('admin.journees.ajax-url-editer');

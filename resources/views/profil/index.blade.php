@@ -3,10 +3,10 @@
 @section('title', 'Mon compte')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-8">
+<div class="row justify-content-center p-3">
+    <div class="col-md-8 px-0">
         <div class="card">
-            <div class="card-header d-flex align-items-center px-2">
+            <div class="card-header d-flex align-items-center">
                 <span class="d-inline mr-3 crud-titre">{!! config('listes.boutons.user') !!} Mon compte </span>
                 <a href="{{ route('profil.update') }}" title="Modifier" class="text-decoration-none ml-2">
                     <button class="btn-sm btn-info text-white">

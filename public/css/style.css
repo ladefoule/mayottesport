@@ -124,6 +124,10 @@ a.non-cliquable, a.non-cliquable:hover{
     background-color: #000;
 }
 
+.img_max_width_80{
+    height:auto;
+    max-width: 80%;
+}
 /*
 .relegable{
     background-color: rgb(243, 192, 192) !important;

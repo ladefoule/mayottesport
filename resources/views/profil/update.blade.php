@@ -3,7 +3,7 @@
 @section('title', 'Mise à jour de mon profil')
 
 @section('content')
-<div class="row card mx-0">
+<div class="row card mx-0 my-3">
     <div class="card-header d-flex align-items-center px-2">
         <span class="d-inline mr-3 crud-titre">{!! \Config::get('listes.boutons.user') !!} Mise à jour de mon compte</span>
         <a href="{{ route('profil') }}" title="Voir" class="text-decoration-none ml-2">

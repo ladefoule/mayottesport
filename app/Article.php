@@ -72,7 +72,7 @@ class Article extends Model
 
             $titreSlug = Str::slug($this->titre);
             if($this->sport_id)
-                $href = route('article.sport.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid, 'sport' => $this->uniqid]);
+                $href = route('article.sport.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid, 'sport' => $this->sport->nom]);
             else
                 $href = route('article.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid]);
             $infosPlus = [
@@ -88,5 +88,15 @@ class Article extends Model
 
             return $infos;
         });
+    }
+
+    /**
+     * Le sport lié au barème
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sport()
+    {
+        return $this->belongsTo('App\Sport');
     }
 }

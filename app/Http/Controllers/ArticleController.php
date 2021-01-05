@@ -18,7 +18,8 @@ class ArticleController extends Controller
     public function __construct()
     {
         Log::info("Accès au controller Article - Ip : " . request()->ip());
-        $this->middleware('article')->only(['show', 'showAdmin', 'updateForm', 'updateStore']);
+        $this->middleware('sport')->only(['showSport']);
+        $this->middleware('article')->only(['show', 'showSport', 'showAdmin', 'updateForm', 'updateStore']);
     }
 
     public function createForm()
@@ -50,10 +51,18 @@ class ArticleController extends Controller
         return view('article.show', ['article' => $article]);
     }
 
+    public function showSport(Request $request, $sport, $uniqid, $titre)
+    {
+        $article = $request->article;
+        if(! $article->valide)
+            abort(404);
+        return view('article.show', ['article' => $article]);
+    }
+
     public function showAdmin(Request $request, $uniqid)
     {
         $article = $request->article;
-        return view('article.show', ['article' => $article]);
+        return view('article.show', ['article' => $article, 'admin' => 'admin']);
     }
 
     public function updateForm(Request $request, $uniqid)

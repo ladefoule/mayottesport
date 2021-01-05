@@ -23,12 +23,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::apiResource('/{table}', 'GestionCrudTableController');
+// Route::apiResource('/{table}', 'CrudAdminController');
 
 Route::get('/journee/render', 'CompetitionController@journeeRender')->name('journee.render');
 
-Route::get('/{table}', 'GestionCrudTableController@index');
-Route::get('/{table}/{id}', 'GestionCrudTableController@show');
-Route::post('/{table}', 'GestionCrudTableController@store');
-Route::put('/{table}/{id}', 'GestionCrudTableController@update');
-Route::delete('/{table}/{id}', 'GestionCrudTableController@delete');
+Route::post('/images', function (Request $request) {
+    $images = Storage::allFiles('public/img');
+    foreach ($images as $image) {
+        $image = str_replace('public/', 'storage/', $image);
+        $images_list[] = [
+            'title' => $image,
+            'value' => asset($image),
+        ];
+    }
+
+    return $images_list ?? [];
+});
+
+// Route::get('/{table}', 'CrudAdminController@index');
+// Route::get('/{table}/{id}', 'CrudAdminController@show');
+// Route::post('/{table}', 'CrudAdminController@store');
+// Route::put('/{table}/{id}', 'CrudAdminController@update');
+// Route::delete('/{table}/{id}', 'CrudAdminController@delete');

@@ -60,6 +60,13 @@ return [
         7 => ["tab_eq_ext", "Tirs au but (ext.)"],
     ],
 
+    "routes-sans-background" => [
+        'login',
+        'register',
+        'profil',
+        'profil.update',
+    ],
+
     "tables-avec-colonne-uniqid" => ['matches', 'equipes', 'articles'],
 
     "tables-gestion-crud" => [
@@ -101,18 +108,4 @@ return [
         1 => ["score", "Score"],
         2 => ["horaire", "Horaire"]
     ],
-
-    // 'sports-position' => [
-    //     'football' => ['sport_id' => 1],
-    //     'handball' => ['sport_id' => 2],
-    //     'basketball' => ['sport_id' => 3],
-    //     'volleyball' => ['sport_id' => 4],
-    // ],
-
-    // 'competitions-position' => [
-    //     'regional-1' => ['sport_id' => 1, 'competition_id' => 1, 'home' => 1, 'index' => 1],
-    //     'regional-2' => ['sport_id' => 1, 'competition_id' => 2, 'home' => 2, 'index' => 2],
-    //     'coupe-de-mayotte' => ['sport_id' => 1, 'competition_id' => 3, 'home' => 3, 'index' => 3],
-    //     'coupe-de-france' => ['sport_id' => 1, 'competition_id' => 4, 'home' => 4, 'index' => 4],
-    // ],
 ];
