@@ -13,7 +13,7 @@ class ArticlePolicy
      */
     public function view(User $user)
     {
-        return sharp_user()->hasRole('admin') || sharp_user()->hasRole('superadmin');
+        return sharp_user()->hasRole('view articles') || sharp_user()->role->name == 'superadmin';
     }
 
     /**
@@ -22,7 +22,7 @@ class ArticlePolicy
      */
     public function update(User $user)
     {
-        return sharp_user()->hasRole('superadmin');
+        return sharp_user()->hasRole('update articles') || sharp_user()->role->name == 'superadmin';
     }
 
     /**
@@ -31,6 +31,6 @@ class ArticlePolicy
      */
     public function delete(User $user)
     {
-        return sharp_user()->hasRole('superadmin');
+        return sharp_user()->hasRole('delete articles') || sharp_user()->role->name == 'superadmin';
     }
 }

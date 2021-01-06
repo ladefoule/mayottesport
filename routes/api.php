@@ -28,17 +28,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/journee/render', 'CompetitionController@journeeRender')->name('journee.render');
 
 Route::post('/images', function (Request $request) {
-    $images = Storage::allFiles('public/img');
-    foreach ($images as $image) {
-        $image = str_replace('public/', 'storage/', $image);
-        $images_list[] = [
-            'title' => $image,
-            'value' => asset($image),
-        ];
-    }
-
-    return $images_list ?? [];
-});
+    return imagesList();
+})->name('images_list');
 
 // Route::get('/{table}', 'CrudAdminController@index');
 // Route::get('/{table}/{id}', 'CrudAdminController@show');

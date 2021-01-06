@@ -16,7 +16,12 @@
 
         <div class="col-12 justify-content-center pb-3">
             <label>Image</label>
-            <input name="img" type="text" value="{{ old('img') }}" class="form-control input-optionnel">
+            <select name="img" id="images" class="form-control input-optionnel">
+                <option value="">Sans image</option>
+                @foreach ($images as $image)
+                    <option value="{{ $image['value'] }}" @if(old('img') == $image['value']) selected @endif>{{ $image['title'] }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="col-12 pb-3">
@@ -34,7 +39,7 @@
             <select name="sport_id" class="form-control">
                 <option value="">Aucun</option>
                 @foreach ($sports as $sport)
-                    <option value="{{ $sport->id }}">{{ $sport->nom }}</option>
+                    <option value="{{ $sport->id }}" @if(old('sport_id') == $sport->id) selected @endif>{{ $sport->nom }}</option>
                 @endforeach
             </select>
         </div>
@@ -53,17 +58,9 @@
 @section('script')
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script>
-    $(document).ready(function(){
-        verifierMonFormulaireEnJS('formulaire')
-
-        tinymce.init({
-            menubar: false,
-            selector: '#preambule,#texte',
-            width:'100%',
-            plugins: 'quickbars,link,advlist,autoresize',
-            advlist_bullet_styles: 'square',
-            advlist_number_styles: 'lower-alpha,lower-roman,upper-alpha,upper-roman'
-        });
-    })
+$(document).ready(function(){
+    verifierMonFormulaireEnJS('formulaire')
+    tinymceFunc('#preambule,#texte', "<?php echo route('images_list') ?>")
+})
 </script>
 @endsection

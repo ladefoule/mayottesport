@@ -6,8 +6,8 @@
 <div class="row">
     <div class="col-lg-8 p-0 d-flex flex-wrap justify-content-center">
         <h1 class="col-12 titre-article py-3">{{ $article->titre }}</h1>
-        <div class="col-8 d-flex justify-content-center">
-            <img src="/storage/img/{{ $article->img }}" alt="" class="img-fluid">
+        <div class="col-10 d-flex justify-content-center">
+            <img src="{{ $article->img }}" alt="{{ $article->titre }}" class="img-fluid">
         </div>
 
         <!-- Create the editor container -->
@@ -16,7 +16,7 @@
             {!! $article->texte !!}
         </div>
 
-        @if(Auth::check() && Auth::user()->role->niveau >= 30)
+        @if(Auth::check() && Auth::user()->role->name == 'superadmin')
             <div class="col-12 pb-3">
                 <a href="{{ route('article.update', ['uniqid' => $article->uniqid]) }}"><button class="btn btn-primary">Modifier l'article</button></a>
             </div>

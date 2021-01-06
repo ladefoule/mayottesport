@@ -147,6 +147,20 @@ function fanion($equipeId)
     return asset("/storage/img/fanion/" . $fanion . '.png');
 }
 
+function imagesList()
+{
+    $images = Storage::allFiles('public/img');
+    foreach ($images as $image) {
+        $image = str_replace('public/', 'storage/', $image);
+        $images_list[] = [
+            'title' => explode('storage/img/', $image)[1],
+            'value' => asset($image),
+        ];
+    }
+
+    return $images_list ?? [];
+}
+
 /**
  * Suppression des caches
  *

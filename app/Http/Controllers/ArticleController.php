@@ -6,6 +6,8 @@ use App\Cache;
 use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
@@ -26,6 +28,7 @@ class ArticleController extends Controller
     {
         $sports = index('sports')->sortBy('nom');
         return view('article.create', [
+            'images' => imagesList(),
             'sports' => $sports
         ]);
     }
@@ -34,6 +37,7 @@ class ArticleController extends Controller
     {
         $rules = Article::rules()['rules'];
         $request['uniqid'] = uniqid();
+        $request['user_id'] = Auth::id();
         $request = Validator::make($request->all(), $rules)->validate();
         $article = Article::create($request);
 
@@ -69,8 +73,10 @@ class ArticleController extends Controller
     {
         $article = $request->article;
         $sports = index('sports')->sortBy('nom');
+
         return view('article.update', [
             'article' => $article,
+            'images' => imagesList(),
             'sports' => $sports
         ]);
     }

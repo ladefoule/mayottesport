@@ -32,7 +32,7 @@ return [
             "list" => \App\Sharp\UserSharpList::class,
             "form" => \App\Sharp\UserSharpForm::class,
             //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
-            //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
+            "policy" => \App\Sharp\Policies\UserPolicy::class,
         ],
         "match-foot" => [
             "list" => \App\Sharp\MatchFootSharpList::class,

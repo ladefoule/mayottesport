@@ -54,11 +54,11 @@ class UserSharpForm extends SharpForm
                     ->setReadOnly(true)
             )->addField(
                 SharpFormSelectField::make("role_id",
-                    Role::orderBy("nom")
+                    Role::orderBy("name")
                     ->get()->map(function($role) {
                         return [
                             "id" => $role->id,
-                            "label" => $role->nom
+                            "label" => $role->name
                         ];
                     })->all()
                 )

@@ -25,7 +25,7 @@ class UserSharpList extends SharpEntityList
                 ->setLabel('Pseudo')
                 ->setSortable()
         )->addDataContainer(
-            EntityListDataContainer::make('role')
+            EntityListDataContainer::make('role_id')
                 ->setLabel('Rôle')
                 ->setSortable()
         )->addDataContainer(
@@ -44,7 +44,7 @@ class UserSharpList extends SharpEntityList
     {
         $this->addColumn('name', 3)
         ->addColumn('pseudo', 3)
-        ->addColumn('role', 3)
+        ->addColumn('role_id', 3)
         ->addColumn('created_at', 3);
     }
 
@@ -85,9 +85,9 @@ class UserSharpList extends SharpEntityList
                 return $user->created_at ? date_format($user->created_at, 'd/m/Y à H:i:s') : '';
             }
         )->setCustomTransformer(
-            "role",
-            function ($role, $user) {
-                return $user->role->nom;
+            "role_id",
+            function ($role_id, $user) {
+                return $user->role->name;
             }
         )->transform($users->paginate(12));
     }

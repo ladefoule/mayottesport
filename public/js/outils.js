@@ -331,6 +331,31 @@ function triDataTables(params) {
     } );
 }
 
+function tinymceFunc(selector, urlImages){
+    token = qs('input[name=_token]').value
+    $.ajax({
+        type: 'POST',
+        url: urlImages,
+        data:{_token:token},
+        success:function(data){
+            tinymce.init({
+                // menubar: false,
+                selector: selector,
+                width:'100%',
+                font_formats:"Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+                plugins: 'quickbars,link,advlist,autoresize,image',
+                advlist_bullet_styles: 'square',
+                advlist_number_styles: 'lower-alpha,lower-roman,upper-alpha,upper-roman',
+                image_list: data,
+                image_class_list: [
+                    {title: 'None', value: ''},
+                    {title: 'Max width 80', value: 'img_max_width_80'},
+                ]
+            });
+        }
+    })
+}
+
 /**
  * Requète AJAX dont les données seront injectées dans un select.
  * Les index inclus dans params : idSelect, texteOptionDefaut, url, method, data

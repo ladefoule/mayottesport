@@ -17,7 +17,12 @@
 
             <div class="col-12 justify-content-center pb-3">
                 <label>Image</label>
-                <input name="img" type="text" value="{{ old('img') ?? $article->img }}" class="form-control input-optionnel">
+                <select name="img" id="images" class="form-control input-optionnel">
+                    <option value="">Sans image</option>
+                    @foreach ($images as $image)
+                        <option value="{{ $image['value'] }}" @if(old('img') == $image['value'] || (! old('img') && $article->img == $image['value'])) selected @endif>{{ $image['title'] }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="col-12 pb-3">
@@ -35,7 +40,7 @@
                 <select name="sport_id" class="form-control">
                     <option value="">Aucun</option>
                     @foreach ($sports as $sport)
-                        <option value="{{ $sport->id }}" @if($sport->id == $article->sport_id) selected @endif>{{ $sport->nom }}</option>
+                        <option value="{{ $sport->id }}" @if(old('sport_id') == $sport->id || (! old('sport_id') && $sport->id == $article->sport_id)) selected @endif>{{ $sport->nom }}</option>
                     @endforeach
                 </select>
             </div>
@@ -46,6 +51,7 @@
             </div>
 
             <input type="hidden" name="uniqid" value="{{ $article->uniqid }}">
+            <input type="hidden" name="user_id" value="{{ $article->user_id }}">
 
             <div class="col-12 mt-3">
                 <div class="mt-3 col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
@@ -63,30 +69,9 @@
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script>
 $(document).ready(function(){
+    $('#images').select2();
     verifierMonFormulaireEnJS('formulaire')
-    token = qs('input[name=_token]').value
-
-    $.ajax({
-        type: 'POST',
-        url: 'http://dev.mayottesport.com/api/images',
-        data:{_token:token},
-        success:function(data){
-            tinymce.init({
-                // menubar: false,
-                selector: '#preambule,#texte',
-                width:'100%',
-                font_formats:"Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
-                plugins: 'quickbars,link,advlist,autoresize,image',
-                advlist_bullet_styles: 'square',
-                advlist_number_styles: 'lower-alpha,lower-roman,upper-alpha,upper-roman',
-                image_list: data,
-                image_class_list: [
-                    {title: 'None', value: ''},
-                    {title: 'Max width 80', value: 'img_max_width_80'},
-                ]
-            });
-        }
-    })
+    tinymceFunc('#preambule,#texte', "<?php echo route('images_list') ?>")
 })
 </script>
 @endsection
