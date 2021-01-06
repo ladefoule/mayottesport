@@ -73,7 +73,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var idTable = 'tab'
-    triDataTables({urlApp: "<?php echo config('app.url') ?>", idTable}) // Tri du tableau avec DataTables
+    triDataTables({urlApp: "<?php echo route('home') ?>", idTable}) // Tri du tableau avec DataTables
     toutCocherDecocher(idTable) // Checkbox de suppressions multiples
 
     let urlSupprimer = "<?php echo $hrefs['delete-ajax'] ?>"

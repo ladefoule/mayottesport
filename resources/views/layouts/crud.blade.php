@@ -33,7 +33,7 @@
     </div>
     {{-- Fin Section scroll X --}}
 
-    <section class="container-lg bg-white mb-auto">
+    <section class="container-lg {{-- bg-white --}} mb-auto">
         @yield('content')
     </section>
 

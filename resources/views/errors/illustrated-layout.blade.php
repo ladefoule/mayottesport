@@ -473,7 +473,7 @@
                     <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 {{-- px-6 --}} border-2 border-grey-light hover:border-grey rounded-lg">
                             {{-- ACCUEIL --}}
-                            <img class="img-fluid" src="{{ config('app.url') }}/storage/img/logo-mayottesport-com.jpg" alt="Accueil" style="width:75%">
+                            <img class="img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Accueil" style="width:75%">
                         </button>
                     </a>
                 </div>

@@ -30,7 +30,7 @@ class CheckPermission
         if (! Auth::check())
             abort(404);
 
-        $userRole = index('roles')[Auth::user()->role_id]->nom;
+        $userRole = Auth::user()->role->name;
 
         if(in_array($userRole, $roles))
             return $next($request);

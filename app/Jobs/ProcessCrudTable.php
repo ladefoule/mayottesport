@@ -44,7 +44,7 @@ class ProcessCrudTable implements ShouldQueue
     {
         Log::info(" -------- Job : ProcessCrudTable ------ ");
         $client = new Client([
-            // 'base_uri' => config('app.url'),
+            // 'base_uri' => asset('/'),
             'http_errors' => true,
             // 'timeout'  => 10.0,
         ]);

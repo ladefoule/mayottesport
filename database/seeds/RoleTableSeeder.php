@@ -12,12 +12,14 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         // On insère les différentes catégories d'user
-        $roles = array('membre' => 10, 'premium' => 20, 'admin' => 30, 'superadmin' => 40);
-        foreach ($roles as $role => $niveau) {
-            App\Role::create([
-                'nom' => $role,
-                'niveau' => $niveau
-            ]);
+        $roles = [
+            ['name' => 'membre', 'guard_name' => 'web'],
+            ['name' => 'premium', 'guard_name' => 'web'],
+            ['name' => 'admin', 'guard_name' => 'web'],
+            ['name' => 'superadmin', 'guard_name' => 'web']
+        ];
+        foreach ($roles as $role) {
+            App\Role::create($role);
         }
     }
 }

@@ -1,3 +1,6 @@
+<?php
+    $role = Auth::check() ? Auth::user()->role->name : '';
+?>
 <!-- Right Side Of Navbar -->
 <ul class="navbar-nav ml-auto">
     <!-- Authentication Links -->
@@ -20,23 +23,21 @@
                 <a class="dropdown-item" href="{{ route('profil') }}">
                     Mon profil
                 </a>
-                @if(in_array(index('roles')[Auth::user()->role_id]->nom, ['admin', 'superadmin']))
+                @if(in_array($role, ['admin', 'superadmin']))
                     <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
-                        Admin{{-- istration --}} (sharp)
+                        Administration
                     </a>
-                @endif
-                @if(in_array(index('roles')[Auth::user()->role_id]->nom, ['admin', 'superadmin']))
                     <a class="dropdown-item" href="{{ route('crud') }}">
                         Le Crud
                     </a>
                 @endif
-                @if(in_array(index('roles')[Auth::user()->role_id]->nom, ['superadmin']))
-                    <a class="dropdown-item" href="{{ config('app.url') }}/script.html">
+                @if($role == 'superadmin')
+                    <a class="dropdown-item" href="{{ asset('/script.html') }}">
                         Vider le cache
                     </a>
                 @endif
                 <a class="dropdown-item" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
+                    onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                     Déconnexion
                 </a>

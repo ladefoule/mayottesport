@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('layouts.site')
 
 @section('title', $h1)
 
 @section('content')
-<div class="row card mx-0">
+<div class="row card mx-0 my-3">
     <div class="card-header d-flex align-items-center">
         <span class="d-inline mr-3 crud-titre">{!! \Config::get('listes.boutons.database') !!} {{ $h1 }}</span>
         <a href="{{ route('journees.multi.edit', ['id' => $saisonId]) }}" title="Editer" class="text-decoration-none">
@@ -11,9 +11,6 @@
                 {!! \Config::get('listes.boutons.editer') !!}
                 <span class="d-none d-lg-inline ml-1">Editer</span>
             </button>
-        </a>
-        <a href="" class="back d-none d-sm-inline position-absolute text-decoration-none text-dark pr-3" style="right:0">
-            {!! config('listes.boutons.retour') !!} retour
         </a>
     </div>
     <div class="card-body">
@@ -42,12 +39,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-})
-</script>
 @endsection

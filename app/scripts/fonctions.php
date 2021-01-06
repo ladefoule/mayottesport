@@ -144,7 +144,7 @@ function fanion($equipeId)
     if ($exists == false)
         $fanion = "defaut-2";
 
-    return config('app.url') . "/storage/img/fanion/" . $fanion . '.png';
+    return asset("/storage/img/fanion/" . $fanion . '.png');
 }
 
 /**
@@ -279,27 +279,6 @@ function listeAttributsVisibles(string $table, string $action = 'index')
     else
         return CrudTable::where('nom', $table)->firstOrFail()->listeAttributsVisibles($action);
 }
-
-// function infos(string $table, $id)
-// {
-//     $key = Str::slug($table) . '-' . $id;
-//     if (Cache::has($key))
-//         return Cache::get($key);
-//     else
-//         return Cache::rememberForever($key, function () use ($id, $table) {
-//         try {
-//                 $modele = 'App\\' . modelName($table);
-//                 $instance = $modele::findOrFail($id);
-//                 if(method_exists($instance, 'infos'))
-//                     return $instance->infos();
-
-//                 return collect($instance->getAttributes());
-//             } catch (\Throwable $th) {
-//                 Log::info($th);
-//                 abort(404);
-//             }
-//         });
-// }
 
 /**
  * Liste de tous les éléments de la table.

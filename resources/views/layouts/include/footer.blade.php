@@ -43,16 +43,16 @@
 
     <!-- Copyright -->
     <div class="row footer-copyright justify-content-center text-center py-3 bg-body">© {{ date('Y') }} Copyright:
-        <a href="{{ config('app.url') }}"> mayottesport.com</a> - FB - TW
+        <a href="{{ asset('/') }}"> mayottesport.com</a> - FB - TW
     </div>
     <!-- Copyright -->
 </footer>
 <!-- Footer -->
 
-<script src="{{ config('app.url') }}{{ mix('js/app.js') }}"></script>
+<script src="{{ asset(mix('js/app.js')) }}"></script>
 <script src="{{ asset('node_modules/select2/select2.js') }}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
-<script src="{{ config('app.url') }}/js/outils.js"></script>
+<script src="{{ asset('/js/outils.js') }}"></script>
 <script>
 $(document).ready(function(){
     var navbarMobile = qs('.navbar-mobile')

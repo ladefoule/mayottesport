@@ -3,7 +3,7 @@
 @section('title', 'Gestion des tables "crudables"')
 
 @section('content')
-<div class="row card mx-0">
+<div class="row card mx-0 my-3">
     <div class="card-header d-flex align-items-center">
        <span class="d-inline mr-3 crud-titre">{!! config('listes.boutons.database') !!} CrudTables - Tables "crudables"</span>
        <button class="btn-sm btn-danger" id="vider-cache">

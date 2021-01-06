@@ -4,14 +4,14 @@
 ?>
 <nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
     <div class="container">
-        <a class="navbar-brand ml-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ config('app.url') }}/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="height: 40px"></a>
+        <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport" style="width: 200px"></a>
         <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2" id="navbarSupportedContent">
            <div class="navbar-nav mr-auto">
-                @if (index('roles')[auth()->user()->role_id]->niveau >= 40) {{-- superadmin --}}
+                @if (auth()->user()->role->name == 'superadmin')
                     <a class="nav-item nav-link px-2 @if ($layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-superadmin.tables') }}">Superadmin</a>
                 @endif
                <a class="nav-item nav-link px-2 @if ($layout == 'crud') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>
@@ -35,7 +35,7 @@
             <li class="nav-item active px-2 border-bottom">
                 <a class="nav-link" href="{{ route('home') }}">Accueil du site</a>
             </li>
-            @if (index('roles')[auth()->user()->role_id]->niveau >= 40) {{-- superadmin --}}
+            @if (auth()->user()->role->name == 'superadmin')
                 <a class="border-bottom nav-item nav-link px-2 @if ($layout == 'crud-superadmin') active font-weight-bold @endif" href="{{ route('crud-superadmin.tables') }}">Gestion du CRUD</a>
             @endif
             <a class="border-bottom nav-item nav-link px-2 @if ($layout == 'crud') active font-weight-bold @endif" href="{{ route('crud') }}">CRUD de la base</a>

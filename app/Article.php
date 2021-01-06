@@ -80,7 +80,7 @@ class Article extends Model
                 'href' => $href,
                 'titreSlug' => $titreSlug,
                 'publie_le' => $this->created_at->translatedFormat('d F Y'),
-                'src_img' => ($this->img) ? config('app.url') . '/storage/img/' . $this->img : '' // Todo : Image par défaut !?
+                'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
             ];
 
             // Ensuite on associe les infos supplémentaires

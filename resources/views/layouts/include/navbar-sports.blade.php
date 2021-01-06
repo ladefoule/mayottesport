@@ -6,7 +6,7 @@
 {{-- NAVBAR LARGE SCREEN --}}
 <nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom bg-white p-0">
    <div class="container">
-       <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ config('app.url') }}/storage/img/logo-mayottesport-com.jpg" alt="Logo MayotteSport" style="width: 200px"></a>
+       <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport" style="width: 200px"></a>
        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
@@ -19,10 +19,10 @@
                 </li>
                 @endforeach
                 {{-- <li class="nav-item">
-                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ config('app.url') }}/autres">Autres</a>
+                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ asset('/autres') }}">Autres</a>
                 </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ config('app.url') }}/contact">Contact</a>
+                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ asset('/contact') }}">Contact</a>
                 </li>
            </ul>
            @include('layouts.include.connexion')
@@ -40,7 +40,7 @@
         </button>
           <ul class="navbar-nav w-100 border-bottom">
             <li class="nav-item active px-2 border-bottom">
-                <a class="nav-link" href="{{ config('app.url') }}">Accueil</a>
+                <a class="nav-link" href="{{ asset('/') }}">Accueil</a>
             </li>
             @foreach ($sports as $sport)
                 @if ($competitions->where('sport_id', $sport->id)->all() > 0)
@@ -61,8 +61,8 @@
                     </li>
                 @endif
             @endforeach
-            <a class="border-bottom nav-item nav-link px-2" href="{{ config('app.url') }}/autres">Autres</a>
-            <a class="border-bottom nav-item nav-link px-2" href="{{ config('app.url') }}/contact">Contact</a>
+            <a class="border-bottom nav-item nav-link px-2" href="{{ asset('/autres') }}">Autres</a>
+            <a class="border-bottom nav-item nav-link px-2" href="{{ asset('/contact') }}">Contact</a>
             @include('layouts.include.connexion')
           </ul>
       </nav>
