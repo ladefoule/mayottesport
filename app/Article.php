@@ -14,7 +14,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'texte', 'preambule', 'uniqid', 'valide', 'sport_id'];
+    protected $fillable = ['img', 'titre', 'texte', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -43,6 +43,7 @@ class Article extends Model
             'preambule' => 'required|min:30',
             'titre' => 'required|min:0|max:100',
             'sport_id' => 'nullable|integer|exists:sports,id',
+            'user_id' => 'required|integer|exists:users,id',
             'img' => 'nullable|min:3|max:100',
             'uniqid' => ['required','string','size:13',$uniqid],
             'valide' => 'boolean'
@@ -91,12 +92,22 @@ class Article extends Model
     }
 
     /**
-     * Le sport lié au barème
+     * Le sport lié à l'article
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sport()
     {
         return $this->belongsTo('App\Sport');
+    }
+
+    /**
+     * L'utilisateur qui a créé l'article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

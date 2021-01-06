@@ -18,7 +18,7 @@ $crudTables = [
     [10, 'users', 1, 'pseudo'],
     [11, 'villes', 1, 'nom'],
     [12, 'journees', 1, 'saison_id'],
-    [13, 'matches', 1, 'journee_id'],
+    [13, 'matches', 0, 'journee_id'],
     [14, 'terrains', 1, 'nom'],
     [15, 'crud_attribut_infos', 1, 'crud_attribut_id'],
     [16, 'roles', 1, 'nom'],
@@ -29,7 +29,8 @@ $crudTables = [
     [31, 'bareme_infos', 1, 'bareme_id'],
     [32, 'match_infos', 0, 'match_id'],
     [34, 'equipe_saison', 1, 'saison_id'],
-    [39, 'jobs', 0, NULL]
+    [39, 'jobs', 0, NULL],
+    [40, 'articles', 1, NULL]
 ];
 foreach ($crudTables as $donnees) {
     $crudTable = new App\CrudTable([
@@ -119,8 +120,13 @@ $crudAttributs = [
     [104, 9, 'user_id', 'Membre', 10, 0, NULL],
     [105, 9, 'note', 'Note', NULL, 0, NULL],
     [106, 9, 'type', 'Type', NULL, 0, NULL],
-    [107, 17, 'nom', 'Nom', NULL, 0, 'Le <span class=\'text-danger font-italic\'>Nom</span> doit comporter au moins 3 caractères']
+    [107, 17, 'nom', 'Nom', NULL, 0, 'Le <span class=\'text-danger font-italic\'>Nom</span> doit comporter au moins 3 caractères'],
+    [108, 40, 'nom', 'Article', NULL, 0, NULL],
+    [109, 40, 'titre', 'Titre', NULL, 0, 'Le <span class=\'text-danger font-italic\'>Titre</span> est obligatoire.'],
+    [111, 40, 'img', 'Image', NULL, 1, NULL],
+    [112, 40, 'valide', 'Validé', NULL, 0, NULL]
 ];
+
 foreach ($crudAttributs as $donnees) {
     $crudAttribut = new App\CrudAttribut([
         'id' => $donnees[0],
@@ -363,7 +369,15 @@ $crudAttributInfos = [
     [106, 8, 'types-modifs'],
     [107, 1, '1'],
     [107, 2, '1'],
-    [107, 3, '1']
+    [107, 3, '1'],
+    [108, 1, '1'],
+    [109, 2, '1'],
+    [109, 3, '1'],
+    [111, 2, '2'],
+    [111, 3, '2'],
+    [112, 2, '3'],
+    [112, 3, '3'],
+    [112, 4, 'checkbox']
 ];
 foreach ($crudAttributInfos as $donnees) {
     $crudAttributInfo = new App\CrudAttributInfo([

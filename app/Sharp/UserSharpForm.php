@@ -2,10 +2,12 @@
 
 namespace App\Sharp;
 
+use App\Role;
 use App\User;
 use Code16\Sharp\Form\SharpForm;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
+use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
 class UserSharpForm extends SharpForm
@@ -50,6 +52,19 @@ class UserSharpForm extends SharpForm
                 SharpFormTextField::make("email")
                     ->setLabel("Adresse mail")
                     ->setReadOnly(true)
+            )->addField(
+                SharpFormSelectField::make("role_id",
+                    Role::orderBy("nom")
+                    ->get()->map(function($role) {
+                        return [
+                            "id" => $role->id,
+                            "label" => $role->nom
+                        ];
+                    })->all()
+                )
+                ->setLabel("Role")
+                ->setDisplayAsDropdown()
+                ->setMultiple(false)
             );
     }
 
@@ -61,7 +76,7 @@ class UserSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('first_name|6','name|6', 'email|6', 'pseudo|6');
+            $column->withFields('first_name|6','name|6', 'email|6', 'pseudo|6', 'role_id|6');
         });
     }
 }

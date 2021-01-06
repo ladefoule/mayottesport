@@ -40,6 +40,12 @@ return [
             // "validator" => \App\Sharp\MatchSharpValidator::class,
             //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
         ],
+        "article" => [
+            "list" => \App\Sharp\ArticleSharpList::class,
+            "form" => \App\Sharp\ArticleSharpForm::class,
+            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
+            "policy" => \App\Sharp\Policies\ArticlePolicy::class,
+        ],
     ],
 
     // Optional. Your dashboards list; each one must define a "view", and can define "policy".
@@ -64,7 +70,7 @@ return [
             "entity" => "user",
         ],
         [
-            "label" => "Les Matches",
+            "label" => "Matches",
             "entities" => [
                 [
                     "label" => "Football",
@@ -74,7 +80,27 @@ return [
             ]
         ],
         [
-            "label" => "Les journées",
+            "label" => "Articles",
+            "entities" => [
+                [
+                    "label" => "Liste",
+                    "icon" => "fa-list-ul",
+                    "entity" => "article"
+                ],
+                [
+                    "label" => "Modifier",
+                    "icon" => "el-icon-refresh",
+                    "url" => "/admin/article/update"
+                ],
+                [
+                    "label" => "Nouveau",
+                    "icon" => "fa-plus-circle",
+                    "url" => "/admin/article/create"
+                ]
+            ]
+        ],
+        [
+            "label" => "Journées",
             "icon" => "fa-calendar",
             "url" => "/admin/autres/journees/multi/select",
         ],
