@@ -114,6 +114,10 @@ a.non-cliquable, a.non-cliquable:hover{
     color:gray !important
 }
 
+.bg-resultats{
+   background-color: rgb(207, 206, 206);
+}
+
 .nul{
     color:gray;
     font-size: 1.7rem;
@@ -246,14 +250,18 @@ a:hover{
     /* line-height: 30px; */
 }
 
-.note{
-    width:50%
-}
-
 .border-bottom-calendrier{
     /* border-bottom: 3px double black !important; */
     text-decoration-line: underline;
     text-decoration-style: dotted;
+}
+
+.onglet{
+   font-size: 1.05rem;
+}
+
+.onglet.active{
+   background-color: tomato !important;
 }
 
 .nom-competition{
