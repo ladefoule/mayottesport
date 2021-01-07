@@ -41,17 +41,20 @@ Route::group(['middleware'=> 'verified'], function () {
         Route::get('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horaire')->name('competition.match.horaire');
         Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost')->name('competition.match.horaire.store');
 
+        Route::get('/adminsharp/login', function(){return redirect()->route('login');})->name('code16.sharp.login');
+
         /* PREFIX ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
-            Route::get('/login', function(){return redirect()->route('login');})->name('code16.sharp.login');
             // Route::get('/', function(){return view('admin.calendrier');})->name('administration');
 
             Route::prefix('/article')->middleware(['check-permission:superadmin'])->group(function () {
                 Route::get('/create', 'ArticleController@createForm')->name('article.create');
-                Route::post('/create', 'ArticleController@createStore')->name('article.create.store');
+                Route::post('/create', 'ArticleController@createPost')->name('article.create.store');
                 Route::get('/update/{uniqid}', 'ArticleController@updateForm')->name('article.update');
-                Route::post('/update/{uniqid}', 'ArticleController@updateStore')->name('article.update.store');
+                Route::post('/update/{uniqid}', 'ArticleController@updatePost')->name('article.update.store');
                 Route::get('/show/{uniqid}', 'ArticleController@showAdmin')->name('article.show.admin');
+                Route::get('/select', 'ArticleController@selectForm')->name('article.select');
+                Route::post('/select', 'ArticleController@selectPost')->name('article.select.store');
             });
 
             /* DEBUT PREFIX CRUD */

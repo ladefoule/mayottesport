@@ -61,6 +61,7 @@ return [
     ],
 
     "routes-sans-background" => [
+       'article.select',
         'login',
         'register',
         'profil',

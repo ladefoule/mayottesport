@@ -21,7 +21,7 @@ class ArticleController extends Controller
     {
         Log::info("Accès au controller Article - Ip : " . request()->ip());
         $this->middleware('sport')->only(['showSport']);
-        $this->middleware('article')->only(['show', 'showSport', 'showAdmin', 'updateForm', 'updateStore']);
+        $this->middleware('article')->only(['show', 'showSport', 'showAdmin', 'updateForm', 'updatePost']);
     }
 
     public function createForm()
@@ -33,7 +33,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function createStore(Request $request)
+    public function createPost(Request $request)
     {
         $rules = Article::rules()['rules'];
         $request['uniqid'] = uniqid();
@@ -81,7 +81,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function updateStore(Request $request, $uniqid)
+    public function updatePost(Request $request, $uniqid)
     {
         $article = Article::findOrFail($request->article->id);
         $rules = Article::rules($article)['rules'];
@@ -92,6 +92,26 @@ class ArticleController extends Controller
         Cache::forget('indexcrud-articles');
 
         return redirect()->route('article.show.admin', [
+            'uniqid' => $article->uniqid,
+        ]);
+    }
+
+    public function selectForm()
+    {
+        $articles = index('articles');
+        return view('article.select', [
+            'articles' => $articles
+        ]);
+    }
+
+    public function selectPost(Request $request)
+    {
+      $rules = [
+         'uniqid' => 'required|exists:articles,uniqid'
+      ];
+      $request = Validator::make($request->all(), $rules)->validate();
+        $article = Article::whereUniqid($request['uniqid'])->firstOrFail();
+        return redirect()->route('article.update', [
             'uniqid' => $article->uniqid,
         ]);
     }

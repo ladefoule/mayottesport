@@ -41,7 +41,7 @@ class UserController extends Controller
     }
 
     /**
-     * Tableau de bord (profil) de l'utilisateur
+     * Mise à jour d'un utilisateur
      *
      */
     public function updateForm()
@@ -54,7 +54,7 @@ class UserController extends Controller
     }
 
     /**
-     * Tableau de bord (profil) de l'utilisateur
+     * Mise à jour d'un utilisateur (Post)
      *
      */
     public function updatePost(Request $request)
@@ -73,12 +73,12 @@ class UserController extends Controller
         $user->update($request);
 
         forgetCaches('users', $user);
-        ProcessCrudTable::dispatch('users', $user);
+        ProcessCrudTable::dispatch('users', $user->id);
         return redirect()->route('profil');
     }
 
     /**
-     * Tableau de bord (profil) de l'utilisateur
+     * Suppression d'un utilisateur
      *
      */
     public function delete()
@@ -88,6 +88,7 @@ class UserController extends Controller
         forgetCaches('users', $user);
         Auth::logout();
         $user->delete();
+        ProcessCrudTable::dispatch('users');
         return redirect(route('home'));
     }
 }

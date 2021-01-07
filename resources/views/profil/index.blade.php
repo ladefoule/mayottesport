@@ -47,7 +47,7 @@
 
                 <div class="list-group mb-3">
                     <span class="font-weight-bold">Niveau d'accès :</span>
-                    {{ $user->role->nom }}
+                    {{ $user->role->name }}
                 </div>
 
                 <div class="list-group mb-3">

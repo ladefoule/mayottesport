@@ -7,8 +7,8 @@
 @section('content')
 <div class="row justify-content-center min-height">
     <div class="col-md-8 p-3">
-        <div class="card">
-            <div class="card-header">Connexion</div>
+        <div class="card bg-light">
+            <div class="card-header h4">Connexion</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 

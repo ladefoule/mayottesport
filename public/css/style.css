@@ -25,8 +25,8 @@ body{
 }
 
 .titre-article{
-    font-size: 15px;
-    line-height: 17px;
+    font-size: 17px;
+    line-height: 19px;
 }
 
 .img-ratio{
@@ -53,6 +53,11 @@ body{
 
 .navbar-scroll-x{
     margin-top:60px;
+    /* background-color: rgb(160, 160, 160); */
+    background: linear-gradient(#bcbdc2, #656fe4);
+    /* background: linear-gradient(#707bf5, #bcbdc2); */
+    /* border-bottom: none !important; */
+    /* border-top: solid blue 1px !important; */
     /* height: auto; */
 }
 
@@ -261,8 +266,8 @@ a:hover{
     }
 
     .titre-article{
-        font-size: 20px;
-        line-height: 22px;
+        font-size: 22px;
+        line-height: 24px;
     }
 
     .fanion-page-equipe{
@@ -308,8 +313,8 @@ a:hover{
         }
 
         .titre-article{
-            font-size: 22px;
-            line-height: 24px;
+            font-size: 24px;
+            line-height: 26px;
         }
 
         .fanion-page-equipe{

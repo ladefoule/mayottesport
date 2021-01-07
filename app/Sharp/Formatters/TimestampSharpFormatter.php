@@ -18,7 +18,6 @@ class TimestampSharpFormatter extends SharpFieldFormatter
      */
     function toFront(SharpFormField $field, $value)
     {
-        Log::info($value);
         $txt = '';
         if($value){
             $datetime = Carbon::createFromTimestamp(strtotime($value))->timezone(Config::get('app.timezone'));
