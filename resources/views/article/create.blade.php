@@ -59,6 +59,7 @@
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script>
 $(document).ready(function(){
+    $('#images').select2();
     verifierMonFormulaireEnJS('formulaire')
     tinymceFunc('#preambule,#texte', "<?php echo route('images_list') ?>")
 })
