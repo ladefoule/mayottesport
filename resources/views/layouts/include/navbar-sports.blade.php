@@ -4,7 +4,7 @@
 ?>
 
 {{-- NAVBAR LARGE SCREEN --}}
-<nav class="navbar fixed-top navbar-light navbar-expand-lg {{-- border-bottom --}} bg-white p-0">
+<nav class="navbar fixed-top navbar-light navbar-expand-lg @if(in_array(request()->route()->getName(), ['sport.index', 'competition.index'])) border-bottom-sport @else border-bottom-defaut @endif bg-white p-0">
    <div class="container">
        <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport" style="width: 200px"></a>
        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

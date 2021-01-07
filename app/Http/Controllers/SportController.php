@@ -49,9 +49,18 @@ class SportController extends Controller
             }
         }
 
+        $indexArticles = index('articles')->sortByDesc('created_at')->where('valide', 1)->where('sport_id', $sport->id)->slice(0,5);
+        $articles = collect();
+        foreach ($indexArticles as $id => $article)
+            $articles[] = article($article->uniqid);
+
+         $articlesView = view('article.render', ['articles' => $articles])->render();
+         $journeesView = view('journee.sport-index', ['journees' => $journees, 'sport' => $sport,])->render();
+
         return view('sport.index', [
             'sport' => $sport,
-            'journees' => $journees
+            'journees' => $journeesView,
+            'articles' => $articlesView
         ]);
     }
 }

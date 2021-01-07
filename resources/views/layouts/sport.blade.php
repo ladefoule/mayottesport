@@ -12,8 +12,9 @@
     @include('layouts.include.navbar-sports')
     {{-- Fin Navbar principal --}}
 
+    @if(count($competitions) > 0)
     {{-- Section scroll X --}}
-    <section class="col-12 navbar-scroll-x container-lg-fluid {{-- border-primary border-top --}}">
+    <section class="col-12 navbar-scroll-x container-lg-fluid">
         <div class="container-lg">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">
@@ -29,6 +30,7 @@
         </div>
     </section>
     {{-- Fin Section scroll X --}}
+    @endif
 
     {{-- Main --}}
     <section class="container-lg bg-white">

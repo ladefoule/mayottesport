@@ -14,6 +14,14 @@ body{
     background-attachment: fixed;
 }
 
+.border-bottom-defaut{
+   border-bottom: 2px gray solid !important;
+}
+
+.border-bottom-sport{
+   border-bottom: 2px blue solid !important;
+}
+
 .titre-article,.titre-premier-article,.titre-article{
     font-weight: bold;
     font-family:Verdana,sans-serif;
@@ -53,8 +61,8 @@ body{
 
 .navbar-scroll-x{
     margin-top:60px;
-    /* background-color: rgb(160, 160, 160); */
-    background: linear-gradient(#bcbdc2, #656fe4);
+    /* background-color: rgb(220, 220, 220); */
+    /* background: linear-gradient(#e0e1e6, #656fe4); */
     /* background: linear-gradient(#707bf5, #bcbdc2); */
     /* border-bottom: none !important; */
     /* border-top: solid blue 1px !important; */
@@ -157,7 +165,7 @@ a.non-cliquable, a.non-cliquable:hover{
     font-size: 1.05rem;
 }
 
-.border-bottom-scroll-x.active,.border-bottom-scroll-x:hover{
+.border-bottom-scroll-x.active{
     /* border-top: 5px solid white; */
     /* border-bottom: 5px solid blue; */
     color: blue !important;
@@ -184,6 +192,9 @@ a:hover{
     border-radius: 20px;
     /* background-color: rgb(255, 255, 255); */
     /* border: 0; */
+    color: gray;
+    font-size: 1.05rem;
+    border: 1px solid gray;
     font-family:"Nunito", sans-serif;
 }
 
@@ -245,8 +256,8 @@ a:hover{
     text-decoration-style: dotted;
 }
 
-.nom-competition,.nom-sport{
-    font-size: 1.2rem;
+.nom-competition{
+    font-size: 1.3rem;
     line-height: 1rem;
 }
 

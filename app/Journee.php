@@ -76,7 +76,7 @@ class Journee extends Model
 
             $journee->matches = $matchesInfos;
             $dateJournee = date('d/m/Y', strtotime($this->date));
-            $journee->render = view('competition.journee', [
+            $journee->render = view('journee.calendrier', [
                 'matches' => $journee->matches,
                 'journee' => niemeJournee($this->numero) . ' : ' . $dateJournee
             ])->render();

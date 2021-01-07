@@ -1,7 +1,6 @@
 <?php
     $hrefSport= request()->hrefSport;
     $hrefIndex = request()->hrefIndex;
-    $hrefActualite = request()->hrefActualite;
     $hrefClassement = request()->hrefClassement;
     $hrefCalendrier = request()->hrefCalendrier;
     $hrefPalmares = request()->hrefPalmares;
@@ -24,21 +23,21 @@
         <div class="container">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">
-                    <a href="{{ $hrefSport }}" class="text-body font-weight-bold mr-3 nom-sport">
+                    <a href="{{ $hrefSport }}" class="font-weight-bold text-secondary mr-3 border-bottom-scroll-x">
                         {{ $sport->nom }}
                     </a>
                     <a href="" class="mr-3 non-cliquable cursor-default">
                         {!! \Config::get('listes.boutons.right') !!}
                     </a>
-                    <a href="{{ $hrefIndex }}" class="text-body font-weight-bold mr-3 nom-competition">
+                    <a href="{{ $hrefIndex }}" class="font-weight-bold text-body mr-3 nom-competition">
                         {{ $competition->nom }}
                     </a>
                     <a href="" class="mr-3 non-cliquable cursor-default">
                         {!! \Config::get('listes.boutons.right') !!}
                     </a>
-                    <a href="{{ $hrefActualite }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.actualite') active @else text-secondary @endif pr-3">
-                        L'actu
-                    </a>
+                    {{-- <a href="{{ $hrefActualite }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.index') active @else text-secondary @endif pr-3">
+                        L'actualité
+                    </a> --}}
                     @if ($hrefClassement)
                     <a href="{{ $hrefClassement }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.classement') active @else text-secondary @endif pr-3">
                         Le classement

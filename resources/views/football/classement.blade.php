@@ -24,7 +24,7 @@
                 @foreach ($classement as $i => $equipe)
                     <tr>
                         <td class="px-2 align-middle">{{ $i+1 }}</td>
-                        <td align="left" class="px-2 align-middle py-0">
+                        <td align="left" class="px-2 align-middle py-2">
                             <a href="{{ $equipe['hrefEquipe'] }}" class="text-dark">
                                 <div class="p-0 d-flex justify-content-start align-items-center">
                                     <div class="d-none d-md-block">
