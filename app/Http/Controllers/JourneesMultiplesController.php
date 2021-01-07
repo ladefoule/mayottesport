@@ -132,6 +132,7 @@ class JourneesMultiplesController extends Controller
                     $journee = new Journee($donnees);
                     $journee->save();
                     $id = $journee->id;
+                    forgetCaches('journees', $journee);
                     ProcessCrudTable::dispatch('journees', $id);
                 }else{
                     $journee = Journee::findOrFail($journeeId);
@@ -139,9 +140,10 @@ class JourneesMultiplesController extends Controller
                     forgetCaches('journees', $journee);
 
                     $journeeDelete = $request->has('delete' . $i);
-                    if($journeeDelete) // Si la checkbox de suppression a été cochée alors on supprime la Journée
+                    if($journeeDelete){ // Si la checkbox de suppression a été cochée alors on supprime la Journée
                         $journee->delete();
-                    else{ // Sinon on fait une maj
+                        ProcessCrudTable::dispatch('journees');
+                    }else{ // Sinon on fait une maj
                         $journee->update($donnees);
                         ProcessCrudTable::dispatch('journees', $id);
                     }

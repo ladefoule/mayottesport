@@ -240,6 +240,7 @@ class CrudController extends Controller
         $instance = $modele::findOrFail($id);
         forgetCaches($crudTable->nom, $instance);
         $instance->delete();
+        ProcessCrudTable::dispatch($crudTable->nom);
         Log::info("Suppression de l'id $id dans la table $crudTable->nom");
 
         return redirect()->route('crud.index', ['table' => $table]);
@@ -269,8 +270,15 @@ class CrudController extends Controller
 
             Log::info($modele);
         $request = $validator->validate();
+
+        // Suppression des caches
         foreach ($request['ids'] as $id)
             forgetCaches($table, $modele::findOrFail($id));
+
         $modele::destroy($request['ids']);
+
+        // Rechargement des caches index
+        foreach ($request['ids'] as $id)
+            ProcessCrudTable::dispatch($crudTable->nom);
     }
 }

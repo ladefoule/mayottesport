@@ -45,11 +45,6 @@
                 </select>
             </div>
 
-            <div class="form-check form-check-inline ml-3">
-                <input type="checkbox" name="valide" class="form-check-input" @if(old('texte') ?? $article->valide) checked @endif>
-                <label class="form-check-label">Validé</label>
-            </div>
-
             <input type="hidden" name="uniqid" value="{{ $article->uniqid }}">
             <input type="hidden" name="user_id" value="{{ $article->user_id }}">
 

@@ -3,812 +3,113 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/template.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="icon" href="images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="js/search.js"></script>
-    <script defer src="js/searchIndex.js"></script>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/app.html"><abbr title="\App">App</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/app.html"><abbr title="\App">App</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="namespaces/app-console.html"><abbr title="\App\Console">Console</abbr></a></li>
-                                    <li><a href="namespaces/app-exceptions.html"><abbr title="\App\Exceptions">Exceptions</abbr></a></li>
-                                    <li><a href="namespaces/app-http.html"><abbr title="\App\Http">Http</abbr></a></li>
-                                    <li><a href="namespaces/app-jobs.html"><abbr title="\App\Jobs">Jobs</abbr></a></li>
-                                    <li><a href="namespaces/app-mail.html"><abbr title="\App\Mail">Mail</abbr></a></li>
-                                    <li><a href="namespaces/app-providers.html"><abbr title="\App\Providers">Providers</abbr></a></li>
-                                    <li><a href="namespaces/app-sharp.html"><abbr title="\App\Sharp">Sharp</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <h2>Documentation</h2>
-
-            <h3>Namespaces</h3>
-        <dl>
-                            <dt><a href="namespaces/app.html"><abbr title="\App">App</abbr></a></dt>
-                    </dl>
-    
-    
-    
-        <h3>Table of Contents</h3>
-    <table class="phpdocumentor-table_of_contents">
-                            <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_niemeJournee"><abbr title="\niemeJournee()">niemeJournee()</abbr></a></th>
-                <td class="phpdocumentor-cell">Revoie &#039;1ère journée&#039; si $numero = 1, Xème journée si $numero &gt; 1, false dans les autres cas de figure</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_stripAccents"><abbr title="\stripAccents()">stripAccents()</abbr></a></th>
-                <td class="phpdocumentor-cell">Enlèvement des accents.</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_modelName"><abbr title="\modelName()">modelName()</abbr></a></th>
-                <td class="phpdocumentor-cell">Renvoie le nom du model correspondant à la table.</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_annee"><abbr title="\annee()">annee()</abbr></a></th>
-                <td class="phpdocumentor-cell">Style procédural de la méthode annee() de la classe Saison</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_fanion"><abbr title="\fanion()">fanion()</abbr></a></th>
-                <td class="phpdocumentor-cell">Teste si l&#039;équipe possède un fanion présent dans le repertoire app/public/img/fanion.</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_forgetCaches"><abbr title="\forgetCaches()">forgetCaches()</abbr></a></th>
-                <td class="phpdocumentor-cell">Suppression des caches</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_refreshCachesLies"><abbr title="\refreshCachesLies()">refreshCachesLies()</abbr></a></th>
-                <td class="phpdocumentor-cell">Rechargement de tous les caches index des tables qui utilisent les données de la $table
-On ne doit recharger le cache que SI ET SEULEMENT SI les données des tables sont utilisées dans la génération des attributs nom ou crud_name
-Ex: Saison-&gt;crudname = Competititon-&gt;crud_name . annee() ==&gt; SEUL la table competitions peut engendrer le rechargement de la table saisons</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_compare"><abbr title="\compare()">compare()</abbr></a></th>
-                <td class="phpdocumentor-cell">Fonction de comparaison pour générer les classements</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_index"><abbr title="\index()">index()</abbr></a></th>
-                <td class="phpdocumentor-cell">Style procédural de la méthode infos() de la classe CrudTable : Liste de tous les éléments de la table.</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_indexCrud"><abbr title="\indexCrud()">indexCrud()</abbr></a></th>
-                <td class="phpdocumentor-cell">Style procédural de la méthode infos() de la classe CrudTable
-Liste de tous les éléments de la table (avec les infos sur les attributs à afficher dans le CRUD : position, type, max, ...).</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_journee"><abbr title="\journee()">journee()</abbr></a></th>
-                <td class="phpdocumentor-cell">Style procédural de la méthode infos() de la classe Journee
-Renvoie une collection qui contient les matches de la journée ainsi que le render (le html de l&#039;affichage du calendrier)</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_saison"><abbr title="\saison()">saison()</abbr></a></th>
-                <td class="phpdocumentor-cell">Style procédural de la méthode infos() de la classe Saison
-Retourne une collection qui contient le classement si c&#039;est un championnat et d&#039;autres infos sur la saison</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_match"><abbr title="\match()">match()</abbr></a></th>
-                <td class="phpdocumentor-cell">Style procédural de la méthode infos() de la classe Match
-Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, .</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-                    <tr>
-                <th class="phpdocumentor-heading"><a href="namespaces/default.html#function_genererCalendrier"><abbr title="\genererCalendrier()">genererCalendrier()</abbr></a></th>
-                <td class="phpdocumentor-cell">Insère tous les matches d&#039;une saison dans la bdd</td>
-                <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
-            </tr>
-            </table>
-    
-    
-            <section>
-            <h3 class="phpdocumentor-functions__header">Functions</h3>
-                            <a id="function_niemeJournee"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">niemeJournee()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">27</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Revoie &#039;1ère journée&#039; si $numero = 1, Xème journée si $numero &gt; 1, false dans les autres cas de figure</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">niemeJournee</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$numero</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void|bool</span>
-    </code>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <h2>Documentation</h2>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$numero</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">void|bool</span>
-            
-</article>
-                            <a id="function_stripAccents"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">stripAccents()</h4>
+<h3 id="namespaces">
+    Namespaces
+    <a href="#namespaces" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">39</span>
-    </aside>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -namespace"><a href="namespaces/app.html"><abbr title="\App">App</abbr></a></dt>
+    </dl>
 
-        <p class="phpdocumentor-summary">Enlèvement des accents.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">stripAccents</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$str</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+
+
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$str</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                            <a id="function_modelName"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">modelName()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">49</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Renvoie le nom du model correspondant à la table.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">modelName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><ul>
-<li>nom de la table en snake_case</li>
-</ul></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                            <a id="function_annee"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">annee()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">62</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Style procédural de la méthode annee() de la classe Saison</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">annee</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$debut</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$fin</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$separateur</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;-&#039;</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$debut</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$fin</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$separateur</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">&#039;-&#039;</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                            <a id="function_fanion"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">fanion()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">74</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Teste si l&#039;équipe possède un fanion présent dans le repertoire app/public/img/fanion.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">fanion</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$equipeId</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
-Sinon on renvoie le lien vers le fanion par défaut.</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$equipeId</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                            <a id="function_forgetCaches"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">forgetCaches()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">91</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Suppression des caches</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">forgetCaches</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$instance</span> :
-                <span class="phpdocumentor-signature__argument__return-type">object</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><ul>
-<li>en camel_case</li>
-</ul></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$instance</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">object</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                            <a id="function_refreshCachesLies"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">refreshCachesLies()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">161</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Rechargement de tous les caches index des tables qui utilisent les données de la $table
-On ne doit recharger le cache que SI ET SEULEMENT SI les données des tables sont utilisées dans la génération des attributs nom ou crud_name
-Ex: Saison-&gt;crudname = Competititon-&gt;crud_name . annee() ==&gt; SEUL la table competitions peut engendrer le rechargement de la table saisons</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">refreshCachesLies</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><ul>
-<li>en kebab-case</li>
-</ul></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                            <a id="function_compare"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">compare()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">181</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Fonction de comparaison pour générer les classements</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">compare</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$a</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$b</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$a</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$b</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
-</article>
-                            <a id="function_index"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">index()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">200</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe CrudTable : Liste de tous les éléments de la table.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">index</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><ul>
-<li>Table en camel_case</li>
-</ul></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-            
-</article>
-                            <a id="function_indexCrud"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">indexCrud()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">221</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe CrudTable
-Liste de tous les éléments de la table (avec les infos sur les attributs à afficher dans le CRUD : position, type, max, ...).</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">indexCrud</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><ul>
-<li>Table en camel_case</li>
-</ul></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-            
-</article>
-                            <a id="function_journee"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">journee()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">242</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe Journee
-Renvoie une collection qui contient les matches de la journée ainsi que le render (le html de l&#039;affichage du calendrier)</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">journee</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$journeeId</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$journeeId</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-            
-</article>
-                            <a id="function_saison"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">saison()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">263</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe Saison
-Retourne une collection qui contient le classement si c&#039;est un championnat et d&#039;autres infos sur la saison</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">saison</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$saisonId</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$saisonId</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-            
-</article>
-                            <a id="function_match"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">match()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">284</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Style procédural de la méthode infos() de la classe Match
-Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, .</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">match</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$matchUniqid</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>..</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$matchUniqid</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Collection">Collection</abbr></span>
-            
-</article>
-                            <a id="function_genererCalendrier"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-function
-            phpdocumentor-function--
-                    "
->
-    <h4 class="phpdocumentor-function__name">genererCalendrier()</h4>
-
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="app/scripts/fonctions.php"><a href="files/app-scripts-fonctions.html"><abbr title="app/scripts/fonctions.php">fonctions.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">304</span>
-    </aside>
-
-        <p class="phpdocumentor-summary">Insère tous les matches d&#039;une saison dans la bdd</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-                                <span class="phpdocumentor-signature__name">genererCalendrier</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$donnees</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$donnees</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                    </section>
-                <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
-
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
-
-                </ul>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="index.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

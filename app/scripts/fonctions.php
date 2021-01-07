@@ -164,7 +164,7 @@ function imagesList()
 /**
  * Suppression des caches
  *
- * @param string $table - en camel_case
+ * @param string $table - en snake_case
  * @param object $instance
  * @return void
  */
@@ -208,6 +208,11 @@ function forgetCaches(string $table, object $instance)
         foreach ($saisons as $saisonTemp)
             Cache::forget("saison-" . $saisonTemp->id);
 
+   // On supprime les caches des articles
+    } else if ($table == 'articles') {
+        $article = $instance;
+         Cache::forget("article-" . $article->uniqid);
+
         // On supprime les caches des attributs visibles si on a effectué une action sur les tables CRUD
     } else if (in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])) {
         if ($table == 'crud_attribut_infos')
@@ -238,19 +243,19 @@ function forgetCaches(string $table, object $instance)
  * On ne doit recharger le cache que SI ET SEULEMENT SI les données des tables sont utilisées dans la génération des attributs nom ou crud_name
  * Ex: Saison->crudname = Competititon->crud_name . annee() ==> SEUL la table competitions peut engendrer le rechargement de la table saisons
  *
- * @param string $table - en kebab-case
+ * @param string $table - en snake_case
  * @return void
  */
 function refreshCachesLies(string $table)
 {
     Log::info("Rechargement des caches des tables utilisant les données de : $table");
     $tablesLiees = config('listes.caches-lies')[$table] ?? [];
-    foreach ($tablesLiees as $tableSlug) {
-        if (isset(config('listes.caches-lies')[$tableSlug]))
-            refreshCachesLies($tableSlug);
+    foreach ($tablesLiees as $table) {
+        if (isset(config('listes.caches-lies')[$table]))
+            refreshCachesLies($table);
 
-        Cache::forget('indexcrud-' . $tableSlug);
-        indexCrud(str_replace('-', '_', $tableSlug));
+        Cache::forget('indexcrud-' . Str::slug($table));
+        indexCrud($table);
         // CrudTable::where('nom', str_replace('-', '_', $tableSlug))->firstOrFail()->index();
     }
 }

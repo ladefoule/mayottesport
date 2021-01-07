@@ -15,11 +15,17 @@ use Illuminate\Support\Facades\Validator;
 
 class CacheController extends Controller
 {
+   /**
+    * Undocumented function
+    *
+    * @param Request $request
+    * @return mixed
+    */
     public function reload(Request $request)
     {
         Log::info(" -------- Controller Cache : reload -------- ");
         $rules = [
-            'id' => 'required|integer|min:1',
+            'id' => 'nullable|integer|min:0',
             'table' => 'required|min:3|exists:crud_tables,nom'
         ];
 
@@ -27,14 +33,19 @@ class CacheController extends Controller
         if ($validator->fails())
             abort(404);
 
-        $id = $request['id'];
-        $crudTable = CrudTable::whereNom($request['table'])->firstOrFail();
+         $table = $request['table'];
+         $modele = '\App\\' . modelName($table);
 
-        $table = $crudTable->nom;
-        $modele = '\App\\' . modelName($crudTable->nom);
+        $id = $request['id'];
+
+        // Si l'id vaut 0, alors on recharge juste le cache index de la table
+        // Dans le cas par exemple de la suppression de l'instance
+        if(! $id){
+           index($table);
+           return true;
+        }
 
         $instance = $modele::findOrFail($id);
-        $tableSlug = Str::slug($table);
 
         // On recharge les caches directement liés au match, à la journée ou à la saison
         if(in_array($table, ['matches', 'journees', 'saisons'])){
@@ -65,8 +76,15 @@ class CacheController extends Controller
             foreach ($saisons as $saison)
                 saison($saison->id);
 
+         // On supprime les caches des articles
+         } else if ($table == 'articles') {
+            $article = $instance;
+            article($article->uniqid);
+
         // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
         }else if(in_array($table, config('listes.tables-gestion-crud'))){
+            $crudTable = CrudTable::whereNom($request['table'])->firstOrFail();
+
             Log::info("Opération effectuée dans la gestion du Crud");
             if($table == 'crud_attribut_infos')
                 $crudTableCible = $instance->crudAttribut->crudTable;
@@ -90,9 +108,9 @@ class CacheController extends Controller
         index($table);
 
         // On recharge les caches 'index' qui utilisent les données de cette table dans leur attribut nom ou crud_name
-        if(! in_array($crudTable->nom, config('listes.tables-non-crudables'))){
-            $crudTable->indexCrud();
-            refreshCachesLies($tableSlug);
+        if(! in_array($table, config('listes.tables-non-crudables'))){
+            indexCrud($table);
+            refreshCachesLies($table);
         }
     }
 }

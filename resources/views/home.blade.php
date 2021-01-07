@@ -18,7 +18,7 @@
                 @if ($i == 0)
                     <h1 class="col-12 titre-premier-article p-0">{{ $article->titre }}</h1>
                     <div class="col-10 my-3 p-0">
-                        <img src="{{ $article->src_img }}" alt="{{ $article->titre }}" class="img-fluid">
+                        <img src="{{ $article->img }}" alt="{{ $article->titre }}" class="img-fluid">
                     </div>
                     <div class="col-12 border-0 p-0">
                         {!! $article->preambule !!}

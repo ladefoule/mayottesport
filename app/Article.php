@@ -73,7 +73,7 @@ class Article extends Model
 
             $titreSlug = Str::slug($this->titre);
             if($this->sport_id)
-                $href = route('article.sport.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid, 'sport' => $this->sport->nom]);
+                $href = route('article.sport.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid, 'sport' => Str::slug($this->sport->nom)]);
             else
                 $href = route('article.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid]);
             $infosPlus = [

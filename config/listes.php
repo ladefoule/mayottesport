@@ -20,11 +20,11 @@ return [
     /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
     'caches-lies' => [
         'competitions' => ['saisons'],
-        'crud-attributs' => ['crud-attribut-infos'],
-        'crud-tables' => ['crud-attributs'],
-        'equipes' => [/*'matches',*/ 'equipe-saison'],
+        'crud-attributs' => ['crud_attribut_infos'],
+        'crud-tables' => ['crud_attributs'],
+        'equipes' => [/*'matches',*/ 'equipe_saison'],
         'matches' => ['modifs'],
-        'saisons' => ['journees', 'equipe-saison'],
+        'saisons' => ['journees', 'equipe_saison'],
         'sports' => ['equipes', 'competitions', 'baremes'],
         'users' => ['modifs'],
         'villes' => ['terrains'],

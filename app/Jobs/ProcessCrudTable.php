@@ -7,7 +7,6 @@
 
 namespace App\Jobs;
 
-use App\CrudTable;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -29,7 +28,7 @@ class ProcessCrudTable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $table, int $id)
+    public function __construct(string $table, int $id = 0)
     {
         $this->table = $table;
         $this->id = $id;
@@ -42,7 +41,7 @@ class ProcessCrudTable implements ShouldQueue
      */
     public function handle()
     {
-        Log::info(" -------- Job : ProcessCrudTable ------ ");
+        Log::info(" -------- Job CrudTable ------ ");
         $client = new Client([
             // 'base_uri' => asset('/'),
             'http_errors' => true,
