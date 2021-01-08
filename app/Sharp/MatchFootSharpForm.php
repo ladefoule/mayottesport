@@ -8,7 +8,6 @@ use App\Journee;
 use App\MatchInfo;
 use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
@@ -62,7 +61,6 @@ class MatchFootSharpForm extends SharpForm
         $rules = Match::rules($match);
         $messages = $rules['messages'];
         $rules = $rules['rules'];
-        Log::info($data);
         $data = Validator::make($data, $rules, $messages)->validate();
 
         // On supprime toutes les infos supplémentaires du match : forfaits, pénalités, etc...

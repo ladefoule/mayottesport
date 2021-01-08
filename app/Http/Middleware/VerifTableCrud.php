@@ -38,7 +38,7 @@ class VerifTableCrud
                                         ->first();
 
         // Si on n'a pas trouvé la table et que c'est un superadmin qui est connecté, on recherche toutes les tables crudables
-        if(! $crudTable && index('roles')[Auth::user()->role_id]->nom == 'superadmin'){
+        if(! $crudTable && index('roles')[Auth::user()->role_id]->name == 'superadmin'){
             $crudTable = index('crud_tables')->where('nom', str_replace('-', '_', $table))
                                             ->where('crudable', 1)
                                             ->first();

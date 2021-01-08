@@ -13,6 +13,6 @@ class SharpCheckHandler implements SharpAuthenticationCheckHandler
     {
         // L'email doit être vérifié pour accéder au panel Sharp
         // Et le role de l'utilisateur doit etre admin ou superadmin
-        return in_array($user->role->name, ['admin', 'superadmin']) && $user->email_verified_at != null;
+        return $user->role->niveau >= 30 && $user->email_verified_at != null;
     }
 }

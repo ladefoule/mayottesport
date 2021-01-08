@@ -116,6 +116,7 @@ a.non-cliquable, a.non-cliquable:hover{
    /* box-shadow: 60px -16px teal;; */
    /* box-shadow: -10px -0 rgb(104, 184, 184); */
    box-shadow: -5px 0px 12px #aaa;
+   font-size: 0.9rem;
    /* margin-top: 30px; */
 }
 

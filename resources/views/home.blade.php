@@ -20,11 +20,19 @@
             <div class="col-8 px-3 py-0">
                 {!! $articles !!}
             </div>
-            <div class="col-4 p-2 bg-resultats" style="font-size: 0.9rem;">
+            <div class="col-4 p-2 bg-resultats">
                 <h2 class="alert alert-danger h2 text-center py-4">Les résultats</h2>
                 @foreach ($sports as $sport)
-                    {!! $sport->journees !!}
-
+                    @if($sport->journees)
+                        <div class="col-12 text-center my-2 px-3">
+                            <span class="h2 font-italic">
+                                <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">
+                                {{ $sport->nom }}
+                                </a>
+                            </span>
+                        </div>
+                        {!! $sport->journees !!}
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -36,8 +44,16 @@
             </div>
             <div id="bloc-resultats" class="@if($articles) d-none @endif">
                 @foreach ($sports as $sport)
-                    {!! $sport->journees !!}
-
+                    @if($sport->journees)
+                        <div class="col-12 text-center my-2 px-3">
+                            <span class="h2 font-italic">
+                                <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">
+                                {{ $sport->nom }}
+                                </a>
+                            </span>
+                        </div>
+                        {!! $sport->journees !!}
+                    @endif
                 @endforeach
             </div>
         </div>

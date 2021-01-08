@@ -1,5 +1,6 @@
 <?php
 
+use App\Sharp\ProfilSharp;
 use Illuminate\Support\Facades\Route;
 
 return [
@@ -28,6 +29,10 @@ return [
     // Required. Your entities list; each one must define a "list",
     // and can define "form", "validator", "policy" and "authorizations".
     "entities" => [
+        "profil" => [
+            "show" => \App\Sharp\ProfilSharpShow::class,
+            "form" => \App\Sharp\ProfilSharpForm::class,
+        ],
         "user" => [
             "list" => \App\Sharp\UserSharpList::class,
             "form" => \App\Sharp\UserSharpForm::class,
@@ -38,7 +43,7 @@ return [
             "list" => \App\Sharp\MatchFootSharpList::class,
             "form" => \App\Sharp\MatchFootSharpForm::class,
             // "validator" => \App\Sharp\MatchSharpValidator::class,
-            //    "policy" => \App\Sharp\Policies\MyEntityPolicy::class,
+            "policy" => \App\Sharp\Policies\MatchFootPolicy::class,
         ],
         "article" => [
             "list" => \App\Sharp\ArticleSharpList::class,
@@ -49,12 +54,12 @@ return [
     ],
 
     // Optional. Your dashboards list; each one must define a "view", and can define "policy".
-    "dashboards" => [
+    // "dashboards" => [
         //    "dash" => [
         // "view" => \App\Sharp\DashAdmin::class,
         // "policy" => \App\Sharp\Policies\DashAdminPolicy::class,
         //    ],
-    ],
+    // ],
 
     // Optional. Your global filters list, which will be displayed in the main menu.
     "global_filters" => [
@@ -64,6 +69,12 @@ return [
     // Required. The main menu (left bar), which may contain links to entities, dashboards
     // or external URLs, grouped in categories.
     "menu" => [
+        [
+            "label" => "Profil",
+            "icon" => "fa-user",
+            "entity" => "profil",
+            "single" => true
+        ],
         [
             "label" => "Membres",
             "icon" => "fa-user",
@@ -103,11 +114,6 @@ return [
             "label" => "Journées",
             "icon" => "fa-calendar",
             "url" => "/admin/autres/journees/multi/select",
-        ],
-        [
-            "label" => "CRUD",
-            "icon" => "fa-database",
-            "url" => '/admin/crud'
         ],
         [
             "label" => "Accueil",

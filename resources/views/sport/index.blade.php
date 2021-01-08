@@ -22,7 +22,7 @@
             <div class="col-8 px-3 py-0">
                 {!! $articles !!}
             </div>
-            <div class="col-4 p-2 bg-resultats" style="font-size: 0.9rem;">
+            <div class="col-4 p-2 bg-resultats">
                 <h2 class="alert alert-danger h2 text-center py-4">Les résultats</h2>
                 {!! $journees !!}
             </div>

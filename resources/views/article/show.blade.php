@@ -40,8 +40,8 @@
             <noscript>Veuillez activer JavaScript pour voir les commentaires alimentés par Disqus.</noscript>
         </div>
     </div>
-    <div class="col-4 d-none d-lg-block p-2" style="font-size: 0.8rem;">
-      <h2 class="alert alert-danger h2 text-center">Les résultats</h2>
+    <div class="col-4 d-none d-lg-block p-2 bg-resultats">
+      <h2 class="alert alert-danger h2 py-4 text-center">Les résultats</h2>
       {!! $journees !!}
    </div>
 </div>

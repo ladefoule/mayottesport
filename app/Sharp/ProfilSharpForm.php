@@ -4,27 +4,42 @@ namespace App\Sharp;
 
 use App\Role;
 use App\User;
-use Code16\Sharp\Form\SharpForm;
+use Code16\Sharp\Form\SharpSingleForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
-class UserSharpForm extends SharpForm
+class ProfilSharpForm extends SharpSingleForm
 {
-
-    public function find($id): array
+    use WithSharpFormEloquentUpdater;
+    
+    /**
+     * Retrieve a Model for the form and pack all its data as JSON.
+     *
+     * @return array
+     */
+    public function findSingle(): array
     {
-        $user = User::findOrFail($id);
-        return $this->transform(
+        $user = User::findOrFail(auth()->id());
+        return $this->setCustomTransformer("role", function ($role, $user) {
+            return $user->role->name;
+        })->setCustomTransformer("region", function ($region, $user) {
+            return $user->region->nom;
+        })->transform(
             $user
         );
     }
 
-    public function update($id, array $data)
+    /**
+     * Update the Model.
+     *
+     * @param array $data
+     */
+    public function updateSingle(array $data)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(auth()->id());
 
         // On valide la requète
         $rules = User::rules($user);
@@ -37,11 +52,6 @@ class UserSharpForm extends SharpForm
         
         $data = Validator::make($data, $rules, $messages)->validate();
         $user->update($data);
-    }
-
-    public function delete($id)
-    {
-        User::findOrFail($id)->delete();
     }
 
     /**

@@ -12,9 +12,9 @@ class UserPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function viewAny(User $user, $id)
+    public function entity(User $user)
     {
-        //
+        return sharp_user()->role->name == 'superadmin';
     }
 
     /**

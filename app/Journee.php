@@ -23,7 +23,7 @@ class Journee extends Model
      *
      * @var array
      */
-    protected $fillable = ['numero', 'date', 'saison_id'];
+    protected $fillable = ['numero', 'date', 'saison_id', 'type'];
 
     /**
      * Les règles de validations
@@ -47,6 +47,7 @@ class Journee extends Model
         $rules = [
             'date' => 'required|date',
             'saison_id' => 'required|exists:saisons,id',
+            'type' => 'nullable|integer|min:0',
             'numero' => ['required', 'integer', "max:$nbJournees", 'min:1', $unique]
         ];
         $messages = ['numero.unique' => "Cette journée existe déjà dans cette saison."];
