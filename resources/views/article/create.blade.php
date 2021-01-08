@@ -36,7 +36,7 @@
 
         <div class="col-12 pb-3">
             <label for="texte">Sport</label>
-            <select name="sport_id" class="form-control">
+            <select name="sport_id" class="form-control input-optionnel">
                 <option value="">Aucun</option>
                 @foreach ($sports as $sport)
                     <option value="{{ $sport->id }}" @if(old('sport_id') == $sport->id) selected @endif>{{ $sport->nom }}</option>

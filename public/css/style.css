@@ -115,7 +115,11 @@ a.non-cliquable, a.non-cliquable:hover{
 }
 
 .bg-resultats{
-   background-color: rgb(207, 206, 206);
+   /* background-color: rgb(207, 206, 206); */
+   /* box-shadow: 60px -16px teal;; */
+   box-shadow: -10px -0 rgb(104, 184, 184);
+   box-shadow: -5px -5px 12px #aaa;
+   /* margin-top: 30px; */
 }
 
 .nul{

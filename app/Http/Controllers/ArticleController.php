@@ -84,6 +84,7 @@ class ArticleController extends Controller
     public function updatePost(Request $request, $uniqid)
     {
         $article = Article::findOrFail($request->article->id);
+        $request['valide'] = $article->valide;
         $rules = Article::rules($article)['rules'];
         $data = Validator::make($request->all(), $rules)->validate();
         $article->update($data);

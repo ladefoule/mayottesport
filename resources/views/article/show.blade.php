@@ -12,7 +12,9 @@
 
         <!-- Create the editor container -->
         <div class="col-12 pt-3">
-            {!! $article->preambule !!}
+           <div class="font-weight-bold">
+              {!! $article->preambule !!}
+           </div>
             {!! $article->texte !!}
         </div>
 

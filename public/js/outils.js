@@ -347,6 +347,8 @@ function tinymceFunc(selector, urlImages){
                 advlist_bullet_styles: 'square',
                 advlist_number_styles: 'lower-alpha,lower-roman,upper-alpha,upper-roman',
                 image_list: data,
+                fontsize_formats:"8pt 9pt 10pt 11pt 12pt 13pt 14pt 18pt 24pt 30pt 36pt",
+                content_style: "body {font-size: 12pt;}",
                 image_class_list: [
                     {title: 'None', value: ''},
                     {title: 'Max width 80', value: 'img_max_width_80'},

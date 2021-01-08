@@ -9,23 +9,24 @@
         <h1 class="h4">MayotteSport.com : l'actualité sportive de Mayotte</h1>
     </div>
 
-    <div class="col-12 d-lg-none p-0 d-flex text-center">
+    <div class="col-12 d-lg-none p-0 d-flex text-center p-3">
          <a href="" id="actualites" data-cible="bloc-actualites" data-autre="resultats" class="d-block col-6 p-3 border btn btn-secondary onglet active">Actualités</a>
          <a href="" id="resultats" data-cible="bloc-resultats" data-autre="actualites" class="d-block col-6 p-3 border btn btn-secondary onglet">Résultats</a>
     </div>
 
     {{-- classique écran large --}}
-    <div class="col-12 d-none d-lg-flex p-0">
-      <div class="col-8 pr-lg-3 p-2">
+    <div class="col-12 d-none d-lg-flex p-0 border">
+      <div class="col-8 pr-lg-3 px-2">
          {!! $articles !!}
       </div>
-      <div class="col-4 p-2 bg-resultats" style="font-size: 0.8rem">
+      <div class="col-4 p-2 bg-resultats" style="font-size: 0.8rem;">
+         <h2 class="alert alert-danger h2 text-center">Les résultats</h2>
          {!! $journees !!}
       </div>
     </div>
 
     {{-- avec onglets --}}
-    <div class="col-12 d-lg-none p-0">
+    <div class="col-12 d-lg-none p-3">
       <div id="bloc-actualites">
             {!! $articles !!}
       </div>
