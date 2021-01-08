@@ -8,7 +8,7 @@
         <h1 class="h4">{{ $sport . ' - ' . $competition }}</h1>
     </div>
 
-    <div class="col-12 d-lg-none d-flex text-center px-3">
+    <div class="col-12 d-lg-none d-flex text-center px-3 py-0">
         <a href="" id="actualites" data-cible="bloc-actualites" data-autre="resultats"
             class="d-block col-6 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
         <a href="" id="resultats" data-cible="bloc-resultats" data-autre="actualites"

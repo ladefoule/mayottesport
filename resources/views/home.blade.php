@@ -8,7 +8,7 @@
             <h1 class="h4">MayotteSport.com : l'actualité sportive de Mayotte</h1>
         </div>
 
-        <div class="col-12 d-lg-none p-0 d-flex text-center p-3">
+        <div class="col-12 d-lg-none py-0 d-flex text-center px-3">
             <a href="" id="actualites" data-cible="bloc-actualites" data-autre="resultats"
                 class="d-block col-6 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
             <a href="" id="resultats" data-cible="bloc-resultats" data-autre="actualites"
