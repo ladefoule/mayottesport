@@ -50,7 +50,7 @@ class Competition
         $request->competition = $competition; // la collection
         $request->saison = $saison; // la collection
         $request->hrefIndex = route('competition.index', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
-        $request->hrefPalmares = route('competition.champions', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+        $request->hrefPalmares = route('competition.palmares', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
 
         if($saison){
             $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportKebab, 'competition' => $competitionKebab]);

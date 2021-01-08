@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author ALI MOUSSA Moussa <admin@mayottesport.com>
  * @copyright 2020 ALI MOUSSA Moussa
@@ -46,7 +47,7 @@ class Journee extends Model
         $rules = [
             'date' => 'required|date',
             'saison_id' => 'required|exists:saisons,id',
-            'numero' => ['required','integer',"max:$nbJournees",'min:1',$unique]
+            'numero' => ['required', 'integer', "max:$nbJournees", 'min:1', $unique]
         ];
         $messages = ['numero.unique' => "Cette journée existe déjà dans cette saison."];
         return ['rules' => $rules, 'messages' => $messages];
@@ -59,11 +60,11 @@ class Journee extends Model
      */
     public function infos()
     {
-        $key = 'journee-'.$this->id;
+        $key = 'journee-' . $this->id;
         if (Cache::has($key))
             return Cache::get($key);
 
-        return Cache::rememberForever($key, function (){
+        return Cache::rememberForever($key, function () {
             Log::info('Rechargement du cache : journee-' . $this->id);
 
             // L'ensemble des matches de la journée
@@ -83,6 +84,36 @@ class Journee extends Model
 
             return $journee;
         });
+    }
+
+    /**
+     * Calendriers des journées passées ($categorie = 1) ou à venir ($categorie = 2)
+     *
+     * @param int $sportId
+     * @param integer $categorie
+     * @return void
+     */
+    public static function calendriersRender(int $sportId, $categorie = 1)
+    {
+        $competitions = index('competitions')->where('sport_id', $sportId)->where('index_position', '>=', 1)->sortBy('index_position');;
+        $journees = [];
+        foreach ($competitions as $competition) {
+            // $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
+            $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
+            if ($saison) {
+                $saison = saison($saison->id);
+                $journeeId = ($categorie == 1) ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
+                // $journeeId = $saison['derniere_journee_id'] != '' ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
+                if ($journeeId)
+                    $journees[] = collect([
+                        'competition_nom' => $competition->nom,
+                        'journee_render' => journee($journeeId)->render,
+                    ]);
+            }
+        }
+
+        $journeesView = view('journee.sport-index', ['journees' => $journees, 'sport' => index('sports')[$sportId]])->render();
+        return $journeesView;
     }
 
     /**
@@ -112,7 +143,7 @@ class Journee extends Model
     public function url()
     {
         $saison = $this->saison;
-        if($saison->finie)
+        if ($saison->finie)
             return false;
 
         $competition = $saison->competition;

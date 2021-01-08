@@ -4,14 +4,43 @@
 
 @section('content')
 <div class="row d-flex flex-wrap justify-content-between text-center pb-3">
-    <div class="col-12 py-3">
+    <div class="col-12 p-3">
         <h1 class="h4">{{ $sport . ' - ' . $competition }}</h1>
     </div>
-    <div class="col-lg-8">
-      {!! $articles !!}
+
+    <div class="col-12 d-lg-none d-flex text-center px-3">
+        <a href="" id="actualites" data-cible="bloc-actualites" data-autre="resultats"
+            class="d-block col-6 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
+        <a href="" id="resultats" data-cible="bloc-resultats" data-autre="actualites"
+            class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $articles) active @endif">Résultats</a>
     </div>
-    <div class="d-none d-lg-block col-4">
-        {!! $journees !!}
+
+    {{-- classique écran large --}}
+    <div class="col-12 d-none d-lg-flex p-0">
+        <div class="col-8 pr-lg-3 px-2">
+            {!! $articles !!}
+        </div>
+        <div class="col-4 p-2 bg-resultats pt-3" style="font-size: 0.9rem;">
+            {!! $journees !!}
+        </div>
+    </div>
+
+    {{-- avec onglets --}}
+    <div class="col-12 d-lg-none p-3">
+        <div id="bloc-actualites" class="@if(! $articles) d-none @endif">
+            {!! $articles !!}
+        </div>
+        <div id="bloc-resultats" class="@if($articles) d-none @endif">
+            {!! $journees !!}
+        </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            ongletSwitch()
+        })
+    </script>
 @endsection

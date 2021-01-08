@@ -358,6 +358,25 @@ function tinymceFunc(selector, urlImages){
     })
 }
 
+function ongletSwitch()
+{
+   $('.onglet').on('click', function(e){
+      e.preventDefault()
+      let target = e.target
+      if(target.classList.contains('active'))
+         return false;
+
+      target.classList.toggle('active')
+
+      let autreId = target.dataset.autre
+      let autre = qs('#'+autreId)
+      autre.classList.toggle('active')
+
+      qs('#bloc-actualites').classList.toggle('d-none')
+      qs('#bloc-resultats').classList.toggle('d-none')
+   })
+}
+
 /**
  * Requète AJAX dont les données seront injectées dans un select.
  * Les index inclus dans params : idSelect, texteOptionDefaut, url, method, data

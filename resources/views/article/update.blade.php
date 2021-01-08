@@ -7,7 +7,7 @@
     <div class="col-lg-8 p-0">
         <h1 class="col-12 h3 text-center">Modification d'un article</h1>
 
-        <form action="" method="POST" class="needs-validation col-12 d-flex flex-wrap p-0" id="formulaire">
+        <form action="" method="POST" class="needs-validation col-lg-8 d-flex flex-wrap p-0" id="formulaire">
             @csrf
 
             <div class="col-12 justify-content-center pb-3">
@@ -56,6 +56,7 @@
                 <button class="btn btn-primary px-5">Mettre à jour</button>
             </div>
         </form>
+        <div class="col-4 d-none d-lg-block text-center p-3 border"></div>
     </div>
 </div>
 @endsection

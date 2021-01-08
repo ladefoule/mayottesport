@@ -15,14 +15,16 @@ body{
 }
 
 .border-bottom-defaut{
-   border-bottom: 2px gray solid !important;
+   /* border-bottom: 2px gray solid !important; */
+   box-shadow: 0px 5px 4px rgb(216, 216, 216);
 }
 
 .border-bottom-sport{
-   border-bottom: 2px blue solid !important;
+   /* border-bottom: 2px blue solid !important; */
+   box-shadow: 0px 5px 4px rgb(216, 216, 216);
 }
 
-.titre-article,.titre-premier-article,.titre-article{
+.titre-article,.titre-premier-article{
     font-weight: bold;
     font-family:Verdana,sans-serif;
 }
@@ -33,8 +35,8 @@ body{
 }
 
 .titre-article{
-    font-size: 17px;
-    line-height: 19px;
+    font-size: 20px;
+    line-height: 22px;
 }
 
 .img-ratio{
@@ -117,8 +119,8 @@ a.non-cliquable, a.non-cliquable:hover{
 .bg-resultats{
    /* background-color: rgb(207, 206, 206); */
    /* box-shadow: 60px -16px teal;; */
-   box-shadow: -10px -0 rgb(104, 184, 184);
-   box-shadow: -5px -5px 12px #aaa;
+   /* box-shadow: -10px -0 rgb(104, 184, 184); */
+   box-shadow: -5px 0px 12px #aaa;
    /* margin-top: 30px; */
 }
 
@@ -336,8 +338,8 @@ a:hover{
         }
 
         .titre-article{
-            font-size: 24px;
-            line-height: 26px;
+            font-size: 26px;
+            line-height: 28px;
         }
 
         .fanion-page-equipe{

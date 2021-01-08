@@ -48,7 +48,7 @@
                         Calendrier et résultats
                     </a>
                     @endif
-                    <a href="{{ $hrefPalmares }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.champions') active @else text-secondary @endif">
+                    <a href="{{ $hrefPalmares }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.palmares') active @else text-secondary @endif">
                         Le palmarès
                     </a>
                 </div>

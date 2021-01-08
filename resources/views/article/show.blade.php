@@ -1,4 +1,4 @@
-@extends('layouts.site')
+@extends($article->sport_id ? 'layouts.sport' : 'layouts.site')
 
 @section('title', $article->titre)
 
@@ -12,9 +12,9 @@
 
         <!-- Create the editor container -->
         <div class="col-12 pt-3">
-           <div class="font-weight-bold">
+           <span class="font-weight-bold">
               {!! $article->preambule !!}
-           </div>
+           </span>
             {!! $article->texte !!}
         </div>
 
@@ -40,5 +40,9 @@
             <noscript>Veuillez activer JavaScript pour voir les commentaires alimentés par Disqus.</noscript>
         </div>
     </div>
+    <div class="col-4 d-none d-lg-block p-2" style="font-size: 0.8rem;">
+      <h2 class="alert alert-danger h2 text-center">Les résultats</h2>
+      {!! $journees !!}
+   </div>
 </div>
 @endsection

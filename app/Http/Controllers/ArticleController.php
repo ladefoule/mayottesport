@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Cache;
 use App\Article;
+use App\Journee;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -41,9 +43,8 @@ class ArticleController extends Controller
         $request = Validator::make($request->all(), $rules)->validate();
         $article = Article::create($request);
 
-        Cache::forget('index-articles');
-        Cache::forget('indexcrud-articles');
-
+        forgetCaches('articles', $article);
+        ProcessCrudTable::dispatch('articles', $article->id);
         return redirect()->route('article.show.admin', ['uniqid' => $article->uniqid]);
     }
 
@@ -60,13 +61,16 @@ class ArticleController extends Controller
         $article = $request->article;
         if(! $article->valide)
             abort(404);
-        return view('article.show', ['article' => $article]);
+
+         if($article->sport_id)
+            $resultats = Journee::calendriersRender($article->sport_id);
+        return view('article.show', ['article' => $article, 'journees' => $resultats]);
     }
 
     public function showAdmin(Request $request, $uniqid)
     {
         $article = $request->article;
-        return view('article.show', ['article' => $article, 'admin' => 'admin']);
+        return view('article.show-admin', ['article' => $article, 'admin' => 'admin']);
     }
 
     public function updateForm(Request $request, $uniqid)
@@ -89,9 +93,8 @@ class ArticleController extends Controller
         $data = Validator::make($request->all(), $rules)->validate();
         $article->update($data);
 
-        Cache::forget('index-articles');
-        Cache::forget('indexcrud-articles');
-
+        forgetCaches('articles', $article);
+        ProcessCrudTable::dispatch('articles', $article->id);
         return redirect()->route('article.show.admin', [
             'uniqid' => $article->uniqid,
         ]);
