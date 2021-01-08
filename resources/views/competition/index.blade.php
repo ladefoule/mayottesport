@@ -17,10 +17,10 @@
 
     {{-- classique écran large --}}
     <div class="col-12 d-none d-lg-flex p-0">
-        <div class="col-8 pr-lg-3 px-2">
+        <div class="col-8 px-3 py-0">
             {!! $articles !!}
         </div>
-        <div class="col-4 p-2 bg-resultats pt-3" style="font-size: 0.9rem;">
+        <div class="col-4 p-2 bg-resultats" style="font-size: 0.9rem;">
             {!! $journees !!}
         </div>
     </div>

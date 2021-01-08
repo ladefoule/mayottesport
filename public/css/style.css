@@ -19,11 +19,6 @@ body{
    box-shadow: 0px 5px 4px rgb(216, 216, 216);
 }
 
-.border-bottom-sport{
-   /* border-bottom: 2px blue solid !important; */
-   box-shadow: 0px 5px 4px rgb(216, 216, 216);
-}
-
 .titre-article,.titre-premier-article{
     font-weight: bold;
     font-family:Verdana,sans-serif;
@@ -346,6 +341,10 @@ a:hover{
             width:35px;
         }
 
+        .fanion-calendrier{
+            display: none;
+        }
+
         .dernier-et-prochain-match{
             padding-left: 5px !important;
         }
@@ -378,6 +377,14 @@ a:hover{
 
         .note{
             width:25%
+        }
+
+        /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
+        @media (min-width: 1200px) {
+            .fanion-calendrier{
+                display: block;
+                width:40px;
+            }
         }
     }
 }

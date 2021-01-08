@@ -3,9 +3,8 @@
 @section('title', 'Accueil de notre site')
 
 @section('content')
-
-    <div class="row bg-white justify-content-center">
-        <div class="col-12 text-center p-3 d-none">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center p-3">
             <h1 class="h4">MayotteSport.com : l'actualité sportive de Mayotte</h1>
         </div>
 
@@ -18,11 +17,11 @@
 
         {{-- classique écran large --}}
         <div class="col-12 d-none d-lg-flex p-0">
-            <div class="col-8 pr-lg-3 px-2">
+            <div class="col-8 px-3 py-0">
                 {!! $articles !!}
             </div>
-            <div class="col-4 p-2 bg-resultats pt-3" style="font-size: 0.9rem;">
-                <h2 class="alert alert-danger h2 text-center">Les résultats</h2>
+            <div class="col-4 p-2 bg-resultats" style="font-size: 0.9rem;">
+                <h2 class="alert alert-danger h2 text-center py-4">Les résultats</h2>
                 @foreach ($sports as $sport)
                     {!! $sport->journees !!}
 

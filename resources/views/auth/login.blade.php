@@ -5,7 +5,7 @@
 @section('title', 'Connexion')
 
 @section('content')
-<div class="row justify-content-center min-height">
+<div class="row justify-content-center">
     <div class="col-md-8 p-3">
         <div class="card bg-light">
             <div class="card-header h4">Connexion</div>

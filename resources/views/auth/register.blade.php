@@ -3,7 +3,7 @@
 @section('title', "S'inscrire")
 
 @section('content')
-<div class="row justify-content-center min-height">
+<div class="row justify-content-center">
     <div class="col-lg-10 p-3">
         <div class="card">
             <div class="card-header position-relative">S'inscrire</div>
