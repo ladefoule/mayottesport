@@ -3,6 +3,7 @@
 namespace App\Sharp;
 
 use App\Match;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Code16\Sharp\EntityList\EntityListQueryParams;
@@ -73,33 +74,30 @@ class MatchFootSharpList extends SharpEntityList
 	* @return array
 	*/
     public function getListData(EntityListQueryParams $params)
-    {
-        // Jointure par ORM Eloquent
+    {        
         $matches = Match::orderBy($params->sortedBy(), $params->sortedDir())
-                        ->join('journees', 'journee_id', '=', 'journees.id')
-                        ->join('saisons', 'saison_id', '=', 'saisons.id')
-                        ->join('competitions', 'competition_id', '=', 'competitions.id')
-                        ->join('sports', 'competitions.sport_id', '=', 'sports.id')
-                        ->where('sports.nom', 'like', 'football')
-                        ->select('matches.*', 'sports.nom as sport', 'competitions.nom as competition', 'saisons.annee_debut as annee')
-                        ->distinct();
+            ->join('journees', 'journee_id', '=', 'journees.id')
+            ->join('saisons', 'saison_id', '=', 'saisons.id')
+            ->join('competitions', 'competition_id', '=', 'competitions.id')
+            ->join('sports', 'competitions.sport_id', '=', 'sports.id')
+            ->join('equipes', function ($join) {
+                // Pour pouvoir faire la recherche sur les noms des équipes
+                $join->on('equipe_id_dom', '=', 'equipes.id')->orOn('equipe_id_ext', '=', 'equipes.id');
+            })
+            ->where('sports.nom', 'like', 'football')
+            ->select('matches.*', 'sports.nom as sport', 'competitions.nom as competition', 'saisons.annee_debut as annee')
+            ->distinct();
 
         // Recherche
-        collect($params->searchWords())
-            ->each(function ($word) use ($matches) {
-                $matches
-                ->join('equipes', function ($join) {
-                    // Pour pouvoir faire la recherche sur les noms des équipes
-                    $join->on('equipe_id_dom', '=', 'equipes.id')->orOn('equipe_id_ext', '=', 'equipes.id');
-                })
-                ->where(function ($query) use ($word) {
-                    $query->orWhere('sports.nom', 'like', $word)
-                    ->orWhere('matches.uniqid', 'like', $word)
-                    ->orWhere('saisons.annee_debut', 'like', $word)
-                    ->orWhere('competitions.nom', 'like', $word)
-                    ->orWhere('equipes.nom', 'like', $word);
-                });
+        foreach ($params->searchWords() as $key => $word) {
+            $matches->where(function ($query) use ($word) {
+                $query->orWhere('sports.nom', 'like', $word)
+                ->orWhere('matches.uniqid', 'like', $word)
+                ->orWhere('saisons.annee_debut', 'like', $word)
+                ->orWhere('competitions.nom', 'like', $word)
+                ->orWhere('equipes.nom', 'like', $word);
             });
+        }
 
         return $this->setCustomTransformer(
             "id",

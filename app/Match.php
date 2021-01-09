@@ -72,7 +72,7 @@ class Match extends Model
      * @param Match $match
      * @return array
      */
-    public static function rules( Match $match = null)
+    public static function rules(Match $match = null)
     {
         $uniqid = Rule::unique('matches')->ignore($match);
         $uniqueEquipeIdDomEtJourneeId = Rule::unique('matches')->where(function ($query) {
@@ -97,7 +97,7 @@ class Match extends Model
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
             'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeIdDomEtJourneeId],
-            'equipe_id_ext' => ['required','integer','exists:equipes,id',$uniqueEquipeIdExtEtJourneeId],
+            'equipe_id_ext' => ['required','integer','exists:equipes,id','different:equipe_id_dom',$uniqueEquipeIdExtEtJourneeId],
             'uniqid' => ['required','string','max:50','min:3',$uniqid],
             'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
             'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
@@ -112,12 +112,14 @@ class Match extends Model
         ];
 
         $messages = [
-            'unique' => "Cette équipe participe déjà à une rencontre de cette journée.",
+            'equipe_id_dom.unique' => "Cette équipe participe déjà à une rencontre de cette journée.",
+            'equipe_id_ext.unique' => "Cette équipe participe déjà à une rencontre de cette journée.",
             'tab_eq_dom.required_with' => "Merci de renseigner le score aux tirs au but.",
             'tab_eq_ext.required_with' => "Merci de renseigner le score aux tirs au but.",
             'score_eq_dom.required_with' => "Merci de renseigner le score.",
             'score_eq_ext.required_with' => "Merci de renseigner le score.",
             'required_if' => "Merci de renseigner le score aux tirs au but.",
+            'different' => "Les deux équipes doivent être différentes.",
 
         ];
         return ['rules' => $rules, 'messages' => $messages];

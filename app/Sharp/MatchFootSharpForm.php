@@ -54,9 +54,17 @@ class MatchFootSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $ignore = ['saison', 'uniqid', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext', 'avec_tirs_au_but', 'tab_eq_dom', 'tab_eq_ext'];
-        $match = Match::where('uniqid', $id)->firstOrFail();
+        $match = $id ? Match::where('uniqid', $id)->firstOrFail() : new Match;
+        $ignore = ['saison', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext', 'avec_tirs_au_but', 'tab_eq_dom', 'tab_eq_ext'];
 
+        // Si le match existe déjà
+        if(isset($match->id)){
+            $ignore[] = 'uniqid';
+        }else{
+            $data['uniqid'] = uniqid();
+            \Log::info($data);
+        }
+        
         // On valide la requète
         $rules = Match::rules($match);
         $messages = $rules['messages'];
@@ -157,11 +165,12 @@ class MatchFootSharpForm extends SharpForm
                     //     ];
                     // })->all()
                     Journee::orderBy("saison_id")->orderBy('numero')
-                    // ->join('saisons', 'saison_id', 'saisons.id')
+                    ->join('saisons', 'saison_id', 'saisons.id')
+                    ->where('finie', 0)
                     // ->join('competitions', 'competition_id', 'competitions.id')
                     // ->join('sports', 'sport_id', 'sports.id')
                     // ->where('sports.nom', 'like', 'football')
-                    // ->select('journees.*')
+                    ->select('journees.*')
                     ->get()->map(function($journee) {
                         // $saison = index('saisons')[$journee->saison_id];//$journee->saison;
                         // $competition = index('competitions')[$saison->competition_id];//$saison->competition;

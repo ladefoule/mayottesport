@@ -124,8 +124,10 @@ class Journee extends Model
      */
     public function getCrudNameAttribute()
     {
+        $types = config('listes.types-journees');
         $journeeNom = 'J' . str_pad($this->numero, 2, "0", STR_PAD_LEFT);
-        return indexCrud('saisons')[$this->saison_id]->crud_name . ' - ' . $journeeNom;
+
+        return indexCrud('saisons')[$this->saison_id]->crud_name . ' - ' . (!$this->type ? $journeeNom : $types[$this->type][1]);
     }
 
     /**

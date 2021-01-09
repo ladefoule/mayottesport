@@ -19,6 +19,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Revoie '1ère journée' si $numero = 1, Xème journée si $numero > 1, false dans les autres cas de figure
@@ -65,6 +68,40 @@ function modelName(string $table)
 function annee(int $debut, int $fin, string $separateur = '-')
 {
     return ($debut == $fin) ? $debut : $debut . $separateur . $fin;
+}
+
+function paginate($items, $perPage = 12, $page = null, $baseUrl = null, $options = [])
+{
+    $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+    $items = $items instanceof Collection ? 
+                    $items : Collection::make($items);
+
+    $lap = new LengthAwarePaginator($items->forPage($page, $perPage), 
+                        $items->count(),
+                        $perPage, $page, $options);
+
+    if ($baseUrl) {
+        $lap->setPath($baseUrl);
+    }
+
+    if (!Collection::hasMacro('simplePaginate')) {
+
+        Collection::macro('simplePaginate', 
+            function ($perPage = 15, $page = null, $options = []) {
+            $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+            return (
+                new Paginator(
+                    $this->forPage($page, $perPage), 
+                    $perPage, 
+                    $page, 
+                    $options
+                )
+            )->withPath('');
+        });
+    }
+    
+    return $lap;
 }
 
 /**
