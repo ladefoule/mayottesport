@@ -84,6 +84,11 @@ class ArticleSharpList extends SharpEntityList
             function ($created_at, $article) {
                 return $article->created_at ? date_format($article->created_at, 'd/m/Y à H:i:s') : '';
             }
+        )->setCustomTransformer(
+            "id",
+            function ($id, $article) {
+                return $article->uniqid;
+            }
         )->transform($articles->paginate(12));
     }
 }

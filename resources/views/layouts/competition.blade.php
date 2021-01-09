@@ -23,14 +23,14 @@
         <div class="container">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                 <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">
-                    <a href="{{ $hrefSport }}" class="font-weight-bold text-secondary mr-3 border-bottom-scroll-x">
+                    <a href="{{ $hrefSport }}" class="d-lg-none font-weight-bold text-secondary mr-3 border-bottom-scroll-x">
                         {{ $sport->nom }}
                     </a>
-                    <a href="" class="mr-3 non-cliquable cursor-default">
+                    <a href="" class="d-lg-none mr-3 non-cliquable cursor-default">
                         {!! \Config::get('listes.boutons.right') !!}
                     </a>
-                    <a href="{{ $hrefIndex }}" class="font-weight-bold text-body mr-3 nom-competition">
-                        {{ $competition->nom }}
+                    <a href="{{ $hrefIndex }}" class="font-weight-bold mr-3 border-bottom-scroll-x @if(request()->route()->getName() == 'competition.index') active @else text-secondary @endif">
+                        {{ Str::upper($competition->nom) }}
                     </a>
                     <a href="" class="mr-3 non-cliquable cursor-default">
                         {!! \Config::get('listes.boutons.right') !!}

@@ -26,16 +26,6 @@ class Sport extends Model
     protected $fillable = ['nom', 'home_position'];
 
     /**
-     * Les competitions associés à ce sport
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function competitions()
-    {
-        return $this->hasMany('App\Competition');
-    }
-
-    /**
      * Les règles de validations
      *
      * @param Request $request
@@ -49,5 +39,23 @@ class Sport extends Model
             'home_position' => 'nullable|integer|min:1',
         ];
         return ['rules' => $rules];
+    }
+
+    /**
+     * Les competitions associés à ce sport
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function competitions()
+    {
+        return $this->hasMany('App\Competition');
+    }
+
+    /**
+     * Les articles liés au sport
+     */
+    public function articles()
+    {
+        return $this->belongsToMany('App\Article')->using('App\ArticleSport');
     }
 }

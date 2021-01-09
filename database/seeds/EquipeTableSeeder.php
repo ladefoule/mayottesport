@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class EquipeTableSeeder extends Seeder
@@ -17,6 +18,7 @@ class EquipeTableSeeder extends Seeder
         foreach ($equipes as $nomEquipe) {
             App\Equipe::create([
                 'nom' => $nomEquipe,
+                'slug' => Str::slug($nomEquipe),
                 'sport_id' => 1,
                 'ville_id' => rand(1,69),
                 'uniqid' => uniqid()
@@ -28,6 +30,7 @@ class EquipeTableSeeder extends Seeder
         foreach ($equipes as $nomEquipe) {
             App\Equipe::create([
                 'nom' => $nomEquipe,
+                'slug' => Str::slug($nomEquipe),
                 'sport_id' => 4,
                 'ville_id' => rand(1,69),
                 'uniqid' => uniqid()
@@ -39,6 +42,7 @@ class EquipeTableSeeder extends Seeder
         foreach ($equipes as $nomEquipe) {
             App\Equipe::create([
                 'nom' => $nomEquipe,
+                'slug' => Str::slug($nomEquipe),
                 'sport_id' => 3,
                 'ville_id' => rand(1,69),
                 'uniqid' => uniqid()
@@ -50,6 +54,7 @@ class EquipeTableSeeder extends Seeder
         foreach ($equipes as $nomEquipe) {
             App\Equipe::create([
                 'nom' => $nomEquipe,
+                'slug' => Str::slug($nomEquipe),
                 'sport_id' => 2,
                 'ville_id' => rand(1,69),
                 'uniqid' => uniqid()

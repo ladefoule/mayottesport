@@ -16,6 +16,7 @@ class CreateSportsTable extends Migration {
 		{
 			$table->bigIncrements('id');
             $table->string('nom')->unique('sport_unique');
+            $table->string('slug');
             $table->integer('home_position')->nullable();
 			$table->timestamps();
 		});

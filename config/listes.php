@@ -19,11 +19,12 @@ return [
     /* $key => $values */
     /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
     'caches-lies' => [
+        'baremes' => 'bareme_infos',
         'competitions' => ['saisons'],
         'crud-attributs' => ['crud_attribut_infos'],
         'crud-tables' => ['crud_attributs'],
         'equipes' => [/*'matches',*/ 'equipe_saison'],
-        'matches' => ['modifs'],
+        'matches' => ['modifs', 'match_infos'],
         'saisons' => ['journees', 'equipe_saison'],
         'sports' => ['equipes', 'competitions', 'baremes'],
         'users' => ['modifs'],
@@ -60,16 +61,16 @@ return [
         7 => ["tab_eq_ext", "Tirs au but (ext.)"],
     ],
 
-    "routes-sans-background" => [
-       'article.select',
-        'login',
-        'register',
-        'profil',
-        'profil.update',
-        'journees.multi.select',
-        'journees.multi.edit',
-        'journees.multi.show',
-    ],
+    // "routes-sans-background" => [
+    //    'article.select',
+    //     'login',
+    //     'register',
+    //     'profil',
+    //     'profil.update',
+    //     'journees.multi.select',
+    //     'journees.multi.edit',
+    //     'journees.multi.show',
+    // ],
 
     "tables-avec-colonne-uniqid" => ['matches', 'equipes', 'articles'],
 

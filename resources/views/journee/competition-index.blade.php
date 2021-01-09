@@ -9,7 +9,7 @@
 
 @if ($prochaineJournee)
    <div class="col-12 px-0 mt-4">
-         <h2 class="alert alert-success h4 py-4 text-center">Prochaine journée</h2>
+         <h2 class="alert alert-success h4 py-4 text-center">La prochaine journée</h2>
          <div class="p-3">
             {!! $prochaineJournee !!}
          </div>

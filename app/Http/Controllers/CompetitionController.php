@@ -48,12 +48,11 @@ class CompetitionController extends Controller
             $journeesView = view('journee.competition-index', ['derniereJournee' => $derniereJournee, 'prochaineJournee' => $prochaineJournee])->render();
         }
 
-        $indexArticles = index('articles')->sortByDesc('created_at')->where('valide', 1)->where('competition_id', $competition->id)->slice(0, 5);
-        $articles = collect();
-        foreach ($indexArticles as $id => $article)
-            $articles[] = article($article->uniqid);
-            
-        $articlesView = view('article.render', ['articles' => $articles])->render();
+        $articles = $competition->articles;
+        foreach ($articles as $key => $article)
+            $articles[$key] = article($article->uniqid);
+        
+        $articlesView = view('article.render', ['articles' => $articles->slice(0, 5)])->render();
 
         return view('competition.index', [
             'competition' => $competition->nom,

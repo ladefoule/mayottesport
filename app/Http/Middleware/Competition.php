@@ -8,8 +8,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Saison;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use App\Competition as CompetitionModel;
 use Illuminate\Support\Facades\Validator;
 
 class Competition
@@ -28,35 +30,24 @@ class Competition
             abort(404);
 
         $sport = $request->sport;
-        $competitions = index('competitions')->where('sport_id', $sport->id);
+        $competition = CompetitionModel::whereSportId($sport->id)->whereSlug($request->competition)->get();
+        $request->competition = $competition;
 
-        $find = false;
-        foreach($competitions as $compet)
-            if(Str::slug($compet->nom) == ($request->competition)){
-                $competition = $compet;
-                $find = true;
-                break;
-            }
+        $competitionSlug = $competition->slug;
+        $sportSlug = $sport->slug;
 
-        if(! $find)
-            abort(404);
-
-        $competitionKebab = $request->competition;
-        $sportKebab = Str::slug($request->sport->nom);
-
-        $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
+        $saison = Saison::where('competition_id', $competition->id)/* ->where('finie', '!=', 1) */->orderBy('finie')->orderBy('annee_debut')->first();
 
         // Les infos requises pour toutes les pages du middleware
-        $request->competition = $competition; // la collection
         $request->saison = $saison; // la collection
-        $request->hrefIndex = route('competition.index', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
-        $request->hrefPalmares = route('competition.palmares', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+        $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
+        $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
 
         if($saison){
-            $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+            $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
 
             if($competition->type == 1) // Type Championnat
-                $request->hrefClassement = route('competition.classement', ['sport' => $sportKebab, 'competition' => $competitionKebab]);
+                $request->hrefClassement = route('competition.classement', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
         }
         return $next($request);
     }

@@ -27,11 +27,11 @@ class ModificationMatch
         $routeName = $request->route()->getName();
 
         // Routes de modification du résultat d'un match
-        if(in_array($routeName, ['competition.match.resultat', 'competition.match.resultat.store']) && ! $accesModifResultat){
+        if(in_array($routeName, ['competition.match.resultat', 'competition.match.resultat.post']) && ! $accesModifResultat){
             abort(404);
 
         // Routes de modification de l'horaire d'un match
-        }else if(in_array($routeName, ['competition.match.horaire', 'competition.match.horaire.store']) && ! $accesModifHoraire){
+        }else if(in_array($routeName, ['competition.match.horaire', 'competition.match.horaire.post']) && ! $accesModifHoraire){
             abort(404);
 
         // Routes d'accès à la page match'

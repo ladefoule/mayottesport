@@ -15,7 +15,8 @@ class CreateCrudTablesTable extends Migration {
 		Schema::create('crud_tables', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('nom')->unique('table_unique')->index();
+            $table->string('nom')->unique('table_unique')->index();
+            $table->string('slug');
 			$table->boolean('crudable')->nullable();
 			$table->string('tri_defaut')->nullable();
 		});

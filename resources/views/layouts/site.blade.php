@@ -8,7 +8,7 @@
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}
-    <main class="container-lg top-main-site @if(! in_array(request()->route()->getName(), config('listes.routes-sans-background'))) bg-white @endif">
+    <main class="container-lg top-main-site">
         @yield('content')
     </main>
     {{-- Fin Section scroll X --}}

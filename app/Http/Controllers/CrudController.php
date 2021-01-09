@@ -278,7 +278,6 @@ class CrudController extends Controller
         $modele::destroy($request['ids']);
 
         // Rechargement des caches index
-        foreach ($request['ids'] as $id)
-            ProcessCrudTable::dispatch($crudTable->nom);
+        ProcessCrudTable::dispatch($crudTable->nom);
     }
 }

@@ -30,16 +30,16 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware'=> 'verified'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
     Route::get('/profil/update', 'UserController@updateForm')->name('profil.update');
-    Route::post('/profil/update', 'UserController@updatePost')->name('profil.update.store');
+    Route::post('/profil/update', 'UserController@updatePost')->name('profil.update.post');
     Route::get('/profil/delete', 'UserController@delete')->name('profil.delete');
 
     Route::get('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultat')->name('competition.match.resultat');
-    Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost')->name('competition.match.resultat.store');
+    Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost')->name('competition.match.resultat.post');
 
     /* MIDDLEWARE PREMIUM */
     Route::group(['check-permission:premium|admin|superadmin'], function () {
         Route::get('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horaire')->name('competition.match.horaire');
-        Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost')->name('competition.match.horaire.store');
+        Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost')->name('competition.match.horaire.post');
 
         Route::get('/adminsharp/login', function(){return redirect()->route('login');})->name('code16.sharp.login');
 
@@ -47,14 +47,17 @@ Route::group(['middleware'=> 'verified'], function () {
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
             // Route::get('/', function(){return view('admin.calendrier');})->name('administration');
 
+            Route::get('/upload-image', 'UploadFileController@imageUpload')->name('upload.image');
+            Route::post('/upload-image', 'UploadFileController@imageUploadPost')->name('upload.image.post');
+
             Route::prefix('/article')->middleware(['check-permission:superadmin'])->group(function () {
                 Route::get('/create', 'ArticleController@createForm')->name('article.create');
-                Route::post('/create', 'ArticleController@createPost')->name('article.create.store');
+                Route::post('/create', 'ArticleController@createPost')->name('article.create.post');
                 Route::get('/update/{uniqid}', 'ArticleController@updateForm')->name('article.update');
-                Route::post('/update/{uniqid}', 'ArticleController@updatePost')->name('article.update.store');
+                Route::post('/update/{uniqid}', 'ArticleController@updatePost')->name('article.update.post');
                 Route::get('/show/{uniqid}', 'ArticleController@showAdmin')->name('article.show.admin');
                 Route::get('/select', 'ArticleController@selectForm')->name('article.select');
-                Route::post('/select', 'ArticleController@selectPost')->name('article.select.store');
+                Route::post('/select', 'ArticleController@selectPost')->name('article.select.post');
             });
 
             /* DEBUT PREFIX CRUD */

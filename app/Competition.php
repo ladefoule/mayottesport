@@ -20,6 +20,30 @@ class Competition extends Model
     protected $fillable = ['nom', 'type', 'nom_complet', 'sport_id', 'home_position', 'index_position'];
 
     /**
+     * Les règles de validations
+     *
+     * @param Competition $competition
+     * @return array
+     */
+    public static function rules(Competition $competition = null)
+    {
+        $unique = Rule::unique('competitions')->where(function ($query) {
+            return $query->whereNom(request()['nom'])->whereSportId(request()['sport']);
+        })->ignore($competition);
+
+        $rules = [
+            'sport_id' => 'required|exists:sports,id',
+            'type' => 'required|integer|min:1',
+            'home_position' => 'nullable|integer|min:1',
+            'index_position' => 'nullable|integer|min:1',
+            'nom_complet' => 'nullable|string|max:50',
+            'nom' => ['required','string','max:50','min:3',$unique]
+        ];
+        $messages = ['nom.unique' => "Ce nom de compétition, associé à ce sport, existe déjà."];
+        return ['rules' => $rules, 'messages' => $messages];
+    }
+
+    /**
      * Définition de l'affichage dans le CRUD (back-office)
      *
      * @return string
@@ -60,26 +84,10 @@ class Competition extends Model
     }
 
     /**
-     * Les règles de validations
-     *
-     * @param Competition $competition
-     * @return array
+     * Les articles liés à la compétition
      */
-    public static function rules(Competition $competition = null)
+    public function articles()
     {
-        $unique = Rule::unique('competitions')->where(function ($query) {
-            return $query->whereNom(request()['nom'])->whereSportId(request()['sport']);
-        })->ignore($competition);
-
-        $rules = [
-            'sport_id' => 'required|exists:sports,id',
-            'type' => 'required|integer|min:1',
-            'home_position' => 'nullable|integer|min:1',
-            'index_position' => 'nullable|integer|min:1',
-            'nom_complet' => 'nullable|string|max:50',
-            'nom' => ['required','string','max:50','min:3',$unique]
-        ];
-        $messages = ['nom.unique' => "Ce nom de compétition, associé à ce sport, existe déjà."];
-        return ['rules' => $rules, 'messages' => $messages];
+        return $this->belongsToMany('App\Article')->using('App\ArticleCompetition');
     }
 }

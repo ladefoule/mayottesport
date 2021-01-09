@@ -30,10 +30,14 @@ class SportController extends Controller
         $sport = $request->sport;
         $resultats = Journee::calendriersRender($sport->id);
 
-        $indexArticles = index('articles')->sortByDesc('created_at')->where('valide', 1)->where('sport_id', $sport->id)->slice(0,5);
-        $articles = collect();
-        foreach ($indexArticles as $id => $article)
-            $articles[] = article($article->uniqid);
+        // $indexArticles = index('articles')->sortByDesc('created_at')->where('valide', 1)->where('sport_id', $sport->id)->slice(0,5);
+        // $articles = collect();
+        // foreach ($indexArticles as $id => $article)
+        //     $articles[] = article($article->uniqid);
+
+        $articles = $sport->articles;
+        foreach ($articles as $key => $article)
+            $articles[$key] = article($article->uniqid);
 
          $articlesView = view('article.render', ['articles' => $articles])->render();
 

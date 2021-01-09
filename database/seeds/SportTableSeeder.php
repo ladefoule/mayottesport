@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class SportTableSeeder extends Seeder
@@ -17,6 +18,7 @@ class SportTableSeeder extends Seeder
         foreach ($sports as $sport => $code) {
             App\Sport::create([
                 'nom' => $sport,
+                'slug' => Str::slug($sport),
                 'home_position' => $i++,
                 'created_at' => now(),
                 // 'updated_at' => now()

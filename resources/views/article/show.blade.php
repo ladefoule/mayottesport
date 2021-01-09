@@ -3,7 +3,7 @@
 @section('title', $article->titre)
 
 @section('content')
-<div class="row">
+<div class="row bg-white">
     <div class="col-lg-8 p-0 d-flex flex-wrap justify-content-center">
         <h1 class="col-12 titre-article py-3">{{ $article->titre }}</h1>
         <div class="col-10 d-flex justify-content-center">

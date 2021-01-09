@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('img')->nullable();
             $table->string('uniqid')->unique();
             $table->string('titre');
+            $table->string('slug');
             $table->text('preambule');
             $table->longText('texte');
             $table->boolean('valide');
@@ -25,6 +26,8 @@ class CreateArticlesTable extends Migration
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('set null');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->unsignedBigInteger('user_update_id')->nullable();
+            $table->foreign('user_update_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

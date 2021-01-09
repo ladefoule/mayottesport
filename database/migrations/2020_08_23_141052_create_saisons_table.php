@@ -24,9 +24,9 @@ class CreateSaisonsTable extends Migration {
             $table->unsignedBigInteger('competition_id');
             $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('restrict');
             $table->unsignedBigInteger('bareme_id')->nullable();
-            $table->foreign('bareme_id')->references('id')->on('baremes')->onDelete('restrict');
-            $table->unsignedBigInteger('vainqueur')->nullable();
-            $table->foreign('vainqueur')->references('id')->on('equipes')->onDelete('restrict');
+            $table->foreign('bareme_id')->references('id')->on('baremes')->onDelete('set null');
+            $table->unsignedBigInteger('equipe_id')->nullable();
+            $table->foreign('equipe_id')->references('id')->on('equipes')->onDelete('set null');
 			$table->timestamps();
 		});
 	}

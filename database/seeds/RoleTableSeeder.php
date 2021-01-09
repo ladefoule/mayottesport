@@ -13,6 +13,7 @@ class RoleTableSeeder extends Seeder
     {
         // On insère les différentes catégories d'user
         $roles = [
+            ['name' => 'bloque', 'guard_name' => 'web', 'niveau' => 0],
             ['name' => 'membre', 'guard_name' => 'web', 'niveau' => 10],
             ['name' => 'premium', 'guard_name' => 'web', 'niveau' => 20],
             ['name' => 'admin', 'guard_name' => 'web', 'niveau' => 30],

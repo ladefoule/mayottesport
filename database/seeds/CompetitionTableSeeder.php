@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class CompetitionTableSeeder extends Seeder
@@ -16,6 +17,7 @@ class CompetitionTableSeeder extends Seeder
         foreach ($competitions as $i => $competition) {
             App\Competition::create([
                 'nom' => $competition,
+                'slug' => Str::slug($competition),
                 'type' => 1, // type championnat
                 'sport_id' => 1,
                 'home_position' => $i+1,
@@ -30,6 +32,7 @@ class CompetitionTableSeeder extends Seeder
         foreach ($competitions as $i => $competition) {
             App\Competition::create([
                 'nom' => $competition,
+                'slug' => Str::slug($competition),
                 'type' => 2, // type coupe
                 'sport_id' => 1,
                 'home_position' => $i+4,

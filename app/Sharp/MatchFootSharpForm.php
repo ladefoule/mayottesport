@@ -11,6 +11,7 @@ use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
+use App\Sharp\Formatters\TimestampSharpFormatter;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
@@ -44,6 +45,8 @@ class MatchFootSharpForm extends SharpForm
 
         return $this->setCustomTransformer("saison", function ($saison, $match) {
             return $match->journee->saison->crud_name;
+        })->setCustomTransformer("user", function ($user, $article) {
+            return $article->user->pseudo ?? '';
         })->transform($match);
     }
 
@@ -62,7 +65,6 @@ class MatchFootSharpForm extends SharpForm
             $ignore[] = 'uniqid';
         }else{
             $data['uniqid'] = uniqid();
-            \Log::info($data);
         }
         
         // On valide la requète
@@ -72,7 +74,10 @@ class MatchFootSharpForm extends SharpForm
         $data = Validator::make($data, $rules, $messages)->validate();
 
         // On supprime toutes les infos supplémentaires du match : forfaits, pénalités, etc...
-        MatchInfo::destroy($match->matchInfos->pluck('id'));
+        $ids = $match->matchInfos->pluck('id');
+        // foreach ($ids as $id)
+            // forgetCaches('match_infos', $id); // Le cache sera rechargé avec la méthode cacheLiee depuis les Jobs
+        MatchInfo::destroy($ids);
 
         // On insère les nouvelles propriétés supplémentaires du match : pénalités, forfaits, etc...
         $proprietes = config('listes.proprietes-matches');
@@ -84,8 +89,7 @@ class MatchFootSharpForm extends SharpForm
                     'valeur' => $data[$propriete[0]]
                 ]);
         }
-
-        //     $collect[$correspondances[$info->propriete_id][0]] = $info->valeur;
+        // ProcessCrudTable::dispatch('match_infos');
 
         $this->ignore($ignore)->save($match, $data);
 
@@ -116,6 +120,7 @@ class MatchFootSharpForm extends SharpForm
      */
     public function buildFormFields()
     {
+        $timestampFormatter = new TimestampSharpFormatter;
         $this
             ->addField(
                 SharpFormTextField::make("uniqid")
@@ -139,7 +144,7 @@ class MatchFootSharpForm extends SharpForm
                 SharpFormCheckField::make("forfait_eq_dom", "Forfait (domicile)")
                     ->setLabel("Forfait (domicile)")
             )->addField(
-                SharpFormCheckField::make("forfait_eq_ext", "Forfait (exterieur)")
+                SharpFormCheckField::make("forfait_eq_ext", "Forfait (extérieur)")
                     ->setLabel("Forfait (extérieur)")
             )->addField(
                 SharpFormCheckField::make("avec_tirs_au_but", "Tirs au but?")
@@ -148,13 +153,13 @@ class MatchFootSharpForm extends SharpForm
                 SharpFormTextField::make("tab_eq_dom", "Tirs au but (domicile)")
                     ->setLabel("Tirs au but (domicile)")
             )->addField(
-                SharpFormTextField::make("tab_eq_ext", "Tirs au but (exterieur)")
+                SharpFormTextField::make("tab_eq_ext", "Tirs au but (extérieur)")
                     ->setLabel("Tirs au but (extérieur)")
             )->addField(
-                SharpFormCheckField::make("penalite_eq_dom", "penalite (domicile)")
+                SharpFormCheckField::make("penalite_eq_dom", "Pénalité (domicile)")
                     ->setLabel("Pénalité (domicile)")
             )->addField(
-                SharpFormCheckField::make("penalite_eq_ext", "penalite (exterieur)")
+                SharpFormCheckField::make("penalite_eq_ext", "Pénalité (extérieur)")
                     ->setLabel("Pénalité (extérieur)")
             )->addField(
                 SharpFormSelectField::make("journee_id",
@@ -193,9 +198,18 @@ class MatchFootSharpForm extends SharpForm
                         ];
                     })->all()
                 )
-                ->setLabel("Exterieur")
+                ->setLabel("Extérieur")
                 ->setDisplayAsDropdown()
                 ->setMultiple(false)
+            )->addField(
+                SharpFormTextField::make("updated_at")
+                    ->setLabel("Modifié le")
+                    ->setFormatter($timestampFormatter)
+                    ->setReadOnly(true)
+            )->addField(
+                SharpFormTextField::make("user")
+                    ->setLabel("Modifié par")
+                    ->setReadOnly(true)
             );
     }
 
@@ -209,7 +223,7 @@ class MatchFootSharpForm extends SharpForm
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'equipe_id_dom|6', 'equipe_id_ext|6');
             $column->withFields('score_eq_dom|6', 'score_eq_ext|6', 'forfait_eq_dom|3', 'penalite_eq_dom|3', 'forfait_eq_ext|3', 'penalite_eq_ext|3');
-            $column->withFields('avec_tirs_au_but', 'tab_eq_dom|6', 'tab_eq_ext|6');
+            $column->withFields('avec_tirs_au_but', 'tab_eq_dom|6', 'tab_eq_ext|6', 'updated_at|6', 'user|6');
         });
 
     }

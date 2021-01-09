@@ -17,6 +17,7 @@ class CreateEquipesTable extends Migration {
             $table->bigIncrements('id');
             $table->string('uniqid')->unique();
             $table->string('nom');
+            $table->string('slug');
             $table->unsignedBigInteger('sport_id');
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('restrict');
             $table->unsignedBigInteger('ville_id');

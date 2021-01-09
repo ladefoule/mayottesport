@@ -85,7 +85,7 @@ class CreatePermissionTables extends Migration
         });
 
         app('cache')
-            ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
+            ->store(config('permission.cache.post') != 'default' ? config('permission.cache.post') : null)
             ->forget(config('permission.cache.key'));
     }
 

@@ -14,7 +14,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'texte', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id'];
+    protected $fillable = ['img', 'titre', 'texte', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -44,6 +44,7 @@ class Article extends Model
             'titre' => 'required|min:0|max:100',
             'sport_id' => 'nullable|integer|exists:sports,id',
             'user_id' => 'required|integer|exists:users,id',
+            'user_update_id' => 'nullable|integer|exists:users,id',
             'img' => 'nullable|min:3|max:100',
             'uniqid' => ['required','string','size:13',$uniqid],
             'valide' => 'boolean'
@@ -76,9 +77,11 @@ class Article extends Model
                 $href = route('article.sport.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid, 'sport' => Str::slug($this->sport->nom)]);
             else
                 $href = route('article.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid]);
+
             $infosPlus = [
                 'href' => $href,
                 'titreSlug' => $titreSlug,
+                // 'competitions' => $this->competitions()->pluck('id'),
                 'publie_le' => $this->created_at->translatedFormat('d F Y'),
                 'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
             ];
@@ -109,5 +112,31 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * L'utilisateur qui a modifié en dernier l'article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userUpdate()
+    {
+        return $this->belongsTo('App\User', 'user_update_id');
+    }
+
+    /**
+     * Les sports liés à l'article
+     */
+    public function sports()
+    {
+        return $this->belongsToMany('App\Sport')->using('App\ArticleSport');
+    }
+
+    /**
+     * Les compétitions liés à l'article
+     */
+    public function competitions()
+    {
+        return $this->belongsToMany('App\Competition')->using('App\ArticleCompetition');
     }
 }
