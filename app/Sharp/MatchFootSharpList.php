@@ -23,8 +23,8 @@ class MatchFootSharpList extends SharpEntityList
                 ->setLabel('id')
                 ->setSortable()
         )->addDataContainer(
-            EntityListDataContainer::make('sport')
-                ->setLabel('Sport')
+            EntityListDataContainer::make('journee_numero')
+                ->setLabel('Journée')
                 ->setSortable()
         )->addDataContainer(
             EntityListDataContainer::make('competition')
@@ -32,7 +32,7 @@ class MatchFootSharpList extends SharpEntityList
                 ->setSortable()
         )->addDataContainer(
             EntityListDataContainer::make('annee')
-                ->setLabel('Année')
+                ->setLabel('Début')
                 ->setSortable()
         )->addDataContainer(
             EntityListDataContainer::make('rencontre')
@@ -48,9 +48,9 @@ class MatchFootSharpList extends SharpEntityList
     public function buildListLayout()
     {
         $this->addColumn('id', 2)
-        ->addColumn('sport', 2)
         ->addColumn('competition', 2)
         ->addColumn('annee', 2)
+        ->addColumn('journee_numero', 2)
         ->addColumn('rencontre', 4);
     }
 
@@ -80,24 +80,26 @@ class MatchFootSharpList extends SharpEntityList
             ->join('saisons', 'saison_id', '=', 'saisons.id')
             ->join('competitions', 'competition_id', '=', 'competitions.id')
             ->join('sports', 'competitions.sport_id', '=', 'sports.id')
-            ->join('equipes', function ($join) {
-                // Pour pouvoir faire la recherche sur les noms des équipes
-                $join->on('equipe_id_dom', '=', 'equipes.id')->orOn('equipe_id_ext', '=', 'equipes.id');
-            })
+            ->join('equipes AS equipesDom', 'equipe_id_dom', 'equipesDom.id')
+            ->join('equipes AS equipesExt', 'equipe_id_ext', 'equipesExt.id')
             ->where('sports.nom', 'like', 'football')
-            ->select('matches.*', 'sports.nom as sport', 'competitions.nom as competition', 'saisons.annee_debut as annee')
+            ->where('saisons.finie', 0)
+            ->select('matches.*', 'competitions.nom as competition', 'saisons.annee_debut as annee', 'journees.numero as journee_numero')
             ->distinct();
 
         // Recherche
         foreach ($params->searchWords() as $key => $word) {
             $matches->where(function ($query) use ($word) {
-                $query->orWhere('sports.nom', 'like', $word)
+                $query->orWhere('journees.numero', 'like', $word)
                 ->orWhere('matches.uniqid', 'like', $word)
                 ->orWhere('saisons.annee_debut', 'like', $word)
                 ->orWhere('competitions.nom', 'like', $word)
-                ->orWhere('equipes.nom', 'like', $word);
+                ->orWhere('equipesDom.nom', 'like', $word)
+                ->orWhere('equipesExt.nom', 'like', $word);
             });
         }
+
+        \Log::info(count($matches->get()));
 
         return $this->setCustomTransformer(
             "id",
@@ -109,6 +111,11 @@ class MatchFootSharpList extends SharpEntityList
             function ($rencontre, $match) {
                 return $match->equipeDom->nom . ' # ' . $match->equipeExt->nom;
             }
-        )->transform($matches->paginate(10));
+        )->setCustomTransformer(
+            "journee_numero",
+            function ($journee, $match) {
+                return $match->journee->nom . ' ('. $match->journee->numero .')';
+            }
+        )->transform($matches->paginate(12));
     }
 }

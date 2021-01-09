@@ -158,26 +158,14 @@ class MatchFootSharpForm extends SharpForm
                     ->setLabel("Pénalité (extérieur)")
             )->addField(
                 SharpFormSelectField::make("journee_id",
-                    // indexCrud('journees')->map(function($journee, $key){
-                    //     return [
-                    //         'id' => $journee->id,
-                    //         'label' => $journee->crud_name
-                    //     ];
-                    // })->all()
                     Journee::orderBy("saison_id")->orderBy('numero')
                     ->join('saisons', 'saison_id', 'saisons.id')
                     ->where('finie', 0)
-                    // ->join('competitions', 'competition_id', 'competitions.id')
-                    // ->join('sports', 'sport_id', 'sports.id')
-                    // ->where('sports.nom', 'like', 'football')
                     ->select('journees.*')
                     ->get()->map(function($journee) {
-                        // $saison = index('saisons')[$journee->saison_id];//$journee->saison;
-                        // $competition = index('competitions')[$saison->competition_id];//$saison->competition;
                         return [
                             "id" => $journee->id,
                             "label" => $journee->crud_name
-                            // "label" => $competition->nom . ' ' . $saison->nom . ' - ' . $journee->nom
                         ];
                     })->all()
                 )

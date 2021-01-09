@@ -135,7 +135,10 @@ class Journee extends Model
      */
     public function getNomAttribute()
     {
-        return niemeJournee($this->numero);
+        $types = config('listes.types-journees');
+        $journeeNom = niemeJournee($this->numero);
+        
+        return !$this->type ? $journeeNom : $types[$this->type][1];
     }
 
     /**
