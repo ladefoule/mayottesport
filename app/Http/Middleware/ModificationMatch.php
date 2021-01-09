@@ -19,7 +19,7 @@ class ModificationMatch
     {
         Log::info(" -------- Middleware ModificationMatch -------- ");
         $match = $request->match; // Récupéré depuis le moddleware MatchUniqid
-        $user = Auth::check() ? index('users')[Auth::id()] : '';
+        $user = Auth::check() ? Auth::user() : '';
 
         $accesModifResultat = accesModifResultat($match, $user);
         $accesModifHoraire = accesModifHoraire($match, $user);

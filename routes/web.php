@@ -50,7 +50,7 @@ Route::group(['middleware'=> 'verified'], function () {
             Route::get('/upload-image', 'UploadFileController@imageUpload')->name('upload.image');
             Route::post('/upload-image', 'UploadFileController@imageUploadPost')->name('upload.image.post');
 
-            Route::prefix('/article')->middleware(['check-permission:superadmin'])->group(function () {
+            Route::prefix('/article')->group(function () {
                 Route::get('/create', 'ArticleController@createForm')->name('article.create');
                 Route::post('/create', 'ArticleController@createPost')->name('article.create.post');
                 Route::get('/update/{uniqid}', 'ArticleController@updateForm')->name('article.update');

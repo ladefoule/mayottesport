@@ -12,12 +12,25 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        // Utilisateur Bloqué
+        App\User::create([
+            'name' => 'Bloqué',
+            'pseudo' => 'bloqué',
+            'email' => 'bloque@bloque.fr',
+            'role_id' => 1,
+            'region_id' => 1,
+            'password' => Hash::make('00000000'),
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            // 'updated_at' => now()
+        ]);
+
         // Utilisateur Membre
         App\User::create([
             'name' => 'Membre',
             'pseudo' => 'membre',
             'email' => 'membre@membre.fr',
-            'role_id' => 1,
+            'role_id' => 2,
             'region_id' => 1,
             'password' => Hash::make('PVR7tP2CqXPgiJsRgE88'),
             'email_verified_at' => now(),
@@ -30,7 +43,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Premium',
             'pseudo' => 'premium',
             'email' => 'premium@premium.fr',
-            'role_id' => 2,
+            'role_id' => 3,
             'region_id' => 1,
             'password' => Hash::make('UlV1dW94clekWktkAn3v'),
             'email_verified_at' => now(),
@@ -43,7 +56,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Admin',
             'pseudo' => 'admin',
             'email' => 'admin@admin.fr',
-            'role_id' => 3,
+            'role_id' => 4,
             'region_id' => 1,
             'password' => Hash::make('X4oqY5dOK2AiK0NRqDVS'),
             'email_verified_at' => now(),
@@ -56,7 +69,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Superadmin',
             'pseudo' => 'superadmin',
             'email' => 'superadmin@superadmin.fr',
-            'role_id' => 4,
+            'role_id' => 5,
             'region_id' => 1,
             'password' => Hash::make('ypENj8bCyAIR7jH5aDBH'),
             'email_verified_at' => now(),

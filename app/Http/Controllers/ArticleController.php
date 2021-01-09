@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cache;
 use App\Article;
 use App\Journee;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessCrudTable;
 use Illuminate\Support\Facades\Log;
@@ -40,8 +41,9 @@ class ArticleController extends Controller
         $rules = Article::rules()['rules'];
         $request['uniqid'] = uniqid();
         $request['user_id'] = Auth::id();
-        $request = Validator::make($request->all(), $rules)->validate();
-        $article = Article::create($request);
+        $request['slug'] = Str::slug($request['titre']);
+        $data = Validator::make($request->all(), $rules)->validate();
+        $article = Article::create($data);
 
         forgetCaches('articles', $article);
         ProcessCrudTable::dispatch('articles', $article->id);

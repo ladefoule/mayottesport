@@ -14,7 +14,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'texte', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id'];
+    protected $fillable = ['img', 'titre', 'texte', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -40,6 +40,7 @@ class Article extends Model
 
         $rules = [
             'texte' => 'nullable|min:30',
+            'slug' => 'required|alpha_dash|min:5|max:100',
             'preambule' => 'required|min:30',
             'titre' => 'required|min:0|max:100',
             'sport_id' => 'nullable|integer|exists:sports,id',
@@ -138,5 +139,13 @@ class Article extends Model
     public function competitions()
     {
         return $this->belongsToMany('App\Competition')->using('App\ArticleCompetition');
+    }
+
+    /**
+     * Les équipes liés à l'article
+     */
+    public function equipes()
+    {
+        return $this->belongsToMany('App\Equipe')->using('App\ArticleEquipe');
     }
 }

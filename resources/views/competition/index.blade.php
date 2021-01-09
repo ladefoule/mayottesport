@@ -3,12 +3,8 @@
 @section('title', $competition . ' - ' . $sport)
 
 @section('content')
-<div class="row d-flex flex-wrap justify-content-between text-center pb-3">
-    <div class="col-12 p-3">
-        <h1 class="h4">{{ $sport . ' - ' . $competition }}</h1>
-    </div>
-
-    <div class="col-12 d-lg-none d-flex text-center px-3 py-0">
+<div class="row mt-lg-3">
+    <div class="col-12 d-lg-none d-flex text-center px-3 py-3">
         <a href="" id="actualites" data-cible="bloc-actualites" data-autre="resultats"
             class="d-block col-6 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
         <a href="" id="resultats" data-cible="bloc-resultats" data-autre="actualites"
@@ -26,7 +22,7 @@
     </div>
 
     {{-- avec onglets --}}
-    <div class="col-12 d-lg-none p-3">
+    <div class="col-12 d-lg-none">
         <div id="bloc-actualites" class="@if(! $articles) d-none @endif">
             {!! $articles !!}
         </div>

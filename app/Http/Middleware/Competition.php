@@ -9,7 +9,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Saison;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use App\Competition as CompetitionModel;
 use Illuminate\Support\Facades\Validator;
@@ -26,11 +25,11 @@ class Competition
     public function handle($request, Closure $next)
     {
         Log::info(" -------- Middleware Competition -------- ");
-        if (Validator::make(['competition' => $request->competition], ['competition' => 'alpha_dash|min:3'])->fails())
-            abort(404);
+        // if (Validator::make(['competition' => $request->competition], ['competition' => 'alpha_dash|min:3'])->fails())
+        //     abort(404);
 
         $sport = $request->sport;
-        $competition = CompetitionModel::whereSportId($sport->id)->whereSlug($request->competition)->get();
+        $competition = CompetitionModel::whereSportId($sport->id)->whereSlug($request->competition)->firstOrFail();
         $request->competition = $competition;
 
         $competitionSlug = $competition->slug;

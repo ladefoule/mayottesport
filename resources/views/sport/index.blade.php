@@ -6,11 +6,11 @@
 
     <div class="row justify-content-center">
         {{-- <img src="/storage/img/marche-droits-tv-football-suisse-2048x980.jpg" alt="" class="img-fluid" height="10px"> --}}
-        <div class="col-12 text-center p-3">
+        {{-- <div class="col-12 text-center p-3">
             <h1 class="h4">Accueil football : actus et résultats</h1>
-        </div>
+        </div> --}}
 
-        <div class="col-12 d-lg-none py-0 d-flex text-center px-3">
+        <div class="col-12 d-lg-none py-0 d-flex text-center px-3 py-3">
             <a href="" id="actualites" data-cible="bloc-actualites" data-autre="resultats"
                 class="d-block col-6 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
             <a href="" id="resultats" data-cible="bloc-resultats" data-autre="actualites"
@@ -29,7 +29,7 @@
         </div>
     
         {{-- avec onglets --}}
-        <div class="col-12 d-lg-none p-3">
+        <div class="col-12 d-lg-none">
             <div id="bloc-actualites" class="@if(! $articles) d-none @endif">
                 {!! $articles !!}
             </div>

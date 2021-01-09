@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Str;
 /**
  * @author ALI MOUSSA Moussa <admin@mayottesport.com>
  * @copyright 2020 ALI MOUSSA Moussa
@@ -36,6 +38,7 @@ foreach ($crudTables as $donnees) {
     $crudTable = new App\CrudTable([
         'id' => $donnees[0],
         'nom' => $donnees[1],
+        'slug' => Str::slug($donnees[1]),
         'crudable' => $donnees[2],
         'tri_defaut' => $donnees[3]
     ]);

@@ -26,10 +26,6 @@ class CheckPermission
         Log::info(" -------- Middleware CheckPermission -------- ");
         $roles = explode('|', $permissions);
 
-        // S'il n'y a pas encore de connexion
-        // if (! Auth::check())
-        //     abort(404);
-
         $userRole = Auth::user()->role->name;
         if(in_array($userRole, $roles))
             return $next($request);
