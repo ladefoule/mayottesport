@@ -95,24 +95,32 @@ class Journee extends Model
      * @param integer $competitionId
      * @return void
      */
-    public static function calendriersRender(int $sportId, $categorie = 1, $competitionId = NULL)
+    public static function calendriersRender(array $params)
     {
-        // Si pas de $competition saisie
+        $sportId = $params['sport_id'] ?? '';
+
+        $competitionId = $params['competition_id'] ?? '';
+        $position = $params['position'] ?? '';
+        $categorie = ($params['categorie'] == '+1') ? '+1' : '-1'; // -1 => résultats, +1 => à venir
+
         $competitions = index('competitions')
-            ->where('sport_id', $sportId)
-            ->where('index_position', '>=', 1)
-            ->sortBy('index_position');;
+            ->where('sport_id', $sportId);
         
-        // Sinon
-        $competitions = index('competitions')
-            ->where('id', $competitionId);
+        if($competitionId)
+        $competitions = $competitions->where('id', $competitionId);
+
+        if($position)
+        $competitions = $competitions->where($position . '_position', '>=', $position)
+                        ->sortBy($position . '_position');
+
         $journees = [];
+        // dd($competitions);
         foreach ($competitions as $competition) {
             // $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
             $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
             if ($saison) {
                 $saison = saison($saison->id);
-                $journeeId = ($categorie == 1) ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
+                $journeeId = ($categorie == '-1') ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
                 // $journeeId = $saison['derniere_journee_id'] != '' ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
                 if ($journeeId)
                     $journees[] = collect([

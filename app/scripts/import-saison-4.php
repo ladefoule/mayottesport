@@ -1,12 +1,12 @@
 <?php
 // On insère 5 saisons de Coupe de Mayotte (football)
-for ($i=0; $i < 5; $i++) {
+for ($i=0; $i < 1; $i++) {
     $saison = App\Saison::create([
         'annee_debut' => date('Y') - $i,
         'annee_fin' => date('Y') - $i,
         'finie' => $i==0 ? 0 : 1,
-        'nb_journees' => 1,
-        'competition_id' => 4,
+        'nb_journees' => 2,
+        'competition_id' => 11,
         'created_at' => now(),
         'updated_at' => now()
     ]);
@@ -43,11 +43,11 @@ for ($i=0; $i < 5; $i++) {
     $diffAllerRetour = 1; // Différence en nombre de jours entre le match aller et le retour
 
     $donnees = [
-    'heure' => $heure,
-    'saisonId' => $saisonId,
-    'terrains' => $terrains,
-    'rencontres' => $rencontres,
-    'diffAllerRetour' => $diffAllerRetour
+        'heure' => $heure,
+        'saisonId' => $saisonId,
+        'terrains' => $terrains,
+        'rencontres' => $rencontres,
+        'diffAllerRetour' => $diffAllerRetour
     ];
 
     genererCalendrier($donnees);

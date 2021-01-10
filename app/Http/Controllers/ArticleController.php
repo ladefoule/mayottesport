@@ -51,20 +51,37 @@ class ArticleController extends Controller
     public function show(Request $request, $uniqid, $titre)
     {
         $article = $request->article;
-        if(! $article->valide)
+        if (! $article->valide)
             abort(404);
-        return view('article.show', ['article' => $article]);
+
+        foreach (index('sports') as $sport){
+            $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'position' => 'home']);
+            $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'position' => 'home']);
+            if($res) $resultats[$sport->nom] = $res;
+            if($proc) $prochains[$sport->nom] = $proc;
+        }
+
+        return view('article.show', [
+            'article' => $article, 
+            'resultats' => $resultats,
+            'prochains' => $prochains
+        ]);
     }
 
     public function showSport(Request $request, $sport, $uniqid, $titre)
     {
         $article = $request->article;
-        if(! $article->valide)
+        if (!$article->valide)
             abort(404);
 
-         if($article->sport_id)
-            $resultats = Journee::calendriersRender($article->sport_id);
-        return view('article.show', ['article' => $article, 'journees' => $resultats]);
+        $resultats = Journee::calendriersRender(['sport_id' => $article->sport_id, 'categorie' => '-1', 'position' => 'index']);
+        $prochains = Journee::calendriersRender(['sport_id' => $article->sport_id, 'categorie' => '+1', 'position' => 'index']);
+
+        return view('article.show-sport', [
+            'article' => $article, 
+            'resultats' => $resultats,
+            'prochains' => $prochains
+        ]);
     }
 
     public function showAdmin(Request $request, $uniqid)
@@ -88,6 +105,7 @@ class ArticleController extends Controller
     public function updatePost(Request $request, $uniqid)
     {
         $article = Article::findOrFail($request->article->id);
+        $request['valide'] = $article->valide;
         $rules = Article::rules($article)['rules'];
         $data = Validator::make($request->all(), $rules)->validate();
         $article->update($data);
@@ -109,10 +127,10 @@ class ArticleController extends Controller
 
     public function selectPost(Request $request)
     {
-      $rules = [
-         'uniqid' => 'required|exists:articles,uniqid'
-      ];
-      $request = Validator::make($request->all(), $rules)->validate();
+        $rules = [
+            'uniqid' => 'required|exists:articles,uniqid'
+        ];
+        $request = Validator::make($request->all(), $rules)->validate();
         $article = Article::whereUniqid($request['uniqid'])->firstOrFail();
         return redirect()->route('article.update', [
             'uniqid' => $article->uniqid,

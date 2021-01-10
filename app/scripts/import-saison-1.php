@@ -1,6 +1,6 @@
 <?php
 // On insère 5 saisons de Régional 1 (football)
-for ($i=0; $i < 5; $i++) {
+for ($i=0; $i < 2; $i++) {
     $saison = App\Saison::create([
         'annee_debut' => date('Y') - $i,
         'annee_fin' => date('Y') - $i + 1,

@@ -36,19 +36,12 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- Controller Competition : index -------- ");
         $competition = $request->competition;
-        $saison = $request->saison;
         $sport = $request->sport;
+        $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'competition_id' => $competition->id]);
+        $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'competition_id' => $competition->id]);
 
-        // if ($saison) {
-        //     $saisonInfosSup = saison($saison->id);
-        //     $derniereJourneeId = $saisonInfosSup['derniere_journee_id'];
-        //     $prochaineJourneeId = $saisonInfosSup['prochaine_journee_id'];
-        //     $derniereJournee = $derniereJourneeId ? journee($derniereJourneeId)->render : '';
-        //     $prochaineJournee = $prochaineJourneeId ? journee($prochaineJourneeId)->render : '';
-        //     $journeesView = view('journee.competition-index', ['derniereJournee' => $derniereJournee, 'prochaineJournee' => $prochaineJournee])->render();
-        // }
-        $resultats = Journee::calendriersRender($sport->id, 1, $competition->id);
-        $prochains = Journee::calendriersRender($sport->id, 2, $competition->id);
+        $resultats = $res ? [$sport->nom => $res] : [];
+        $prochains = $proc ? [$sport->nom => $proc] : [];
 
         $articles = $competition->articles;
         foreach ($articles as $key => $article)

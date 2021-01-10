@@ -36,7 +36,7 @@
 
         <div class="col-12 pb-3">
             <label for="article">Sport unique (aucun autre sport ne pourra être lié ensuite)</label>
-            <select name="sport_id" class="form-control @error('sport_id') is-invalid @enderror">
+            <select name="sport_id" class="form-control input-optionnel @error('sport_id') is-invalid @enderror">
                 <option value="">Aucun</option>
                 @foreach ($sports as $sport)
                     <option value="{{ $sport->id }}" @if(old('sport_id') == $sport->id || (! old('sport_id') && $sport->id == $article->sport_id)) selected @endif>{{ $sport->nom }}</option>

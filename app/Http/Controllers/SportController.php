@@ -28,9 +28,11 @@ class SportController extends Controller
     {
         Log::info(" -------- Controller Sport : index -------- ");
         $sport = $request->sport;
+        $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'position' => 'index']);
+        $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'position' => 'index']);
 
-        $resultats = Journee::calendriersRender($sport->id);
-        $prochains = Journee::calendriersRender($sport->id, 2);
+        $resultats = $res ? [$sport->nom => $res] : [];
+        $prochains = $proc ? [$sport->nom => $proc] : [];
 
         $articles = $sport->articles;
         foreach ($articles as $key => $article)

@@ -69,19 +69,6 @@ class Saison extends Model
         return index('journees')->where('saison_id', $this->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? '';
     }
 
-    public function classementSimpleRender(bool $complet = false)
-    {
-        $competition = index('competitions')[$this->competition_id];
-        $sport = index('sports')[$competition->sport_id];
-        $hrefClassementComplet = route('competition.classement', ['competition' => Str::slug($competition->nom), 'sport' => Str::slug($sport->nom)]);
-        $classement = $this->classement();
-        return view('competition.classement-simple', [
-            'classement' => $classement,
-            'hrefClassementComplet' => $hrefClassementComplet,
-            'complet' => $complet
-        ])->render();
-    }
-
     /**
      * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction generateRanking
      *
@@ -98,10 +85,8 @@ class Saison extends Model
 
             $type = $this->competition->type;
             $collect = collect();
-            if($type == 1){
+            if($type == 1)
                 $collect['classement'] = $this->classement();
-                $collect['classement_simple_render'] = $this->classementSimpleRender();
-            }
 
             $collect['derniere_journee_id'] = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first()->id ?? '';
             $collect['prochaine_journee_id'] = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? '';

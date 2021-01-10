@@ -42,16 +42,7 @@
     </div>
     <div class="col-4 d-none d-lg-block p-2 bg-resultats">
       <h2 class="alert alert-danger h2 py-4 text-center">Les résultats</h2>
-      @foreach ($resultats as $sport => $resultat)
-            <div class="col-12 text-center my-2 px-3">
-                <span class="h2 font-italic">
-                    <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
-                    {{ $sport }}
-                    </a>
-                </span>
-            </div>
-            {!! $resultat !!}
-        @endforeach
+        {!! $resultats !!}
    </div>
 </div>
 @endsection
