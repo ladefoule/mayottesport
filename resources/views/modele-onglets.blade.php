@@ -12,8 +12,8 @@
     <div class="col-8 px-3 py-0">
         {!! $articles !!}
     </div>
-    <div class="col-4 p-2 bg-resultats">
-        <h2 class="alert alert-danger h2 text-center py-4">Les résultats</h2>
+    <div class="col-4 p-2 bg-resultats @if(! $resultats) d-none @endif">
+        <h2 class="alert alert-danger h4 text-center py-4">Les derniers résultats</h2>
         @foreach ($resultats as $sport => $resultat)
             <div class="col-12 text-center my-2 px-3 @if(count($resultats) == 1) d-none @endif">
                 <span class="h2 font-italic">
@@ -23,6 +23,19 @@
                 </span>
             </div>
             {!! $resultat !!}
+        @endforeach
+    </div>
+    <div class="col-4 p-2 bg-resultats d-none @if(! $resultats) d-block @endif">
+        <h2 class="alert alert-success h4 text-center py-4">La prochaine journée</h2>
+        @foreach ($prochains as $sport => $prochain)
+            <div class="col-12 text-center my-2 px-3 @if(count($prochains) == 1) d-none @endif">
+                <span class="h2 font-italic">
+                    <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+                    {{ $sport }}
+                    </a>
+                </span>
+            </div>
+            {!! $prochain !!}
         @endforeach
     </div>
 </div>

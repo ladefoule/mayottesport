@@ -18,6 +18,17 @@ class ArticlePolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function create(User $user)
+    {
+        return false;
+    }
+
+    /**
      * @param User $user
      * @return bool
      */

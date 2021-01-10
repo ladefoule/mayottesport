@@ -89,6 +89,11 @@ class ArticleSharpList extends SharpEntityList
             function ($id, $article) {
                 return $article->uniqid;
             }
+        )->setCustomTransformer(
+            "valide",
+            function ($valide, $article) {
+                return $article->valide ? 'Oui' : 'Non';
+            }
         )->transform($articles->paginate(12));
     }
 }

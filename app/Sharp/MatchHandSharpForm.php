@@ -16,7 +16,7 @@ use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
-class MatchFootSharpForm extends SharpForm
+class MatchHandSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
 
@@ -122,7 +122,7 @@ class MatchFootSharpForm extends SharpForm
     {
         $timestampFormatter = new TimestampSharpFormatter;
         $equipes = Equipe::join('sports', 'sport_id', 'sports.id')
-            ->where('sports.slug', 'football')
+            ->where('sports.slug', 'handball')
             ->select('equipes.*')
             ->orderBy('equipes.nom')->get()->map(function($equipe) {
             return [
@@ -177,7 +177,7 @@ class MatchFootSharpForm extends SharpForm
                     ->join('saisons', 'saison_id', 'saisons.id')
                     ->join('competitions', 'competition_id', 'competitions.id')
                     ->join('sports', 'sport_id', 'sports.id')
-                    ->where('sports.slug', 'football')
+                    ->where('sports.slug', 'handball')
                     ->where('finie', 0)
                     ->select('journees.*')
                     ->get()->map(function($journee) {

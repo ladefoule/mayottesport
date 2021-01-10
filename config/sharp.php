@@ -45,6 +45,12 @@ return [
             // "validator" => \App\Sharp\MatchSharpValidator::class,
             "policy" => \App\Sharp\Policies\MatchFootPolicy::class,
         ],
+        "match-hand" => [
+            "list" => \App\Sharp\MatchHandSharpList::class,
+            "form" => \App\Sharp\MatchHandSharpForm::class,
+            // "validator" => \App\Sharp\MatchSharpValidator::class,
+            "policy" => \App\Sharp\Policies\MatchHandPolicy::class,
+        ],
         "article" => [
             "list" => \App\Sharp\ArticleSharpList::class,
             "form" => \App\Sharp\ArticleSharpForm::class,
@@ -93,6 +99,11 @@ return [
                     "label" => "Football",
                     "icon" => "fa-list",
                     "entity" => "match-foot",
+                ],
+                [
+                    "label" => "Handball",
+                    "icon" => "fa-list",
+                    "entity" => "match-hand",
                 ],
             ]
         ],

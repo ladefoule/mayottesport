@@ -76,7 +76,7 @@ class JourneesMultiplesController extends Controller
         return view('admin.journees.multi.edit', [
             'saison' => $saison->crud_name,
             'saisonId' => $saisonId,
-            'listeJournees' => $listeJournees,
+            'listeJournees' => $listeJournees ?? [],
             'nbJournees' => $nbJournees,
             'title' => $title,
             'h1' => $h1
