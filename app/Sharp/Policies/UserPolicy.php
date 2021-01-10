@@ -26,7 +26,7 @@ class UserPolicy
      */
     public function view(User $user, $id)
     {
-        return sharp_user()->id == $id || sharp_user()->role->name == 'superadmin';
+        return sharp_user()->role->name == 'superadmin';
     }
 
     /**
@@ -49,7 +49,7 @@ class UserPolicy
      */
     public function update(User $user, $id)
     {
-        return sharp_user()->id == $id || sharp_user()->role->name == 'superadmin';
+        return sharp_user()->role->name == 'superadmin';
     }
 
     /**
@@ -61,7 +61,7 @@ class UserPolicy
      */
     public function delete(User $user, $id)
     {
-        return sharp_user()->id == $id || sharp_user()->role->name == 'superadmin';
+        return sharp_user()->role->name == 'superadmin';
     }
 
     /**

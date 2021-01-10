@@ -92,11 +92,20 @@ class Journee extends Model
      *
      * @param int $sportId
      * @param integer $categorie
+     * @param integer $competitionId
      * @return void
      */
-    public static function calendriersRender(int $sportId, $categorie = 1)
+    public static function calendriersRender(int $sportId, $categorie = 1, $competitionId = NULL)
     {
-        $competitions = index('competitions')->where('sport_id', $sportId)->where('index_position', '>=', 1)->sortBy('index_position');;
+        // Si pas de $competition saisie
+        $competitions = index('competitions')
+            ->where('sport_id', $sportId)
+            ->where('index_position', '>=', 1)
+            ->sortBy('index_position');;
+        
+        // Sinon
+        $competitions = index('competitions')
+            ->where('id', $competitionId);
         $journees = [];
         foreach ($competitions as $competition) {
             // $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours

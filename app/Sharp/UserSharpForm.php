@@ -78,7 +78,6 @@ class UserSharpForm extends SharpForm
                 ->setLabel("Role")
                 ->setDisplayAsDropdown()
                 ->setMultiple(false)
-                ->setReadOnly(true)
             );
     }
 

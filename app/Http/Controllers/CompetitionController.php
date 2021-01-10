@@ -39,14 +39,16 @@ class CompetitionController extends Controller
         $saison = $request->saison;
         $sport = $request->sport;
 
-        if ($saison) {
-            $saisonInfosSup = saison($saison->id);
-            $derniereJourneeId = $saisonInfosSup['derniere_journee_id'];
-            $prochaineJourneeId = $saisonInfosSup['prochaine_journee_id'];
-            $derniereJournee = $derniereJourneeId ? journee($derniereJourneeId)->render : '';
-            $prochaineJournee = $prochaineJourneeId ? journee($prochaineJourneeId)->render : '';
-            $journeesView = view('journee.competition-index', ['derniereJournee' => $derniereJournee, 'prochaineJournee' => $prochaineJournee])->render();
-        }
+        // if ($saison) {
+        //     $saisonInfosSup = saison($saison->id);
+        //     $derniereJourneeId = $saisonInfosSup['derniere_journee_id'];
+        //     $prochaineJourneeId = $saisonInfosSup['prochaine_journee_id'];
+        //     $derniereJournee = $derniereJourneeId ? journee($derniereJourneeId)->render : '';
+        //     $prochaineJournee = $prochaineJourneeId ? journee($prochaineJourneeId)->render : '';
+        //     $journeesView = view('journee.competition-index', ['derniereJournee' => $derniereJournee, 'prochaineJournee' => $prochaineJournee])->render();
+        // }
+        $resultats = Journee::calendriersRender($sport->id, 1, $competition->id);
+        $prochains = Journee::calendriersRender($sport->id, 2, $competition->id);
 
         $articles = $competition->articles;
         foreach ($articles as $key => $article)
@@ -58,7 +60,8 @@ class CompetitionController extends Controller
             'competition' => $competition->nom,
             'sport' => $sport->nom,
             'articles' => $articlesView,
-            'journees' => $journeesView ?? ''
+            'resultats' => $resultats ?? '',
+            'prochains' => $prochains ?? '',
         ]);
     }
 

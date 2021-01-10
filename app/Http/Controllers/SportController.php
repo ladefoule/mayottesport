@@ -28,7 +28,9 @@ class SportController extends Controller
     {
         Log::info(" -------- Controller Sport : index -------- ");
         $sport = $request->sport;
+
         $resultats = Journee::calendriersRender($sport->id);
+        $prochains = Journee::calendriersRender($sport->id, 2);
 
         $articles = $sport->articles;
         foreach ($articles as $key => $article)
@@ -38,7 +40,8 @@ class SportController extends Controller
 
         return view('sport.index', [
             'sport' => $sport,
-            'journees' => $resultats,
+            'resultats' => $resultats,
+            'prochains' => $prochains,
             'articles' => $articlesView
         ]);
     }
