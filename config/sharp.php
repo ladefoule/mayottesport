@@ -51,14 +51,20 @@ return [
             //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
             "policy" => \App\Sharp\Policies\ArticlePolicy::class,
         ],
+        "journee" => [
+            "list" => \App\Sharp\JourneeSharpList::class,
+            "form" => \App\Sharp\JourneeSharpForm::class,
+            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
+            "policy" => \App\Sharp\Policies\JourneePolicy::class,
+        ],
     ],
 
     // Optional. Your dashboards list; each one must define a "view", and can define "policy".
     // "dashboards" => [
-        //    "dash" => [
-        // "view" => \App\Sharp\DashAdmin::class,
-        // "policy" => \App\Sharp\Policies\DashAdminPolicy::class,
-        //    ],
+    //    "dash" => [
+    // "view" => \App\Sharp\DashAdmin::class,
+    // "policy" => \App\Sharp\Policies\DashAdminPolicy::class,
+    //    ],
     // ],
 
     // Optional. Your global filters list, which will be displayed in the main menu.
@@ -112,8 +118,18 @@ return [
         ],
         [
             "label" => "Journées",
-            "icon" => "fa-calendar",
-            "url" => "/admin/autres/journees/multi/select",
+            "entities" => [
+                [
+                    "label" => "Journées",
+                    "icon" => "fa-calendar",
+                    "entity" => "journee",
+                ],
+                [
+                    "label" => "Par saison",
+                    "icon" => "fa-calendar",
+                    "url" => "/admin/autres/journees/multi/select",
+                ],
+            ]
         ],
         [
             "label" => "Accueil",

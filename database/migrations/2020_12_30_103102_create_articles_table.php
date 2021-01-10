@@ -20,7 +20,7 @@ class CreateArticlesTable extends Migration
             $table->string('titre');
             $table->string('slug');
             $table->text('preambule');
-            $table->longText('texte');
+            $table->longText('article')->nullable();
             $table->boolean('valide');
             $table->unsignedBigInteger('sport_id')->nullable();
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('set null');

@@ -10,13 +10,13 @@
         @csrf
 
         <div class="col-12 justify-content-center pb-3">
-            <label>Titre</label>
-            <input name="titre" type="text" value="{{ old('titre') ?? $article->titre }}" pattern=".{10,200}" data-msg="Le titre doit contenir au moins 10 caractères" class="form-control">
+            <label>Titre <span class="text-danger text-weight-bold">*</span></label>
+            <input name="titre" type="text" value="{{ old('titre') ?? $article->titre }}" pattern=".{10,200}" data-msg="Le titre doit contenir au moins 10 caractères" class="form-control @error('titre') is-invalid @enderror">
         </div>
 
         <div class="col-12 justify-content-center pb-3">
             <label>Image</label>
-            <select name="img" id="images" class="form-control input-optionnel">
+            <select name="img" id="images" class="form-control input-optionnel @error('img') is-invalid @enderror">
                 <option value="">Sans image</option>
                 @foreach ($images as $image)
                     <option value="{{ $image['value'] }}" @if(old('img') == $image['value'] || (! old('img') && $article->img == $image['value'])) selected @endif>{{ $image['title'] }}</option>
@@ -25,18 +25,18 @@
         </div>
 
         <div class="col-12 pb-3">
-            <label for="preambule">Préambule</label>
-            <textarea id="preambule" name="preambule" class="form-control">{{ old('preambule') ?? $article->preambule }}</textarea>
+            <label for="preambule">Préambule <span class="text-danger text-weight-bold">*</span></label>
+            <textarea id="preambule" name="preambule" class="form-control @error('preambule') is-invalid @enderror">{{ old('preambule') ?? $article->preambule }}</textarea>
         </div>
 
         <div class="col-12 pb-3">
-            <label for="texte">Article</label>
-            <textarea id="texte" name="texte" class="form-control">{{ old('texte') ?? $article->texte }}</textarea>
+            <label for="article">Article</label>
+            <textarea id="article" name="article" class="form-control @error('article') is-invalid @enderror">{{ old('article') ?? $article->article }}</textarea>
         </div>
 
         <div class="col-12 pb-3">
-            <label for="texte">Sport</label>
-            <select name="sport_id" class="form-control">
+            <label for="article">Sport unique (aucun autre sport ne pourra être lié ensuite)</label>
+            <select name="sport_id" class="form-control @error('sport_id') is-invalid @enderror">
                 <option value="">Aucun</option>
                 @foreach ($sports as $sport)
                     <option value="{{ $sport->id }}" @if(old('sport_id') == $sport->id || (! old('sport_id') && $sport->id == $article->sport_id)) selected @endif>{{ $sport->nom }}</option>
@@ -69,7 +69,7 @@
 $(document).ready(function(){
     $('#images').select2();
     verifierMonFormulaireEnJS('formulaire')
-    tinymceFunc('#preambule,#texte', "<?php echo route('images_list') ?>")
+    tinymceFunc('#preambule,#article', "<?php echo route('images_list') ?>")
 })
 </script>
 @endsection

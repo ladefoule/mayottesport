@@ -15,7 +15,7 @@
            <div class="font-weight-bold">
               {!! $article->preambule !!}
            </div>
-            {!! $article->texte !!}
+            {!! $article->article !!}
         </div>
     </div>
     <div class="col-lg-4 text-center p-3">

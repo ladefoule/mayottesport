@@ -17,23 +17,11 @@ class HomeController extends Controller
     {
         Log::info(" -------- Controller Home : index -------- ");
         $sports = index('sports')->where('home_position', '>=', 1)->sortBy('home_position');
-        foreach ($sports as $sport) {
-            // $competitions = index('competitions')->where('sport_id', $sport->id)->where('home_position', '>=', 1)->sortBy('home_position');
-            // $listeDesJournees = [];
-            // foreach ($competitions as $competition) {
-            //     // $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
-            //     $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
-            //     if($saison){
-            //         $saison = saison($saison->id);
-            //         $journeeId = $saison['derniere_journee_id'] != '' ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];                    // $journeeId = $saison->derniereJourneeId() ?? $saison->prochaineJourneeId();
-            //         if($journeeId)
-            //             $listeDesJournees[] = collect([
-            //                 'competition_nom' => $competition->nom,
-            //                 'journee_render' => journee($journeeId)->render,
-            //             ]);
-            //     }
-            // }
-            $sport->journees = Journee::calendriersRender($sport->id);
+        foreach ($sports as $sport){
+            $res = Journee::calendriersRender($sport->id);
+            $proc = Journee::calendriersRender($sport->id, 2);
+            if($res) $resultats[$sport->nom] = $res;
+            if($proc) $prochains[$sport->nom] = $proc;
         }
 
         $indexArticles = index('articles')->sortByDesc('created_at')->where('valide', 1)->slice(0,5);
@@ -45,7 +33,8 @@ class HomeController extends Controller
         //  $journeesView = view('journee.home', ['sports' => $sports])->render();
 
         return view('home', [
-            // 'journees' => $journeesView,
+            'resultats' => $resultats,
+            'prochains' => $prochains,
             'sports' => $sports,
             'articles' => $articlesView,
         ]);

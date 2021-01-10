@@ -40,8 +40,6 @@ class ArticleController extends Controller
     {
         $rules = Article::rules()['rules'];
         $request['uniqid'] = uniqid();
-        $request['user_id'] = Auth::id();
-        $request['slug'] = Str::slug($request['titre']);
         $data = Validator::make($request->all(), $rules)->validate();
         $article = Article::create($data);
 
@@ -90,8 +88,6 @@ class ArticleController extends Controller
     public function updatePost(Request $request, $uniqid)
     {
         $article = Article::findOrFail($request->article->id);
-        $request['user_update_id'] = Auth::id();
-        $request['valide'] = $article->valide;
         $rules = Article::rules($article)['rules'];
         $data = Validator::make($request->all(), $rules)->validate();
         $article->update($data);

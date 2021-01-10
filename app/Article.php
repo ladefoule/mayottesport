@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -14,7 +15,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'texte', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug'];
+    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -37,16 +38,19 @@ class Article extends Model
     {
         $uniqid = Rule::unique('articles')->ignore($article);
         request()['valide'] = request()->has('valide');
+        request()['slug'] = Str::slug(request()['titre']);
+        request()['user_id'] = Auth::id();
+        request()['user_update_id'] = Auth::id();
 
         $rules = [
-            'texte' => 'nullable|min:30',
-            'slug' => 'required|alpha_dash|min:5|max:100',
+            'article' => 'nullable|min:30',
             'preambule' => 'required|min:30',
-            'titre' => 'required|min:0|max:100',
+            'titre' => 'required|min:10|max:100',
+            'slug' => 'required|alpha_dash|min:10|max:100',
             'sport_id' => 'nullable|integer|exists:sports,id',
             'user_id' => 'required|integer|exists:users,id',
             'user_update_id' => 'nullable|integer|exists:users,id',
-            'img' => 'nullable|min:3|max:100',
+            'img' => 'nullable|min:5|max:100',
             'uniqid' => ['required','string','size:13',$uniqid],
             'valide' => 'boolean'
         ];
