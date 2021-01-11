@@ -53,10 +53,10 @@ class Competition extends Model
      *
      * @return string
      */
-    public function getCrudNameAttribute()
-    {
-        return indexCrud('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
-    }
+    // public function getCrudNameAttribute()
+    // {
+    //     return indexCrud('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
+    // }
 
     /**
      * Le sport lié à cette compétition

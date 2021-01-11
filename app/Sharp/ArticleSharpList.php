@@ -17,10 +17,6 @@ class ArticleSharpList extends SharpEntityList
     public function buildListDataContainers()
     {
         $this->addDataContainer(
-            EntityListDataContainer::make('uniqid')
-                ->setLabel('Id')
-                ->setSortable()
-        )->addDataContainer(
             EntityListDataContainer::make('titre')
                 ->setLabel('Titre')
                 ->setSortable()
@@ -42,8 +38,8 @@ class ArticleSharpList extends SharpEntityList
     */
     public function buildListLayout()
     {
-        $this->addColumn('uniqid', 2)
-        ->addColumn('titre', 6)
+        $this/* ->addColumn('uniqid', 2) */
+        ->addColumn('titre', 8)
         ->addColumn('valide', 2)
         ->addColumn('created_at', 2);
     }
@@ -83,11 +79,6 @@ class ArticleSharpList extends SharpEntityList
             "created_at",
             function ($created_at, $article) {
                 return $article->created_at ? date_format($article->created_at, 'd/m/Y à H:i:s') : '';
-            }
-        )->setCustomTransformer(
-            "id",
-            function ($id, $article) {
-                return $article->uniqid;
             }
         )->setCustomTransformer(
             "valide",

@@ -24,7 +24,7 @@ class ArticleSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $article = Article::whereUniqid($id)->firstOrFail();
+        $article = Article::findOrFail($id);
 
         // Les sports liés
         $sports = $article->sports->all();
@@ -74,7 +74,7 @@ class ArticleSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $article = Article::whereUniqid($id)->firstOrFail();
+        $article = Article::findOrFail($id);
         $article->update($data);
         forgetCaches('articles', $article);
         ProcessCrudTable::dispatch('articles', $article->id);
@@ -97,7 +97,7 @@ class ArticleSharpForm extends SharpForm
      */
     public function delete($id)
     {
-        $article = Article::whereUniqid($id)->firstOrFail();
+        $article = Article::findOrFail($id);
         forgetCaches('articles', $article);
         $article->sports()->detach();
         $article->equipes()->detach();
@@ -166,7 +166,7 @@ class ArticleSharpForm extends SharpForm
                     ->get()->map(function($competition) {
                         return [
                             "id" => $competition->id,
-                            "label" => $competition->crud_name
+                            "label" => $competition->sport->nom . ' - ' . $competition->nom
                         ];
                     })->all()
                 )
@@ -183,7 +183,7 @@ class ArticleSharpForm extends SharpForm
                     ->orderBy('equipes.nom')->get()->map(function($equipe) {
                         return [
                             "id" => $equipe->id,
-                            "label" => $equipe->crud_name
+                            "label" => $equipe->sport->nom . ' - ' . $equipe->nom
                         ];
                     })->all()
                 )
