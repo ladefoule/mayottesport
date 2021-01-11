@@ -19,8 +19,8 @@ class CreateArticlesTable extends Migration
             $table->string('uniqid')->unique();
             $table->string('titre');
             $table->string('slug');
-            $table->integer('home_position')->default(0);
-            $table->integer('index_position')->default(0);
+            $table->integer('home_position')->nullable();
+            $table->integer('index_position')->nullable();
             $table->text('preambule');
             $table->longText('article')->nullable();
             $table->boolean('valide');

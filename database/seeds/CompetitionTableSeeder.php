@@ -23,8 +23,8 @@ class CompetitionTableSeeder extends Seeder
         ];
         foreach ($competitions as $i => $competition) {
             App\Competition::create([
-                'nom' => $competition,
-                'slug' => Str::slug($competition),
+                'nom' => $competition['nom'],
+                'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $footballId,
                 'home_position' => $i + 1,
@@ -45,8 +45,8 @@ class CompetitionTableSeeder extends Seeder
         ];
         foreach ($competitions as $i => $competition) {
             App\Competition::create([
-                'nom' => $competition,
-                'slug' => Str::slug($competition),
+                'nom' => $competition['nom'],
+                'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $handballId,
                 'home_position' => $i + 1,

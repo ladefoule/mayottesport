@@ -6,7 +6,7 @@ for ($i=0; $i < 1; $i++) {
         'annee_fin' => date('Y') - $i,
         'finie' => $i==0 ? 0 : 1,
         'nb_journees' => 2,
-        'competition_id' => 11,
+        'competition_id' => 4,
         'created_at' => now(),
         'updated_at' => now()
     ]);

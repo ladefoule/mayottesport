@@ -15,7 +15,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug'];
+    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug', 'home_position', 'index_position'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -47,6 +47,8 @@ class Article extends Model
             'preambule' => 'required|min:30',
             'titre' => 'required|min:10|max:100',
             'slug' => 'required|alpha_dash|min:10|max:100',
+            'home_position' => 'nullable|integer|min:0',
+            'index_position' => 'nullable|integer|min:0',
             'sport_id' => 'nullable|integer|exists:sports,id',
             'user_id' => 'required|integer|exists:users,id',
             'user_update_id' => 'nullable|integer|exists:users,id',

@@ -12,6 +12,7 @@ use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use App\Sharp\Formatters\TimestampSharpFormatter;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
+use Code16\Sharp\Form\Fields\SharpFormNumberField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 
 class ArticleSharpForm extends SharpForm
@@ -131,6 +132,14 @@ class ArticleSharpForm extends SharpForm
                     ->setLabel("Auteur")
                     ->setReadOnly(true)
             )->addField(
+                SharpFormNumberField::make("home_position")
+                    ->setLabel("Position (accueil)")
+                    ->setShowControls()
+            )->addField(
+                SharpFormNumberField::make("index_position")
+                    ->setLabel("Position (page sport)")
+                    ->setShowControls()
+            )->addField(
                 SharpFormTextField::make("user_update")
                     ->setLabel("Modifié par")
                     ->setReadOnly(true)
@@ -203,7 +212,7 @@ class ArticleSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('uniqid|6', 'valide|6', 'titre|12', 'created_at|6', 'user|6', 'updated_at|6', 'user_update|6', 'sports|4', 'competitions|4', 'equipes|4');
+            $column->withFields('uniqid|6', 'valide|6', 'titre|12', 'home_position|6', 'index_position|6', 'created_at|6', 'user|6', 'updated_at|6', 'user_update|6', 'sports|4', 'competitions|4', 'equipes|4');
         });
     }
 }
