@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Sharp;
+namespace App\Sharp\Football;
 
 use App\Sharp\SaisonSharpForm;
 
-class SaisonFootSharpForm extends SaisonSharpForm
+class SaisonForm extends SaisonSharpForm
 {
     protected $sportSlug = 'football';
 }

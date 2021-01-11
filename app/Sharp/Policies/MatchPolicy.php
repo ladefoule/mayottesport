@@ -4,7 +4,7 @@ namespace App\Sharp\Policies;
 
 use App\User;
 
-class MatchFootPolicy
+class MatchPolicy
 {
     /**
      * Determine whether the user can view any models.

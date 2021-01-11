@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Sharp;
+namespace App\Sharp\Football;
 
 use App\Sharp\MatchSharpList;
 
-
-class MatchFootSharpList extends MatchSharpList
+class MatchList extends MatchSharpList
 {
     protected $sportSlug = 'football';
 }

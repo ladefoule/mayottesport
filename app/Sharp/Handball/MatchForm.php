@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Sharp;
+namespace App\Sharp\Handball;
 
 use App\Sharp\MatchSharpForm;
 
-
-class MatchHandSharpForm extends MatchSharpForm
+class MatchForm extends MatchSharpForm
 {
     protected $sportSlug = 'handball';
 }

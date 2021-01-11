@@ -25,6 +25,18 @@ class ArticleSharpList extends SharpEntityList
                 ->setLabel('Validé')
                 ->setSortable()
         )->addDataContainer(
+            EntityListDataContainer::make('sport_id')
+                ->setLabel('Sport')
+                ->setSortable()
+        )->addDataContainer(
+            EntityListDataContainer::make('home_position')
+                ->setLabel('Pos. (accueil)')
+                ->setSortable()
+        )->addDataContainer(
+            EntityListDataContainer::make('index_position')
+                ->setLabel('Pos. (index sport)')
+                ->setSortable()
+        )->addDataContainer(
             EntityListDataContainer::make('created_at')
                 ->setLabel('Créé le')
                 ->setSortable()
@@ -38,9 +50,12 @@ class ArticleSharpList extends SharpEntityList
     */
     public function buildListLayout()
     {
-        $this/* ->addColumn('uniqid', 2) */
-        ->addColumn('titre', 8)
-        ->addColumn('valide', 2)
+        $this
+        ->addColumn('titre', 3)
+        ->addColumn('valide', 1)
+        ->addColumn('home_position', 2)
+        ->addColumn('sport_id', 2)
+        ->addColumn('index_position', 2)
         ->addColumn('created_at', 2);
     }
 
@@ -78,12 +93,17 @@ class ArticleSharpList extends SharpEntityList
         return $this->setCustomTransformer(
             "created_at",
             function ($created_at, $article) {
-                return $article->created_at ? date_format($article->created_at, 'd/m/Y à H:i:s') : '';
+                return $article->created_at ? date_format($article->created_at, 'd/m/Y à h:i:s') : '';
             }
         )->setCustomTransformer(
             "valide",
             function ($valide, $article) {
                 return $article->valide ? 'Oui' : 'Non';
+            }
+        )->setCustomTransformer(
+            "sport_id",
+            function ($sport_id, $article) {
+                return $article->sport ? $article->sport->nom : '';
             }
         )->transform($articles->paginate(12));
     }

@@ -3,6 +3,41 @@
 use App\Sharp\ProfilSharp;
 use Illuminate\Support\Facades\Route;
 
+// $sports = Sport::select('nom', 'slug')->get();
+$sports = ['football', 'handball', 'volleyball', 'basketball', 'rugby'];
+$entities = [
+    "profil" => [
+        "show" => \App\Sharp\ProfilSharpShow::class,
+        "form" => \App\Sharp\ProfilSharpForm::class,
+    ],
+    "user" => [
+        "list" => \App\Sharp\UserSharpList::class,
+        "form" => \App\Sharp\UserSharpForm::class,
+        "policy" => \App\Sharp\Policies\UserPolicy::class,
+    ],
+    "article" => [
+        "list" => \App\Sharp\ArticleSharpList::class,
+        "form" => \App\Sharp\ArticleSharpForm::class,
+        "policy" => \App\Sharp\Policies\ArticlePolicy::class,
+    ],
+];
+
+foreach ($sports as $nom) {
+    $entities['match-' . $nom] = [
+        "list" => 'App\Sharp\\' . ucfirst($nom) . '\\' . MatchList::class,
+        "form" => 'App\Sharp\\' . ucfirst($nom) . '\\' . MatchForm::class,
+        "policy" => \App\Sharp\Policies\MatchPolicy::class,
+    ];
+
+    $entities['saison-' . $nom] = [
+        "list" => 'App\Sharp\\' . ucfirst($nom) . '\\' . SaisonList::class,
+        "form" => 'App\Sharp\\' . ucfirst($nom) . '\\' . SaisonForm::class,
+        "policy" => \App\Sharp\Policies\SaisonPolicy::class,
+    ];
+}
+
+// dd($entities);
+
 return [
 
     // Required. The name of your app, as it will be displayed in Sharp.
@@ -28,66 +63,7 @@ return [
 
     // Required. Your entities list; each one must define a "list",
     // and can define "form", "validator", "policy" and "authorizations".
-    "entities" => [
-        "profil" => [
-            "show" => \App\Sharp\ProfilSharpShow::class,
-            "form" => \App\Sharp\ProfilSharpForm::class,
-        ],
-        "user" => [
-            "list" => \App\Sharp\UserSharpList::class,
-            "form" => \App\Sharp\UserSharpForm::class,
-            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
-            "policy" => \App\Sharp\Policies\UserPolicy::class,
-        ],
-        "match-foot" => [
-            "list" => \App\Sharp\MatchFootSharpList::class,
-            "form" => \App\Sharp\MatchFootSharpForm::class,
-            // "validator" => \App\Sharp\MatchSharpValidator::class,
-            "policy" => \App\Sharp\Policies\MatchFootPolicy::class,
-        ],
-        "match-hand" => [
-            "list" => \App\Sharp\MatchHandSharpList::class,
-            "form" => \App\Sharp\MatchHandSharpForm::class,
-            // "validator" => \App\Sharp\MatchSharpValidator::class,
-            "policy" => \App\Sharp\Policies\MatchHandPolicy::class,
-        ],
-        "article" => [
-            "list" => \App\Sharp\ArticleSharpList::class,
-            "form" => \App\Sharp\ArticleSharpForm::class,
-            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
-            "policy" => \App\Sharp\Policies\ArticlePolicy::class,
-        ],
-        "journee" => [
-            "list" => \App\Sharp\JourneeSharpList::class,
-            "form" => \App\Sharp\JourneeSharpForm::class,
-            "policy" => \App\Sharp\Policies\JourneePolicy::class,
-        ],
-        "saison-foot" => [
-            "list" => \App\Sharp\SaisonFootSharpList::class,
-            "form" => \App\Sharp\SaisonFootSharpForm::class,
-            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
-        ],
-        "saison-hand" => [
-            "list" => \App\Sharp\SaisonHandSharpList::class,
-            "form" => \App\Sharp\SaisonHandSharpForm::class,
-            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
-        ],
-        "saison-volley" => [
-            "list" => \App\Sharp\SaisonVolleySharpList::class,
-            "form" => \App\Sharp\SaisonVolleySharpForm::class,
-            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
-        ],
-        "saison-basket" => [
-            "list" => \App\Sharp\SaisonBasketSharpList::class,
-            "form" => \App\Sharp\SaisonFootSharpForm::class,
-            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
-        ],
-        "saison-rugby" => [
-            "list" => \App\Sharp\SaisonRugbySharpList::class,
-            "form" => \App\Sharp\SaisonRugbySharpForm::class,
-            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
-        ],
-    ],
+    "entities" => $entities,
 
     // Optional. Your dashboards list; each one must define a "view", and can define "policy".
     // "dashboards" => [
@@ -122,12 +98,27 @@ return [
                 [
                     "label" => "Football",
                     "icon" => "fa-list",
-                    "entity" => "match-foot",
+                    "entity" => "match-football",
                 ],
                 [
                     "label" => "Handball",
                     "icon" => "fa-list",
-                    "entity" => "match-hand",
+                    "entity" => "match-handball",
+                ],
+                [
+                    "label" => "Basketball",
+                    "icon" => "fa-user",
+                    "entity" => "match-basketball",
+                ],
+                [
+                    "label" => "Volleyball",
+                    "icon" => "fa-user",
+                    "entity" => "match-volleyball",
+                ],
+                [
+                    "label" => "Rugby",
+                    "icon" => "fa-user",
+                    "entity" => "match-rugby",
                 ],
             ]
         ],
@@ -157,22 +148,22 @@ return [
                 [
                     "label" => "Football",
                     "icon" => "fa-user",
-                    "entity" => "saison-foot",
+                    "entity" => "saison-football",
                 ],
                 [
                     "label" => "Handball",
                     "icon" => "fa-user",
-                    "entity" => "saison-hand",
+                    "entity" => "saison-handball",
                 ],
                 [
                     "label" => "Basketball",
                     "icon" => "fa-user",
-                    "entity" => "saison-basket",
+                    "entity" => "saison-basketball",
                 ],
                 [
                     "label" => "Volleyball",
                     "icon" => "fa-user",
-                    "entity" => "saison-volley",
+                    "entity" => "saison-volleyball",
                 ],
                 [
                     "label" => "Rugby",
