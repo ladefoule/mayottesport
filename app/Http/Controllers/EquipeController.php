@@ -30,37 +30,31 @@ class EquipeController extends Controller
         Log::info(" -------- Controller Equipe : index -------- ");
         $equipe = $request->equipe;
         $sport = $request->sport;
-        // $matches = $equipe->matches; // Tous les matches de l'équipe
-        $matches = index('matches')->where('equipe_id_dom', $equipe->id);
-        $matches = $matches->union(index('matches')->where('equipe_id_ext', $equipe->id));
+
+        $matches = $equipe->matches; // Tous les matches de l'équipe
 
         // On recherche le prochain match de l'équipe toute compétition confondue
         $prochainMatch = $matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
         $prochainMatchRender = '';
         if($prochainMatch){
-            $journee = index('journees')[$prochainMatch->journee_id];
-            $saison = index('saisons')[$journee->saison_id];
-            $competition = index('competitions')[$saison->competition_id];
-            $prochainMatchRender = view('equipe.match', [
+            $prochainMatch->resultat = $prochainMatch->resultat($equipe->id)['resultat'] ?? '';
+            $matchesCollect[] = $prochainMatch;
+            $prochainMatchRender = view('equipe.matches-ajax', [
                 'equipe' => $equipe,
-                'match' => match($prochainMatch->uniqid),
-                'competition' => $competition,
-                'sport' => $sport,
+                'matches' => $matchesCollect
             ])->render();
         }
 
         // On recherche le dernier match de l'équipe toute compétition confondue
         $dernierMatch = $matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
         $dernierMatchRender = '';
+        $matchesCollect = [];
         if($dernierMatch){
-            $journee = index('journees')[$dernierMatch->journee_id];
-            $saison = index('saisons')[$journee->saison_id];
-            $competition = index('competitions')[$saison->competition_id];
-            $dernierMatchRender = view('equipe.match', [
+            $dernierMatch->resultat = $dernierMatch->resultat($equipe->id)['resultat'] ?? '';
+            $matchesCollect[] = $dernierMatch;
+            $dernierMatchRender = view('equipe.matches-ajax', [
                 'equipe' => $equipe,
-                'match' => match($dernierMatch->uniqid),
-                'competition' => $competition,
-                'sport' => $sport,
+                'matches' => $matchesCollect
             ])->render();
         }
 

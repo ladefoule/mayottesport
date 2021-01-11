@@ -115,7 +115,7 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
     return view('ajax.table', ['table' => $table]);
 })->name('ajax');
 
-// Route::match(['get', 'post'], '/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
+Route::match(['get', 'post'], '/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
 Route::match(['get', 'post'], '/ajax/caches/reload', 'CacheController@reload')->name('caches.reload');
 
 Route::get('notre-politique-de-confidentialite.php', function(){

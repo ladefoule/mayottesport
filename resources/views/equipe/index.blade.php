@@ -3,10 +3,29 @@
 @section('title', $title)
 
 @section('content')
-<div class="row d-flex flex-wrap">
-    <h1 class="h3 text-center pt-3 col-12 text-body">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
-    <div class="row order-2 order-lg-1 col-lg-8 d-flex flex-wrap justify-content-center my-3 px-0 mx-0">
-        <div class="col-12 d-flex flex-wrap justify-content-center mb-auto">
+<div class="row d-flex flex-wrap p-3">
+    <h1 class="h3 text-center pb-3 col-12 text-body">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
+    <div class="col-12 d-flex px-0 pb-3">
+        <img src="{{ asset('/storage/img/as-rosador-de-passamainty-2015.jpg') }}" alt="" class="img-fluid m-auto">
+    </div>
+    {{-- @include('modele-onglets') --}}
+    <div class="row col-lg-8 d-flex flex-wrap justify-content-center px-0 m-auto pt-3">
+        @if ($dernierMatch)
+        <div class="col-md-6 col-12 col-lg-12 pb-3 m-auto px-0">
+            <h3 class="alert h5 alert-danger text-center">Dernier match</h3>
+            {!! $dernierMatch !!}
+        </div>
+
+        @endif
+        @if ($prochainMatch)
+        <div class="col-md-6 col-12 col-lg-12 pb-3 m-auto px-0">
+            <h3 class="alert h5 alert-success text-center">Prochain match</h3>
+            {!! $prochainMatch !!}
+        </div>
+        @endif
+
+        <div class="col-12 d-flex flex-wrap justify-content-center m-auto px-0">
+            <h3 class="col-12 alert h5 alert-primary text-center">Calendriers/résultats</h3>
             <div class="col-12 mb-3 d-flex justify-content-center">
                 <select class="form-control col-10 col-sm-6" name="journee" id="competition_id">
                     <option value="">Compétitions</option>
@@ -98,22 +117,7 @@
             @endforeach
         </div>
     </div>
-    <div class="dernier-et-prochain-match d-flex justify-content-center flex-wrap order-1 order-lg-2 col-lg-4 mt-3 px-0 text-center mb-auto">
-        @if ($dernierMatch)
-        <div class="col-md-6 col-12 col-lg-12 p-2 mb-auto">
-            <h3 class="alert h5 alert-danger text-center text-body">Dernier match</h3>
-            {!! $dernierMatch !!}
-        </div>
-
-        @endif
-        @if ($prochainMatch)
-        <div class="col-md-6 col-12 col-lg-12 p-2 mb-auto">
-            <h3 class="alert {{-- mt-3 --}} h5 alert-success text-center text-body">Prochain match</h3>
-            {!! $prochainMatch !!}
-        </div>
-        @endif
-    </div>
-    <div class="order-3 col-lg-4 pt-3 px-0 text-center">
+    <div class="order-3 col-lg-4 pt-3 px-0 text-center pl-lg-3">
         <div class="border h-100">
             PUB
         </div>

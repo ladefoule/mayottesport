@@ -254,8 +254,8 @@ function refreshCachesLies(string $table)
         if (isset(config('listes.caches-lies')[$table]))
             refreshCachesLies($table);
 
-        Cache::forget('indexcrud-' . Str::slug($table));
-        indexCrud($table);
+        // Cache::forget('indexcrud-' . Str::slug($table));
+        // indexCrud($table);
         // CrudTable::where('nom', str_replace('-', '_', $tableSlug))->firstOrFail()->index();
     }
 }
@@ -338,13 +338,14 @@ function index(string $table)
  */
 function indexCrud(string $table)
 {
-    $key = "indexcrud-" . Str::slug($table);
-    if (Cache::has($key))
-        return Cache::get($key);
-    else
-        return Cache::rememberForever($key, function () use ($table) {
-            return CrudTable::whereNom($table)->firstOrFail()->indexCrud();
-        });
+    return [];
+    // $key = "indexcrud-" . Str::slug($table);
+    // if (Cache::has($key))
+    //     return Cache::get($key);
+    // else
+    //     return Cache::rememberForever($key, function () use ($table) {
+    //         return CrudTable::whereNom($table)->firstOrFail()->indexCrud();
+    //     });
 }
 
 /**

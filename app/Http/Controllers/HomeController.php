@@ -24,7 +24,12 @@ class HomeController extends Controller
             if($proc) $prochains[$sport->nom] = $proc;
         }
 
-        $indexArticles = index('articles')->sortByDesc('created_at')->where('valide', 1)->slice(0,5);
+        $indexArticles = index('articles')
+            ->where('valide', 1)
+            ->where('home_position', '>', 0)
+            ->sortBy('home_position')
+            ->slice(0,5);
+
         $articles = collect();
         foreach ($indexArticles as $id => $article)
             $articles[] = article($article->uniqid);

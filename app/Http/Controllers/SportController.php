@@ -34,7 +34,12 @@ class SportController extends Controller
         $resultats = $res ? [$sport->nom => $res] : [];
         $prochains = $proc ? [$sport->nom => $proc] : [];
 
-        $articles = $sport->articles;
+        $articles = $sport->articles
+            ->where('valide', 1)
+            ->where('index_position', '>', 0)
+            ->sortBy('index_position')
+            ->splice(0, 5);
+
         foreach ($articles as $key => $article)
             $articles[$key] = article($article->uniqid);
 

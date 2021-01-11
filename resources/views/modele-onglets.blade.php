@@ -10,6 +10,17 @@
 {{-- classique écran large --}}
 <div class="col-12 d-none d-lg-flex p-0">
     <div class="col-8 px-3 py-0">
+        <?php 
+            $sport = request()->sport;
+            $competition = request()->competition;
+        ?>
+        @if(! $articles && $sport)
+            <h1 class="h3 p-3 text-center">{{ $sport->nom . ($competition ? ' - ' . $competition->nom : '') }}</h1>
+            <div class="col-12 d-flex px-0 pb-3">
+                {{-- Image par défaut pour les compétitions/sports sans articles liés --}}
+                <img src="{{ asset('/storage/img/as-rosador-de-passamainty-2015.jpg') }}" alt="" class="img-fluid m-auto">
+            </div>
+        @endif
         {!! $articles !!}
     </div>
     <div class="col-4 p-2 bg-resultats @if(! $resultats) d-none @endif">
