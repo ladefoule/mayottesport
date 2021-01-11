@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Support\Facades\Redis;
 
 class CrudTable extends Model
 {
@@ -23,7 +22,7 @@ class CrudTable extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'crudable', 'tri_defaut'];
+    protected $fillable = ['nom', 'crudable', 'tri_defaut', 'slug'];
     public $timestamps = false;
 
     /**
@@ -39,6 +38,7 @@ class CrudTable extends Model
 
         $rules = [
             'nom' => ['required', 'string', 'min:3', 'max:50', $unique],
+            'slug' => ['required', 'string', 'min:3', 'max:50', $unique],
             'tri_defaut' => 'required|max:50',
             'crudable' => 'boolean'
         ];

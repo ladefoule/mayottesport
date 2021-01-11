@@ -8,6 +8,7 @@
 namespace App\Http\Controllers;
 
 use App\CrudTable;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -70,7 +71,7 @@ class CrudAdminController extends Controller
             foreach ($tables as $table) {
                 $crudTable = CrudTable::firstWhere('nom', $table);
                 if($crudTable == null)
-                    CrudTable::create(['nom' => $table]);
+                    CrudTable::create(['nom' => $table, 'slug' => Str::slug($table)]);
             }
 
             $crudTables = CrudTable::all();

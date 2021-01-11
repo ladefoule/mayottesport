@@ -177,8 +177,10 @@ class ArticleSharpForm extends SharpForm
                 ->setClearable(true)
             )->addField(
                 SharpFormSelectField::make("equipes",
-                    Equipe::orderBy("nom")
-                    ->get()->map(function($equipe) {
+                    Equipe::join('sports', 'sport_id', 'sports.id')
+                    ->select('equipes.*')
+                    ->orderBy('sports.nom')
+                    ->orderBy('equipes.nom')->get()->map(function($equipe) {
                         return [
                             "id" => $equipe->id,
                             "label" => $equipe->crud_name

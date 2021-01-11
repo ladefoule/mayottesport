@@ -333,7 +333,7 @@ function index(string $table)
  * Style procédural de la méthode infos() de la classe CrudTable
  * Liste de tous les éléments de la table (avec les infos sur les attributs à afficher dans le CRUD : position, type, max, ...).
  *
- * @param string $table - Table en camel_case
+ * @param string $table - Table en snake_case
  * @return \Illuminate\Database\Eloquent\Collection
  */
 function indexCrud(string $table)

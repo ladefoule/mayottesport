@@ -2,17 +2,20 @@
 
 namespace App\Sharp;
 
+use App\Saison;
 use App\Journee;
 use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
 use App\Sharp\Formatters\DateSharpFormatter;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
+use Code16\Sharp\Form\Fields\SharpFormNumberField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 
 class JourneeSharpForm extends SharpForm
 {
+    protected $sportSlug;
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
      *
@@ -69,14 +72,29 @@ class JourneeSharpForm extends SharpForm
             ];
         };
 
+        $saisons = Saison::join('competitions', 'competition_id', 'competitions.id')
+            ->join('sports', 'sport_id', 'sports.id')
+            ->where('sports.slug', $this->sportSlug)
+            ->select('saisons.*')
+            ->orderBy('saisons.annee_debut')->get()->map(function($saison) {
+                return [
+                    "id" => $saison->id,
+                    "label" => $saison->nom
+                ];
+            })->all();
+
         $this
             ->addField(
                 SharpFormTextField::make("saison")
                     ->setLabel("Saison")
-                    ->setReadOnly(true)
+                    // ->setReadOnly(true)
             )->addField(
-                SharpFormTextField::make("numero")
+                SharpFormNumberField::make("numero")
                     ->setLabel("Journée (numéro)")
+                    ->setMax(100)
+                    ->setMin(0)
+                    // ->setStep(1)
+                    ->setShowControls()
             )->addField(
                 SharpFormDateField::make("date")
                     ->setDisplayFormat('DD/MM/YYYY')
@@ -86,7 +104,11 @@ class JourneeSharpForm extends SharpForm
                 ->setLabel("Type")
                 ->setDisplayAsDropdown()
                 ->setClearable(true)
-                ->setMultiple(false)
+            )->addField(
+                SharpFormSelectField::make("saison", $saisons)
+                ->setLabel("Saison")
+                ->setDisplayAsDropdown()
+                ->setClearable(false)
             );
     }
 

@@ -17,7 +17,7 @@ class Equipe extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'nom_complet', 'sport_id', 'feminine', 'non_mahoraise', 'ville_id'];
+    protected $fillable = ['nom', 'nom_complet', 'sport_id', 'feminine', 'non_mahoraise', 'ville_id', 'slug'];
 
     /**
      * Le sport lié à cette équipe
@@ -76,16 +76,21 @@ class Equipe extends Model
             return $query->whereNom(request()['nom'])->whereSportId(request()['sport_id']);
         })->ignore($equipe);
 
+        $uniqueSlug = Rule::unique('equipes')->where(function ($query) {
+            return $query->whereSlug(request()['slug'])->whereSportId(request()['sport']);
+        })->ignore($equipe);
+
         $uniqid = Rule::unique('equipes')->ignore($equipe);
 
         $rules = [
-            'nom_complet' => 'nullable|string|min:3|max:50',
+            'nom_complet' => 'nullable|min:3|max:50',
             'sport_id' => 'required|integer|exists:sports,id',
             'ville_id' => 'required|integer|exists:villes,id',
             'feminine' => 'boolean',
             'non_mahoraise' => 'boolean',
             'nom' => ['required','max:50','min:3',$uniqueNomEtSportId],
-            'uniqid' => ['required','string','max:50','min:3',$uniqid],
+            'uniqid' => ['required','max:50','min:3',$uniqid],
+            'slug' => ['required','alpha_dash','max:50','min:3',$uniqueSlug],
         ];
         $messages = ['nom.unique' => "Ce nom d'équipe, associé à ce sport, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];

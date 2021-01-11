@@ -17,7 +17,7 @@ class Competition extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'type', 'nom_complet', 'sport_id', 'home_position', 'index_position'];
+    protected $fillable = ['nom', 'type', 'nom_complet', 'sport_id', 'home_position', 'index_position', 'slug'];
 
     /**
      * Les règles de validations
@@ -31,13 +31,18 @@ class Competition extends Model
             return $query->whereNom(request()['nom'])->whereSportId(request()['sport']);
         })->ignore($competition);
 
+        $uniqueSlug = Rule::unique('competitions')->where(function ($query) {
+            return $query->whereSlug(request()['slug'])->whereSportId(request()['sport']);
+        })->ignore($competition);
+
         $rules = [
             'sport_id' => 'required|exists:sports,id',
             'type' => 'required|integer|min:1',
             'home_position' => 'nullable|integer|min:1',
             'index_position' => 'nullable|integer|min:1',
-            'nom_complet' => 'nullable|string|max:50',
-            'nom' => ['required','string','max:50','min:3',$unique]
+            'nom_complet' => 'nullable|max:50',
+            'nom' => ['required','max:50','min:3',$unique],
+            'slug' => ['required','alpha_dash','max:50','min:3',$uniqueSlug],
         ];
         $messages = ['nom.unique' => "Ce nom de compétition, associé à ce sport, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];

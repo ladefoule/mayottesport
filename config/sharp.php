@@ -60,8 +60,32 @@ return [
         "journee" => [
             "list" => \App\Sharp\JourneeSharpList::class,
             "form" => \App\Sharp\JourneeSharpForm::class,
-            //    "validator" => \App\Sharp\MyEntitySharpValidator::class,
             "policy" => \App\Sharp\Policies\JourneePolicy::class,
+        ],
+        "saison-foot" => [
+            "list" => \App\Sharp\SaisonFootSharpList::class,
+            "form" => \App\Sharp\SaisonFootSharpForm::class,
+            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
+        ],
+        "saison-hand" => [
+            "list" => \App\Sharp\SaisonHandSharpList::class,
+            "form" => \App\Sharp\SaisonHandSharpForm::class,
+            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
+        ],
+        "saison-volley" => [
+            "list" => \App\Sharp\SaisonVolleySharpList::class,
+            "form" => \App\Sharp\SaisonVolleySharpForm::class,
+            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
+        ],
+        "saison-basket" => [
+            "list" => \App\Sharp\SaisonBasketSharpList::class,
+            "form" => \App\Sharp\SaisonFootSharpForm::class,
+            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
+        ],
+        "saison-rugby" => [
+            "list" => \App\Sharp\SaisonRugbySharpList::class,
+            "form" => \App\Sharp\SaisonRugbySharpForm::class,
+            "policy" => \App\Sharp\Policies\SaisonPolicy::class,
         ],
     ],
 
@@ -125,6 +149,36 @@ return [
                     "icon" => "fa-plus-circle",
                     "url" => "/admin/article/create"
                 ]
+            ]
+        ],
+        [
+            "label" => "Saisons",
+            "entities" => [
+                [
+                    "label" => "Football",
+                    "icon" => "fa-user",
+                    "entity" => "saison-foot",
+                ],
+                [
+                    "label" => "Handball",
+                    "icon" => "fa-user",
+                    "entity" => "saison-hand",
+                ],
+                [
+                    "label" => "Basketball",
+                    "icon" => "fa-user",
+                    "entity" => "saison-basket",
+                ],
+                [
+                    "label" => "Volleyball",
+                    "icon" => "fa-user",
+                    "entity" => "saison-volley",
+                ],
+                [
+                    "label" => "Rugby",
+                    "icon" => "fa-user",
+                    "entity" => "saison-rugby",
+                ],
             ]
         ],
         [

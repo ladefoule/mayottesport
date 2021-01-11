@@ -1,5 +1,6 @@
 <?php
 
+use App\Sport;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -12,38 +13,46 @@ class CompetitionTableSeeder extends Seeder
      */
     public function run()
     {
-        // On insère 2 championnats pour chaque sport
-        foreach (App\Sport::all() as $sport) {
-            $competitions = ['Régional 1', 'Régional 2'];
-            foreach ($competitions as $i => $competition) {
-                App\Competition::create([
-                    'nom' => $competition,
-                    'slug' => Str::slug($competition),
-                    'type' => 1, // type championnat
-                    'sport_id' => $sport->id,
-                    'home_position' => $i + 1,
-                    'index_position' => $i + 1,
-                    'created_at' => now(),
-                    // 'updated_at' => now()
-                ]);
-            }
+        // On insère les championnats de football
+        $footballId = Sport::whereSlug('football')->firstOrFail()->id;
+        $competitions = [
+            ['nom' => 'Régional 1', 'type' => 1],
+            ['nom' => 'Régional 2', 'type' => 1],
+            ['nom' => 'Coupe de France', 'type' => 2],
+            ['nom' => 'Coupe de Mayotte', 'type' => 2],
+        ];
+        foreach ($competitions as $i => $competition) {
+            App\Competition::create([
+                'nom' => $competition,
+                'slug' => Str::slug($competition),
+                'type' => $competition['type'],
+                'sport_id' => $footballId,
+                'home_position' => $i + 1,
+                'index_position' => $i + 1,
+                'created_at' => now(),
+            ]);
         }
 
-        // On insère 2 coupes pour chaque sport
-        foreach (App\Sport::all() as $sport) {
-            $competitions = ['Coupe de Mayotte', 'Coupe de France'];
-            foreach ($competitions as $i => $competition) {
-                App\Competition::create([
-                    'nom' => $competition,
-                    'slug' => Str::slug($competition),
-                    'type' => 2, // type coupe
-                    'sport_id' => $sport->id,
-                    'home_position' => $i + 2,
-                    'index_position' => $i + 2,
-                    'created_at' => now(),
-                    // 'updated_at' => now()
-                ]);
-            }
+        // On insère les championnats de handball
+        $handballId = Sport::whereSlug('handball')->firstOrFail()->id;
+        $competitions = [
+            ['nom' => 'Prénationale masculins', 'type' => 1],
+            ['nom' => 'PNM, poule A', 'type' => 1],
+            ['nom' => 'Poule B PNM', 'type' => 1],
+            ['nom' => 'Prénationale féminins', 'type' => 1],
+            ['nom' => 'Excellence masculins', 'type' => 1],
+            ['nom' => 'Excellence féminins', 'type' => 1],
+        ];
+        foreach ($competitions as $i => $competition) {
+            App\Competition::create([
+                'nom' => $competition,
+                'slug' => Str::slug($competition),
+                'type' => $competition['type'],
+                'sport_id' => $handballId,
+                'home_position' => $i + 1,
+                'index_position' => $i + 1,
+                'created_at' => now(),
+            ]);
         }
     }
 }

@@ -11,7 +11,7 @@ use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 
 class MatchSharpList extends SharpEntityList
 {
-    protected $sportSlug = '';
+    protected $sportSlug;
 
     /**
     * Build list containers using ->addDataContainer()

@@ -19,13 +19,12 @@ return [
     /* $key => $values */
     /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
     'caches-lies' => [
-        'baremes' => 'bareme_infos',
+        'baremes' => ['bareme_infos'],
         'competitions' => ['saisons'],
         'crud-attributs' => ['crud_attribut_infos'],
         'crud-tables' => ['crud_attributs'],
-        'equipes' => [/*'matches',*/ 'equipe_saison'],
-        'matches' => ['modifs', 'match_infos'],
-        'saisons' => ['journees', 'equipe_saison'],
+        // 'matches' => ['modifs', 'match_infos'],
+        'saisons' => ['journees', /* 'equipe_saison' */],
         'sports' => ['equipes', 'competitions', 'baremes'],
         'users' => ['modifs'],
         'villes' => ['terrains'],
@@ -79,7 +78,7 @@ return [
     ],
 
     "tables-non-crudables" => [
-        'migrations', 'password_resets', /* 'matches', */ 'failed_jobs', 'jobs'
+        'migrations', 'password_resets', 'matches', 'failed_jobs', 'jobs', 'equipe_saison', 'article_sport', 'article_equipe', 'article_competition'
     ],
 
     "tables-superadmin" => [

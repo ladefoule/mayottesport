@@ -62,14 +62,15 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- Controller Competition : classement -------- ");
         $saison = $request->saison;
-        $sport = Str::slug($request->sport->nom);
+        $sport = $request->sport;
+
         $competition = Str::lower(index('competitions')[$saison->competition_id]->nom);
         $annee = annee($saison->annee_debut, $saison->annee_fin, '/');
-        $title = 'Football - Classement ' . $competition . ' ' . $annee;
+        $title = $sport->nom . ' - Classement ' . $competition . ' ' . $annee;
         $h1 = 'Classement ' . $competition . ' ' . $annee;
 
         $classement = saison($saison->id)['classement'];
-        return view($sport . '.classement', [
+        return view('competition.classement-' . Str::slug($sport->nom), [
             'classement' => $classement,
             'title' => $title,
             'h1' => $h1
