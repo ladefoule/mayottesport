@@ -102,6 +102,9 @@ class Saison extends Model
      */
     public function classement()
     {
+        if(! $this->bareme_id)
+            return [];
+
         $bareme = index('baremes')[$this->bareme_id];
         $sport = index('sports')[$bareme->sport_id];
         $matches = [];

@@ -3,9 +3,7 @@
 namespace App\Sharp;
 
 use App\User;
-use Illuminate\Support\Facades\Auth;
 use Code16\Sharp\Show\SharpSingleShow;
-use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Show\Layout\ShowLayoutColumn;
 use Code16\Sharp\Show\Layout\ShowLayoutSection;
 use Code16\Sharp\Show\Fields\SharpShowTextField;

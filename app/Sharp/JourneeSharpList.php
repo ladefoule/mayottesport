@@ -9,6 +9,8 @@ use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 
 class JourneeSharpList extends SharpEntityList
 {
+    protected $sportSlug;
+
     /**
     * Build list containers using ->addDataContainer()
     *
@@ -73,6 +75,7 @@ class JourneeSharpList extends SharpEntityList
             ->join('saisons', 'saison_id', '=', 'saisons.id')
             ->join('competitions', 'competition_id', '=', 'competitions.id')
             ->join('sports', 'competitions.sport_id', '=', 'sports.id')
+            ->where('sports.slug', $this->sportSlug)
             ->where('saisons.finie', 0)
             ->select('journees.*', 'competitions.nom as competition', 'saisons.annee_debut as saison', 'sports.nom as sport')
             ->distinct();

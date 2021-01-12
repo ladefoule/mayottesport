@@ -1,6 +1,5 @@
 <?php
 
-use App\Sharp\ProfilSharp;
 use Illuminate\Support\Facades\Route;
 
 // $sports = Sport::select('nom', 'slug')->get();
@@ -20,6 +19,11 @@ $entities = [
         "form" => \App\Sharp\ArticleSharpForm::class,
         "policy" => \App\Sharp\Policies\ArticlePolicy::class,
     ],
+    "equipe" => [
+        "list" => \App\Sharp\EquipeSharpList::class,
+        "form" => \App\Sharp\EquipeSharpForm::class,
+        "policy" => \App\Sharp\Policies\EquipePolicy::class,
+    ],
 ];
 
 foreach ($sports as $nom) {
@@ -32,9 +36,106 @@ foreach ($sports as $nom) {
     $entities['saison-' . $nom] = [
         "list" => 'App\Sharp\\' . ucfirst($nom) . '\\' . SaisonList::class,
         "form" => 'App\Sharp\\' . ucfirst($nom) . '\\' . SaisonForm::class,
+        // "validator" => \App\Sharp\SaisonSharpValidator::class,
         "policy" => \App\Sharp\Policies\SaisonPolicy::class,
     ];
+
+    $entities['journee-' . $nom] = [
+        "list" => 'App\Sharp\\' . ucfirst($nom) . '\\' . JourneeList::class,
+        "form" => 'App\Sharp\\' . ucfirst($nom) . '\\' . JourneeForm::class,
+        // "validator" => \App\Sharp\JourneeSharpValidator::class,
+        "policy" => \App\Sharp\Policies\JourneePolicy::class,
+    ];
 }
+
+$menu = [
+    [
+        "label" => "Profil",
+        "icon" => "fa-user",
+        "entity" => "profil",
+        "single" => true
+    ],
+    [
+        "label" => "Membres",
+        "icon" => "fa-user",
+        "entity" => "user",
+    ],
+];
+
+$menuMatches = [];
+$menuMatches['label'] = 'Matches';
+foreach ($sports as $nom) {
+    $menuMatches['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => "fa-list",
+        "entity" => "match-" . $nom,
+    ];
+}
+
+$menu[] = $menuMatches;
+
+$menu[] = [
+    "label" => "Articles",
+    "entities" => [
+        [
+            "label" => "Liste",
+            "icon" => "fa-list-ul",
+            "entity" => "article"
+        ],
+        [
+            "label" => "Modifier",
+            "icon" => "el-icon-refresh",
+            "url" => "/admin/article/select"
+        ],
+        [
+            "label" => "Nouveau",
+            "icon" => "fa-plus-circle",
+            "url" => "/admin/article/create"
+        ]
+    ]
+];
+
+// Les menus Saisons
+$menuSaisons = [];
+$menuSaisons['label'] = 'Saisons';
+foreach ($sports as $nom) {
+    $menuSaisons['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => "fa-list",
+        "entity" => "saison-" . $nom,
+    ];
+}
+$menu[] = $menuSaisons;
+
+// Les menus Journées
+$menuJournees = [];
+$menuJournees['label'] = 'Journees';
+foreach ($sports as $nom) {
+    $menuJournees['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => "fa-list",
+        "entity" => "journee-" . $nom,
+    ];
+}
+$menu[] = $menuJournees;
+
+$menu[] = [
+    "label" => "Equipes",
+    "icon" => "fa-calendar",
+    "entity" => "equipe",
+];
+
+$menu[] = [
+    "label" => "Les journées par saison",
+    "icon" => "fa-calendar",
+    "url" => "/admin/autres/journees/multi/select",
+];
+
+$menu[] = [
+    "label" => "Accueil",
+    "icon" => "fa-home",
+    "url" => '/'
+];
 
 // dd($entities);
 
@@ -80,119 +181,7 @@ return [
 
     // Required. The main menu (left bar), which may contain links to entities, dashboards
     // or external URLs, grouped in categories.
-    "menu" => [
-        [
-            "label" => "Profil",
-            "icon" => "fa-user",
-            "entity" => "profil",
-            "single" => true
-        ],
-        [
-            "label" => "Membres",
-            "icon" => "fa-user",
-            "entity" => "user",
-        ],
-        [
-            "label" => "Matches",
-            "entities" => [
-                [
-                    "label" => "Football",
-                    "icon" => "fa-list",
-                    "entity" => "match-football",
-                ],
-                [
-                    "label" => "Handball",
-                    "icon" => "fa-list",
-                    "entity" => "match-handball",
-                ],
-                [
-                    "label" => "Basketball",
-                    "icon" => "fa-user",
-                    "entity" => "match-basketball",
-                ],
-                [
-                    "label" => "Volleyball",
-                    "icon" => "fa-user",
-                    "entity" => "match-volleyball",
-                ],
-                [
-                    "label" => "Rugby",
-                    "icon" => "fa-user",
-                    "entity" => "match-rugby",
-                ],
-            ]
-        ],
-        [
-            "label" => "Articles",
-            "entities" => [
-                [
-                    "label" => "Liste",
-                    "icon" => "fa-list-ul",
-                    "entity" => "article"
-                ],
-                [
-                    "label" => "Modifier",
-                    "icon" => "el-icon-refresh",
-                    "url" => "/admin/article/select"
-                ],
-                [
-                    "label" => "Nouveau",
-                    "icon" => "fa-plus-circle",
-                    "url" => "/admin/article/create"
-                ]
-            ]
-        ],
-        [
-            "label" => "Saisons",
-            "entities" => [
-                [
-                    "label" => "Football",
-                    "icon" => "fa-user",
-                    "entity" => "saison-football",
-                ],
-                [
-                    "label" => "Handball",
-                    "icon" => "fa-user",
-                    "entity" => "saison-handball",
-                ],
-                [
-                    "label" => "Basketball",
-                    "icon" => "fa-user",
-                    "entity" => "saison-basketball",
-                ],
-                [
-                    "label" => "Volleyball",
-                    "icon" => "fa-user",
-                    "entity" => "saison-volleyball",
-                ],
-                [
-                    "label" => "Rugby",
-                    "icon" => "fa-user",
-                    "entity" => "saison-rugby",
-                ],
-            ]
-        ],
-        [
-            "label" => "Journées",
-            "entities" => [
-                [
-                    "label" => "Journées",
-                    "icon" => "fa-calendar",
-                    "entity" => "journee",
-                ],
-                [
-                    "label" => "Par saison",
-                    "icon" => "fa-calendar",
-                    "url" => "/admin/autres/journees/multi/select",
-                ],
-            ]
-        ],
-        [
-            "label" => "Accueil",
-            "icon" => "fa-home",
-            "url" => '/'
-        ],
-    ],
+    "menu" => $menu,
 
     // Optional. Your file upload configuration.
     "uploads" => [

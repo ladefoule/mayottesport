@@ -6,15 +6,19 @@ use App\Saison;
 use App\Journee;
 use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
+use Illuminate\Support\Facades\Validator;
 use App\Sharp\Formatters\DateSharpFormatter;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
-use Code16\Sharp\Form\Fields\SharpFormNumberField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
+use Code16\Sharp\Form\Fields\SharpFormNumberField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
+use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
 class JourneeSharpForm extends SharpForm
 {
+    use WithSharpFormEloquentUpdater;
+    
     protected $sportSlug;
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
@@ -24,11 +28,8 @@ class JourneeSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $journee = Journee::findOrFail($id);        
-
-        return $this->setCustomTransformer("saison", function ($saison, $journee) {
-            return $journee->saison->crud_name;
-        })->transform(
+        $journee = Journee::findOrFail($id);
+        return $this->transform(
             $journee
         );
     }
@@ -40,8 +41,16 @@ class JourneeSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $journee = Journee::findOrFail($id);
-        $journee->update($data);
+        $journee = $id ? Journee::findOrFail($id) : new Journee;    
+
+        // On valide la requète
+        $rules = Journee::rules($journee);
+        $messages = $rules['messages'];
+        $rules = $rules['rules'];
+        Validator::make($data, $rules, $messages)->validate();
+
+        $this->save($journee, $data);
+
         forgetCaches('articles', $journee);
         ProcessCrudTable::dispatch('articles', $journee->id);
     }
@@ -79,21 +88,16 @@ class JourneeSharpForm extends SharpForm
             ->orderBy('saisons.annee_debut')->get()->map(function($saison) {
                 return [
                     "id" => $saison->id,
-                    "label" => $saison->nom
+                    "label" => $saison->competition->nom . ' ' . $saison->nom
                 ];
             })->all();
 
         $this
             ->addField(
-                SharpFormTextField::make("saison")
-                    ->setLabel("Saison")
-                    // ->setReadOnly(true)
-            )->addField(
                 SharpFormNumberField::make("numero")
                     ->setLabel("Journée (numéro)")
+                    ->setMin(1)
                     ->setMax(100)
-                    ->setMin(0)
-                    // ->setStep(1)
                     ->setShowControls()
             )->addField(
                 SharpFormDateField::make("date")
@@ -105,7 +109,7 @@ class JourneeSharpForm extends SharpForm
                 ->setDisplayAsDropdown()
                 ->setClearable(true)
             )->addField(
-                SharpFormSelectField::make("saison", $saisons)
+                SharpFormSelectField::make("saison_id", $saisons)
                 ->setLabel("Saison")
                 ->setDisplayAsDropdown()
                 ->setClearable(false)
@@ -120,7 +124,7 @@ class JourneeSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('saison|6', 'numero|6', 'date|6', 'type|6');
+            $column->withFields('saison_id|6', 'numero|6', 'date|6', 'type|6');
         });
     }
 }

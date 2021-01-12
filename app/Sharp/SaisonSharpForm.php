@@ -2,11 +2,13 @@
 
 namespace App\Sharp;
 
+use App\Bareme;
 use App\Equipe;
 use App\Saison;
 use App\Competition;
 use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
+use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
@@ -50,8 +52,14 @@ class SaisonSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $saison = $id ? Saison::where('uniqid', $id)->firstOrFail() : new Saison;    
-        $ignore = ['equipes', 'saisons'];  
+        $saison = $id ? Saison::findOrFail($id) : new Saison;    
+        $ignore = ['equipes', 'saisons'];
+
+        // On valide la requète
+        $rules = Saison::rules($saison);
+        $messages = $rules['messages'];
+        $rules = $rules['rules'];
+        Validator::make($data, $rules, $messages)->validate();
 
         $this->ignore($ignore)->save($saison, $data);
 
@@ -101,11 +109,25 @@ class SaisonSharpForm extends SharpForm
                     "label" => $competition->nom
                 ];
             })->all();
+        
+        $baremes = Bareme::join('sports', 'sport_id', 'sports.id')
+            ->where('sports.slug', $this->sportSlug)
+            ->select('baremes.*')
+            ->orderBy('baremes.nom')->get()->map(function($bareme) {
+                return [
+                    "id" => $bareme->id,
+                    "label" => $bareme->nom
+                ];
+            })->all();
 
         $this
             ->addField(
                 SharpFormSelectField::make("competition_id", $competitions)
                 ->setLabel("Compétition")
+                ->setDisplayAsDropdown()
+            )->addField(
+                SharpFormSelectField::make("bareme_id", $baremes)
+                ->setLabel("Barèmes")
                 ->setDisplayAsDropdown()
             )->addField(
                 SharpFormCheckField::make("finie", 'Finie')
@@ -136,7 +158,7 @@ class SaisonSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('competition_id|6', 'finie|6', 'annee_debut|6', 'annee_fin|6', 'nb_journees|6', 'equipes|6');
+            $column->withFields('competition_id|6', 'finie|6', 'annee_debut|6', 'annee_fin|6', 'nb_journees|6', 'equipes|6', 'bareme_id|6');
         });
     }
 }

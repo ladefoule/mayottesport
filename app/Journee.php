@@ -45,10 +45,10 @@ class Journee extends Model
         })->ignore($journee);
 
         $rules = [
-            'date' => 'required|date',
+            'date' => 'nullable|date',
             'saison_id' => 'required|exists:saisons,id',
             'type' => 'nullable|integer|min:0',
-            'numero' => ['required', 'integer', "max:$nbJournees", 'min:1', $unique]
+            'numero' => ['required', 'integer', 'min:1', "max:$nbJournees", $unique]
         ];
         $messages = ['numero.unique' => "Cette journée existe déjà dans cette saison."];
         return ['rules' => $rules, 'messages' => $messages];
