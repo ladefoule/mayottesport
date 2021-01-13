@@ -17,6 +17,7 @@ $entities = [
     "article" => [
         "list" => \App\Sharp\ArticleSharpList::class,
         "form" => \App\Sharp\ArticleSharpForm::class,
+        // "validator" => \App\Sharp\ArticleSharpValidator::class,
         "policy" => \App\Sharp\Policies\ArticlePolicy::class,
     ],
     "equipe" => [

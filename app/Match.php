@@ -198,11 +198,13 @@ class Match extends Model
                 $infos->$key = $value;
 
             // On ajoute les infos supplémentaires du match : forfaits, pénalités, tab, etc...
-            $infosSup = $this->matchInfos()->get();
+            $infosSup = $this->matchInfos;
             $correspondances = config('listes.proprietes-matches');
-            foreach ($infosSup as $info)
-                $infos->$correspondances[$info->propriete_id][0] = $info->valeur;
-
+            foreach ($infosSup as $info){
+                $prop = $correspondances[$info->propriete_id][0];
+                $infos->$prop = $info->valeur;
+                // $infos->$correspondances[$info->propriete_id][0] = $info->valeur; // Génère une erreur
+            }
             return $infos;
         });
     }

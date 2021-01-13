@@ -6,17 +6,24 @@ use App\Sport;
 use App\Equipe;
 use App\Article;
 use App\Competition;
+use App\ArticleSport;
 use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
+use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
+use Code16\Sharp\Form\Fields\SharpFormDateField;
+use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use App\Sharp\Formatters\TimestampSharpFormatter;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormNumberField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
+use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
 class ArticleSharpForm extends SharpForm
 {
+    use WithSharpFormEloquentUpdater;
+    
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
      *
@@ -29,10 +36,14 @@ class ArticleSharpForm extends SharpForm
 
         // Les sports liés
         $sports = $article->sports->all();
-        foreach ($sports as $sport)
-            $sport = [
+        foreach ($sports as $key => $sport)
+            $sports[$key] = [
                 'id' => $sport->id,
-                'label' => $sport->nom,
+                'sport_id' => $sport->id,
+                'article_id' => $article->id,
+                'position' => $sport->pivot->position,
+                'visible' => $sport->pivot->visible,
+                'priorite' => $sport->pivot->priorite,
             ];
         
         // Les compétitions liés
@@ -76,13 +87,36 @@ class ArticleSharpForm extends SharpForm
     public function update($id, array $data)
     {
         $article = Article::findOrFail($id);
+
+        // On valide la requète
+        $rules = Article::rules($article)['rules'];
+        // $ignore = ['titre', 'preambule', 'uniqid', 'slug', 'user_id', 'uniqid'];
+        // $rules = array_diff_key($rules, array_flip($ignore));
+
+        $pluck = ['home_visible', 'home_priorite', 'valide'];
+        $rules = array_intersect_key($rules, array_flip($pluck));
+
+        Validator::make($data, $rules)->validate();
+
         $article->update($data);
         forgetCaches('articles', $article);
         ProcessCrudTable::dispatch('articles', $article->id);
 
         $article->sports()->detach(); // Supprime toutes les relations sport/article concernant l'article
-        foreach ($data['sports'] as $sport)
-            $article->sports()->attach($sport['id']);
+        foreach ($data['sports'] as $sport){
+            if($sport){
+                // On valide la requète des pivots
+                // $rules = ArticleSport::rules();
+                // $messages = $rules['messages'];
+                // $rules = $rules['rules'];
+                // Validator::make($sport, $rules, $messages)->validate();
+
+                $article->sports()->attach($sport['sport_id'], [
+                    'visible' => $sport['visible'],
+                    'priorite' => $sport['priorite'],
+                ]);
+            }
+        }
 
         $article->competitions()->detach(); // Supprime toutes les relations competition/article concernant l'article
         foreach ($data['competitions'] as $competition)
@@ -115,8 +149,16 @@ class ArticleSharpForm extends SharpForm
     public function buildFormFields()
     {
         $timestampFormatter = new TimestampSharpFormatter;
-        $this
-            ->addField(
+
+        $prioritesConfig = config('listes.priorites-articles');
+        foreach ($prioritesConfig as $id => $priorite) {
+            $priorites[] = [
+                "id" => $id,
+                "label" => $priorite[1]
+            ];
+        }
+
+        $this->addField(
                 SharpFormTextField::make("uniqid")
                     ->setLabel("Id")
                     ->setReadOnly(true)
@@ -132,13 +174,13 @@ class ArticleSharpForm extends SharpForm
                     ->setLabel("Auteur")
                     ->setReadOnly(true)
             )->addField(
-                SharpFormNumberField::make("home_position")
-                    ->setLabel("Position (accueil)")
-                    ->setShowControls()
+                SharpFormCheckField::make("home_visible", "Afficher")
+                    ->setLabel("Afficher (page d'accueil)")
             )->addField(
-                SharpFormNumberField::make("index_position")
-                    ->setLabel("Position (page sport)")
-                    ->setShowControls()
+                SharpFormSelectField::make("home_priorite",
+                    $priorites ?? []
+                )->setLabel("Priorité (page d'accueil)")
+                ->setDisplayAsDropdown()
             )->addField(
                 SharpFormTextField::make("user_update")
                     ->setLabel("Modifié par")
@@ -154,19 +196,36 @@ class ArticleSharpForm extends SharpForm
                     ->setFormatter($timestampFormatter)
                     ->setReadOnly(true)
             )->addField(
-                SharpFormSelectField::make("sports",
-                    Sport::orderBy("nom")
-                    ->get()->map(function($sport) {
-                        return [
-                            "id" => $sport->id,
-                            "label" => $sport->nom
-                        ];
-                    })->all()
-                )
-                ->setLabel("Sports liés")
-                ->setDisplayAsList()
-                ->setMultiple(true)
-                ->setClearable(true)
+                SharpFormListField::make("sports")
+                    ->setLabel("Sports liés")
+                    ->setAddable()
+                    ->setMaxItemCount(count(Sport::all()))
+                    ->setRemovable()
+                    ->addItemField(
+                        SharpFormSelectField::make("sport_id",
+                            Sport::orderBy('sports.nom')
+                            ->get()->map(function($sport) {
+                                return [
+                                    "id" => $sport->id,
+                                    "label" => $sport->nom
+                                ];
+                            })->all()
+                        )->setDisplayAsDropdown()
+                        ->setLabel("Sport")
+                    )->addItemField(
+                        SharpFormCheckField::make("visible", "Visible")
+                            ->setLabel("Visible")
+                    )->addItemField(
+                        SharpFormSelectField::make("priorite",
+                            $priorites ?? []
+                        )->setLabel("Priorité")
+                        ->setDisplayAsDropdown()
+                    )->addItemField(
+                        SharpFormNumberField::make("position")
+                            ->setLabel("Position")
+                            ->setMin(1)
+                            ->setShowControls()
+                    )
             )->addField(
                 SharpFormSelectField::make("competitions",
                     Competition::join('sports', 'sport_id', 'sports.id')
@@ -212,7 +271,21 @@ class ArticleSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('uniqid|6', 'valide|6', 'titre|12', 'home_position|6', 'index_position|6', 'created_at|6', 'user|6', 'updated_at|6', 'user_update|6', 'sports|4', 'competitions|4', 'equipes|4');
+            $column->withFields('uniqid|6', 'valide|6', 'titre|12', 'home_visible|6', 'home_priorite|6');
+        });
+
+        $this->addColumn(12, function(FormLayoutColumn $column) {
+            $column->withSingleField("sports", function(FormLayoutColumn $listItem) {
+                 $listItem->withFields("sport_id|4", "visible|4", "priorite|4");
+            });
+        });
+
+        $this->addColumn(12, function (FormLayoutColumn $column) {
+            $column->withFields('competitions|6', 'equipes|6');
+        });
+
+        $this->addColumn(12, function (FormLayoutColumn $column) {
+            $column->withFields('created_at|6', 'user|6', 'updated_at|6', 'user_update|6');
         });
     }
 }

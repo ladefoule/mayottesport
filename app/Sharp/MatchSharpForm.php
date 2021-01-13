@@ -8,14 +8,15 @@ use App\Journee;
 use App\MatchInfo;
 use App\Jobs\ProcessCrudTable;
 use Code16\Sharp\Form\SharpForm;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
+use Code16\Sharp\Form\Fields\SharpFormDateField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use App\Sharp\Formatters\TimestampSharpFormatter;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
-use Code16\Sharp\Form\Fields\SharpFormDateField;
 
 class MatchSharpForm extends SharpForm
 {
@@ -31,7 +32,7 @@ class MatchSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $match = Match::where('uniqid', $id)->firstOrFail();
+        $match = Match::findOrFail($id);
         $matchInfos = $match->infos();
 
         // On insère les propriétés supplémentaires dans l'objet $match
@@ -47,7 +48,8 @@ class MatchSharpForm extends SharpForm
         }
 
         return $this->setCustomTransformer("saison", function ($saison, $match) {
-            return $match->journee->saison->crud_name;
+            $saison = $match->journee->saison;
+            return $saison->competition->nom .' '. $saison->nom;
         })->setCustomTransformer("user", function ($user, $article) {
             return $article->user->pseudo ?? '';
         })->transform($match);
@@ -60,7 +62,7 @@ class MatchSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $match = $id ? Match::where('uniqid', $id)->firstOrFail() : new Match;
+        $match = $id ? Match::findOrFail($id) : new Match;
         $ignore = ['saison', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext', 'avec_tirs_au_but', 'tab_eq_dom', 'tab_eq_ext'];
 
         // Si le match existe déjà
@@ -74,6 +76,7 @@ class MatchSharpForm extends SharpForm
         $rules = Match::rules($match);
         $messages = $rules['messages'];
         $rules = $rules['rules'];
+        $data['user_id'] = Auth::id();
         $data = Validator::make($data, $rules, $messages)->validate();
 
         // On supprime toutes les infos supplémentaires du match : forfaits, pénalités, etc...
@@ -106,7 +109,7 @@ class MatchSharpForm extends SharpForm
      */
     public function delete($id)
     {
-        $match = Match::where('uniqid', $id)->firstOrFail();
+        $match = Match::findOrFail($id);
         // Suppression des caches liés au match
         forgetCaches('matches', $match);
 

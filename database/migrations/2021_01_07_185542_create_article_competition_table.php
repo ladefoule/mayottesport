@@ -19,6 +19,7 @@ class CreateArticleCompetitionTable extends Migration
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->unsignedBigInteger('competition_id');
             $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('cascade');
+            $table->unique(['article_id', 'competition_id']);
             // $table->timestamps();
         });
     }

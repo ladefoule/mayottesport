@@ -15,7 +15,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug', 'home_position', 'index_position'];
+    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug', 'home_visible', 'home_priorite'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -31,32 +31,32 @@ class Article extends Model
      * Les règles de validations
      *
      * @param Request $request
-     * @param Article $article
+     * @param Article|id $article
      * @return array
      */
-    public static function rules(Article $article = null)
+    public static function rules($article = NULL)
     {
         $uniqid = Rule::unique('articles')->ignore($article);
-        request()['valide'] = request()->has('valide');
-        request()['slug'] = Str::slug(request()['titre']);
-        request()['user_id'] = Auth::id();
-        request()['user_update_id'] = Auth::id();
+        // request()['valide'] = request()->has('valide');
+        // request()['slug'] = Str::slug(request()['titre']);
+        // request()['user_id'] = Auth::id();
+        // request()['user_update_id'] = Auth::id();
 
         $rules = [
             'article' => 'nullable|min:30',
             'preambule' => 'required|min:30',
-            'titre' => 'required|min:10|max:100',
-            'slug' => 'required|alpha_dash|min:10|max:100',
-            'home_position' => 'nullable|integer|min:0',
-            'index_position' => 'nullable|integer|min:0',
+            'titre' => 'required|min:10|max:150',
+            'slug' => 'required|alpha_dash|min:10|max:150',
+            'home_priorite' => 'required|integer|min:1',
+            'home_visible' => 'nullable|boolean',
             'sport_id' => 'nullable|integer|exists:sports,id',
             'user_id' => 'required|integer|exists:users,id',
             'user_update_id' => 'nullable|integer|exists:users,id',
-            'img' => 'nullable|min:5|max:100',
+            'img' => 'nullable|min:5|max:200',
             'uniqid' => ['required','string','size:13',$uniqid],
             'valide' => 'boolean'
         ];
-        // $messages = ['nom.unique' => "Ce nom de barème, associé à ce sport, existe déjà."];
+
         return ['rules' => $rules/* , 'messages' => $messages */];
     }
 
@@ -79,17 +79,15 @@ class Article extends Model
             foreach ($this->attributes as $key => $value)
                 $infos->$key = $value;
 
-            $titreSlug = Str::slug($this->titre);
             if($this->sport_id)
-                $href = route('article.sport.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid, 'sport' => Str::slug($this->sport->nom)]);
+                $href = route('article.sport.show', ['titre' => $this->slug, 'uniqid' => $this->uniqid, 'sport' => Str::slug($this->sport->nom)]);
             else
-                $href = route('article.show', ['titre' => $titreSlug, 'uniqid' => $this->uniqid]);
+                $href = route('article.show', ['titre' => $this->slug, 'uniqid' => $this->uniqid]);
 
             $infosPlus = [
                 'href' => $href,
-                'titreSlug' => $titreSlug,
-                // 'competitions' => $this->competitions()->pluck('id'),
                 'publie_le' => $this->created_at->translatedFormat('d F Y'),
+                'modifie_le' => $this->updated_at ? $this->updated_at->translatedFormat('d F Y') : '',
                 'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
             ];
 
@@ -136,7 +134,7 @@ class Article extends Model
      */
     public function sports()
     {
-        return $this->belongsToMany('App\Sport')->using('App\ArticleSport');
+        return $this->belongsToMany('App\Sport')->using('App\ArticleSport')->withPivot(['priorite', 'visible']);
     }
 
     /**

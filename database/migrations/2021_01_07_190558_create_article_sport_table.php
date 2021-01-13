@@ -19,6 +19,9 @@ class CreateArticleSportTable extends Migration
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->unsignedBigInteger('sport_id');
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('cascade');
+            $table->boolean('visible')->nullable();
+            $table->integer('priorite')->default(1);
+            $table->unique(['article_id', 'sport_id']);
             // $table->timestamps();
         });
     }

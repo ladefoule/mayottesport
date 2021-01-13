@@ -30,6 +30,12 @@ return [
         'villes' => ['terrains'],
     ],
 
+    "priorites-articles" => [
+        1 => ['normale', 'Normale'],
+        2 => ['elevee', 'Elevée'],
+        3 => ['absolue', 'Absolue'],
+    ],
+
     "proprietes-baremes" => [
         1 => ["victoire_3_0", "Victoire 3-0"],
         2 => ["victoire_3_1", "Victoire 3-1"],

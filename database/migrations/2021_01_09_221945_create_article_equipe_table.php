@@ -19,6 +19,7 @@ class CreateArticleEquipeTable extends Migration
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->unsignedBigInteger('equipe_id');
             $table->foreign('equipe_id')->references('id')->on('equipes')->onDelete('cascade');
+            $table->unique(['article_id', 'equipe_id']);
             // $table->timestamps();
         });
     }

@@ -21,8 +21,12 @@ class MatchSharpList extends SharpEntityList
     public function buildListDataContainers()
     {
         $this->addDataContainer(
-            EntityListDataContainer::make('id')
-                ->setLabel('id')
+            EntityListDataContainer::make('equipeDom')
+                ->setLabel('Domicile')
+                ->setSortable()
+        )->addDataContainer(
+            EntityListDataContainer::make('equipeExt')
+                ->setLabel('Extérieur')
                 ->setSortable()
         )->addDataContainer(
             EntityListDataContainer::make('journee_numero')
@@ -39,6 +43,10 @@ class MatchSharpList extends SharpEntityList
         )->addDataContainer(
             EntityListDataContainer::make('rencontre')
                 ->setLabel('Rencontre')
+        )->addDataContainer(
+            EntityListDataContainer::make('updated_at')
+                ->setLabel('Modifié le')
+                ->setSortable()
         );
     }
 
@@ -49,11 +57,13 @@ class MatchSharpList extends SharpEntityList
     */
     public function buildListLayout()
     {
-        $this->addColumn('id', 2)
-        ->addColumn('competition', 2)
-        ->addColumn('annee', 2)
+        $this
+        ->addColumn('competition', 3)
+        ->addColumn('annee', 1)
         ->addColumn('journee_numero', 2)
-        ->addColumn('rencontre', 4);
+        ->addColumn('equipeDom', 2)
+        ->addColumn('equipeExt', 2)
+        ->addColumn('updated_at', 2);
     }
 
     /**
@@ -86,7 +96,7 @@ class MatchSharpList extends SharpEntityList
             ->join('equipes AS equipesExt', 'equipe_id_ext', 'equipesExt.id')
             ->where('sports.slug', $this->sportSlug)
             ->where('saisons.finie', 0)
-            ->select('matches.*', 'competitions.nom as competition', 'saisons.annee_debut as annee', 'journees.numero as journee_numero')
+            ->select('matches.*', 'competitions.nom as competition', 'saisons.annee_debut as annee', 'journees.numero as journee_numero', 'equipesDom.nom as equipeDom', 'equipesExt.nom as equipeExt')
             ->distinct();
 
         // Recherche
@@ -104,14 +114,9 @@ class MatchSharpList extends SharpEntityList
         \Log::info(count($matches->get()));
 
         return $this->setCustomTransformer(
-            "id",
-            function ($id, $match) {
-                return $match->uniqid;
-            }
-        )->setCustomTransformer(
-            "rencontre",
-            function ($rencontre, $match) {
-                return $match->equipeDom->nom . ' # ' . $match->equipeExt->nom;
+            "updated_at",
+            function ($updated_at, $match) {
+                return $match->updated_at ? date_format($match->updated_at, 'd/m/Y à h:i:s') : '';
             }
         )->setCustomTransformer(
             "journee_numero",

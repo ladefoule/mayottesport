@@ -26,15 +26,15 @@ class ArticleSharpList extends SharpEntityList
                 ->setSortable()
         )->addDataContainer(
             EntityListDataContainer::make('sport_id')
-                ->setLabel('Sport')
+                ->setLabel('Catégorie')
                 ->setSortable()
         )->addDataContainer(
-            EntityListDataContainer::make('home_position')
-                ->setLabel('Pos. (accueil)')
+            EntityListDataContainer::make('home_visible')
+                ->setLabel('Visible (accueil)')
                 ->setSortable()
         )->addDataContainer(
-            EntityListDataContainer::make('index_position')
-                ->setLabel('Pos. (index sport)')
+            EntityListDataContainer::make('home_priorite')
+                ->setLabel('Priorité (accueil)')
                 ->setSortable()
         )->addDataContainer(
             EntityListDataContainer::make('created_at')
@@ -51,11 +51,11 @@ class ArticleSharpList extends SharpEntityList
     public function buildListLayout()
     {
         $this
-        ->addColumn('titre', 3)
-        ->addColumn('valide', 1)
-        ->addColumn('home_position', 2)
-        ->addColumn('sport_id', 2)
-        ->addColumn('index_position', 2)
+        ->addColumn('titre', 4)
+        ->addColumn('valide', 2)
+        ->addColumn('home_visible', 2)
+        ->addColumn('home_priorite', 2)
+        // ->addColumn('sport_id', 2)
         ->addColumn('created_at', 2);
     }
 
@@ -100,10 +100,21 @@ class ArticleSharpList extends SharpEntityList
             function ($valide, $article) {
                 return $article->valide ? 'Oui' : 'Non';
             }
-        )->setCustomTransformer(
+        )/* ->setCustomTransformer(
             "sport_id",
             function ($sport_id, $article) {
                 return $article->sport ? $article->sport->nom : '';
+            }
+        ) */->setCustomTransformer(
+            "home_visible",
+            function ($home_visible, $article) {
+                return $article->home_visible ? 'Oui': 'Non';
+            }
+        )->setCustomTransformer(
+            "home_priorite",
+            function ($home_priorite, $article) {
+                $priorites = config('listes.priorites-articles');
+                return $article->home_priorite ? $priorites[$article->home_priorite][1] : '';
             }
         )->transform($articles->paginate(12));
     }

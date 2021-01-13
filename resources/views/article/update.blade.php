@@ -35,17 +35,14 @@
         </div>
 
         <div class="col-12 pb-3">
-            <label for="article">Sport unique (aucun autre sport ne pourra être lié ensuite)</label>
+            <label for="article">Catégorie</label>
             <select name="sport_id" class="form-control input-optionnel @error('sport_id') is-invalid @enderror">
-                <option value="">Aucun</option>
+                <option value="">Général</option>
                 @foreach ($sports as $sport)
                     <option value="{{ $sport->id }}" @if(old('sport_id') == $sport->id || (! old('sport_id') && $sport->id == $article->sport_id)) selected @endif>{{ $sport->nom }}</option>
                 @endforeach
             </select>
         </div>
-
-        <input type="hidden" name="uniqid" value="{{ $article->uniqid }}">
-        <input type="hidden" name="user_id" value="{{ $article->user_id }}">
 
         <div class="col-12 mt-3">
             <div class="mt-3 col-12 alert alert-danger text-dark px-3 d-none" id="messageErreur"></div>
@@ -56,7 +53,6 @@
         </div>
     </form>
     <div class="col-lg-4 text-center p-3">
-        {{-- <a class="mb-3 btn btn-success w-50" href="{{ route('article.update', ['uniqid' => $article->uniqid]) }}">Modifier l'article</a> --}}
         <a class="mb-3 btn btn-primary w-50" href="{{ route('article.create') }}">Nouvel article</a>
         <a class="mb-3 btn btn-danger w-50" href="{{ asset('/adminsharp') }}">Administration</a>
    </div>

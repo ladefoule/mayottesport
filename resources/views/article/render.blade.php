@@ -3,7 +3,7 @@
 <div class="d-flex flex-wrap justify-content-center border-bottom py-3">
    @if ($i == 0)
       <h1 class="col-12 titre-premier-article p-0"><a class="" href="{{ $article->href }}">{{ $article->titre }}</a></h1>
-      <div class="col-10 my-3 p-0 text-center">
+      <div class="col-12 my-3 p-0 text-center">
          <a class="" href="{{ $article->href }}"><img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid"></a>
       </div>
       <div class="col-12 border-0 p-0">
