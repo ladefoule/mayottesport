@@ -17,16 +17,4 @@ class Modif extends Model
      * @var array
      */
     protected $fillable = ['user_id', 'match_id', 'note', 'type'];
-
-    /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        $user = index('users')[$this->user_id];
-        $match = index('matches')[$this->match_id];
-        return $match->uniqid . ' - ' . $user->nom;
-    }
 }

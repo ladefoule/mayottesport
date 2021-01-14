@@ -27,7 +27,7 @@ class ArticleSport extends Pivot
      * @param ArticleSport $articleSport
      * @return array
      */
-    public static function rules(ArticleSport $articleSport = null, array $ignore = [])
+    public static function rules(ArticleSport $articleSport = null)
     {
         $unique = Rule::unique('article_sport', 'article_id')->ignore($articleSport);
 
@@ -37,9 +37,6 @@ class ArticleSport extends Pivot
             'priorite' => 'nullable|integer|min:1|max:5',
             'article_id' => 'required|exists:articles,id',
         ];
-
-        foreach ($ignore as $key)
-            unset($rules[$key]);
 
         $messages = ['unique' => "Ce sport est déjà lié à l'article."];
         return ['rules' => $rules, 'messages' => $messages];

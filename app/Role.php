@@ -39,11 +39,12 @@ class Role extends Model
      */
     public static function rules(Role $role = null)
     {
-        $unique = Rule::unique('villes')->where(function ($query) {
-            return $query->whereNom(request()['nom']);
-        })->ignore($role);
+        $unique = Rule::unique('roles')->ignore($role);
 
-        $rules['nom'] = ['required','string','max:50','min:3',$unique];
+        $rules = [
+            'nom' => ['required','string','max:50','min:3',$unique],
+            'niveau' => 'required|integer|min:0'
+        ];
         return ['rules' => $rules];
     }
 }

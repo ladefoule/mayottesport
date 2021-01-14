@@ -21,8 +21,7 @@ class Match extends Model
      * @var array
      */
     protected $fillable = ['date', 'heure', 'acces_bloque', 'nb_modifs', 'score_eq_dom', 'score_eq_ext',
-                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext', 'uniqid', 'user_id',
-                            'avec_tirs_au_but', 'tab_eq_dom', 'tab_eq_ext'];
+                            'journee_id', 'terrain_id', 'equipe_id_dom', 'equipe_id_ext', 'uniqid', 'user_id'];
 
     /**
      * La fonction nous renvoie le résultat du matchpar rapport à l'équipe $equipeId
@@ -74,39 +73,34 @@ class Match extends Model
      */
     public static function rules(Match $match = null)
     {
-        $uniqid = Rule::unique('matches')->ignore($match);
-        $uniqueEquipeIdDomEtJourneeId = Rule::unique('matches')->where(function ($query) {
-            return $query->whereJourneeId(request()['journee_id'])
-                        ->whereEquipeIdDom(request()['equipe_id_dom']);
-        })->ignore($match);
+        $unique = Rule::unique('matches')->ignore($match);
+        $uniqueEqDomJournee = Rule::unique('matches', 'journee_id', 'equipe_id_dom')->ignore($match);
 
-        $uniqueEquipeIdExtEtJourneeId = Rule::unique('matches')->where(function ($query) {
-            return $query->whereEquipeIdExt(request()['equipe_id_ext'])->whereJourneeId(request()['journee_id']);
-        })->ignore($match);
+        $uniqueEqExtJournee = Rule::unique('matches', 'journee_id', 'equipe_id_ext')->ignore($match);
 
-        request()['acces_bloque'] = request()->has('acces_bloque');
-        request()['forfait_eq_dom'] = request()->has('forfait_eq_dom');
-        request()['forfait_eq_ext'] = request()->has('forfait_eq_ext');
-        request()['penalite_eq_dom'] = request()->has('penalite_eq_dom');
-        request()['penalite_eq_ext'] = request()->has('penalite_eq_ext');
-        request()['avec_tirs_au_but'] = request()->has('avec_tirs_au_but');
+        // request()['acces_bloque'] = request()->has('acces_bloque');
+        // request()['forfait_eq_dom'] = request()->has('forfait_eq_dom');
+        // request()['forfait_eq_ext'] = request()->has('forfait_eq_ext');
+        // request()['penalite_eq_dom'] = request()->has('penalite_eq_dom');
+        // request()['penalite_eq_ext'] = request()->has('penalite_eq_ext');
+        // request()['avec_tirs_au_but'] = request()->has('avec_tirs_au_but');
         $rules = [
             'journee_id' => 'required|exists:journees,id',
             'terrain_id' => 'nullable|exists:terrains,id',
             'user_id' => 'nullable|exists:users,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
-            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEquipeIdDomEtJourneeId],
-            'equipe_id_ext' => ['required','integer','exists:equipes,id','different:equipe_id_dom',$uniqueEquipeIdExtEtJourneeId],
-            'uniqid' => ['required','string','max:50','min:3',$uniqid],
+            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEqDomJournee],
+            'equipe_id_ext' => ['required','integer','exists:equipes,id','different:equipe_id_dom',$uniqueEqExtJournee],
+            'uniqid' => ['required','string','max:50','min:3',$unique],
             'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
             'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
             'acces_bloque' => 'boolean',
-            'forfait_eq_dom' => 'boolean',
-            'forfait_eq_ext' => 'boolean',
-            'penalite_eq_dom' => 'boolean',
-            'penalite_eq_ext' => 'boolean',
-            'avec_tirs_au_but' => 'boolean',
+            'forfait_eq_dom' => 'nullable|boolean',
+            'forfait_eq_ext' => 'nullable|boolean',
+            'penalite_eq_dom' => 'nullable|boolean',
+            'penalite_eq_ext' => 'nullable|boolean',
+            'avec_tirs_au_but' => 'nullable|boolean',
             'tab_eq_dom' => ['required_with:tab_eq_ext','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:20'],
             'tab_eq_ext' => ['required_with:tab_eq_dom','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:20'],
         ];
@@ -160,10 +154,10 @@ class Match extends Model
             $infosPlus = [
                 'id' => $this->id,
                 'equipe_dom' => $equipeDom,
-                'href_equipe_dom' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => $equipeDomNomSlug, 'uniqid' => $equipeDom->uniqid]),
+                'href_equipe_dom' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => Str::slug($equipeDom->nom_complet)]),
                 'fanion_equipe_dom' => fanion($equipeDom->id),
                 'equipe_ext' => $equipeExt,
-                'href_equipe_ext' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => $equipeExtNomSlug, 'uniqid' => $equipeExt->uniqid]),
+                'href_equipe_ext' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => Str::slug($equipeExt->nom_complet)]),
                 'fanion_equipe_ext' => fanion($equipeExt->id),
                 'url' => route('competition.match', [
                     'sport' => $sportNomSlug,

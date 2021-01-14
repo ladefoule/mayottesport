@@ -46,16 +46,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Définition de l'attribut nom pour un objet de la class User
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return $this->pseudo;
-    }
-
-    /**
      * Les règles de validations
      *
      * @param User $user

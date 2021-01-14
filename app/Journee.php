@@ -33,22 +33,13 @@ class Journee extends Model
      */
     public static function rules(Journee $journee = null)
     {
-        $numero = request()['numero'] ?? '';
-        $saisonId = request()['saison_id'] ?? '';
-        $saison = Saison::find($saisonId);
-
-        // Si $saison == null, la validation ne passera pas à cause de la règle 'saison_id' qui doit exister dans la base
-        // La valeur 0 ici sert juste à éviter d'avoir null comme maximum si saison = null
-        $nbJournees = $saison->nb_journees ?? 0;
-        $unique = Rule::unique('journees')->where(function ($query) use ($numero, $saisonId) {
-            return $query->whereNumero($numero)->whereSaisonId($saisonId);
-        })->ignore($journee);
+        $unique = Rule::unique('journees', 'numero', 'saison_id')->ignore($journee);
 
         $rules = [
             'date' => 'nullable|date',
             'saison_id' => 'required|exists:saisons,id',
             'type' => 'nullable|integer|min:0',
-            'numero' => ['required', 'integer', 'min:1', "max:$nbJournees", $unique]
+            'numero' => ['required', 'integer', 'min:1', "max:100", $unique]
         ];
         $messages = ['numero.unique' => "Cette journée existe déjà dans cette saison."];
         return ['rules' => $rules, 'messages' => $messages];

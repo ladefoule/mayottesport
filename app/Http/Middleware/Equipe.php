@@ -25,7 +25,7 @@ class Equipe
     public function handle($request, Closure $next)
     {
         Log::info(" -------- Middleware Equipe -------- ");
-        $equipe = EquipeModel::whereUniqid($request->uniqid)->whereSlug($request->equipe)->firstOrFail();
+        $equipe = EquipeModel::whereSlugComplet($request->equipe)->firstOrFail();
 
         $request->equipe = $equipe;
         return $next($request);

@@ -20,6 +20,8 @@ class Ville extends Model
      */
     protected $fillable = ['nom'];
 
+    public $timestamps = false;
+
     /**
      * Les règles de validations
      *
@@ -28,9 +30,7 @@ class Ville extends Model
      */
     public static function rules(Ville $ville = null)
     {
-        $unique = Rule::unique('villes')->where(function ($query) {
-            return $query->whereNom(request()['nom']);
-        })->ignore($ville);
+        $unique = Rule::unique('villes')->ignore($ville);
 
         $rules['nom'] = ['required','string','max:50','min:3',$unique];
         return ['rules' => $rules];

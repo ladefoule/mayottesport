@@ -27,13 +27,8 @@ class Competition extends Model
      */
     public static function rules(Competition $competition = null)
     {
-        $unique = Rule::unique('competitions')->where(function ($query) {
-            return $query->whereNom(request()['nom'])->whereSportId(request()['sport']);
-        })->ignore($competition);
-
-        $uniqueSlug = Rule::unique('competitions')->where(function ($query) {
-            return $query->whereSlug(request()['slug'])->whereSportId(request()['sport']);
-        })->ignore($competition);
+        $unique = Rule::unique('competitions', 'nom', 'sport_id')->ignore($competition);
+        $uniqueSlug = Rule::unique('competitions', 'slug', 'sport_id')->ignore($competition);
 
         $rules = [
             'sport_id' => 'required|exists:sports,id',
@@ -47,16 +42,6 @@ class Competition extends Model
         $messages = ['nom.unique' => "Ce nom de compétition, associé à ce sport, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];
     }
-
-    /**
-     * Définition de l'affichage dans le CRUD (back-office)
-     *
-     * @return string
-     */
-    // public function getCrudNameAttribute()
-    // {
-    //     return indexCrud('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
-    // }
 
     /**
      * Le sport lié à cette compétition
@@ -76,16 +61,6 @@ class Competition extends Model
     public function saisons()
     {
         return $this->hasMany('App\Saison');
-    }
-
-    /**
-     * Le palmarès
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function champions()
-    {
-        return $this->hasMany('App\Champion');
     }
 
     /**

@@ -21,16 +21,6 @@ class Bareme extends Model
     protected $fillable = ['nom', 'victoire', 'nul', 'defaite', 'sport_id'];
 
     /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return indexCrud('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
-    }
-
-    /**
      * Toutes les saisons possédant le barème
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -59,9 +49,7 @@ class Bareme extends Model
      */
     public static function rules(Bareme $bareme = null)
     {
-        $uniqueNomEtSportId = Rule::unique('baremes')->where(function ($query) {
-            return $query->whereNom(request()['nom'])->whereSportId(request()['sport_id']);
-        })->ignore($bareme);
+        $uniqueNomEtSportId = Rule::unique('baremes', 'nom', 'sport_id')->ignore($bareme);
 
         $rules = [
             'victoire' => 'nullable|integer|min:0|max:30',

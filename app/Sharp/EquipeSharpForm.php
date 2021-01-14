@@ -45,6 +45,7 @@ class EquipeSharpForm extends SharpForm
         $equipe = $id ? Equipe::findOrFail($id) : new Equipe;    
         
         $data['slug'] = Str::slug($data['nom']);
+        $data['slug_complet'] = Str::slug($data['nom_complet']);
 
         // Si l'équipe existe déjà
         if(isset($equipe->id)){

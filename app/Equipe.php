@@ -17,7 +17,7 @@ class Equipe extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom', 'nom_complet', 'sport_id', 'feminine', 'non_mahoraise', 'ville_id', 'slug'];
+    protected $fillable = ['nom', 'nom_complet', 'sport_id', 'ville_id', 'slug', 'slug_complet'];
 
     /**
      * Les règles de validations
@@ -27,31 +27,18 @@ class Equipe extends Model
      */
     public static function rules(Equipe $equipe = null)
     {
-        request()['feminine'] = request()->has('feminine');
-        request()['non_mahoraise'] = request()->has('non_mahoraise');
-
-        $uniqueNomEtSportId = Rule::unique('equipes')->where(function ($query) {
-            return $query->whereNom(request()['nom'])->whereSportId(request()['sport_id']);
-        })->ignore($equipe);
-
-        $uniqueSlug = Rule::unique('equipes')->where(function ($query) {
-            return $query->whereSlug(request()['slug'])->whereSportId(request()['sport']);
-        })->ignore($equipe);
-
         $uniqid = Rule::unique('equipes')->ignore($equipe);
 
         $rules = [
-            'nom_complet' => 'nullable|min:3|max:50',
+            'nom_complet' => 'required|min:3|max:50',
             'sport_id' => 'required|integer|exists:sports,id',
             'ville_id' => 'required|integer|exists:villes,id',
-            'feminine' => 'boolean',
-            'non_mahoraise' => 'boolean',
-            'nom' => ['required','max:50','min:3',$uniqueNomEtSportId],
-            'uniqid' => ['required','max:50','min:3',$uniqid],
-            'slug' => ['required','alpha_dash','max:50','min:3',$uniqueSlug],
+            'nom' => ['required','max:50','min:3',$$uniqid],
+            'uniqid' => ['required','max:50','min:3',$$uniqid],
+            'slug' => ['required','alpha_dash','max:50','min:3',$$uniqid],
+            'slug_complet' => ['required','alpha_dash','max:50','min:3',$$uniqid],
         ];
-        $messages = ['nom.unique' => "Ce nom d'équipe, associé à ce sport, existe déjà."];
-        return ['rules' => $rules, 'messages' => $messages];
+        return ['rules' => $rules];
     }
     
     /**

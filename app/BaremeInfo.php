@@ -16,17 +16,6 @@ class BaremeInfo extends Model
     public $timestamps = false;
 
     /**
-     * Définition de l'affichage dans le CRUD (back-office)
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        $crudProprietes = config('listes.proprietes-baremes');
-        return indexCrud('baremes')[$this->bareme_id]->crud_name . ' - ' . $crudProprietes[$this->propriete_id][0];
-    }
-
-    /**
      * Les règles de validations
      *
      * @param Bareme $bareme
@@ -34,9 +23,7 @@ class BaremeInfo extends Model
      */
     public static function rules(Bareme $bareme = null)
     {
-        $unique = Rule::unique('bareme_infos')->where(function ($query){
-            return $query->whereProprieteId(request()['propriete_id'])->whereBaremeId(request()['bareme_id']);
-        })->ignore($bareme);
+        $unique = Rule::unique('bareme_infos', 'propriete_id', 'bareme_id')->ignore($bareme);
 
         $rules = [
             'bareme_id' => ['required','integer','exists:baremes,id',$unique],

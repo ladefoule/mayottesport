@@ -27,10 +27,7 @@ class Region extends Model
      */
     public static function rules(Region $region = null)
     {
-        $nom = request()->nom ?? '';
-        $unique = Rule::unique('regions')->where(function ($query) use ($nom) {
-            return $query->whereNom($nom);
-        })->ignore($region);
+        $unique = Rule::unique('regions')->ignore($region);
 
         $rules['nom'] = ['required','string','max:50','min:3',$unique];
         return ['rules' => $rules];

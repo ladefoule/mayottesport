@@ -30,11 +30,8 @@ class Saison extends Model
      */
     public static function rules(Saison $saison = null)
     {
-        $unique = Rule::unique('saisons')->where(function ($query) {
-            return $query->whereAnneeDebut(request()['annee_debut'])->whereCompetitionId(request()['competition_id']);
-        })->ignore($saison);
+        $unique = Rule::unique('saisons', 'annee_debut', 'competition_id')->ignore($saison);
 
-        request()['finie'] = request()->has('finie');
         $rules = [
             'annee_debut' => ['required','integer','min:2000','max:3000',$unique],
             'annee_fin' => 'required|integer|min:2000|max:3000|gte:annee_debut',
@@ -43,7 +40,7 @@ class Saison extends Model
             'nb_montees' => 'nullable|integer|min:0|max:10',
             'bareme_id' => 'nullable|exists:baremes,id',
             'competition_id' => 'required|exists:competitions,id',
-            'finie' => 'boolean'
+            'finie' => 'nullable|boolean'
         ];
         $messages = ['annee_debut.unique' => "Le competition possède déjà une saison qui débute la même année."];
         return ['rules' => $rules, 'messages' => $messages];
@@ -176,16 +173,6 @@ class Saison extends Model
     public function getNomAttribute()
     {
         return $this->annee('/');
-    }
-
-    /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return indexCrud('competitions')[$this->competition_id]->crud_name . ' ' . $this->annee('/');
     }
 
     /**
