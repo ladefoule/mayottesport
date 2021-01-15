@@ -74,9 +74,8 @@ class Match extends Model
     public static function rules(Match $match = null)
     {
         $unique = Rule::unique('matches')->ignore($match);
-        $uniqueEqDomJournee = Rule::unique('matches', 'journee_id', 'equipe_id_dom')->ignore($match);
-
-        $uniqueEqExtJournee = Rule::unique('matches', 'journee_id', 'equipe_id_ext')->ignore($match);
+        $uniqueEqJourneeDom = Rule::unique('matches', 'journee_id', 'equipe_id_dom')->ignore($match);
+        $uniqueEqJourneeExt = Rule::unique('matches', 'journee_id', 'equipe_id_ext')->ignore($match);
 
         // request()['acces_bloque'] = request()->has('acces_bloque');
         // request()['forfait_eq_dom'] = request()->has('forfait_eq_dom');
@@ -90,9 +89,9 @@ class Match extends Model
             'user_id' => 'nullable|exists:users,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
-            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEqDomJournee],
-            'equipe_id_ext' => ['required','integer','exists:equipes,id','different:equipe_id_dom',$uniqueEqExtJournee],
-            'uniqid' => ['required','string','max:50','min:3',$unique],
+            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEqJourneeDom,],
+            'equipe_id_ext' => ['required','integer','exists:equipes,id','different:equipe_id_dom',$uniqueEqJourneeExt],
+            'uniqid' => ['required','string','size:13',$unique],
             'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
             'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
             'acces_bloque' => 'boolean',

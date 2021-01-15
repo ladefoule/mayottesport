@@ -27,16 +27,20 @@ class Equipe extends Model
      */
     public static function rules(Equipe $equipe = null)
     {
-        $uniqid = Rule::unique('equipes')->ignore($equipe);
+        $unique = Rule::unique('equipes')->ignore($equipe);
+        $uniqueNom = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
+        $uniqueNomComplet = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
+        $uniqueSlug = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
+        $uniqueSlugComplet = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
 
         $rules = [
-            'nom_complet' => 'required|min:3|max:50',
+            'nom_complet' => ['required','min:3','max:50',$uniqueNomComplet],
             'sport_id' => 'required|integer|exists:sports,id',
             'ville_id' => 'required|integer|exists:villes,id',
-            'nom' => ['required','max:50','min:3',$$uniqid],
-            'uniqid' => ['required','max:50','min:3',$$uniqid],
-            'slug' => ['required','alpha_dash','max:50','min:3',$$uniqid],
-            'slug_complet' => ['required','alpha_dash','max:50','min:3',$$uniqid],
+            'nom' => ['required','max:50','min:3',$uniqueNom],
+            'uniqid' => ['required','max:50','min:3',$unique],
+            'slug' => ['required','alpha_dash','max:50','min:3',$uniqueSlug],
+            'slug_complet' => ['required','alpha_dash','max:50','min:3',$uniqueSlugComplet],
         ];
         return ['rules' => $rules];
     }
@@ -59,16 +63,6 @@ class Equipe extends Model
     public function ville()
     {
         return $this->belongsTo('App\Ville');
-    }
-
-    /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        return indexCrud('sports')[$this->sport_id]->nom . ' - ' . $this->nom;
     }
 
     /**

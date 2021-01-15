@@ -27,8 +27,8 @@ class CompetitionTableSeeder extends Seeder
                 'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $footballId,
-                // 'home_position' => $i + 1,
-                // 'index_position' => $i + 1,
+                'home_position' => $i + 1,
+                'index_position' => $i + 1,
                 'created_at' => now(),
             ]);
         }

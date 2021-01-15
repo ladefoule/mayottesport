@@ -5,10 +5,10 @@
 @section('title', 'Connexion')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-8 p-3">
-        <div class="card bg-light">
-            <div class="card-header h4">Connexion</div>
+{{-- <div class="row justify-content-center"> --}}
+    <div class="col-md-10 m-auto p-3">
+        <div class="card">
+            <div class="card-header h4 text-green">Connexion</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-</div>
+{{-- </div> --}}
 @endsection
 
 @section('script')

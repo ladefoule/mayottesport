@@ -3,10 +3,11 @@
 @section('title', "S'inscrire")
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-lg-10 p-3">
+<div class="col-md-10 m-auto p-3">
+    {{-- <div class="container border border-danger w-100">
+        <div class="row justify-content-center p-3"> --}}
         <div class="card">
-            <div class="card-header position-relative">S'inscrire</div>
+            <div class="card-header position-relative text-green">S'inscrire</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
@@ -101,7 +102,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-6 offset-md-4 d-flex justify-content-center">
+                        <div class="col-md-8 offset-md-4">
                             {{-- <div id="submit" class="btn btn-primary">S'inscrire</div> --}}
                             <button class="btn btn-primary px-5">S'inscrire</button>
                         </div>
@@ -109,7 +110,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 </div>
 @endsection
 

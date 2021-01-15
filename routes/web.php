@@ -62,16 +62,16 @@ Route::group(['middleware'=> 'verified'], function () {
 
             /* DEBUT PREFIX CRUD */
             Route::prefix('/crud')->group(function () {
-                Route::get('/', function(){return redirect()->route('crud.index', ['table' => 'sports']);})->name('crud');
-                Route::get('/{table}', 'CrudController@index')->name('crud.index');
-                Route::get('/{table}/create', 'CrudController@createForm')->name('crud.create');
-                Route::post('/{table}/create', 'CrudController@createStore');
-                Route::get('/{table}/ajax', 'CrudController@indexAjax')->name('crud.index-ajax');
-                Route::get('/{table}/{id}', 'CrudController@show')->name('crud.show');
-                Route::get('/{table}/{id}/update', 'CrudController@updateForm')->name('crud.update');
-                Route::post('/{table}/{id}/update', 'CrudController@updateStore');
-                Route::get('/{table}/{id}/delete', 'CrudController@delete')->name('crud.delete');
-                Route::post('/{table}/delete', 'CrudController@deleteAjax')->name('crud.delete-ajax');
+                // Route::get('/', function(){return redirect()->route('crud.index', ['table' => 'sports']);})->name('crud');
+                // Route::get('/{table}', 'CrudController@index')->name('crud.index');
+                // Route::get('/{table}/create', 'CrudController@createForm')->name('crud.create');
+                // Route::post('/{table}/create', 'CrudController@createStore');
+                // Route::get('/{table}/ajax', 'CrudController@indexAjax')->name('crud.index-ajax');
+                // Route::get('/{table}/{id}', 'CrudController@show')->name('crud.show');
+                // Route::get('/{table}/{id}/update', 'CrudController@updateForm')->name('crud.update');
+                // Route::post('/{table}/{id}/update', 'CrudController@updateStore');
+                // Route::get('/{table}/{id}/delete', 'CrudController@delete')->name('crud.delete');
+                // Route::post('/{table}/delete', 'CrudController@deleteAjax')->name('crud.delete-ajax');
             }); /* FIN PREFIX CRUD */
 
             /* DEBUT PREFIX AUTRES */
@@ -86,8 +86,8 @@ Route::group(['middleware'=> 'verified'], function () {
 
             /* DEBUT MIDDLEWARE SUPERADMIN */
             Route::prefix('/crud-superadmin')->middleware(['check-permission:superadmin'])->group(function () {
-                Route::get('/tables', 'CrudAdminController@tables')->name('crud-superadmin.tables');
-                Route::post('/tables', 'CrudAdminController@tablesPost');
+                // Route::get('/tables', 'CrudAdminController@tables')->name('crud-superadmin.tables');
+                // Route::post('/tables', 'CrudAdminController@tablesPost');
 
                 // Route::get('/attributs', 'CrudAdminController@attributs')->name('crud-superadmin.attributs');
                 // Route::post('/attributs/ajax', 'CrudAdminController@attributsAjax')->name('crud-superadmin.attributs.ajax');

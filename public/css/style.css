@@ -9,14 +9,25 @@ body{
     /* background-color: rgba(255, 255, 255); */
     /* background-color: rgba(134, 134, 134, 0.157); */
     /* background-color: rgba(149, 151, 151, 0.157); */
-    background-image: url('../storage/img/fond-mayotte.jpg');
+    /* background-image: url('../storage/img/fond-ecran-mayotte.jpg'); */
+    background-color: rgb(226, 245, 245);
+    background-color: #fff;
+    background-color: #ebeff3;
     /* background-size:1950px 1000px; */
     background-attachment: fixed;
 }
 
+.text-green,a.text-green,a.text-green-light:hover{
+    color:green
+}
+
+a.text-green-light{
+    color:rgb(112, 209, 87)
+}
+
 .border-bottom-defaut{
    /* border-bottom: 2px gray solid !important; */
-   box-shadow: 0px 5px 4px rgb(216, 216, 216);
+   /* box-shadow: 0px 5px 4px rgb(216, 216, 216); */
 }
 
 .titre-article,.titre-premier-article{
@@ -161,9 +172,9 @@ a.non-cliquable, a.non-cliquable:hover{
 }
 
 .border-bottom-nav.active,.border-bottom-nav:hover{
-    border-top: 5px solid white;
-    border-bottom: 5px solid blue;
-    color: blue !important;
+    /* border-top: 5px solid white; */
+    /* border-bottom: 5px solid blue; */
+    /* color: blue !important; */
     /* background-color: rgba(211, 211, 235, 0.521); */
 }
 

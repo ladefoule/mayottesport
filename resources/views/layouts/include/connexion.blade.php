@@ -27,9 +27,9 @@
                     <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
                         Administration
                     </a>
-                    <a class="dropdown-item" href="{{ route('crud') }}">
+                    {{-- <a class="dropdown-item" href="{{ route('crud') }}">
                         Le Crud
-                    </a>
+                    </a> --}}
                 @endif
                 @if($role == 'superadmin')
                     <a class="dropdown-item" href="{{ asset('/script.html') }}">
