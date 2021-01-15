@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         Log::info(" -------- Controller Home : index -------- ");
-        $sports = index('sports')->where('home_position', '>=', 1)->sortBy('home_position');
+        $sports = index('sports')->where('home_visible', '>=', 1)->sortBy('home_priorite');
         foreach ($sports as $sport){
             $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'position' => 'home']);
             $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'position' => 'home']);
@@ -26,8 +26,8 @@ class HomeController extends Controller
 
         $indexArticles = index('articles')
             ->where('valide', 1)
-            ->where('home_position', '>', 0)
-            ->sortBy('home_position')
+            ->where('home_visible', '>', 0)
+            ->sortBy('home_priorite')
             ->slice(0,5);
 
         $articles = collect();

@@ -40,6 +40,9 @@ class ArticleController extends Controller
     {
         $rules = Article::rules()['rules'];
         $request['uniqid'] = uniqid();
+        $request['valide'] = $request->has('valide');
+        $request['user_id'] = Auth::id();
+        $request['slug'] = Str::slug($request['titre']);
         $data = Validator::make($request->all(), $rules)->validate();
         $article = Article::create($data);
 

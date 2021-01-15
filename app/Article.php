@@ -47,14 +47,14 @@ class Article extends Model
             'preambule' => 'required|min:30',
             'titre' => 'required|min:10|max:150',
             'slug' => 'required|alpha_dash|min:10|max:150',
-            'home_priorite' => 'required|integer|min:1',
+            'home_priorite' => 'nullable|integer|min:1',
             'home_visible' => 'nullable|boolean',
             'sport_id' => 'nullable|integer|exists:sports,id',
             'user_id' => 'required|integer|exists:users,id',
             'user_update_id' => 'nullable|integer|exists:users,id',
             'img' => 'nullable|min:5|max:200',
             'uniqid' => ['required','string','size:13',$uniqid],
-            'valide' => 'boolean'
+            'valide' => 'nullable|boolean'
         ];
 
         return ['rules' => $rules/* , 'messages' => $messages */];

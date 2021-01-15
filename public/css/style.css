@@ -22,7 +22,11 @@ body{
 }
 
 a.text-green-light{
-    color:rgb(112, 209, 87)
+    color:rgb(96, 202, 70)
+}
+
+a:hover{
+    color: green;
 }
 
 .border-bottom-defaut{
