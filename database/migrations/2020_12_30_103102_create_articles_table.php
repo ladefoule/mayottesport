@@ -20,7 +20,7 @@ class CreateArticlesTable extends Migration
             $table->string('titre');
             $table->string('slug');
             $table->integer('home_position')->nullable();
-            // $table->integer('index_position')->nullable();
+            $table->boolean('fil_actu')->nullable();
             $table->text('preambule');
             $table->longText('article')->nullable();
             $table->boolean('valide');

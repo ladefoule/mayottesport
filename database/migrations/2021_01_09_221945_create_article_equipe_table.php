@@ -14,13 +14,11 @@ class CreateArticleEquipeTable extends Migration
     public function up()
     {
         Schema::create('article_equipe', function (Blueprint $table) {
-            // $table->bigIncrements('id');
             $table->unsignedBigInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->unsignedBigInteger('equipe_id');
             $table->foreign('equipe_id')->references('id')->on('equipes')->onDelete('cascade');
             $table->unique(['article_id', 'equipe_id']);
-            // $table->timestamps();
         });
     }
 

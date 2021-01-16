@@ -14,13 +14,11 @@ class CreateArticleCompetitionTable extends Migration
     public function up()
     {
         Schema::create('article_competition', function (Blueprint $table) {
-            // $table->bigIncrements('id');
             $table->unsignedBigInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->unsignedBigInteger('competition_id');
             $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('cascade');
             $table->unique(['article_id', 'competition_id']);
-            // $table->timestamps();
         });
     }
 
