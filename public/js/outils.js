@@ -377,23 +377,29 @@ function tinymceFunc(selector, urlImages) {
     })
 }
 
-function ongletSwitch(onglets) {
-    // var onglets = qsa('.onglet') 
-    $('.onglet').on('click', function (e) {
-        e.preventDefault()
-        let target = e.target
-
-        onglets.forEach(onglet => {
-            let bloc = qs('#bloc-' + onglet.id)
-            if(onglet == target){
-                onglet.classList.add('active')
-                bloc.classList.remove('d-none')
-            }else{
-                bloc.classList.add('d-none')
-                onglet.classList.remove('active')
-            }
-        });
-    })
+function ongletSwitch(cibles, onglets) {
+    onglets.forEach(onglet => {
+        onglet.addEventListener('click', function(e){
+            e.preventDefault()
+            var target = e.target
+            var cible = target.dataset.cible
+            var targetClass = 'bloc-' + cible
+            
+            onglets.forEach(elem => {
+                if(elem == target)
+                    target.classList.add('active')
+                else
+                    elem.classList.remove('active')
+            });
+            
+            cibles.forEach(cible => {
+                if(cible.classList.contains(targetClass))
+                    cible.classList.remove('d-none')
+                else
+                    cible.classList.add('d-none')
+            });
+        })
+    });
 }
 
 /**

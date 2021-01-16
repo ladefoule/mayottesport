@@ -43,7 +43,7 @@
             @yield('content')
         </main>
         @if(View::hasSection('section-droite'))
-        <section class="col-4 d-none d-lg-block pl-0">
+        <section id="section-droite" class="col-4 d-none d-lg-block pl-0">
             @yield('section-droite')
         </section>
         @endif

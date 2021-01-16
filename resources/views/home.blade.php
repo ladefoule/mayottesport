@@ -12,15 +12,21 @@
 
 @section('section-droite')
 <div> --}}
-    @include('modele-onglets')
-{{-- </div>   
-@endsection --}}
+
+@include('modele-onglets')
 
 @section('script')
     <script>
         $(document).ready(function() {
-            var onglets = qsa('.onglet') 
-            ongletSwitch(onglets)
+            // Gestion des onglets dans le main
+            var cibles = qsa('main .bloc-prochains,main .bloc-resultats,main .bloc-actualites')
+            var onglets = qsa('main .onglet') 
+            ongletSwitch(cibles, onglets)
+
+            // Gestion des onglets du bloc de droite
+            cibles = qsa('#section-droite .bloc-prochains,#section-droite .bloc-resultats,#section-droite .bloc-fil-actu')
+            onglets = qsa('#section-droite .onglet') 
+            ongletSwitch(cibles, onglets)
         })
     </script>
 @endsection

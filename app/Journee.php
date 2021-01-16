@@ -13,7 +13,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
 class Journee extends Model
@@ -76,70 +75,6 @@ class Journee extends Model
 
             return $journee;
         });
-    }
-
-    /**
-     * Calendriers des journées passées ($categorie = 1) ou à venir ($categorie = 2)
-     *
-     * @param int $sportId
-     * @param integer $categorie
-     * @param integer $competitionId
-     * @return void
-     */
-    public static function calendriersRender(array $params)
-    {
-        $sportId = $params['sport_id'] ?? '';
-
-        $competitionId = $params['competition_id'] ?? '';
-        $position = $params['position'] ?? '';
-        $categorie = ($params['categorie'] == '+1') ? '+1' : '-1'; // -1 => résultats, +1 => à venir
-
-        $competitions = index('competitions')
-            ->where('sport_id', $sportId);
-
-        if ($competitionId)
-            $competitions = $competitions->where('id', $competitionId);
-
-        if ($position)
-            $competitions = $competitions->where($position . '_position', '>=', $position)
-                ->sortBy($position . '_position');
-
-        $journees = [];
-        // dd($competitions);
-        foreach ($competitions as $competition) {
-            // $saison = Saison::whereCompetitionId($competition->id)->firstWhere('finie', '!=', 1); // On recherche s'il y a une saison en cours
-            $saison = index('saisons')->where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
-            if ($saison) {
-                $saison = saison($saison->id);
-                $journeeId = ($categorie == '-1') ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
-                // $journeeId = $saison['derniere_journee_id'] != '' ? $saison['derniere_journee_id'] : $saison['prochaine_journee_id'];
-                if ($journeeId)
-                    $journees[] = collect([
-                        'competition_nom' => $competition->nom,
-                        'journee_render' => journee($journeeId)->render,
-                    ]);
-            }
-        }
-
-        if(! $competitionId)
-            $journeesView = view('journee.sport-index', ['journees' => $journees, 'sport' => index('sports')[$sportId]])->render();
-        else
-            $journeesView = view('journee.calendrier', ['journees' => $journees])->render();
-
-        return $journeesView;
-    }
-
-    /**
-     * Définition de l'affichage dans le CRUD
-     *
-     * @return string
-     */
-    public function getCrudNameAttribute()
-    {
-        $types = config('listes.types-journees');
-        $journeeNom = 'J' . str_pad($this->numero, 2, "0", STR_PAD_LEFT);
-
-        return indexCrud('saisons')[$this->saison_id]->crud_name . ' - ' . (!$this->type ? $journeeNom : $types[$this->type][1]);
     }
 
     /**

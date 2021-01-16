@@ -6,12 +6,12 @@
 <footer class="col-12 footer font-small indigo text-white bg-dark mt-auto">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
-        <div class="row d-flex flex-basis-1 text-left">
+        <div class="row d-flex flex-basis-1 text-center">
             @foreach ($sports as $sport)
             <div class="col-6 col-md-4 col-lg-2 px-3">
-                <a href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}"><h5 class="font-weight-bold mt-3 mb-2 text-white">{{ $sport->nom }}</h5></a>
+                <a href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}"><h5 class="font-weight-bold mt-3 mb-2 text-white text-center">{{ $sport->nom }}</h5></a>
                 <ul class="list-unstyled">
-                    @foreach ($competitions->where('sport_id', $sport->id)->sortBy('index_position')->slice(0,5) as $competition)
+                    @foreach ($competitions->where('sport_id', $sport->id)->sortByDesc('index_position')->slice(0,5) as $competition)
                         <li>
                             <a class="text-light" href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
                         </li>

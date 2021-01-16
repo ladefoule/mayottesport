@@ -51,10 +51,16 @@ a:hover{
     border-radius: 20px;
     /* background-color: rgb(255, 255, 255); */
     /* border: 0; */
-    color: green;
+    color: gray;
     font-size: 1.05rem;
-    border: 1px solid green;
+    border: 1px solid gray;
     font-family:"Nunito", sans-serif;
+}
+
+#navbar-scroll-x .btn-sm:hover{
+    color:green;
+    background-color: #fff;
+    border: 1px solid green;
 }
 
 .border-bottom-scroll-x.active{
@@ -65,7 +71,7 @@ a:hover{
 }
 
 .text-green,a.text-green,a.text-green-light:hover{
-    color:green
+    color:green !important
 }
 
 .navbar-scroll-x{

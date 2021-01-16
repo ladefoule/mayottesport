@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Sport;
 use App\Article;
 use App\Journee;
+use App\Competition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -17,12 +19,29 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         Log::info(" -------- Controller Home : index -------- ");
-        $sports = index('sports')->where('home_position', '>=', 1)->sortBy('home_position');
+        $sports = Sport::where('home_position', '>=', 1)->orderBy('home_position')->get();
         foreach ($sports as $sport){
-            $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'position' => 'home']);
-            $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'position' => 'home']);
-            if($res) $resultats[$sport->nom] = $res;
-            if($proc) $prochains[$sport->nom] = $proc;
+            $competitions = Competition::whereSportId($sport->id)->where('home_position', '>=', 1)->get();
+            foreach ($competitions as $competition) {
+                $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+                if($saison){
+                    $derniereJournee = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
+                    if ($derniereJournee)
+                        $resultats[$sport->nom][] = [
+                            'competition_nom' => $competition->nom,
+                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
+                            'journee_render' => journee($derniereJournee->id)->render
+                        ];
+        
+                    $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
+                    if ($prochaineJournee)
+                        $prochains[$sport->nom][] = [
+                            'competition_nom' => $competition->nom,
+                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
+                            'journee_render' => journee($prochaineJournee->id)->render
+                        ];
+                }
+            }
         }
         
         $filActualites = Article::where('valide', 1)

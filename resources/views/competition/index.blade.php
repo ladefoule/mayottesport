@@ -24,26 +24,26 @@
 
     {{-- avec onglets --}}
     <div class="col-12 d-lg-none d-flex text-center px-3 pt-3 bg-white">
-        <a href="" id="actualites"
+        <a href="" data-cible="actualites"
             class="d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
-        <a href="" id="resultats"
+        <a href="" data-cible="resultats"
             class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && $resultats) active @endif">Résultats</a>
-        <a href="" id="prochains"
+        <a href="" data-cible="prochains"
             class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</a>
     </div>
 
     <div class="col-12 d-lg-none bg-white">
-        <div id="bloc-actualites" class="@if(! $articles) d-none @endif">
+        <div class="bloc-actualites @if(! $articles) d-none @endif">
             {!! $articles !!}
         </div>
-        <div id="bloc-resultats" class="@if($articles || !$resultats) d-none @endif">
+        <div class="bloc-resultats @if($articles || !$resultats) d-none @endif">
             @foreach ($resultats as $resultat)
                 <div class="p-3">
                     {!! $resultat !!}
                 </div>
             @endforeach
         </div>
-        <div id="bloc-prochains" class="@if($articles || $resultats) d-none @endif">
+        <div class="bloc-prochains @if($articles || $resultats) d-none @endif">
             @foreach ($prochains as $prochain)
                 <div class="p-3">
                     {!! $prochain !!}
@@ -56,21 +56,20 @@
 
 @section('section-droite')
 <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
-    {{-- <h2 class="alert alert-danger h4 text-center py-4">Les derniers résultats</h2> --}}
     <div class="col-12 d-flex text-center px-3 pt-3 bg-white">
-        <a href="" id="resultats-bloc-droite"
+        <a href="" data-cible="resultats"
             class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</a>
-        <a href="" id="prochains-bloc-droite"
+        <a href="" data-cible="prochains"
             class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</a>
     </div>
-    <div id="bloc-resultats-bloc-droite" class="col-12 px-2 @if(! $resultats) d-none @endif">
+    <div class="bloc-resultats col-12 px-2 @if(! $resultats) d-none @endif">
         @foreach ($resultats as $resultat)
             <div class="p-3">
                 {!! $resultat !!}
             </div>
         @endforeach
     </div>
-    <div id="bloc-prochains-bloc-droite" class="col-12 px-2 d-none @if(!$resultats) d-block @endif">
+    <div class="bloc-prochains col-12 px-2 d-none @if(!$resultats) d-block @endif">
         @foreach ($prochains as $prochain)
             <div class="p-3">
                 {!! $prochain !!}
@@ -83,8 +82,15 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            var onglets = qsa('.onglet')
-            ongletSwitch(onglets)
+            // Gestion des onglets dans le main
+            var cibles = qsa('main .bloc-prochains,main .bloc-resultats,main .bloc-actualites')
+            var onglets = qsa('main .onglet') 
+            ongletSwitch(cibles, onglets)
+
+            // Gestion des onglets du bloc de droite
+            cibles = qsa('#section-droite .bloc-prochains,#section-droite .bloc-resultats')
+            onglets = qsa('#section-droite .onglet') 
+            ongletSwitch(cibles, onglets)
         })
     </script>
 @endsection
