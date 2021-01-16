@@ -70,7 +70,7 @@
                     <a href="" data-cible="resultats"
                         class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</a>
                     <a href="" data-cible="prochains"
-                        class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</a>
+                        class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats) active @endif">À venir</a>
                 </div>
                 <div class="bloc-resultats col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
                     @foreach ($resultats as $resultat)
