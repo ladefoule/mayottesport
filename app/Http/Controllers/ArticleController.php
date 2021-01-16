@@ -57,17 +57,20 @@ class ArticleController extends Controller
         if (! $article->valide)
             abort(404);
 
-        foreach (index('sports') as $sport){
-            $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'position' => 'home']);
-            $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'position' => 'home']);
-            if($res) $resultats[$sport->nom] = $res;
-            if($proc) $prochains[$sport->nom] = $proc;
-        }
+        $calendriers = Journee::calendriersPageHome();
+
+        $filActualites = Article::where('valide', 1)
+            ->where('fil_actu', 1)
+            ->where('home_visible', '>', 0)
+            ->orderBy('home_priorite', 'desc')
+            ->orderBy('created_at')
+            ->get();
 
         return view('article.show', [
             'article' => article($article->uniqid), 
-            'resultats' => $resultats,
-            'prochains' => $prochains
+            'resultats' => $calendriers['resultats'],
+            'prochains' => $calendriers['prochains'],
+            'filActualites' => $filActualites
         ]);
     }
 
@@ -78,16 +81,20 @@ class ArticleController extends Controller
         if (!$article->valide)
             abort(404);
 
-        $res = Journee::calendriersRender(['sport_id' => $article->sport_id, 'categorie' => '-1', 'position' => 'index']);
-        $proc = Journee::calendriersRender(['sport_id' => $article->sport_id, 'categorie' => '+1', 'position' => 'index']);
+        $calendriers = Journee::calendriersPageHome();
 
-        $resultats = $res ? [$sport->nom => $res] : [];
-        $prochains = $proc ? [$sport->nom => $proc] : [];
+        $filActualites = Article::where('valide', 1)
+            ->where('fil_actu', 1)
+            ->where('home_visible', '>', 0)
+            ->orderBy('home_priorite', 'desc')
+            ->orderBy('created_at')
+            ->get();
 
         return view('article.show', [
             'article' => article($article->uniqid), 
-            'resultats' => $resultats,
-            'prochains' => $prochains
+            'resultats' => $calendriers['resultats'],
+            'prochains' => $calendriers['prochains'],
+            'filActualites' => $filActualites
         ]);
     }
 
@@ -115,6 +122,7 @@ class ArticleController extends Controller
         $request['valide'] = $article->valide;
         $request['user_id'] = $article->user_id;
         $request['uniqid'] = $article->uniqid;
+        $request['slug'] = Str::slug($request['titre']);
         $rules = Article::rules($article)['rules'];
         $data = Validator::make($request->all(), $rules)->validate();
         $article->update($data);

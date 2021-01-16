@@ -19,30 +19,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         Log::info(" -------- Controller Home : index -------- ");
-        $sports = Sport::where('home_position', '>=', 1)->orderBy('home_position')->get();
-        foreach ($sports as $sport){
-            $competitions = Competition::whereSportId($sport->id)->where('home_position', '>=', 1)->get();
-            foreach ($competitions as $competition) {
-                $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
-                if($saison){
-                    $derniereJournee = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
-                    if ($derniereJournee)
-                        $resultats[$sport->nom][] = [
-                            'competition_nom' => $competition->nom,
-                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
-                            'journee_render' => journee($derniereJournee->id)->render
-                        ];
-        
-                    $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
-                    if ($prochaineJournee)
-                        $prochains[$sport->nom][] = [
-                            'competition_nom' => $competition->nom,
-                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
-                            'journee_render' => journee($prochaineJournee->id)->render
-                        ];
-                }
-            }
-        }
+        $calendriers = Journee::calendriersPageHome();
         
         $filActualites = Article::where('valide', 1)
             ->where('fil_actu', 1)
@@ -63,9 +40,8 @@ class HomeController extends Controller
          $articlesView = view('article.render', ['articles' => $articles])->render();
 
         return view('home', [
-            'resultats' => $resultats ?? [],
-            'prochains' => $prochains ?? [],
-            'sports' => $sports,
+            'resultats' => $calendriers['resultats'],
+            'prochains' => $calendriers['prochains'],
             'articles' => $articlesView,
             'filActualites' => $filActualites,
         ]);

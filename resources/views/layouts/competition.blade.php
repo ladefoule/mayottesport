@@ -7,6 +7,9 @@
     $competition = request()->competition;
     $sport = request()->sport;
     $routeName = request()->route()->getName();
+
+    $resultats = request()->resultats;
+    $prochains = request()->prochains;
 ?>
 
 {{-- Header --}}
@@ -61,11 +64,30 @@
         <main class="col-lg-8 col-xl-8 p-0">
             @yield('content')
         </main>
-        @if(View::hasSection('section-droite'))
         <section id="section-droite" class="col-4 d-none d-lg-block pl-0">
-            @yield('section-droite')
+            <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
+                <div class="col-12 d-flex text-center p-3 bg-white">
+                    <a href="" data-cible="resultats"
+                        class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</a>
+                    <a href="" data-cible="prochains"
+                        class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</a>
+                </div>
+                <div class="bloc-resultats col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
+                    @foreach ($resultats as $resultat)
+                        <div class="p-3">
+                            {!! $resultat !!}
+                        </div>
+                    @endforeach
+                </div>
+                <div class="bloc-prochains col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
+                    @foreach ($prochains as $prochain)
+                        <div class="p-3">
+                            {!! $prochain !!}
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </section>
-        @endif
     </div>
 
     {{-- Footer --}}
@@ -74,3 +96,16 @@
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+        // Gestion des onglets dans le main
+        var cibles = qsa('main .bloc-prochains,main .bloc-resultats,main .bloc-actualites')
+        var onglets = qsa('main .onglet') 
+        ongletSwitch(cibles, onglets)
+
+        // Gestion des onglets du bloc de droite
+        cibles = qsa('#section-droite .bloc-prochains,#section-droite .bloc-resultats')
+        onglets = qsa('#section-droite .onglet') 
+        ongletSwitch(cibles, onglets)
+    })
+</script>

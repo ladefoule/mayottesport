@@ -77,6 +77,39 @@ class Journee extends Model
         });
     }
 
+    public static function calendriersPageHome()
+    {
+        $sports = Sport::where('home_position', '>=', 1)->orderBy('home_position')->get();
+        foreach ($sports as $sport){
+            $competitions = Competition::whereSportId($sport->id)->where('home_position', '>=', 1)->get();
+            foreach ($competitions as $competition) {
+                $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+                if($saison){
+                    $derniereJournee = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
+                    if ($derniereJournee)
+                        $resultats[$sport->nom][] = [
+                            'competition_nom' => $competition->nom,
+                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
+                            'journee_render' => journee($derniereJournee->id)->render
+                        ];
+        
+                    $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
+                    if ($prochaineJournee)
+                        $prochains[$sport->nom][] = [
+                            'competition_nom' => $competition->nom,
+                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
+                            'journee_render' => journee($prochaineJournee->id)->render
+                        ];
+                }
+            }
+        }
+
+        return [
+            'resultats' => $resultats ?? [],
+            'prochains' => $prochains ?? [],
+        ];
+    } 
+
     /**
      * Définition de l'attribut nom qui affichera le numéro de la journée avec la saison accollée
      */
