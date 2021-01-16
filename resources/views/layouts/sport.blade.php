@@ -33,10 +33,21 @@
     @endif
 
     {{-- Main --}}
-    <section class="container-lg bg-white">
+    {{-- <section class="container-lg bg-white">
         @yield('content')
-    </section>
+    </section> --}}
     {{-- Fin Main --}}
+
+    <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0 @if(count($competitions) == 0) top-main-site @endif" style="max-width: 1400px">
+        <main class="col-lg-8 col-xl-8 p-0">
+            @yield('content')
+        </main>
+        @if(View::hasSection('section-droite'))
+        <section class="col-4 d-none d-lg-block pl-0">
+            @yield('section-droite')
+        </section>
+        @endif
+    </div>
 
     {{-- Footer --}}
     @include('layouts.include.footer')

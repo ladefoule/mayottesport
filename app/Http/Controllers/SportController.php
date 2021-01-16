@@ -34,11 +34,21 @@ class SportController extends Controller
         $resultats = $res ? [$sport->nom => $res] : [];
         $prochains = $proc ? [$sport->nom => $proc] : [];
 
-        $articles = $sport->articles
+        $articles = $sport->articles()
             ->where('valide', 1)
-            ->where('index_position', '>', 0)
-            ->sortBy('index_position')
-            ->splice(0, 5);
+            ->where('visible', 1)
+            ->whereNull('fil_actu')->orWhere('fil_actu', 0)
+            ->orderBy('priorite', 'desc')
+            ->orderBy('created_at')
+            ->limit(5)->get();
+
+        $filActualites = $sport->articles()
+            ->where('valide', 1)
+            ->where('visible', 1)
+            ->where('fil_actu', 1)
+            ->orderBy('priorite', 'desc')
+            ->orderBy('created_at')
+            ->limit(5)->get();
 
         foreach ($articles as $key => $article)
             $articles[$key] = article($article->uniqid);
@@ -49,7 +59,8 @@ class SportController extends Controller
             'sport' => $sport,
             'resultats' => $resultats,
             'prochains' => $prochains,
-            'articles' => $articlesView
+            'articles' => $articlesView,
+            'filActualites' => $filActualites,
         ]);
     }
 }

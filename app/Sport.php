@@ -56,6 +56,6 @@ class Sport extends Model
      */
     public function articles()
     {
-        return $this->belongsToMany('App\Article')->using('App\ArticleSport');
+        return $this->belongsToMany('App\Article')->using('App\ArticleSport')->withPivot(['priorite', 'visible']);
     }
 }

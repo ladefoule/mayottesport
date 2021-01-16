@@ -33,8 +33,8 @@ class Competition extends Model
         $rules = [
             'sport_id' => 'required|exists:sports,id',
             'type' => 'required|integer|min:1',
-            'home_position' => 'nullable|integer|min:1',
-            'index_position' => 'nullable|integer|min:1',
+            'home_position' => 'nullable|integer|min:0',
+            'index_position' => 'nullable|integer|min:0',
             'nom_complet' => 'nullable|max:50',
             'nom' => ['required','max:50','min:3',$unique],
             'slug' => ['required','alpha_dash','max:50','min:3',$uniqueSlug],

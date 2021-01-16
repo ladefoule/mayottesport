@@ -377,8 +377,8 @@ function tinymceFunc(selector, urlImages) {
     })
 }
 
-function ongletSwitch() {
-    var onglets = qsa('.onglet') 
+function ongletSwitch(onglets) {
+    // var onglets = qsa('.onglet') 
     $('.onglet').on('click', function (e) {
         e.preventDefault()
         let target = e.target

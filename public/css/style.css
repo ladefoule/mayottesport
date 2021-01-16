@@ -5,32 +5,107 @@ html{
 body{
     /* background-color: rgba(197, 226, 230, 0.281); */
     min-width: 350px;
-    height: 100%;
+    /* height: 100%; */
     /* background-color: rgba(255, 255, 255); */
     /* background-color: rgba(134, 134, 134, 0.157); */
     /* background-color: rgba(149, 151, 151, 0.157); */
+    /* background-color: rgb(226, 245, 245); */
+    /* background-color: #fff; */
+    /* background-color: #ebeff3; */
+    background-color: #c9d3df;
     /* background-image: url('../storage/img/fond-ecran-mayotte.jpg'); */
-    background-color: rgb(226, 245, 245);
-    background-color: #fff;
-    background-color: #ebeff3;
     /* background-size:1950px 1000px; */
     background-attachment: fixed;
+}
+
+
+.border-bottom-dashed{
+    border-bottom: 1px dashed #000
+}
+
+.border-top-dashed{
+    border-top: 1px dashed #000
+}
+
+.border-bottom-nav.active,.border-bottom-nav:hover{
+    /* border-top: 5px solid white; */
+    /* border-bottom: 5px solid blue; */
+    /* color: blue !important; */
+    /* background-color: rgba(211, 211, 235, 0.521); */
+}
+
+.border-bottom-scroll-x{
+    font-size: 1.05rem;
+}
+
+a{
+    /* color: rgb(8, 189, 8); */
+}
+
+a:hover{
+    text-decoration: none;
+    color: green;
+}
+
+#navbar-scroll-x .btn-sm{
+    border-radius: 20px;
+    /* background-color: rgb(255, 255, 255); */
+    /* border: 0; */
+    color: green;
+    font-size: 1.05rem;
+    border: 1px solid green;
+    font-family:"Nunito", sans-serif;
+}
+
+.border-bottom-scroll-x.active{
+    /* border-top: 5px solid white; */
+    /* border-bottom: 5px solid blue; */
+    color: red !important;
+    /* background-color: rgba(211, 211, 235, 0.521); */
 }
 
 .text-green,a.text-green,a.text-green-light:hover{
     color:green
 }
 
-a.text-green-light{
-    color:rgb(96, 202, 70)
+.navbar-scroll-x{
+    margin-top:60px;
+    /* background-color: rgb(220, 220, 220); */
+    /* background: linear-gradient(#e0e1e6, #656fe4); */
+    /* background: linear-gradient(#707bf5, #bcbdc2); */
+    /* border-bottom: none !important; */
+    /* border-top: solid blue 1px !important; */
+    /* height: auto; */
 }
 
-a:hover{
-    color: green;
+.top-main-site{
+    margin-top: 60px
 }
+
+.bg-resultats{
+    /* background-color: rgb(207, 206, 206); */
+    /* box-shadow: 60px -16px teal;; */
+    /* box-shadow: -10px -0 rgb(104, 184, 184); */
+    /* box-shadow: -5px 0px 12px #aaa; */
+    font-size: 0.9rem;
+    /* margin-top: 30px; */
+ }
+
+.navbar-mobile{
+    left:-250px;
+    /* top:50px; */
+    z-index:1100;
+    width:250px;
+    font-size:1.1rem;
+    transition:1s;
+}
+
+/* a.text-green-light{
+    color:rgb(96, 202, 70)
+} */
 
 .border-bottom-defaut{
-   /* border-bottom: 2px gray solid !important; */
+   border-bottom: 1px gray solid;
    /* box-shadow: 0px 5px 4px rgb(216, 216, 216); */
 }
 
@@ -71,37 +146,6 @@ a:hover{
     font-size: 1em;
 }
 
-.navbar-scroll-x{
-    margin-top:60px;
-    /* background-color: rgb(220, 220, 220); */
-    /* background: linear-gradient(#e0e1e6, #656fe4); */
-    /* background: linear-gradient(#707bf5, #bcbdc2); */
-    /* border-bottom: none !important; */
-    /* border-top: solid blue 1px !important; */
-    /* height: auto; */
-}
-
-.min-height{
-    min-height: 600px;
-}
-
-main{
-    /* margin-top:0px */
-}
-
-.top-main-site{
-    margin-top: 60px
-}
-
-.navbar-mobile{
-    left:-250px;
-    /* top:50px; */
-    z-index:1100;
-    width:250px;
-    font-size:1.1rem;
-    transition:1s;
-}
-
 .mx--7{
     margin:-7px
 }
@@ -124,15 +168,6 @@ main{
 
 a.non-cliquable, a.non-cliquable:hover{
     color:gray !important
-}
-
-.bg-resultats{
-   /* background-color: rgb(207, 206, 206); */
-   /* box-shadow: 60px -16px teal;; */
-   /* box-shadow: -10px -0 rgb(104, 184, 184); */
-   box-shadow: -5px 0px 12px #aaa;
-   font-size: 0.9rem;
-   /* margin-top: 30px; */
 }
 
 .nul{
@@ -167,32 +202,6 @@ a.non-cliquable, a.non-cliquable:hover{
     background-color: rgb(243, 192, 192) !important;
 } */
 
-.border-bottom-dashed{
-    border-bottom: 1px dashed #000
-}
-
-.border-top-dashed{
-    border-top: 1px dashed #000
-}
-
-.border-bottom-nav.active,.border-bottom-nav:hover{
-    /* border-top: 5px solid white; */
-    /* border-bottom: 5px solid blue; */
-    /* color: blue !important; */
-    /* background-color: rgba(211, 211, 235, 0.521); */
-}
-
-.border-bottom-scroll-x{
-    font-size: 1.05rem;
-}
-
-.border-bottom-scroll-x.active{
-    /* border-top: 5px solid white; */
-    /* border-bottom: 5px solid blue; */
-    color: red !important;
-    /* background-color: rgba(211, 211, 235, 0.521); */
-}
-
 .fanion-classement{
     width:25px;
 }
@@ -203,20 +212,6 @@ a.non-cliquable, a.non-cliquable:hover{
 
 .vertical-align-middle{
     vertical-align: middle;
-}
-
-a:hover{
-    text-decoration: none;
-}
-
-#navbar-scroll-x .btn-sm{
-    border-radius: 20px;
-    /* background-color: rgb(255, 255, 255); */
-    /* border: 0; */
-    color: gray;
-    font-size: 1.05rem;
-    border: 1px solid gray;
-    font-family:"Nunito", sans-serif;
 }
 
 .bloc-match-football{

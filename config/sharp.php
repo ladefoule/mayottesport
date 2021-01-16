@@ -25,6 +25,11 @@ $entities = [
         "form" => \App\Sharp\EquipeSharpForm::class,
         "policy" => \App\Sharp\Policies\EquipePolicy::class,
     ],
+    "competition" => [
+        "list" => \App\Sharp\CompetitionSharpList::class,
+        "form" => \App\Sharp\CompetitionSharpForm::class,
+        "policy" => \App\Sharp\Policies\CompetitionPolicy::class,
+    ],
 ];
 
 foreach ($sports as $nom) {
@@ -93,7 +98,12 @@ $menu[] = [
             "icon" => "fa-plus-circle",
             "url" => "/admin/article/create"
         ]
-    ]
+    ],
+];
+$menu[] = [
+    "label" => "Compétitions",
+    "icon" => "fa-list-ul",
+    "entity" => "competition"
 ];
 
 // Les menus Saisons

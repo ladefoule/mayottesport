@@ -19,7 +19,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            ongletSwitch()
+            var onglets = qsa('.onglet') 
+            ongletSwitch(onglets)
         })
     </script>
 @endsection

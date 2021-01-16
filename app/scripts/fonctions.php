@@ -118,19 +118,6 @@ function accesModifHoraire($match, $user)
 }
 
 /**
- * Affiche une date au format saisi et en français (config)
- *
- * @param mixed $str
- * @param string $format
- * @return string
- */
-// function translatedFormat($str, string $format)
-// {
-//     $str = new Carbon($str);
-//     return $str->translatedFormat($format);
-// }
-
-/**
  * Teste si l'équipe possède un fanion présent dans le repertoire app/public/img/fanion.
  * Dans le cas ou il existe on renvoie le lien complet vers celui-ci.
  * Sinon on renvoie le lien vers le fanion par défaut.
@@ -176,10 +163,6 @@ function forgetCaches(string $table, object $instance)
     // On supprime le cache index de la table
     Cache::forget('index-' . $tableSlug);
 
-    // On supprime le cache indexcrud de la table
-    if (!in_array($table, config('listes.tables-non-crudables')))
-        Cache::forget('indexcrud-' . $tableSlug);
-
     // On supprime les caches directement liés au match, à la journée ou à la saison
     if (in_array($table, ['matches', 'journees', 'saisons'])) {
         if ($table == 'matches') {
@@ -212,29 +195,6 @@ function forgetCaches(string $table, object $instance)
     } else if ($table == 'articles') {
         $article = $instance;
          Cache::forget("article-" . $article->uniqid);
-
-        // On supprime les caches des attributs visibles si on a effectué une action sur les tables CRUD
-    } else if (in_array($table, ['crud_tables', 'crud_attributs', 'crud_attribut_infos'])) {
-        if ($table == 'crud_attribut_infos')
-            $crudTableCible = $instance->crudAttribut->crudTable->nom;
-        else if ($table == 'crud_attributs')
-            $crudTableCible = $instance->crudTable->nom;
-        else
-            $crudTableCible = $instance->nom;
-
-        $crudTableCibleSlug = Str::slug($crudTableCible);
-        Cache::forget("attributs-visibles-$crudTableCibleSlug-index");
-        Cache::forget("attributs-visibles-$crudTableCibleSlug-create");
-        Cache::forget("attributs-visibles-$crudTableCibleSlug-show");
-        Cache::forget('indexcrud-' . $crudTableCibleSlug);
-
-        // À chaque modif sur les tables attributs, on doit recharger les caches index et indexcrud de ces tables
-        Cache::forget('index-crud-attribut-infos');
-        Cache::forget('index-crud-attributs');
-        Cache::forget('index-crud-tables');
-        Cache::forget('indexcrud-crud-attribut-infos');
-        Cache::forget('indexcrud-crud-attributs');
-        Cache::forget('indexcrud-crud-tables');
     }
 }
 
@@ -254,9 +214,8 @@ function refreshCachesLies(string $table)
         if (isset(config('listes.caches-lies')[$table]))
             refreshCachesLies($table);
 
-        // Cache::forget('indexcrud-' . Str::slug($table));
-        // indexCrud($table);
-        // CrudTable::where('nom', str_replace('-', '_', $tableSlug))->firstOrFail()->index();
+        Cache::forget('index-' . Str::slug($table));
+        index($table);
     }
 }
 
@@ -278,25 +237,6 @@ function compare($a, $b)
         return ($a['diff'] < $b['diff']) ? 1 : -1;
     }
     return ($a['points'] < $b['points']) ? 1 : -1;
-}
-
-/**
- * La fonction récupère la liste (dans le bon ordre) des attributs et de leurs propriétés qu'on doit afficher soit dans la page liste, dans la page show (affichage d'un élement) ou l'édition/ajout d'un élement. Elle renvoie false si la liste est vide.
- *
- * @param string $table - en camel_case
- * @param string $action
- * @return \Illuminate\Support\Collection|false
- */
-function listeAttributsVisibles(string $table, string $action = 'index')
-{
-    if($action == 'update')
-            $action = 'create'; // La liste des attributs visibles est la même lors de l'ajout ou de la modification
-
-    $key = "attributs-visibles-" . Str::slug($table) . "-" . $action;
-    if (Cache::has($key))
-        return Cache::get($key);
-    else
-        return CrudTable::where('nom', $table)->firstOrFail()->listeAttributsVisibles($action);
 }
 
 /**

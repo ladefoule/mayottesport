@@ -96,13 +96,13 @@ class Journee extends Model
 
         $competitions = index('competitions')
             ->where('sport_id', $sportId);
-        
-        if($competitionId)
-        $competitions = $competitions->where('id', $competitionId);
 
-        if($position)
-        $competitions = $competitions->where($position . '_position', '>=', $position)
-                        ->sortBy($position . '_position');
+        if ($competitionId)
+            $competitions = $competitions->where('id', $competitionId);
+
+        if ($position)
+            $competitions = $competitions->where($position . '_position', '>=', $position)
+                ->sortBy($position . '_position');
 
         $journees = [];
         // dd($competitions);
@@ -145,7 +145,7 @@ class Journee extends Model
     {
         $types = config('listes.types-journees');
         $journeeNom = niemeJournee($this->numero);
-        
+
         return !$this->type ? $journeeNom : $types[$this->type][1];
     }
 

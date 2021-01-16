@@ -16,14 +16,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         Log::info(" -------- Controller Home : index -------- ");
-        $sports = index('sports')->where('home_visible', '>=', 1)->sortBy('home_priorite');
+        $sports = index('sports')->where('home_position', '>=', 1)->sortBy('home_position');
         foreach ($sports as $sport){
             $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'position' => 'home']);
             $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'position' => 'home']);
             if($res) $resultats[$sport->nom] = $res;
             if($proc) $prochains[$sport->nom] = $proc;
         }
-
+        
         $indexArticles = index('articles')
             ->where('valide', 1)
             ->where('home_visible', '>', 0)
