@@ -121,7 +121,11 @@ class Journee extends Model
             }
         }
 
-        $journeesView = view('journee.sport-index', ['journees' => $journees, 'sport' => index('sports')[$sportId]])->render();
+        if(! $competitionId)
+            $journeesView = view('journee.sport-index', ['journees' => $journees, 'sport' => index('sports')[$sportId]])->render();
+        else
+            $journeesView = view('journee.calendrier', ['journees' => $journees])->render();
+
         return $journeesView;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Journee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -24,11 +25,17 @@ class HomeController extends Controller
             if($proc) $prochains[$sport->nom] = $proc;
         }
         
-        $indexArticles = index('articles')
-            ->where('valide', 1)
+        $filActualites = Article::where('valide', 1)
+            ->where('fil_actu', 1)
             ->where('home_visible', '>', 0)
-            ->sortBy('home_priorite')
-            ->slice(0,5);
+            ->orderBy('home_priorite', 'desc')
+            ->orderBy('created_at')
+            ->get();
+
+        $indexArticles = Article::where('valide', 1)
+            ->where('home_visible', '>', 0)
+            ->orderBy('home_priorite')
+            ->get();
 
         $articles = collect();
         foreach ($indexArticles as $id => $article)
@@ -41,6 +48,7 @@ class HomeController extends Controller
             'prochains' => $prochains ?? [],
             'sports' => $sports,
             'articles' => $articlesView,
+            'filActualites' => $filActualites,
         ]);
     }
 }

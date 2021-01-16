@@ -37,11 +37,17 @@ class CompetitionController extends Controller
         Log::info(" -------- Controller Competition : index -------- ");
         $competition = $request->competition;
         $sport = $request->sport;
-        $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'competition_id' => $competition->id]);
-        $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'competition_id' => $competition->id]);
+        // $res = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '-1', 'competition_id' => $competition->id]);
+        // $proc = Journee::calendriersRender(['sport_id' => $sport->id, 'categorie' => '+1', 'competition_id' => $competition->id]);
 
-        $resultats = $res ? [$sport->nom => $res] : [];
-        $prochains = $proc ? [$sport->nom => $proc] : [];
+        $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+        $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
+        foreach ($journeesPassees as $journee)
+            $resultats[] = journee($journee->id)->render;
+
+        $journeesSuivantes = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->limit(2)->get();
+        foreach ($journeesSuivantes as $journee)
+            $prochains[] = journee($journee->id)->render;
 
         $articles = $competition->articles;
         foreach ($articles as $key => $article)
@@ -53,8 +59,8 @@ class CompetitionController extends Controller
             'competition' => $competition->nom,
             'sport' => $sport->nom,
             'articles' => $articlesView,
-            'resultats' => $resultats ?? '',
-            'prochains' => $prochains ?? '',
+            'resultats' => $resultats ?? [],
+            'prochains' => $prochains ?? [],
         ]);
     }
 

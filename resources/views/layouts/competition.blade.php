@@ -57,11 +57,16 @@
     </div>
     {{-- Fin Section scroll X --}}
 
-    {{-- Main --}}
-    <main class="container-lg bg-white">
-        @yield('content')
-    </main>
-    {{-- Fin Main --}}
+    <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0" style="max-width: 1400px">
+        <main class="col-lg-8 col-xl-8 p-0">
+            @yield('content')
+        </main>
+        @if(View::hasSection('section-droite'))
+        <section class="col-4 d-none d-lg-block pl-0">
+            @yield('section-droite')
+        </section>
+        @endif
+    </div>
 
     {{-- Footer --}}
     @include('layouts.include.footer')
