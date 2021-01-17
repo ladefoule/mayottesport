@@ -3,7 +3,7 @@
     {{-- classique écran large --}}
     <div class="d-none d-lg-block h-100 p-3">
         <div class="col-12 p-3 bg-white d-flex flex-wrap justify-content-start p-0 pb-3 h-100 ">
-            @if(! $articles && $sport)
+            @if(! $articles && isset($sport) && $sport)
                 <div class="row">
                     {{-- Image pour les sports sans articles liés --}}
                     <img src="{{ asset('/storage/img/sport/'. $sport->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
