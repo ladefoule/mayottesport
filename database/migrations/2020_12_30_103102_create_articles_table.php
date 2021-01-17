@@ -27,6 +27,8 @@ class CreateArticlesTable extends Migration
             $table->boolean('valide');
             $table->unsignedBigInteger('sport_id')->nullable();
             $table->foreign('sport_id')->references('id')->on('sports')->onDelete('set null');
+            $table->unsignedBigInteger('competition_id')->nullable();
+            $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('set null');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('user_update_id')->nullable();
