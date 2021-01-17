@@ -35,9 +35,10 @@ class SportController extends Controller
         $articles = $sport->articles()
             ->where('valide', 1)
             ->where('visible', 1)
-            // ->where('fil_actu', '!=', 1)
+            ->whereNotNull('fil_actu')->orWhere('fil_actu', 0)
             ->orderBy('priorite', 'desc')
             ->orderBy('created_at', 'desc')
+            ->distinct()
             ->limit(5)->get();
 
             dd($articles);
