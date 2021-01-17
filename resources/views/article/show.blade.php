@@ -6,7 +6,7 @@
 <div class="p-lg-3">
     <div class="row m-0 bg-white">
         <div class="col-12 p-0">
-            <h1 class="col-12 titre-article py-3">{{ $article->titre }}</h1>
+            <h1 class="col-12 titre-page-article py-3">{{ $article->titre }}</h1>
             <div class="col-12 d-flex m-auto justify-content-center">
                 <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid">
             </div>

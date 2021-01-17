@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 html{
     font-size: 90%
 }
@@ -115,7 +119,7 @@ a:hover{
    /* box-shadow: 0px 5px 4px rgb(216, 216, 216); */
 }
 
-.titre-article,.titre-premier-article{
+.titre-article,.titre-page-article,.titre-premier-article{
     font-weight: bold;
     font-family:Verdana,sans-serif;
 }
@@ -126,6 +130,11 @@ a:hover{
 }
 
 .titre-article{
+    font-size: 17px;
+    line-height: 19px;
+}
+
+.titre-page-article{
     font-size: 20px;
     line-height: 22px;
 }
@@ -243,7 +252,7 @@ a.non-cliquable, a.non-cliquable:hover{
 }
 
 .fanion-page-equipe{
-    width:25px;
+    width:35px;
 }
 
 .equipe-align-auto{
@@ -301,18 +310,23 @@ a.non-cliquable, a.non-cliquable:hover{
         font-size: 90%;
     }
 
+    .match-equipe{
+        font-size: 1.0rem;
+    }
+
     .titre-premier-article{
         font-size: 23px;
         line-height: 25px;
     }
 
     .titre-article{
-        font-size: 22px;
-        line-height: 24px;
+        font-size: 18px;
+        line-height: 20px;
     }
 
-    .fanion-page-equipe{
-        width:30px;
+    .titre-page-article{
+        font-size: 22px;
+        line-height: 24px;
     }
 
     .bloc-equipe-dom, .bloc-equipe-ext{
@@ -341,70 +355,73 @@ a.non-cliquable, a.non-cliquable:hover{
         width:35%
     }
 
-
-    /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
-    @media (min-width: 992px) {
-        html{
-            font-size: 100%;
-        }
-
-        .titre-premier-article{
-            font-size: 28px;
-            line-height: 30px;
-        }
-
-        .titre-article{
-            font-size: 26px;
-            line-height: 28px;
-        }
-
-        .fanion-page-equipe{
-            width:35px;
-        }
-
-        .fanion-calendrier{
-            display: none;
-        }
-
-        .dernier-et-prochain-match{
-            padding-left: 5px !important;
-        }
-
+    /* Large devices (desktops, 768px and up) => point de rupture bootstrap : MD */
+    @media (min-width: 768px) {
         .equipe-align-auto, .logo-align-auto{
             margin: 0;
         }
-
-        .bloc-equipe-dom, .bloc-equipe-ext{
-            font-size:1.8rem;
-            font-weight: 900;
-        }
-
+    
         .equipe-exterieur{
             text-align: right;
         }
-
+    
         .equipe-domicile{
             text-align: left;
         }
 
-        a.resultat, a.horaire{
-            font-size:0.8rem
-        }
-
-        .bloc-score input{
-            width:80px;
-            height: 40px;
-        }
-
-        .note{
-            width:25%
-        }
-
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
-        @media (min-width: 1200px) {
+        @media (min-width: 992px) {
+            html{
+                font-size: 100%;
+            }
+
+            .titre-premier-article{
+                font-size: 28px;
+                line-height: 30px;
+            }
+
+            .titre-article{
+                font-size: 26px;
+                line-height: 28px;
+            }
+
+            .titre-page-article{
+                font-size: 26px;
+                line-height: 28px;
+            }
+
             .fanion-calendrier{
-                display: block;
-                width:40px;
+                display: none;
+            }
+
+            .dernier-et-prochain-match{
+                padding-left: 5px !important;
+            }
+
+            .bloc-equipe-dom, .bloc-equipe-ext{
+                font-size:1.3rem;
+                font-weight: 900;
+            }
+
+            a.resultat, a.horaire{
+                font-size:0.8rem
+            }
+
+            .bloc-score input{
+                width:80px;
+                height: 40px;
+            }
+
+            .note{
+                width:25%
+            }
+
+            /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
+            @media (min-width: 1200px) {
+                .fanion-calendrier{
+                    display: block;
+                    width:40px;
+                }
             }
         }
     }

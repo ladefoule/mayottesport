@@ -20,13 +20,7 @@ class HomeController extends Controller
     {
         Log::info(" -------- Controller Home : index -------- ");
         $calendriers = Journee::calendriersPageHome();
-        
-        $filActualites = Article::where('valide', 1)
-            ->where('fil_actu', 1)
-            ->where('home_visible', '>', 0)
-            ->orderBy('home_priorite', 'desc')
-            ->orderBy('created_at')
-            ->get();
+        $filActualites = Article::filActu();
 
         $indexArticles = Article::where('valide', 1)
             ->where('home_visible', '>', 0)

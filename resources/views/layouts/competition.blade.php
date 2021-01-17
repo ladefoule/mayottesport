@@ -32,15 +32,12 @@
                     <a href="" class="d-lg-none mr-3 non-cliquable cursor-default">
                         {!! \Config::get('listes.boutons.right') !!}
                     </a>
-                    <a href="{{ $hrefIndex }}" class="font-weight-bold mr-3 border-bottom-scroll-x @if(request()->route()->getName() == 'competition.index') active @else text-secondary @endif">
+                    <a href="{{ $hrefIndex }}" class="font-weight-bold mr-3 border-bottom-scroll-x @if(request()->route()->getName() == 'competition.index') active @else text-body @endif">
                         {{ Str::upper($competition->nom) }}
                     </a>
                     <a href="" class="mr-3 non-cliquable cursor-default">
                         {!! \Config::get('listes.boutons.right') !!}
                     </a>
-                    {{-- <a href="{{ $hrefActualite }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.index') active @else text-secondary @endif pr-3">
-                        L'actualité
-                    </a> --}}
                     @if ($hrefClassement)
                     <a href="{{ $hrefClassement }}" class="border-bottom-scroll-x font-weight-bold @if(request()->route()->getName() == 'competition.classement') active @else text-secondary @endif pr-3">
                         Le classement

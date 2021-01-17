@@ -10,9 +10,12 @@
             <h1 class="h4">Accueil football : actus et résultats</h1>
         </div> --}}
 
-        @include('modele-onglets')
+        {{-- @include('modele-onglets') --}}
     {{-- </div> --}}
 {{-- @endsection --}}
+
+@include('onglet.section-content-home-et-sport')
+@include('onglet.section-droite-home-et-sport')
 
 @section('script')
     <script>

@@ -100,6 +100,32 @@ class Article extends Model
     }
 
     /**
+     * Undocumented function
+     *
+     * @param Sport|\Illuminate\Support\Collection $sport
+     * @return \Illuminate\Support\Collection
+     */
+    public static function filActu($sport = null)
+    {
+        if($sport)
+            return $sport->articles()
+            ->where('valide', 1)
+            ->where('visible', 1)
+            ->where('fil_actu', 1)
+            ->orderBy('priorite', 'desc')
+            ->orderBy('created_at')
+            ->limit(10)->get();
+        
+        return Article::where('valide', 1)
+            ->where('fil_actu', 1)
+            ->where('home_visible', '>', 0)
+            ->orderBy('home_priorite', 'desc')
+            ->orderBy('created_at')
+            ->limit(10)
+            ->get();
+    }
+
+    /**
      * Le sport lié à l'article
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

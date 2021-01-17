@@ -13,7 +13,8 @@
 @section('section-droite')
 <div> --}}
 
-@include('modele-onglets')
+@include('onglet.section-content-home-et-sport')
+@include('onglet.section-droite-home-et-sport')
 
 @section('script')
     <script>

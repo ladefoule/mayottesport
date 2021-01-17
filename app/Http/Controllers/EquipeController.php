@@ -9,6 +9,8 @@ namespace App\Http\Controllers;
 
 use App\Equipe;
 use App\Saison;
+use App\Article;
+use App\Journee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -95,6 +97,9 @@ class EquipeController extends Controller
         foreach ($matches as $id => $match)
             $matches[$id] = match($match->uniqid);
 
+        $calendriers = Journee::calendriersPageSport($sport);
+        $filActualites = Article::filActu($sport);
+
         $title = $equipe->nom . ' - ' . $sport->nom;
         return view('equipe.index', [
             'equipe' => $equipe,
@@ -107,6 +112,9 @@ class EquipeController extends Controller
             'matches' => $matches->sortBy('date'),
             'dernierMatch' => $dernierMatchRender,
             'prochainMatch' => $prochainMatchRender,
+            'resultats' => $calendriers['resultats'],
+            'prochains' => $calendriers['prochains'],
+            'filActualites' => $filActualites
         ]);
     }
 
