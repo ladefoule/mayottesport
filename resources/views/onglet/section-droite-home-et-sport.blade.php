@@ -2,11 +2,11 @@
 <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
     {{-- <h2 class="alert alert-danger h4 text-center py-4">Les derniers résultats</h2> --}}
     <div class="col-12 d-flex text-center p-3">
-        <a href="" data-cible="fil-actu"
+        <a href="" data-cible="fil-actu-section-droite"
             class="d-block col-4 p-3 border btn btn-secondary onglet active">Fil actu</a>
-        <a href="" data-cible="resultats"
+        <a href="" data-cible="resultats-section-droite"
             class="d-block col-4 p-3 border btn btn-secondary onglet">Résultats</a>
-        <a href="" data-cible="prochains"
+        <a href="" data-cible="prochains-section-droite"
             class="d-block col-4 p-3 border btn btn-secondary onglet">À venir</a>
     </div>
     <div id="fil-actu-section-droite" class="col-12 p-2">
