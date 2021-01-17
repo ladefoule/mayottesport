@@ -386,7 +386,6 @@ function ongletSwitch(cibles, onglets) {
             var targetCible = qs('#' + targetId)
             
             onglets.forEach(elem => {
-                // cl(elem)
                 if(elem == target)
                     target.classList.add('active')
                 else

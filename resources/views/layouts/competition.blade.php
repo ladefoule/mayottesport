@@ -64,19 +64,19 @@
         <section id="section-droite" class="col-4 d-none d-lg-block pl-0">
             <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
                 <div class="col-12 d-flex text-center p-3 bg-white">
-                    <a href="" data-cible="resultats"
+                    <a href="" data-cible="resultats-section-droite"
                         class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</a>
-                    <a href="" data-cible="prochains"
+                    <a href="" data-cible="prochains-section-droite"
                         class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats) active @endif">À venir</a>
                 </div>
-                <div class="bloc-resultats col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
+                <div id="resultats-section-droite" class="col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
                     @foreach ($resultats as $resultat)
                         <div class="p-3">
                             {!! $resultat !!}
                         </div>
                     @endforeach
                 </div>
-                <div class="bloc-prochains col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
+                <div id="prochains-section-droite" class="col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
                     @foreach ($prochains as $prochain)
                         <div class="p-3">
                             {!! $prochain !!}
@@ -96,12 +96,12 @@
 <script>
     $(document).ready(function() {
         // Gestion des onglets dans le main
-        var cibles = qsa('main .bloc-prochains,main .bloc-resultats,main .bloc-actualites')
+        var cibles = qsa('#prochains-content,#resultats-content,#actualites-content')
         var onglets = qsa('main .onglet') 
         ongletSwitch(cibles, onglets)
 
         // Gestion des onglets du bloc de droite
-        cibles = qsa('#section-droite .bloc-prochains,#section-droite .bloc-resultats')
+        cibles = qsa('#prochains-section-droite,#resultats-section-droite')
         onglets = qsa('#section-droite .onglet') 
         ongletSwitch(cibles, onglets)
     })

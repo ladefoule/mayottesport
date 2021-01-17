@@ -58,8 +58,8 @@ class CompetitionController extends Controller
         $articlesView = view('article.render', ['articles' => $articles->slice(0, 5)])->render();
 
         return view('competition.index', [
-            'competition' => $competition->nom,
-            'sport' => $sport->nom,
+            'competition' => $competition,
+            'sport' => $sport,
             'articles' => $articlesView,
             'resultats' => $resultats ?? [],
             'prochains' => $prochains ?? [],

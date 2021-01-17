@@ -49,7 +49,7 @@ class Article extends Model
             'slug' => 'required|alpha_dash|min:10|max:150',
             'home_priorite' => 'nullable|integer|min:1',
             'home_visible' => 'nullable|boolean',
-            'sport_id' => 'nullable|integer|required_if:competition_id|exists:sports,id',
+            'sport_id' => 'nullable|integer|required_with:competition_id|exists:sports,id',
             'competition_id' => 'nullable|integer|exists:competitions,id',
             'user_id' => 'required|integer|exists:users,id',
             'user_update_id' => 'nullable|integer|exists:users,id',
@@ -58,7 +58,10 @@ class Article extends Model
             'valide' => 'nullable|boolean'
         ];
 
-        return ['rules' => $rules/* , 'messages' => $messages */];
+        $messages = [
+            'required_with' => "La catégorie est obligatoire si la sous-catégorie est renseignée."
+        ];
+        return ['rules' => $rules, 'messages' => $messages];
     }
 
     /**

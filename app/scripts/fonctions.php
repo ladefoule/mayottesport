@@ -70,25 +70,25 @@ function annee(int $debut, int $fin, string $separateur = '-')
 /**
  * On vérifie si l'utilisateur a le droit de modifier le résultats du match ou non
  *
- * @param Match|\Illuminate\Database\Eloquent\Collection $match
- * @param User|\Illuminate\Database\Eloquent\Collection $user
+ * @param Match
+ * @param User
  * @return bool
  */
 function accesModifResultat($match, $user)
 {
-    if (!$user)
+    if (! $user)
         return false;
 
-    $niveauUser = index('roles')[$user->role_id]->niveau;
-    $lastUserId = $match->user_id;
-    $lastUser = index('users')[$lastUserId] ?? '';
-    $niveauLastUser = $lastUser ? index('roles')[$lastUser->role_id]->niveau : 0;
+    $niveauUser = $user->role->niveau;
+    $lastUser = $match->user;
+    $niveauLastUser = $lastUser ? $lastUser->role->niveau : 0;
 
     // Les conditions d'accès refusé
+    // - Journée bloquée
     // - Match bloqué
     // - Date du match > aujourd'hui
     // - Niveau de l'utilisateur ayant modifié le match > Niveau du membre connecté (ne concerne pas les admins)
-    if ($match->bloque || ($niveauLastUser > $niveauUser && $niveauUser < 30) || $match->date > date('Y-m-d'))
+    if ($match->journee->acces_bloque || $match->bloque || ($niveauLastUser > $niveauUser && $niveauUser < 30) || $match->date > date('Y-m-d'))
         return false;
 
     return true;
@@ -97,21 +97,22 @@ function accesModifResultat($match, $user)
 /**
  * On vérifie si l'utilisateur a le droit de modifier l'horaire du match ou non
  *
- * @param Match|\Illuminate\Database\Eloquent\Collection $match
- * @param User|\Illuminate\Database\Eloquent\Collection $user
+ * @param Match
+ * @param User
  * @return bool
  */
 function accesModifHoraire($match, $user)
 {
-    if (!$user)
+    if (! $user)
         return false;
 
-    $niveauUser = index('roles')[$user->role_id]->niveau;
+    $niveauUser = $user->role->niveau;
 
     // Les conditions d'accès refusé
+    // - Journée bloquée
     // - Match bloqué
     // - Niveau de l'utilisateur connecté < 20 cad niveau membre (10)
-    if ($match->bloque || $niveauUser < 20)
+    if ($match->journee->acces_bloque || $match->bloque || $niveauUser < 20)
         return false;
 
     return true;

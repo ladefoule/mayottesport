@@ -89,16 +89,18 @@ class ArticleSharpForm extends SharpForm
         $article = Article::findOrFail($id);
 
         // On valide la requète
-        $rules = Article::rules($article)['rules'];
+        $rules = Article::rules($article);
+        $messages = $rules['messages'];
+        $rules = $rules['rules'];
         // $ignore = ['titre', 'preambule', 'uniqid', 'slug', 'user_id', 'uniqid'];
         // $rules = array_diff_key($rules, array_flip($ignore));
 
-        $pluck = ['home_visible', 'home_priorite', 'valide'];
+        $pluck = ['home_visible', 'home_priorite', 'valide', 'sport_id', 'competition_id'];
         $rules = array_intersect_key($rules, array_flip($pluck));
 
-        Validator::make($data, $rules)->validate();
+        $dataUpdate = Validator::make($data, $rules, $messages)->validate();
 
-        $article->update($data);
+        $article->update($dataUpdate);
         forgetCaches('articles', $article);
         ProcessCrudTable::dispatch('articles', $article->id);
 
@@ -158,6 +160,24 @@ class ArticleSharpForm extends SharpForm
             ];
         }
 
+        $sports = Sport::orderBy('sports.nom')
+                        ->get()->map(function($sport) {
+                            return [
+                                "id" => $sport->id,
+                                "label" => $sport->nom
+                            ];
+                        })->all();
+
+        $competitions = Competition::join('sports', 'sport_id', 'sports.id')
+                                    ->orderBy('sports.nom')->orderBy("competitions.nom")
+                                    ->select('competitions.*')
+                                    ->get()->map(function($competition) {
+                                        return [
+                                            "id" => $competition->id,
+                                            "label" => $competition->sport->nom . ' - ' . $competition->nom
+                                        ];
+                                    })->all();
+
         $this->addField(
                 SharpFormTextField::make("uniqid")
                     ->setLabel("Id")
@@ -203,13 +223,7 @@ class ArticleSharpForm extends SharpForm
                     ->setRemovable()
                     ->addItemField(
                         SharpFormSelectField::make("sport_id",
-                            Sport::orderBy('sports.nom')
-                            ->get()->map(function($sport) {
-                                return [
-                                    "id" => $sport->id,
-                                    "label" => $sport->nom
-                                ];
-                            })->all()
+                            $sports
                         )->setDisplayAsDropdown()
                         ->setLabel("Sport")
                     )->addItemField(
@@ -228,19 +242,11 @@ class ArticleSharpForm extends SharpForm
                     )
             )->addField(
                 SharpFormSelectField::make("competitions",
-                    Competition::join('sports', 'sport_id', 'sports.id')
-                    ->orderBy('sports.nom')->orderBy("competitions.nom")
-                    ->select('competitions.*')
-                    ->get()->map(function($competition) {
-                        return [
-                            "id" => $competition->id,
-                            "label" => $competition->sport->nom . ' - ' . $competition->nom
-                        ];
-                    })->all()
+                    $competitions
                 )
                 ->setLabel("Compétitions liées")
-                // ->setDisplayAsDropdown()
-                ->setDisplayAsList()
+                ->setDisplayAsDropdown()
+                // ->setDisplayAsList()
                 ->setMultiple(true)
                 ->setClearable(true)
             )->addField(
@@ -260,6 +266,18 @@ class ArticleSharpForm extends SharpForm
                 // ->setDisplayAsList()
                 ->setMultiple(true)
                 ->setClearable(true)
+            )->addField(
+                SharpFormSelectField::make("sport_id",
+                    $sports
+                )->setLabel("Catégorie")
+                ->setDisplayAsDropdown()
+                ->setClearable()
+            )->addField(
+                SharpFormSelectField::make("competition_id",
+                    $competitions
+                )->setLabel("Sous-catégorie")
+                ->setDisplayAsDropdown()
+                ->setClearable()
             );
     }
 
@@ -271,7 +289,7 @@ class ArticleSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('uniqid|6', 'valide|6', 'titre|12', 'home_visible|6', 'home_priorite|6');
+            $column->withFields('uniqid|6', 'valide|6', 'titre|12', 'sport_id|6', 'competition_id|6', 'home_visible|6', 'home_priorite|6');
         });
 
         $this->addColumn(12, function(FormLayoutColumn $column) {

@@ -18,6 +18,7 @@ class CreateJourneesTable extends Migration {
 			$table->integer('numero');
 			$table->integer('type')->nullable();
             $table->date('date')->nullable();
+            $table->boolean('acces_bloque')->nullable();
             $table->unsignedBigInteger('saison_id');
             $table->foreign('saison_id')->references('id')->on('saisons')->onDelete('restrict');
 			$table->timestamps();

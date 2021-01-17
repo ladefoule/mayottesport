@@ -34,12 +34,12 @@ class ModificationMatch
         }else if(in_array($routeName, ['competition.match.horaire', 'competition.match.horaire.post']) && ! $accesModifHoraire){
             abort(404);
 
-        // Routes d'accès à la page match'
+        // Routes d'accès à la page match
         }else if(in_array($routeName, ['competition.match'])){
             $request->accesModifHoraire = $accesModifHoraire;
 
-            // On affiche le bouton de modification si le match n'est pas bloqué même s'il n'y a pas de membre connecté
-            $request->accesModifResultat = ($user && !$match->bloque) ? $accesModifResultat : true;
+            // On affiche le bouton de modification du résultat si le match n'est pas bloqué ou s'il n'y a pas de membre connecté
+            $request->accesModifResultat = $user ? $accesModifResultat : true;
         }
 
         return $next($request);

@@ -3,15 +3,10 @@
     {{-- classique écran large --}}
     <div class="d-none d-lg-block h-100 p-3">
         <div class="col-12 p-3 bg-white d-flex flex-wrap justify-content-start p-0 pb-3 h-100 ">
-            <?php 
-                $sport = request()->sport;
-                $competition = request()->competition;
-            ?>
             @if(! $articles && $sport)
-                {{-- <h1 class="h3 p-3 text-center">{{ $sport->nom . ($competition ? ' - ' . $competition->nom : '') }}</h1> --}}
-                <div class="col-12 d-flex p-0">
-                    {{-- Image par défaut pour les compétitions/sports sans articles liés --}}
-                    <img src="{{ asset('/storage/img/as-rosador-de-passamainty-2015.jpg') }}" alt="" class="img-fluid m-auto">
+                <div class="row">
+                    {{-- Image pour les sports sans articles liés --}}
+                    <img src="{{ asset('/storage/img/sport/'. $sport->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
                 </div>
             @endif
             {!! $articles !!}
