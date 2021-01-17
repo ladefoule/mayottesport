@@ -41,7 +41,6 @@ class SportController extends Controller
             ->distinct()
             ->limit(5)->get();
 
-            dd($articles);
         $filActualites = Article::filActu($sport);
 
         foreach ($articles as $key => $article)
