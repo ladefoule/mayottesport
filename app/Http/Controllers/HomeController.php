@@ -23,8 +23,8 @@ class HomeController extends Controller
         $filActualites = Article::filActu();
 
         $indexArticles = Article::where('valide', 1)
-            ->where('home_visible', '>', 0)
-            ->orderBy('home_priorite')
+            ->where('home_visible', 1)
+            ->orderBy('home_priorite', 'desc')
             ->orderBy('created_at', 'desc')
             ->get();
 
