@@ -25,7 +25,7 @@
 
     <div class="col-12 d-lg-none bg-white">
         <div id="actualites-content" class="pb-3 @if(! $articles) d-none @endif">
-            <div class="d-flex flex-wrap justify-content-start">
+            <div class="d-flex flex-wrap justify-content-start align-items-start">
                 {!! $articles !!}
             </div>
         </div>
