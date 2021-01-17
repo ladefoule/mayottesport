@@ -16,7 +16,7 @@
             <p class="w-100 text-secondary text-left">Publié le {{ $article->publie_le }}</p>
         </div>
    @else
-        <div class="p-0 pb-3 col-md-6 mb-auto col-lg-12 col-xl-6 @if($i%2 == 1) pr-md-2 @endif @if($i%2 == 0) pl-md-2 @endif">
+        <div class="p-0 pb-3 col-md-6 d-flex align-items-start col-lg-12 col-xl-6 @if($i%2 == 1) pr-md-2 @endif @if($i%2 == 0) pl-md-2 @endif">
             <div class="card m-0 h-100">
                 <a href="{{ $article->href }}">
                     <img class="card-img-top object-fit-cover" height="250" src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}">
