@@ -40,6 +40,7 @@ class SportController extends Controller
             ->orderBy('created_at', 'desc')
             ->limit(5)->get();
 
+            dd($articles);
         $filActualites = Article::filActu($sport);
 
         foreach ($articles as $key => $article)
