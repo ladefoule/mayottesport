@@ -9,10 +9,10 @@
         <a href="" data-cible="prochains"
             class="d-block col-4 p-3 border btn btn-secondary onglet">À venir</a>
     </div>
-    <div class="bloc-fil-actu col-12 p-2">
+    <div id="fil-actu-section-droite" class="col-12 p-2">
         {!! $filActualites !!}
     </div>
-    <div class="bloc-resultats col-12 p-2 d-none">
+    <div id="resultats-section-droite" class="col-12 p-2 d-none">
         @foreach ($resultats as $sport => $journees)
             <div class="col-12 text-center my-2 px-3">
                 <span class="h2 font-italic">
@@ -35,7 +35,7 @@
             @endforeach
         @endforeach
     </div>
-    <div class="bloc-prochains col-12 p-2 d-none">
+    <div id="prochains-section-droite" class="col-12 p-2 d-none">
         @foreach ($prochains as $sport => $journees)
             <div class="col-12 text-center my-2 px-3">
                 <span class="h2 font-italic">

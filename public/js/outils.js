@@ -382,10 +382,11 @@ function ongletSwitch(cibles, onglets) {
         onglet.addEventListener('click', function(e){
             e.preventDefault()
             var target = e.target
-            var cible = target.dataset.cible
-            var targetClass = 'bloc-' + cible
+            var targetId = target.dataset.cible
+            var targetCible = qs('#' + targetId)
             
             onglets.forEach(elem => {
+                // cl(elem)
                 if(elem == target)
                     target.classList.add('active')
                 else
@@ -393,7 +394,7 @@ function ongletSwitch(cibles, onglets) {
             });
             
             cibles.forEach(cible => {
-                if(cible.classList.contains(targetClass))
+                if(cible == targetCible)
                     cible.classList.remove('d-none')
                 else
                     cible.classList.add('d-none')

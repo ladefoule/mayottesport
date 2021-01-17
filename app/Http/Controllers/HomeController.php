@@ -25,6 +25,7 @@ class HomeController extends Controller
         $indexArticles = Article::where('valide', 1)
             ->where('home_visible', '>', 0)
             ->orderBy('home_priorite')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $articles = collect();

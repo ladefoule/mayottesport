@@ -134,6 +134,19 @@ a:hover{
     line-height: 19px;
 }
 
+.object-fit-cover{
+    object-fit: cover;
+}
+
+.categorie{
+    font-size:1.0rem;
+    color:#000;
+    font-weight: normal;
+    color:gray;
+    padding-bottom: 3px;
+    display: block;
+}
+
 .titre-page-article{
     font-size: 20px;
     line-height: 22px;
@@ -319,11 +332,6 @@ a.non-cliquable, a.non-cliquable:hover{
         line-height: 25px;
     }
 
-    .titre-article{
-        font-size: 18px;
-        line-height: 20px;
-    }
-
     .titre-page-article{
         font-size: 22px;
         line-height: 24px;
@@ -378,11 +386,6 @@ a.non-cliquable, a.non-cliquable:hover{
             .titre-premier-article{
                 font-size: 28px;
                 line-height: 30px;
-            }
-
-            .titre-article{
-                font-size: 26px;
-                line-height: 28px;
             }
 
             .titre-page-article{

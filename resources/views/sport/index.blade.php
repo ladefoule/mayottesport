@@ -21,12 +21,12 @@
     <script>
         $(document).ready(function() {
             // Gestion des onglets dans le main
-            var cibles = qsa('main .bloc-prochains,main .bloc-resultats,main .bloc-actualites')
-            var onglets = qsa('main .onglet') 
+            var cibles = qsa('#prochains-content,#resultats-content,#actualites-content')
+            var onglets = qsa('#onglets-content .onglet') 
             ongletSwitch(cibles, onglets)
 
             // Gestion des onglets du bloc de droite
-            cibles = qsa('#section-droite .bloc-prochains,#section-droite .bloc-resultats,#section-droite .bloc-fil-actu')
+            cibles = qsa('#prochains-section-droite,#resultats-section-droite,#fil-actu-section-droite')
             onglets = qsa('#section-droite .onglet') 
             ongletSwitch(cibles, onglets)
         })

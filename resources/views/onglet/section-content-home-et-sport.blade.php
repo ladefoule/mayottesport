@@ -1,8 +1,8 @@
 @section('content')
 <div class="p-0 h-100">
     {{-- classique écran large --}}
-    <div class="d-none d-lg-flex h-100 p-3">
-        <div class="col-12 p-3 bg-white">
+    <div class="d-none d-lg-block h-100 p-3">
+        <div class="col-12 p-3 bg-white d-flex flex-wrap justify-content-start p-0 pb-3 h-100 ">
             <?php 
                 $sport = request()->sport;
                 $competition = request()->competition;
@@ -19,20 +19,22 @@
     </div>
 
     {{-- avec onglets --}}
-    <div class="col-12 d-lg-none d-flex text-center p-3 bg-white">
-        <a href="" data-cible="actualites"
+    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center p-3 bg-white">
+        <a href="" data-cible="actualites-content"
             class="d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
-        <a href="" data-cible="resultats"
+        <a href="" data-cible="resultats-content"
             class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && $resultats) active @endif">Résultats</a>
-        <a href="" data-cible="prochains"
+        <a href="" data-cible="prochains-content"
             class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</a>
     </div>
 
     <div class="col-12 d-lg-none bg-white">
-        <div class="bloc-actualites @if(! $articles) d-none @endif">
-            {!! $articles !!}
+        <div id="actualites-content" class="pb-3 @if(! $articles) d-none @endif">
+            <div class="d-flex flex-wrap justify-content-start">
+                {!! $articles !!}
+            </div>
         </div>
-        <div class="bloc-resultats @if($articles || $resultats) d-none @endif">
+        <div id="resultats-content" class="@if($articles || $resultats) d-none @endif">
             @foreach ($resultats as $sport => $journees)
                 <div class="col-12 text-center pb-2 px-3">
                     <span class="h2 font-italic">
@@ -55,7 +57,7 @@
                 @endforeach
             @endforeach
         </div>
-        <div class="bloc-prochains @if($articles || $resultats) d-none @endif">
+        <div id="prochains-content" class="@if($articles || $resultats) d-none @endif">
             @foreach ($prochains as $sport => $journees)
                 <div class="col-12 text-center pb-2 px-3">
                     <span class="h2 font-italic">

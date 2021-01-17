@@ -15,7 +15,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'user_id', 'user_update_id', 'slug', 'home_visible', 'home_priorite'];
+    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'competition_id', 'user_id', 'user_update_id', 'slug', 'home_visible', 'home_priorite'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -49,7 +49,8 @@ class Article extends Model
             'slug' => 'required|alpha_dash|min:10|max:150',
             'home_priorite' => 'nullable|integer|min:1',
             'home_visible' => 'nullable|boolean',
-            'sport_id' => 'nullable|integer|exists:sports,id',
+            'sport_id' => 'nullable|integer|required_if:competition_id|exists:sports,id',
+            'competition_id' => 'nullable|integer|exists:competitions,id',
             'user_id' => 'required|integer|exists:users,id',
             'user_update_id' => 'nullable|integer|exists:users,id',
             'img' => 'nullable|min:5|max:200',
@@ -84,11 +85,18 @@ class Article extends Model
             else
                 $href = route('article.show', ['titre' => $this->slug, 'uniqid' => $this->uniqid]);
 
+            $categorie = '';
+            if($this->sport)
+                $categorie .= $this->sport->nom;
+            if($this->competition)
+                $categorie .= ' - ' . $this->competition->nom;  
+
             $infosPlus = [
                 'href' => $href,
                 'publie_le' => $this->created_at->translatedFormat('d F Y'),
                 'modifie_le' => $this->updated_at ? $this->updated_at->translatedFormat('d F Y') : '',
-                'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
+                'categorie' => $categorie,
+                // 'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
             ];
 
             // Ensuite on associe les infos supplémentaires
@@ -126,13 +134,23 @@ class Article extends Model
     }
 
     /**
-     * Le sport lié à l'article
+     * La catégorie de l'article
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sport()
     {
         return $this->belongsTo('App\Sport');
+    }
+
+    /**
+     * La sous-catégorie de l'article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function competition()
+    {
+        return $this->belongsTo('App\Competition');
     }
 
     /**
