@@ -1,12 +1,11 @@
 <?php
-$sports = index('sports')
-->sortBy('home_position')
-->slice(0, 5);
-$competitions = index('competitions');
+    $sports = index('sports')
+        ->sortBy('home_position')
+        ->slice(0, 5);
 ?>
 
 <!-- Footer -->
-<footer class="col-12 footer font-small indigo text-white bg-dark mt-auto">
+<footer class="col-12 footer font-small indigo text-white bg-dark mt-auto border border-danger">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
         <div class="row d-flex flex-basis-1 text-center">
@@ -16,11 +15,13 @@ $competitions = index('competitions');
                         <h5 class="font-weight-bold mt-3 mb-2 text-white text-center">{{ $sport->nom }}</h5>
                     </a>
                     <ul class="list-unstyled">
-                        @foreach ($competitions
-        ->where('sport_id', $sport->id)
-        ->sortByDesc('index_position')
-        ->slice(0, 5)
-    as $competition)
+                        <?php 
+                            $competitions = index('competitions')
+                                ->where('sport_id', $sport->id)
+                                ->sortByDesc('index_position')
+                                ->slice(0, 5);
+                        ?>
+                        @foreach ($competitions as $competition)
                             <li>
                                 <a class="text-light"
                                     href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
@@ -48,8 +49,9 @@ $competitions = index('competitions');
             </div>
         </div>
     </div>
-    </div>
     <!-- Footer Links -->
+
+    @include('cookieConsent::index')
 
     <!-- Copyright -->
     <div class="row footer-copyright justify-content-center text-center py-3 bg-body">© {{ date('Y') }} Copyright:
@@ -57,21 +59,23 @@ $competitions = index('competitions');
     </div>
     <!-- Copyright -->
 </footer>
+<!-- Footer -->
 
 <!-- Modal -->
 <div class="modal fade" id="cookiesParametres" tabindex="-1" aria-labelledby="cookiesParametresLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cookiesParametresLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="cookiesParametresLabel">Paramétrer l'utilisation des cookies</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <div class="px-3 mx-3 alert alert-danger text-left border">
+                <div class="px-3 mx-3 text-left">
                     <span class="text-left">
-                        Merci de paramétrer votre choix concernant l'utilisation des cookies sur notre site.
+                        Merci de paramétrer vos choix concernant l'utilisation des cookies sur notre site.
                     </span>
-                
                     <div>
                         <div class="d-flex justify-content-end align-items-center">
                             <span>Cookies de fonctionnement (obligatoires)</span>
@@ -91,14 +95,11 @@ $competitions = index('competitions');
                 <a href="{{ route('politique') }}">
                     <button class="btn btn-link text-white bg-secondary">Notre politique de confidentialité</button>
                 </a>
-                <button type="button" class="btn btn-primary">Valider</button>
+                <button class="js-cookie-consent-agree cookie-consent__agree btn btn-primary" {{-- data-dismiss="modal" --}}>Valider</button>
             </div>
         </div>
     </div>
 </div>
-
-@include('cookieConsent::index')
-<!-- Footer -->
 
 <script src="{{ asset(mix('js/app.js')) }}"></script>
 <script src="{{ asset('node_modules/select2/select2.js') }}"></script>
@@ -140,12 +141,9 @@ $competitions = index('competitions');
             e.preventDefault()
         })
 
-        const myModal = document.getElementById('cookiesParametres')
-        const myInput = document.getElementById('cookiesParametresBouton')
-        myInput.focus()
-
-        myModal.addEventListener('shown.mdb.modal', () =>myInput.focus())
+        $('#cookiesParametres').on('shown.bs.modal', function () {
+            $('#cookiesParametresBouton').trigger('focus')
+        })
     })
-
 </script>
 @yield('script')

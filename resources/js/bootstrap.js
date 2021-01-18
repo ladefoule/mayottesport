@@ -1,7 +1,6 @@
 window._ = require('lodash');
 
-import * as mdb from 'mdb-ui-kit'; // lib
-import { Input } from 'mdb-ui-kit'; // module
+// require ('mdb-ui-kit'); // lib
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

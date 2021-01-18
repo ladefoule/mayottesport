@@ -4,6 +4,12 @@
 
     <script>
 
+        // $('#parametrerCookies').on('click', function (){
+        //     qs('#parametresCookies').classList.toggle('d-none')
+        // })
+
+        // $('#cookiesParametres').modal('show');
+
         window.laravelCookieConsent = (function () {
 
             const COOKIE_VALUE = 1;

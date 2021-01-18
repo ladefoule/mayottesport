@@ -1,10 +1,10 @@
-<div class="js-cookie-consent cookie-consent px-3 mx-3 alert alert-danger text-left border">
+<div class="js-cookie-consent cookie-consent px-3 mx-3 alert alert-info text-left border">
     <span class="cookie-consent__message text-left">
         Ce site nécessite l'autorisation de cookies pour fonctionner correctement.
     </span>
 
     <div class="pt-3 text-left">
-        <button id="myInput" type="button" class="btn btn-secondary" data-mdb-toggle="modal" data-mdb-target="#cookiesParametres">
+        <button id="cookiesParametresBouton" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cookiesParametres">
             Paramétrer
         </button>
                 

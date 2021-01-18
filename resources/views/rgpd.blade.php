@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-lg-3">
-    <div class="row bg-white m-0 border rounded p-3" id="politique">
+    <div class="row bg-white m-0 border rounded p-3" id="politique" style="font-size: 1rem">
         <div>
             <h1 class="h2 d-block">Notre politique de confidentialité</h1>
         </div>
@@ -17,50 +17,38 @@
             </p>
 
             <h4>
-                C. Collecte d’informations personnelles
+                B. Collecte d’informations personnelles
             </h4>
 
             <p>
                 <span class="font-weight-bold">Les types d’informations personnelles suivants peuvent collectés, stockés et utilisés :</span>
 
                 <ul>
-                    <li>Des informations à propos de votre ordinateur, y compris votre adresse IP, votre localisation géographique, le type et la version de votre navigateur, et votre système d’exploitation ;</li>
-                    <li>Des informations sur vos visites et votre utilisation de ce site web y compris la source référente, la durée de la visite, les pages vues, et les chemins de navigation de sites web ;</li>
-                    <li>Des informations comme votre adresse e-mail, que vous nous fournissez lors de votre inscription au site ;</li>
-                    <li>Des informations que vous saisissez quand vous créez un profil sur notre site web comme votre nom, votre photo de profil, votre genre, votre date de naissance, votre situation amoureuse, vos intérêts et vos loisirs, votre parcours scolaire et votre parcours professionnel ;</li>
-                    <li>Des informations comme votre nom et votre adresse e-mail, que vous saisissez pour souscrire à nos e-mails et/ou newsletters ;</li>
-                    <li>Des informations que vous saisissez quand vous utilisez les services de notre site web ;</li>
-                    <li>Des informations générées lors de l’utilisation de notre site, y compris quand, à quelle fréquence et sous quelles circonstances vous l’utilisez ;</li>
-                    <li>Des informations relatives aux achats que vous faites, aux services que vous utilisez ou aux transactions que vous effectuez sur notre site, qui incluent votre nom, adresse, numéro de téléphone, adresse e-mail et informations bancaires ;</li>
-                    <li>Des informations que vous publiez sur notre site web dans l’intention de les publier sur internet, et qui incluent votre identifiant, vos photos de profil et le contenu de vos publications ;</li>
-                    <li>Des informations contenues dans toutes les communications que vous nous envoyez par e-mail ou sur notre site web, y compris leurs contenus et leurs métadonnées ;</li>
+                    <li>Des informations à propos de votre ordinateur, y compris votre adresse IP, votre localisation géographique, le type et la version de votre navigateur, et votre système d’exploitation</li>
+                    <li>Des informations sur vos visites et votre utilisation de ce site web y compris la source référente, la durée de la visite, les pages vues, et les chemins de navigation de sites web</li>
+                    <li>Des informations comme votre adresse e-mail, que vous nous fournissez lors de votre inscription au site</li>
+                    <li>Des informations que vous saisissez quand vous créez un profil sur notre site web comme votre nom ou votre prénom</li>
+                    <li>Des informations contenues dans toutes les communications que vous nous envoyez par e-mail ou sur notre site web, y compris leurs contenus et leurs métadonnées</li>
                     <li>Toute autre information personnelle que vous nous communiquez.</li>
                 </ul>
                 Avant de nous divulguer des informations personnelles concernant une autre personne, vous devez obtenir le consentement de ladite personne en ce qui concerne la divulgation et le traitement de ces informations personnelles selon les termes de cette politique
             </p>
             <h4>
-                D. Utilisation de vos informations personnelles
+                C. Utilisation de vos informations personnelles
             </h4>
 
             <p>
                 Les informations personnelles qui nous sont fournies par le biais de notre site web seront utilisées dans les objectifs décrits dans cette politique ou dans les pages du site pertinentes. Nous pouvons utiliser vos informations personnelles pour:
             </p>
             <ul>
-                <li>Administrer notre site web et notre entreprise ;</li>
-                <li>Personnaliser notre site web pour vous ;</li>
-                <li>Permettre votre utilisation des services proposés sur notre site web ;</li>
-                <li>Vous envoyer les marchandises achetées sur notre site ;</li>
-                <li>Vous fournir les services achetés sur notre site ;</li>
-                <li>Vous envoyer des relevés, des factures et des rappels de paiement, et collecter vos paiements ;</li>
-                <li>Vous envoyer des communications commerciales non relatives au marketing ;</li>
-                <li>Vous envoyer des notifications par e-mail que vous avez expressément demandées ;</li>
-                <li>Vous envoyer notre newsletter par mail, si vous l’avez demandé (vous pouvez nous informer à tout moment de votre volonté de ne plus recevoir notre newsletter) ;</li>
-                <li>Vous envoyer des communications marketing relatives à notre entreprise ou à des entreprises tierces sélectionnées avec soin qui selon nous pourraient vous intéresser, sous forme de publication, ou si vous avez expressément donné votre accord, par e-mail ou technologie similaire (vous pouvez nous informer à tout moment de votre volonté de ne plus recevoir de communications marketing) ;</li>
-                <li>Fournir des informations statistiques à propos de nos utilisateurs à des tierces parties (sans que ces tierces parties puissent identifier d’utilisateur individuel avec ces informations) ;</li>
-                <li>Traiter les demandes et les réclamations relatives à votre site web effectuées par vous ou vous concernant ;</li>
-                <li>Maintenir la sécurité de notre site web et empêcher la fraude ;</li>
-                <li>Vérifier le respect des conditions générales qui régissent l’utilisation de notre site web (y compris surveiller les messages privés envoyés par le biais du service de messagerie privé de notre site web) ; et</li>
-                <li>D’autres utilisations.</li>
+                <li>Administrer notre site web</li>
+                <li>Personnaliser notre site web pour vous</li>
+                <li>Permettre votre utilisation des services proposés sur notre site web</li>
+                <li>Vous envoyer des notifications par e-mail que vous avez expressément demandées</li>
+                {{-- <li>Fournir des informations statistiques à propos de nos utilisateurs à des tierces parties (sans que ces tierces parties puissent identifier d’utilisateur individuel avec ces informations)</li> --}}
+                <li>Traiter les demandes et les réclamations relatives à votre site web effectuées par vous ou vous concernant</li>
+                <li>Maintenir la sécurité de notre site web et empêcher la fraude</li>
+                <li>Vérifier le respect des conditions générales qui régissent l’utilisation de notre site web</li>
             </ul>
 
             <p>
@@ -78,15 +66,15 @@
             Cette Section G détaille nos politiques de conservation des données et nos procédures, conçues pour nous aider à nous conformer à nos obligations légales concernant la conservation et la suppression d’informations personnelles.
             Les informations personnelles que nous traitons à quelque fin que ce soit ne sont pas conservées plus longtemps que nécessaire à cette fin ou à ces fins.
             Sans préjudice à l’article G-2, nous supprimerons généralement les données personnelles de ces catégories à la date et à l’heure précisées plus bas:
-                Ce type de données personnelles sera supprimé {ENTREZ LA DATE/L’HEURE} ; et
+                Ce type de données personnelles sera supprimé {ENTREZ LA DATE/L’HEURE} et
                 {ENTREZ D’AUTRES DATES/HEURES}.
             Nonobstant les autres dispositions de cette Section G, nous conserverons des documents (y compris des documents électroniques) contenant des données personnelles:
-                Dans la mesure où nous sommes tenus de le faire par la loi ;
-                Si nous pensons que les documents peuvent être pertinents pour toute procédure judiciaire en cours ou potentielle ; et
+                Dans la mesure où nous sommes tenus de le faire par la loi
+                Si nous pensons que les documents peuvent être pertinents pour toute procédure judiciaire en cours ou potentielle et
                 Pour établir, exercer ou défendre nos droits légaux (y compris fournir des informations à d’autres à des fins de prévention des fraudes et de réduction des risques de crédit). --}}
 
             <h4>
-                H. Sécurité de vos informations personnelles
+                D. Sécurité de vos informations personnelles
             </h4>
 
             <p>
@@ -94,22 +82,22 @@
                 Nous stockerons toutes les informations personnelles que vous nous fournissez sur des serveurs sécurisés (protégés par mot de passe et pare-feu).
                 Toutes les transactions financières électroniques effectuées par le biais de notre site web seront protégées par des technologies de cryptage.
                 Vous reconnaissez que la transmission d’informations par internet est intrinsèquement non sécurisée, et que nous ne pouvons pas garantir la sécurité de vos données envoyées par internet.
-                Vous êtes responsable de la confidentialité du mot de passe que vous utilisez pour accéder à notre site web ; nous ne vous demanderons pas votre mot de passe (sauf quand vous vous identifiez sur notre site web).
+                Vous êtes responsable de la confidentialité du mot de passe que vous utilisez pour accéder à notre site web nous ne vous demanderons pas votre mot de passe (sauf quand vous vous identifiez sur notre site web).
             </p>
             <h4>
-                I. Amendements
+                E. Amendements
             </h4>
 
-            <p>Nous pouvons parfois mettre cette politique à jour en publiant une nouvelle version sur notre site web. Vous devez vérifier cette page régulièrement pour vous assurer de prendre connaissance de tout changement effectué à cette politique. Nous pouvons vous informer des changements effectués à cette politique par courrier électronique ou par le biais du service de messagerie privée de notre site web.</p>
+            <p>Nous pouvons parfois mettre cette politique à jour en publiant une nouvelle version sur notre site web. Vous devez vérifier cette page régulièrement pour vous assurer de prendre connaissance de tout changement effectué à cette politique. Nous pouvons vous informer des changements effectués à cette politique par courrier électronique.</p>
 
             <h4>
-                K. Sites web tiers
+                F. Sites web tiers
             </h4>
 
             <p>Notre site web contient des liens hypertextes menant vers des sites web tiers et des informations les concernant. Nous n’avons aucun contrôle sur ces sites, et ne sommes pas responsables de leurs politiques de confidentialité ni de leurs pratiques.</p>
 
             <h4>
-                M. Cookies
+                G. Cookies
             </h4>
 
             <p>
@@ -117,11 +105,11 @@
             </p>
             <p>
                 L’identifiant est alors renvoyé au serveur à chaque fois que le navigateur demande une page au serveur.
-                Les cookies peuvent être « persistants » ou « de session » : un cookie persistant est stocké par le navigateur et reste valide jusqu’à sa date d’expiration, à moins d’être supprimé par l’utilisateur avant cette date d’expiration ; quant à un cookie de session, il expire à la fin de la session utilisateur, lors de la fermeture du navigateur.
+                Les cookies peuvent être « persistants » ou « de session » : un cookie persistant est stocké par le navigateur et reste valide jusqu’à sa date d’expiration, à moins d’être supprimé par l’utilisateur avant cette date d’expiration quant à un cookie de session, il expire à la fin de la session utilisateur, lors de la fermeture du navigateur.
                 Les cookies ne contiennent en général aucune information permettant d’identifier personnellement un utilisateur, mais les informations personnelles que nous stockons à votre sujet peuvent être liées aux informations stockées dans les cookies et obtenues par les cookies.
             </p>
             <p class="font-weight-bold">
-            Nous utilisons des cookies de session et des cookies persistants sur notre site web.
+                Nous utilisons des cookies de session et des cookies persistants sur notre site web.
                 <br>Les noms des cookies que nous utilisons sur notre site web et les objectifs dans lesquels nous les utilisons sont décrits ci-dessous:
             </p>
             
