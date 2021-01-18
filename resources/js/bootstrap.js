@@ -1,5 +1,8 @@
 window._ = require('lodash');
 
+import * as mdb from 'mdb-ui-kit'; // lib
+import { Input } from 'mdb-ui-kit'; // module
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -12,6 +15,8 @@ try {
 
     require('bootstrap');
     require( 'datatables.net' )(window.$);
+
+    // require('mdb-ui-kit');
 } catch (e) {}
 
 /**
