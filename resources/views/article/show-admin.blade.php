@@ -18,10 +18,13 @@
             {!! $article->article !!}
         </div>
     </div>
-    <div class="col-lg-4 text-center p-3">
-         <a class="mb-3 btn btn-success w-50" href="{{ route('article.update', ['uniqid' => $article->uniqid]) }}">Modifier l'article</a>
-         <a class="mb-3 btn btn-primary w-50" href="{{ route('article.create') }}">Nouvel article</a>
-         <a class="mb-3 btn btn-danger w-50" href="{{ asset('/adminsharp') }}">Administration</a>
-    </div>
 </div>
+@endsection
+
+@section('section-droite')
+    <div class="col-lg-4 text-center p-3">
+        <a class="mb-3 btn btn-success w-50" href="{{ route('article.update', ['uniqid' => $article->uniqid]) }}">Modifier l'article</a>
+        <a class="mb-3 btn btn-primary w-50" href="{{ route('article.create') }}">Nouvel article</a>
+        <a class="mb-3 btn btn-danger w-50" href="{{ asset('/adminsharp') }}">Administration</a>
+    </div>
 @endsection

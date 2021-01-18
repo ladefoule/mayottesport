@@ -8,6 +8,7 @@ use App\Journee;
 use App\Competition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -40,5 +41,26 @@ class HomeController extends Controller
             'articles' => $articlesView,
             'filActualites' => $filActualites,
         ]);
+    }
+
+    function politique(){
+        return view('rgpd');
+    }
+
+    function contactForm(){
+        return view('contact');
+    }
+
+    function contactPost(Request $request){
+        Log::info(" -------- Controller Home : contactPost -------- ");
+        Validator::make($request->all(), [
+            'nom' => 'required|min:3|max:30',
+            // 'prenom' => 'nullable|min:3|max:30',
+            'email' => 'required|email',
+            'message' => 'required|min:5',
+            'control' => 'required|value:7',
+        ])->validate();
+
+        // Todo : Envoyer un email
     }
 }

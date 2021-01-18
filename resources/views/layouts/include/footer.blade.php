@@ -2,6 +2,7 @@
     $sports = index('sports')->sortBy('home_position')->slice(0,5);
     $competitions = index('competitions');
 ?>
+
 <!-- Footer -->
 <footer class="col-12 footer font-small indigo text-white bg-dark mt-auto">
     <!-- Footer Links -->
@@ -91,3 +92,5 @@ $(document).ready(function(){
 })
 </script>
 @yield('script')
+
+@include('cookieConsent::index')

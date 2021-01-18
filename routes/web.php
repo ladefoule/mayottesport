@@ -70,7 +70,7 @@ Route::group(['middleware'=> 'verified'], function () {
 
             /* DEBUT MIDDLEWARE SUPERADMIN */
             Route::prefix('/superadmin')->middleware(['check-permission:superadmin'])->group(function () {
-                Route::post('/cache-flush', 'CrudAdminController@cacheFlush')->name('cache-flush');
+                Route::post('/cache-flush', 'SuperadminController@cacheFlush')->name('cache-flush');
 
                 /* ----- DEBUT ROUTES PDF PARSER ----- */
                 Route::get('/pdfparser', 'PdfParserController@get')->name('pdfParser');
@@ -95,9 +95,9 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 Route::match(['get', 'post'], '/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
 Route::match(['get', 'post'], '/ajax/caches/reload', 'CacheController@reload')->name('caches.reload');
 
-Route::get('notre-politique-de-confidentialite.php', function(){
-    return view('rgpd');
-});
+Route::get('contact', 'HomeController@contactForm');
+Route::post('contact', 'HomeController@contactPost');
+Route::get('notre-politique-de-confidentialite.php', 'HomeController@politique')->name('politique');
 
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');

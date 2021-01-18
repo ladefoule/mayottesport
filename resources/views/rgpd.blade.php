@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row bg-white m-0 border rounded p-3">
-    <pre>
+    {{-- <pre> --}}
     A. Introduction
 
         La confidentialité des visiteurs de notre site web est très importante à nos yeux, et nous nous engageons à la protéger. Cette politique détaille ce que nous faisons de vos informations personnelles.
@@ -146,6 +146,6 @@
         Supprimer les cookies aura un impact négatif sur l’utilisation de nombreux sites web.
 
     Website Planet décline toute responsabilité et vous conseille de consulter des experts juridiques si vous implémentez le modèle ci-dessus sur votre site web.
-    </pre>
+    {{-- </pre> --}}
 </div>
 @endsection
