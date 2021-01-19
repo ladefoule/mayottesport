@@ -15,12 +15,12 @@
 
     {{-- avec onglets --}}
     <div id="onglets-content" class="col-12 d-lg-none d-flex text-center p-3 bg-white">
-        <a href="" data-cible="actualites-content"
-            class="d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
-        <a href="" data-cible="resultats-content"
-            class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && $resultats) active @endif">Résultats</a>
-        <a href="" data-cible="prochains-content"
-            class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</a>
+        <span data-cible="actualites-content"
+            class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</span>
+        <span data-cible="resultats-content"
+            class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && $resultats) active @endif">Résultats</span>
+        <span data-cible="prochains-content"
+            class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</span>
     </div>
 
     <div class="col-12 d-lg-none bg-white">
@@ -31,8 +31,8 @@
         </div>
         <div id="resultats-content" class="@if($articles || $resultats) d-none @endif">
             @foreach ($resultats as $sport => $journees)
-                <div class="col-12 text-center pb-2 px-3">
-                    <span class="h2 font-italic">
+                <div class="col-12 text-center">
+                    <span class="nom-sport font-italic">
                         <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                         {{ $sport }}
                         </a>
@@ -41,7 +41,7 @@
                 @foreach ($journees as $journee)
                     <div class="col-12 text-center pb-3 justify-content-between">
                         <h3 class="col-12 h4 border-bottom-calendrier py-2">
-                            <a class="text-green-light" href="{{ $journee['competition_href'] }}">
+                            <a href="{{ $journee['competition_href'] }}">
                                 {{ $journee['competition_nom'] }}
                             </a>
                         </h3>
@@ -54,8 +54,8 @@
         </div>
         <div id="prochains-content" class="@if($articles || $resultats) d-none @endif">
             @foreach ($prochains as $sport => $journees)
-                <div class="col-12 text-center pb-2 px-3">
-                    <span class="h2 font-italic">
+                <div class="col-12 text-center">
+                    <span class="nom-sport font-italic">
                         <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                         {{ $sport }}
                         </a>
@@ -63,11 +63,11 @@
                 </div>
                 @foreach ($journees as $journee)
                     <div class="col-12 text-center pb-3 justify-content-between">
-                        <h3 class="col-12 h4 border-bottom-calendrier py-2">
-                            <a class="text-green-light" href="{{ $journee['competition_href'] }}">
+                        <p class="col-12 h4 border-bottom-calendrier py-2">
+                            <a href="{{ $journee['competition_href'] }}">
                                 {{ $journee['competition_nom'] }}
                             </a>
-                        </h3>
+                        </p>
                         <div class="pl-0">
                                 {!! $journee['journee_render'] !!}
                         </div>

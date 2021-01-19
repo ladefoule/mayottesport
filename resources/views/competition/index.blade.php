@@ -23,12 +23,12 @@
 
     {{-- avec onglets --}}
     <div class="col-12 d-lg-none d-flex text-center p-3 bg-white">
-        <a href="" data-cible="actualites-content"
-            class="d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</a>
-        <a href="" data-cible="resultats-content"
-            class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && $resultats) active @endif">Résultats</a>
-        <a href="" data-cible="prochains-content"
-            class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</a>
+        <span data-cible="actualites-content"
+            class="d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</span>
+        <span data-cible="resultats-content"
+            class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && $resultats) active @endif">Résultats</span>
+        <span data-cible="prochains-content"
+            class="d-block col-4 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</span>
     </div>
 
     <div class="col-12 d-lg-none bg-white pt-0">

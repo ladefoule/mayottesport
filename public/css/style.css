@@ -88,6 +88,14 @@ a:hover{
     /* height: auto; */
 }
 
+.calendrier{
+    font-size: 0.9rem;
+}
+
+main .nom-sport{
+    font-size: 1.3rem;
+}
+
 .top-main-site{
     margin-top: 60px
 }
@@ -127,6 +135,14 @@ a:hover{
 .titre-premier-article{
     font-size: 20px;
     line-height: 22px;
+}
+
+.font-size-1{
+    font-size: 1rem;
+}
+
+.font-size-1-1{
+    font-size: 1.1rem;
 }
 
 .titre-article{
@@ -315,6 +331,11 @@ a.non-cliquable, a.non-cliquable:hover{
 .onglet.active{
    background-color: tomato !important;
 }
+
+.onglet:active{
+    outline:none !important;
+}
+
 /* 
 .nom-competition{
     font-size: 1.3rem;
@@ -353,6 +374,10 @@ a.non-cliquable, a.non-cliquable:hover{
         width:40px;
     }
 
+    .calendrier{
+        font-size: 1rem;
+    }
+
     .fanion-match{
         width:60px
     }
@@ -389,6 +414,22 @@ a.non-cliquable, a.non-cliquable:hover{
         @media (min-width: 992px) {
             html{
                 font-size: 100%;
+            }
+
+            #section-droite .calendrier{
+                font-size: 0.7rem;
+            }
+
+            #section-droite .nom-sport{
+                font-size: 1.1rem;
+            }
+
+            #section-droite{
+                font-size: 0.7rem;
+            }
+
+            #section-droite .onglet{
+                font-size:0.7rem
             }
 
             .titre-premier-article{
@@ -432,6 +473,10 @@ a.non-cliquable, a.non-cliquable:hover{
                 .fanion-calendrier{
                     display: block;
                     width:40px;
+                }
+
+                #section-droite .calendrier{
+                    font-size: 0.8rem;
                 }
             }
         }

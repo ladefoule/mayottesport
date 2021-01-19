@@ -51,12 +51,12 @@
 @section('section-droite')
 <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
     <div class="col-12 d-flex text-center p-3">
-        <a href="" data-cible="fil-actu"
-            class="d-block col-4 p-3 border btn btn-secondary onglet active">Fil actu</a>
-        <a href="" data-cible="resultats"
-            class="d-block col-4 p-3 border btn btn-secondary onglet">Résultats</a>
-        <a href="" data-cible="prochains"
-            class="d-block col-4 p-3 border btn btn-secondary onglet">À venir</a>
+        <span data-cible="fil-actu"
+            class="d-block col-4 p-3 border btn btn-secondary onglet active">Fil actu</span>
+        <span data-cible="resultats"
+            class="d-block col-4 p-3 border btn btn-secondary onglet">Résultats</span>
+        <span data-cible="prochains"
+            class="d-block col-4 p-3 border btn btn-secondary onglet">À venir</span>
     </div>
     <div class="bloc-fil-actu col-12 p-2">
         {!! $filActualites !!}

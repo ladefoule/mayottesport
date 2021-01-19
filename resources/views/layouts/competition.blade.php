@@ -64,10 +64,10 @@
         <section id="section-droite" class="col-4 d-none d-lg-block pl-0">
             <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
                 <div class="col-12 d-flex text-center p-3 bg-white">
-                    <a href="" data-cible="resultats-section-droite"
-                        class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</a>
-                    <a href="" data-cible="prochains-section-droite"
-                        class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats) active @endif">À venir</a>
+                    <span data-cible="resultats-section-droite"
+                        class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</span>
+                    <span data-cible="prochains-section-droite"
+                        class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats) active @endif">À venir</span>
                 </div>
                 <div id="resultats-section-droite" class="col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
                     @foreach ($resultats as $resultat)
