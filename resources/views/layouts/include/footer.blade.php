@@ -31,25 +31,28 @@
                 </div>
             @endforeach
             <div class="col-4 col-md-2 px-1">
-                <h5 class="font-weight-bold mt-3 mb-2">MS.com</h5>
+                <h5 class="font-weight-bold mt-3 mb-2">Mayotte Sport</h5>
                 <ul class="list-unstyled">
                     <li>
-                        <a class="text-light" href="#!">S'inscrire</a>
+                        <a class="text-light" href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
                     <li>
-                        <a class="text-light" href="#!">Se connecter</a>
-                    </li>
-                    <li>
-                        <a class="text-light" href="#!">Contact</a>
-                    </li>
-                    <li>
-                        <a class="text-light" href="#!">Cookies</a>
+                        <a class="text-light" href="{{ route('politique') }}">Notre politique des cookies</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
     <!-- Footer Links -->
+
+    <!-- Social buttons -->
+    {{-- <div class="row footer-copyright justify-content-center text-center py-3 border-top border-secondary">
+        <div class="d-flex justify-content-center align-items-center bg-primary">
+            <i class="icon-instagram border rounded-circle" style="border-radius:50%;font-size:1.5rem"></i>
+        </div>
+        <i class="icon-instagram"></i>
+    </div> --}}
+    <!-- Social buttons -->
 
     <!-- Copyright -->
     <div class="row footer-copyright justify-content-center text-center py-3 bg-body">© {{ date('Y') }} Copyright:
