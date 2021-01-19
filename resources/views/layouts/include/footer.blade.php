@@ -5,7 +5,7 @@
 ?>
 
 <!-- Footer -->
-<footer class="col-12 footer font-small indigo text-white bg-dark mt-auto border border-danger">
+<footer class="col-12 footer font-small indigo text-white bg-dark mt-auto">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
         <div class="row d-flex flex-basis-1 text-center">
@@ -51,8 +51,6 @@
     </div>
     <!-- Footer Links -->
 
-    @include('cookieConsent::index')
-
     <!-- Copyright -->
     <div class="row footer-copyright justify-content-center text-center py-3 bg-body">© {{ date('Y') }} Copyright:
         <a class="px-1 text-green-light" href="{{ asset('/') }}">mayottesport.com</a> - FB - TW
@@ -61,45 +59,7 @@
 </footer>
 <!-- Footer -->
 
-<!-- Modal -->
-<div class="modal fade" id="cookiesParametres" tabindex="-1" aria-labelledby="cookiesParametresLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cookiesParametresLabel">Paramétrer l'utilisation des cookies</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="px-3 mx-3 text-left">
-                    <span class="text-left">
-                        Merci de paramétrer vos choix concernant l'utilisation des cookies sur notre site.
-                    </span>
-                    <div>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <span>Cookies de fonctionnement (obligatoires)</span>
-                        </div>
-                
-                        <div class="d-flex justify-content-end align-items-center">
-                            <span>Google Analytics</span>
-                            <label class="ml-3 switch m-1">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="{{ route('politique') }}">
-                    <button class="btn btn-link text-white bg-secondary">Notre politique de confidentialité</button>
-                </a>
-                <button class="js-cookie-consent-agree cookie-consent__agree btn btn-primary" {{-- data-dismiss="modal" --}}>Valider</button>
-            </div>
-        </div>
-    </div>
-</div>
+@include('cookieConsent::index')
 
 <script src="{{ asset(mix('js/app.js')) }}"></script>
 <script src="{{ asset('node_modules/select2/select2.js') }}"></script>
@@ -141,9 +101,9 @@
             e.preventDefault()
         })
 
-        $('#cookiesParametres').on('shown.bs.modal', function () {
-            $('#cookiesParametresBouton').trigger('focus')
-        })
+        // $('#cookiesParametres').on('shown.bs.modal', function () {
+        //     $('#cookiesParametresBouton').trigger('focus')
+        // })
     })
 </script>
 @yield('script')
