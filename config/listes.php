@@ -11,9 +11,9 @@ return [
         'database' => '<i class="icon-database"></i>',
         'left' => '<i class="icon-left-open"></i>',
         'right' => '<i class="icon-right-open"></i>',
-        'retour' => '<i class="icon-left"></i>',
         'football' => '<i class="icon-soccer-ball"></i>',
         'user' => '<i class="icon-user"></i>',
+        'user-add' => '<i class="icon-user-add"></i>',
     ],
 
     /* $key => $values */

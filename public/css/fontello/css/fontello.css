@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?79151842');
-  src: url('../font/fontello.eot?79151842#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?79151842') format('woff2'),
-       url('../font/fontello.woff?79151842') format('woff'),
-       url('../font/fontello.ttf?79151842') format('truetype'),
-       url('../font/fontello.svg?79151842#fontello') format('svg');
+  src: url('../font/fontello.eot?22024957');
+  src: url('../font/fontello.eot?22024957#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?22024957') format('woff2'),
+       url('../font/fontello.woff?22024957') format('woff'),
+       url('../font/fontello.ttf?22024957') format('truetype'),
+       url('../font/fontello.svg?22024957#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?79151842#fontello') format('svg');
+    src: url('../font/fontello.svg?22024957#fontello') format('svg');
   }
 }
 */
@@ -63,17 +63,13 @@
 .icon-eye:before { content: '\e805'; } /* '' */
 .icon-pencil:before { content: '\e806'; } /* '' */
 .icon-list:before { content: '\e807'; } /* '' */
-.icon-th-list:before { content: '\e808'; } /* '' */
 .icon-user:before { content: '\e809'; } /* '' */
+.icon-user-add:before { content: '\e80a'; } /* '' */
 .icon-dribbble:before { content: '\f050'; } /* '' */
-.icon-gplus:before { content: '\f05a'; } /* '' */
-.icon-instagram:before { content: '\f05d'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
-.icon-facebook-1:before { content: '\f09a'; } /* '' */
+.icon-facebook:before { content: '\f09a'; } /* '' */
 .icon-list-bullet:before { content: '\f0ca'; } /* '' */
-.icon-gplus-1:before { content: '\f0d5'; } /* '' */
 .icon-pencil-squared:before { content: '\f14b'; } /* '' */
-.icon-instagram-1:before { content: '\f16d'; } /* '' */
-.icon-dribbble-1:before { content: '\f17d'; } /* '' */
+.icon-instagram:before { content: '\f16d'; } /* '' */
 .icon-database:before { content: '\f1c0'; } /* '' */
 .icon-soccer-ball:before { content: '\f1e3'; } /* '' */

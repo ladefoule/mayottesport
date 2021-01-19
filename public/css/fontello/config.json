@@ -7,21 +7,9 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "c896fd4e287aebcf79803e0ece001ec1",
-      "css": "gplus",
-      "code": 61530,
-      "src": "mfglabs"
-    },
-    {
       "uid": "2653481d01fec1b76247dbeffb74033e",
       "css": "dribbble",
       "code": 61520,
-      "src": "mfglabs"
-    },
-    {
-      "uid": "603ebbc4040323ef53ba1dc37de67717",
-      "css": "instagram",
-      "code": 61533,
       "src": "mfglabs"
     },
     {
@@ -79,12 +67,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "f805bb95d40c7ef2bc51b3d50d4f2e5c",
-      "css": "th-list",
-      "code": 59400,
-      "src": "fontawesome"
-    },
-    {
       "uid": "a2a74f5e7b7d9ba054897d8c795a326a",
       "css": "list-bullet",
       "code": 61642,
@@ -109,14 +91,8 @@
       "src": "fontawesome"
     },
     {
-      "uid": "199c44bca402ec5a6351f75ba5228375",
-      "css": "dribbble-1",
-      "code": 61821,
-      "src": "fontawesome"
-    },
-    {
       "uid": "8e04c98c8f5ca0a035776e3001ad2638",
-      "css": "facebook-1",
+      "css": "facebook",
       "code": 61594,
       "src": "fontawesome"
     },
@@ -127,16 +103,16 @@
       "src": "fontawesome"
     },
     {
-      "uid": "b8d0c7d76e87b94882329a88e8e43d3d",
-      "css": "gplus-1",
-      "code": 61653,
+      "uid": "4c1ef492f1d2c39a2250ae457cee2a6e",
+      "css": "instagram",
+      "code": 61805,
       "src": "fontawesome"
     },
     {
-      "uid": "4c1ef492f1d2c39a2250ae457cee2a6e",
-      "css": "instagram-1",
-      "code": 61805,
-      "src": "fontawesome"
+      "uid": "076f940ac56adee91dd43d6fd77dd0cf",
+      "css": "user-add",
+      "code": 59402,
+      "src": "typicons"
     }
   ]
 }

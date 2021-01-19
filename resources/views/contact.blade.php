@@ -6,9 +6,9 @@
 
 @section('content')
 {{-- <div class="row justify-content-center"> --}}
-    <div class="col-md-10 col-lg-12 m-auto p-3">
+    <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
         <div class="card">
-            <div class="card-header h4 text-green">Contact</div>
+            <div class="card-header h5 text-green">Contact</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
@@ -21,7 +21,7 @@
 
                         <div class="col-md-7">
                             <input id="nom" type="text" pattern=".{3,30}" class="form-control @error('nom') is-invalid @enderror" name="nom"
-                                value="{{ old('nom') }}" style="font-size: 1.1rem" required autocomplete="nom" autofocus
+                                value="{{ old('nom') }}" style="font-size: 1.0rem" required autocomplete="nom" autofocus
                                 data-msg="Le champ <span class='text-danger font-italic'>Nom</span> n'est pas valide.">
 
                             @error('nom')
@@ -37,7 +37,7 @@
 
                         <div class="col-md-7">
                             <input id="prenom" type="text" pattern="\0|.{3,30}" class="input-optionnel form-control @error('prenom') is-invalid @enderror" name="prenom"
-                                value="{{ old('prenom') }}" style="font-size: 1.1rem" autocomplete="Prénom" autofocus
+                                value="{{ old('prenom') }}" style="font-size: 1.0rem" autocomplete="Prénom" autofocus
                                 data-msg="Le champ <span class='text-danger font-italic'>prenom</span> n'est pas valide.">
 
                             @error('prenom')
@@ -53,7 +53,7 @@
 
                         <div class="col-md-7">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" style="font-size: 1.1rem" required autocomplete="email" autofocus
+                                value="{{ old('email') }}" style="font-size: 1.0rem" required autocomplete="email" autofocus
                                 data-msg="Le champ <span class='text-danger font-italic'>Email</span> n'est pas valide.">
 
                             @error('email')
@@ -68,7 +68,7 @@
                         <label for="message" class="col-md-3 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Message</label>
 
                         <div class="col-md-7">
-                            <textarea name="message" id="message" class="form-control @error('message') is-invalid @enderror" rows="5" style="font-size: 1.1rem">{{ old('message') }}</textarea>
+                            <textarea name="message" id="message" class="form-control @error('message') is-invalid @enderror" rows="5" style="font-size: 1.0rem">{{ old('message') }}</textarea>
 
                             @error('message')
                                 <span class="invalid-feedback" role="alert">

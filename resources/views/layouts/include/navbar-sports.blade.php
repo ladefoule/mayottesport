@@ -18,75 +18,64 @@
                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active font-weight-bold text-green @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
                 </li>
                 @endforeach
-                {{-- <li class="nav-item">
-                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ asset('/autres') }}">Autres</a>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ asset('/contact') }}">Contact</a>
                 </li>
            </ul>
-           @include('layouts.include.connexion')
+           <?php
+                $role = Auth::check() ? Auth::user()->role->name : '';
+            ?>
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+                @guest
+                    <li class="nav-item pl-1 d-flex flex-shrink-0">
+                        <a class="nav-link" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
+                    </li>
+                    @if (Route::has('register'))
+                        <li class="nav-item pl-0 d-flex flex-shrink-0">
+                            <a class="nav-link" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item dropdown pl-2 d-flex flex-shrink-0">
+                        <span id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->pseudo }} <span class="caret"></span>
+                        </span>
+
+                        <div class="dropdown-menu dropdown-menu-right mb-2" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('profil') }}">
+                                Mon profil
+                            </a>
+                            @if(in_array($role, ['admin', 'superadmin']))
+                                <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
+                                    Administration
+                                </a>
+                                {{-- <a class="dropdown-item" href="{{ route('crud') }}">
+                                    Le Crud
+                                </a> --}}
+                            @endif
+                            @if($role == 'superadmin')
+                                <a class="dropdown-item" href="{{ asset('/script.html') }}">
+                                    Vider le cache
+                                </a>
+                            @endif
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                Déconnexion
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
+            </ul>
        </div>
    </div>
 </nav>
 {{-- FIN NAVBAR LARGE SCREEN --}}
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-{{-- NAVBAR MOBILE --}}
-<nav class="navbar-mobile border bg-light d-lg-none h-100 position-fixed overflow-y-auto" data-state="hidden">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MENU</a>
-        <button class="navbar-toggler" type="button" {{-- data-toggle="collapse" --}} {{-- data-target="#navbarNavDropdown"  --}} {{-- aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" --}} data-toggle="modal" data-target="#exampleModal">
-          <span class="text-danger h3">X</span>
-        </button>
-          <ul class="navbar-nav w-100 border-bottom">
-            <li class="nav-item active px-2 border-bottom">
-                <a class="nav-link" href="{{ asset('/') }}">Accueil</a>
-            </li>
-            @foreach ($sports as $sport)
-                @if ($competitions->where('sport_id', $sport->id)->all() > 0)
-                    <li class="nav-item dropdown border-bottom px-2">
-                        <a class="nav-link dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {!! config('listes.boutons.' . \Str::slug($sport->nom)) !!} {{ $sport->nom }}
-                        </a>
-                        <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
-                            <a class="dropdown-item" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
-                            @foreach ($competitions->where('sport_id', $sport->id) as $competition)
-                                <a class="dropdown-item" href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
-                            @endforeach
-                        </div>
-                    </li>
-                @else
-                    <li class="nav-item border-bottom px-2">
-                        <a class="nav-link @if (request()->sport && $sport->nom == request()->sport->nom) active text-body font-weight-bold @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
-                    </li>
-                @endif
-            @endforeach
-            <a class="border-bottom nav-item nav-link px-2" href="{{ asset('/autres') }}">Autres</a>
-            <a class="border-bottom nav-item nav-link px-2" href="{{ asset('/contact') }}">Contact</a>
-            @include('layouts.include.connexion')
-          </ul>
-      </nav>
-</nav>
-{{-- FIN NAVBAR MOBILE --}}
+@include('layouts.include.navbar-mobile')

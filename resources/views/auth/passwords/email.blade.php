@@ -3,8 +3,8 @@
 @section('title', "Réinitialisation du mot de passe")
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-8 p-3">
+{{-- <div class="row justify-content-center"> --}}
+    <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
         <div class="card">
             <div class="card-header">Réinitialisation du mot de passe</div>
 
@@ -43,5 +43,5 @@
             </div>
         </div>
     </div>
-</div>
+{{-- </div> --}}
 @endsection

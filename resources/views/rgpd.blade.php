@@ -3,7 +3,7 @@
 @section('title', 'Notre politique de confidentialité en conformité avec le RGPD')
 
 @section('content')
-<div class="p-lg-3">
+<div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
     <div class="row bg-white m-0 border rounded p-3" id="politique" style="font-size: 1rem">
         <div>
             <h1 class="h2 d-block">Notre politique de confidentialité</h1>

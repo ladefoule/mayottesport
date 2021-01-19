@@ -6,9 +6,9 @@
 
 @section('content')
 {{-- <div class="row justify-content-center"> --}}
-    <div class="col-md-10 col-lg-12 m-auto p-3">
+    <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
         <div class="card">
-            <div class="card-header h4 text-green">Connexion</div>
+            <div class="card-header h5 text-green">Connexion</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
@@ -21,7 +21,7 @@
 
                         <div class="col-md-7">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" style="font-size: 1.1rem" required autocomplete="email" autofocus
+                                value="{{ old('email') }}" required autocomplete="email" autofocus
                                 data-msg="Le champ <span class='text-danger font-italic'>Email</span> n'est pas valide.">
 
                             @error('email')
