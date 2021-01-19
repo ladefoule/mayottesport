@@ -23,7 +23,7 @@
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <p class="col-12 h4 border-bottom-calendrier p2-2">
+                    <p class="col-12 nom-competition border-bottom-calendrier pt-2">
                         <a href="{{ $journee['competition_href'] }}">
                             {{ $journee['competition_nom'] }}
                         </a>
@@ -46,7 +46,7 @@
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <p class="col-12 h4 border-bottom-calendrier p2-2">
+                    <p class="col-12 nom-competition border-bottom-calendrier pt-2">
                         <a href="{{ $journee['competition_href'] }}">
                             {{ $journee['competition_nom'] }}
                         </a>

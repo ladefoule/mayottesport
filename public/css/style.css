@@ -428,6 +428,10 @@ a.non-cliquable, a.non-cliquable:hover{
                 font-size: 1.1rem;
             }
 
+            #section-droite .nom-competition{
+                font-size: 1.1rem;
+            }
+
             #section-droite{
                 font-size: 0.7rem;
             }
