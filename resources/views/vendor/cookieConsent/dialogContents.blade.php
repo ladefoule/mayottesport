@@ -11,7 +11,7 @@
                 Paramétrer
             </button>
                     
-            <button class="js-cookie-consent-agree cookie-consent__agree btn-lg bg-success text-white float-right px-5">
+            <button class="js-cookie-consent-agree cookie-consent__agree btn-lg bg-success border-success text-white float-right px-5">
                 Accepter
             </button>
         </div>

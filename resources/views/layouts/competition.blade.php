@@ -25,7 +25,7 @@
     <div class="navbar-scroll-x container-fluid bg-white border-bottom">
         <div class="container">
             <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
-                <div class="d-flex justify-content-start align-items-center px-3 flex-shrink-0">
+                <div class="d-flex justify-content-start align-items-center p-0 flex-shrink-0">
                     <a href="{{ $hrefSport }}" class="d-lg-none font-weight-bold text-secondary mr-3 border-bottom-scroll-x">
                         {{ $sport->nom }}
                     </a>
@@ -70,6 +70,11 @@
                         class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats) active @endif">À venir</span>
                 </div>
                 <div id="resultats-section-droite" class="col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
+                    <p class="col-12 h4 border-bottom-calendrier text-center p-0">
+                        <a href="{{ $hrefIndex }}">
+                            {{ $competition->nom }}
+                        </a>
+                    </p>
                     @foreach ($resultats as $resultat)
                         <div class="p-3">
                             {!! $resultat !!}
@@ -77,6 +82,11 @@
                     @endforeach
                 </div>
                 <div id="prochains-section-droite" class="col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
+                    <p class="col-12 h4 border-bottom-calendrier text-center p-0">
+                        <a href="{{ $hrefIndex }}">
+                            {{ $competition->nom }}
+                        </a>
+                    </p>
                     @foreach ($prochains as $prochain)
                         <div class="p-3">
                             {!! $prochain !!}

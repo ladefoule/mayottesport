@@ -7,8 +7,8 @@
 <nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom-defaut bg-white p-0">
    <div class="container">
        <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport" style="width: 200px"></a>
-       <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <button class="navbar-toggler mr-3" type="button" {{-- data-toggle="collapse" data-target="#navbarSupportedContent" --}}
+           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-toggle="modal" data-target="#exampleModal">
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2 align-self-stretch" id="navbarSupportedContent">
@@ -31,11 +31,33 @@
 </nav>
 {{-- FIN NAVBAR LARGE SCREEN --}}
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 {{-- NAVBAR MOBILE --}}
 <nav class="navbar-mobile border bg-light d-lg-none h-100 position-fixed overflow-y-auto" data-state="hidden">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">MENU</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" {{-- data-toggle="collapse" --}} {{-- data-target="#navbarNavDropdown"  --}} {{-- aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" --}} data-toggle="modal" data-target="#exampleModal">
           <span class="text-danger h3">X</span>
         </button>
           <ul class="navbar-nav w-100 border-bottom">

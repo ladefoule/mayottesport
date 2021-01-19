@@ -30,8 +30,10 @@
                     </ul>
                 </div>
             @endforeach
-            <div class="col-4 col-md-2 px-1">
-                <h5 class="font-weight-bold mt-3 mb-2">Mayotte Sport</h5>
+            <div class="col-6 col-md-4 col-lg-2 px-3">
+                <a href="{{ route('home') }}">
+                    <h5 class="font-weight-bold mt-3 mb-2 text-white text-center">Accueil</h5>
+                </a>
                 <ul class="list-unstyled">
                     <li>
                         <a class="text-light" href="{{ route('contact') }}">Contactez-nous</a>
@@ -46,17 +48,16 @@
     <!-- Footer Links -->
 
     <!-- Social buttons -->
-    {{-- <div class="row footer-copyright justify-content-center text-center py-3 border-top border-secondary">
-        <div class="d-flex justify-content-center align-items-center bg-primary">
-            <i class="icon-instagram border rounded-circle" style="border-radius:50%;font-size:1.5rem"></i>
-        </div>
-        <i class="icon-instagram"></i>
-    </div> --}}
+    <div class="row footer-social justify-content-center py-2 border-top border-secondary">
+            <a href="https://www.facebook.com/mayottesport.actu" class="mx-3"><img src="{{ asset('storage/img/facebook.png') }}" alt="MayotteSport sur Facebook" title="MayotteSport sur Facebook" class="img-fluid bg-dark"></a>
+            <a href="https://twitter.com/mayottesport" class="mx-3"><img src="{{ asset('storage/img/twitter.png') }}" alt="MayotteSport sur Twitter" title="MayotteSport sur Twitter" class="img-fluid bg-dark"></a>
+            <a href="https://www.instagram.com/mayottesport.actu" class="mx-3"><img src="{{ asset('storage/img/instagram.png') }}" alt="MayotteSport sur Instagram" title="MayotteSport sur Instagram" class="img-fluid bg-dark"></a>
+    </div>
     <!-- Social buttons -->
 
     <!-- Copyright -->
     <div class="row footer-copyright justify-content-center text-center py-3 bg-body">© {{ date('Y') }} Copyright:
-        <a class="px-1 text-green-light" href="{{ asset('/') }}">mayottesport.com</a> - FB - TW
+        <a class="px-1 text-green-light" href="{{ asset('/') }}">mayottesport.com</a>
     </div>
     <!-- Copyright -->
 </footer>
@@ -73,26 +74,26 @@
         var navbarMobile = qs('.navbar-mobile')
 
         // Affichage du menu Mobile
-        $('.navbar-toggler').on('click', function() {
-            let state = navbarMobile.dataset.state
-            if (state == 'hidden') {
-                navbarMobile.style.left = 0
-                state = 'visible'
-            } else if (state == 'visible') {
-                navbarMobile.style.left = '-250px'
-                state = 'hidden'
-            }
+        // $('.navbar-toggler').on('click', function() {
+        //     let state = navbarMobile.dataset.state
+        //     if (state == 'hidden') {
+        //         navbarMobile.style.right = 0
+        //         state = 'visible'
+        //     } else if (state == 'visible') {
+        //         navbarMobile.style.right = '-250px'
+        //         state = 'hidden'
+        //     }
 
-            navbarMobile.dataset.state = state
-        })
+        //     navbarMobile.dataset.state = state
+        // })
 
         // Masquage du menu Mobile
-        $('footer,section').on('click', function(e) {
-            if (e.target != navbarMobile && navbarMobile.dataset.state == 'visible') {
-                navbarMobile.dataset.state = 'hidden'
-                navbarMobile.style.left = '-250px'
-            }
-        })
+        // $('footer,section').on('click', function(e) {
+        //     if (e.target != navbarMobile && navbarMobile.dataset.state == 'visible') {
+        //         navbarMobile.dataset.state = 'hidden'
+        //         navbarMobile.style.left = '-250px'
+        //     }
+        // })
 
         // Centrage du lien actif dans le menu déroulant
         let navbarScrollX = $('#navbar-scroll-x')

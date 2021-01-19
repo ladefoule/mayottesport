@@ -49,7 +49,7 @@
 @endsection
 
 @section('section-droite')
-<div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
+<div class="my-3 bg-white">
     <div class="col-12 d-flex text-center p-3">
         <span data-cible="fil-actu"
             class="d-block col-4 p-3 border btn btn-secondary onglet active">Fil actu</span>
