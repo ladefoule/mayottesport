@@ -97,6 +97,25 @@
                         </div>
                     </div>
 
+                    <div class="form-group row pb-0 pt-2">
+                        <div class="offset-md-3 col-md-7">
+                            {!! captcha_img() !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row pb-0 pt-2">
+                        <label for="captcha" class="col-md-3 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Captcha</label>
+                        <div class="col-md-7">
+                            <input class="form-control @error('captcha') is-invalid @enderror" data-msg="Merci de saisir le <span class='text-danger font-italic'>Captcha</span> correspondant à l'image." type="text" name="captcha">
+
+                            @error('captcha')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="form-group row mb-0 px-3">
                         <div class="col-md-7 offset-md-3 alert alert-danger text-dark d-none" id="messageErreur"></div>
                     </div>

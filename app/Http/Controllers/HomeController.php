@@ -55,7 +55,7 @@ class HomeController extends Controller
         Log::info(" -------- Controller Home : contactPost -------- ");
         Validator::make($request->all(), [
             'nom' => 'required|min:3|max:30',
-            // 'prenom' => 'nullable|min:3|max:30',
+            'captcha' => 'required|captcha',
             'email' => 'required|email',
             'message' => 'required|min:5',
             'control' => 'required|value:7',

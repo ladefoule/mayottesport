@@ -30,6 +30,7 @@ return [
         'array' => 'The :attribute must have between :min and :max items.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
+    'captcha' => "Le code de vérification ne correspond pas.",
     'confirmed' => "Le champ de confirmation ne correspond pas.",
     'date' => "La valeur saisie n'est pas une date valide.",
     'date_equals' => 'The :attribute must be a date equal to :date.',

@@ -100,6 +100,27 @@ Route::post('contact', 'HomeController@contactPost')->name('contact.post');
 Route::get('notre-politique-de-confidentialite.php', 'HomeController@politique')->name('politique');
 Route::get('parametrer-les-cookies.html', 'CookieController@getCookies')->name('get-cookies');
 
+// [your site path]/Http/routes.php
+// Route::any('captcha-test', function() {
+//     if (request()->getMethod() == 'POST') {
+//         $rules = ['captcha' => 'required|captcha'];
+//         $validator = validator()->make(request()->all(), $rules);
+//         if ($validator->fails()) {
+//             echo '<p style="color: #ff0000;">Incorrect!</p>';
+//         } else {
+//             echo '<p style="color: #00ff30;">Matched :)</p>';
+//         }
+//     }
+
+//     $form = '<form method="post" action="captcha-test">';
+//     $form .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+//     $form .= '<p>' . captcha_img() . '</p>';
+//     $form .= '<p><input type="text" name="captcha"></p>';
+//     $form .= '<p><button type="submit" name="check">Check</button></p>';
+//     $form .= '</form>';
+//     return $form;
+// });
+
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
 Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@resultats')->name('competition.calendrier-resultats');

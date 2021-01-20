@@ -53,9 +53,10 @@ class RegisterController extends Controller
     {
         Log::info(" -------- Controller Register : validator -------- ");
         $rules = User::rules()['rules'];
+        $rules['captcha'] = 'required|captcha';
 
         // Les nouveaux utilisateurs auront le niveau d'accès 'membre'
-        $data['role_id'] = index('roles')->firstWhere('nom', 'membre')->id;
+        $data['role_id'] = index('roles')->firstWhere('name', 'membre')->id;
 
         // On génère automatiquement un pseudo à partir de l'email
         try {
