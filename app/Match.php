@@ -73,9 +73,15 @@ class Match extends Model
      */
     public static function rules(Match $match = null)
     {
+        $journeeId = request()->input('journee_id');
+
         $unique = Rule::unique('matches')->ignore($match);
-        $uniqueEqJourneeDom = Rule::unique('matches', 'journee_id', 'equipe_id_dom')->ignore($match);
-        $uniqueEqJourneeExt = Rule::unique('matches', 'journee_id', 'equipe_id_ext')->ignore($match);
+        // $uniqueEqJourneeDom = Rule::unique('matches', 'journee_id', 'equipe_id_dom')->ignore($match);
+        // $uniqueEqJourneeExt = Rule::unique('matches', 'journee_id', 'equipe_id_ext')->ignore($match);
+
+        $uniqueWithJourneeId = Rule::unique('matches')->where(function ($query) use ($journeeId) {
+            return $query->whereJourneeId($sportId);
+        })->ignore($equipe);
 
         // request()['acces_bloque'] = request()->has('acces_bloque');
         // request()['forfait_eq_dom'] = request()->has('forfait_eq_dom');
@@ -89,8 +95,8 @@ class Match extends Model
             'user_id' => 'nullable|exists:users,id',
             'date' => 'nullable|date|date_format:Y-m-d',
             'heure' => 'nullable|string|size:5',
-            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueEqJourneeDom,],
-            'equipe_id_ext' => ['required','integer','exists:equipes,id','different:equipe_id_dom',$uniqueEqJourneeExt],
+            'equipe_id_dom' => ['required','integer','exists:equipes,id',$uniqueWithJourneeId,],
+            'equipe_id_ext' => ['required','integer','exists:equipes,id','different:equipe_id_dom',$uniqueWithJourneeId],
             'uniqid' => ['required','string','size:13',$unique],
             'score_eq_dom' => 'nullable|integer|min:0|required_with:score_eq_ext',
             'score_eq_ext' => 'nullable|integer|min:0|required_with:score_eq_dom',
@@ -172,6 +178,7 @@ class Match extends Model
                 'acces_bloque' => $this->acces_bloque,
                 'journee' => niemeJournee($journee->numero),
                 'competition' => $competition->nom,
+                'lieu' => $this->terrain ? $this->terrain->nom . ' (' . $this->terrain->ville->nom . ')' : $equipeDom->ville->nom,
                 'resultat_eq_dom' => $this->resultat($this->equipe_id_dom),
                 'resultat_eq_ext' => $this->resultat($this->equipe_id_ext),
                 'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomSlug, 'competition' => $competitionNomSlug,'uniqid' => $this->uniqid]),

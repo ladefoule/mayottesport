@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class CacheController extends Controller
 {
    /**
-    * Undocumented function
+    * Rechargement des caches supprimés
     *
     * @param Request $request
     * @return mixed
@@ -26,7 +26,7 @@ class CacheController extends Controller
         Log::info(" -------- Controller Cache : reload -------- ");
         $rules = [
             'id' => 'nullable|integer|min:0',
-            'table' => 'required|min:3|exists:crud_tables,nom'
+            'table' => 'required|min:3'
         ];
 
         $validator = Validator::make($request->all(), $rules);

@@ -37,9 +37,16 @@
         @endif
 
         <div class="row col-12 d-flex justify-content-center align-items-center mx-0 p-3">
-            <div class="col-12 text-center">
-                Le {{ $match->date_format }}
-            </div>
+            @if($match->date_format)
+                <div class="col-12 text-center">
+                    Le {{ $match->date_format }} @if($match->heure) à {{ $match->heure }} @endif
+                </div>
+            @endif
+            @if($match->lieu)
+                <div class="col-12 text-center">
+                    Lieu : {{ $match->lieu }}
+                </div>
+            @endif
             <div class="col-12 text-center">
                 {{ $match->competition . ' : ' . $match->journee }}
             </div>

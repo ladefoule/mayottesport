@@ -37,4 +37,14 @@ class Terrain extends Model
         $messages = ['nom.unique' => "Ce nom de terrain, associé à cette ville, existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];
     }
+
+    /**
+     * Le ville du terrain
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function ville()
+    {
+        return $this->belongsTo('App\Ville');
+    }
 }

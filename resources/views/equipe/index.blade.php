@@ -119,6 +119,7 @@
             </div>
         </div>
     </div>
+    @csrf
 </div>
 @endsection
 
@@ -158,9 +159,9 @@ $(document).ready(function(){
             return false;
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: "<?php echo route('equipe.matches') ?>",
-            data:{equipe_id:"<?php echo $equipe->id ?>", saison_id:saisons.value},
+            data:{equipe_id:"<?php echo $equipe->id ?>", saison_id:saisons.value, _token:inputToken.value},
             success:function(data){
                 matches.innerHTML = data
             }
