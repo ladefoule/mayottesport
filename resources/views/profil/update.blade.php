@@ -18,7 +18,7 @@
         <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 
         <div class="card-body px-3">
-            <form action="" method="POST" class="needs-validation" id="formulaire">
+            <form action="" method="POST" enctype="multipart/form-data" class="needs-validation" id="formulaire">
                 @csrf
 
                 <div class="form-group row mb-3">
@@ -73,6 +73,20 @@
                                 <option @if (old('region_id') == $region->id || $user->region_id == $region->id) selected @endif value="{{ $region->id }}">{{ $region->nom }}</option>
                             @endforeach
                         </select>
+                        @error('region_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nom" class="col-md-3 col-form-label text-md-right">Changer d'avatar</label>
+
+                    <div class="col-md-7">
+                        <input type="file" name="avatar" class="form-control input-optionnel @error('avatar') is-invalid @enderror">
+
                         @error('region_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

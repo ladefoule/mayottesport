@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'pseudo', 'first_name', 'role_id', 'region_id', 'user_id'
+        'name', 'email', 'password', 'pseudo', 'first_name', 'role_id', 'region_id', 'user_id', 'avatar'
     ];
 
     /**
@@ -56,13 +56,14 @@ class User extends Authenticatable implements MustVerifyEmail
         $unique = Rule::unique('users')->ignore($user);
 
         $rules = [
-            'name' => ['required', 'string', 'min:3', 'max:50'],
-            'pseudo' => ['required', 'string', 'min:3', 'max:50', $unique],
-            'first_name' => ['nullable', 'string', 'min:3', 'max:50'],
+            'name' => ['required', 'min:3', 'max:50'],
+            'avatar' => ['nullable', 'min:5'],
+            'pseudo' => ['required', 'min:3', 'max:50', $unique],
+            'first_name' => ['nullable', 'min:3', 'max:50'],
             'role_id' => ['required', 'exists:roles,id'],
             'region_id' => ['required', 'exists:regions,id'],
-            'email' => ['required', 'string', 'email', 'max:80', $unique],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => ['required', 'email', 'max:80', $unique],
+            'password' => ['required', 'min:8', 'confirmed'],
         ];
         return ['rules' => $rules];
     }

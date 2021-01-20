@@ -57,7 +57,7 @@
                         @else
                             <li class="nav-item dropdown px-3 {{-- border-bottom --}}">
                                 <span id="navbarDropdown" class="nav-link text-body dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img class="rounded-circle mr-2" src="{{ $urlGravatar }}" alt="Avatar">
+                                    <img class="rounded-circle mr-2 avatar" src="{{ $urlAvatar }}" alt="Avatar">
                                     {{ Auth::user()->pseudo }} <span class="caret"></span>
                                 </span>
 

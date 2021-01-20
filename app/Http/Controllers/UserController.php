@@ -67,10 +67,19 @@ class UserController extends Controller
             'pseudo' => ['nullable', 'string', 'min:3', 'max:50', $unique],
             'first_name' => ['nullable', 'string', 'min:3', 'max:50'],
             'region_id' => ['required', 'exists:regions,id'],
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
-        $request = Validator::make($request->all(), $rules)->validate();
-        $user->update($request);
+        $data = Validator::make($request->all(), $rules)->validate();
+        
+        if(isset($data['avatar'])){
+            $imageName = 'user-' . $user->id;  
+            $request->avatar->move(storage_path('app/public/upload/avatar'), $imageName);
+            
+            $data['avatar'] = $imageName;
+        }
+
+        $user->update($data);
 
         forgetCaches('users', $user);
         ProcessCrudTable::dispatch('users', $user->id);

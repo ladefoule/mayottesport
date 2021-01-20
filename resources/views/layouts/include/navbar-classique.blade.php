@@ -38,10 +38,14 @@
                         </li>
                     @endif
                 @else
-                    <?php $urlGravatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?r=g&s=30&d=identicon'; ?>
+                    <?php 
+                        $user = Auth::user();
+                        $urlGravatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?r=g&s=30&d=identicon';
+                        $urlAvatar = $user->avatar ? asset('storage/upload/avatar/' . $user->avatar) : $urlGravatar;
+                    ?>
                     <li class="nav-item dropdown pl-2 d-flex flex-shrink-0">
                         <span id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <img class="rounded-circle mr-2" src="{{ $urlGravatar }}" alt="Avatar">
+                            <img class="rounded-circle mr-2 avatar" src="{{ $urlAvatar }}" alt="Avatar">
                             {{ Auth::user()->pseudo }} <span class="caret"></span>
                         </span>
 

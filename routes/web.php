@@ -100,14 +100,6 @@ Route::post('contact', 'ContactController@post')->name('contact.post');
 Route::get('notre-politique-de-confidentialite.php', 'HomeController@politique')->name('politique');
 Route::get('parametrer-les-cookies.html', 'CookieController@getCookies')->name('get-cookies');
 
-Route::get('/test-contact', function () {
-    return new App\Mail\Contact([
-      'nom' => 'Durand',
-      'email' => 'durand@chezlui.com',
-      'message' => 'Je voulais vous dire que votre site est magnifique !'
-    ]);
-});
-
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
 Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@resultats')->name('competition.calendrier-resultats');
