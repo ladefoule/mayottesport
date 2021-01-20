@@ -99,7 +99,7 @@
 
                     <div class="form-group row pb-0 pt-2">
                         <div class="offset-md-3 col-md-7">
-                            {!! captcha_img() !!}
+                            {!! captcha_img('flat') !!}
                         </div>
                     </div>
 
