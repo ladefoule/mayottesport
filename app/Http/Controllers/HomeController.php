@@ -46,21 +46,4 @@ class HomeController extends Controller
     function politique(){
         return view('rgpd');
     }
-
-    function contactForm(){
-        return view('contact');
-    }
-
-    function contactPost(Request $request){
-        Log::info(" -------- Controller Home : contactPost -------- ");
-        Validator::make($request->all(), [
-            'nom' => 'required|min:3|max:30',
-            'captcha' => 'required|captcha',
-            'email' => 'required|email',
-            'message' => 'required|min:5',
-            'control' => 'required|value:7',
-        ])->validate();
-
-        // Todo : Envoyer un email
-    }
 }

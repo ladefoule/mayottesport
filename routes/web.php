@@ -95,31 +95,18 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 Route::match(['get', 'post'], '/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
 Route::match(['get', 'post'], '/ajax/caches/reload', 'CacheController@reload')->name('caches.reload');
 
-Route::get('contact', 'HomeController@contactForm')->name('contact');
-Route::post('contact', 'HomeController@contactPost')->name('contact.post');
+Route::get('contact', 'ContactController@create')->name('contact');
+Route::post('contact', 'ContactController@post')->name('contact.post');
 Route::get('notre-politique-de-confidentialite.php', 'HomeController@politique')->name('politique');
 Route::get('parametrer-les-cookies.html', 'CookieController@getCookies')->name('get-cookies');
 
-// [your site path]/Http/routes.php
-// Route::any('captcha-test', function() {
-//     if (request()->getMethod() == 'POST') {
-//         $rules = ['captcha' => 'required|captcha'];
-//         $validator = validator()->make(request()->all(), $rules);
-//         if ($validator->fails()) {
-//             echo '<p style="color: #ff0000;">Incorrect!</p>';
-//         } else {
-//             echo '<p style="color: #00ff30;">Matched :)</p>';
-//         }
-//     }
-
-//     $form = '<form method="post" action="captcha-test">';
-//     $form .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-//     $form .= '<p>' . captcha_img() . '</p>';
-//     $form .= '<p><input type="text" name="captcha"></p>';
-//     $form .= '<p><button type="submit" name="check">Check</button></p>';
-//     $form .= '</form>';
-//     return $form;
-// });
+Route::get('/test-contact', function () {
+    return new App\Mail\Contact([
+      'nom' => 'Durand',
+      'email' => 'durand@chezlui.com',
+      'message' => 'Je voulais vous dire que votre site est magnifique !'
+    ]);
+});
 
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');

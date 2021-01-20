@@ -1,31 +1,32 @@
 <?php
-/**
- * @author ALI MOUSSA Moussa <admin@mayottesport.com>
- * @copyright 2020 ALI MOUSSA Moussa
- * @license MIT
- */
-
+ 
 namespace App\Mail;
-
+ 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-
-class OrderShipped extends Mailable
+use Illuminate\Contracts\Queue\ShouldQueue;
+ 
+class Contact extends Mailable
 {
     use Queueable, SerializesModels;
-
+ 
+    /**
+     * Elements de contact
+     * @var array
+     */
+    public $contact;
+ 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Array $contact)
     {
-        //
+        $this->contact = $contact;
     }
-
+ 
     /**
      * Build the message.
      *
@@ -33,6 +34,7 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->from($this->contact['email'])
+            ->view('contact-mail');
     }
 }

@@ -88,6 +88,8 @@ return [
 
     'password' => env('MAIL_PASSWORD'),
 
+    'contact' => env('APP_CONTACT_EMAIL'),
+
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path
