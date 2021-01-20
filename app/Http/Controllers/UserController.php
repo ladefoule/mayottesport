@@ -10,7 +10,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Cache;
 use Illuminate\Http\Request;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -72,8 +72,9 @@ class UserController extends Controller
 
         $data = Validator::make($request->all(), $rules)->validate();
         
+        // Si l'utilisateur souhaite changer son avatar
         if(isset($data['avatar'])){
-            $imageName = 'user-' . $user->id;  
+            $imageName = 'user-' . $user->id . '-' . time() . '.' . $request->image->extension();  // Ex : user-1-1589553652.jpg
             $request->avatar->move(storage_path('app/public/upload/avatar'), $imageName);
             
             $data['avatar'] = $imageName;
@@ -82,7 +83,7 @@ class UserController extends Controller
         $user->update($data);
 
         forgetCaches('users', $user);
-        ProcessCrudTable::dispatch('users', $user->id);
+        ProcessCacheReload::dispatch('users', $user->id);
         return redirect()->route('profil');
     }
 
@@ -97,7 +98,7 @@ class UserController extends Controller
         forgetCaches('users', $user);
         Auth::logout();
         $user->delete();
-        ProcessCrudTable::dispatch('users');
+        ProcessCacheReload::dispatch('users');
         return redirect(route('home'));
     }
 }

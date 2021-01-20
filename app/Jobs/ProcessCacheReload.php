@@ -16,7 +16,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class ProcessCrudTable implements ShouldQueue
+class ProcessCacheReload implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -41,7 +41,7 @@ class ProcessCrudTable implements ShouldQueue
      */
     public function handle()
     {
-        Log::info(" -------- Job CrudTable ------ ");
+        Log::info(" -------- Job CacheReload ------ ");
         $client = new Client([
             // 'base_uri' => asset('/'),
             'http_errors' => true,

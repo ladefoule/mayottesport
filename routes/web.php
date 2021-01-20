@@ -45,9 +45,6 @@ Route::group(['middleware'=> 'verified'], function () {
 
         /* PREFIX ADMIN */
         Route::prefix('/admin')->middleware(['check-permission:admin|superadmin'])->group(function () {
-            Route::get('/upload-image', 'UploadFileController@imageUpload')->name('upload.image');
-            Route::post('/upload-image', 'UploadFileController@imageUploadPost')->name('upload.image.post');
-
             Route::prefix('/article')->group(function () {
                 Route::get('/create', 'ArticleController@createForm')->name('article.create');
                 Route::post('/create', 'ArticleController@createPost')->name('article.create.post');
@@ -58,23 +55,23 @@ Route::group(['middleware'=> 'verified'], function () {
                 Route::post('/select', 'ArticleController@selectPost')->name('article.select.post');
             });
 
-            /* DEBUT PREFIX AUTRES */
-            Route::prefix('/autres')->group(function () {
-                /* ----- DEBUT ROUTES JOURNEES ----- */
-                    Route::get('/journees/multi/select', 'JourneesMultiplesController@select')->name('journees.multi.select');
-                    Route::get('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@edit')->name('journees.multi.edit');
-                    Route::post('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editPost');
-                    Route::get('/journees/multi/saison-{id}', 'JourneesMultiplesController@show')->name('journees.multi.show');
-                /* ----- FIN ROUTES JOURNEES ----- */
-            }); /* FIN PREFIX AUTRES */
+            /* ----- DEBUT ROUTES JOURNEES ----- */
+                Route::get('/journees/multi/select', 'JourneesMultiplesController@select')->name('journees.multi.select');
+                Route::get('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@edit')->name('journees.multi.edit');
+                Route::post('/journees/multi/editer/saison-{id}', 'JourneesMultiplesController@editPost');
+                Route::get('/journees/multi/saison-{id}', 'JourneesMultiplesController@show')->name('journees.multi.show');
+            /* ----- FIN ROUTES JOURNEES ----- */
 
             /* DEBUT MIDDLEWARE SUPERADMIN */
             Route::prefix('/superadmin')->middleware(['check-permission:superadmin'])->group(function () {
                 Route::post('/cache-flush', 'SuperadminController@cacheFlush')->name('cache-flush');
 
+                Route::get('/upload-image', 'SuperadminController@imageUpload')->name('upload.image');
+                Route::post('/upload-image', 'SuperadminController@imageUploadPost')->name('upload.image.post');
+
                 /* ----- DEBUT ROUTES PDF PARSER ----- */
-                Route::get('/pdfparser', 'PdfParserController@get')->name('pdfparser');
-                Route::post('/pdfparser', 'PdfParserController@post');
+                Route::get('/pdfparser', 'SuperadminController@pdfParser')->name('pdfparser');
+                Route::post('/pdfparser', 'SuperadminController@pdfParserPost');
                 /* ----- FIN ROUTES PDF PARSER ----- */
             }); /* FIN MIDDLEWARE SUPERADMIN */
         }); /* FIN PREFIX ADMIN */
@@ -85,7 +82,7 @@ Route::get('/actualites/{titre}__{uniqid}.html', 'ArticleController@show')->name
 Route::get('/{sport}/actualites/{titre}__{uniqid}.html', 'ArticleController@showSport')->name('article.sport.show');
 
 Route::post('/ajax/journees-url-editer', function () {
-    return view('admin.journees.ajax-url-editer');
+    return view('journee.ajax-url-editer');
 })->name('journees.ajax-url-editer'); // Récupérer l'url d'édition de journées multiples en AJAX
 
 Route::match(['get', 'post'], '/ajax/{table}', function ($table) {

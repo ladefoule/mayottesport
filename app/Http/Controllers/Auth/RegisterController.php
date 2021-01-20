@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -85,7 +85,7 @@ class RegisterController extends Controller
 
         // On recharge tous les caches dépendants en Asynchrone (Laravel Queues)
         forgetCaches('users', $user);
-        ProcessCrudTable::dispatch('users', $user->id);
+        ProcessCacheReload::dispatch('users', $user->id);
 
         return $user;
     }

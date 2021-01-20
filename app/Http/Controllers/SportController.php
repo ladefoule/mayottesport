@@ -26,6 +26,12 @@ class SportController extends Controller
         $this->middleware('sport');
     }
 
+    /**
+     * Page d'accueil du sport
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         Log::info(" -------- Controller Sport : index -------- ");

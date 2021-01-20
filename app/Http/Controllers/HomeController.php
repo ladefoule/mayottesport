@@ -15,7 +15,7 @@ class HomeController extends Controller
     /**
      * Page d'accueil
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -43,6 +43,11 @@ class HomeController extends Controller
         ]);
     }
 
+    /**
+     * Notre politique de confidentialité
+     *
+     * @return \Illuminate\View\View
+     */
     function politique(){
         return view('rgpd');
     }

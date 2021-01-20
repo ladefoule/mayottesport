@@ -11,7 +11,7 @@ use App\Cache;
 use App\Match;
 use App\Modif;
 use Illuminate\Http\Request;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -123,7 +123,7 @@ class MatchController extends Controller
             Cache::forget('index-modifs');
             Cache::forget('indexcrud-modifs');
             forgetCaches('matches', $match);
-            ProcessCrudTable::dispatch('matches', $match->id);
+            ProcessCacheReload::dispatch('matches', $match->id);
         }
 
         $urlMatch = $match->infos()->href_match;
@@ -183,7 +183,7 @@ class MatchController extends Controller
             Cache::forget('index-modifs');
             Cache::forget('indexcrud-modifs');
             forgetCaches('matches', $match);
-            ProcessCrudTable::dispatch('matches', $match->id);
+            ProcessCacheReload::dispatch('matches', $match->id);
         }
 
         $urlMatch = $match->infos()->href_match;

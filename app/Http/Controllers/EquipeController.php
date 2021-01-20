@@ -27,6 +27,12 @@ class EquipeController extends Controller
         $this->middleware(['sport', 'equipe'])->except('matchesAjax');
     }
 
+    /**
+     * Page d'une équipe
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         Log::info(" -------- Controller Equipe : index -------- ");
@@ -118,6 +124,12 @@ class EquipeController extends Controller
         ]);
     }
 
+    /**
+     * Traitement de la requète Ajax pour récupérer tous les matches d'une équipe sur une saison
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View|void
+     */
     public function matchesAjax(Request $request)
     {
         Log::info(" -------- Controller Equipe : matchesAjax -------- ");

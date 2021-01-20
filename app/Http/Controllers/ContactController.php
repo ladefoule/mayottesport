@@ -10,12 +10,23 @@ use Illuminate\Support\Facades\Validator;
  
 class ContactController extends Controller
 {
+    /**
+     * Accès au formulaire de contact
+     *
+     * @return void
+     */
     public function create()
     {
         Log::info(" -------- Controller Contact : create -------- ");
         return view('contact');
     }
  
+    /**
+     * Traitement du formulaire de contact et envoie du mail à l'admin
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function post(Request $request)
     {
         Log::info(" -------- Controller Contact : post -------- ");
@@ -27,7 +38,6 @@ class ContactController extends Controller
         ];
 
         $data = Validator::make($request->all(), $rules)->validate();
-        // Mail::to('magik.systematik@hotmail.com')
         Mail::to(config('mail.contact'))
             ->queue(new Contact($data));
  

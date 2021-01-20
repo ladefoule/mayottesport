@@ -4,7 +4,7 @@ namespace App\Sharp;
 
 use App\Saison;
 use App\Journee;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Validator;
 use App\Sharp\Formatters\DateSharpFormatter;
@@ -52,7 +52,7 @@ class JourneeSharpForm extends SharpForm
         $this->save($journee, $data);
 
         forgetCaches('articles', $journee);
-        ProcessCrudTable::dispatch('articles', $journee->id);
+        ProcessCacheReload::dispatch('articles', $journee->id);
     }
 
     /**
@@ -63,7 +63,7 @@ class JourneeSharpForm extends SharpForm
         $journee = Journee::findOrFail($id);
 
         forgetCaches('articles', $journee);
-        ProcessCrudTable::dispatch('articles');
+        ProcessCacheReload::dispatch('articles');
     }
 
     /**

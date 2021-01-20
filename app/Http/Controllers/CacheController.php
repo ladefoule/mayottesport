@@ -81,36 +81,9 @@ class CacheController extends Controller
             $article = $instance;
             article($article->uniqid);
 
-        // On recharge les caches 'attributs visibles' de la table si on effetue une modif dans les tables gestion CRUD
-        }else if(in_array($table, config('listes.tables-gestion-crud'))){
-            $crudTable = CrudTable::whereNom($request['table'])->firstOrFail();
-
-            Log::info("Opération effectuée dans la gestion du Crud");
-            if($table == 'crud_attribut_infos')
-                $crudTableCible = $instance->crudAttribut->crudTable;
-            else if($table == 'crud_attributs')
-                $crudTableCible = $instance->crudTable;
-            else
-                $crudTableCible = $instance;
-
-            $crudTableCible->listeAttributsVisibles();
-            $crudTableCible->listeAttributsVisibles('create');
-            $crudTableCible->listeAttributsVisibles('show');
-            $crudTableCible->indexCrud();
-
-            // On recharge les caches des tables de gestion du crud
-            foreach (config('listes.tables-gestion-crud') as $table) {
-                index($table);
-                indexCrud($table);
-            }
         }
 
         index($table);
-
-        // On recharge les caches 'index' qui utilisent les données de cette table dans leur attribut nom ou crud_name
-        if(! in_array($table, config('listes.tables-non-crudables'))){
-            indexCrud($table);
-            refreshCachesLies($table);
-        }
+        refreshCachesLies($table);
     }
 }

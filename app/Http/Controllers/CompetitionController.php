@@ -86,12 +86,9 @@ class CompetitionController extends Controller
     }
 
     /**
-     * Undocumented function
+     * Accès à la page calendrier/résultat d'une compétition
      *
      * @param Request $request
-     * @param string $sport
-     * @param string $competition
-     * @param string $journee
      * @return \Illuminate\View\View|void
      */
     public function resultats(Request $request)
@@ -119,6 +116,12 @@ class CompetitionController extends Controller
         ]);
     }
 
+    /**
+     * Accès à la page du palmarès d'une compétition
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
     public function champions(Request $request)
     {
         Log::info(" -------- Controller Competition : champions -------- ");
@@ -130,6 +133,12 @@ class CompetitionController extends Controller
         ]);
     }
 
+    /**
+     * Traitement d'une requète Ajax qui retourne le calendrier complet (tous les matches) d'une journée
+     *
+     * @param Request $request
+     * @return \Illuminate\Database\Eloquent\Collection|void
+     */
     public function journeeRender(Request $request)
     {
         $journee = Journee::whereSaisonId($request['saison'])->whereNumero($request['journee'])->firstOrFail();

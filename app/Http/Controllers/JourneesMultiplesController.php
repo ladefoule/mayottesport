@@ -12,7 +12,7 @@ use App\Sport;
 use App\Saison;
 use App\Journee;
 use Illuminate\Http\Request;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -40,7 +40,7 @@ class JourneesMultiplesController extends Controller
         $sports = Sport::orderBy('nom')->get();
         $h1 = $title = 'Saison : Ajout de toutes les journées';
 
-        return view('admin.journees.multi.select', [
+        return view('journee.multi.select', [
             'sports' => $sports,
             'title' => $title,
             'h1' => $h1
@@ -57,6 +57,9 @@ class JourneesMultiplesController extends Controller
     {
         Log::info(" -------- Controller JourneesMultiples : edit -------- ");
         $saison = Saison::findOrFail($saisonId);
+        $competition = $saison->competition;
+        $sport = $competition->sport;
+        
         $nbJournees = $saison->nb_journees;
         $h1 = $title = 'Journees/SaisonId : ' . $saison->id;
 
@@ -73,8 +76,8 @@ class JourneesMultiplesController extends Controller
         // dd($listeJournees);
         // $journee = DB::table('journees')->where([ ['saison_id', '=', $saisonId], ['numero', '=', $i] ])->first();
 
-        return view('admin.journees.multi.edit', [
-            'saison' => $saison->crud_name,
+        return view('journee.multi.edit', [
+            'saison' => $sport->nom . ' - ' . $competition->nom . ' ' . $saison->nom,
             'saisonId' => $saisonId,
             'listeJournees' => $listeJournees ?? [],
             'nbJournees' => $nbJournees,
@@ -133,7 +136,7 @@ class JourneesMultiplesController extends Controller
                     $journee->save();
                     $id = $journee->id;
                     forgetCaches('journees', $journee);
-                    ProcessCrudTable::dispatch('journees', $id);
+                    ProcessCacheReload::dispatch('journees', $id);
                 }else{
                     $journee = Journee::findOrFail($journeeId);
                     $id = $journee->id;
@@ -142,10 +145,10 @@ class JourneesMultiplesController extends Controller
                     $journeeDelete = $request->has('delete' . $i);
                     if($journeeDelete){ // Si la checkbox de suppression a été cochée alors on supprime la Journée
                         $journee->delete();
-                        ProcessCrudTable::dispatch('journees');
+                        ProcessCacheReload::dispatch('journees');
                     }else{ // Sinon on fait une maj
                         $journee->update($donnees);
-                        ProcessCrudTable::dispatch('journees', $id);
+                        ProcessCacheReload::dispatch('journees', $id);
                     }
                 }
             }
@@ -163,11 +166,13 @@ class JourneesMultiplesController extends Controller
     {
         Log::info(" -------- Controller JourneesMultiples : show -------- ");
         $saison = Saison::findOrFail($saisonId);
+        $competition = $saison->competition;
+        $sport = $competition->sport;
         $h1 = $title = 'Journees/SaisonId : ' . $saisonId;
         $journees = $saison->journees->sortBy('numero');
 
-        return view('admin.journees.multi.show', [
-            'saison' => $saison->crud_name,
+        return view('journee.multi.show', [
+            'saison' => $sport->nom . ' - ' . $competition->nom . ' ' . $saison->nom,
             'title' => $title,
             'h1' => $h1,
             'saisonId' => $saisonId,

@@ -6,7 +6,7 @@ use App\Bareme;
 use App\Equipe;
 use App\Saison;
 use App\Competition;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -68,7 +68,7 @@ class SaisonSharpForm extends SharpForm
             $saison->equipes()->attach($equipe['id']);
 
         forgetCaches('saisons', $saison);
-        ProcessCrudTable::dispatch('saisons', $saison->id);
+        ProcessCacheReload::dispatch('saisons', $saison->id);
     }
 
     /**
@@ -80,7 +80,7 @@ class SaisonSharpForm extends SharpForm
 
         forgetCaches('saisons', $saison);
         $saison->delete();
-        ProcessCrudTable::dispatch('saisons');
+        ProcessCacheReload::dispatch('saisons');
     }
 
     /**

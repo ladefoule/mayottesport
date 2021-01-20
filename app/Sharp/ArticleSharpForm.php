@@ -7,7 +7,7 @@ use App\Equipe;
 use App\Article;
 use App\Competition;
 use App\ArticleSport;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -102,7 +102,7 @@ class ArticleSharpForm extends SharpForm
 
         $article->update($dataUpdate);
         forgetCaches('articles', $article);
-        ProcessCrudTable::dispatch('articles', $article->id);
+        ProcessCacheReload::dispatch('articles', $article->id);
 
         $article->sports()->detach(); // Supprime toutes les relations sport/article concernant l'article
         foreach ($data['sports'] as $sport){
@@ -140,7 +140,7 @@ class ArticleSharpForm extends SharpForm
         $article->equipes()->detach();
         $article->competitions()->detach();
         $article->delete();
-        ProcessCrudTable::dispatch('articles');
+        ProcessCacheReload::dispatch('articles');
     }
 
     /**

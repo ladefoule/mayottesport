@@ -6,7 +6,7 @@ use App\Sport;
 use App\Ville;
 use App\Equipe;
 use Illuminate\Support\Str;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -64,7 +64,7 @@ class EquipeSharpForm extends SharpForm
         $this->save($equipe, $data);
 
         forgetCaches('equipes', $equipe);
-        ProcessCrudTable::dispatch('equipes', $equipe->id);
+        ProcessCacheReload::dispatch('equipes', $equipe->id);
     }
 
     /**
@@ -76,7 +76,7 @@ class EquipeSharpForm extends SharpForm
 
         forgetCaches('saisons', $equipe);
         $equipe->delete();
-        ProcessCrudTable::dispatch('saisons');
+        ProcessCacheReload::dispatch('saisons');
     }
 
     /**

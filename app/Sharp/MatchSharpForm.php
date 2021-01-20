@@ -6,7 +6,7 @@ use App\Match;
 use App\Equipe;
 use App\Journee;
 use App\MatchInfo;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -95,13 +95,13 @@ class MatchSharpForm extends SharpForm
                     'valeur' => $data[$propriete[0]]
                 ]);
         }
-        // ProcessCrudTable::dispatch('match_infos');
+        // ProcessCacheReload::dispatch('match_infos');
 
         $this->ignore($ignore)->save($match, $data);
 
         // Rechargement des caches liés au match
         forgetCaches('matches', $match);
-        ProcessCrudTable::dispatch('matches', $match->id);
+        ProcessCacheReload::dispatch('matches', $match->id);
     }
 
     /**

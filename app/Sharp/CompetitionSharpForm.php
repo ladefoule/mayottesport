@@ -5,7 +5,7 @@ namespace App\Sharp;
 use App\Sport;
 use App\Competition;
 use Illuminate\Support\Str;
-use App\Jobs\ProcessCrudTable;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -61,7 +61,7 @@ class CompetitionSharpForm extends SharpForm
         $this->ignore($ignore)->save($competition, $data);
 
         forgetCaches('competitions', $competition);
-        ProcessCrudTable::dispatch('competitions', $competition->id);
+        ProcessCacheReload::dispatch('competitions', $competition->id);
     }
 
     /**
@@ -73,7 +73,7 @@ class CompetitionSharpForm extends SharpForm
 
         forgetCaches('competitions', $competition);
         $competition->delete();
-        ProcessCrudTable::dispatch('competitions');
+        ProcessCacheReload::dispatch('competitions');
     }
 
     /**
