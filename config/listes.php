@@ -6,7 +6,7 @@ return [
         'ajouter' => '<i class="icon-plus"></i>',
         'ajouter_cercle' => '<i class="icon-plus-circled"></i>',
         'voir' => '<i class="icon-eye"></i>',
-        'editer' => '<i class="icon-edit"></i>',
+        'editer' => '<i class="icon-pencil"></i>',
         'lister' => '<i class="icon-list-bullet"></i>',
         'database' => '<i class="icon-database"></i>',
         'left' => '<i class="icon-left-open"></i>',

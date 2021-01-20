@@ -17,7 +17,7 @@
         </div>
    @else
         <div class="p-0 pb-3 col-md-6 col-lg-12 col-xl-6 d-flex align-items-stretch @if($i%2 == 1) pr-md-2 @endif @if($i%2 == 0) pl-md-2 @endif">
-            <div class="card">
+            <div class="card w-100">
                 <a href="{{ $article->href }}">
                     <img class="card-img-top object-fit-cover" height="250" src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}">
                 </a>

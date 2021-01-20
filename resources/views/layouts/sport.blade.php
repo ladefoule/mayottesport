@@ -10,7 +10,7 @@
 
 <body class="d-flex flex-wrap">
     {{-- Navbar principal --}}
-    @include('layouts.include.navbar-sports')
+    @include('layouts.include.navbar-classique')
     {{-- Fin Navbar principal --}}
 
     @if(count($competitions) > 0)

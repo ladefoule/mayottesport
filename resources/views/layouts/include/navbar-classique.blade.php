@@ -1,18 +1,19 @@
 <?php
     $sports = index('sports')->sortBy('home_position')->slice(0, 5);
     $competitions = index('competitions');
+    $urlGravatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?r=g&s=30&d=identicon';
 ?>
 
 {{-- NAVBAR LARGE SCREEN --}}
 <nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom-defaut bg-white p-0">
    <div class="container">
-       <a class="navbar-brand pl-3" href="{{ route('home') }}"><img class="img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport" style="width: 200px"></a>
+       <a class="navbar-brand" href="{{ route('home') }}"><img class="logo img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport"></a>
        <button class="navbar-toggler mr-3" type="button" {{-- data-toggle="collapse" data-target="#navbarSupportedContent" --}}
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-toggle="modal" data-target="#exampleModal">
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2 align-self-stretch" id="navbarSupportedContent">
-           <ul class="navbar-nav mr-auto bg-white align-self-stretch" style="font-size: 1.1rem">
+           <ul class="navbar-nav mr-auto bg-white align-self-stretch" style="font-size: 1.05rem">
                @foreach ($sports as $id => $sport)
                 <li class="nav-item">
                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active font-weight-bold text-green @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
@@ -40,6 +41,7 @@
                 @else
                     <li class="nav-item dropdown pl-2 d-flex flex-shrink-0">
                         <span id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img class="rounded-circle mr-2" src="{{ $urlGravatar }}" alt="Avatar">
                             {{ Auth::user()->pseudo }} <span class="caret"></span>
                         </span>
 
@@ -51,9 +53,6 @@
                                 <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
                                     Administration
                                 </a>
-                                {{-- <a class="dropdown-item" href="{{ route('crud') }}">
-                                    Le Crud
-                                </a> --}}
                             @endif
                             @if($role == 'superadmin')
                                 <a class="dropdown-item" href="{{ asset('/script.html') }}">

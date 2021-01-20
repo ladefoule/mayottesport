@@ -18,7 +18,7 @@
 
 <body>
     {{-- Navbar principal --}}
-    @include('layouts.include.navbar-sports')
+    @include('layouts.include.navbar-classique')
     {{-- Fin Navbar principal --}}
 
     {{-- Section scroll X --}}

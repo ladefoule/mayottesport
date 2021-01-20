@@ -22,6 +22,11 @@ body{
     background-attachment: fixed;
 }
 
+.navbar-mobile{
+    font-size:1rem;
+    /* background-color: #ebeff3 !important; */
+    /* background-color: #ebeff3 !important; */
+}
 
 .border-bottom-dashed{
     border-bottom: 1px dashed #000
@@ -112,15 +117,6 @@ main .nom-sport{
     font-size: 0.9rem;
     /* margin-top: 30px; */
  }
-
-.navbar-mobile{
-    right:-250px;
-    /* top:50px; */
-    z-index:1100;
-    width:250px;
-    font-size:1rem;
-    transition:1s;
-}
 
 /* a.text-green-light{
     color:rgb(96, 202, 70)
@@ -298,6 +294,10 @@ a.non-cliquable, a.non-cliquable:hover{
 
 .equipe-align-auto{
     margin-bottom: auto;
+}
+
+.logo{
+    width: 200px
 }
 
 .logo-align-auto{

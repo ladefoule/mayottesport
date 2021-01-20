@@ -4,7 +4,7 @@
 
 <body class="d-flex flex-wrap">
     {{-- Navbar principal --}}
-    @include('layouts.include.navbar-sports')
+    @include('layouts.include.navbar-classique')
     {{-- Fin Navbar principal --}}
 
     <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0 top-main-site" style="max-width: 1400px">
