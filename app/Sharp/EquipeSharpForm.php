@@ -47,16 +47,17 @@ class EquipeSharpForm extends SharpForm
         $data['slug'] = Str::slug($data['nom']);
         $data['slug_complet'] = Str::slug($data['nom_complet']);
 
+        
         // Si l'équipe existe déjà
         if(isset($equipe->id)){
             $data['uniqid'] = $equipe->uniqid;
         }else{
             $data['uniqid'] = uniqid();
         }
-
+        
         // On valide la requète
         $rules = Equipe::rules($equipe);
-        $messages = $rules['messages'];
+        $messages = $rules['messages'] ?? [];
         $rules = $rules['rules'];
         Validator::make($data, $rules, $messages)->validate();
 
@@ -108,13 +109,13 @@ class EquipeSharpForm extends SharpForm
                 SharpFormSelectField::make("ville_id", $villes)
                 ->setLabel("Ville")
                 ->setDisplayAsDropdown()
-            )->addField(
+            )/* ->addField(
                 SharpFormCheckField::make("feminine", 'Féminine')
                     ->setLabel("Féminine")
             )->addField(
                 SharpFormCheckField::make("non_mahoraise", 'Non mahoraise')
                     ->setLabel("Non mahoraise")
-            )->addField(
+            ) */->addField(
                 SharpFormTextField::make("nom")
                     ->setLabel("Nom")
             )->addField(
@@ -131,7 +132,7 @@ class EquipeSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('sport_id|6', 'nom|6', 'ville_id|6', 'nom_complet|6', 'feminine|3', 'non_mahoraise|3');
+            $column->withFields('sport_id|6', 'nom|6', 'ville_id|6', 'nom_complet|6'/* , 'feminine|3', 'non_mahoraise|3' */);
         });
     }
 }

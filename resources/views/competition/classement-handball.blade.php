@@ -28,8 +28,8 @@
                             <td align="left" class="px-2 align-middle py-2">
                                 <a href="{{ $equipe['hrefEquipe'] }}" class="text-dark">
                                     <div class="p-0 d-flex justify-content-start align-items-center">
-                                        <div class="d-none d-md-block">
-                                            <img src="{{ $equipe['fanion'] }}" alt="{{ $equipe['nom'] }}" class="fanion-calendrier pr-2">
+                                        <div class="d-none d-md-block fanion-calendrier pr-2">
+                                            <img src="{{ $equipe['fanion'] }}" alt="{{ $equipe['nom'] }}">
                                         </div>
                                         <div class="text-left font-weight-bold">
                                             {{ $equipe['nom'] }}

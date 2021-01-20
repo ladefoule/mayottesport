@@ -71,30 +71,6 @@
 <script src="{{ asset('/js/outils.js') }}"></script>
 <script>
     $(document).ready(function() {
-        var navbarMobile = qs('.navbar-mobile')
-
-        // Affichage du menu Mobile
-        // $('.navbar-toggler').on('click', function() {
-        //     let state = navbarMobile.dataset.state
-        //     if (state == 'hidden') {
-        //         navbarMobile.style.right = 0
-        //         state = 'visible'
-        //     } else if (state == 'visible') {
-        //         navbarMobile.style.right = '-250px'
-        //         state = 'hidden'
-        //     }
-
-        //     navbarMobile.dataset.state = state
-        // })
-
-        // Masquage du menu Mobile
-        // $('footer,section').on('click', function(e) {
-        //     if (e.target != navbarMobile && navbarMobile.dataset.state == 'visible') {
-        //         navbarMobile.dataset.state = 'hidden'
-        //         navbarMobile.style.left = '-250px'
-        //     }
-        // })
-
         // Centrage du lien actif dans le menu déroulant
         let navbarScrollX = $('#navbar-scroll-x')
         let active = $('#navbar-scroll-x .active')

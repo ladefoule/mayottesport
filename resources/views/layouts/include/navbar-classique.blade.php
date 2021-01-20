@@ -1,14 +1,13 @@
 <?php
     $sports = index('sports')->sortBy('home_position')->slice(0, 5);
     $competitions = index('competitions');
-    $urlGravatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?r=g&s=30&d=identicon';
 ?>
 
 {{-- NAVBAR LARGE SCREEN --}}
 <nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom-defaut bg-white p-0">
    <div class="container">
-       <a class="navbar-brand" href="{{ route('home') }}"><img class="logo img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport"></a>
-       <button class="navbar-toggler mr-3" type="button" {{-- data-toggle="collapse" data-target="#navbarSupportedContent" --}}
+       <a class="navbar-brand pl-3 pl-md-0" href="{{ route('home') }}"><img class="logo img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport"></a>
+       <button class="navbar-toggler mr-3 mr-md-0" type="button" {{-- data-toggle="collapse" data-target="#navbarSupportedContent" --}}
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-toggle="modal" data-target="#exampleModal">
            <span class="navbar-toggler-icon"></span>
        </button>
@@ -39,6 +38,7 @@
                         </li>
                     @endif
                 @else
+                    <?php $urlGravatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?r=g&s=30&d=identicon'; ?>
                     <li class="nav-item dropdown pl-2 d-flex flex-shrink-0">
                         <span id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <img class="rounded-circle mr-2" src="{{ $urlGravatar }}" alt="Avatar">

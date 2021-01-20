@@ -1,3 +1,7 @@
+<?php 
+    $hrefIndex = request()->hrefIndex;
+?>
+
 @extends('layouts.competition')
 
 @section('title', $competition->nom . ' - ' . $sport->nom)

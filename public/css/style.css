@@ -137,6 +137,14 @@ main .nom-sport{
     line-height: 22px;
 }
 
+.calendrier .equipe-exterieur{
+    text-align: left;
+}
+
+.calendrier .equipe-domicile{
+    text-align: right;
+}
+
 .font-size-1{
     font-size: 1rem;
 }
@@ -280,8 +288,8 @@ a.non-cliquable, a.non-cliquable:hover{
     text-align: center;
 }
 
-.fanion-calendrier{
-    width:35px;
+.fanion-calendrier img{
+    width:30px;
 }
 
 .fanion-calendrier-et-resultats{
@@ -374,10 +382,6 @@ a.non-cliquable, a.non-cliquable:hover{
         font-size:1.5rem;
     }
 
-    .fanion-calendrier{
-        width:40px;
-    }
-
     .calendrier{
         font-size: 1rem;
     }
@@ -420,6 +424,20 @@ a.non-cliquable, a.non-cliquable:hover{
                 font-size: 100%;
             }
 
+            #section-droite .fanion-calendrier img{
+                display:none
+            }
+
+            #section-droite .calendrier .equipe-exterieur{
+                width: 100%;
+                text-align: right;
+            }
+
+            #section-droite .calendrier .equipe-domicile{
+                width: 100%;
+                text-align: left;
+            }
+
             #section-droite .calendrier{
                 font-size: 0.7rem;
             }
@@ -454,10 +472,6 @@ a.non-cliquable, a.non-cliquable:hover{
                 line-height: 28px;
             }
 
-            .fanion-calendrier{
-                display: none;
-            }
-
             .dernier-et-prochain-match{
                 padding-left: 5px !important;
             }
@@ -482,9 +496,8 @@ a.non-cliquable, a.non-cliquable:hover{
 
             /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
             @media (min-width: 1200px) {
-                .fanion-calendrier{
-                    display: block;
-                    width:40px;
+                #section-droite .fanion-calendrier img{
+                    display:block
                 }
 
                 #section-droite .calendrier{
@@ -493,6 +506,16 @@ a.non-cliquable, a.non-cliquable:hover{
 
                 #section-droite .onglet{
                     font-size:1rem
+                }
+
+                #section-droite .calendrier .equipe-exterieur{
+                    width: auto;
+                    text-align: left;
+                }
+    
+                #section-droite .calendrier .equipe-domicile{
+                    width: auto;
+                    text-align: right;
                 }
             }
         }

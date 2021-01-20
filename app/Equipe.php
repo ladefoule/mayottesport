@@ -27,20 +27,21 @@ class Equipe extends Model
      */
     public static function rules(Equipe $equipe = null)
     {
+        $sportId = request()->input('sport_id');
+
         $unique = Rule::unique('equipes')->ignore($equipe);
-        $uniqueNom = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
-        $uniqueNomComplet = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
-        $uniqueSlug = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
-        $uniqueSlugComplet = Rule::unique('equipes', 'nom', 'sport_id')->ignore($equipe);
+        $uniqueWithSportId = Rule::unique('equipes')->where(function ($query) use ($sportId) {
+            return $query->whereSportId($sportId);
+        })->ignore($equipe);
 
         $rules = [
-            'nom_complet' => ['required','min:3','max:50',$uniqueNomComplet],
+            'nom_complet' => ['required','min:3','max:50',$uniqueWithSportId],
             'sport_id' => 'required|integer|exists:sports,id',
             'ville_id' => 'required|integer|exists:villes,id',
-            'nom' => ['required','max:50','min:3',$uniqueNom],
+            'nom' => ['required','max:50','min:3',$uniqueWithSportId],
             'uniqid' => ['required','max:50','min:3',$unique],
-            'slug' => ['required','alpha_dash','max:50','min:3',$uniqueSlug],
-            'slug_complet' => ['required','alpha_dash','max:50','min:3',$uniqueSlugComplet],
+            'slug' => ['required','alpha_dash','max:50','min:3',$uniqueWithSportId],
+            'slug_complet' => ['required','alpha_dash','max:50','min:3',$uniqueWithSportId],
         ];
         return ['rules' => $rules];
     }
