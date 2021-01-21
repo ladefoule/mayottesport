@@ -18,8 +18,8 @@ class CompetitionTableSeeder extends Seeder
         $competitions = [
             ['nom' => 'Régional 1', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
             ['nom' => 'Régional 2', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
-            ['nom' => 'Régional 3 (poule A)', 'type' => 1, 'navbar_position' => 5],
-            ['nom' => 'Régional 3 (poule B)', 'type' => 1, 'navbar_position' => 6],
+            ['nom' => 'Régional 3 (poule nord)', 'type' => 1, 'navbar_position' => 5],
+            ['nom' => 'Régional 3 (poule sud)', 'type' => 1, 'navbar_position' => 6],
             ['nom' => 'Régional 4 (poule A)', 'type' => 1, 'navbar_position' => 7],
             ['nom' => 'Régional 4 (poule B)', 'type' => 1, 'navbar_position' => 8],
             ['nom' => 'Régional 4 (poule C)', 'type' => 1, 'navbar_position' => 9],
@@ -70,7 +70,7 @@ class CompetitionTableSeeder extends Seeder
             ]);
         }
 
-        // On insère les championnats de handball
+        // On insère les championnats de basketball
         $basketballId = Sport::whereSlug('basketball')->firstOrFail()->id;
         $competitions = [
             ['nom' => 'Prénationale', 'type' => 1],

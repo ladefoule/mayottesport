@@ -19,7 +19,7 @@
                 <tbody>
                     @foreach ($saisons as $saison)
                     <tr>
-                        <td>{{ $competition->nom . ' ' . $saison->nom }}</td>
+                        <td>{{ $saison->nom }}</td>
                         <td>{{ $saison->equipe ? $saison->equipe->nom : '' }}</td>
                     </tr>
                     @endforeach
