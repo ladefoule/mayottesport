@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Saison;
 use App\Journee;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -126,10 +127,10 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- Controller Competition : champions -------- ");
         $competition = $request->competition;
-        $champions = index('saisons')->whereNotNull('vainqueur');
+        $saisons = Saison::whereCompetitionId($competition->id)->get();
         return view('competition.palmares', [
-            'champions' => $champions,
-            'competition' => $competition->nom
+            'saisons' => $saisons,
+            'competition' => $competition
         ]);
     }
 
