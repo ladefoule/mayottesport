@@ -129,6 +129,7 @@ class SaisonSharpForm extends SharpForm
                 SharpFormSelectField::make("bareme_id", $baremes)
                 ->setLabel("Barèmes")
                 ->setDisplayAsDropdown()
+                ->setClearable()
             )->addField(
                 SharpFormCheckField::make("finie", 'Finie')
                     ->setLabel("Finie")
@@ -147,6 +148,11 @@ class SaisonSharpForm extends SharpForm
                 ->setDisplayAsDropdown()
                 ->setClearable(true)
                 ->setMultiple(true)
+            )->addField(
+                SharpFormSelectField::make("equipe_id", $equipes)
+                ->setLabel("Vainqueur")
+                ->setDisplayAsDropdown()
+                ->setClearable(true)
             );
     }
 
@@ -158,7 +164,7 @@ class SaisonSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('competition_id|6', 'finie|6', 'annee_debut|6', 'annee_fin|6', 'nb_journees|6', 'equipes|6', 'bareme_id|6');
+            $column->withFields('competition_id|6', 'finie|6', 'annee_debut|6', 'annee_fin|6', 'nb_journees|6', 'equipes|6', 'bareme_id|6', 'equipe_id|6');
         });
     }
 }

@@ -7,14 +7,14 @@
 @section('content')
 {{-- <div class="row justify-content-center"> --}}
     <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+        
         <div class="card">
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-            @endif
-
             <div class="card-header h5 text-green">Contact</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>

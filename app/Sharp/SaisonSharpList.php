@@ -42,6 +42,10 @@ class SaisonSharpList extends SharpEntityList
             EntityListDataContainer::make('finie')
                 ->setLabel('Finie')
                 ->setSortable()
+        )->addDataContainer(
+            EntityListDataContainer::make('vainqueur')
+                ->setLabel('Vainqueur')
+                ->setSortable()
         );
     }
 
@@ -53,11 +57,12 @@ class SaisonSharpList extends SharpEntityList
     public function buildListLayout()
     {
         $this
-        ->addColumn('competition', 4)
+        ->addColumn('competition', 2)
         ->addColumn('annee_debut', 2)
         ->addColumn('annee_fin', 2)
         ->addColumn('nb_journees', 2)
-        ->addColumn('finie', 2);
+        ->addColumn('finie', 2)
+        ->addColumn('vainqueur', 2);
     }
 
     /**
@@ -84,18 +89,19 @@ class SaisonSharpList extends SharpEntityList
         $saisons = Saison::orderBy($params->sortedBy(), $params->sortedDir())
             ->join('competitions', 'competition_id', '=', 'competitions.id')
             ->join('sports', 'competitions.sport_id', '=', 'sports.id')
-            ->where('saisons.finie', 0)
+            ->leftJoin('equipes', 'saisons.equipe_id', '=', 'equipes.id')
+            // ->where('saisons.finie', 0)
             ->where('sports.slug', $this->sportSlug)
-            ->select('saisons.*', 'competitions.nom as competition', 'sports.nom as sport')
+            ->select('saisons.*', 'competitions.nom as competition', 'sports.nom as sport', 'equipes.nom as vainqueur')
             ->distinct();
 
         // Recherche
         foreach ($params->searchWords() as $key => $word) {
             $saisons->where(function ($query) use ($word) {
                 $query->orWhere('saisons.annee_debut', 'like', $word)
-                ->orWhere('saisons.anneefin', 'like', $word)
+                ->orWhere('saisons.annee_fin', 'like', $word)
                 ->orWhere('competitions.nom', 'like', $word)
-                /* ->orWhere('sports.nom', 'like', $word) */;
+                ->orWhere('equipes.nom', 'like', $word);
             });
         }
 
@@ -103,6 +109,11 @@ class SaisonSharpList extends SharpEntityList
             "finie",
             function ($finie, $saison) {
                 return $saison->finie ? 'Oui' : 'Non';
+            }
+        )->setCustomTransformer(
+            "vainqueur",
+            function ($vainqueur, $saison) {
+                return $saison->equipe ? $saison->equipe->nom : '';
             }
         )->transform($saisons->paginate(12));
     }

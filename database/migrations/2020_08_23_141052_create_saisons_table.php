@@ -17,7 +17,7 @@ class CreateSaisonsTable extends Migration {
 			$table->bigIncrements('id');
 			$table->integer('annee_debut');
 			$table->integer('annee_fin');
-            $table->integer('nb_journees');
+            $table->integer('nb_journees')->nullable();
             $table->integer('nb_montees')->nullable();
             $table->integer('nb_descentes')->nullable();
             $table->boolean('finie')->default(0);

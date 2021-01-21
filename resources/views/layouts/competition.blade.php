@@ -70,11 +70,13 @@
                         class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats) active @endif">À venir</span>
                 </div>
                 <div id="resultats-section-droite" class="col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
-                    <p class="col-12 nom-competition m-0 border-bottom-calendrier text-center p-0">
-                        <a href="{{ $hrefIndex }}">
-                            {{ $competition->nom }}
-                        </a>
-                    </p>
+                    @if($resultats)
+                        <p class="col-12 nom-competition m-0 border-bottom-calendrier text-center p-0">
+                            <a href="{{ $hrefIndex }}">
+                                {{ $competition->nom }}
+                            </a>
+                        </p>
+                    @endif
                     @foreach ($resultats as $resultat)
                         <div class="p-3">
                             {!! $resultat !!}
@@ -82,11 +84,13 @@
                     @endforeach
                 </div>
                 <div id="prochains-section-droite" class="col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
-                    <p class="col-12 nom-competition m-0 border-bottom-calendrier text-center p-0">
-                        <a href="{{ $hrefIndex }}">
-                            {{ $competition->nom }}
-                        </a>
-                    </p>
+                    @if($prochains)
+                        <p class="col-12 nom-competition m-0 border-bottom-calendrier text-center p-0">
+                            <a href="{{ $hrefIndex }}">
+                                {{ $competition->nom }}
+                            </a>
+                        </p>
+                    @endif
                     @foreach ($prochains as $prochain)
                         <div class="p-3">
                             {!! $prochain !!}

@@ -49,7 +49,7 @@
 
     <!-- Social buttons -->
     <div class="row footer-social justify-content-center py-2 border-top border-secondary">
-            <a target="_blank" href="https://www.facebook.com/mayottesport.actu" class="mx-3"><img src="{{ asset('storage/img/facebook.png') }}" alt="MayotteSport sur Facebook" title="MayotteSport sur Facebook" class="img-fluid bg-dark"></a>
+            <a target="_blank" href="https://www.facebook.com/mayottesport" class="mx-3"><img src="{{ asset('storage/img/facebook.png') }}" alt="MayotteSport sur Facebook" title="MayotteSport sur Facebook" class="img-fluid bg-dark"></a>
             <a target="_blank" href="https://twitter.com/mayottesport" class="mx-3"><img src="{{ asset('storage/img/twitter.png') }}" alt="MayotteSport sur Twitter" title="MayotteSport sur Twitter" class="img-fluid bg-dark"></a>
             <a target="_blank" href="https://www.instagram.com/mayottesport.actu" class="mx-3"><img src="{{ asset('storage/img/instagram.png') }}" alt="MayotteSport sur Instagram" title="MayotteSport sur Instagram" class="img-fluid bg-dark"></a>
     </div>
@@ -62,6 +62,16 @@
     <!-- Copyright -->
 </footer>
 <!-- Footer -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0HRBTP8PC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S0HRBTP8PC');
+</script>
 
 @include('cookieConsent::index')
 

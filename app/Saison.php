@@ -33,9 +33,9 @@ class Saison extends Model
         $unique = Rule::unique('saisons', 'annee_debut', 'competition_id')->ignore($saison);
 
         $rules = [
-            'annee_debut' => ['required','integer','min:2000','max:3000',$unique],
-            'annee_fin' => 'required|integer|min:2000|max:3000|gte:annee_debut',
-            'nb_journees' => 'required|integer|min:1|max:100',
+            'annee_debut' => ['required','integer','min:1970',$unique],
+            'annee_fin' => 'required|integer|min:1970|gte:annee_debut',
+            'nb_journees' => 'nullable|integer|min:1|max:100',
             'nb_descentes' => 'nullable|integer|min:0|max:10',
             'nb_montees' => 'nullable|integer|min:0|max:10',
             'bareme_id' => 'nullable|exists:baremes,id',
@@ -235,5 +235,15 @@ class Saison extends Model
     public function bareme()
     {
         return $this->belongsTo('App\Bareme');
+    }
+
+    /**
+     * Le vainqueur
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function equipe()
+    {
+        return $this->belongsTo('App\Equipe');
     }
 }

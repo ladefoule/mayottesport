@@ -129,8 +129,8 @@
 <script>
 $(document).ready(function(){
     // Gestion des onglets du bloc de droite
-    let cibles = qsa('#section-droite .bloc-prochains,#section-droite .bloc-resultats,#section-droite .bloc-fil-actu')
-    let onglets = qsa('#section-droite .onglet') 
+    cibles = qsa('#prochains-section-droite,#resultats-section-droite,#fil-actu-section-droite')
+    onglets = qsa('#section-droite .onglet') 
     ongletSwitch(cibles, onglets)
     
     var competitions = qs('#competition_id')
