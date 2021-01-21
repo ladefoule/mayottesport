@@ -16,13 +16,19 @@ class CompetitionTableSeeder extends Seeder
         // On insère les championnats de football
         $footballId = Sport::whereSlug('football')->firstOrFail()->id;
         $competitions = [
-            ['nom' => 'Régional 1', 'type' => 1],
-            ['nom' => 'Régional 2', 'type' => 1],
-            ['nom' => 'Coupe de France', 'type' => 2],
-            ['nom' => 'Coupe de Mayotte', 'type' => 2],
+            ['nom' => 'Régional 1', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
+            ['nom' => 'Régional 2', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
+            ['nom' => 'Régional 3 (poule A)', 'type' => 1, 'navbar_position' => 5],
+            ['nom' => 'Régional 3 (poule B)', 'type' => 1, 'navbar_position' => 6],
+            ['nom' => 'Régional 4 (poule A)', 'type' => 1, 'navbar_position' => 7],
+            ['nom' => 'Régional 4 (poule B)', 'type' => 1, 'navbar_position' => 8],
+            ['nom' => 'Régional 4 (poule C)', 'type' => 1, 'navbar_position' => 9],
+            ['nom' => 'Régional 4 (poule D)', 'type' => 1, 'navbar_position' => 10],
+            ['nom' => 'Coupe de France', 'type' => 2, 'home_position' => 3, 'index_position' => 3, 'navbar_position' => 3],
+            ['nom' => 'Coupe de Mayotte', 'type' => 2, 'home_position' => 4, 'index_position' => 4, 'navbar_position' => 4],
         ];
         foreach ($competitions as $i => $competition) {
-            App\Competition::create([
+            $competitionModel = App\Competition::create([
                 'nom' => $competition['nom'],
                 'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
@@ -31,6 +37,9 @@ class CompetitionTableSeeder extends Seeder
                 'index_position' => $i + 1,
                 'created_at' => now(),
             ]);
+
+            if(isset($competition['navbar_position']))
+                $competitionModel->attach($footballId, ['position' => $competition['navbar_position']]);
         }
 
         // On insère les championnats de handball

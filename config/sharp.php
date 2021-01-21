@@ -30,6 +30,11 @@ $entities = [
         "form" => \App\Sharp\CompetitionSharpForm::class,
         "policy" => \App\Sharp\Policies\CompetitionPolicy::class,
     ],
+    "sport" => [
+        "list" => \App\Sharp\SportSharpList::class,
+        "form" => \App\Sharp\SportSharpForm::class,
+        "policy" => \App\Sharp\Policies\SportPolicy::class,
+    ],
 ];
 
 foreach ($sports as $nom) {
@@ -100,6 +105,13 @@ $menu[] = [
         ]
     ],
 ];
+
+$menu[] = [
+    "label" => "Sports",
+    "icon" => "fa-list",
+    "entity" => "sport"
+];
+
 $menu[] = [
     "label" => "Compétitions",
     "icon" => "fa-list-ul",

@@ -58,4 +58,12 @@ class Sport extends Model
     {
         return $this->belongsToMany('App\Article')->using('App\ArticleSport')->withPivot(['priorite', 'visible']);
     }
+
+    /**
+     * Les compétitions dans la navbar
+     */
+    public function competitionsNavbar()
+    {
+        return $this->belongsToMany('App\Competition')->using('App\CompetitionSport')->withPivot(['position']);
+    }
 }
