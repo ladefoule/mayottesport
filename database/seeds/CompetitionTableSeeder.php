@@ -14,7 +14,8 @@ class CompetitionTableSeeder extends Seeder
     public function run()
     {
         // On insère les championnats de football
-        $footballId = Sport::whereSlug('football')->firstOrFail()->id;
+        $football = Sport::whereSlug('football')->firstOrFail();
+        $footballId = $football->id;
         $competitions = [
             ['nom' => 'Régional 1', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
             ['nom' => 'Régional 2', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
@@ -39,7 +40,7 @@ class CompetitionTableSeeder extends Seeder
             ]);
 
             if(isset($competition['navbar_position']))
-                $competitionModel->attach($footballId, ['position' => $competition['navbar_position']]);
+                $football->competitionsNavbar()->attach($competitionModel->id, ['position' => $competition['navbar_position']]);
         }
 
         // On insère les championnats de handball
