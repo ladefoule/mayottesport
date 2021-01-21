@@ -29,8 +29,8 @@ class SaisonTableSeeder extends Seeder
         $regional2Id = Competition::whereSlug('regional-2')->whereSportId($footballId)->firstOrFail()->id;
         $coupeMayotteId = Competition::whereSlug('coupe-de-mayotte')->whereSportId($footballId)->firstOrFail()->id;
         $coupeDeFranceId = Competition::whereSlug('coupe-de-france')->whereSportId($footballId)->firstOrFail()->id;
-        $phnordId = Competition::whereSlug('regional-3-nord')->whereSportId($footballId)->firstOrFail()->id;
-        $phsudId = Competition::whereSlug('regional-3-sud')->whereSportId($footballId)->firstOrFail()->id;
+        $phnordId = Competition::whereSlug('regional-3-poule-nord')->whereSportId($footballId)->firstOrFail()->id;
+        $phsudId = Competition::whereSlug('regional-3-poule-sud')->whereSportId($footballId)->firstOrFail()->id;
 
         for($annee = 1980; $annee == date('Y') - 1; $i++) {
             App\Saison::create([
