@@ -10,13 +10,6 @@ class CompetitionSport extends Pivot
     public $timestamps = false;
 
     /**
-     * Champs autorisés lors de la création
-     *
-     * @var array
-     */
-    protected $fillable = ['competition_id', 'sport_id', 'position'];
-
-    /**
      * Les règles de validations
      *
      * @param CompetitionSport $competitionSport

@@ -33,7 +33,7 @@ class sportsharpForm extends SharpForm
         $sport = Sport::findOrFail($id);
 
         // Les compétitions liés
-        $competitions = $sport->competitionsNavbar->all();
+        $competitions = $sport->competitionsNavbar()->orderBy('position')->get();
         foreach ($competitions as $key => $competition)
             $competitions[$key] = [
                 'id' => $competition->id,
@@ -41,7 +41,7 @@ class sportsharpForm extends SharpForm
                 'position' => $competition->pivot->position,
             ];
 
-        return $this->setCustomTransformer("competitions", function ($competitions_, $article) use($competitions) {
+        return $this->setCustomTransformer("competitions", function () use($competitions) {
             return $competitions;
         })->transform(
             $sport

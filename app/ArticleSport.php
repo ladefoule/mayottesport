@@ -12,13 +12,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ArticleSport extends Pivot
 {
-    /**
-     * Champs autorisés lors de la création
-     *
-     * @var array
-     */
-    // protected $fillable = ['article_id', 'sport_id', 'position'];
-
     public $timestamps = false;
 
     /**
@@ -29,13 +22,17 @@ class ArticleSport extends Pivot
      */
     public static function rules(ArticleSport $articleSport = null)
     {
-        $unique = Rule::unique('article_sport', 'article_id')->ignore($articleSport);
+        $articleId = request()->input('article_id');
+
+        $unique = Rule::unique('article_sport')->where(function ($query) use ($articleId) {
+            return $query->whereArticleId($articleId);
+        })->ignore($articleSport);
 
         $rules = [
-            'sport_id' => ['required','integer','min:1','exists:sports,id',$unique],
-            'visible' => 'boolean',
-            'priorite' => 'nullable|integer|min:1|max:5',
+            'sport_id' => ['required','integer','exists:sports,id',$unique],
             'article_id' => 'required|exists:articles,id',
+            'visible' => 'nullable|boolean',
+            'priorite' => 'nullable|integer|min:1|max:5',
         ];
 
         $messages = ['unique' => "Ce sport est déjà lié à l'article."];

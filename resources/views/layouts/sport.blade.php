@@ -1,7 +1,7 @@
 <?php
     $sport = request()->sport; // Middleware Sport
     // $competitions = index('competitions')->where('sport_id', $sport->id);
-    $competitions = $sport->competitions;
+    $competitions = $sport->competitionsNavbar;
 ?>
 
 {{-- Header --}}

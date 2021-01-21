@@ -73,6 +73,8 @@
   gtag('config', 'G-S0HRBTP8PC');
 </script>
 
+<script data-ad-client="ca-pub-6802785230681286" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
 @include('cookieConsent::index')
 
 <script src="{{ asset(mix('js/app.js')) }}"></script>

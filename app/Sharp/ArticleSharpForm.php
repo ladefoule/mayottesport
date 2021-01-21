@@ -41,7 +41,6 @@ class ArticleSharpForm extends SharpForm
                 'id' => $sport->id,
                 'sport_id' => $sport->id,
                 'article_id' => $article->id,
-                'position' => $sport->pivot->position,
                 'visible' => $sport->pivot->visible,
                 'priorite' => $sport->pivot->priorite,
             ];
@@ -108,10 +107,12 @@ class ArticleSharpForm extends SharpForm
         foreach ($data['sports'] as $sport){
             if($sport){
                 // On valide la requète des pivots
-                // $rules = ArticleSport::rules();
-                // $messages = $rules['messages'];
-                // $rules = $rules['rules'];
-                // Validator::make($sport, $rules, $messages)->validate();
+                $rules = ArticleSport::rules();
+                $messages = $rules['messages'];
+                $rules = $rules['rules'];
+
+                $sport['article_id'] = $article->id;
+                Validator::make($sport, $rules, $messages)->validate();
 
                 $article->sports()->attach($sport['sport_id'], [
                     'visible' => $sport['visible'],
@@ -234,11 +235,6 @@ class ArticleSharpForm extends SharpForm
                             $priorites ?? []
                         )->setLabel("Priorité")
                         ->setDisplayAsDropdown()
-                    )->addItemField(
-                        SharpFormNumberField::make("position")
-                            ->setLabel("Position")
-                            ->setMin(1)
-                            ->setShowControls()
                     )
             )->addField(
                 SharpFormSelectField::make("competitions",
