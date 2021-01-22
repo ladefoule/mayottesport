@@ -35,6 +35,11 @@ $entities = [
         "form" => \App\Sharp\SportSharpForm::class,
         "policy" => \App\Sharp\Policies\SportPolicy::class,
     ],
+    "ville" => [
+        "list" => \App\Sharp\VilleSharpList::class,
+        "form" => \App\Sharp\VilleSharpForm::class,
+        "policy" => \App\Sharp\Policies\VillePolicy::class,
+    ],
 ];
 
 foreach ($sports as $nom) {
@@ -144,8 +149,14 @@ $menu[] = $menuJournees;
 
 $menu[] = [
     "label" => "Equipes",
-    "icon" => "fa-calendar",
+    "icon" => "fa-list",
     "entity" => "equipe",
+];
+
+$menu[] = [
+    "label" => "Villes",
+    "icon" => "fa-list",
+    "entity" => "ville",
 ];
 
 $menu[] = [

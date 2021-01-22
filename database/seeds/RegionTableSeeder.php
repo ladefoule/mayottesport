@@ -12,7 +12,7 @@ class RegionTableSeeder extends Seeder
     public function run()
     {
         // On insère les regions
-        $regions = array("Mayotte", "Métropole", "Autre");
+        $regions = array("Mayotte", "La Réunion", "Métropole", "Autre");
         foreach ($regions as $region) {
             App\Region::create([
                 'nom' => $region,

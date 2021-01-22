@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SportTableSeeder::class,
             VilleTableSeeder::class,
-            TerrainTableSeeder::class,
+            // TerrainTableSeeder::class,
             EquipeTableSeeder::class,
             CompetitionTableSeeder::class,
             BaremeTableSeeder::class,

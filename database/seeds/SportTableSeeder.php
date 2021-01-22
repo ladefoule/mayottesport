@@ -13,15 +13,14 @@ class SportTableSeeder extends Seeder
     public function run()
     {
         // On insère les sports
-        $sports = array("Football" => 'FB', "Volleyball" => 'VB', "Handball" => 'HB', "Basketball" => 'BB', "Rugby" => 'RB');
+        $sports = array("Football", "Volleyball", "Handball", "Basketball", "Rugby");
         $i = 1;
-        foreach ($sports as $sport => $code) {
+        foreach ($sports as $sport) {
             App\Sport::create([
                 'nom' => $sport,
                 'slug' => Str::slug($sport),
                 'home_position' => $i++,
                 'created_at' => now(),
-                // 'updated_at' => now()
             ]);
         }
     }

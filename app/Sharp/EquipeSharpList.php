@@ -83,6 +83,7 @@ class EquipeSharpList extends SharpEntityList
             $equipes->where(function ($query) use ($word) {
                 $query->orWhere('equipes.nom', 'like', $word)
                 ->orWhere('equipes.nom_complet', 'like', $word)
+                ->orWhere('villes.nom', 'like', $word)
                 ->orWhere('sports.nom', 'like', $word);
             });
         }

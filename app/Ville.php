@@ -35,4 +35,14 @@ class Ville extends Model
         $rules['nom'] = ['required','string','max:50','min:3',$unique];
         return ['rules' => $rules];
     }
+
+    /**
+     * Les équipes appartenant à la ville
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function equipes()
+    {
+        return $this->hasMany('App\Equipe');
+    }
 }

@@ -2,15 +2,13 @@
 
 namespace App\Sharp;
 
-use App\Sport;
+use App\Ville;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 
-class SportSharpList extends SharpEntityList
+class VilleSharpList extends SharpEntityList
 {
-    protected $sportSlug;
-
     /**
     * Build list containers using ->addDataContainer()
     *
@@ -23,13 +21,9 @@ class SportSharpList extends SharpEntityList
                 ->setLabel('Nom')
                 ->setSortable()
         )->addDataContainer(
-            EntityListDataContainer::make('home_position')
-                ->setLabel('Position (accueil)')
-                ->setSortable()
-        )->addDataContainer(
-            EntityListDataContainer::make('updated_at')
-                ->setLabel('Modifié le')
-                ->setSortable()
+            EntityListDataContainer::make('nb_equipes')
+                ->setLabel('Nombre d\'équipes')
+                ->setSortable(false)
         );
     }
 
@@ -41,9 +35,8 @@ class SportSharpList extends SharpEntityList
     public function buildListLayout()
     {
         $this
-        ->addColumn('nom', 4)
-        ->addColumn('home_position', 4)
-        ->addColumn('updated_at', 4);
+        ->addColumn('nom', 6)
+        ->addColumn('nb_equipes', 6);
     }
 
     /**
@@ -55,7 +48,7 @@ class SportSharpList extends SharpEntityList
     {
         $this->setInstanceIdAttribute('id')
             ->setSearchable()
-            ->setDefaultSort('home_position', 'asc')
+            ->setDefaultSort('nom', 'asc')
             ->setPaginated();
     }
 
@@ -67,19 +60,19 @@ class SportSharpList extends SharpEntityList
 	*/
     public function getListData(EntityListQueryParams $params)
     {
-        $sports = Sport::orderBy($params->sortedBy(), $params->sortedDir());
+        $villes = Ville::orderBy($params->sortedBy(), $params->sortedDir());
 
         foreach ($params->searchWords() as $key => $word) {
-            $sports->where(function ($query) use ($word) {
-                $query->orWhere('sports.nom', 'like', $word);
+            $villes->where(function ($query) use ($word) {
+                $query->orWhere('villes.nom', 'like', $word);
             });
         }
 
         return $this->setCustomTransformer(
-            "updated_at",
-            function ($updated_at, $sport) {
-                return $sport->updated_at ? date_format($sport->updated_at, 'd/m/Y à h:i:s') : '';
+            "nb_equipes",
+            function ($nb_equipes, $ville) {
+                return count($ville->equipes);
             }
-        )->transform($sports->paginate(12));
+        )->transform($villes->paginate(12));
     }
 }

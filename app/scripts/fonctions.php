@@ -357,13 +357,10 @@ function genererCalendrier($donnees)
     // Un tableau qui contiendra l'id du terrain pour chaque équipe : $terrains = [$idEq1 => $idTerEq1, $idEq2 => $idTerEq2, ...]
     $terrains = $donnees['terrains'];
 
+    $saison = Saison::findOrFail($saisonId);
     // On insère dans la table associatif le lien equipe/saison pour toutes les équipes
-    foreach ($terrains as $equipeId => $terrain) {
-        EquipeSaison::create([
-            'equipe_id' => $equipeId,
-            'saison_id' => $saisonId
-        ]);
-    }
+    foreach ($terrains as $equipeId => $terrain)
+        $saison->equipes()->attach($equipeId);
 
     // Une heure. Par défaut vaut 15:00
     $heure = $donnees['heure'] ?? '15:00';

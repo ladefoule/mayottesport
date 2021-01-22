@@ -34,8 +34,8 @@ class CompetitionTableSeeder extends Seeder
                 'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $footballId,
-                'home_position' => $i + 1,
-                'index_position' => $i + 1,
+                'home_position' => $competition['home_position'] ?? NULL,
+                'index_position' => $competition['index_position'] ?? NULL,
                 'created_at' => now(),
             ]);
 
@@ -47,14 +47,14 @@ class CompetitionTableSeeder extends Seeder
         $handballId = Sport::whereSlug('handball')->firstOrFail()->id;
         $competitions = [
             ['nom' => 'Prénationale masculins', 'type' => 1],
-            ['nom' => 'PNM, poule A', 'type' => 1],
-            ['nom' => 'PNM, poule B', 'type' => 1],
+            ['nom' => 'PNM, poule A', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
+            ['nom' => 'PNM, poule B', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
             ['nom' => 'Prénationale féminins', 'type' => 1],
-            ['nom' => 'PNF, poule A', 'type' => 1],
-            ['nom' => 'PNF, poule B', 'type' => 1],
+            ['nom' => 'PNF, poule A', 'type' => 1, 'index_position' => 3, 'navbar_position' => 3],
+            ['nom' => 'PNF, poule B', 'type' => 1, 'index_position' => 4, 'navbar_position' => 4],
             ['nom' => 'Excellence masculins', 'type' => 1],
-            ['nom' => 'EXM, poule A', 'type' => 1],
-            ['nom' => 'EXM, poule B', 'type' => 1],
+            ['nom' => 'EXM, poule A', 'type' => 1, 'index_position' => 5, 'navbar_position' => 5],
+            ['nom' => 'EXM, poule B', 'type' => 1, 'index_position' => 6, 'navbar_position' => 6],
             ['nom' => 'Excellence féminins', 'type' => 1],
             ['nom' => 'EXF, poule A', 'type' => 1],
             ['nom' => 'EXF, poule B', 'type' => 1],
@@ -65,8 +65,8 @@ class CompetitionTableSeeder extends Seeder
                 'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $handballId,
-                // 'home_position' => $i + 1,
-                // 'index_position' => $i + 1,
+                'home_position' => $competition['home_position'] ?? NULL,
+                'index_position' => $competition['index_position'] ?? NULL,
                 'created_at' => now(),
             ]);
         }
@@ -84,8 +84,8 @@ class CompetitionTableSeeder extends Seeder
                 'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $basketballId,
-                // 'home_position' => $i + 1,
-                // 'index_position' => $i + 1,
+                'home_position' => $competition['home_position'] ?? NULL,
+                'index_position' => $competition['index_position'] ?? NULL,
                 'created_at' => now(),
             ]);
         }
