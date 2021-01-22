@@ -19,7 +19,7 @@
                 </li>
                 @endforeach
                 <li class="nav-item">
-                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center" href="{{ asset('/contact') }}">Contact</a>
+                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center @if (request()->route()->getName() == 'contact') active text-green font-weight-bold @endif" href="{{ asset('/contact') }}">Contact</a>
                 </li>
            </ul>
            <?php

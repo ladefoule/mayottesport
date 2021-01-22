@@ -56,8 +56,8 @@ class SportController extends Controller
 
         return view('sport.index', [
             'sport' => $sport,
-            'resultats' => [$sport->nom => $calendriers['resultats']],
-            'prochains' => [$sport->nom => $calendriers['prochains']],
+            'resultats' => $calendriers['resultats'] ? [$sport->nom => $calendriers['resultats']] : [],
+            'prochains' => $calendriers['prochains'] ? [$sport->nom => $calendriers['prochains']] : [],
             'articles' => $articlesView,
             'filActualites' => $filActualites,
         ]);

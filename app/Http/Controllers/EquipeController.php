@@ -118,8 +118,8 @@ class EquipeController extends Controller
             'matches' => $matches->sortBy('date'),
             'dernierMatch' => $dernierMatchRender,
             'prochainMatch' => $prochainMatchRender,
-            'resultats' => $calendriers['resultats'],
-            'prochains' => $calendriers['prochains'],
+            'resultats' => $calendriers['resultats'] ? [$sport->nom => $calendriers['resultats']] : [],
+            'prochains' => $calendriers['prochains'] ? [$sport->nom => $calendriers['prochains']] : [],
             'filActualites' => $filActualites
         ]);
     }

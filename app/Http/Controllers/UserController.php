@@ -74,7 +74,7 @@ class UserController extends Controller
         
         // Si l'utilisateur souhaite changer son avatar
         if(isset($data['avatar'])){
-            $imageName = 'user-' . $user->id . '-' . time() . '.' . $request->image->extension();  // Ex : user-1-1589553652.jpg
+            $imageName = 'user-' . $user->id . '-' . time() . '.' . $request->avatar->extension();  // Ex : user-1-1589553652.jpg
             $request->avatar->move(storage_path('app/public/upload/avatar'), $imageName);
             
             $data['avatar'] = $imageName;
