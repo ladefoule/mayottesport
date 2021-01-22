@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Log::info("Seed du CRUD");
-        require 'app/scripts/gestion-crud-bdd.php';
+        // require 'app/scripts/gestion-crud-bdd.php';
 
         // Re enable all mass assignment restrictions
         Model::reguard();
