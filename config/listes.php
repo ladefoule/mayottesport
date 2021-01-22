@@ -2,6 +2,8 @@
 // use Illuminate\Support\Facades\Config;
 return [
     'boutons' => [
+        'home' => '<i class="icon-home"></i>',
+        'contact' => '<i class="icon-comment"></i>',
         'supprimer' => '<i class="icon-trash-empty"></i>',
         'ajouter' => '<i class="icon-plus"></i>',
         'ajouter_cercle' => '<i class="icon-plus-circled"></i>',
@@ -11,7 +13,6 @@ return [
         'database' => '<i class="icon-database"></i>',
         'left' => '<i class="icon-left-open"></i>',
         'right' => '<i class="icon-right-open"></i>',
-        'football' => '<i class="icon-soccer-ball"></i>',
         'user' => '<i class="icon-user"></i>',
         'user-add' => '<i class="icon-user-add"></i>',
     ],

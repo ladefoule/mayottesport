@@ -79,31 +79,21 @@ class Journee extends Model
         });
     }
 
+    /**
+     * Affichage des calendriers pour la page d'accueil
+     *
+     * @return array
+     */
     public static function calendriersPageHome()
     {
-        $sports = Sport::where('home_position', '>=', 1)->orderBy('home_position')->get();
+        // $sports = Sport::where('home_position', '>=', 1)->orderBy('home_position')->get();
+        $sports = index('sports')->where('home_position', '>=', 1)->sortBy('home_position');
         foreach ($sports as $sport){
-            $competitions = Competition::whereSportId($sport->id)->where('home_position', '>=', 1)->get();
-            foreach ($competitions as $competition) {
-                $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
-                if($saison){
-                    $derniereJournee = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
-                    if ($derniereJournee)
-                        $resultats[$sport->nom][] = [
-                            'competition_nom' => $competition->nom,
-                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
-                            'journee_render' => journee($derniereJournee->id)->render
-                        ];
-        
-                    $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
-                    if ($prochaineJournee)
-                        $prochains[$sport->nom][] = [
-                            'competition_nom' => $competition->nom,
-                            'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
-                            'journee_render' => journee($prochaineJournee->id)->render
-                        ];
-                }
-            }
+            $calendriers = Journee::calendriersPageSport($sport);
+            if(count($calendriers['resultats']) > 0)
+                $resultats[$sport->nom] = $calendriers['resultats'];
+            if(count($calendriers['prochains']) > 0)
+                $prochains[$sport->nom] = $calendriers['prochains'];
         }
 
         return [
@@ -113,28 +103,32 @@ class Journee extends Model
     }
 
     /**
-     * Undocumented function
+     * Affichage des calendriers pour un sport (1 journée par compétition)
      *
      * @param Sport|Collection $sport
-     * @return void
+     * @return array
      */
     public static function calendriersPageSport($sport)
     {
-        $competitions = Competition::whereSportId($sport->id)->where('home_position', '>=', 1)->get();
+        // $competitions = Competition::whereSportId($sport->id)->where('home_position', '>=', 1)->get();
+        $competitions = index('competition')->where('sport_id', $sport->id)->where('home_position', '>=', 1);
         foreach ($competitions as $competition) {
-            $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+            // $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+            $saison = index('saisons')->where('competition_id', $competition->id)->sortByDesc('annee_debut')->first();
             if($saison){
-                $derniereJournee = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
+                // $derniereJournee = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
+                $derniereJournee = index('journees')->where('saison_id', $saison->id)->where('date', '<', date('Y-m-d'))->sortBy('date')->first();
                 if($derniereJournee)
-                    $resultats[$sport->nom][] = [
+                    $resultats[] = [
                         'competition_nom' => $competition->nom,
                         'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
                         'journee_render' => journee($derniereJournee->id)->render
                     ];
     
-                $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
+                // $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
+                $prochaineJournee = index('journees')->where('saison_id', $saison->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
                 if($prochaineJournee)
-                    $prochains[$sport->nom][] = [
+                    $prochains[] = [
                         'competition_nom' => $competition->nom,
                         'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
                         'journee_render' => journee($prochaineJournee->id)->render

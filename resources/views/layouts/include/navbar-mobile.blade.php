@@ -14,13 +14,14 @@
                 {{-- <a class="navbar-brand" href="#">MENU</a> --}}
                 <div class="col-12 pr-2 align-self-stretch" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item @if(request()->route()->getName() == 'home') active text-green font-weight-bold @endif px-3 border-bottom">
-                            <a class="nav-link text-body" href="{{ asset('/') }}">Accueil</a>
+                        <li class="nav-item @if(request()->route()->getName() == 'home') active text-green font-weight-bold @endif mx-0 border-bottom">
+                            <a class="nav-link text-body" href="{{ asset('/') }}"><span style="font-size:1.2rem" class="ml-2 pl-1">{!! config('listes.boutons.home') !!}</span> Accueil</a>
                         </li>
                         @foreach ($sports as $sport)
                             @if (count($competitions->where('sport_id', $sport->id)->all()) > 0)
                                 <li class="nav-item dropdown border-bottom px-3">
-                                    <span class="nav-link text-body dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="nav-link text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
                                         {{ $sport->nom }}
                                     </span>
                                     <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
@@ -32,12 +33,17 @@
                                 </li>
                             @else
                                 <li class="nav-item border-bottom px-3">
-                                    <a class="nav-link text-body @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
+                                    <a class="nav-link text-body d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">
+                                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
+                                        {{ $sport->nom }}
+                                    </a>
                                 </li>
                             @endif
                         @endforeach
-                        <a class="border-bottom nav-item nav-link text-body px-3" href="{{ asset('/autres') }}">Autres</a>
-                        <a class="border-bottom nav-item nav-link text-body px-3" href="{{ asset('/contact') }}">Contact</a>
+                        {{-- <a class="border-bottom nav-item nav-link text-body px-3" href="{{ asset('/autres') }}">Autres</a> --}}
+                        <a class="border-bottom nav-item nav-link text-body mx-0" href="{{ asset('/contact') }}">
+                            <span style="font-size:1.1rem" class="ml-2 pl-1">{!! config('listes.boutons.contact') !!}</span> Contact
+                        </a>
                     </ul>
                     <?php
                         $role = Auth::check() ? Auth::user()->role->name : '';
@@ -47,11 +53,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item px-3 border-bottom">
-                                <a class="nav-link text-body" href="{{ route('login') }}">Se connecter</a>
+                                <a class="nav-link text-body" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item px-3 border-bottom">
-                                    <a class="nav-link text-body" href="{{ route('register') }}">S'inscrire</a>
+                                <li class="nav-item px-3">
+                                    <a class="nav-link text-body" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
                                 </li>
                             @endif
                         @else
