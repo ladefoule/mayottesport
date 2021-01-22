@@ -16,8 +16,9 @@ body{
     /* background-color: rgb(226, 245, 245); */
     /* background-color: #fff; */
     /* background-color: #ebeff3; */
-    background-color: #c9d3df;
+    /* background-color: #c9d3df; */
     /* background-image: url('../storage/img/fond-ecran-mayotte.jpg'); */
+    background-color: #dbebfa;
     /* background-size:1950px 1000px; */
     background-attachment: fixed;
 }
@@ -426,7 +427,7 @@ a.non-cliquable, a.non-cliquable:hover{
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
         @media (min-width: 992px) {
             html{
-                font-size: 100%;
+                font-size: 90%;
             }
 
             #section-droite .fanion-calendrier img{
@@ -502,7 +503,8 @@ a.non-cliquable, a.non-cliquable:hover{
             /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
             @media (min-width: 1200px) {
                 #section-droite .fanion-calendrier img{
-                    display:block
+                    display:block;
+                    width:25px
                 }
 
                 #section-droite .calendrier{

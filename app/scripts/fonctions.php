@@ -345,6 +345,7 @@ function match(string $uniqid)
 
 /**
  * Insère tous les matches d'une saison dans la bdd
+ * Les journées doivent être crées dans la base avant de commencer, de même pour la saison
  *
  * @param array $donnees
  * @return void
@@ -354,16 +355,19 @@ function genererCalendrier($donnees)
     // L'ID de la saison (la saison sera au préalable créée dans la bdd)
     $saisonId = $donnees['saisonId'];
 
-    // Un tableau qui contiendra l'id du terrain pour chaque équipe : $terrains = [$idEq1 => $idTerEq1, $idEq2 => $idTerEq2, ...]
-    $terrains = $donnees['terrains'];
+    // Un tableau qui contiendra l'id de chaque équipe : $idsEquipes = [$idEq1 , $idEq2 , ...]
+    $idsEquipes = $donnees['idsEquipes'];
 
     $saison = Saison::findOrFail($saisonId);
     // On insère dans la table associatif le lien equipe/saison pour toutes les équipes
-    foreach ($terrains as $equipeId => $terrain)
+    foreach ($idsEquipes as $equipeId)
         $saison->equipes()->attach($equipeId);
 
     // Une heure. Par défaut vaut 15:00
     $heure = $donnees['heure'] ?? '15:00';
+
+    // S'il y a ou non des matches retour à générer
+    $avecMatchesRetour = $donnees['avecMatchesRetour'] ?? 1;
 
     // Un tableau de 2 dimensions qui contient tous les matches
     /*
@@ -401,21 +405,7 @@ function genererCalendrier($donnees)
     foreach ($rencontres as $i => $matchesMemeJournee) {
         $journeeNumero = $i + 1;
         /* ALLER */
-        $journeeAller = Journee::firstWhere(['numero' => $journeeNumero, 'saison_id' => $saisonId]);
-        if (!$journeeAller) { // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
-            $date = new Carbon(date('Y-m-d'));
-            $journeeAller = Journee::create(['numero' => $journeeNumero, 'date' => $date->addWeeks($i), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
-        }
-
-        // Si le tableau de correspondance est précisé alors on l'applique, sinon on applique une diff aller retour unique pour tous les matches
-        $diffAllerRetour = $correspondanceAllerRetour[$journeeNumero] ?? $diffAllerRetour;
-
-        /* RETOUR */
-        $journeeRetour = Journee::firstWhere(['numero' => $journeeNumero + $diffAllerRetour, 'saison_id' => $saisonId]);
-        if (!$journeeRetour) { // Si la journée n'est pas encore insérée dans la base, alors on le fait ici
-            $date = new Carbon(date('Y-m-d'));
-            $journeeRetour = Journee::create(['numero' => $journeeNumero + $diffAllerRetour, 'date' => $date->addWeeks($i + $diffAllerRetour), 'saison_id' => $saisonId, 'created_at' => now(), 'updated_at' => now()]);
-        }
+        $journeeAller = Journee::where(['numero' => $journeeNumero, 'saison_id' => $saisonId])->firstOrFail();
 
         foreach ($matchesMemeJournee as $rencontre) {
             $equipeDomId = $rencontre[0];
@@ -426,29 +416,34 @@ function genererCalendrier($donnees)
                 'journee_id' => $journeeAller->id,
                 'equipe_id_dom' => $equipeDomId,
                 'equipe_id_ext' => $equipeExtId,
-                'terrain_id' => $terrains[$equipeDomId],
                 'uniqid' => uniqid()
                 // 'uuid' => rand(config('listes.UUID_MIN'), config('listes.UUID_MAX'))
             ];
 
             $matchAller = Match::create($matchAller);
-            // Log::info("Ajout d'un match : " . $matchAller);
 
-            $equipeDomId = $rencontre[1];
-            $equipeExtId = $rencontre[0];
-            $matchRetour = [
-                'date' => $journeeRetour->date,
-                'heure' => $heure,
-                'journee_id' => $journeeRetour->id,
-                'equipe_id_dom' => $equipeDomId,
-                'equipe_id_ext' => $equipeExtId,
-                'terrain_id' => $terrains[$equipeDomId],
-                'uniqid' => uniqid()
-                // 'uuid' => rand(config('listes.UUID_MIN'), config('listes.UUID_MAX'))
-            ];
+            if($avecMatchesRetour){
+                // Si le tableau de correspondance est précisé alors on l'applique, sinon on applique une diff aller retour unique pour tous les matches
+                $diffAllerRetour = $correspondanceAllerRetour[$journeeNumero] ?? $diffAllerRetour;
 
-            $matchRetour = Match::create($matchRetour);
-            // Log::info("Ajout d'un match : " . $matchRetour);
+                /* RETOUR */
+                $journeeRetour = Journee::where(['numero' => $journeeNumero + $diffAllerRetour, 'saison_id' => $saisonId])->firstOrFail();
+
+                $equipeDomId = $rencontre[1];
+                $equipeExtId = $rencontre[0];
+                $matchRetour = [
+                    'date' => $journeeRetour->date,
+                    'heure' => $heure,
+                    'journee_id' => $journeeRetour->id,
+                    'equipe_id_dom' => $equipeDomId,
+                    'equipe_id_ext' => $equipeExtId,
+                    'uniqid' => uniqid()
+                    // 'uuid' => rand(config('listes.UUID_MIN'), config('listes.UUID_MAX'))
+                ];
+
+                $matchRetour = Match::create($matchRetour);
+                // Log::info("Ajout d'un match : " . $matchRetour);
+            }
         }
     }
 }

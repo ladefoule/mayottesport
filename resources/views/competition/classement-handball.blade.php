@@ -5,8 +5,8 @@
 @section('content')
 <div class="p-lg-3">
     <div class="row m-0 bg-white d-flex justify-content-center">
-        <h1 class="col-12 h5 pt-3 text-center">{{ $h1 }}</h1>
-        <div class="col-12 mt-3 px-1">
+        <h1 class="col-12 h5 pt-4 text-center">{{ $h1 }}</h1>
+        <div class="col-12 mt-4 px-2">
             <table class="table text-center classement w-100" id="classement">
                 <thead {{-- class="thead-light thead-fixed" --}}>
                     <th class="px-2">#</th>

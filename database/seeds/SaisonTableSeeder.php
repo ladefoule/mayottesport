@@ -20,7 +20,7 @@ class SaisonTableSeeder extends Seeder
         // Log::info("Seed des saisons de Régional 2");
         require 'app/scripts/import-saison-2.php';
         // Log::info("Seed des saisons de Coupe de Mayotte");
-        require 'app/scripts/import-saison-4.php';
+        // require 'app/scripts/import-saison-4.php';
 
         // On insère les championnats de football
         $footballId = Sport::whereSlug('football')->firstOrFail()->id;

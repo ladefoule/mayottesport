@@ -7,7 +7,7 @@
     <div class="row m-0 bg-white">
         <div class="col-12 p-0">
             <h1 class="col-12 titre-page-article py-3">
-                <span class="categorie">{{ $article->categorie }}</span>
+                {{-- <span class="categorie">{{ $article->categorie }}</span> --}}
                 {{ $article->titre }}
             </h1>
             <div class="col-12 d-flex m-auto justify-content-center">

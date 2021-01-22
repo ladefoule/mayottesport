@@ -57,13 +57,13 @@
     </div>
     {{-- Fin Section scroll X --}}
 
-    <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0" style="max-width: 1400px">
+    <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0" style="max-width: 1300px">
         <main class="col-lg-8 col-xl-8 p-0">
             @yield('content')
         </main>
         <section id="section-droite" class="col-4 d-none d-lg-block pl-0">
             <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
-                <div class="col-12 d-flex text-center p-3 bg-white">
+                <div class="col-12 d-flex text-center p-2 bg-white">
                     <span data-cible="resultats-section-droite"
                         class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</span>
                     <span data-cible="prochains-section-droite"

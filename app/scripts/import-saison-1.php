@@ -15,20 +15,7 @@ for ($i=0; $i < 2; $i++) {
     $saisonId = $saison->id;
     $heure = '15:30';
 
-    $terrains = [
-    '29' => 1, // $idEquipe => $idTerrain
-    '27' => 2,
-    '26' => 3,
-    '97' => 4,
-    '2' => 5,
-    '1' => 6,
-    '4' => 7,
-    '138' => 8,
-    '13' => 9,
-    '162' => 10,
-    '96' => 9,
-    '45' =>8
-    ];
+    $idsEquipes = ['29','27','26','97','2','1','4','138','13','162','96','45'];
 
     $rencontres = [
         [// 1ère journée
@@ -126,7 +113,7 @@ for ($i=0; $i < 2; $i++) {
     $donnees = [
     'heure' => $heure,
     'saisonId' => $saisonId,
-    'terrains' => $terrains,
+    'idsEquipes' => $idsEquipes,
     'rencontres' => $rencontres,
     'diffAllerRetour' => $diffAllerRetour
     ];
