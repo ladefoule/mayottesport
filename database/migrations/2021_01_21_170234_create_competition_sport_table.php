@@ -14,6 +14,7 @@ class CreateCompetitionSportTable extends Migration
     public function up()
     {
         Schema::create('competition_sport', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('competition_id');
             $table->foreign('competition_id')->references('id')->on('competitions')->onDelete('cascade');
             $table->unsignedBigInteger('sport_id');

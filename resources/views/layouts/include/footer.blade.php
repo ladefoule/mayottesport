@@ -1,7 +1,6 @@
 <?php
-    $sports = index('sports')
-        ->sortBy('home_position')
-        ->slice(0, 5);
+    $sports = index('sports');
+    $competitions = index('competitions');
 ?>
 
 <!-- Footer -->
@@ -11,20 +10,21 @@
         <div class="row d-flex flex-basis-1 text-center">
             @foreach ($sports as $sport)
                 <div class="col-6 col-md-4 col-lg-2 px-3">
-                    <a href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">
+                    <a href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
                         <h5 class="font-weight-bold mt-3 mb-2 text-white text-center">{{ $sport->nom }}</h5>
                     </a>
                     <ul class="list-unstyled">
                         <?php 
-                            $competitions = index('competitions')
+                            $competitionsNavbar = index('competition_sport')
                                 ->where('sport_id', $sport->id)
-                                ->sortByDesc('index_position')
+                                ->sortBy('position')
                                 ->slice(0, 5);
+
                         ?>
-                        @foreach ($competitions as $competition)
+                        @foreach ($competitionsNavbar as $competition)
                             <li>
                                 <a class="text-light"
-                                    href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
+                                    href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
                     </ul>

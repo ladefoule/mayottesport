@@ -14,6 +14,7 @@ class CreateArticleSportTable extends Migration
     public function up()
     {
         Schema::create('article_sport', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->unsignedBigInteger('sport_id');

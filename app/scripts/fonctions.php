@@ -250,43 +250,25 @@ function index(string $table)
 {
     $key = "index-" . Str::slug($table);
     if (Cache::has($key))
-    return Cache::get($key);
+        return Cache::get($key);
     else
-    return Cache::rememberForever($key, function () use ($table, $key) {
-        Log::info('Rechargement du cache : ' . $key);
-        $index = [];
-        $modele = 'App\\' . modelName($table);
-        $instances = $modele::all();
-        foreach ($instances as $instance){
-            $collect = collect();
-            foreach ($instance->getAttributes() as $key => $value)
-                $collect->$key = $value;;
+        return Cache::rememberForever($key, function () use ($table, $key) {
+            Log::info('Rechargement du cache : ' . $key);
+            $index = [];
+            $modele = 'App\\' . modelName($table);
+            $instances = $modele::all();
 
-            $collect->nom = $instance->nom ?? '';
-            $index[$instance->id] = $collect;
-        }
+            foreach ($instances as $instance){
+                $collect = collect();
+                foreach ($instance->getAttributes() as $key => $value)
+                    $collect->$key = $value;;
 
-        return collect($index);
-    });
-}
+                $collect->nom = $instance->nom ?? '';
+                $index[$instance->id] = $collect;
+            }
 
-/**
- * Style procédural de la méthode infos() de la classe CrudTable
- * Liste de tous les éléments de la table (avec les infos sur les attributs à afficher dans le CRUD : position, type, max, ...).
- *
- * @param string $table - Table en snake_case
- * @return \Illuminate\Database\Eloquent\Collection
- */
-function indexCrud(string $table)
-{
-    return [];
-    // $key = "indexcrud-" . Str::slug($table);
-    // if (Cache::has($key))
-    //     return Cache::get($key);
-    // else
-    //     return Cache::rememberForever($key, function () use ($table) {
-    //         return CrudTable::whereNom($table)->firstOrFail()->indexCrud();
-    //     });
+            return collect($index);
+        });
 }
 
 /**
