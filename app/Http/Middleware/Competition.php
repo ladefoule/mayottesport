@@ -41,6 +41,7 @@ class Competition
 
         // Les infos requises pour toutes les pages du middleware
         $request->saison = $saison; // la collection
+        $request->hrefSport = route('sport.index', ['sport' => $sportSlug]);
         $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
         $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
 

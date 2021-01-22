@@ -36,17 +36,18 @@ class Article extends Model
      */
     public static function rules($article = NULL)
     {
+        $sportId = request()->input('sport_id');
+        $uniqueWithSport = Rule::unique('articles')->where(function ($query) use ($sportId) {
+            return $query->whereSportId($sportId);
+        })->ignore($article);
+
         $uniqid = Rule::unique('articles')->ignore($article);
-        // request()['valide'] = request()->has('valide');
-        // request()['slug'] = Str::slug(request()['titre']);
-        // request()['user_id'] = Auth::id();
-        // request()['user_update_id'] = Auth::id();
 
         $rules = [
             'article' => 'nullable|min:30',
             'preambule' => 'required|min:30',
-            'titre' => 'required|min:10|max:150',
-            'slug' => 'required|alpha_dash|min:10|max:150',
+            'titre' => ['required','min:5',$uniqueWithSport],
+            'slug' => ['required','alpha_dash','min:5',$uniqueWithSport],
             'home_priorite' => 'nullable|integer|min:1',
             'home_visible' => 'nullable|boolean',
             'sport_id' => 'nullable|integer|required_with:competition_id|exists:sports,id',

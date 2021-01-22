@@ -96,6 +96,27 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function showSport(Request $request, $sport, $uniqid, $titre)
+    {
+        $article = $request->article;
+        if (!$article->valide)
+            abort(404);
+
+        $sport = $request->sport;
+        $calendriers = Journee::calendriersPageSport($sport);
+
+        // dd($calendriers);
+
+        $filActualites = Article::filActu($sport);
+
+        return view('article.show-sport', [
+            'article' => article($article->uniqid), 
+            'resultats' => [$sport->nom => $calendriers['resultats']],
+            'prochains' => [$sport->nom => $calendriers['prochains']],
+            'filActualites' => $filActualites,
+        ]);
+    }
+
     /**
      * Affichage d'un article sur le site back-office
      *

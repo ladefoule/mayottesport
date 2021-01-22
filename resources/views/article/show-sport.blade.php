@@ -6,19 +6,16 @@
 <div class="p-lg-3">
     <div class="row m-0 bg-white">
         <div class="col-12 p-0">
-            <h1 class="col-12 titre-page-article py-3">
-                <span class="categorie">{{ $article->categorie }}</span>
-                {{ $article->titre }}
-            </h1>
-            <div class="col-12 d-flex m-auto justify-content-center">
-                <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid">
+            <h1 class="col-12 titre-page-article py-3">{{ $article->titre }}</h1>
+            <div class="col-11 d-flex m-auto justify-content-center">
+                <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid img_max_80">
             </div>
 
             <!-- Create the editor container -->
             <div class="col-12 pt-3">
-                <span class="font-weight-bold">
-                    {!! $article->preambule !!}
-                </span>
+            <span class="font-weight-bold">
+                {!! $article->preambule !!}
+            </span>
                 {!! $article->article !!}
             </div>
 
