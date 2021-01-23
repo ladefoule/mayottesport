@@ -155,6 +155,10 @@ class Match extends Model
             $competitionNomSlug = Str::slug($competition->nom);
             $sport = index('sports')[$competition->sport_id];
             $sportNomSlug = Str::slug($sport->nom);
+            if($this->terrain)
+                $lieu = $this->terrain->nom . ' (' . $this->terrain->ville->nom . ')';
+            else
+                $lieu = index('villes')[$equipeDom->ville_id]->nom;
 
             $infosPlus = [
                 'id' => $this->id,
@@ -178,7 +182,7 @@ class Match extends Model
                 'acces_bloque' => $this->acces_bloque,
                 'journee' => niemeJournee($journee->numero),
                 'competition' => $competition->nom,
-                'lieu' => $this->terrain_id ? $this->terrain->nom . ' (' . $this->terrain->ville->nom . ')' : $equipeDom->ville->nom,
+                'lieu' => $lieu,
                 'resultat_eq_dom' => $this->resultat($this->equipe_id_dom),
                 'resultat_eq_ext' => $this->resultat($this->equipe_id_ext),
                 'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomSlug, 'competition' => $competitionNomSlug,'uniqid' => $this->uniqid]),
