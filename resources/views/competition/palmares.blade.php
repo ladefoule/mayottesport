@@ -1,6 +1,6 @@
 @extends('layouts.competition')
 
-@section('title', $competition->nom . ' - Le palmarès')
+@section('title', $title)
 
 @section('content')
 <div class="p-lg-3 h-100">

@@ -30,7 +30,11 @@ class Saison extends Model
      */
     public static function rules(Saison $saison = null)
     {
-        $unique = Rule::unique('saisons', 'annee_debut', 'competition_id')->ignore($saison);
+        $competitionId = request()->input('competition_id');
+
+        $unique = Rule::unique('saisons')->where(function ($query) use ($competitionId) {
+            return $query->whereCompetitionId($competitionId);
+        })->ignore($saison);
 
         $rules = [
             'annee_debut' => ['required','integer','min:1970',$unique],

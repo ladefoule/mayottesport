@@ -4,6 +4,7 @@ use App\Sport;
 use App\Competition;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SaisonTableSeeder extends Seeder
@@ -15,69 +16,248 @@ class SaisonTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::insert("INSERT INTO `saisons` (`id`, `annee_debut`, `annee_fin`, `nb_journees`, `nb_montees`, `nb_descentes`, `finie`, `competition_id`, `bareme_id`, `equipe_id`, `created_at`, `updated_at`) VALUES
+        (1, 2021, 2021, 22, NULL, NULL, 0, 1, 1, NULL, '2021-01-23 18:22:53', '2021-01-23 19:58:17'),
+        (2, 2021, 2021, 22, NULL, NULL, 0, 2, 1, NULL, '2021-01-23 18:22:54', '2021-01-23 19:57:54'),
+        (3, 1980, 1980, NULL, NULL, NULL, 1, 10, NULL, 1, '2021-01-23 18:22:55', '2021-01-23 19:09:41'),
+        (4, 1981, 1981, NULL, NULL, NULL, 1, 10, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:09:52'),
+        (5, 1982, 1982, NULL, NULL, NULL, 1, 10, NULL, 22, '2021-01-23 18:22:55', '2021-01-23 19:10:00'),
+        (6, 1983, 1983, NULL, NULL, NULL, 1, 10, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:10:13'),
+        (7, 1984, 1984, NULL, NULL, NULL, 1, 10, NULL, 7, '2021-01-23 18:22:55', '2021-01-23 19:10:26'),
+        (8, 1985, 1985, NULL, NULL, NULL, 1, 10, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 19:10:31'),
+        (9, 1986, 1986, NULL, NULL, NULL, 1, 10, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 19:12:53'),
+        (10, 1987, 1987, NULL, NULL, NULL, 1, 10, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:13:09'),
+        (11, 1988, 1988, NULL, NULL, NULL, 1, 10, NULL, 140, '2021-01-23 18:22:55', '2021-01-23 19:14:04'),
+        (12, 1989, 1989, NULL, NULL, NULL, 1, 10, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (13, 1990, 1990, NULL, NULL, NULL, 1, 10, NULL, 191, '2021-01-23 18:22:55', '2021-01-23 19:18:23'),
+        (14, 1990, 1990, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (15, 1990, 1990, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:54:46'),
+        (16, 1990, 1990, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (17, 1991, 1991, NULL, NULL, NULL, 1, 10, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:18:47'),
+        (18, 1991, 1991, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (19, 1991, 1991, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:54:57'),
+        (20, 1991, 1991, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (21, 1992, 1992, NULL, NULL, NULL, 1, 10, NULL, 140, '2021-01-23 18:22:55', '2021-01-23 19:19:08'),
+        (22, 1992, 1992, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (23, 1992, 1992, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:55:04'),
+        (24, 1992, 1992, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (25, 1993, 1993, NULL, NULL, NULL, 1, 10, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:19:19'),
+        (26, 1993, 1993, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (27, 1993, 1993, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:55:11'),
+        (28, 1993, 1993, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (29, 1994, 1994, NULL, NULL, NULL, 1, 10, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:19:30'),
+        (30, 1994, 1994, NULL, NULL, NULL, 1, 9, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:32:34'),
+        (31, 1994, 1994, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:55:18'),
+        (32, 1994, 1994, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (33, 1995, 1995, NULL, NULL, NULL, 1, 10, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:19:41'),
+        (34, 1995, 1995, NULL, NULL, NULL, 1, 9, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:32:44'),
+        (35, 1995, 1995, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:55:25'),
+        (36, 1995, 1995, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (37, 1996, 1996, NULL, NULL, NULL, 1, 10, NULL, 1, '2021-01-23 18:22:55', '2021-01-23 19:21:22'),
+        (38, 1996, 1996, NULL, NULL, NULL, 1, 9, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:32:52'),
+        (39, 1996, 1996, NULL, NULL, NULL, 1, 1, NULL, 1, '2021-01-23 18:22:55', '2021-01-23 19:55:33'),
+        (40, 1996, 1996, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (41, 1997, 1997, NULL, NULL, NULL, 1, 10, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:21:35'),
+        (42, 1997, 1997, NULL, NULL, NULL, 1, 9, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:33:00'),
+        (43, 1997, 1997, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:55:43'),
+        (44, 1997, 1997, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (45, 1998, 1998, NULL, NULL, NULL, 1, 10, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:20:12'),
+        (46, 1998, 1998, NULL, NULL, NULL, 1, 9, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:33:11'),
+        (47, 1998, 1998, NULL, NULL, NULL, 1, 1, NULL, 1, '2021-01-23 18:22:55', '2021-01-23 19:55:51'),
+        (48, 1998, 1998, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (49, 1999, 1999, NULL, NULL, NULL, 1, 10, NULL, 13, '2021-01-23 18:22:55', '2021-01-23 19:21:47'),
+        (50, 1999, 1999, NULL, NULL, NULL, 1, 9, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:33:19'),
+        (51, 1999, 1999, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:56:00'),
+        (52, 1999, 1999, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (53, 2000, 2000, NULL, NULL, NULL, 1, 10, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:21:55'),
+        (54, 2000, 2000, NULL, NULL, NULL, 1, 9, NULL, 24, '2021-01-23 18:22:55', '2021-01-23 19:33:30'),
+        (55, 2000, 2000, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:56:15'),
+        (56, 2000, 2000, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (57, 2000, 2000, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (58, 2000, 2000, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (59, 2001, 2001, NULL, NULL, NULL, 1, 10, NULL, 6, '2021-01-23 18:22:55', '2021-01-23 19:22:05'),
+        (60, 2001, 2001, NULL, NULL, NULL, 1, 9, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:33:40'),
+        (61, 2001, 2001, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:57:38'),
+        (62, 2001, 2001, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (63, 2001, 2001, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (64, 2001, 2001, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (65, 2002, 2002, NULL, NULL, NULL, 1, 10, NULL, 75, '2021-01-23 18:22:55', '2021-01-23 19:22:17'),
+        (66, 2002, 2002, NULL, NULL, NULL, 1, 9, NULL, 34, '2021-01-23 18:22:55', '2021-01-23 19:33:55'),
+        (67, 2002, 2002, NULL, NULL, NULL, 1, 1, NULL, 24, '2021-01-23 18:22:55', '2021-01-23 20:00:13'),
+        (68, 2002, 2002, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (69, 2002, 2002, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (70, 2002, 2002, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (71, 2003, 2003, NULL, NULL, NULL, 1, 10, NULL, 160, '2021-01-23 18:22:55', '2021-01-23 19:23:06'),
+        (72, 2003, 2003, NULL, NULL, NULL, 1, 9, NULL, 34, '2021-01-23 18:22:55', '2021-01-23 19:34:07'),
+        (73, 2003, 2003, NULL, NULL, NULL, 1, 1, NULL, 24, '2021-01-23 18:22:55', '2021-01-23 20:00:31'),
+        (74, 2003, 2003, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (75, 2003, 2003, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (76, 2003, 2003, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (77, 2004, 2004, NULL, NULL, NULL, 1, 10, NULL, 34, '2021-01-23 18:22:55', '2021-01-23 19:23:22'),
+        (78, 2004, 2004, NULL, NULL, NULL, 1, 9, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:34:21'),
+        (79, 2004, 2004, NULL, NULL, NULL, 1, 1, NULL, 1, '2021-01-23 18:22:55', '2021-01-23 20:01:26'),
+        (80, 2004, 2004, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (81, 2004, 2004, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (82, 2004, 2004, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (83, 2005, 2005, NULL, NULL, NULL, 1, 10, NULL, 19, '2021-01-23 18:22:55', '2021-01-23 19:23:32'),
+        (84, 2005, 2005, NULL, NULL, NULL, 1, 9, NULL, 22, '2021-01-23 18:22:55', '2021-01-23 19:34:36'),
+        (85, 2005, 2005, NULL, NULL, NULL, 1, 1, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 20:01:15'),
+        (86, 2005, 2005, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (87, 2005, 2005, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (88, 2005, 2005, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (89, 2006, 2006, NULL, NULL, NULL, 1, 10, NULL, 5, '2021-01-23 18:22:55', '2021-01-23 19:23:49'),
+        (90, 2006, 2006, NULL, NULL, NULL, 1, 9, NULL, 6, '2021-01-23 18:22:55', '2021-01-23 19:34:48'),
+        (91, 2006, 2006, NULL, NULL, NULL, 1, 1, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 20:01:02'),
+        (92, 2006, 2006, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (93, 2006, 2006, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (94, 2006, 2006, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (95, 2007, 2007, NULL, NULL, NULL, 1, 10, NULL, 19, '2021-01-23 18:22:55', '2021-01-23 19:24:07'),
+        (96, 2007, 2007, NULL, NULL, NULL, 1, 9, NULL, 10, '2021-01-23 18:22:55', '2021-01-23 19:34:59'),
+        (97, 2007, 2007, NULL, NULL, NULL, 1, 1, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (98, 2007, 2007, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (99, 2007, 2007, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (100, 2007, 2007, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (101, 2008, 2008, NULL, NULL, NULL, 1, 10, NULL, 9, '2021-01-23 18:22:55', '2021-01-23 19:24:29'),
+        (102, 2008, 2008, NULL, NULL, NULL, 1, 9, NULL, 10, '2021-01-23 18:22:55', '2021-01-23 19:35:09'),
+        (103, 2008, 2008, NULL, NULL, NULL, 1, 1, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 20:03:00'),
+        (104, 2008, 2008, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (105, 2008, 2008, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (106, 2008, 2008, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (107, 2009, 2009, NULL, NULL, NULL, 1, 10, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 19:24:38'),
+        (108, 2009, 2009, NULL, NULL, NULL, 1, 9, NULL, 12, '2021-01-23 18:22:55', '2021-01-23 19:35:18'),
+        (109, 2009, 2009, NULL, NULL, NULL, 1, 1, NULL, 4, '2021-01-23 18:22:55', '2021-01-23 20:03:20'),
+        (110, 2009, 2009, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (111, 2009, 2009, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (112, 2009, 2009, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (113, 2010, 2010, NULL, NULL, NULL, 1, 10, NULL, 8, '2021-01-23 18:22:55', '2021-01-23 19:24:53'),
+        (114, 2010, 2010, NULL, NULL, NULL, 1, 9, NULL, 15, '2021-01-23 18:22:55', '2021-01-23 19:35:28'),
+        (115, 2010, 2010, NULL, NULL, NULL, 1, 1, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 20:03:37'),
+        (116, 2010, 2010, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (117, 2010, 2010, NULL, NULL, NULL, 1, 3, NULL, 45, '2021-01-23 18:22:55', '2021-01-23 20:11:45'),
+        (118, 2010, 2010, NULL, NULL, NULL, 1, 4, NULL, 25, '2021-01-23 18:22:55', '2021-01-23 20:09:10'),
+        (119, 2011, 2011, NULL, NULL, NULL, 1, 10, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 19:27:55'),
+        (120, 2011, 2011, NULL, NULL, NULL, 1, 9, NULL, 2, '2021-01-23 18:22:55', '2021-01-23 19:35:42'),
+        (121, 2011, 2011, NULL, NULL, NULL, 1, 1, NULL, 2, '2021-01-23 18:22:55', '2021-01-23 20:03:58'),
+        (122, 2011, 2011, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (123, 2011, 2011, NULL, NULL, NULL, 1, 3, NULL, 51, '2021-01-23 18:22:55', '2021-01-23 20:11:55'),
+        (124, 2011, 2011, NULL, NULL, NULL, 1, 4, NULL, 29, '2021-01-23 18:22:55', '2021-01-23 20:09:19'),
+        (125, 2012, 2012, NULL, NULL, NULL, 1, 10, NULL, 11, '2021-01-23 18:22:55', '2021-01-23 19:25:39'),
+        (126, 2012, 2012, NULL, NULL, NULL, 1, 9, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:35:54'),
+        (127, 2012, 2012, NULL, NULL, NULL, 1, 1, NULL, 15, '2021-01-23 18:22:55', '2021-01-23 20:04:14'),
+        (128, 2012, 2012, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (129, 2012, 2012, NULL, NULL, NULL, 1, 3, NULL, 60, '2021-01-23 18:22:55', '2021-01-23 20:12:08'),
+        (130, 2012, 2012, NULL, NULL, NULL, 1, 4, NULL, 1, '2021-01-23 18:22:55', '2021-01-23 20:09:31'),
+        (131, 2013, 2013, NULL, NULL, NULL, 1, 10, NULL, 7, '2021-01-23 18:22:55', '2021-01-23 19:25:49'),
+        (132, 2013, 2013, NULL, NULL, NULL, 1, 9, NULL, 22, '2021-01-23 18:22:55', '2021-01-23 19:36:05'),
+        (133, 2013, 2013, NULL, NULL, NULL, 1, 1, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 20:04:27'),
+        (134, 2013, 2013, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (135, 2013, 2013, NULL, NULL, NULL, 1, 3, NULL, 59, '2021-01-23 18:22:55', '2021-01-23 20:12:33'),
+        (136, 2013, 2013, NULL, NULL, NULL, 1, 4, NULL, 23, '2021-01-23 18:22:55', '2021-01-23 20:09:44'),
+        (137, 2014, 2014, NULL, NULL, NULL, 1, 10, NULL, 13, '2021-01-23 18:22:55', '2021-01-23 19:25:59'),
+        (138, 2014, 2014, NULL, NULL, NULL, 1, 9, NULL, 13, '2021-01-23 18:22:55', '2021-01-23 19:36:15'),
+        (139, 2014, 2014, NULL, NULL, NULL, 1, 1, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 20:00:47'),
+        (140, 2014, 2014, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (141, 2014, 2014, NULL, NULL, NULL, 1, 3, NULL, 20, '2021-01-23 18:22:55', '2021-01-23 20:12:49'),
+        (142, 2014, 2014, NULL, NULL, NULL, 1, 4, NULL, 79, '2021-01-23 18:22:55', '2021-01-23 20:09:56'),
+        (143, 2015, 2015, NULL, NULL, NULL, 1, 10, NULL, 81, '2021-01-23 18:22:55', '2021-01-23 19:26:13'),
+        (144, 2015, 2015, NULL, NULL, NULL, 1, 9, NULL, 13, '2021-01-23 18:22:55', '2021-01-23 19:36:24'),
+        (145, 2015, 2015, NULL, NULL, NULL, 1, 1, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 20:01:41'),
+        (146, 2015, 2015, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (147, 2015, 2015, NULL, NULL, NULL, 1, 3, NULL, 9, '2021-01-23 18:22:55', '2021-01-23 20:13:12'),
+        (148, 2015, 2015, NULL, NULL, NULL, 1, 4, NULL, 26, '2021-01-23 18:22:55', '2021-01-23 20:10:08'),
+        (149, 2016, 2016, NULL, NULL, NULL, 1, 10, NULL, 5, '2021-01-23 18:22:55', '2021-01-23 19:26:26'),
+        (150, 2016, 2016, NULL, NULL, NULL, 1, 9, NULL, 3, '2021-01-23 18:22:55', '2021-01-23 19:36:35'),
+        (151, 2016, 2016, NULL, NULL, NULL, 1, 1, NULL, 10, '2021-01-23 18:22:55', '2021-01-23 20:04:50'),
+        (152, 2016, 2016, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (153, 2016, 2016, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (154, 2016, 2016, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (155, 2017, 2017, NULL, NULL, NULL, 1, 10, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (156, 2017, 2017, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (157, 2017, 2017, NULL, NULL, NULL, 1, 1, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (158, 2017, 2017, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (159, 2017, 2017, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (160, 2017, 2017, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (161, 2018, 2018, NULL, NULL, NULL, 1, 10, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (162, 2018, 2018, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (163, 2018, 2018, NULL, NULL, NULL, 1, 1, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (164, 2018, 2018, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (165, 2018, 2018, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (166, 2018, 2018, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (167, 2019, 2019, NULL, NULL, NULL, 1, 10, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (168, 2019, 2019, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (169, 2019, 2019, NULL, NULL, NULL, 1, 1, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (170, 2019, 2019, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (171, 2019, 2019, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (172, 2019, 2019, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (173, 2020, 2020, NULL, NULL, NULL, 1, 10, NULL, 13, '2021-01-23 18:22:55', '2021-01-23 19:26:58'),
+        (174, 2020, 2020, NULL, NULL, NULL, 1, 9, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (175, 2020, 2020, NULL, NULL, NULL, 1, 1, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (176, 2020, 2020, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (177, 2020, 2020, NULL, NULL, NULL, 1, 3, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55'),
+        (178, 2020, 2020, NULL, NULL, NULL, 1, 4, NULL, NULL, '2021-01-23 18:22:55', '2021-01-23 18:22:55');");
         // Log::info("Seed des saisons de Régional 1");
-        require 'app/scripts/import-saison-1.php';
+        // require 'app/scripts/import-saison-1.php';
         // Log::info("Seed des saisons de Régional 2");
-        require 'app/scripts/import-saison-2.php';
+        // require 'app/scripts/import-saison-2.php';
         // Log::info("Seed des saisons de Coupe de Mayotte");
         // require 'app/scripts/import-saison-4.php';
 
         // On insère les championnats de football
-        $footballId = Sport::whereSlug('football')->firstOrFail()->id;
+        // $footballId = Sport::whereSlug('football')->firstOrFail()->id;
 
-        $regional1Id = Competition::whereSlug('regional-1')->whereSportId($footballId)->firstOrFail()->id;
-        $regional2Id = Competition::whereSlug('regional-2')->whereSportId($footballId)->firstOrFail()->id;
-        $coupeMayotteId = Competition::whereSlug('coupe-de-mayotte')->whereSportId($footballId)->firstOrFail()->id;
-        $coupeDeFranceId = Competition::whereSlug('coupe-de-france')->whereSportId($footballId)->firstOrFail()->id;
-        $phnordId = Competition::whereSlug('regional-3-poule-nord')->whereSportId($footballId)->firstOrFail()->id;
-        $phsudId = Competition::whereSlug('regional-3-poule-sud')->whereSportId($footballId)->firstOrFail()->id;
+        // $regional1Id = Competition::whereSlug('regional-1')->whereSportId($footballId)->firstOrFail()->id;
+        // $regional2Id = Competition::whereSlug('regional-2')->whereSportId($footballId)->firstOrFail()->id;
+        // $coupeMayotteId = Competition::whereSlug('coupe-de-mayotte')->whereSportId($footballId)->firstOrFail()->id;
+        // $coupeDeFranceId = Competition::whereSlug('coupe-de-france')->whereSportId($footballId)->firstOrFail()->id;
+        // $phnordId = Competition::whereSlug('regional-3-poule-nord')->whereSportId($footballId)->firstOrFail()->id;
+        // $phsudId = Competition::whereSlug('regional-3-poule-sud')->whereSportId($footballId)->firstOrFail()->id;
 
-        for($annee = 1980; $annee <= date('Y') - 1; $annee++) {
-            App\Saison::create([
-                'competition_id' => $coupeMayotteId,
-                'annee_debut' => $annee,
-                'annee_fin' => $annee,
-                'finie' => 1,
-            ]);
+        // for($annee = 1980; $annee <= date('Y') - 1; $annee++) {
+        //     App\Saison::create([
+        //         'competition_id' => $coupeMayotteId,
+        //         'annee_debut' => $annee,
+        //         'annee_fin' => $annee,
+        //         'finie' => 1,
+        //     ]);
 
-            if($annee >= 1990){
-                App\Saison::create([
-                    'competition_id' => $coupeDeFranceId,
-                    'annee_debut' => $annee,
-                    'annee_fin' => $annee,
-                    'finie' => 1,
-                ]);
+        //     if($annee >= 1990){
+        //         App\Saison::create([
+        //             'competition_id' => $coupeDeFranceId,
+        //             'annee_debut' => $annee,
+        //             'annee_fin' => $annee,
+        //             'finie' => 1,
+        //         ]);
 
-                App\Saison::create([
-                    'competition_id' => $regional1Id,
-                    'annee_debut' => $annee,
-                    'annee_fin' => $annee,
-                    'finie' => 1,
-                ]);
+        //         App\Saison::create([
+        //             'competition_id' => $regional1Id,
+        //             'annee_debut' => $annee,
+        //             'annee_fin' => $annee,
+        //             'finie' => 1,
+        //         ]);
 
-                App\Saison::create([
-                    'competition_id' => $regional2Id,
-                    'annee_debut' => $annee,
-                    'annee_fin' => $annee,
-                    'finie' => 1,
-                ]);
-            }
+        //         App\Saison::create([
+        //             'competition_id' => $regional2Id,
+        //             'annee_debut' => $annee,
+        //             'annee_fin' => $annee,
+        //             'finie' => 1,
+        //         ]);
+        //     }
 
-            if($annee >= 2000){
-                App\Saison::create([
-                    'competition_id' => $phnordId,
-                    'annee_debut' => $annee,
-                    'annee_fin' => $annee,
-                    'finie' => 1,
-                ]);
+        //     if($annee >= 2000){
+        //         App\Saison::create([
+        //             'competition_id' => $phnordId,
+        //             'annee_debut' => $annee,
+        //             'annee_fin' => $annee,
+        //             'finie' => 1,
+        //         ]);
 
-                App\Saison::create([
-                    'competition_id' => $phsudId,
-                    'annee_debut' => $annee,
-                    'annee_fin' => $annee,
-                    'finie' => 1,
-                ]);
-            }
-        }
+        //         App\Saison::create([
+        //             'competition_id' => $phsudId,
+        //             'annee_debut' => $annee,
+        //             'annee_fin' => $annee,
+        //             'finie' => 1,
+        //         ]);
+        //     }
+        // }
     }
 }

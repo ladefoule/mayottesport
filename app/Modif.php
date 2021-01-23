@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modif extends Model
 {
+    const UPDATED_AT = NULL;
+
     /**
      * Champs autorisés lors de la création
      *
