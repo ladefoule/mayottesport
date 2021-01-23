@@ -16,7 +16,7 @@ class CreateRegionsTable extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->string('nom')->unique('region_unique')->comment('Trois régions possibles : Mayotte/Métropole ou Autre');
-			$table->timestamps();
+			// $table->timestamps();
 		});
 	}
 

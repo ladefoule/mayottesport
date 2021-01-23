@@ -1,5 +1,5 @@
 @section('section-droite')
-<div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
+<div class="my-3 bg-white shadow-div" {{-- style="background-color:#ebeff3" --}}>
     {{-- <h2 class="alert alert-danger h4 text-center py-4">Les derniers résultats</h2> --}}
     <div class="col-12 d-flex text-center p-2">
         <span data-cible="fil-actu-section-droite"

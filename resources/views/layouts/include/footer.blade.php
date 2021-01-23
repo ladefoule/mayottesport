@@ -4,7 +4,7 @@
 ?>
 
 <!-- Footer -->
-<footer class="col-12 footer font-small indigo text-white bg-dark mt-auto">
+<footer class="col-12 footer font-small indigo text-white h-auto bg-dark mt-auto">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
         <div class="row d-flex flex-basis-1 text-center">

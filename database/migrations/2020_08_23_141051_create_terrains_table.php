@@ -18,7 +18,7 @@ class CreateTerrainsTable extends Migration {
             $table->string('nom');
             $table->unsignedBigInteger('ville_id');
             $table->foreign('ville_id')->references('id')->on('villes')->onDelete('cascade');
-			$table->timestamps();
+			// $table->timestamps();
 		});
 	}
 

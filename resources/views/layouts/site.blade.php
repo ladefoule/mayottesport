@@ -16,6 +16,7 @@
                 @yield('section-droite')
             </section>
         @endif
+
     </div>
 
     {{-- Footer --}}

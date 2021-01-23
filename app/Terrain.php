@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Terrain extends Model
 {
+    public $timestamps = false;
+    
     /**
      * Champs autorisés lors de la création
      *

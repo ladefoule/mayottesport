@@ -10,7 +10,7 @@
 <div class="p-lg-3 h-100">
     {{-- classique écran large --}}
     <div class="d-none d-lg-flex h-100 p-0">
-        <div class="col-12 px-3 pt-2 bg-white">
+        <div class="col-12 px-3 pt-2 bg-white shadow-div">
             @if(! $articles && $competition)
                 <div class="row">
                     {{-- Image pour les compétitions/sports sans articles liés --}}

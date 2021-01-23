@@ -9,9 +9,9 @@
 
 @section('content')
 <div class="p-lg-3 h-100">
-    <div class="row bg-white justify-content-center m-0 h-100">
+    <div class="row bg-white shadow-div justify-content-center m-0 h-100">
         <div class="col-12 pb-3">
-            <h1 class="h4 text-center col-12 p-3">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
+            <h1 class="h4 text-center col-12 p-4">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
             <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3" style="font-size: 1.1rem">
                     <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.left') !!}</a>
                     <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">

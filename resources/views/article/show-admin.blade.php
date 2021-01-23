@@ -3,8 +3,8 @@
 @section('title', $article->titre)
 
 @section('content')
-<div class="p-lg-3">
-    <div class="row m-0 bg-white">
+<div class="p-lg-3 h-100">
+    <div class="row m-0 bg-white h-100 shadow-div">
         <div class="col-12 p-0 d-flex flex-wrap justify-content-center">
             <h1 class="col-12 titre-page-article py-3">
                 <span class="categorie">{{ $article->categorie }}</span>
@@ -27,7 +27,7 @@
 @endsection
 
 @section('section-droite')
-<div class="my-3 bg-white">
+<div class="my-3 bg-white shadow-div">
     <div class="col-12 text-center p-3 bg-white">
         <a class="mb-3 btn btn-success w-50" href="{{ route('article.update', ['uniqid' => $article->uniqid]) }}">Modifier l'article</a>
         <a class="mb-3 btn btn-primary w-50" href="{{ route('article.create') }}">Nouvel article</a>

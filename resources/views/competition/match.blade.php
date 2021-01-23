@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="row m-0 bg-white border pt-2">
+    <div class="row m-0 bg-white border border-secondary pt-2">
         <section class="col-12 pt-1">
             <div id="disqus_thread"></div>
             <script>

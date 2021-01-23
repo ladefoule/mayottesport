@@ -3,8 +3,8 @@
 @section('title', $article->titre)
 
 @section('content')
-<div class="p-lg-3">
-    <div class="row m-0 bg-white">
+<div class="p-lg-3 h-100">
+    <div class="row m-0 bg-white h-100 shadow-div">
         <div class="col-12 p-0">
             <h1 class="col-12 titre-page-article py-3">
                 <span class="categorie">{{ $article->categorie }}</span>
@@ -49,8 +49,8 @@
 @endsection
 
 @section('section-droite')
-<div class="my-3 bg-white">
-    <div class="col-12 d-flex text-center p-3">
+<div class="my-3 bg-white shadow-div">
+    <div class="col-12 d-flex text-center p-2">
         <span data-cible="bloc-fil-actu"
             class="d-block col-4 p-3 border btn btn-secondary onglet active">Fil actu</span>
         <span data-cible="bloc-resultats"

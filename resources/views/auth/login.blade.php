@@ -8,7 +8,7 @@
 {{-- <div class="row justify-content-center"> --}}
     <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
         <div class="card">
-            <div class="card-header h5 text-green">Connexion</div>
+            <div class="card-header h5">Connexion</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 

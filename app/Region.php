@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Region extends Model
 {
+    public $timestamps = false;
+    
     /**
      * Champs autorisés lors de la création
      *

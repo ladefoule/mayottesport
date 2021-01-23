@@ -32,7 +32,12 @@ class Journee extends Model
      */
     public static function rules(Journee $journee = null)
     {
-        $unique = Rule::unique('journees', 'numero', 'saison_id')->ignore($journee);
+        $saisonId = request()->input('saison_id');
+        $numero = request()->input('numero');
+
+        $unique = Rule::unique('journees')->where(function ($query) use ($saisonId, $numero) {
+            return $query->whereSaisonId($saisonId)->whereNumero($numero);
+        })->ignore($journee);
 
         $rules = [
             'date' => 'nullable|date',

@@ -1,5 +1,8 @@
 <?php
 // On insère 5 saisons de Régional 1 (football)
+
+use App\Journee;
+
 for ($i=0; $i < 2; $i++) {
     $saison = App\Saison::create([
         'annee_debut' => date('Y') - $i,
@@ -111,12 +114,19 @@ for ($i=0; $i < 2; $i++) {
     $diffAllerRetour = 11; // Différence en nombre de jours entre le match aller et le retour
 
     $donnees = [
-    'heure' => $heure,
-    'saisonId' => $saisonId,
-    'idsEquipes' => $idsEquipes,
-    'rencontres' => $rencontres,
-    'diffAllerRetour' => $diffAllerRetour
+        'heure' => $heure,
+        'saisonId' => $saisonId,
+        'idsEquipes' => $idsEquipes,
+        'rencontres' => $rencontres,
+        'diffAllerRetour' => $diffAllerRetour
     ];
+
+    for ($i=1; $i <= 22; $i++) { 
+        Journee::create([
+            'saison_id' => $saisonId,
+            'numero' => $i
+        ]);
+    }
 
     genererCalendrier($donnees);
 }

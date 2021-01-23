@@ -62,8 +62,8 @@
             @yield('content')
         </main>
         <section id="section-droite" class="col-4 d-none d-lg-block pl-0">
-            <div class="my-3 bg-white" {{-- style="background-color:#ebeff3" --}}>
-                <div class="col-12 d-flex text-center p-2 bg-white">
+            <div class="my-3 bg-white shadow-div">
+                <div class="col-12 d-flex text-center p-2">
                     <span data-cible="resultats-section-droite"
                         class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</span>
                     <span data-cible="prochains-section-droite"

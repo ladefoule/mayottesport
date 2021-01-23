@@ -21,7 +21,8 @@ class CreateModifsTable extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('match_id');
             $table->foreign('match_id')->references('id')->on('matches')->onDelete('cascade');
-			$table->timestamps();
+            // $table->timestamps();
+            $table->timestamp('created_at');
 		});
 	}
 

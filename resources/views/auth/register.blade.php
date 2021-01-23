@@ -7,7 +7,7 @@
     {{-- <div class="container border border-danger w-100">
         <div class="row justify-content-center p-3"> --}}
         <div class="card">
-            <div class="card-header position-relative text-green h5">S'inscrire</div>
+            <div class="card-header position-relative h5">S'inscrire</div>
 
             <div class="text-danger text-right pr-3 pt-2">* champs obligatoires</div>
 

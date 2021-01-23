@@ -1,15 +1,17 @@
 @section('content')
-<div class="p-0">
+{{-- <div class="p-0"> --}}
     {{-- classique écran large --}}
-    <div class="d-none d-lg-block p-3">
-        <div class="col-12 p-3 bg-white d-flex flex-wrap justify-content-start align-items-stretch">
-            @if(! $articles && isset($sport) && $sport)
-                <div class="row">
-                    {{-- Image pour les sports sans articles liés --}}
-                    <img src="{{ asset('/storage/img/sport/'. $sport->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
-                </div>
-            @endif
-            {!! $articles !!}
+    <div class="d-none d-lg-block p-3 h-100">
+        <div class="col-12 p-0 h-100 bg-white shadow-div">
+            <div class="col-12 p-3 d-flex flex-wrap justify-content-start align-items-stretch">
+                @if(! $articles && isset($sport) && $sport)
+                    <div class="row">
+                        {{-- Image pour les sports sans articles liés --}}
+                        <img src="{{ asset('/storage/img/sport/'. $sport->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
+                    </div>
+                @endif
+                {!! $articles !!}
+            </div>
         </div>
     </div>
 
@@ -76,5 +78,5 @@
             @endforeach
         </div>
     </div>
-</div>
+{{-- </div> --}}
 @endsection
