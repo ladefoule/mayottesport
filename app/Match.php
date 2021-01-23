@@ -178,7 +178,7 @@ class Match extends Model
                 'acces_bloque' => $this->acces_bloque,
                 'journee' => niemeJournee($journee->numero),
                 'competition' => $competition->nom,
-                'lieu' => $this->terrain ? $this->terrain->nom . ' (' . $this->terrain->ville->nom . ')' : $equipeDom->ville->nom,
+                'lieu' => $this->terrain ? $this->terrain->nom . ' (' . $this->terrain()->ville->nom . ')' : $equipeDom->ville->nom,
                 'resultat_eq_dom' => $this->resultat($this->equipe_id_dom),
                 'resultat_eq_ext' => $this->resultat($this->equipe_id_ext),
                 'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomSlug, 'competition' => $competitionNomSlug,'uniqid' => $this->uniqid]),
