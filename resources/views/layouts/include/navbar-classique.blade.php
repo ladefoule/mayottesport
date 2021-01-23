@@ -7,8 +7,8 @@
 <nav class="navbar fixed-top navbar-light navbar-expand-lg border-bottom-defaut bg-white p-0">
    <div class="container">
        <a class="navbar-brand pl-3 pl-md-0" href="{{ route('home') }}"><img class="logo img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport"></a>
-       <button class="navbar-toggler mr-3 mr-md-0" type="button" {{-- data-toggle="collapse" data-target="#navbarSupportedContent" --}}
-           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-toggle="modal" data-target="#exampleModal">
+       <button class="navbar-toggler mr-3 mr-md-0" type="button"
+           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-toggle="modal" data-target="#navbarModal">
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2 align-self-stretch" id="navbarSupportedContent">

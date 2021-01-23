@@ -1,9 +1,9 @@
 <!-- Modal NAVBAR MOBILE -->
-<div class="modal fade {{-- d-lg-none --}}" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade {{-- d-lg-none --}}" id="navbarModal" tabindex="-1" aria-labelledby="navbarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header align-items-center">
-          {{-- <h5 class="modal-title" id="exampleModalLabel">LE MENU</h5> --}}
+          {{-- <h5 class="modal-title" id="navbarModalLabel">LE MENU</h5> --}}
           <img class="logo img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

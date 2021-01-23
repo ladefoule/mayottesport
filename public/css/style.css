@@ -99,16 +99,6 @@ a:hover{
     color:green !important
 }
 
-.navbar-scroll-x{
-    margin-top:60px;
-    /* background-color: rgb(220, 220, 220); */
-    /* background: linear-gradient(#e0e1e6, #656fe4); */
-    /* background: linear-gradient(#707bf5, #bcbdc2); */
-    /* border-bottom: none !important; */
-    /* border-top: solid blue 1px !important; */
-    /* height: auto; */
-}
-
 .calendrier{
     font-size: 0.9rem;
 }

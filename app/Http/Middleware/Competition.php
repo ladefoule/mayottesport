@@ -45,7 +45,7 @@ class Competition
         $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
         $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
 
-        if($saison){
+        if($saison && count($saison->matches) > 0){
             $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
 
             if($competition->type == 1) // Type Championnat
