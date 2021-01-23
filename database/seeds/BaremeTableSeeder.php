@@ -20,7 +20,7 @@ class BaremeTableSeeder extends Seeder
                 'victoire' => 3,
                 'nul' => 1,
                 'defaite' => 0,
-                'created_at' => now(),
+                // 'created_at' => now(),
                 // 'updated_at' => now()
             ]);
         }
@@ -34,7 +34,7 @@ class BaremeTableSeeder extends Seeder
                 // 'victoire' => 2,
                 // 'nul' => 1,
                 // 'defaite' => 0,
-                'created_at' => now(),
+                // 'created_at' => now(),
                 // 'updated_at' => now()
             ]);
         }
@@ -48,7 +48,7 @@ class BaremeTableSeeder extends Seeder
                 'victoire' => 2,
                 'nul' => 1,
                 'defaite' => 0,
-                'created_at' => now(),
+                // 'created_at' => now(),
                 // 'updated_at' => now()
             ]);
         }
@@ -62,7 +62,7 @@ class BaremeTableSeeder extends Seeder
                 'victoire' => 2,
                 'nul' => 1,
                 'defaite' => 0,
-                'created_at' => now(),
+                // 'created_at' => now(),
                 // 'updated_at' => now()
             ]);
         }
@@ -76,7 +76,7 @@ class BaremeTableSeeder extends Seeder
                 'victoire' => 2,
                 'nul' => 1,
                 'defaite' => 0,
-                'created_at' => now(),
+                // 'created_at' => now(),
                 // 'updated_at' => now()
             ]);
         }
