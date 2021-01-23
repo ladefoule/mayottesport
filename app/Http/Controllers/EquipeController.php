@@ -106,7 +106,7 @@ class EquipeController extends Controller
         $calendriers = Journee::calendriersPageSport($sport);
         $filActualites = Article::filActu($sport);
 
-        $title = $equipe->nom . ' - ' . $sport->nom;
+        $title = $equipe->nom_complet . ' - ' . $sport->nom;
         return view('equipe.index', [
             'equipe' => $equipe,
             'title' => $title,

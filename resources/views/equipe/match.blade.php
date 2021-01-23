@@ -11,7 +11,7 @@
            @if (! $domicile)
                <a class="text-dark" href="{{ $hrefEqDom }}">
            @endif
-           <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" style="width:25px">
+           <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" {{-- style="width:20px" --}}>
            @if (! $domicile)
                </a>
            @endif
@@ -43,7 +43,7 @@
            @if ($domicile)
                <a class="text-dark" href="{{ $hrefEqExt }}">
            @endif
-           <img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" style="width:25px">
+           <img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" {{-- style="width:20px" --}}>
            @if ($domicile)
                </a>
            @endif

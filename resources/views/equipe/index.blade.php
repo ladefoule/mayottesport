@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-lg-3 h-100">
-    <div class="row d-flex flex-wrap m-0 bg-white">
+    <div class="row d-flex flex-wrap m-0 bg-white shadow-div">
         <div class="col-12 d-flex px-0 pb-3">
             <img src="{{ asset('/storage/img/equipe/'. $equipe->uniqid .'.jpg') }}" alt="" class="img-fluid m-auto">
         </div>

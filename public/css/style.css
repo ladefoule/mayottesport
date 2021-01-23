@@ -309,7 +309,7 @@ a.non-cliquable, a.non-cliquable:hover{
 }
 
 .fanion-page-equipe{
-    width:35px;
+    width:30px;
 }
 
 .equipe-align-auto{
@@ -420,6 +420,10 @@ a.non-cliquable, a.non-cliquable:hover{
     @media (min-width: 768px) {
         .equipe-align-auto, .logo-align-auto{
             margin: 0;
+        }
+
+        .fanion-page-equipe{
+            width:35px;
         }
     
         .equipe-exterieur{

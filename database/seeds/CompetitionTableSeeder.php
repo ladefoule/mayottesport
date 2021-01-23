@@ -28,7 +28,7 @@ class CompetitionTableSeeder extends Seeder
             ['nom' => 'Coupe de France', 'type' => 2, 'home_position' => 3, 'index_position' => 3, 'navbar_position' => 3],
             ['nom' => 'Coupe de Mayotte', 'type' => 2, 'home_position' => 4, 'index_position' => 4, 'navbar_position' => 4],
         ];
-        foreach ($competitions as $i => $competition) {
+        foreach ($competitions as $competition) {
             $competitionModel = App\Competition::create([
                 'nom' => $competition['nom'],
                 'slug' => Str::slug($competition['nom']),
@@ -44,7 +44,8 @@ class CompetitionTableSeeder extends Seeder
         }
 
         // On insère les championnats de handball
-        $handballId = Sport::whereSlug('handball')->firstOrFail()->id;
+        $handball = Sport::whereSlug('handball')->firstOrFail();
+        $handballId = $handball->id;
         $competitions = [
             ['nom' => 'Prénationale masculins', 'type' => 1],
             ['nom' => 'PNM, poule A', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
@@ -59,8 +60,8 @@ class CompetitionTableSeeder extends Seeder
             ['nom' => 'EXF, poule A', 'type' => 1],
             ['nom' => 'EXF, poule B', 'type' => 1],
         ];
-        foreach ($competitions as $i => $competition) {
-            App\Competition::create([
+        foreach ($competitions as $competition) {
+            $competitionModel = App\Competition::create([
                 'nom' => $competition['nom'],
                 'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
@@ -69,6 +70,9 @@ class CompetitionTableSeeder extends Seeder
                 'index_position' => $competition['index_position'] ?? NULL,
                 'created_at' => now(),
             ]);
+
+            if(isset($competition['navbar_position']))
+                $handball->competitionsNavbar()->attach($competitionModel->id, ['position' => $competition['navbar_position']]);
         }
 
         // On insère les championnats de basketball
@@ -78,8 +82,8 @@ class CompetitionTableSeeder extends Seeder
             ['nom' => 'Régionale 2', 'type' => 1],
             ['nom' => 'Prénationale féminine', 'type' => 1],
         ];
-        foreach ($competitions as $i => $competition) {
-            App\Competition::create([
+        foreach ($competitions as $competition) {
+            $competitionModel = App\Competition::create([
                 'nom' => $competition['nom'],
                 'slug' => Str::slug($competition['nom']),
                 'type' => $competition['type'],
@@ -88,6 +92,9 @@ class CompetitionTableSeeder extends Seeder
                 'index_position' => $competition['index_position'] ?? NULL,
                 'created_at' => now(),
             ]);
+
+            if(isset($competition['navbar_position']))
+                $handball->competitionsNavbar()->attach($competitionModel->id, ['position' => $competition['navbar_position']]);
         }
     }
 }

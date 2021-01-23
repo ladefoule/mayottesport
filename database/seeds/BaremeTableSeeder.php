@@ -20,65 +20,39 @@ class BaremeTableSeeder extends Seeder
                 'victoire' => 3,
                 'nul' => 1,
                 'defaite' => 0,
-                // 'created_at' => now(),
-                // 'updated_at' => now()
             ]);
         }
 
-        // On insère 1 barème
-        $baremes = ['Volley - Classique'];
-        foreach ($baremes as $bareme) {
-            App\Bareme::create([
-                'nom' => $bareme,
-                'sport_id' => 2,
-                // 'victoire' => 2,
-                // 'nul' => 1,
-                // 'defaite' => 0,
-                // 'created_at' => now(),
-                // 'updated_at' => now()
-            ]);
-        }
+        // On insère 1 barème de Volley
+        App\Bareme::create([
+            'nom' => 'Volley - Classique',
+            'sport_id' => 2,
+        ]);
 
-        // On insère 1 barème
-        $baremes = ['Handball - Classique'];
-        foreach ($baremes as $bareme) {
-            App\Bareme::create([
-                'nom' => $bareme,
-                'sport_id' => 3,
-                'victoire' => 2,
-                'nul' => 1,
-                'defaite' => 0,
-                // 'created_at' => now(),
-                // 'updated_at' => now()
-            ]);
-        }
+        // On insère 1 barème de Handball
+        App\Bareme::create([
+            'nom' => 'Handball - Classique',
+            'sport_id' => 3,
+            'victoire' => 2,
+            'nul' => 1,
+            'defaite' => 0,
+        ]);
 
-        // On insère 1 barème
-        $baremes = ['Basketball - Classique'];
-        foreach ($baremes as $bareme) {
-            App\Bareme::create([
-                'nom' => $bareme,
-                'sport_id' => 4,
-                'victoire' => 2,
-                'nul' => 1,
-                'defaite' => 0,
-                // 'created_at' => now(),
-                // 'updated_at' => now()
-            ]);
-        }
+        // On insère 1 barème de Basketball
+        App\Bareme::create([
+            'nom' => 'Basketball - Classique',
+            'sport_id' => 4,
+            'victoire' => 2,
+            'defaite' => 0,
+        ]);
 
-        // On insère 1 barème
-        $baremes = ['Rugby - Classique'];
-        foreach ($baremes as $bareme) {
-            App\Bareme::create([
-                'nom' => $bareme,
-                'sport_id' => 5,
-                'victoire' => 2,
-                'nul' => 1,
-                'defaite' => 0,
-                // 'created_at' => now(),
-                // 'updated_at' => now()
-            ]);
-        }
+        // On insère 1 barème de Rugby
+        App\Bareme::create([
+            'nom' => 'Rugby - Classique',
+            'sport_id' => 5,
+            'victoire' => 2,
+            'nul' => 1,
+            'defaite' => 0,
+        ]);
     }
 }
