@@ -2,6 +2,7 @@
 // On insère 5 saisons de Régional 1 (football)
 
 use App\Journee;
+use Illuminate\Support\Carbon;
 
 for ($i=0; $i < 2; $i++) {
     $saison = App\Saison::create([
@@ -121,10 +122,12 @@ for ($i=0; $i < 2; $i++) {
         'diffAllerRetour' => $diffAllerRetour
     ];
 
-    for ($i=1; $i <= 22; $i++) { 
+    $date = new Carbon(now());
+    for ($i=1; $i <= 22; $i++) {
         Journee::create([
             'saison_id' => $saisonId,
-            'numero' => $i
+            'numero' => $i,
+            'date' => $date->addDays($i-1)
         ]);
     }
 
