@@ -14,12 +14,10 @@
 
 {{-- Header --}}
 @include('layouts.include.header')
-{{-- Fin Header --}}
 
 <body class="d-flex flex-wrap">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-classique')
-    {{-- Fin Navbar principal --}}
 
     <div class="col-12 mx-auto p-0">
         {{-- Section scroll X --}}
@@ -56,7 +54,6 @@
                 </div>
             </div>
         </div>
-        {{-- Fin Section scroll X --}}
 
         <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0" style="max-width: 1300px">
             <main class="col-lg-8 col-xl-8 p-0">
@@ -105,7 +102,6 @@
 
     {{-- Footer --}}
     @include('layouts.include.footer')
-    {{-- Fin Footer --}}
 </body>
 
 </html>

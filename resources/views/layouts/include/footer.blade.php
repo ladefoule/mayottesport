@@ -25,7 +25,7 @@
                         ?>
                         @foreach ($competitionsNavbar->slice(0, 5) as $competition)
                             <li>
-                                <a class="text-light"
+                                <a class="text-light footer-link"
                                     href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
@@ -39,14 +39,14 @@
             @endforeach
             <div class="col-6 col-md-4 col-lg-2 px-3">
                 <a href="{{ route('home') }}">
-                    <h5 class="font-weight-bold mt-3 mb-2 text-white text-center">Accueil</h5>
+                    <h5 class="h4 font-weight-bold mt-3 mb-2 text-white text-center">Accueil</h5>
                 </a>
                 <ul class="list-unstyled">
                     <li>
-                        <a class="text-light" href="{{ route('contact') }}">Contactez-nous</a>
+                        <a class="footer-link text-light" href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
                     <li>
-                        <a class="text-light" href="{{ route('politique') }}">Notre politique des cookies</a>
+                        <a class="footer-link text-light" href="{{ route('politique') }}">Notre politique des cookies</a>
                     </li>
                 </ul>
             </div>
@@ -63,8 +63,14 @@
     <!-- Social buttons -->
 
     <!-- Copyright -->
-    <div class="row footer-copyright justify-content-center text-center py-3 bg-body">© {{ date('Y') }} Copyright:
-        <a class="px-1 text-green-light" href="{{ asset('/') }}">mayottesport.com</a>
+    <div class="row d-flex flex-wrap footer-copyright justify-content-center text-center py-3 bg-body">
+        <p class="w-100 p-0 m-0">
+            © {{ date('Y') }} Copyright:
+            <a class="px-1 text-success" href="{{ asset('/') }}">mayottesport.com</a>
+        </p>
+        <p class="w-100 p-0 m-0">
+            Réalisé par Moussa ALI MOUSSA - <a href="{{ route('contact') }}" class="text-success">Web Solutions</a>
+        </p>
     </div>
     <!-- Copyright -->
 </footer>

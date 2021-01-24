@@ -27,7 +27,7 @@
                                         <a class="dropdown-item @if(request()->route()->getName() == 'sport.index' && request()->route('sport') == $sport->slug) active bg-success @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
                                         @foreach ($competitions->where('sport_id', $sport->id) as $competition)
                                             <a class="dropdown-item @if(request()->route()->getName() == 'competition.index' && request()->route('competition') == $competition->slug_complet) active bg-success @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
-                                                {{ $competition->nom }}
+                                                {{ $competition->nom_complet }}
                                             </a>
                                         @endforeach
                                     </div>
@@ -43,7 +43,7 @@
                         @endforeach
                         {{-- <a class="border-bottom nav-item nav-link text-body px-3" href="{{ asset('/autres') }}">Autres</a> --}}
                         <a class="border-bottom nav-item nav-link text-body mx-0" href="{{ asset('/contact') }}">
-                            <span style="font-size:1.1rem" class="ml-2 pl-1">{!! config('listes.boutons.contact') !!}</span> Contact
+                            <span style="font-size:1.1rem" class="ml-2 pl-1 mr-1">{!! config('listes.boutons.contact') !!}</span> Contact
                         </a>
                     </ul>
                     <?php

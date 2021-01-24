@@ -34,9 +34,13 @@ footer{
 }
 
 .navbar-mobile{
-    font-size:1.1rem;
+    font-size:1.15rem;
     /* background-color: #ebeff3 !important; */
     /* background-color: #ebeff3 !important; */
+}
+
+.footer-copyright, .footer-link, .navbar-mobile .dropdown-item{
+    font-size: 1rem;
 }
 
 .border-bottom-dashed{

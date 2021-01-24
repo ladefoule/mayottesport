@@ -5,12 +5,10 @@
 
 {{-- Header --}}
 @include('layouts.include.header')
-{{-- Fin Header --}}
 
 <body class="d-flex flex-wrap">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-classique')
-    {{-- Fin Navbar principal --}}
 
     <div class="col-12 mx-auto p-0">
         @if(count($competitions) > 0)
@@ -26,12 +24,15 @@
                                 </button>
                             </a>
                         @endforeach
-                        <button class="mr-3 btn btn-link" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</button>
+
+                        {{-- Si on a plus de compétitions que affichés --}}
+                        @if(count($sport->competitions) > count($competitions))
+                            <button class="mr-3 btn btn-link" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</button>
+                        @endif
                     </div>
                 </div>
             </div>
         </section>
-        {{-- Fin Section scroll X --}}
         @endif
 
         <div class="d-flex flex-wrap col-12 justify-content-center mx-auto mb-auto p-0 @if(count($competitions) == 0) top-main-site @endif" style="max-width: 1300px">
@@ -48,7 +49,6 @@
 
     {{-- Footer --}}
     @include('layouts.include.footer')
-    {{-- Fin Footer --}}
 </body>
 
 </html>

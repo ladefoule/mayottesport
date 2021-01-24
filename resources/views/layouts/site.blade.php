@@ -1,11 +1,9 @@
 {{-- Header --}}
 @include('layouts.include.header')
-{{-- Fin Header --}}
 
 <body class="d-flex flex-wrap">
     {{-- Navbar principal --}}
     @include('layouts.include.navbar-classique')
-    {{-- Fin Navbar principal --}}
 
     <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0 top-main-site" style="max-width: 1300px">
         <main class="col-12 @if(View::hasSection('section-droite')) col-lg-8 @endif p-0">
@@ -20,8 +18,6 @@
 
     {{-- Footer --}}
     @include('layouts.include.footer')
-    {{-- Fin Footer --}}
-
 </body>
 
 </html>

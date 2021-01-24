@@ -49,18 +49,18 @@ class CompetitionTableSeeder extends Seeder
         $handball = Sport::whereSlug('handball')->firstOrFail();
         $handballId = $handball->id;
         $competitions = [
-            ['nom' => 'Prénationale masculins', 'type' => 1],
-            ['nom' => 'PNM, poule A', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
-            ['nom' => 'PNM, poule B', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
-            ['nom' => 'Prénationale féminins', 'type' => 1],
-            ['nom' => 'PNF, poule A', 'type' => 1, 'index_position' => 3, 'navbar_position' => 3],
-            ['nom' => 'PNF, poule B', 'type' => 1, 'index_position' => 4, 'navbar_position' => 4],
-            ['nom' => 'Excellence masculins', 'type' => 1],
-            ['nom' => 'EXM, poule A', 'type' => 1, 'index_position' => 5, 'navbar_position' => 5],
-            ['nom' => 'EXM, poule B', 'type' => 1, 'index_position' => 6, 'navbar_position' => 6],
-            ['nom' => 'Excellence féminins', 'type' => 1],
-            ['nom' => 'EXF, poule A', 'type' => 1],
-            ['nom' => 'EXF, poule B', 'type' => 1],
+            ['nom' => 'Prénationale M', 'nom_complet' => 'Prénationale masculins', 'type' => 1],
+            ['nom' => 'PNM poule A', 'nom_complet' => 'Prénationale masculins poule A', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
+            ['nom' => 'PNM poule B', 'nom_complet' => 'Prénationale masculins poule B', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
+            ['nom' => 'Prénationale F', 'nom_complet' => 'Prénationale féminines', 'type' => 1],
+            ['nom' => 'PNF poule A', 'nom_complet' => 'Prénationale féminines poule A', 'type' => 1, 'index_position' => 3, 'navbar_position' => 3],
+            ['nom' => 'PNF poule B', 'nom_complet' => 'Prénationale féminines poule B', 'type' => 1, 'index_position' => 4, 'navbar_position' => 4],
+            ['nom' => 'Excellence M', 'nom_complet' => 'Excellence masculins', 'type' => 1],
+            ['nom' => 'EXM poule A', 'nom_complet' => 'Excellence masculins poule A', 'type' => 1, 'index_position' => 5, 'navbar_position' => 5],
+            ['nom' => 'EXM poule B', 'nom_complet' => 'Excellence masculins poule B', 'type' => 1, 'index_position' => 6, 'navbar_position' => 6],
+            ['nom' => 'Excellence F', 'nom_complet' => 'Excellence féminines', 'type' => 1],
+            ['nom' => 'EXF poule A', 'nom_complet' => 'Excellence féminines poule A', 'type' => 1],
+            ['nom' => 'EXF poule B', 'nom_complet' => 'Excellence féminines poule B', 'type' => 1],
         ];
         foreach ($competitions as $competition) {
             $competitionModel = App\Competition::create([
@@ -80,11 +80,13 @@ class CompetitionTableSeeder extends Seeder
         }
 
         // On insère les championnats de basketball
-        $basketballId = Sport::whereSlug('basketball')->firstOrFail()->id;
+        $basketball = Sport::whereSlug('basketball')->firstOrFail();
+        $basketballId = $basketball->id;
         $competitions = [
-            ['nom' => 'Prénationale', 'type' => 1],
-            ['nom' => 'Régionale 2', 'type' => 1],
-            ['nom' => 'Prénationale féminine', 'type' => 1],
+            ['nom' => 'Prénationale M', 'nom_complet' => 'Prénationale masculine', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
+            ['nom' => 'Régionale 2 M', 'nom_complet' => 'Régionale 2 masculine', 'type' => 1, 'index_position' => 3, 'navbar_position' => 3],
+            ['nom' => 'Régionale 3 M', 'nom_complet' => 'Régionale 3 masculine', 'type' => 1, 'index_position' => 4, 'navbar_position' => 4],
+            ['nom' => 'Prénationale F', 'nom_complet' => 'Prénationale féminine', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
         ];
         foreach ($competitions as $competition) {
             $competitionModel = App\Competition::create([
@@ -100,7 +102,55 @@ class CompetitionTableSeeder extends Seeder
             ]);
 
             if(isset($competition['navbar_position']))
-                $handball->competitionsNavbar()->attach($competitionModel->id, ['position' => $competition['navbar_position']]);
+                $basketball->competitionsNavbar()->attach($competitionModel->id, ['position' => $competition['navbar_position']]);
+        }
+
+        // On insère les championnats de volleyball
+        $volleyball = Sport::whereSlug('volleyball')->firstOrFail();
+        $volleyballId = $volleyball->id;
+        $competitions = [
+            ['nom' => 'Régionale 1 M', 'nom_complet' => 'Régionale 1 masculine', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
+            ['nom' => 'Régionale 2 M', 'nom_complet' => 'Régionale 2 masculine', 'type' => 1, 'index_position' => 3, 'navbar_position' => 3],
+            ['nom' => 'Régionale 1 F', 'nom_complet' => 'Régionale 1 féminine', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
+        ];
+        foreach ($competitions as $competition) {
+            $competitionModel = App\Competition::create([
+                'nom' => $competition['nom'],
+                'slug' => Str::slug($competition['nom']),
+                'nom_complet' => $competition['nom_complet'] ?? $competition['nom'],
+                'slug_complet' => isset($competition['nom_complet']) ? Str::slug($competition['nom_complet']) : Str::slug($competition['nom']),
+                'type' => $competition['type'],
+                'sport_id' => $volleyballId,
+                'home_position' => $competition['home_position'] ?? NULL,
+                'index_position' => $competition['index_position'] ?? NULL,
+                'created_at' => now(),
+            ]);
+
+            if(isset($competition['navbar_position']))
+                $volleyball->competitionsNavbar()->attach($competitionModel->id, ['position' => $competition['navbar_position']]);
+        }
+
+        // On insère les championnats de rugby
+        $rugby = Sport::whereSlug('rugby')->firstOrFail();
+        $rugbyId = $rugby->id;
+        $competitions = [
+            ['nom' => 'Honneur', 'nom_complet' => 'Honneur territorial', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
+        ];
+        foreach ($competitions as $competition) {
+            $competitionModel = App\Competition::create([
+                'nom' => $competition['nom'],
+                'slug' => Str::slug($competition['nom']),
+                'nom_complet' => $competition['nom_complet'] ?? $competition['nom'],
+                'slug_complet' => isset($competition['nom_complet']) ? Str::slug($competition['nom_complet']) : Str::slug($competition['nom']),
+                'type' => $competition['type'],
+                'sport_id' => $rugbyId,
+                'home_position' => $competition['home_position'] ?? NULL,
+                'index_position' => $competition['index_position'] ?? NULL,
+                'created_at' => now(),
+            ]);
+
+            if(isset($competition['navbar_position']))
+                $rugby->competitionsNavbar()->attach($competitionModel->id, ['position' => $competition['navbar_position']]);
         }
     }
 }
