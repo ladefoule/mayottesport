@@ -126,7 +126,7 @@ class Journee extends Model
                 if($derniereJournee)
                     $resultats[] = [
                         'competition_nom' => $competition->nom,
-                        'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
+                        'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]),
                         'journee_render' => journee($derniereJournee->id)->render
                     ];
     
@@ -135,7 +135,7 @@ class Journee extends Model
                 if($prochaineJournee)
                     $prochains[] = [
                         'competition_nom' => $competition->nom,
-                        'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]),
+                        'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]),
                         'journee_render' => journee($prochaineJournee->id)->render
                     ];
             }

@@ -87,7 +87,10 @@ class Saison extends Model
             $type = $this->competition->type;
             $collect = collect();
             if($type == 1)
-                $collect['classement'] = $this->classement();
+                if($this->competition->sport->slug == 'volleyball')
+                    $collect['classement'] = $this->classementVolley();
+                else
+                    $collect['classement'] = $this->classement();
 
             $collect['derniere_journee_id'] = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first()->id ?? '';
             $collect['prochaine_journee_id'] = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? '';
@@ -108,6 +111,88 @@ class Saison extends Model
 
         $bareme = index('baremes')[$this->bareme_id];
         $sport = index('sports')[$bareme->sport_id];
+        $matches = [];
+        foreach($this->equipes as $equipe){
+            $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);
+            $matchesRetour = $this->matches->where('equipe_id_ext', $equipe->id);
+            $matches[$equipe->id] = $matchesAller->merge($matchesRetour);
+        }
+
+        $classement = [];
+        $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
+        $idBasketball = index('sports')->filter(function ($value, $key) {
+            return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
+        })->first()->id ?? 0;
+        $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
+        foreach ($matches as $equipeId => $matchesEquipe) {
+            $equipe = index('equipes')[$equipeId];
+            $sport = index('sports')[$sport->id];
+            $hrefEquipe = route('equipe.index', ['sport' => Str::slug($sport->nom), 'equipe' => Str::slug($equipe->nom), 'uniqid' => $equipe->uniqid]);
+            $nomEquipe = $equipe->nom;
+            $fanionEquipe = fanion($equipe->id);
+
+            $classement[$equipeId]['id'] = $equipeId;
+            $classement[$equipeId]['nom'] = $nomEquipe;
+            $classement[$equipeId]['hrefEquipe'] = $hrefEquipe;
+            $classement[$equipeId]['fanion'] = $fanionEquipe;
+
+            $classement[$equipeId]['points'] = 0;
+            $classement[$equipeId]['joues'] = 0;
+            $classement[$equipeId]['victoire'] = 0;
+            $classement[$equipeId]['marques'] = 0;
+            $classement[$equipeId]['encaisses'] = 0;
+
+            if($sport->id != $idBasketball && $sport->id != $idVolleyball)
+                $classement[$equipeId]['nul'] = 0;
+
+            $classement[$equipeId]['defaite'] = 0;
+            foreach ($matchesEquipe as $match) {
+                if($match->resultat($equipeId) != false){
+                    $classement[$equipeId]['joues']++;
+
+                    $resultat = $match->resultat($equipeId);
+                    $marques = $resultat['marques'];
+                    $encaisses = $resultat['encaisses'];
+                    $resultat = $resultat['resultat'];
+
+                    $classement[$equipeId][$resultat]++;
+                    $classement[$equipeId]['points'] += $bareme->$resultat;
+
+                    $classement[$equipeId]['marques'] += $marques;
+                    $classement[$equipeId]['encaisses'] += $encaisses;
+                }
+            }
+
+            $classement[$equipeId]['diff'] = $classement[$equipeId]['marques'] - $classement[$equipeId]['encaisses'];
+        };
+
+        // Tri du classement : Points/Diff/Marques
+        usort($classement , 'compare');
+
+        return collect($classement);
+    }
+
+    /**
+     * Génération du classement de la saison de volleyball
+     *
+     * @param int $sportId
+     * @return \Illuminate\Support\Collection
+     */
+    public function classementVolley()
+    {
+        if(! $this->bareme_id)
+            return [];
+
+        $bareme = index('baremes')[$this->bareme_id];
+        $proprietes = config('listes.proprietes-baremes');
+        $baremeInfos = index('bareme_infos')->where('bareme_id', $bareme->id);
+
+        foreach ($baremeInfos as $info)
+            $infosSup[$proprietes[$info->propriete_id][0]] = $info->valeur;
+
+        $bareme = collect($infosSup)->merge(['forfait' => $bareme->forfait, 'sport_id' => $bareme->sport_id]);
+// dd($bareme);
+        $sport = index('sports')[$bareme['sport_id']];
         $matches = [];
         foreach($this->equipes as $equipe){
             $matchesAller = $this->matches->where('equipe_id_dom', $equipe->id);

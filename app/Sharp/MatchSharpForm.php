@@ -238,7 +238,9 @@ class MatchSharpForm extends SharpForm
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'date|6', 'heure|6', 'equipe_id_dom|6', 'equipe_id_ext|6');
             $column->withFields('score_eq_dom|6', 'score_eq_ext|6', 'forfait_eq_dom|3', 'penalite_eq_dom|3', 'forfait_eq_ext|3', 'penalite_eq_ext|3');
-            $column->withFields('avec_tirs_au_but', 'tab_eq_dom|6', 'tab_eq_ext|6', 'updated_at|6', 'user|6');
+            if($this->sportSlug != 'volleyball')
+                $column->withFields('avec_tirs_au_but', 'tab_eq_dom|6', 'tab_eq_ext|6');
+            $column->withFields('updated_at|6', 'user|6');
         });
 
     }

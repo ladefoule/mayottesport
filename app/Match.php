@@ -80,8 +80,8 @@ class Match extends Model
         // $uniqueEqJourneeExt = Rule::unique('matches', 'journee_id', 'equipe_id_ext')->ignore($match);
 
         $uniqueWithJourneeId = Rule::unique('matches')->where(function ($query) use ($journeeId) {
-            return $query->whereJourneeId($sportId);
-        })->ignore($equipe);
+            return $query->whereJourneeId($journeeId);
+        })->ignore($match);
 
         // request()['acces_bloque'] = request()->has('acces_bloque');
         // request()['forfait_eq_dom'] = request()->has('forfait_eq_dom');
@@ -152,7 +152,7 @@ class Match extends Model
             $saison = index('saisons')[$journee->saison_id];
             $annee = ($saison->annee_debut == $saison->annee_fin) ? $saison->annee_debut : $saison->annee_debut. '/' .$saison->annee_fin;
             $competition = index('competitions')[$saison->competition_id];
-            $competitionNomSlug = Str::slug($competition->nom);
+            $competitionNomCompletSlug = Str::slug($competition->nom_complet);
             $sport = index('sports')[$competition->sport_id];
             $sportNomSlug = Str::slug($sport->nom);
             if($this->terrain)
@@ -171,7 +171,7 @@ class Match extends Model
                 'url' => route('competition.match', [
                     'sport' => $sportNomSlug,
                     'annee' => str_replace('/', '-', $annee),
-                    'competition' => $competitionNomSlug,
+                    'competition' => $competitionNomCompletSlug,
                     'equipeDom' => $equipeDomNomSlug,
                     'equipeExt' => $equipeExtNomSlug,
                     'uniqid' => $this->uniqid
@@ -185,12 +185,12 @@ class Match extends Model
                 'lieu' => $lieu,
                 'resultat_eq_dom' => $this->resultat($this->equipe_id_dom),
                 'resultat_eq_ext' => $this->resultat($this->equipe_id_ext),
-                'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomSlug, 'competition' => $competitionNomSlug,'uniqid' => $this->uniqid]),
-                'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomSlug, 'competition' => $competitionNomSlug,'uniqid' => $this->uniqid]),
+                'href_resultat' => route('competition.match.resultat', ['sport' => $sportNomSlug, 'competition' => $competitionNomCompletSlug,'uniqid' => $this->uniqid]),
+                'href_horaire' => route('competition.match.horaire', ['sport' => $sportNomSlug, 'competition' => $competitionNomCompletSlug,'uniqid' => $this->uniqid]),
                 'href_match' => route('competition.match', [
                     'uniqid' => $this->uniqid,
                     'sport' => $sportNomSlug,
-                    'competition' => $competitionNomSlug,
+                    'competition' => $competitionNomCompletSlug,
                     'annee' => str_replace('/', '-', $annee),
                     'equipeDom' => $equipeDomNomSlug,
                     'equipeExt' => $equipeExtNomSlug

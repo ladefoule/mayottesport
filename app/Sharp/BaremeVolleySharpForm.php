@@ -29,7 +29,11 @@ class BaremeVolleySharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $bareme = Bareme::findOrFail($id); 
+        $bareme = Bareme::findOrFail($id);
+        $proprietes = config('listes.proprietes-baremes');
+
+        foreach ($bareme->baremeInfos as $info)
+            $bareme[$proprietes[$info->propriete_id][0]] = $info->valeur;
 
         return $this->transform(
             $bareme

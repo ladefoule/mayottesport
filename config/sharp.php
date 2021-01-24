@@ -183,7 +183,7 @@ $menu[] = [
 $menu[] = [
     "label" => "Les journées par saison",
     "icon" => "fa-calendar",
-    "url" => "/admin/autres/journees/multi/select",
+    "url" => "/admin/journees/multi/select",
 ];
 
 $menu[] = [

@@ -47,9 +47,9 @@ class BaremeVolleySharpList extends SharpEntityList
     {
         $this
         ->addColumn('nom', 4)
-        ->addColumn('victoire', 3)
+        /* ->addColumn('victoire', 3)
         ->addColumn('nul', 2)
-        ->addColumn('defaite', 3);
+        ->addColumn('defaite', 3) */;
     }
 
     /**
