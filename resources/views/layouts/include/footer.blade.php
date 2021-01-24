@@ -105,18 +105,10 @@
             var button = $(event.relatedTarget) // Button that triggered the modal
             var sport = button.data('sport') // Extract info from data-* attributes
 
-            let menu = qs('.dropdown.'+sport+' .dropdown-menu')
+            let menu = $('.dropdown.'+sport+' .dropdown-menu')
             if(menu){
-                menu.classList.add('show')
+                menu.dropdown('show')
             }
-        })
-
-        // En refermant le modal, on referme tous les menus ouverts
-        $('#navbarModal').on('hidden.bs.modal', function (e) {
-            let menus = qsa('.dropdown .dropdown-menu.show')
-            menus.forEach(menu => {
-                menu.classList.remove('show')
-            });
         })
     })
 </script>

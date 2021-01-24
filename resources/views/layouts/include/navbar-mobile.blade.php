@@ -1,5 +1,5 @@
 <!-- Modal NAVBAR MOBILE -->
-<div class="modal fade {{-- d-lg-none --}}" id="navbarModal" tabindex="-1" aria-labelledby="navbarModalLabel" aria-hidden="true">
+<div class="modal fade" id="navbarModal" aria-labelledby="Menu" aria-describedby="Menu complet du site" tabindex="-1" aria-labelledby="navbarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header align-items-center">
@@ -10,8 +10,7 @@
           </button>
         </div>
         <div class="modal-body p-0">
-            <nav class="navbar {{-- navbar-expand-lg --}} navbar-light bg-light navbar-mobile">
-                {{-- <a class="navbar-brand" href="#">MENU</a> --}}
+            <nav class="navbar navbar-light bg-light navbar-mobile">
                 <div class="col-12 pr-2 align-self-stretch" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item @if(request()->route()->getName() == 'home') active text-green font-weight-bold @endif mx-0 border-bottom">
@@ -19,15 +18,17 @@
                         </li>
                         @foreach ($sports as $sport)
                             @if (count($competitions->where('sport_id', $sport->id)->all()) > 0)
-                                <li class="{{ $sport->slug }} nav-item dropdown border-bottom px-3">
-                                    <span class="nav-link text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <li id="modal-li-{{ $sport->slug }}" class="{{ $sport->slug }} nav-item dropdown border-bottom px-3">
+                                    <span class="nav-link text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" id="navbarDropdownMenuLink{{ $sport->nom }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
                                         {{ $sport->nom }}
                                     </span>
-                                    <div class="dropdown-menu {{-- show --}} mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
-                                        <a class="dropdown-item" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
+                                    <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->nom }}">
+                                        <a class="dropdown-item @if(request()->route()->getName() == 'sport.index' && request()->route('sport') == $sport->slug) active bg-success @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
                                         @foreach ($competitions->where('sport_id', $sport->id) as $competition)
-                                            <a class="dropdown-item" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">{{ $competition->nom }}</a>
+                                            <a class="dropdown-item @if(request()->route()->getName() == 'competition.index' && request()->route('competition') == $competition->slug_complet) active bg-success @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
+                                                {{ $competition->nom }}
+                                            </a>
                                         @endforeach
                                     </div>
                                 </li>

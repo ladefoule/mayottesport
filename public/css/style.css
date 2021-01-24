@@ -29,8 +29,12 @@ footer{
     bottom:0
 }
 
+.modal-body .dropdown-item:active{
+    background-color: green;
+}
+
 .navbar-mobile{
-    font-size:1rem;
+    font-size:1.1rem;
     /* background-color: #ebeff3 !important; */
     /* background-color: #ebeff3 !important; */
 }
@@ -49,9 +53,9 @@ footer{
 }
 
 .border-bottom-nav.active,.border-bottom-nav:hover{
-    /* border-top: 5px solid white; */
-    /* border-bottom: 5px solid blue; */
-    /* color: blue !important; */
+    border-top: 5px solid white;
+    border-bottom: 5px solid green;
+    /* color: green !important; */
     /* background-color: rgba(211, 211, 235, 0.521); */
 }
 
@@ -120,13 +124,8 @@ main .nom-sport{
     /* margin-top: 30px; */
  }
 
-/* a.text-green-light{
-    color:rgb(96, 202, 70)
-} */
-
-.border-bottom-defaut{
+.border-bottom-defaut,.border-bottom-sport{
    border-bottom: 1px gray solid;
-   /* box-shadow: 0px 5px 4px rgb(216, 216, 216); */
 }
 
 .titre-article,.titre-page-article,.titre-premier-article{
@@ -435,6 +434,10 @@ a.non-cliquable, a.non-cliquable:hover{
                 /* box-shadow: 5px 5px 5px rgb(216, 211, 211); */
                 box-shadow:0 0 5px 3px rgb(184, 184, 184)
             }
+
+            .border-bottom-sport{
+                border-bottom: 1px green solid;
+             }
 
             #section-droite .fanion-calendrier img{
                 display:none
