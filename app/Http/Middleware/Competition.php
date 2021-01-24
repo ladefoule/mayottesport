@@ -29,10 +29,10 @@ class Competition
         //     abort(404);
 
         $sport = $request->sport;
-        $competition = CompetitionModel::whereSportId($sport->id)->whereSlug($request->competition)->firstOrFail();
+        $competition = CompetitionModel::whereSportId($sport->id)->whereSlugComplet($request->competition)->firstOrFail();
         $request->competition = $competition;
 
-        $competitionSlug = $competition->slug;
+        $competitionSlugComplet = $competition->slug_complet;
         $sportSlug = $sport->slug;
 
         // $saison = Saison::where('competition_id', $competition->id)/* ->where('finie', '!=', 1) */->orderBy('finie')->orderBy('annee_debut')->first();
@@ -42,14 +42,14 @@ class Competition
         // Les infos requises pour toutes les pages du middleware
         $request->saison = $saison; // la collection
         $request->hrefSport = route('sport.index', ['sport' => $sportSlug]);
-        $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
-        $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
+        $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
+        $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
 
         if($saison && count($saison->matches) > 0){
-            $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
+            $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
 
             if($competition->type == 1) // Type Championnat
-                $request->hrefClassement = route('competition.classement', ['sport' => $sportSlug, 'competition' => $competitionSlug]);
+                $request->hrefClassement = route('competition.classement', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
 
             if($saison){
                 $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();

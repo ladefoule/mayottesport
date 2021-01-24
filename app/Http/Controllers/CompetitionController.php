@@ -128,7 +128,8 @@ class CompetitionController extends Controller
         Log::info(" -------- Controller Competition : champions -------- ");
         $sport = $request->sport;
         $competition = $request->competition;
-        $saisons = Saison::whereCompetitionId($competition->id)->orderBy('annee_debut', 'desc')->get();
+        // $saisons = Saison::whereCompetitionId($competition->id)->orderBy('annee_debut', 'desc')->get();
+        $saisons = index('saisons')->where('competition_id', $competition->id)->sortByDesc('annee_debut');
         return view('competition.palmares', [
             'saisons' => $saisons,
             'title' => $competition->nom . ' - Le palmarès - ' . $sport->nom,

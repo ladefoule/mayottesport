@@ -20,13 +20,13 @@
                 <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                     <div class="d-flex justify-content-start align-items-center flex-shrink-0">
                         @foreach ($competitions as $i => $competition)
-                            <a class="mr-3 @if($i==0) ml-3 @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug]) }}">
+                            <a class="mr-3 @if($i==0) ml-3 @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
                                 <button class="btn btn-sm px-3 btn-white bg-white">
                                     {{ $competition->nom }}
                                 </button>
                             </a>
                         @endforeach
-                        <button class="mr-3 btn btn-link" type="button" data-toggle="modal" data-target="#navbarModal">Voir+</button>
+                        <button class="mr-3 btn btn-link" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</button>
                     </div>
                 </div>
             </div>

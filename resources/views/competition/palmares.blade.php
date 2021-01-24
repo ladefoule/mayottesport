@@ -21,7 +21,7 @@
                         @foreach ($saisons as $saison)
                         <tr>
                             <td>{{ $saison->nom }}</td>
-                            <td>{{ $saison->equipe ? $saison->equipe->nom : '' }}</td>
+                            <td>{{ $saison->equipe_id ? index('equipes')[$saison->equipe_id]->nom : '' }}</td>
                         </tr>
                         @endforeach
                     </tbody>

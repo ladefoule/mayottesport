@@ -17,14 +17,14 @@ class CompetitionTableSeeder extends Seeder
         $football = Sport::whereSlug('football')->firstOrFail();
         $footballId = $football->id;
         $competitions = [
-            ['nom' => 'Régional 1', 'type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
-            ['nom' => 'Régional 2', 'type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
-            ['nom' => 'Régional 3 (poule nord)', 'type' => 1, 'navbar_position' => 5],
-            ['nom' => 'Régional 3 (poule sud)', 'type' => 1, 'navbar_position' => 6],
-            ['nom' => 'Régional 4 (poule A)', 'type' => 1, 'navbar_position' => 7],
-            ['nom' => 'Régional 4 (poule B)', 'type' => 1, 'navbar_position' => 8],
-            ['nom' => 'Régional 4 (poule C)', 'type' => 1, 'navbar_position' => 9],
-            ['nom' => 'Régional 4 (poule D)', 'type' => 1, 'navbar_position' => 10],
+            ['nom' => 'Régional 1','type' => 1, 'home_position' => 1, 'index_position' => 1, 'navbar_position' => 1],
+            ['nom' => 'Régional 2','type' => 1, 'home_position' => 2, 'index_position' => 2, 'navbar_position' => 2],
+            ['nom' => 'Régional 3 nord', 'nom_complet' => 'Régional 3 (poule nord)','type' => 1, 'navbar_position' => 5],
+            ['nom' => 'Régional 3 sud', 'nom_complet' => 'Régional 3 (poule sud)','type' => 1, 'navbar_position' => 6],
+            ['nom' => 'Régional 4 A', 'nom_complet' => 'Régional 4 (poule A)','type' => 1, 'navbar_position' => 7],
+            ['nom' => 'Régional 4 B', 'nom_complet' => 'Régional 4 (poule B)','type' => 1, 'navbar_position' => 8],
+            ['nom' => 'Régional 4 C', 'nom_complet' => 'Régional 4 (poule C)','type' => 1, 'navbar_position' => 9],
+            ['nom' => 'Régional 4 D', 'nom_complet' => 'Régional 4 (poule D)','type' => 1, 'navbar_position' => 10],
             ['nom' => 'Coupe de France', 'type' => 2, 'home_position' => 3, 'index_position' => 3, 'navbar_position' => 3],
             ['nom' => 'Coupe de Mayotte', 'type' => 2, 'home_position' => 4, 'index_position' => 4, 'navbar_position' => 4],
         ];
@@ -32,6 +32,8 @@ class CompetitionTableSeeder extends Seeder
             $competitionModel = App\Competition::create([
                 'nom' => $competition['nom'],
                 'slug' => Str::slug($competition['nom']),
+                'nom_complet' => $competition['nom_complet'] ?? $competition['nom'],
+                'slug_complet' => isset($competition['nom_complet']) ? Str::slug($competition['nom_complet']) : Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $footballId,
                 'home_position' => $competition['home_position'] ?? NULL,
@@ -64,6 +66,8 @@ class CompetitionTableSeeder extends Seeder
             $competitionModel = App\Competition::create([
                 'nom' => $competition['nom'],
                 'slug' => Str::slug($competition['nom']),
+                'nom_complet' => $competition['nom_complet'] ?? $competition['nom'],
+                'slug_complet' => isset($competition['nom_complet']) ? Str::slug($competition['nom_complet']) : Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $handballId,
                 'home_position' => $competition['home_position'] ?? NULL,
@@ -86,6 +90,8 @@ class CompetitionTableSeeder extends Seeder
             $competitionModel = App\Competition::create([
                 'nom' => $competition['nom'],
                 'slug' => Str::slug($competition['nom']),
+                'nom_complet' => $competition['nom_complet'] ?? $competition['nom'],
+                'slug_complet' => isset($competition['nom_complet']) ? Str::slug($competition['nom_complet']) : Str::slug($competition['nom']),
                 'type' => $competition['type'],
                 'sport_id' => $basketballId,
                 'home_position' => $competition['home_position'] ?? NULL,

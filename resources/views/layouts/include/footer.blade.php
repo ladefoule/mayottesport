@@ -20,16 +20,20 @@
                         <?php 
                             $competitionsNavbar = index('competition_sport')
                                 ->where('sport_id', $sport->id)
-                                ->sortBy('position')
-                                ->slice(0, 5);
+                                ->sortBy('position');
 
                         ?>
-                        @foreach ($competitionsNavbar as $competition)
+                        @foreach ($competitionsNavbar->slice(0, 5) as $competition)
                             <li>
                                 <a class="text-light"
                                     href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
+                        @if(count($competitionsNavbar) > 5)
+                            <li>
+                                <a class="btn btn-link text-center" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             @endforeach
@@ -96,9 +100,24 @@
             e.preventDefault()
         })
 
-        // $('#cookiesParametres').on('shown.bs.modal', function () {
-        //     $('#cookiesParametresBouton').trigger('focus')
-        // })
+        // Si le bouton d'activation du modal comporte un data-sport, alors on affiche (ouvre) le menu du sport associé
+        $('#navbarModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var sport = button.data('sport') // Extract info from data-* attributes
+
+            let menu = qs('.dropdown.'+sport+' .dropdown-menu')
+            if(menu){
+                menu.classList.add('show')
+            }
+        })
+
+        // En refermant le modal, on referme tous les menus ouverts
+        $('#navbarModal').on('hidden.bs.modal', function (e) {
+            let menus = qsa('.dropdown .dropdown-menu.show')
+            menus.forEach(menu => {
+                menu.classList.remove('show')
+            });
+        })
     })
 </script>
 @yield('script')

@@ -4,7 +4,7 @@
 
 @extends('layouts.competition')
 
-@section('title', $competition->nom . ' - ' . $sport->nom)
+@section('title', $competition->nom_complet . ' - ' . $sport->nom)
 
 @section('content')
 <div class="p-lg-3 h-100">
@@ -14,8 +14,8 @@
             @if(! $articles && $competition)
                 <div class="row">
                     {{-- Image pour les compétitions/sports sans articles liés --}}
-                    @if (\Storage::disk('public')->exists('img/competition/'. $competition->slug .'.jpg'))
-                        <img src="{{ asset('/storage/img/competition/'. $competition->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
+                    @if (\Storage::disk('public')->exists('img/sport/competition/'. $competition->slug .'.jpg'))
+                        <img src="{{ asset('/storage/img/sport/competition/'. $competition->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
                     @else
                         <img src="{{ asset('/storage/img/sport/'. $sport->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
                     @endif

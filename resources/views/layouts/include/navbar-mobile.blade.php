@@ -1,6 +1,6 @@
 <!-- Modal NAVBAR MOBILE -->
 <div class="modal fade {{-- d-lg-none --}}" id="navbarModal" tabindex="-1" aria-labelledby="navbarModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header align-items-center">
           {{-- <h5 class="modal-title" id="navbarModalLabel">LE MENU</h5> --}}
@@ -19,21 +19,21 @@
                         </li>
                         @foreach ($sports as $sport)
                             @if (count($competitions->where('sport_id', $sport->id)->all()) > 0)
-                                <li class="nav-item dropdown border-bottom px-3">
+                                <li class="{{ $sport->slug }} nav-item dropdown border-bottom px-3">
                                     <span class="nav-link text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="#" id="navbarDropdownMenuLink{{ $sport->id }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
                                         {{ $sport->nom }}
                                     </span>
-                                    <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
-                                        <a class="dropdown-item" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
+                                    <div class="dropdown-menu {{-- show --}} mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->id }}">
+                                        <a class="dropdown-item" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
                                         @foreach ($competitions->where('sport_id', $sport->id) as $competition)
-                                            <a class="dropdown-item" href="{{ route('competition.index', ['sport' => \Str::slug($sport->nom), 'competition' => \Str::slug($competition->nom)]) }}">{{ $competition->nom }}</a>
+                                            <a class="dropdown-item" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">{{ $competition->nom }}</a>
                                         @endforeach
                                     </div>
                                 </li>
                             @else
                                 <li class="nav-item border-bottom px-3">
-                                    <a class="nav-link text-body d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">
+                                    <a class="nav-link text-body d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
                                         <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
                                         {{ $sport->nom }}
                                     </a>
