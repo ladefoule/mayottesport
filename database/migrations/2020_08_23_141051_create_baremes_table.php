@@ -16,9 +16,10 @@ class CreateBaremesTable extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->string('nom');
-			$table->boolean('victoire')->nullable();
-			$table->boolean('nul')->nullable();
-            $table->boolean('defaite')->nullable();
+			$table->integer('victoire')->nullable();
+			$table->integer('nul')->nullable();
+            $table->integer('defaite')->nullable();
+            $table->integer('forfait')->nullable();
             $table->unsignedBigInteger('sport_id');
             $table->foreign('sport_id')->references('id')->on('sports');
             // $table->timestamps();

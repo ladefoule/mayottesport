@@ -1,4 +1,4 @@
-@extends('layouts.crud')
+@extends('layouts.site')
 
 @section('title', 'Pdf Parser')
 
@@ -37,7 +37,7 @@
 
                     $details  = $pdf->getText();
 
-                    echo $details;
+                    echo '<pre>' . $details . '</pre>';
                 }
             ?>
         </div>

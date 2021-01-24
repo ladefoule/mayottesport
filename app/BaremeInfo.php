@@ -23,14 +23,18 @@ class BaremeInfo extends Model
      */
     public static function rules(Bareme $bareme = null)
     {
-        $unique = Rule::unique('bareme_infos', 'propriete_id', 'bareme_id')->ignore($bareme);
+        $proprieteId = request()->input('propriete_id');
+
+        $unique = Rule::unique('baremes')->where(function ($query) use ($proprieteId) {
+            return $query->whereProprieteId($proprieteId);
+        })->ignore($bareme);
 
         $rules = [
             'bareme_id' => ['required','integer','exists:baremes,id',$unique],
             'propriete_id' => 'required|integer|min:0',
             'valeur' => 'nullable|string|max:255',
         ];
-        $messages = ['attribut.unique' => "Cet attribut est déjà présent."];
+        $messages = ['bareme_id.unique' => "Cette propriété existe déjà."];
         return ['rules' => $rules, 'messages' => $messages];
     }
 

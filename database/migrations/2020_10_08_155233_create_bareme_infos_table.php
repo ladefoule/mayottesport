@@ -15,7 +15,7 @@ class CreateBaremeInfosTable extends Migration
     {
         Schema::create('bareme_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('bareme_id')->unique();
+            $table->unsignedBigInteger('bareme_id');
             $table->foreign('bareme_id')->references('id')->on('baremes')->onDelete('cascade');
             $table->integer('propriete_id');
             $table->string('valeur')->nullable();

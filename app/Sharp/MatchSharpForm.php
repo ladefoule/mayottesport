@@ -81,8 +81,6 @@ class MatchSharpForm extends SharpForm
 
         // On supprime toutes les infos supplémentaires du match : forfaits, pénalités, etc...
         $ids = $match->matchInfos->pluck('id');
-        // foreach ($ids as $id)
-            // forgetCaches('match_infos', $id); // Le cache sera rechargé avec la méthode cacheLiee depuis les Jobs
         MatchInfo::destroy($ids);
 
         // On insère les nouvelles propriétés supplémentaires du match : pénalités, forfaits, etc...
@@ -95,7 +93,6 @@ class MatchSharpForm extends SharpForm
                     'valeur' => $data[$propriete[0]]
                 ]);
         }
-        // ProcessCacheReload::dispatch('match_infos');
 
         $this->ignore($ignore)->save($match, $data);
 

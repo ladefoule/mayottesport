@@ -40,6 +40,16 @@ $entities = [
         "form" => \App\Sharp\VilleSharpForm::class,
         "policy" => \App\Sharp\Policies\VillePolicy::class,
     ],
+    "bareme" => [
+        "list" => \App\Sharp\BaremeSharpList::class,
+        "form" => \App\Sharp\BaremeSharpForm::class,
+        "policy" => \App\Sharp\Policies\BaremePolicy::class,
+    ],
+    "bareme-volley" => [
+        "list" => \App\Sharp\BaremeVolleySharpList::class,
+        "form" => \App\Sharp\BaremeVolleySharpForm::class,
+        "policy" => \App\Sharp\Policies\BaremeVolleyPolicy::class,
+    ],
 ];
 
 foreach ($sports as $nom) {
@@ -78,18 +88,6 @@ $menu = [
     ],
 ];
 
-$menuMatches = [];
-$menuMatches['label'] = 'Matches';
-foreach ($sports as $nom) {
-    $menuMatches['entities'][] = [
-        "label" => ucfirst($nom),
-        "icon" => "fa-list",
-        "entity" => "match-" . $nom,
-    ];
-}
-
-$menu[] = $menuMatches;
-
 $menu[] = [
     "label" => "Articles",
     "entities" => [
@@ -112,9 +110,15 @@ $menu[] = [
 ];
 
 $menu[] = [
-    "label" => "Sports",
-    "icon" => "fa-list",
-    "entity" => "sport"
+    "label" => "Barèmes",
+    "icon" => "fa-list-ul",
+    "entity" => "bareme"
+];
+
+$menu[] = [
+    "label" => "Barèmes Volley",
+    "icon" => "fa-list-ul",
+    "entity" => "bareme-volley"
 ];
 
 $menu[] = [
@@ -123,17 +127,11 @@ $menu[] = [
     "entity" => "competition"
 ];
 
-// Les menus Saisons
-$menuSaisons = [];
-$menuSaisons['label'] = 'Saisons';
-foreach ($sports as $nom) {
-    $menuSaisons['entities'][] = [
-        "label" => ucfirst($nom),
-        "icon" => "fa-list",
-        "entity" => "saison-" . $nom,
-    ];
-}
-$menu[] = $menuSaisons;
+$menu[] = [
+    "label" => "Equipes",
+    "icon" => "fa-list",
+    "entity" => "equipe",
+];
 
 // Les menus Journées
 $menuJournees = [];
@@ -147,10 +145,33 @@ foreach ($sports as $nom) {
 }
 $menu[] = $menuJournees;
 
+$menuMatches = [];
+$menuMatches['label'] = 'Matches';
+foreach ($sports as $nom) {
+    $menuMatches['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => "fa-list",
+        "entity" => "match-" . $nom,
+    ];
+}
+$menu[] = $menuMatches;
+
+// Les menus Saisons
+$menuSaisons = [];
+$menuSaisons['label'] = 'Saisons';
+foreach ($sports as $nom) {
+    $menuSaisons['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => "fa-list",
+        "entity" => "saison-" . $nom,
+    ];
+}
+$menu[] = $menuSaisons;
+
 $menu[] = [
-    "label" => "Equipes",
+    "label" => "Sports",
     "icon" => "fa-list",
-    "entity" => "equipe",
+    "entity" => "sport"
 ];
 
 $menu[] = [

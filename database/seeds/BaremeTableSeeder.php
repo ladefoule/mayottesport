@@ -11,17 +11,14 @@ class BaremeTableSeeder extends Seeder
      */
     public function run()
     {
-        // On insère 1 barème
-        $baremes = ['Football - Victoire à 3pts'];
-        foreach ($baremes as $bareme) {
-            App\Bareme::create([
-                'nom' => $bareme,
-                'sport_id' => 1,
-                'victoire' => 3,
-                'nul' => 1,
-                'defaite' => 0,
-            ]);
-        }
+        // On insère 1 barème de football
+        App\Bareme::create([
+            'nom' => 'Football - Classique',
+            'sport_id' => 1,
+            'victoire' => 3,
+            'nul' => 1,
+            'defaite' => 0,
+        ]);
 
         // On insère 1 barème de Volley
         App\Bareme::create([
@@ -33,9 +30,9 @@ class BaremeTableSeeder extends Seeder
         App\Bareme::create([
             'nom' => 'Handball - Classique',
             'sport_id' => 3,
-            'victoire' => 2,
-            'nul' => 1,
-            'defaite' => 0,
+            'victoire' => 3,
+            'nul' => 2,
+            'defaite' => 1,
         ]);
 
         // On insère 1 barème de Basketball
@@ -50,9 +47,9 @@ class BaremeTableSeeder extends Seeder
         App\Bareme::create([
             'nom' => 'Rugby - Classique',
             'sport_id' => 5,
-            'victoire' => 2,
-            'nul' => 1,
-            'defaite' => 0,
+            'victoire' => 3,
+            'nul' => 2,
+            'defaite' => 1,
         ]);
     }
 }
