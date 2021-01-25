@@ -289,10 +289,6 @@ a.non-cliquable, a.non-cliquable:hover{
     text-align: center;
 }
 
-.equipe-exterieur, .equipe-domicile{
-    text-align: center;
-}
-
 .fanion-calendrier img{
     width:30px;
 }
@@ -340,6 +336,14 @@ a.non-cliquable, a.non-cliquable:hover{
     text-decoration-line: underline;
     text-decoration-style: dotted;
 }
+
+.equipe-exterieur, .equipe-domicile{
+    text-align: center;
+}
+
+/* .bloc-match .equipe-domicile a, .bloc-match .equipe-exterieur a{
+    text-align: center;
+} */
 
 .onglet{
    font-size: 1.05rem;
@@ -422,10 +426,15 @@ a.non-cliquable, a.non-cliquable:hover{
         .equipe-exterieur{
             text-align: right;
         }
-    
-        .equipe-domicile{
+
+        .bloc-match .equipe-domicile{
             text-align: left;
         }
+
+        .bloc-match .equipe-exterieur{
+            text-align: right;
+        }
+    
 
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
         @media (min-width: 992px) {

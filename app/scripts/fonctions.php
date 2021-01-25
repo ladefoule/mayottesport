@@ -241,6 +241,26 @@ function compare($a, $b)
 }
 
 /**
+ * Fonction de comparaison pour générer les classements de Volleyball
+ *
+ * @param array $a
+ * @param array $b
+ * @return int
+ */
+function compareVolley($a, $b)
+{
+    if ($a['points'] == $b['points']) {
+        if ($a['coefficient'] == $b['coefficient']) {
+            if ($a['marques'] == $b['marques'])
+                return 0;
+            return ($a['marques'] < $b['marques']) ? 1 : -1;
+        }
+        return ($a['coefficient'] < $b['coefficient']) ? 1 : -1;
+    }
+    return ($a['points'] < $b['points']) ? 1 : -1;
+}
+
+/**
  * Liste de tous les éléments de la table.
  *
  * @param string $table - Table en camel_case

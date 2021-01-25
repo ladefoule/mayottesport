@@ -65,6 +65,55 @@ class Match extends Model
         ];
     }
 
+    public function resultatVolley(int $equipeId)
+    {
+        // Si l'id saisi ne correspond à aucune des deux équipes
+        if($this->equipe_id_dom != $equipeId && $this->equipe_id_ext != $equipeId)
+            return false;
+
+        $score_eq_dom = $this->score_eq_dom;
+        $score_eq_ext = $this->score_eq_ext;
+
+        // Si l'un des scores est null ou vide
+        if(strlen($score_eq_dom) == 0 || strlen($score_eq_ext) == 0)
+            return false;
+
+        if($score_eq_dom > $score_eq_ext){
+            if($equipeId == $this->equipe_id_dom){
+                $resultatScore = 'victoire_' . $score_eq_dom . '_' . $score_eq_ext;
+                $resultat = 'victoire';
+            }else{
+                $resultatScore = 'defaite_' . $score_eq_ext . '_' . $score_eq_dom;
+                $resultat = 'defaite';
+            }
+        }
+        else if($score_eq_dom < $score_eq_ext){
+            if($equipeId == $this->equipe_id_dom){
+                $resultatScore = 'defaite_' . $score_eq_ext . '_' . $score_eq_dom;
+                $resultat = 'defaite';
+            }else{
+                $resultatScore =  'victoire_' . $score_eq_dom . '_' . $score_eq_ext;
+                $resultat = 'victoire';
+            }
+        }
+            
+
+        if($this->equipe_id_dom == $equipeId){
+            $marques = $score_eq_dom;
+            $encaisses = $score_eq_ext;
+        }else{
+            $encaisses = $score_eq_dom;
+            $marques = $score_eq_ext;
+        }
+
+        return [
+            'resultat' => $resultat,
+            'resultat_score' => $resultatScore,
+            'marques' => $marques,
+            'encaisses' => $encaisses
+        ];
+    }
+
     /**
      * Les règles de validations
      *

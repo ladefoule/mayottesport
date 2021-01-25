@@ -6,10 +6,10 @@
 <div class="p-lg-3 h-100">
     <div class="row m-0 text-white bloc-match bloc-match-football py-4">
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1 mb-5">
-            <div class="col-lg-4 d-lg-inline py-2 px-0">
+            <div class="col-md-4 d-md-inline py-2 px-0">
                 <a href="{{ $match->href_equipe_dom }}"><img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="fanion-match"></a>
             </div>
-            <div class="equipe-domicile col-lg-8 d-lg-inline py-2 px-0">
+            <div class="equipe-domicile col-md-8 d-md-inline py-2 px-0">
                 <a href="{{ $match->href_equipe_dom }}" class="text-white">{{ $match->equipe_dom->nom }}</a>
             </div>
         </div>
@@ -17,10 +17,10 @@
             <span class="w-100 text-center font-weight-bold">{!! $match->score !!}</span>
         </div>
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-ext p-1 mb-5">
-            <div class="equipe-exterieur col-lg-8 d-lg-inline order-2 order-lg-1 py-2 px-0">
+            <div class="equipe-exterieur col-md-8 d-md-inline order-2 order-md-1 py-2 px-0">
                 <a href="{{ $match->href_equipe_ext }}" class="text-white">{{ $match->equipe_ext->nom }}</a>
             </div>
-            <div class="col-lg-4 d-lg-inline order-1 order-lg-2 py-2 px-0">
+            <div class="col-md-4 d-md-inline order-1 order-md-2 py-2 px-0">
                 <a href="{{ $match->href_equipe_ext }}"><img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="fanion-match"></a>
             </div>
         </div>

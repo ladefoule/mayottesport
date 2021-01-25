@@ -120,14 +120,14 @@ class Saison extends Model
 
         $classement = [];
         $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
-        $idBasketball = index('sports')->filter(function ($value, $key) {
-            return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
-        })->first()->id ?? 0;
-        $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
+        // $idBasketball = index('sports')->filter(function ($value, $key) {
+        //     return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
+        // })->first()->id ?? 0;
+
         foreach ($matches as $equipeId => $matchesEquipe) {
             $equipe = index('equipes')[$equipeId];
             $sport = index('sports')[$sport->id];
-            $hrefEquipe = route('equipe.index', ['sport' => Str::slug($sport->nom), 'equipe' => Str::slug($equipe->nom), 'uniqid' => $equipe->uniqid]);
+            $hrefEquipe = route('equipe.index', ['sport' => $sport->slug, 'equipe' => $equipe->slug_complet]);
             $nomEquipe = $equipe->nom;
             $fanionEquipe = fanion($equipe->id);
 
@@ -142,7 +142,7 @@ class Saison extends Model
             $classement[$equipeId]['marques'] = 0;
             $classement[$equipeId]['encaisses'] = 0;
 
-            if($sport->id != $idBasketball && $sport->id != $idVolleyball)
+            if($sport->id != $idBasketball)
                 $classement[$equipeId]['nul'] = 0;
 
             $classement[$equipeId]['defaite'] = 0;
@@ -191,7 +191,7 @@ class Saison extends Model
             $infosSup[$proprietes[$info->propriete_id][0]] = $info->valeur;
 
         $bareme = collect($infosSup)->merge(['forfait' => $bareme->forfait, 'sport_id' => $bareme->sport_id]);
-// dd($bareme);
+
         $sport = index('sports')[$bareme['sport_id']];
         $matches = [];
         foreach($this->equipes as $equipe){
@@ -201,15 +201,11 @@ class Saison extends Model
         }
 
         $classement = [];
-        $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
-        $idBasketball = index('sports')->filter(function ($value, $key) {
-            return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
-        })->first()->id ?? 0;
-        $idVolleyball = Sport::firstWhere('nom', 'like', 'volleyball')->id ?? 0;
+
         foreach ($matches as $equipeId => $matchesEquipe) {
             $equipe = index('equipes')[$equipeId];
             $sport = index('sports')[$sport->id];
-            $hrefEquipe = route('equipe.index', ['sport' => Str::slug($sport->nom), 'equipe' => Str::slug($equipe->nom), 'uniqid' => $equipe->uniqid]);
+            $hrefEquipe = route('equipe.index', ['sport' => $sport->slug, 'equipe' => $equipe->slug_complet]);
             $nomEquipe = $equipe->nom;
             $fanionEquipe = fanion($equipe->id);
 
@@ -221,35 +217,43 @@ class Saison extends Model
             $classement[$equipeId]['points'] = 0;
             $classement[$equipeId]['joues'] = 0;
             $classement[$equipeId]['victoire'] = 0;
+            $classement[$equipeId]['victoire_3_0'] = 0;
+            $classement[$equipeId]['victoire_3_1'] = 0;
+            $classement[$equipeId]['victoire_3_2'] = 0;
             $classement[$equipeId]['marques'] = 0;
             $classement[$equipeId]['encaisses'] = 0;
 
-            if($sport->id != $idBasketball && $sport->id != $idVolleyball)
-                $classement[$equipeId]['nul'] = 0;
-
             $classement[$equipeId]['defaite'] = 0;
+            $classement[$equipeId]['defaite_0_3'] = 0;
+            $classement[$equipeId]['defaite_1_3'] = 0;
+            $classement[$equipeId]['defaite_2_3'] = 0;
+
             foreach ($matchesEquipe as $match) {
-                if($match->resultat($equipeId) != false){
+                if($match->resultatVolley($equipeId) != false){
                     $classement[$equipeId]['joues']++;
 
-                    $resultat = $match->resultat($equipeId);
+                    $resultat = $match->resultatVolley($equipeId);
                     $marques = $resultat['marques'];
                     $encaisses = $resultat['encaisses'];
+                    $resultatScore = $resultat['resultat_score'];
                     $resultat = $resultat['resultat'];
 
-                    $classement[$equipeId][$resultat]++;
-                    $classement[$equipeId]['points'] += $bareme->$resultat;
+                    $classement[$equipeId]['points'] += $bareme[$resultatScore];
 
                     $classement[$equipeId]['marques'] += $marques;
                     $classement[$equipeId]['encaisses'] += $encaisses;
+
+                    $classement[$equipeId][$resultat]++;
+                    $classement[$equipeId][$resultatScore]++;
+                    // $classement[$equipeId]['defaites'] += $defaite;
                 }
             }
 
-            $classement[$equipeId]['diff'] = $classement[$equipeId]['marques'] - $classement[$equipeId]['encaisses'];
+            $classement[$equipeId]['coefficient'] = $classement[$equipeId]['encaisses'] ? round($classement[$equipeId]['marques'] / $classement[$equipeId]['encaisses'], 2) : 'MAX';
         };
 
         // Tri du classement : Points/Diff/Marques
-        usort($classement , 'compare');
+        usort($classement , 'compareVolley');
 
         return collect($classement);
     }
