@@ -89,10 +89,10 @@ class Match extends Model
         }
         else if($score_eq_dom < $score_eq_ext){
             if($equipeId == $this->equipe_id_dom){
-                $resultatScore = 'defaite_' . $score_eq_ext . '_' . $score_eq_dom;
+                $resultatScore = 'defaite_' . $score_eq_dom . '_' . $score_eq_ext;
                 $resultat = 'defaite';
             }else{
-                $resultatScore =  'victoire_' . $score_eq_dom . '_' . $score_eq_ext;
+                $resultatScore =  'victoire_' . $score_eq_ext . '_' . $score_eq_dom;
                 $resultat = 'victoire';
             }
         }
@@ -227,7 +227,7 @@ class Match extends Model
                 ]),
                 'score' => $this->score(),
                 'date_format' => $this->dateFormat(),
-                'title' => "Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $sport->nom . ' - ' . $competition->nom . ' ' . $annee,
+                'title' => $sport->nom . " - Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $competition->nom . ' ' . $annee,
                 'acces_bloque' => $this->acces_bloque,
                 'journee' => niemeJournee($journee->numero),
                 'competition' => $competition->nom,

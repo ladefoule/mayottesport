@@ -31,7 +31,7 @@
                 {!! $articles !!}
             </div>
         </div>
-        <div id="resultats-content" class="@if($articles || $resultats) d-none @endif">
+        <div id="resultats-content" class="@if($articles || !$resultats) d-none @endif">
             @foreach ($resultats as $sport => $journees)
                 <div class="col-12 text-center">
                     <span class="nom-sport font-italic">

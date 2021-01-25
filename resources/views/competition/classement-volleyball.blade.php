@@ -15,17 +15,16 @@
                         <th class="px-2" title="Joués">J</th>
                         <th class="px-2" title="Gagnés">G</th>
                         <th class="px-2" title="Perdus">P</th>
-                        {{-- <th class="px-2" title="Forfaits">F</th> --}}
-                        <th class="d-none d-lg-table-cell px-2" title="Forfaits">F</th>
-                        <th class="d-none d-lg-table-cell px-2" title="Victoire 3/0">3/0</th>
-                        <th class="d-none d-lg-table-cell px-2" title="Victoire 3/1">3/1</th>
-                        <th class="d-none d-lg-table-cell px-2" title="Victoire 3/2">3/2</th>
-                        <th class="d-none d-lg-table-cell px-2" title="Défaite 0/3">0/3</th>
-                        <th class="d-none d-lg-table-cell px-2" title="Défaite 1/3">1/3</th>
-                        <th class="d-none d-lg-table-cell px-2" title="Défaite 2/3">2/3</th>
-                        <th class="d-none d-md-table-cell px-2" title="Sets marqués">Set P</th>
-                        <th class="d-none d-md-table-cell px-2" title="Sets encaissés">Set C</th>
-                        <th class="px-2" title="Coefficient">Coeff.S</th>
+                        <th class="px-2" title="Forfaits">F</th>
+                        <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Victoire 3/0">3/0</th>
+                        <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Victoire 3/1">3/1</th>
+                        <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Victoire 3/2">3/2</th>
+                        <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Défaite 0/3">0/3</th>
+                        <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Défaite 1/3">1/3</th>
+                        <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Défaite 2/3">2/3</th>
+                        <th class="d-none d-md-table-cell px-2" title="Sets marqués">sets p</th>
+                        <th class="d-none d-md-table-cell px-2" title="Sets encaissés">sets c</th>
+                        <th class="px-2" title="Coefficient">coeff.</th>
                         <th class="px-2" title="Points">pts</th>
                     </thead>
                     <tbody>
@@ -47,13 +46,13 @@
                                 <td class="align-middle px-2">{{ $equipe['joues'] }}</td>
                                 <td class="align-middle px-2">{{ $equipe['victoire'] }}</td>
                                 <td class="align-middle px-2">{{ $equipe['defaite'] }}</td>
-                                <td class="align-middle d-none d-lg-table-cell px-2">{{ $equipe['forfaits'] ?? 0 }}</td>
-                                <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['victoire_3_0'] }}</td>
-                                <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['victoire_3_1'] }}</td>
-                                <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['victoire_3_2'] }}</td>
-                                <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['defaite_0_3'] }}</td>
-                                <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['defaite_1_3'] }}</td>
-                                <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['defaite_2_3'] }}</td>
+                                <td class="align-middle px-2">{{ $equipe['forfaits'] ?? 0 }}</td>
+                                <td class="align-middle d-none d-md-table-cell d-lg-none d-xl-table-cell px-2">{{ $equipe['victoire_3_0'] }}</td>
+                                <td class="align-middle d-none d-md-table-cell d-lg-none d-xl-table-cell px-2">{{ $equipe['victoire_3_1'] }}</td>
+                                <td class="align-middle d-none d-md-table-cell d-lg-none d-xl-table-cell px-2">{{ $equipe['victoire_3_2'] }}</td>
+                                <td class="align-middle d-none d-md-table-cell d-lg-none d-xl-table-cell px-2">{{ $equipe['defaite_0_3'] }}</td>
+                                <td class="align-middle d-none d-md-table-cell d-lg-none d-xl-table-cell px-2">{{ $equipe['defaite_1_3'] }}</td>
+                                <td class="align-middle d-none d-md-table-cell d-lg-none d-xl-table-cell px-2">{{ $equipe['defaite_2_3'] }}</td>
                                 <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['marques'] }}</td>
                                 <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['encaisses'] }}</td>
                                 <td class="align-middle px-2">{{ $equipe['coefficient'] }}</td>

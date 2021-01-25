@@ -68,7 +68,7 @@
             © {{ date('Y') }} Copyright:
             <a class="px-1 text-success" href="{{ asset('/') }}">mayottesport.com</a>
         </p>
-        <p class="w-100 p-0 m-0">
+        <p class="w-100 p-0 m-0 realisation">
             Réalisé par Moussa ALI MOUSSA - <a href="{{ route('contact') }}" class="text-success">Web Solutions</a>
         </p>
     </div>

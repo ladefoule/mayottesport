@@ -357,6 +357,10 @@ a.non-cliquable, a.non-cliquable:hover{
     outline:none !important;
 }
 
+.realisation{
+    font-size: 0.9rem;
+}
+
 /* 
 .nom-competition{
     font-size: 1.3rem;

@@ -73,10 +73,10 @@ class CompetitionController extends Controller
         $saison = $request->saison;
         $sport = $request->sport;
 
-        $competition = Str::lower(index('competitions')[$saison->competition_id]->nom);
+        $competition = index('competitions')[$saison->competition_id];
         $annee = annee($saison->annee_debut, $saison->annee_fin, '/');
-        $title = $sport->nom . ' - Classement ' . $competition . ' ' . $annee;
-        $h1 = 'Classement ' . $competition . ' ' . $annee;
+        $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
+        $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
 
         $classement = saison($saison->id)['classement'];
         return view('competition.classement-' . Str::slug($sport->nom), [
@@ -96,6 +96,8 @@ class CompetitionController extends Controller
     {
         Log::info(" -------- Controller Competition : resultats -------- ");
         $saison = $request->saison;
+        $competition = $request->competition;
+        $sport = $request->sport;
         $journees = index('journees')->where('saison_id', $saison->id)->sortBy('numero');
 
         if (!$journees)
@@ -108,11 +110,13 @@ class CompetitionController extends Controller
         if (!$journee)
             $journee = $journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
 
+        $title = $sport->nom . ' - ' . $competition->nom_complet . ' ' . $saison->nom . ' - Calendrier et résultats';
         return view('competition.calendrier-resultats', [
             'calendrierJourneeHtml' => journee($journee->id)->render,
             'saison' => $saison,
             'journee' => $journee,
             'journees' => $journees,
+            'title' => $title,
             'matches' => journee($journee->id)->matches,
         ]);
     }
@@ -132,7 +136,7 @@ class CompetitionController extends Controller
         $saisons = index('saisons')->where('competition_id', $competition->id)->sortByDesc('annee_debut');
         return view('competition.palmares', [
             'saisons' => $saisons,
-            'title' => $competition->nom . ' - Le palmarès - ' . $sport->nom,
+            'title' => $sport->nom . ' - ' . $competition->nom_complet . ' - Le palmarès',
             'competition' => $competition
         ]);
     }

@@ -5,7 +5,7 @@
     $competition = request()->competition;
 ?>
 
-@section('title', $competition->nom . ' - Calendrier et résultats - '.niemeJournee($journeeActuelle->numero).' - ' . request()->sport->nom)
+@section('title', $title)
 
 @section('content')
 <div class="p-lg-3 h-100">
