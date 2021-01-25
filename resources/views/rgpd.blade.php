@@ -54,7 +54,7 @@
                 <p>
                     Si vous soumettez des informations personnelles sur notre site web dans le but de les publier, nous les publierons et pourrons utiliser ces informations conformément aux autorisations que vous nous accordez.
 
-                    Vos paramètres de confidentialité peuvent être utilisés pour limiter la publication de vos informations sur notre site web et peuvent être ajustés dans vos paramètres de confidentialité sur le site web.
+                    {{-- Vos paramètres de confidentialité peuvent être utilisés pour limiter la publication de vos informations sur notre site web et peuvent être ajustés dans vos paramètres de confidentialité sur le site web. --}}
 
                     Sans votre consentement explicite, nous ne fournirons pas vos informations personnelles à des tierces parties pour leur marketing direct, ni celui d’autres tierces parties.
                 </p>
@@ -99,14 +99,14 @@
                     <br>Les noms des cookies que nous utilisons sur notre site web et les objectifs dans lesquels nous les utilisons sont décrits ci-dessous:
                 </p>
                 
-                <ul>
+                {{-- <ul>
                     <li>Nous utilisons deux cookies de session qui sont essentiels au bon fonctionnement de notre site web pour : 
                         <ul>
                             <li></li>
                             <li></li>
                         </ul>
                     </li>
-                </ul>
+                </ul> --}}
                 <ul>
                     <li>Nous utilisons Google Analytics et Adwords sur notre site web pour : 
                         <ul>

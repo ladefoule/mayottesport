@@ -1,4 +1,4 @@
-<div class="js-cookie-consent cookie-consent m-0 row text-body text-right bg-white border">
+<div class="js-cookie-consent cookie-consent m-0 row text-body text-right border">
     <div class="p-3">
         <span class="cookie-consent__message text-left">
             Ce site nécessite l'utilisation de cookies pour fonctionner correctement. 

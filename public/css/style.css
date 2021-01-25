@@ -181,7 +181,8 @@ main .nom-sport{
     bottom: 0px;
     right:0px;
     z-index: 100;
-    font-size: 0.9rem;
+    background: rgb(255, 255, 255);
+    font-size: 1rem;
 }
 
 .titre-page-article{
