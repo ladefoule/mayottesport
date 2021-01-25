@@ -84,6 +84,7 @@ class JourneeSharpForm extends SharpForm
         $saisons = Saison::join('competitions', 'competition_id', 'competitions.id')
             ->join('sports', 'sport_id', 'sports.id')
             ->where('sports.slug', $this->sportSlug)
+            ->where('finie', 0)->orWhereNull('finie')
             ->select('saisons.*')
             ->orderBy('saisons.annee_debut')->get()->map(function($saison) {
                 return [

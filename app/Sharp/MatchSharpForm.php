@@ -6,6 +6,7 @@ use App\Match;
 use App\Equipe;
 use App\Journee;
 use App\MatchInfo;
+use Illuminate\Validation\Rule;
 use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Auth;
@@ -78,6 +79,19 @@ class MatchSharpForm extends SharpForm
         $rules = $rules['rules'];
         $data['user_id'] = Auth::id();
         $data = Validator::make($data, $rules, $messages)->validate();
+
+        $journee = Journee::findOrFail($data['journee_id']);
+        $saison = $journee->saison;
+        $equipes = $saison->equipes;
+
+        // On vérifie si les deux équipes appartiennent bien à la saison
+        $exists = Rule::exists('equipe_saison', 'equipe_id')->where(function ($query) use($saison) {
+            $query->whereSaisonId($saison->id);
+        });
+        Validator::make($data, [
+            'equipe_id_dom' => ['required', $exists],
+            'equipe_id_ext' => ['required', $exists],
+        ], ['exists' => 'Cette équipe ne participe pas à la saison.'])->validate();
 
         // On supprime toutes les infos supplémentaires du match : forfaits, pénalités, etc...
         $ids = $match->matchInfos->pluck('id');
