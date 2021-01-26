@@ -12,13 +12,8 @@
     <div class="d-none d-lg-flex h-100 p-0">
         <div class="col-12 px-3 pt-2 bg-white shadow-div">
             @if(! $articles && $competition)
-                <div class="row">
-                    {{-- Image pour les compétitions/sports sans articles liés --}}
-                    @if (\Storage::disk('public')->exists('img/sport/competition/'. $competition->slug .'.jpg'))
-                        <img src="{{ asset('/storage/img/sport/competition/'. $competition->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
-                    @else
-                        <img src="{{ asset('/storage/img/sport/'. $sport->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
-                    @endif
+                <div class="col-12">
+                    <h1 class="h3 text-center m-auto p-3">{{ $competition->nom_complet }}</h1>
                 </div>
             @endif
             {!! $articles !!}

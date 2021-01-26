@@ -123,10 +123,7 @@ class Match extends Model
     public static function rules(Match $match = null)
     {
         $journeeId = request()->input('journee_id');
-
         $unique = Rule::unique('matches')->ignore($match);
-        // $uniqueEqJourneeDom = Rule::unique('matches', 'journee_id', 'equipe_id_dom')->ignore($match);
-        // $uniqueEqJourneeExt = Rule::unique('matches', 'journee_id', 'equipe_id_ext')->ignore($match);
 
         $uniqueWithJourneeId = Rule::unique('matches')->where(function ($query) use ($journeeId) {
             return $query->whereJourneeId($journeeId);
@@ -155,8 +152,8 @@ class Match extends Model
             'penalite_eq_dom' => 'nullable|boolean',
             'penalite_eq_ext' => 'nullable|boolean',
             'avec_tirs_au_but' => 'nullable|boolean',
-            'tab_eq_dom' => ['required_with:tab_eq_ext','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:20'],
-            'tab_eq_ext' => ['required_with:tab_eq_dom','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:20'],
+            'tab_eq_dom' => ['required_with:tab_eq_ext','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:30'],
+            'tab_eq_ext' => ['required_with:tab_eq_dom','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:30'],
         ];
 
         $messages = [

@@ -5,9 +5,8 @@
         <div class="col-12 p-0 h-100 bg-white shadow-div">
             <div class="col-12 p-3 d-flex flex-wrap justify-content-start align-items-stretch">
                 @if(! $articles && isset($sport) && $sport)
-                    <div class="row">
-                        {{-- Image pour les sports sans articles liés --}}
-                        <img src="{{ asset('/storage/img/sport/'. $sport->slug .'.jpg') }}" alt="" class="img-fluid m-auto">
+                    <div class="col-12">
+                        <h1 class="h3 text-center m-auto">{{ $sport->nom }} - Résultats et actualités</h1>
                     </div>
                 @endif
                 {!! $articles !!}

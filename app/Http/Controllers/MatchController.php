@@ -96,10 +96,8 @@ class MatchController extends Controller
     public function resultatPost(Request $request)
     {
         Log::info(" -------- Controller Match : resultatPost -------- ");
-        Validator::make($request->all(), [
-            'score_eq_dom' => 'required|integer|min:0|max:30',
-            'score_eq_ext' => 'required|integer|min:0|max:30',
-        ])->validate();
+        $sport = $request->sport;
+        Validator::make($request->all(), config('listes.rules-score.' . $sport->slug))->validate();
 
         $match = Match::findOrFail($request->match->id);
 

@@ -70,6 +70,29 @@ return [
         7 => ["tab_eq_ext", "Tirs au but (ext.)"],
     ],
 
+    "rules-score" => [
+        'football' => [
+            'score_eq_dom' => 'required|integer|min:0|max:20',
+            'score_eq_ext' => 'required|integer|min:0|max:20',
+        ],
+        'volleyball' => [
+            'score_eq_dom' => 'required|integer|min:0|max:3|different:score_eq_ext',
+            'score_eq_ext' => 'required|integer|min:0|max:3|different:score_eq_dom',
+        ],
+        'handball' => [
+            'score_eq_dom' => 'required|integer|min:0|max:100',
+            'score_eq_ext' => 'required|integer|min:0|max:100',
+        ],
+        'rugby' => [
+            'score_eq_dom' => 'required|integer|min:0|max:120',
+            'score_eq_ext' => 'required|integer|min:0|max:120',
+        ],
+        'basketball' => [
+            'score_eq_dom' => 'required|integer|min:0|max:200|different:score_eq_ext',
+            'score_eq_ext' => 'required|integer|min:0|max:200|different:score_eq_dom',
+        ],
+    ],
+
     // "routes-sans-background" => [
     //    'article.select',
     //     'login',
