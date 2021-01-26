@@ -2,19 +2,22 @@
 // use Illuminate\Support\Facades\Config;
 return [
     'boutons' => [
-        'home' => '<i class="icon-home"></i>',
-        'contact' => '<i class="icon-comment"></i>',
-        'supprimer' => '<i class="icon-trash-empty"></i>',
         'ajouter' => '<i class="icon-plus"></i>',
         'ajouter_cercle' => '<i class="icon-plus-circled"></i>',
-        'voir' => '<i class="icon-eye"></i>',
-        'editer' => '<i class="icon-pencil"></i>',
-        'lister' => '<i class="icon-list-bullet"></i>',
+        'calendrier' => '<i class="icon-calendar" title="Date"></i>',
+        'contact' => '<i class="icon-comment"></i>',
         'database' => '<i class="icon-database"></i>',
+        'editer' => '<i class="icon-pencil"></i>',
+        'home' => '<i class="icon-home"></i>',
+        'horloge' => '<i class="icon-clock" title="Heure"></i>',
         'left' => '<i class="icon-left-open"></i>',
+        'lister' => '<i class="icon-list-bullet"></i>',
+        'position' => '<i class="icon-location" title="Lieu"></i>',
         'right' => '<i class="icon-right-open"></i>',
+        'supprimer' => '<i class="icon-trash-empty"></i>',
         'user' => '<i class="icon-user"></i>',
         'user-add' => '<i class="icon-user-add"></i>',
+        'voir' => '<i class="icon-eye"></i>',
     ],
 
     /* $key => $values */

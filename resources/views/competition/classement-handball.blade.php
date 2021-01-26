@@ -32,7 +32,7 @@
                                             <div class="d-none d-md-block fanion-calendrier pr-2">
                                                 <img src="{{ $equipe['fanion'] }}" alt="{{ $equipe['nom'] }}">
                                             </div>
-                                            <div class="text-left font-weight-bold">
+                                            <div class="text-left equipe">
                                                 {{ $equipe['nom'] }}
                                             </div>
                                         </div>

@@ -45,6 +45,7 @@ class MatchController extends Controller
     {
         Log::info(" -------- Controller Match : match -------- ");
         $match = $request->match;
+        $sport = $request->sport;
         $journee = index('journees')[$match->journee_id];
         $saison = index('saisons')[$journee->saison_id];
 
@@ -55,6 +56,7 @@ class MatchController extends Controller
         $infos = match($match->uniqid);
         return view('competition.match', [
             'match' => $infos,
+            'sport' => $sport,
             'accesModifHoraire' => $request->accesModifHoraire,
             'accesModifResultat' => $request->accesModifResultat,
         ]);
@@ -70,6 +72,7 @@ class MatchController extends Controller
     {
         Log::info(" -------- Controller Match : resultat -------- ");
         $match = $request->match;
+        $sport = $request->sport;
         $accesBloque = $match->acces_bloque;
         if ($accesBloque){
             Log::info("Match bloqué. Id match : " . $match->id);
@@ -78,7 +81,8 @@ class MatchController extends Controller
 
         $infos = match($match->uniqid);
         return view('competition.resultat', [
-            'match' => $infos
+            'match' => $infos,
+            'sport' => $sport,
         ]);
     }
 
@@ -140,10 +144,12 @@ class MatchController extends Controller
     {
         Log::info(" -------- Controller Match : horaire -------- ");
         $match = $request->match;
+        $sport = $request->sport;
 
         $infos = $match->infos();
         return view('competition.horaire', [
-            'match' => $infos
+            'match' => $infos,
+            'sport' => $sport,
         ]);
     }
 

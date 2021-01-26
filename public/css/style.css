@@ -12,6 +12,7 @@ body{
     /* background-color: rgba(197, 226, 230, 0.281); */
     min-width: 350px;
     height: 100%;
+    font-family:"Nunito", "Tahoma", sans-serif;
     /* background-color: rgba(255, 255, 255); */
     /* background-color: rgba(134, 134, 134, 0.157); */
     /* background-color: rgba(149, 151, 151, 0.157); */
@@ -83,7 +84,8 @@ a:hover{
     color: gray;
     font-size: 1rem;
     border: 1px solid gray;
-    font-family:"Nunito", sans-serif;
+    /* font-family:"Nunito", sans-serif; */
+    /* font-family:"Nunito", "Tahoma", sans-serif; */
 }
 
 #navbar-scroll-x .btn-sm:hover{
@@ -99,7 +101,7 @@ a:hover{
 .href-scroll-x.active{
     /* border-top: 5px solid white; */
     /* border-bottom: 5px solid blue; */
-    color: green !important;
+    /* color: green !important; */
     /* background-color: rgba(211, 211, 235, 0.521); */
 }
 
@@ -276,18 +278,32 @@ a.non-cliquable, a.non-cliquable:hover{
     vertical-align: middle;
 }
 
+.classement .equipe{
+    font-size: 1.05rem;
+}
+
 .vertical-align-middle{
     vertical-align: middle;
 }
 
-.bloc-match-football{
-    background-image: url('../../storage/img/terrain-de-foot-6.jpg');
-    background-size :cover;
+.bloc-match{
+   background-size :cover;
+   font-size: 1rem;
 }
 
+/* .bloc-match-football{
+    background-image: url('../../storage/img/terrain-de-foot-6.jpg');
+}
+
+.bloc-match-volleyball{
+    background-image: url('../../storage/img/sport/volleyball.webp');
+} */
+
 .bloc-equipe-dom, .bloc-equipe-ext{
-    font-size:1rem;
+    font-size:1.1rem;
     text-align: center;
+    /* font-weight: bold; */
+    /* font-family:Tahoma; */
 }
 
 .fanion-calendrier img{
@@ -341,10 +357,6 @@ a.non-cliquable, a.non-cliquable:hover{
 .equipe-exterieur, .equipe-domicile{
     text-align: center;
 }
-
-/* .bloc-match .equipe-domicile a, .bloc-match .equipe-exterieur a{
-    text-align: center;
-} */
 
 .onglet{
    font-size: 1.05rem;
@@ -510,8 +522,7 @@ a.non-cliquable, a.non-cliquable:hover{
             }
 
             .bloc-equipe-dom, .bloc-equipe-ext{
-                font-size:1.3rem;
-                font-weight: 900;
+                font-size:1.5rem;
             }
 
             a.resultat, a.horaire{

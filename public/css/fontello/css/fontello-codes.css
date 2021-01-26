@@ -11,6 +11,9 @@
 .icon-user:before { content: '\e809'; } /* '' */
 .icon-user-add:before { content: '\e80a'; } /* '' */
 .icon-home:before { content: '\e80b'; } /* '' */
+.icon-location:before { content: '\e80c'; } /* '' */
+.icon-calendar:before { content: '\e80d'; } /* '' */
+.icon-clock:before { content: '\e80e'; } /* '' */
 .icon-dribbble:before { content: '\f050'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-facebook:before { content: '\f09a'; } /* '' */

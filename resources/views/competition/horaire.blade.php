@@ -6,7 +6,7 @@
 <div class="p-lg-3 h-100">
     <form action="" method="post" id="formulaire">
         @csrf
-        <div class="row m-0 text-white bloc-match bloc-match-football py-4">
+        <div class="row m-0 text-white bloc-match bloc-match-{{ $sport->slug }} py-4" style="background-image: url('{{ asset('storage/img/sport/'.$sport->slug.'.jpg') }}')">
             <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1 mb-5">
                 <div class="col-lg-4 d-lg-inline py-2 px-0">
                     <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="fanion-match">
@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-12 text-center p-3">
-                <button class="btn btn-info text-white px-5">Valider</button>
+                <button class="btn btn-danger text-white px-5">Valider</button>
             </div>
 
             <div class="col-12 d-flex justify-content-center align-items-center">

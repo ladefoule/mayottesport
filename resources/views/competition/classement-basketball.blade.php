@@ -14,7 +14,6 @@
                         <th>{{Str::ucfirst('équipe')}}</th>
                         <th class="px-2" title="Joués">J</th>
                         <th class="px-2" title="Gagnés">G</th>
-                        <th class="px-2" title="Nuls">N</th>
                         <th class="px-2" title="Perdus">P</th>
                         <th class="d-none d-lg-table-cell px-2" title="Forfaits">F</th>
                         <th class="d-none d-md-table-cell px-2" title="Buts marqués">bp</th>
@@ -40,7 +39,6 @@
                                 </td>
                                 <td class="align-middle px-2">{{ $equipe['joues'] }}</td>
                                 <td class="align-middle px-2">{{ $equipe['victoire'] }}</td>
-                                <td class="align-middle px-2">{{ $equipe['nul'] }}</td>
                                 <td class="align-middle px-2">{{ $equipe['defaite'] }}</td>
                                 <td class="align-middle d-none d-lg-table-cell px-2">{{ $equipe['forfaits'] ?? 0 }}</td>
                                 <td class="align-middle d-none d-md-table-cell px-2">{{ $equipe['marques'] }}</td>

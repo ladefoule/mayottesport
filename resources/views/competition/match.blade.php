@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-lg-3 h-100">
-    <div class="row m-0 text-white bloc-match bloc-match-football py-4">
+    <div class="row m-0 text-white bloc-match bloc-match-{{ $sport->slug }} py-4" style="background-image: url('{{ asset('storage/img/sport/'.$sport->slug.'.jpg') }}')">
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1 mb-5">
             <div class="col-md-4 d-md-inline py-2 px-0">
                 <a href="{{ $match->href_equipe_dom }}"><img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="fanion-match"></a>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="col-2 bloc-score d-flex align-items-center justify-content-around p-0 mb-5">
-            <span class="w-100 text-center font-weight-bold">{!! $match->score !!}</span>
+            <span class="w-100 text-center">{!! $match->score !!}</span>
         </div>
         <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-ext p-1 mb-5">
             <div class="equipe-exterieur col-md-8 d-md-inline order-2 order-md-1 py-2 px-0">
@@ -27,24 +27,24 @@
 
         @if ($accesModifResultat)
             <div class="col-12 d-flex align-items-center justify-content-center p-3">
-                <a href="{{ $match->href_resultat }}"><button class="btn btn-success">{{ $match->score_eq_dom ? 'Modifier' : 'Saisir' }} le résultat</button></a>
+                <a href="{{ $match->href_resultat }}"><button class="btn btn-success px-3">{{ $match->score_eq_dom ? 'Modifier' : 'Saisir' }} le résultat</button></a>
             </div>
         @endif
         @if ($accesModifHoraire)
             <div class="col-12 text-center">
-                <a href="{{ $match->href_horaire }}"><button class="btn btn-primary">Modifier l'horaire</button></a>
+                <a href="{{ $match->href_horaire }}"><button class="btn btn-primary px-3">Modifier l'horaire</button></a>
             </div>
         @endif
 
         <div class="row col-12 d-flex justify-content-center align-items-center mx-0 p-3">
-            @if($match->date_format)
-                <div class="col-12 text-center">
-                    Le {{ $match->date_format }} @if($match->heure) à {{ $match->heure }} @endif
-                </div>
-            @endif
             @if($match->lieu)
                 <div class="col-12 text-center">
-                    Lieu : {{ $match->lieu }}
+                    {!! config('listes.boutons.position') !!} {{ $match->lieu }}
+                </div>
+            @endif
+            @if($match->date_format)
+                <div class="col-12 text-center">
+                    {!! config('listes.boutons.calendrier') !!} {{ $match->date_format }} @if($match->heure) {!! config('listes.boutons.horloge') !!} {{ $match->heure }} @endif
                 </div>
             @endif
             <div class="col-12 text-center">
