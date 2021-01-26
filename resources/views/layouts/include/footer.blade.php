@@ -26,7 +26,7 @@
                         @foreach ($competitionsNavbar->slice(0, 5) as $competition)
                             <li>
                                 <a class="text-light footer-link"
-                                    href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
+                                    href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug_complet]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
                         @if(count($competitionsNavbar) > 5)

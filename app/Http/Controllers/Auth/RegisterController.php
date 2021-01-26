@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Str;
 use App\Jobs\ProcessCacheReload;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -61,6 +62,10 @@ class RegisterController extends Controller
         // On génère automatiquement un pseudo à partir de l'email
         try {
             $data['pseudo'] = explode('@', $data['email'])[0] . rand(0, 1000);
+
+            // Si le pseudo est trop long, alors on ne garde que les 30 premières caractères
+            if(strlen($data['pseudo']) > 30)
+                $data['pseudo'] = Str::substr($data['pseudo'], 0, 30);
         } catch (\Throwable $th) {
             abort(404);
         }

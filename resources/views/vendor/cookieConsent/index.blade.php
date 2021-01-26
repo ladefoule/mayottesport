@@ -20,14 +20,11 @@
                             Ce site nécessite l'utilisation de cookies pour fonctionner correctement. 
                             Les cookies nous permettent entre autres de garder votre session active tout au long de votre navigation sur le site, de sécuriser notre site ou de récolter des statistiques sur nos visiteurs et/ou membres.
                             En poursuivant votre navigation vous acceptez que MayotteSport.com et ses partenaires utilisent des cookies ou traceurs pour stocker et/ou accéder à des informations sur votre terminal et traitent des données personnelles comme votre adresse IP ou les pages que vous visitez.
-                            {{-- Pour plus d'informations, vous pouvez consultez notre <a href="{{ route('politique') }}">politique de confidentialité</a> --}}
+                            Pour plus d'informations, vous pouvez consultez notre <a href="{{ route('politique') }}">politique de confidentialité</a>
                         </span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a class="mr-auto" href="{{ route('politique') }}">
-                        <button class="btn btn-link text-white bg-secondary">Notre politique de confidentialité</button>
-                    </a>
                     <button type="button" class="js-cookie-consent-agree cookie-consent__agree btn-lg btn-success px-5" data-dismiss="modal">Valider</button>
                 </div>
             </div>

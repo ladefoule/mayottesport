@@ -61,14 +61,10 @@ class UserController extends Controller
     {
         Log::info(" -------- Controller User : updatePost -------- ");
         $user = User::findOrFail(Auth::id());
-        $unique = Rule::unique('users')->ignore($user);
-        $rules = [
-            'name' => ['required', 'string', 'min:3', 'max:50'],
-            'pseudo' => ['nullable', 'string', 'min:3', 'max:50', $unique],
-            'first_name' => ['nullable', 'string', 'min:3', 'max:50'],
-            'region_id' => ['required', 'exists:regions,id'],
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ];
+
+        $rules = User::rules($user)['rules'];
+        $rules['avatar'] = ['nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'];
+        unset($rules['password'], $rules['email'], $rules['role_id']);
 
         $data = Validator::make($request->all(), $rules)->validate();
         

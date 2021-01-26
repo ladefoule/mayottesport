@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $rules = [
             'name' => ['required', 'min:3', 'max:50'],
             'avatar' => ['nullable', 'min:5'],
-            'pseudo' => ['required', 'min:3', 'max:50', $unique],
+            'pseudo' => ['required', 'min:3', 'max:30', $unique],
             'first_name' => ['nullable', 'min:3', 'max:50'],
             'role_id' => ['required', 'exists:roles,id'],
             'region_id' => ['required', 'exists:regions,id'],
