@@ -6,14 +6,15 @@
 /public/storage
 /storage/*.key
 /vendor
+/tmp
 /tools
 /.tools
 .env
 .env.backup
+.npmrc
 .phpunit.resultat.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
-phpdoc
 worker.log
 yarn-error.log

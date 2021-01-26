@@ -89,8 +89,7 @@
 <script data-ad-client="ca-pub-6802785230681286" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <script src="{{ asset(mix('js/app.js')) }}"></script>
-<script src="{{ asset('node_modules/select2/select2.js') }}"></script>
-<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+<!-- <script src="{{ asset('node_modules/select2/select2.js') }}"></script> -->
 <script src="{{ asset('/js/outils.js') }}"></script>
 <script>
     $(document).ready(function() {
