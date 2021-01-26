@@ -3,21 +3,26 @@
         Options -MultiViews -Indexes
     </IfModule>
     RewriteEngine On
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
+
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
     # Added to Force HTTPS
-    RewriteCond %{HTTP_HOST} v2.mayottesport.com [NC]
+    RewriteCond %{HTTP_HOST} mayottesport.com [NC]
     RewriteCond %{SERVER_PORT} 80
-    RewriteRule ^(.*)$ https://v2.mayottesport.com/$1 [R,L]
+    RewriteRule ^(.*)$ https://www.mayottesport.com/$1 [R,L]
+
     # Added to Force HTTPS
     #RewriteCond %{HTTP_HOST} dev.mayottesport.com [NC]
     #RewriteCond %{SERVER_PORT} 80
