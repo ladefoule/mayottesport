@@ -37,7 +37,7 @@ Route::group(['middleware'=> 'verified'], function () {
     Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost')->name('competition.match.resultat.post');
 
     /* MIDDLEWARE PREMIUM */
-    Route::group(['check-permission:premium|admin|superadmin'], function () {
+    Route::group(['check-permission:premium|admin|superadmin', 'lscache:private;esi=on;max-age=120'], function () {
         Route::get('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horaire')->name('competition.match.horaire');
         Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost')->name('competition.match.horaire.post');
 
