@@ -1,9 +1,15 @@
 /.phive
 /.phpdoc
 /node_modules
+/public/css/app.css
+/public/js/app.js
+/public/js/select2.min.js
+/public/js/datatables.min.js
 /public/hot
+/public/mix-manifest.json
 /public/node_modules
 /public/storage
+/public/vendor
 /storage/*.key
 /vendor
 /tmp
