@@ -15,7 +15,7 @@ return [
      * Default cache storage
      * private,no-cache,public,no-vary
      */
-    'default_cacheability' => env('LSCACHE_DEFAULT_CACHEABILITY', 'no-cache'),
+    'default_cacheability' => env('LSCACHE_DEFAULT_CACHEABILITY', 'public'),
 
     /**
      * Guest only mode (Do not cache logged in users)

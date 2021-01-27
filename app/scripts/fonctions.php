@@ -368,23 +368,15 @@ function match(string $uniqid)
  * Les journées doivent être crées dans la base avant de commencer, de même pour la saison
  *
  * @param array $donnees
- * @return void
+ * @return void|boolean
  */
 function genererCalendrier($donnees)
 {
     // L'ID de la saison (la saison sera au préalable créée dans la bdd)
     $saisonId = $donnees['saisonId'];
 
-    // Un tableau qui contiendra l'id de chaque équipe : $idsEquipes = [$idEq1 , $idEq2 , ...]
-    $idsEquipes = $donnees['idsEquipes'];
-
-    $saison = Saison::findOrFail($saisonId);
-    // On insère dans la table associatif le lien equipe/saison pour toutes les équipes
-    foreach ($idsEquipes as $equipeId)
-        $saison->equipes()->attach($equipeId);
-
-    // Une heure. Par défaut vaut 15:00
-    $heure = $donnees['heure'] ?? '15:00';
+    // Une heure.
+    $heure = $donnees['heure'] ?? NULL;
 
     // S'il y a ou non des matches retour à générer
     $avecMatchesRetour = $donnees['avecMatchesRetour'] ?? 1;
@@ -414,6 +406,8 @@ function genererCalendrier($donnees)
     ];
     */
     $rencontres = $donnees['rencontres'];
+    if(! $rencontres)
+        return false;
 
     // Différence entre l'aller et le retour : Si 12 équipes alors $diffAllerRetour = 11 cad J1 et J12 correspondront aux mêmes matches
     $diffAllerRetour = $donnees['diffAllerRetour'] ?? 11;
@@ -441,6 +435,7 @@ function genererCalendrier($donnees)
             ];
 
             $matchAller = Match::create($matchAller);
+            Log::info("Ajout d'un match : " . $matchAller);
 
             if($avecMatchesRetour){
                 // Si le tableau de correspondance est précisé alors on l'applique, sinon on applique une diff aller retour unique pour tous les matches
@@ -462,7 +457,7 @@ function genererCalendrier($donnees)
                 ];
 
                 $matchRetour = Match::create($matchRetour);
-                // Log::info("Ajout d'un match : " . $matchRetour);
+                Log::info("Ajout d'un match : " . $matchRetour);
             }
         }
     }

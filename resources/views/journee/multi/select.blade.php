@@ -76,6 +76,7 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('node_modules/select2/select2.js') }}"></script>
 <script src="{{ asset('/js/journees-multiples-ajout.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {

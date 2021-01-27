@@ -110,12 +110,20 @@ return [
         'crud_tables', 'crud_attributs', 'crud_attribut_infos'
     ],
 
-    "tables-non-crudables" => [
-        'migrations', 'password_resets', 'matches', 'failed_jobs', 'jobs', 'equipe_saison', 'article_sport', 'article_equipe', 'article_competition'
-    ],
-
-    "tables-superadmin" => [
-        'roles', 'users', 'matches'
+    "tables-non-indexables" => [
+        'article_competition', 
+        'article_equipe', 
+        'article_sport', 
+        'competition_sport',
+        'equipe_saison', 
+        'failed_jobs', 
+        'jobs', 
+        'migrations', 
+        'model_has_permissions',
+        'model_has_roles',
+        'password_resets',
+        'permissions',
+        'role_has_permissions',
     ],
 
     "types-competitions" => [

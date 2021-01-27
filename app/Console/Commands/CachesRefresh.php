@@ -8,8 +8,8 @@
 namespace App\Console\Commands;
 
 use App\Saison;
-use App\CrudTable;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CachesRefresh extends Command
@@ -47,19 +47,14 @@ class CachesRefresh extends Command
     {
         Log::info(" -------- Command refresh:cache -------- ");
         // Les caches index et indexCrud ainsi que les listeAttributsVisibles pour chaque table
-        $crudTables = CrudTable::all();
-        foreach ($crudTables as $crudTable) {
-            if (!in_array($crudTable->nom, config('listes.tables-non-crudables'))) {
-                $crudTable->index();
-                $crudTable->listeAttributsVisibles();
-                $crudTable->listeAttributsVisibles('create');
-                $crudTable->listeAttributsVisibles('show');
-                $crudTable->indexCrud();
-            }
-        }
+        
+        $tables = DB::select('SHOW TABLES');
+        $tables = array_map('current', $tables);
 
-        // Liste des tables crudables.
-        CrudTable::navbarCrudTables();
+        foreach ($tables as $table) {
+            if (!in_array($table, config('listes.tables-non-indexables')))
+                index($table);
+        }
 
         // Les caches saisons/journees et matches QUE pour les saisons en cours
         $saisons = Saison::all();

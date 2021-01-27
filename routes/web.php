@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('script.html', function(){ // Page pour tester une fonction ou un script
-    return view('script');
-});
-
 Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes(['verify' => true]);
@@ -64,10 +60,13 @@ Route::group(['middleware'=> 'verified'], function () {
 
             /* DEBUT MIDDLEWARE SUPERADMIN */
             Route::prefix('/superadmin')->middleware(['check-permission:superadmin'])->group(function () {
-                Route::post('/cache-flush', 'SuperadminController@cacheFlush')->name('cache-flush');
+                Route::get('/cache-flush', 'SuperadminController@cacheFlush')->name('cache.flush');
 
                 Route::get('/upload-image', 'SuperadminController@imageUpload')->name('upload.image');
                 Route::post('/upload-image', 'SuperadminController@imageUploadPost')->name('upload.image.post');
+                
+                Route::get('/script', 'SuperadminController@script')->name('script');                
+                Route::get('/cache-refresh', 'SuperadminController@cacheRefresh')->name('cache.refresh');                
 
                 /* ----- DEBUT ROUTES PDF PARSER ----- */
                 Route::get('/pdfparser', 'SuperadminController@pdfParser')->name('pdfparser');
@@ -90,9 +89,9 @@ Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
 })->name('ajax');
 
 Route::post('/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
-Route::get('/ajax/caches/reload', 'CacheController@reload')->name('caches.reload');
+Route::get('/ajax/caches/reload', 'CacheController@reload')->name('cache.reload');
 
-Route::get('contact', 'ContactController@create')->name('contact');
+Route::get('contact', 'ContactController@create')->name('contact')->middleware('lscache:max-age=3600;public;esi=on');
 Route::post('contact', 'ContactController@post')->name('contact.post');
 Route::get('notre-politique-de-confidentialite.php', 'HomeController@politique')->name('politique');
 

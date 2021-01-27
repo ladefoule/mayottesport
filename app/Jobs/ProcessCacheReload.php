@@ -48,7 +48,7 @@ class ProcessCacheReload implements ShouldQueue
             // 'timeout'  => 10.0,
         ]);
 
-        $promise = $client->getAsync(route('caches.reload') , [
+        $promise = $client->getAsync(route('cache.reload') , [
             'query' => [
                 'table' => $this->table,
                 'id' => $this->id

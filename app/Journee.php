@@ -122,7 +122,7 @@ class Journee extends Model
             $saison = index('saisons')->where('competition_id', $competition->id)->sortByDesc('annee_debut')->first();
             if($saison){
                 // $derniereJournee = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->first();
-                $derniereJournee = index('journees')->where('saison_id', $saison->id)->where('date', '<', date('Y-m-d'))->sortBy('date')->first();
+                $derniereJournee = index('journees')->where('saison_id', $saison->id)->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
                 if($derniereJournee)
                     $resultats[] = [
                         'competition_nom' => $competition->nom,

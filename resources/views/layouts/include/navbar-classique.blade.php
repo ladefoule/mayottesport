@@ -59,8 +59,11 @@
                                 </a>
                             @endif
                             @if($role == 'superadmin')
-                                <a class="dropdown-item" href="{{ asset('/script.html') }}">
+                                <a class="dropdown-item" href="{{ route('cache.flush') }}">
                                     Vider le cache
+                                </a>
+                                <a class="dropdown-item" href="{{ route('cache.refresh') }}">
+                                    Recharger tous les caches
                                 </a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"

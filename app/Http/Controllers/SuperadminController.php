@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SuperadminController extends Controller
@@ -30,6 +30,20 @@ class SuperadminController extends Controller
         Log::info(" -------- Controller Superadmin : cacheFlush -------- ");
         Cache::flush();
         Log::info('Suppression de tout le cache !');
+        return "Suppression de tout le cache effectuée !";
+    }
+
+    /**
+     * Suppression de tout le cache
+     *
+     * @return void
+     */
+    public function cacheRefresh()
+    {
+        Log::info(" -------- Controller Superadmin : cacheRefresh -------- ");
+        Artisan::call('refresh:cache');
+        Log::info('Rechargement du cache !');
+        return "Rechargement du cache initié !";
     }
 
     /**
@@ -94,5 +108,16 @@ class SuperadminController extends Controller
         if($file->getSize() > 5000000 || $file->getMimeType() != 'application/pdf') // < 5Mo et PDF
             return redirect()->back();
         return view('superadmin.pdfparser', ['file' => $file]);
+    }
+
+    /**
+     * Pdf Parser : accès au formulaire
+     *
+     * @return \Illuminate\View\View
+     */
+    public function script()
+    {
+        Log::info(" -------- Controller Superadmin : script -------- ");
+        return view('superadmin.script');
     }
 }
