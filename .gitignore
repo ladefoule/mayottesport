@@ -10,6 +10,7 @@
 /public/node_modules
 /public/storage
 /public/vendor
+/resources/*script.blade.php
 /storage/*.key
 /vendor
 /tmp

@@ -4,6 +4,7 @@
     $hrefClassement = request()->hrefClassement;
     $hrefCalendrier = request()->hrefCalendrier;
     $hrefPalmares = request()->hrefPalmares;
+    $hrefActualites = request()->hrefActualites ?? '8';
     $competition = request()->competition;
     $sport = request()->sport;
     $routeName = request()->route()->getName();
@@ -40,6 +41,11 @@
                         @if ($hrefClassement)
                         <a href="{{ $hrefClassement }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.classement') font-weight-bold text-body active @else text-secondary @endif pr-3">
                             Le classement
+                        </a>
+                        @endif
+                        @if ($hrefActualites)
+                        <a href="{{ $hrefActualites }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.classement') font-weight-bold text-body active @else text-secondary @endif pr-3">
+                            L'actu
                         </a>
                         @endif
                         @if ($hrefCalendrier)

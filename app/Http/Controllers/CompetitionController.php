@@ -43,13 +43,23 @@ class CompetitionController extends Controller
         $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
 
         if($saison){
-            $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
-            foreach ($journeesPassees as $journee)
-                $resultats[] = journee($journee->id)->render;
-
             $journeesSuivantes = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->limit(2)->get();
-            foreach ($journeesSuivantes as $journee)
-                $prochains[] = journee($journee->id)->render;
+            foreach ($journeesSuivantes as $key => $journee){
+                $render = journee($journee->id)->render;
+                $prochains[] = $render;
+                if($key == 0)
+                    $journeeAffichee = $render;
+            }
+
+            $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
+            foreach ($journeesPassees as $key => $journee){
+                $render = journee($journee->id)->render;
+                $resultats[] = $render;
+                if($key == 0)
+                    $journeeAffichee = $render;
+            }
+
+            $classement = saison($saison->id)['classement'];
         }
 
         $articles = $competition->articles()->where('valide', 1)->orderBy('created_at')->get();
@@ -64,6 +74,8 @@ class CompetitionController extends Controller
             'articles' => $articlesView,
             'resultats' => $resultats ?? [],
             'prochains' => $prochains ?? [],
+            'journeeAffichee' => $journeeAffichee ?? '',
+            'classement' => $classement ?? [],
         ]);
     }
 
