@@ -63,16 +63,14 @@
     </div>
     <div id="bloc-resultats" class="col-12 p-2 d-none">
         @foreach ($resultats as $sport => $journees)
-            <div class="col-12 text-center my-2 px-3">
-                <span class="nom-sport font-italic">
-                    <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+            <div class="col-12 text-center pt-1">
+                <a class="nom-sport text-secondary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
-                    </a>
-                </span>
+                </a>
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <h3 class="col-12 h4 border-bottom-calendrier py-2">
+                    <h3 class="col-12 h4 py-2">
                         <a class="text-green-light" href="{{ $journee['competition_href'] }}">
                             {{ $journee['competition_nom'] }}
                         </a>
@@ -86,16 +84,14 @@
     </div>
     <div id="bloc-prochains" class="col-12 p-2 d-none">
         @foreach ($prochains as $sport => $journees)
-            <div class="col-12 text-center my-2 px-3">
-                <span class="nom-sport font-italic">
-                    <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+            <div class="col-12 text-center pt-1">
+                <a class="nom-sport text-secondary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
-                    </a>
-                </span>
+                </a>
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <h3 class="col-12 h4 border-bottom-calendrier py-2">
+                    <h3 class="col-12 h4 py-2">
                         <a class="text-green-light" href="{{ $journee['competition_href'] }}">
                             {{ $journee['competition_nom'] }}
                         </a>

@@ -87,7 +87,7 @@
                         </tbody>
                     </table>
                     <div class="col-12 text-center pb-3">
-                        <a class="" href="{{ $hrefClassement }}">Le classement complet</a>
+                        <a class="font-size-1-rem" href="{{ $hrefClassement }}">Le classement complet</a>
                     </div>
                 </div>
             @endif

@@ -14,16 +14,14 @@
     </div>
     <div id="resultats-section-droite" class="col-12 p-2 d-none">
         @foreach ($resultats as $sport => $journees)
-            <div class="col-12 text-center">
-                <span class="nom-sport font-italic">
-                    <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+            <div class="col-12 text-center pt-1">
+                <a class="nom-sport text-secondary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
-                    </a>
-                </span>
+                </a>
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <p class="col-12 nom-competition border-bottom-calendrier pt-2">
+                    <p class="col-12 nom-competition pt-2">
                         <a href="{{ $journee['competition_href'] }}">
                             {{ $journee['competition_nom'] }}
                         </a>
@@ -37,16 +35,14 @@
     </div>
     <div id="prochains-section-droite" class="col-12 p-2 d-none">
         @foreach ($prochains as $sport => $journees)
-            <div class="col-12 text-center">
-                <span class="nom-sport font-italic">
-                    <a class="text-body" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+            <div class="col-12 text-center pt-1">
+                <a class="nom-sport text-secondary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
-                    </a>
-                </span>
+                </a>
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <p class="col-12 nom-competition border-bottom-calendrier pt-2">
+                    <p class="col-12 nom-competition pt-2">
                         <a href="{{ $journee['competition_href'] }}">
                             {{ $journee['competition_nom'] }}
                         </a>

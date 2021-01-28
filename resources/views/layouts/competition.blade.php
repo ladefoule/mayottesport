@@ -75,7 +75,7 @@
                     </div>
                     <div id="resultats-section-droite" class="col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
                         @if($resultats)
-                            <p class="col-12 nom-competition m-0 border-bottom-calendrier text-center p-0 mt-3">
+                            <p class="col-12 nom-competition m-0 text-center p-0 mt-3">
                                 <a href="{{ $hrefIndex }}">
                                     {{ $competition->nom }}
                                 </a>
@@ -89,7 +89,7 @@
                     </div>
                     <div id="prochains-section-droite" class="col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
                         @if($prochains)
-                            <p class="col-12 nom-competition m-0 border-bottom-calendrier text-center p-0 mt-3">
+                            <p class="col-12 nom-competition m-0 text-center p-0 mt-3">
                                 <a href="{{ $hrefIndex }}">
                                     {{ $competition->nom }}
                                 </a>
