@@ -30,7 +30,7 @@
             @endif
 
             {{-- LE CLASSEMENT --}}
-            @if($classement)
+            @if(count($classement) > 0)
                 <div class="col-12 py-3 mt-2 p-0">
                     <h3 class="col-12 h4 text-center mb-3 text-info">Le classement</h3>
                     <table class="table text-center classement w-100 border-bottom" id="classement">

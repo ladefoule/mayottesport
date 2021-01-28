@@ -72,9 +72,9 @@ a{
     color: green;
 }
 
-/* .journee{
-    color:blueviolet
-} */
+.journee{
+    color:seagreen
+}
 
 a:hover{
     text-decoration: none;
@@ -483,16 +483,18 @@ a.non-cliquable, a.non-cliquable:hover{
 
             #section-droite .calendrier .equipe-exterieur{
                 width: 100%;
+                font-size: 0.9rem;
                 text-align: right;
             }
 
             #section-droite .calendrier .equipe-domicile{
                 width: 100%;
+                font-size: 0.9rem;
                 text-align: left;
             }
 
             #section-droite .calendrier{
-                font-size: 0.7rem;
+                font-size: 0.9rem;
             }
 
             #section-droite .nom-sport{
@@ -548,20 +550,20 @@ a.non-cliquable, a.non-cliquable:hover{
 
             /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
             @media (min-width: 1200px) {
-                #section-droite .fanion-calendrier img{
+                /* #section-droite .fanion-calendrier img{
                     display:block;
                     width:25px
-                }
+                } */
 
                 #section-droite .calendrier{
                     font-size: 0.85rem;
                 }
 
-                #section-droite .onglet{
+                #section-droite .calendrier,#section-droite .onglet,#section-droite .calendrier .equipe-exterieur,#section-droite .calendrier .equipe-domicile{
                     font-size:1rem
                 }
 
-                #section-droite .calendrier .equipe-exterieur{
+                /* #section-droite .calendrier .equipe-exterieur{
                     width: auto;
                     text-align: left;
                 }
@@ -569,7 +571,7 @@ a.non-cliquable, a.non-cliquable:hover{
                 #section-droite .calendrier .equipe-domicile{
                     width: auto;
                     text-align: right;
-                }
+                } */
             }
         }
     }

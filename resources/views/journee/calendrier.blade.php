@@ -1,7 +1,6 @@
 <div class="calendrier">
-    <p class="text-center header-journee d-flex flex-wrap">
-        <span class="col-12 journee">{{ $journee }}</span>
-        <span class="col-12 date">{!! config('listes.boutons.calendrier') !!} {{ $date }}</span>
+    <p class="text-center header-journee font-italic">
+        {{ $journee }} : {{ $date }}</span>
     </p>
     @foreach($matches as $i => $match)
         <a href="{{ $match->url }}" class="text-decoration-none text-body match-calendrier">
