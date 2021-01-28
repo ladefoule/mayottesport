@@ -63,7 +63,10 @@
                                     Vider le cache
                                 </a>
                                 <a class="dropdown-item" href="{{ route('cache.refresh') }}">
-                                    Recharger tous les caches
+                                    Recharger le cache
+                                </a>
+                                <a class="dropdown-item" href="{{ route('script') }}">
+                                    Exécuter un script
                                 </a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"

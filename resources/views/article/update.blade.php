@@ -60,12 +60,13 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
-<script>
-$(document).ready(function(){
-    $('#images').select2();
-    verifierMonFormulaireEnJS('formulaire')
-    tinymceFunc('#preambule,#article', "<?php echo route('images_list') ?>")
-})
-</script>
+    <script src="{{ asset('node_modules/select2/select2.js') }}"></script>
+    <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#images').select2();
+            verifierMonFormulaireEnJS('formulaire')
+            tinymceFunc('#preambule,#article', "<?php echo route('images_list') ?>")
+        })
+    </script>
 @endsection

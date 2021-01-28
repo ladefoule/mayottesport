@@ -5,28 +5,33 @@
 
 @extends('layouts.competition')
 
-@section('title', $competition->nom_complet . ' - ' . $sport->nom)
+@section('title', $sport->nom . ' - ' . $competition->nom_complet)
 
 @section('content')
 <div class="p-lg-3 h-100">
     {{-- classique écran large --}}
-    <div class="d-flex h-100 p-0">
+    {{-- <div class="d-flex h-100 p-0"> --}}
         <div class="col-12 px-3 pt-2 bg-white shadow-div">
             <div class="col-12">
                 <h1 class="h3 text-center m-auto p-3">{{ $sport->nom }} - {{ $competition->nom_complet }}</h1>
             </div>
 
             {{-- LES DERNIERS RESULTATS --}}
-            @if($journeeAffichee)
+            @if($derniereJourneeRender)
                 <div class="col-12">
                     <h3 class="col-12 h4 text-center mb-3 text-danger">Les derniers résultats</h3>
-                    {!! $journeeAffichee !!}
+                    {!! $derniereJourneeRender !!}
+                </div>
+            @elseif($prochaineJourneeRender)
+                <div class="col-12">
+                    <h3 class="col-12 h4 text-center mb-3 text-success">La prochaine journée</h3>
+                    {!! $prochaineJourneeRender !!}
                 </div>
             @endif
 
             {{-- LE CLASSEMENT --}}
             @if($classement)
-                <div class="col-12 p-0 mt-4">
+                <div class="col-12 py-3 mt-2 p-0">
                     <h3 class="col-12 h4 text-center mb-3 text-info">Le classement</h3>
                     <table class="table text-center classement w-100 border-bottom" id="classement">
                         <thead {{-- class="thead-light thead-fixed" --}}>
@@ -88,11 +93,11 @@
             @endif
 
             {{-- L'ACTU --}}
-            <div class="col-12">
+            <div class="row col-12 px-1">
                 {!! $articles !!}
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 
     {{-- avec onglets --}}
     {{-- <div class="col-12 d-lg-none d-flex text-center p-3 bg-white">

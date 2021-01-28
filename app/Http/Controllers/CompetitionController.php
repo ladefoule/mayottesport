@@ -48,7 +48,7 @@ class CompetitionController extends Controller
                 $render = journee($journee->id)->render;
                 $prochains[] = $render;
                 if($key == 0)
-                    $journeeAffichee = $render;
+                    $prochaineJourneeRender = $render;
             }
 
             $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
@@ -56,25 +56,26 @@ class CompetitionController extends Controller
                 $render = journee($journee->id)->render;
                 $resultats[] = $render;
                 if($key == 0)
-                    $journeeAffichee = $render;
+                    $derniereJourneeRender = $render;
             }
 
-            $classement = saison($saison->id)['classement'];
+            if($competition->type == 1) // Type compétition
+               $classement = saison($saison->id)['classement'];
         }
 
-        $articles = $competition->articles()->where('valide', 1)->orderBy('created_at')->get();
-        foreach ($articles as $key => $article)
-            $articles[$key] = article($article->uniqid);
         
-        $articlesView = view('article.render', ['articles' => $articles->slice(0, 5)])->render();
+        $articles = $request->articles;
+        if($articles)
+            $articlesView = view('article.render', ['articles' => $articles->slice(0, 5), 'affichage' => 'card'])->render();
 
         return view('competition.index', [
             'competition' => $competition,
             'sport' => $sport,
-            'articles' => $articlesView,
+            'articles' => $articlesView ?? [],
             'resultats' => $resultats ?? [],
             'prochains' => $prochains ?? [],
-            'journeeAffichee' => $journeeAffichee ?? '',
+            'derniereJourneeRender' => $derniereJourneeRender ?? '',
+            'prochaineJourneeRender' => $prochaineJourneeRender ?? '',
             'classement' => $classement ?? [],
         ]);
     }
@@ -95,6 +96,29 @@ class CompetitionController extends Controller
             'classement' => $classement,
             'title' => $title,
             'h1' => $h1
+        ]);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function actualite(Request $request)
+    {
+        Log::info(" -------- Controller Competition : index -------- ");
+        $competition = $request->competition;
+        $sport = $request->sport;
+        
+        $articles = $request->articles;
+        if($articles)
+            $articlesView = view('article.render', ['articles' => $articles])->render();
+
+        return view('competition.actualite', [
+            'competition' => $competition,
+            'sport' => $sport,
+            'articles' => $articlesView ?? [],
         ]);
     }
 

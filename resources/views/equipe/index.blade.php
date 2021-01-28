@@ -8,8 +8,7 @@
         <div class="col-12 d-flex px-0 pb-3">
             <img src="{{ asset('/storage/img/equipe/'. $equipe->uniqid .'.jpg') }}" alt="" class="img-fluid m-auto">
         </div>
-        <h1 class="h3 text-center pb-3 col-12 text-body">{{ $equipe->nom_complet ?? $equipe->nom }}</h1>
-        {{-- @include('modele-onglets') --}}
+        <h1 class="h3 text-center col-12 text-body">{{ $equipe->nom }}</h1>
         <div class="row col-12 d-flex flex-wrap justify-content-center p-3 m-auto">
             @if ($dernierMatch)
             <div class="col-12 pb-3 m-auto px-0">

@@ -62,6 +62,14 @@ class Competition
             }
         }
 
+        $articles = $competition->articles()->where('valide', 1)->orderBy('created_at')->get();
+        if(count($articles) > 0)
+            $request->hrefActualite = route('competition.actualite', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
+
+        foreach ($articles as $key => $article)
+            $articles[$key] = article($article->uniqid);
+
+        $request->articles = $articles;
         $request->resultats = $resultats ?? [];
         $request->prochains = $prochains ?? [];
         return $next($request);
