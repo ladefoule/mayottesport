@@ -99,6 +99,7 @@ Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');
 Route::get('/{sport}/{competition}/calendrier-et-resultats.html', 'CompetitionController@resultats')->name('competition.calendrier-resultats');
 Route::get('/{sport}/{competition}/palmares.html', 'CompetitionController@champions')->name('competition.palmares');
+Route::get('/{sport}/{competition}/l-actualite.html', 'CompetitionController@actualite')->name('competition.actualite');
 Route::get('/{sport}/equipe/{equipe}', 'EquipeController@index')->name('equipe.index');
 Route::get('/{sport}/{competition}', 'CompetitionController@index')->name('competition.index');
 Route::get('/{sport}', 'SportController@index')->name('sport.index');

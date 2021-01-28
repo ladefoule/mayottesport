@@ -1,5 +1,8 @@
 <div class="calendrier">
-    <p class="text-center header-journee"><span class="journee {{-- font-weight-bold font-italic --}}">{{ $journee }}</span> : <span>{{ $date }}</span></p>
+    <p class="text-center header-journee d-flex flex-wrap">
+        <span class="col-12 journee">{{ $journee }}</span>
+        <span class="col-12 date">{!! config('listes.boutons.calendrier') !!} {{ $date }}</span>
+    </p>
     @foreach($matches as $i => $match)
         <a href="{{ $match->url }}" class="text-decoration-none text-body match-calendrier">
             <div class="row d-flex flex-nowrap py-2 border-bottom @if($i==0) border-top @endif">

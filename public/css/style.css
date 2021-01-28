@@ -72,6 +72,10 @@ a{
     color: green;
 }
 
+/* .journee{
+    color:blueviolet
+} */
+
 a:hover{
     text-decoration: none;
     color: rgb(8, 189, 8);
@@ -439,18 +443,22 @@ a.non-cliquable, a.non-cliquable:hover{
         .fanion-page-equipe{
             width:35px;
         }
+
+        .equipe-domicile{
+            text-align: left;
+        }
     
         .equipe-exterieur{
             text-align: right;
         }
 
-        .bloc-match .equipe-domicile{
+        /* .bloc-match .equipe-domicile{
             text-align: left;
         }
 
         .bloc-match .equipe-exterieur{
             text-align: right;
-        }
+        } */
     
 
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */

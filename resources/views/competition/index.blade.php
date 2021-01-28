@@ -10,10 +10,10 @@
 @section('content')
 <div class="p-lg-3 h-100">
     {{-- classique écran large --}}
-    <div class="d-none d-lg-flex h-100 p-0">
+    <div class="d-flex h-100 p-0">
         <div class="col-12 px-3 pt-2 bg-white shadow-div">
             <div class="col-12">
-                <h1 class="h3 text-center m-auto p-3">{{ $competition->nom_complet }}</h1>
+                <h1 class="h3 text-center m-auto p-3">{{ $sport->nom }} - {{ $competition->nom_complet }}</h1>
             </div>
 
             {{-- LES DERNIERS RESULTATS --}}
@@ -26,7 +26,7 @@
 
             {{-- LE CLASSEMENT --}}
             @if($classement)
-                <div class="col-12 p-0 mt-5">
+                <div class="col-12 p-0 mt-4">
                     <h3 class="col-12 h4 text-center mb-3 text-info">Le classement</h3>
                     <table class="table text-center classement w-100 border-bottom" id="classement">
                         <thead {{-- class="thead-light thead-fixed" --}}>
@@ -95,7 +95,7 @@
     </div>
 
     {{-- avec onglets --}}
-    <div class="col-12 d-lg-none d-flex text-center p-3 bg-white">
+    {{-- <div class="col-12 d-lg-none d-flex text-center p-3 bg-white">
         <span data-cible="actualites-content"
             class="d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">Actualités</span>
         <span data-cible="resultats-content"
@@ -122,6 +122,6 @@
                 </div>
             @endforeach
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection
