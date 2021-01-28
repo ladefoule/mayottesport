@@ -1,5 +1,19 @@
 @section('section-droite')
 <div class="my-3 bg-white shadow-div" {{-- style="background-color:#ebeff3" --}}>
+    <div class="col-12">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- v2 -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-6802785230681286"
+            data-ad-slot="8301161659"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     {{-- <h2 class="alert alert-danger h4 text-center py-4">Les derniers résultats</h2> --}}
     <div class="col-12 d-flex text-center p-2">
         <span data-cible="fil-actu-section-droite"
