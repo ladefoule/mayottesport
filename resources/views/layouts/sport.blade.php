@@ -37,6 +37,7 @@
 
         <div class="d-flex flex-wrap col-12 justify-content-center mx-auto mb-auto p-0 @if(count($competitions) == 0) top-main-site @endif" style="max-width: 1300px">
             <main class="col-12 @if(View::hasSection('section-droite')) col-lg-8 @endif p-0">
+                
                 @yield('content')
             </main>
             @if(View::hasSection('section-droite'))

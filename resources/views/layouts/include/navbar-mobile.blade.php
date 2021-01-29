@@ -27,7 +27,7 @@
                                         <a class="dropdown-item @if(request()->route()->getName() == 'sport.index' && request()->route('sport') == $sport->slug) active bg-success @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
                                         @foreach ($competitions->where('sport_id', $sport->id) as $competition)
                                             <a class="dropdown-item @if(request()->route()->getName() == 'competition.index' && request()->route('competition') == $competition->slug_complet) active bg-success @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
-                                                {{ $competition->nom_complet }}
+                                                {{ $competition->nom }}
                                             </a>
                                         @endforeach
                                     </div>

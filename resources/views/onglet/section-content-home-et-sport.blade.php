@@ -24,27 +24,13 @@
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if(! $resultats && ! $articles) active @endif">À venir</span>
     </div>
 
-    <div class="col-12 d-lg-none bg-white">
-        <div class="col-12">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- v2 -->
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-6802785230681286"
-                data-ad-slot="8301161659"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        
-        <div id="actualites-content" class="pb-3 @if(! $articles) d-none @endif">
+    <div class="col-12 d-lg-none bg-white d-flex flex-wrap justify-content-center">        
+        <div id="actualites-content" class="col-12 pb-3 @if(! $articles) d-none @endif">
             <div class="d-flex flex-wrap justify-content-start align-items-stretch">
                 {!! $articles !!}
             </div>
         </div>
-        <div id="resultats-content" class="@if($articles || !$resultats) d-none @endif">
+        <div id="resultats-content" class="col-12 @if($articles || !$resultats) d-none @endif">
             @foreach ($resultats as $sport => $journees)
                 <div class="col-12 text-center">
                     <span class="nom-sport font-italic">
@@ -67,7 +53,7 @@
                 @endforeach
             @endforeach
         </div>
-        <div id="prochains-content" class="@if($articles || $resultats) d-none @endif">
+        <div id="prochains-content" class="col-12 @if($articles || $resultats) d-none @endif">
             @foreach ($prochains as $sport => $journees)
                 <div class="col-12 text-center">
                     <span class="nom-sport font-italic">
@@ -90,6 +76,16 @@
                 @endforeach
             @endforeach
         </div>
+
+        <!-- bloc principal dans le main -->
+        <ins class="adsbygoogle col-12 mx-auto mb-3 overflow-x-hidden overflow-y-hidden d-flex justify-content-center"
+            data-ad-client="ca-pub-6802785230681286"
+            data-ad-slot="4917639780"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 {{-- </div> --}}
 @endsection

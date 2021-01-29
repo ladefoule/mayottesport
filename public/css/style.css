@@ -234,6 +234,14 @@ main .nom-sport{
     overflow-y:auto
 }
 
+.overflow-x-hidden{
+    overflow-x:hidden
+}
+
+.overflow-y-hidden{
+    overflow-y:hidden
+}
+
 .cursor-pointer{
     cursor:  pointer;
 }
@@ -444,6 +452,7 @@ a.non-cliquable, a.non-cliquable:hover{
 
     /* Large devices (desktops, 768px and up) => point de rupture bootstrap : MD */
     @media (min-width: 768px) {
+
         .equipe-align-auto, .logo-align-auto{
             margin: 0;
         }

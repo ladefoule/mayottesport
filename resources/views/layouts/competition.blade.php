@@ -101,6 +101,8 @@
                             </div>
                         @endforeach
                     </div>
+
+                    @include('pub.google-responsive-section-droite')
                 </div>
             </section>
         </div>
