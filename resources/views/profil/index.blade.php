@@ -4,7 +4,7 @@
 
 @section('content')
 {{-- <div class="row justify-content-center p-3"> --}}
-    <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
+    <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3 font-size-1-rem">
         <div class="card">
             <div class="card-header d-flex align-items-center">
                 <span class="d-inline mr-3 crud-titre">{!! config('listes.boutons.user') !!} Mon compte </span>

@@ -63,7 +63,7 @@ class UserController extends Controller
         $user = User::findOrFail(Auth::id());
 
         $rules = User::rules($user)['rules'];
-        $rules['avatar'] = ['nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'];
+        $rules['avatar'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         unset($rules['password'], $rules['email'], $rules['role_id']);
 
         $data = Validator::make($request->all(), $rules)->validate();

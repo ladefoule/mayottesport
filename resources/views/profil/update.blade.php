@@ -3,7 +3,7 @@
 @section('title', 'Mise à jour de mon profil')
 
 @section('content')
-<div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
+<div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3 font-size-1-rem">
     <div class="card">
         <div class="card-header d-flex align-items-center px-2">
             <span class="d-inline mr-3 crud-titre">{!! \Config::get('listes.boutons.user') !!} Mise à jour de mon compte</span>

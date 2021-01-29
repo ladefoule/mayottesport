@@ -44,10 +44,6 @@ footer{
     /* background-color: #ebeff3 !important; */
 }
 
-.footer-copyright, .footer-link, .navbar-mobile .dropdown-item{
-    font-size: 1rem;
-}
-
 .border-bottom-dashed{
     border-bottom: 1px dashed #000
 }
@@ -404,10 +400,6 @@ main .nom-competition{
 
 /* Medium devices (tablets, 576px and up) => point de rupture bootstrap : SM */
 @media (min-width: 576px) {
-    html{
-        font-size: 90%;
-    }
-
     .match-equipe{
         font-size: 1.0rem;
     }
@@ -450,6 +442,9 @@ main .nom-competition{
 
     /* Large devices (desktops, 768px and up) => point de rupture bootstrap : MD */
     @media (min-width: 768px) {
+        html{
+            font-size: 90%;
+        }
 
         .equipe-align-auto, .logo-align-auto{
             margin: 0;
@@ -479,7 +474,7 @@ main .nom-competition{
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
         @media (min-width: 992px) {
             html{
-                font-size: 90%;
+                font-size: 95%;
             }
 
             .shadow-div{
@@ -565,18 +560,21 @@ main .nom-competition{
 
             /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
             @media (min-width: 1200px) {
+                html{
+                    font-size: 100%;
+                }
                 /* #section-droite .fanion-calendrier img{
                     display:block;
                     width:25px
                 } */
 
-                #section-droite .calendrier{
+                /* #section-droite .calendrier{
                     font-size: 0.85rem;
-                }
+                } */
 
-                #section-droite .calendrier,#section-droite .onglet,#section-droite .calendrier .equipe-exterieur,#section-droite .calendrier .equipe-domicile{
+                /* #section-droite .calendrier,#section-droite .onglet,#section-droite .calendrier .equipe-exterieur,#section-droite .calendrier .equipe-domicile{
                     font-size:1rem
-                }
+                } */
 
                 /* #section-droite .calendrier .equipe-exterieur{
                     width: auto;

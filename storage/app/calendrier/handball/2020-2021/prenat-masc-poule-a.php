@@ -1,7 +1,7 @@
 <?php 
-    echo "SCRIPT DE GENERATION DE LA SAISON 2020/2021 DE PRENAT MASC, POULE A DE HANDBALL<br>";
+    echo "SCRIPT DE GENERATION DE LA SAISON 2020/2021 DE PRENAT MASC, POULE B DE HANDBALL<br>";
 
-    $saisonId = 180; A MODIFIER EN FONCTION
+    $saisonId = 179; //A MODIFIER EN FONCTION
     // $heure = '';
     // $avecMatchesRetour = 1;
 
