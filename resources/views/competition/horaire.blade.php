@@ -34,11 +34,7 @@
                 <div class="col-12 d-flex justify-content-center">
                     <input class="text-center form-control col-6 col-md-4 col-lg-3" type="time" name="heure" pattern="\d{2}:\d{2}" data-msg="Merci de saisir une heure." value="{{ $match->heure }}">
                 </div>
-            </div>
-
-            <div class="col-12 text-center p-3">
-                <button class="btn btn-danger text-white px-5">Valider</button>
-            </div>
+            </div>     
 
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <div class="col-lg-6 alert alert-danger text-dark p-3 d-none" id="messageErreur"></div>
@@ -49,6 +45,14 @@
                     {{ $match->competition }} : {{ $match->journee }}
                 </div>
             </div>
+
+            <div class="col-12 text-center p-3">
+                <button class="btn btn-danger text-white px-5">Valider</button>
+            </div>
+        </div>
+
+        <div class="col-12 m-auto p-3">
+            @include('pub.google-display-responsive')
         </div>
     </form>
 </div>

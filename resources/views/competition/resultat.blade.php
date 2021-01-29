@@ -43,10 +43,6 @@
             </div>
             @endif
 
-            <div class="col-12 text-center p-3">
-                <button class="btn btn-danger px-5">Valider</button>
-            </div>
-
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <div class="col-lg-6 alert alert-danger text-dark p-3 d-none" id="messageErreur"></div>
             </div>
@@ -59,6 +55,14 @@
                     {{ $match->competition }} : {{ $match->journee }}
                 </div>
             </div>
+
+            <div class="col-12 text-center p-3">
+                <button class="btn btn-danger px-5">Valider</button>
+            </div>
+        </div>
+
+        <div class="col-12 m-auto p-3">
+            @include('pub.google-display-responsive')
         </div>
     </form>
 </div>

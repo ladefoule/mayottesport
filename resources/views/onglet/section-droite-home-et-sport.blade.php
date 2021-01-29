@@ -21,11 +21,9 @@
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <p class="col-12 nom-competition pt-2">
-                        <a href="{{ $journee['competition_href'] }}">
-                            {{ $journee['competition_nom'] }}
-                        </a>
-                    </p>
+                    <a class="d-block nom-competition py-2" href="{{ $journee['competition_href'] }}">
+                        {{ $journee['competition_nom'] }}
+                    </a>
                     <div class="pl-0">
                             {!! $journee['journee_render'] !!}
                     </div>
@@ -42,11 +40,9 @@
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <p class="col-12 nom-competition pt-2">
-                        <a href="{{ $journee['competition_href'] }}">
-                            {{ $journee['competition_nom'] }}
-                        </a>
-                    </p>
+                    <a class="d-block nom-competition py-2" href="{{ $journee['competition_href'] }}">
+                        {{ $journee['competition_nom'] }}
+                    </a>
                     <div class="pl-0">
                             {!! $journee['journee_render'] !!}
                     </div>
@@ -55,6 +51,6 @@
         @endforeach
     </div>
     
-    @include('pub.google-responsive-section-droite')
+    @include('pub.google-display-fixe-vertical')
 </div>
 @endsection

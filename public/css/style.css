@@ -122,7 +122,7 @@ a:hover{
 }
 
 main .nom-sport{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .top-main-site{
@@ -394,11 +394,9 @@ a.non-cliquable, a.non-cliquable:hover{
     font-size: 0.9rem;
 }
 
-/* 
-.nom-competition{
-    font-size: 1.3rem;
-    line-height: 1rem;
-} */
+main .nom-competition{
+    font-size: 1rem;
+}
 
 .text-red{
     color:red

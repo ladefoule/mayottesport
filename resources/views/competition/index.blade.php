@@ -96,6 +96,10 @@
             <div class="row col-12 px-1">
                 {!! $articles !!}
             </div>
+
+            <div class="col-12 m-auto p-3">
+                @include('pub.google-display-responsive')
+            </div>
         </div>
     {{-- </div> --}}
 

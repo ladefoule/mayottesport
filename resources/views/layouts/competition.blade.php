@@ -102,7 +102,9 @@
                         @endforeach
                     </div>
 
-                    @include('pub.google-responsive-section-droite')
+                    <div class="col-12 pb-3">
+                        @include('pub.google-display-fixe-vertical')
+                    </div>
                 </div>
             </section>
         </div>

@@ -2,7 +2,7 @@
 
 @section('title', "$sport->nom - Toute l'actualité et tous les résultats")
 
-@include('onglet.section-content-home-et-sport')
+@include('onglet.section-main-home-et-sport')
 @include('onglet.section-droite-home-et-sport')
 
 @section('script')

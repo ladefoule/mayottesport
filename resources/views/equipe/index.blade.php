@@ -117,6 +117,10 @@
                 @endforeach
             </div>
         </div>
+
+        <div class="col-12 m-auto p-3">
+            @include('pub.google-display-responsive')
+        </div>
     </div>
     @csrf
 </div>

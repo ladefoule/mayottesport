@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="row m-0 bg-white border border-secondary pt-2">
+    <div class="row m-0 bg-white pt-2">
         <section class="col-12 pt-1">
             <div id="disqus_thread"></div>
             <script>
@@ -75,6 +75,10 @@
             </script>
             <noscript>Veuillez activer JavaScript pour voir les commentaires alimentés par Disqus.</noscript>
         </section>
+
+        <div class="col-12 m-auto p-3">
+            @include('pub.google-display-responsive')
+        </div>
     </div>
 </div>
 @endsection
