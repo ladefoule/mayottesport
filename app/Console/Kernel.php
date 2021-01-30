@@ -46,7 +46,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('queue:work')->dailyAt('02:01');
 
         // On exécute un dump de la bdd à 02:30
-        $schedule->command('dump:mysql')->dailyAt('02:30');
+        // $schedule->command('dump:mysql')->dailyAt('02:30');
 
         // On vide tout le cache une fois par jour à 03:00
         $schedule->command('cache:clear')->dailyAt('03:00');
