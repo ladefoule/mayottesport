@@ -8,7 +8,6 @@
 
 namespace App\Console;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -45,6 +44,9 @@ class Kernel extends ConsoleKernel
         // On s'assure ainsi que s'il y a plusieurs processus (queue:work) lancés, tous soient arrêtés. Et on en relance qu'un ensuite.
         $schedule->command('queue:restart')->dailyAt('02:00');
         $schedule->command('queue:work')->dailyAt('02:01');
+
+        // On exécute un dump de la bdd à 02:30
+        $schedule->command('dump:mysql')->dailyAt('02:30');
 
         // On vide tout le cache une fois par jour à 03:00
         $schedule->command('cache:clear')->dailyAt('03:00');
