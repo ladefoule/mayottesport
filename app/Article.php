@@ -129,20 +129,13 @@ class Article extends Model
 
         $articles = $articles->where('valide', 1)
             ->where('fil_actu', 1)
-            ->sortBy('created_at')
+            ->sortByDesc('created_at')
             ->splice(0,10);
 
         foreach ($articles as $key => $article)
             $articles[$key] = article($article->uniqid);
         
         return $articles;
-        // return Article::where('valide', 1)
-        //     ->where('fil_actu', 1)
-        //     ->where('home_visible', '>', 0)
-        //     ->orderBy('home_priorite', 'desc')
-        //     ->orderBy('created_at')
-        //     ->limit(10)
-        //     ->get();
     }
 
     /**
