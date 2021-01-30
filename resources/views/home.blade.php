@@ -36,7 +36,7 @@
     <script>
         $(document).ready(function() {
             // Gestion des onglets dans le main
-            var cibles = qsa('#prochains-content,#resultats-content,#actualites-content')
+            var cibles = qsa('#fil-actu-content,#resultats-content,#a-la-une-content')
             var onglets = qsa('#onglets-content .onglet') 
             ongletSwitch(cibles, onglets)
 
