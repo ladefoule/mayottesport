@@ -19,12 +19,31 @@
                     @csrf
 
                     <div class="form-group row mb-3">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">Adresse email</label>
+                        <label for="email" class="col-md-3 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Adresse email</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row pb-0 pt-2">
+                        <div class="offset-md-3 col-md-7">
+                            {!! captcha_img('flat') !!}
+                        </div>
+                    </div>
+    
+                    <div class="form-group row pb-0 pt-2">
+                        <label for="captcha" class="col-md-3 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Captcha</label>
+                        <div class="col-md-7">
+                            <input class="form-control @error('captcha') is-invalid @enderror" data-msg="Merci de saisir le <span class='text-danger font-italic'>Captcha</span> correspondant à l'image." type="text" name="captcha">
+    
+                            @error('captcha')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

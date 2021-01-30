@@ -27,6 +27,8 @@ Route::group(['middleware'=> 'verified'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
     Route::get('/profil/update', 'UserController@updateForm')->name('profil.update');
     Route::post('/profil/update', 'UserController@updatePost')->name('profil.update.post');
+    Route::get('/profil/update-password', 'UserController@updatePasswordForm')->name('profil.update-password');
+    Route::post('/profil/update-password', 'UserController@updatePasswordPost')->name('profil.update-password.post');
     Route::get('/profil/delete', 'UserController@delete')->name('profil.delete');
 
     Route::get('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultat')->name('competition.match.resultat');

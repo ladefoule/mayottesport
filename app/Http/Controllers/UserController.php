@@ -10,10 +10,12 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Cache;
 use Illuminate\Http\Request;
-use App\Jobs\ProcessCacheReload;
+use App\Rules\MatchOldPassword;
 use Illuminate\Validation\Rule;
+use App\Jobs\ProcessCacheReload;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -77,6 +79,37 @@ class UserController extends Controller
         }
 
         $user->update($data);
+
+        forgetCaches('users', $user);
+        ProcessCacheReload::dispatch('users', $user->id);
+        return redirect()->route('profil');
+    }
+
+    /**
+     * Mise à jour du mot de passe d'un utilisateur
+     *
+     */
+    public function updatePasswordForm()
+    {
+        Log::info(" -------- Controller User : updatePasswordForm -------- ");
+        return view('profil.update-password');
+    }
+
+    /**
+     * Mise à jour du mpd d'un utilisateur (Post)
+     *
+     */
+    public function updatePasswordPost(Request $request)
+    {
+        Log::info(" -------- Controller User : updatePasswordPost -------- ");
+        $user = User::findOrFail(Auth::id());
+
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required', 'min:8', 'confirmed']
+        ]);
+
+        $user->update(['password'=> Hash::make($request->new_password)]);
 
         forgetCaches('users', $user);
         ProcessCacheReload::dispatch('users', $user->id);

@@ -1,12 +1,11 @@
 @extends('layouts.site')
 
-@section('title', "Mise à jour du mot de passe")
+@section('title', "Nouveau mot de passe")
 
 @section('content')
-{{-- <div class="row justify-content-center"> --}}
     <div class="col-md-10 col-lg-9 col-xl-8 m-auto p-3">
         <div class="card">
-            <div class="card-header">Mise à jour du mot de passe</div>
+            <div class="card-header">Nouveau mot de passe</div>
 
             <div class="card-body">
                 <form method="POST" action="{{ route('password.update') }}">
@@ -61,5 +60,4 @@
             </div>
         </div>
     </div>
-{{-- </div> --}}
 @endsection

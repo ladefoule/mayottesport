@@ -42,7 +42,8 @@
                 <div class="list-group mb-3">
                     <span class="font-weight-bold">MOT DE PASSE :</span>
                     ********
-                    <a href="{{ route('password.request') }}">Changer de mot de passe</a>
+                    {{-- <a href="{{ route('password.reset') }}">Changer de mot de passe</a> --}}
+                    <a href="{{ route('profil.update-password') }}">Changer de mot de passe</a>
                 </div>
 
                 <div class="list-group mb-3">
