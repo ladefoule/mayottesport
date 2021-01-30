@@ -99,6 +99,8 @@ class Article extends Model
                 'href' => $href,
                 'publie_le' => $this->created_at->translatedFormat('d F Y'),
                 'modifie_le' => $this->updated_at ? $this->updated_at->translatedFormat('d F Y') : '',
+                'date_fil_actu' => $this->created_at->format('d/m'),
+                'heure_fil_actu' => $this->created_at->format('h:i'),
                 'categorie' => $categorie,
                 // 'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
             ];
@@ -120,21 +122,26 @@ class Article extends Model
     public static function filActu($sport = null)
     {
         if($sport)
-            return $sport->articles()
-            ->where('valide', 1)
-            ->where('visible', 1)
+            $articles = index('articles')->where('sport_id', $sport->id);
+        else
+            $articles = index('articles');
+
+        $articles = $articles->where('valide', 1)
             ->where('fil_actu', 1)
-            ->orderBy('priorite', 'desc')
-            ->orderBy('created_at')
-            ->limit(10)->get();
+            ->sortBy('created_at')
+            ->splice(0,10);
+
+        foreach ($articles as $key => $article)
+            $articles[$key] = article($article->uniqid);
         
-        return Article::where('valide', 1)
-            ->where('fil_actu', 1)
-            ->where('home_visible', '>', 0)
-            ->orderBy('home_priorite', 'desc')
-            ->orderBy('created_at')
-            ->limit(10)
-            ->get();
+        return $articles;
+        // return Article::where('valide', 1)
+        //     ->where('fil_actu', 1)
+        //     ->where('home_visible', '>', 0)
+        //     ->orderBy('home_priorite', 'desc')
+        //     ->orderBy('created_at')
+        //     ->limit(10)
+        //     ->get();
     }
 
     /**

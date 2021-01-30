@@ -36,7 +36,7 @@ class SportController extends Controller
     {
         Log::info(" -------- Controller Sport : index -------- ");
         $sport = $request->sport;
-        $calendriers = Journee::calendriersPageSport($sport);
+        $calendriers = Journee::calendriersPageSport($sport, 'index');
 
         $articles = $sport->articles()
             ->where('valide', 1)
