@@ -31,7 +31,7 @@
 
         <div class="col-12 pb-3">
             <label for="article">Article</label>
-            <textarea id="article" name="article" class="form-control @error('article') is-invalid @enderror">{{ old('article') ?? $article->article }}</textarea>
+            <textarea id="article" name="article" class="form-control input-optionnel @error('article') is-invalid @enderror">{{ old('article') ?? $article->article }}</textarea>
         </div>
 
         <div class="col-12 pb-3">
