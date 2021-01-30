@@ -22,8 +22,8 @@
                         <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Défaite 0/3">0/3</th>
                         <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Défaite 1/3">1/3</th>
                         <th class="d-none d-md-table-cell d-lg-none d-xl-table-cell px-2" title="Défaite 2/3">2/3</th>
-                        <th class="d-none d-md-table-cell px-2" title="Sets marqués">sets p</th>
-                        <th class="d-none d-md-table-cell px-2" title="Sets encaissés">sets c</th>
+                        <th class="d-none d-md-table-cell px-2" title="Sets marqués">sp</th>
+                        <th class="d-none d-md-table-cell px-2" title="Sets encaissés">sc</th>
                         <th class="px-2" title="Coefficient">coeff.</th>
                         <th class="px-2" title="Points">pts</th>
                     </thead>

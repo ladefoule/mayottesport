@@ -308,10 +308,6 @@ a.non-cliquable, a.non-cliquable:hover{
     vertical-align: middle;
 }
 
-.classement .equipe{
-    font-size: 1rem;
-}
-
 .vertical-align-middle{
     vertical-align: middle;
 }
@@ -474,16 +470,7 @@ main .nom-competition{
     
         .equipe-exterieur{
             text-align: right;
-        }
-
-        /* .bloc-match .equipe-domicile{
-            text-align: left;
-        }
-
-        .bloc-match .equipe-exterieur{
-            text-align: right;
-        } */
-    
+        }    
 
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
         @media (min-width: 992px) {
@@ -574,9 +561,9 @@ main .nom-competition{
 
             /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
             @media (min-width: 1200px) {
-                html{
-                    font-size: 100%;
-                }
+                /* html{
+                    font-size: 95%;
+                } */
                 /* #section-droite .fanion-calendrier img{
                     display:block;
                     width:25px
