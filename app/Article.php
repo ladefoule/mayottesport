@@ -101,7 +101,7 @@ class Article extends Model
                 'publie_le' => $this->created_at->translatedFormat('d F Y'),
                 'modifie_le' => $this->updated_at ? $this->updated_at->translatedFormat('d F Y') : '',
                 'date_fil_actu' => $this->created_at->format('d/m'),
-                'heure_fil_actu' => $this->created_at->format('h:i'),
+                'heure_fil_actu' => $this->created_at->format('H:i'),
                 'categorie' => $categorie,
                 // 'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
             ];
