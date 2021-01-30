@@ -15,7 +15,7 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'sport_id', 'competition_id', 'user_id', 'user_update_id', 'slug', 'home_visible', 'home_priorite'];
+    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'fil_actu', 'sport_id', 'competition_id', 'user_id', 'user_update_id', 'slug', 'home_visible', 'home_priorite'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -56,7 +56,8 @@ class Article extends Model
             'user_update_id' => 'nullable|integer|exists:users,id',
             'img' => 'nullable|min:5|max:200',
             'uniqid' => ['required','string','size:13',$uniqid],
-            'valide' => 'nullable|boolean'
+            'valide' => 'nullable|boolean',
+            'fil_actu' => 'nullable|boolean'
         ];
 
         $messages = [

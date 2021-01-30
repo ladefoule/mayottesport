@@ -94,7 +94,7 @@ class ArticleSharpForm extends SharpForm
         // $ignore = ['titre', 'preambule', 'uniqid', 'slug', 'user_id', 'uniqid'];
         // $rules = array_diff_key($rules, array_flip($ignore));
 
-        $pluck = ['home_visible', 'home_priorite', 'valide', 'sport_id', 'competition_id'];
+        $pluck = ['home_visible', 'home_priorite', 'valide', 'fil_actu', 'sport_id', 'competition_id'];
         $rules = array_intersect_key($rules, array_flip($pluck));
 
         $dataUpdate = Validator::make($data, $rules, $messages)->validate();
@@ -186,6 +186,9 @@ class ArticleSharpForm extends SharpForm
             )->addField(
                 SharpFormCheckField::make("valide", "Validé")
                     ->setLabel("Validé")
+            )->addField(
+                SharpFormCheckField::make("fil_actu", "Fil actu")
+                    ->setLabel("Fil actu")
             )->addField(
                 SharpFormTextField::make("titre")
                     ->setLabel("Titre")
@@ -285,7 +288,7 @@ class ArticleSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('uniqid|6', 'valide|6', 'titre|12', 'sport_id|6', 'competition_id|6', 'home_visible|6', 'home_priorite|6');
+            $column->withFields('uniqid|6', 'valide|3', 'fil_actu|3', 'titre|12', 'sport_id|6', 'competition_id|6', 'home_visible|6', 'home_priorite|6');
         });
 
         $this->addColumn(12, function(FormLayoutColumn $column) {
