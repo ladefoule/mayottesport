@@ -352,7 +352,7 @@ function article(string $uniqid)
  * @param string $uniqid
  * @return \Illuminate\Database\Eloquent\Collection
  */
-function match(string $uniqid)
+function match($uniqid)
 {
     $key = "match-" . $uniqid;
     if (Cache::has($key))

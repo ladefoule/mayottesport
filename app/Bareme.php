@@ -57,7 +57,7 @@ class Bareme extends Model
             'victoire' => 'nullable|integer|min:0|max:30',
             'nul' => 'nullable|integer|min:0|max:30',
             'defaite' => 'nullable|integer|min:0|max:30',
-            'forfait' => 'nullable|integer|max:0',
+            'forfait' => 'nullable|integer|min:0',
             'sport_id' => 'required|exists:sports,id',
             'nom' => ['required','string','max:50','min:3',$uniqueNomEtSportId]
         ];

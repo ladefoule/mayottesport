@@ -44,11 +44,11 @@ class Match extends Model
             return false;
 
         if($score_eq_dom > $score_eq_ext)
-            $resultat = ($equipeId == $this->equipe_id_dom) ? 'victoire' : 'defaite';
+            $type = ($equipeId == $this->equipe_id_dom) ? 'victoire' : 'defaite';
         else if($score_eq_dom < $score_eq_ext)
-            $resultat = ($equipeId == $this->equipe_id_dom) ? 'defaite' : 'victoire';
+            $type = ($equipeId == $this->equipe_id_dom) ? 'defaite' : 'victoire';
         else
-            $resultat = 'nul';
+            $type = 'nul';
 
         if($this->equipe_id_dom == $equipeId){
             $marques = $score_eq_dom;
@@ -59,9 +59,9 @@ class Match extends Model
         }
 
         return [
-            'resultat' => $resultat,
+            'type' => $type,
             'marques' => $marques,
-            'encaisses' => $encaisses
+            'encaisses' => $encaisses,
         ];
     }
 
@@ -201,6 +201,7 @@ class Match extends Model
             $competitionNomCompletSlug = Str::slug($competition->nom_complet);
             $sport = index('sports')[$competition->sport_id];
             $sportNomSlug = Str::slug($sport->nom);
+
             if($this->terrain)
                 $lieu = $this->terrain->nom . ' (' . $this->terrain->ville->nom . ')';
             else

@@ -34,18 +34,13 @@ class MatchSharpForm extends SharpForm
     public function find($id): array
     {
         $match = Match::findOrFail($id);
-        $matchInfos = $match->infos();
 
-        // On insère les propriétés supplémentaires dans l'objet $match
-        $proprietes = config('listes.proprietes-matches');
-        foreach ($proprietes as $id => $propriete){
-            $match[$propriete[0]] = '';
-            if(isset($matchInfos[$propriete[0]]))
-                if(in_array($propriete[0], ['tab_eq_dom', 'tab_eq_ext']))
-                    $match[$propriete[0]] = $matchInfos[$propriete[0]];
-                else
-                    $match[$propriete[0]] = true;
-
+        // On ajoute les infos supplémentaires du match : forfaits, pénalités, tab, etc...
+        $infosSup = $match->matchInfos;
+        $correspondances = config('listes.proprietes-matches');
+        foreach ($infosSup as $info){
+            $prop = $correspondances[$info->propriete_id][0];
+            $match->$prop = $info->valeur;
         }
 
         return $this->setCustomTransformer("saison", function ($saison, $match) {

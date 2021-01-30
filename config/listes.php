@@ -93,17 +93,6 @@ return [
         ],
     ],
 
-    // "routes-sans-background" => [
-    //    'article.select',
-    //     'login',
-    //     'register',
-    //     'profil',
-    //     'profil.update',
-    //     'journees.multi.select',
-    //     'journees.multi.edit',
-    //     'journees.multi.show',
-    // ],
-
     "tables-avec-colonne-uniqid" => ['matches', 'equipes', 'articles'],
 
     "tables-gestion-crud" => [
