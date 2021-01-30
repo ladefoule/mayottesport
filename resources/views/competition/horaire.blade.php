@@ -2,6 +2,13 @@
 
 @section('title', $match->title)
 
+@section('pub-top')
+    {{-- PUB --}}
+    <div class="d-none d-lg-block col-12 m-auto p-3">
+        @include('pub.google-display-responsive')
+    </div>
+@endsection
+
 @section('content')
 <div class="p-lg-3 h-100">
     <form action="" method="post" id="formulaire">

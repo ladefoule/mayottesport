@@ -51,4 +51,13 @@ class HomeController extends Controller
     function politique(){
         return view('rgpd');
     }
+
+    /**
+     * Le sitemap du site
+     *
+     * @return \Illuminate\View\View
+     */
+    function sitemap(){
+        return view('sitemap');
+    }
 }

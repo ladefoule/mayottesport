@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="p-lg-3 h-100">
-    <div class="row m-0 bg-white shadow-div h-100">
-        <div class="d-flex flex-wrap justify-content-center pb-3">
-            <h1 class="col-12 h5 pt-4 text-center">{{ $h1 }}</h1>
+    <div class="row bg-white shadow-div justify-content-center m-0 h-100">
+        <div class="col-12 py-3 px-0">
+            <h1 class="col-12 h5 p-2 text-center">{{ $h1 }}</h1>
             <div class="col-12 mt-3 px-2">
                 <table class="table text-center classement w-100 border-bottom" id="classement">
                     <thead {{-- class="thead-light thead-fixed" --}}>
@@ -52,6 +52,10 @@
             </div>
             <div class="col-12 text-center pb-2">
                 <span>Classement sous réserve d'homologation</span>
+            </div>
+
+            <div class="col-12 m-auto p-3">
+                @include('pub.google-display-responsive')
             </div>
         </div>
     </div>

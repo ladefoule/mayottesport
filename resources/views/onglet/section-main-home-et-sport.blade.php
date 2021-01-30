@@ -1,8 +1,8 @@
 @section('content')
 {{-- <div class="p-0"> --}}
     {{-- classique écran large --}}
-    <div class="d-none d-lg-block p-3 h-100">
-        <div class="col-12 p-0 h-100 bg-white shadow-div">
+    <div class="d-none d-lg-block p-3 {{-- h-100 --}}">
+        <div class="col-12 p-0 {{-- h-100 --}} bg-white shadow-div">
             <div class="col-12 p-3 d-flex flex-wrap justify-content-start align-items-stretch">
                 @if(! $articles && isset($sport) && $sport)
                     <div class="col-12">
@@ -10,6 +10,11 @@
                     </div>
                 @endif
                 {!! $articles !!}
+            </div>
+
+            {{-- PUB --}}
+            <div class="col-12 m-auto p-3">
+                @include('pub.google-display-responsive')
             </div>
         </div>
     </div>

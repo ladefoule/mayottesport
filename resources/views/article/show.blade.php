@@ -44,6 +44,11 @@
                 <noscript>Veuillez activer JavaScript pour voir les commentaires alimentés par Disqus.</noscript>
             </div>
         </div>
+
+        {{-- PUB --}}
+        <div class="col-12 m-auto p-3">
+            @include('pub.google-display-responsive')
+        </div>
     </div>
 </div>
 @endsection

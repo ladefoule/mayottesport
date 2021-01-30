@@ -2,6 +2,13 @@
 
 @section('title', $match->title)
 
+@section('pub-top')
+    {{-- PUB --}}
+    <div class="d-none d-lg-block col-12 m-auto p-3">
+        @include('pub.google-display-responsive')
+    </div>
+@endsection
+
 @section('content')
 <div class="p-lg-3 h-100">
     <form action="" method="post" id="formulaire">
@@ -48,9 +55,11 @@
             </div>
 
             <div class="col-12 text-center p-3">
-                <div class="col-12">
-                    Le {{ $match->date_format }}
-                </div>
+                @if($match->date_format)
+                    <div class="col-12 text-center">
+                        {!! config('listes.boutons.calendrier') !!} {{ $match->date_format }} @if($match->heure) {!! config('listes.boutons.horloge') !!} {{ $match->heure }} @endif
+                    </div>
+                @endif
                 <div class="col-12">
                     {{ $match->competition }} : {{ $match->journee }}
                 </div>

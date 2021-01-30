@@ -8,8 +8,8 @@
 @section('title', $title)
 
 @section('content')
-<div class="p-lg-3 h-100">
-    <div class="row bg-white shadow-div justify-content-center m-0 h-100">
+<div class="p-lg-3 {{-- h-100 --}}">
+    <div class="row bg-white shadow-div justify-content-center m-0 {{-- h-100 --}}">
         <div class="col-12 pb-3">
             <h1 class="h4 text-center col-12 p-4">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
             <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3" style="font-size: 1.1rem">
@@ -25,6 +25,11 @@
             </div>
             <div class="col-12" id="matches">
                 {!! $calendrierJourneeHtml !!}
+            </div>
+
+            {{-- PUB --}}
+            <div class="col-12 m-auto p-3">
+                @include('pub.google-display-responsive')
             </div>
         </div>
     </div>

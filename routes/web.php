@@ -94,6 +94,7 @@ Route::get('/ajax/caches/reload', 'CacheController@reload')->name('cache.reload'
 Route::get('contact', 'ContactController@create')->name('contact')->middleware('lscache:max-age=3600;public;esi=on');
 Route::post('contact', 'ContactController@post')->name('contact.post');
 Route::get('notre-politique-de-confidentialite.php', 'HomeController@politique')->name('politique');
+Route::get('sitemap.xml', 'HomeController@sitemap')->name('sitemap');
 
 Route::get('/{sport}/{competition}/{annee}/match-{equipeDom}_{equipeExt}_{uniqid}.html', 'MatchController@match')->name('competition.match');
 Route::get('/{sport}/{competition}/classement.html', 'CompetitionController@classement')->name('competition.classement');

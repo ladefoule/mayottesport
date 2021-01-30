@@ -51,6 +51,8 @@
         @endforeach
     </div>
     
-    @include('pub.google-display-fixe-vertical')
+    <div class="col-12 px-2 py-3">
+        @include('pub.google-display-fixe-vertical')
+    </div>
 </div>
 @endsection

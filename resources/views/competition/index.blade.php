@@ -8,7 +8,7 @@
 @section('title', $sport->nom . ' - ' . $competition->nom_complet)
 
 @section('content')
-<div class="p-lg-3 h-100">
+<div class="p-lg-3 {{-- h-100 --}}">
     {{-- classique écran large --}}
     {{-- <div class="d-flex h-100 p-0"> --}}
         <div class="col-12 px-3 pt-2 bg-white shadow-div">
@@ -97,6 +97,7 @@
                 {!! $articles !!}
             </div>
 
+            {{-- PUB --}}
             <div class="col-12 m-auto p-3">
                 @include('pub.google-display-responsive')
             </div>

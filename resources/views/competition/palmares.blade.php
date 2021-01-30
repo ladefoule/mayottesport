@@ -3,8 +3,8 @@
 @section('title', $title)
 
 @section('content')
-<div class="p-lg-3 h-100">
-    <div class="row m-0 bg-white shadow-div h-100">
+<div class="p-lg-3 {{-- h-100 --}}">
+    <div class="row m-0 bg-white shadow-div {{-- h-100 --}}">
         <div class="col-12 p-0">
             <div class="col-12 p-4">
                 <h1 class="h4 text-center col-12">{{ $competition->nom . ' - Le palmarès'}}</h1>

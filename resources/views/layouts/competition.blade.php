@@ -61,6 +61,8 @@
             </div>
         </div>
 
+        @yield('pub-top')
+
         <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0" style="max-width: 1300px">
             <main class="col-lg-8 col-xl-8 p-0">
                 @yield('content')

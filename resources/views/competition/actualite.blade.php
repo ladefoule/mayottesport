@@ -12,6 +12,11 @@
         <div class="p-0 col-12">
             {!! $articles !!}
         </div>
+
+        {{-- PUB --}}
+        <div class="col-12 m-auto p-3">
+            @include('pub.google-display-responsive')
+        </div>
     </div>
 </div>
 @endsection
