@@ -41,7 +41,7 @@
         <div id="fil-actu-content" class="col-12 px-2 @if($articles || !$filActualites) d-none @endif">
             <?php $i=0; ?>
             @foreach ($filActualites as $actu)
-                @if($i++ == 2)
+                @if($i++ == 5)
                     <div class="col-12 border-bottom m-auto py-2">
                         @include('pub.google-display-responsive')
                     </div>
