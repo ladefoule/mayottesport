@@ -12,7 +12,7 @@
         <?php $i=0; ?>
         @foreach ($filActualites as $actu)
             @if($i++ == 2)
-                <div class="col-12 m-auto py-2">
+                <div class="col-12 border-bottom m-auto py-2">
                     @include('pub.google-display-responsive')
                 </div>
             @endif
