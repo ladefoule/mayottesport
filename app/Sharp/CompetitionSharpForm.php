@@ -52,6 +52,7 @@ class CompetitionSharpForm extends SharpForm
         $rules = $rules['rules'];
 
         $data['slug'] = Str::slug($data['nom']);
+        $data['slug_complet'] = Str::slug($data['nom_complet']);
         
         $ignore = ['updated_at'];
         // $rules = array_diff_key($rules, array_flip($ignore));
