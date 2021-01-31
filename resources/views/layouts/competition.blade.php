@@ -104,8 +104,8 @@
                         @endforeach
                     </div>
 
-                    <div class="col-12 pb-3">
-                        @include('pub.google-display-fixe-vertical')
+                    <div class="col-12 pb-3 px-2">
+                        @include('pub.google-display-responsive')
                     </div>
                 </div>
             </section>
