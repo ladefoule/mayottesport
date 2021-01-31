@@ -9,7 +9,13 @@
             class="d-block col-4 p-3 border btn btn-secondary onglet">À venir</span>
     </div>
     <div id="fil-actu-section-droite" class="fil-actu col-12 p-2">
+        <?php $i=0; ?>
         @foreach ($filActualites as $actu)
+            @if($i++ == 2)
+                <div class="col-12 m-auto py-2">
+                    @include('pub.google-display-responsive')
+                </div>
+            @endif
             <div class="col-12 d-flex border-bottom p-0">
                 <div class="date col-2 d-flex flex-wrap align-items-center justify-content-center text-secondary">
                     @if($actu->date_fil_actu == date('d/m'))
@@ -26,13 +32,7 @@
         @endforeach
     </div>
     <div id="resultats-section-droite" class="col-12 p-2 d-none">
-        <?php $i = 0; ?>
         @foreach ($resultats as $sport => $journees)
-            @if($i++ == 2)
-                <div class="col-12 m-auto py-2">
-                    @include('pub.google-display-responsive')
-                </div>
-            @endif
             <div class="col-12 text-center pt-1">
                 <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
@@ -51,13 +51,7 @@
         @endforeach
     </div>
     <div id="prochains-section-droite" class="col-12 p-2 d-none">
-        <?php $i = 0; ?>
         @foreach ($prochains as $sport => $journees)
-            @if($i++ == 2)
-                <div class="col-12 m-auto py-2">
-                    @include('pub.google-display-responsive')
-                </div>
-            @endif
             <div class="col-12 text-center pt-1">
                 <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
