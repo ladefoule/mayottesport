@@ -26,7 +26,13 @@
         @endforeach
     </div>
     <div id="resultats-section-droite" class="col-12 p-2 d-none">
+        <?php $i = 0; ?>
         @foreach ($resultats as $sport => $journees)
+            @if($i++ == 2)
+                <div class="col-12 py-2">
+                    @include('pub.google-display-responsive')
+                </div>
+            @endif
             <div class="col-12 text-center pt-1">
                 <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
@@ -45,7 +51,13 @@
         @endforeach
     </div>
     <div id="prochains-section-droite" class="col-12 p-2 d-none">
+        <?php $i = 0; ?>
         @foreach ($prochains as $sport => $journees)
+            @if($i++ == 2)
+                <div class="col-12 py-2">
+                    @include('pub.google-display-responsive')
+                </div>
+            @endif
             <div class="col-12 text-center pt-1">
                 <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}

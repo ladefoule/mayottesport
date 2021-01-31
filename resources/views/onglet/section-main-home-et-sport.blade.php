@@ -58,7 +58,13 @@
 
         {{-- RESULTATS --}}
         <div id="resultats-content" class="col-12 px-2 @if($articles || $filActualites) d-none @endif">
+            <?php $i = 0; ?>
             @foreach ($resultats as $sport => $journees)
+                @if($i++ == 2)
+                    <div class="col-12 py-2">
+                        @include('pub.google-display-responsive')
+                    </div>
+                @endif
                 <div class="col-12 text-center pt-1">
                     <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                         {{ $sport }}
