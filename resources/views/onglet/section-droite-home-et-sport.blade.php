@@ -29,7 +29,7 @@
         <?php $i = 0; ?>
         @foreach ($resultats as $sport => $journees)
             @if($i++ == 2)
-                <div class="col-12 py-2">
+                <div class="col-12 m-auto py-2">
                     @include('pub.google-display-responsive')
                 </div>
             @endif
@@ -54,7 +54,7 @@
         <?php $i = 0; ?>
         @foreach ($prochains as $sport => $journees)
             @if($i++ == 2)
-                <div class="col-12 py-2">
+                <div class="col-12 m-auto py-2">
                     @include('pub.google-display-responsive')
                 </div>
             @endif
@@ -76,8 +76,9 @@
         @endforeach
     </div>
     
-    <div class="col-12 px-2 py-3">
-        @include('pub.google-display-fixe-vertical')
+    {{-- PUB --}}
+    <div class="col-12 m-auto py-3 px-2">
+        @include('pub.google-display-responsive')
     </div>
 </div>
 @endsection
