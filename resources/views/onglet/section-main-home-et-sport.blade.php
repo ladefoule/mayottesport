@@ -13,7 +13,7 @@
             </div>
 
             {{-- PUB --}}
-            <div class="col-12 m-auto p-3">
+            <div class="col-12 m-auto py-3 px-2">
                 @include('pub.google-display-responsive')
             </div>
         </div>
@@ -39,7 +39,13 @@
         
         {{-- FIL ACTU --}}
         <div id="fil-actu-content" class="col-12 px-2 @if($articles || !$filActualites) d-none @endif">
+            <?php $i=0; ?>
             @foreach ($filActualites as $actu)
+                @if($i++ == 2)
+                    <div class="col-12 border-bottom m-auto py-2">
+                        @include('pub.google-display-responsive')
+                    </div>
+                @endif
                 <div class="col-12 d-flex border-bottom p-0">
                     <div class="date col-2 d-flex flex-wrap align-items-center justify-content-center text-secondary">
                         @if($actu->date_fil_actu == date('d/m'))

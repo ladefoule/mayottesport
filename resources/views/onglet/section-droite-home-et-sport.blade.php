@@ -1,5 +1,5 @@
 @section('section-droite')
-<div class="my-3 pb-2 bg-white shadow-div" {{-- style="background-color:#ebeff3" --}}>
+<div class="my-3 pb-2 bg-white shadow-div">
     <div class="col-12 d-flex text-center p-2">
         <span data-cible="fil-actu-section-droite"
             class="d-block col-4 p-3 border btn btn-secondary onglet active">Fil actu</span>
@@ -11,7 +11,7 @@
     <div id="fil-actu-section-droite" class="fil-actu col-12 p-2">
         <?php $i=0; ?>
         @foreach ($filActualites as $actu)
-            @if($i++ == 2)
+            @if($i++ == 5)
                 <div class="col-12 border-bottom m-auto py-2">
                     @include('pub.google-display-responsive')
                 </div>
