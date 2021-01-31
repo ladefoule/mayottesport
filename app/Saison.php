@@ -156,10 +156,12 @@ class Saison extends Model
                     $encaisses = $resultat['encaisses'];
                     $resultat = $resultat['type'];
                     
-                    if($equipeId == $this->equipe_id_dom)
-                        $forfait = $match->infos()->forfait_eq_dom;
-                    else
-                        $forfait = $match->infos()->forfait_eq_ext;
+                    $infosSup = $match->infos();
+                    $forfait = false;
+                    if($equipeId == $this->equipe_id_dom && isset($infosSup->forfait_eq_dom))
+                        $forfait = true;
+                    else if(isset($infosSup->forfait_eq_ext))
+                        $forfait = true;
 
                     $classement[$equipeId][$resultat]++;
                     $classement[$equipeId]['points'] += $bareme->$resultat;
@@ -167,7 +169,7 @@ class Saison extends Model
                     $classement[$equipeId]['marques'] += $marques;
                     $classement[$equipeId]['encaisses'] += $encaisses;
 
-                    if($forfait && $bareme->forfait){
+                    if($forfait === true && $bareme->forfait){
                         $classement[$equipeId]['forfaits']++;
                         $classement[$equipeId]['points'] -= $bareme->forfait;
                     }

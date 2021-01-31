@@ -12,6 +12,7 @@
 /public/vendor
 /resources/*script.blade.php
 /storage/*.key
+/storage/dumpsql/
 /vendor
 /tmp
 /tools
