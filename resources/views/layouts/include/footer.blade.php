@@ -6,15 +6,13 @@
 <!-- Footer -->
 <footer class="col-12 footer font-small indigo text-white h-auto bg-dark mt-auto">
     <!-- Footer Links -->
-    <div class="container text-center text-md-left">
-        <div class="row d-flex flex-basis-1 text-center">
+    <div class="container text-center text-md-left p-0">
+        <div class="row d-flex text-center">
             @foreach ($sports as $sport)
                 <div class="col-6 col-md-4 col-lg-2 p-0">
-                    <a href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
-                        <h5 class="h4 font-weight-bold mt-3 mb-2 text-white justify-content-center d-flex align-items-center">
-                            <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
-                            {{ $sport->nom }}
-                        </h5>
+                    <a class="h4 pt-3 pb-0 text-white justify-content-center d-flex align-items-center" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
+                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
+                        {{ $sport->nom }}
                     </a>
                     <ul class="list-unstyled">
                         <?php 
@@ -38,8 +36,8 @@
                 </div>
             @endforeach
             <div class="col-6 col-md-4 col-lg-2 px-3">
-                <a href="{{ route('home') }}">
-                    <h5 class="h4 font-weight-bold mt-3 mb-2 text-white text-center">Accueil</h5>
+                <a class="h4 pt-3 pb-0 text-white justify-content-center d-flex align-items-center" href="{{ route('home') }}">
+                    {!! config('listes.boutons.home') !!} Accueil
                 </a>
                 <ul class="list-unstyled">
                     <li>

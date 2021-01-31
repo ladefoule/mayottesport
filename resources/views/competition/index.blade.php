@@ -96,7 +96,7 @@
         </div>
 
         {{-- PUB --}}
-        <div class="col-12 m-auto p-3">
+        <div class="col-12 m-auto py-3 px-2">
             @include('pub.google-display-responsive')
         </div>
     </div>

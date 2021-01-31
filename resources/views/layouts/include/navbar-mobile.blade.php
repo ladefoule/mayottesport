@@ -3,7 +3,6 @@
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header align-items-center">
-          {{-- <h5 class="modal-title" id="navbarModalLabel">LE MENU</h5> --}}
           <img class="logo img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -17,7 +16,8 @@
                             <a class="nav-link text-body" href="{{ asset('/') }}"><span style="font-size:1.2rem" class="ml-2 pl-1">{!! config('listes.boutons.home') !!}</span> Accueil</a>
                         </li>
                         @foreach ($sports as $sport)
-                            @if (count($competitions->where('sport_id', $sport->id)->all()) > 0)
+                            <?php $competitionsLies = $competitions->where('sport_id', $sport->id); ?>
+                            @if (count($competitionsLies->all()) > 0)
                                 <li id="modal-li-{{ $sport->slug }}" class="{{ $sport->slug }} nav-item dropdown border-bottom px-3">
                                     <span class="nav-link text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" id="navbarDropdownMenuLink{{ $sport->nom }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
@@ -25,7 +25,7 @@
                                     </span>
                                     <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->nom }}">
                                         <a class="dropdown-item @if(request()->route()->getName() == 'sport.index' && request()->route('sport') == $sport->slug) active bg-success @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
-                                        @foreach ($competitions->where('sport_id', $sport->id) as $competition)
+                                        @foreach ($competitionsLies as $competition)
                                             <a class="dropdown-item @if(request()->route()->getName() == 'competition.index' && request()->route('competition') == $competition->slug_complet) active bg-success @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
                                                 {{ $competition->nom }}
                                             </a>

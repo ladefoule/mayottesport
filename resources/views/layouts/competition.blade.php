@@ -77,11 +77,16 @@
                     </div>
                     <div id="resultats-section-droite" class="col-12 px-2 pt-0 @if(! $resultats) d-none @endif">
                         @if($resultats)
-                            <p class="col-12 nom-competition m-0 text-center p-0 mt-3">
+                            <div class="col-12 text-center pt-1">
+                                <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
+                                    {{ $sport->nom }}
+                                </a>
+                            </div>
+                            <div class="col-12 nom-competition m-0 text-center p-0 mt-3">
                                 <a href="{{ $hrefIndex }}">
                                     {{ $competition->nom }}
                                 </a>
-                            </p>
+                            </div>
                         @endif
                         @foreach ($resultats as $resultat)
                             <div class="p-3">
@@ -91,11 +96,16 @@
                     </div>
                     <div id="prochains-section-droite" class="col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
                         @if($prochains)
-                            <p class="col-12 nom-competition m-0 text-center p-0 mt-3">
+                            <div class="col-12 text-center pt-1">
+                                <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
+                                    {{ $sport->nom }}
+                                </a>
+                            </div>
+                            <div class="col-12 nom-competition m-0 text-center p-0 mt-3">
                                 <a href="{{ $hrefIndex }}">
                                     {{ $competition->nom }}
                                 </a>
-                            </p>
+                            </div>
                         @endif
                         @foreach ($prochains as $prochain)
                             <div class="p-3">
@@ -104,7 +114,7 @@
                         @endforeach
                     </div>
 
-                    <div class="col-12 pb-3 px-2">
+                    <div class="col-12 pb-2 px-2">
                         @include('pub.google-display-responsive')
                     </div>
                 </div>

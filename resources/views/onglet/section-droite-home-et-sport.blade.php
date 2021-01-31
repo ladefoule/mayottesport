@@ -28,7 +28,7 @@
     <div id="resultats-section-droite" class="col-12 p-2 d-none">
         @foreach ($resultats as $sport => $journees)
             <div class="col-12 text-center pt-1">
-                <a class="nom-sport text-secondary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+                <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
                 </a>
             </div>
@@ -47,7 +47,7 @@
     <div id="prochains-section-droite" class="col-12 p-2 d-none">
         @foreach ($prochains as $sport => $journees)
             <div class="col-12 text-center pt-1">
-                <a class="nom-sport text-secondary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+                <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                     {{ $sport }}
                 </a>
             </div>

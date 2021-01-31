@@ -1,8 +1,8 @@
 @section('content')
 {{-- <div class="p-0"> --}}
     {{-- classique écran large --}}
-    <div class="d-none d-lg-block p-3 {{-- h-100 --}}">
-        <div class="col-12 p-0 {{-- h-100 --}} bg-white shadow-div">
+    <div class="d-none d-lg-block p-3">
+        <div class="col-12 p-0 bg-white shadow-div">
             <div class="col-12 p-3 d-flex flex-wrap justify-content-start align-items-stretch">
                 @if(! $articles && isset($sport) && $sport)
                     <div class="col-12">
@@ -20,7 +20,7 @@
     </div>
 
     {{-- avec onglets --}}
-    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center p-3 bg-white">
+    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center py-3 px-2 bg-white">
         <span data-cible="a-la-une-content"
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">À la une</span>
         <span data-cible="fil-actu-content"
@@ -38,7 +38,7 @@
         </div>
         
         {{-- FIL ACTU --}}
-        <div id="fil-actu-content" class="col-12 @if($articles || !$filActualites) d-none @endif">
+        <div id="fil-actu-content" class="col-12 px-2 @if($articles || !$filActualites) d-none @endif">
             @foreach ($filActualites as $actu)
                 <div class="col-12 d-flex border-bottom p-0">
                     <div class="date col-2 d-flex flex-wrap align-items-center justify-content-center text-secondary">
@@ -57,10 +57,10 @@
         </div>
 
         {{-- RESULTATS --}}
-        <div id="resultats-content" class="col-12 @if($articles || $filActualites) d-none @endif">
+        <div id="resultats-content" class="col-12 px-2 @if($articles || $filActualites) d-none @endif">
             @foreach ($resultats as $sport => $journees)
                 <div class="col-12 text-center pt-1">
-                    <a class="nom-sport text-secondary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+                    <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                         {{ $sport }}
                     </a>
                 </div>
