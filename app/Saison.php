@@ -119,11 +119,6 @@ class Saison extends Model
         }
 
         $classement = [];
-        $idBasketball = Sport::firstWhere('nom', 'like', 'basketball')->id ?? 0;
-        // $idBasketball = index('sports')->filter(function ($value, $key) {
-        //     return strcasecmp($value->nom, 'basketball') == 0; // strcasecmp renvoie 0 si les deux chaines sont semblables, sans respecter la casse
-        // })->first()->id ?? 0;
-
         foreach ($matches as $equipeId => $matchesEquipe) {
             $equipe = index('equipes')[$equipeId];
             $sport = index('sports')[$sport->id];
@@ -142,34 +137,37 @@ class Saison extends Model
             $classement[$equipeId]['marques'] = 0;
             $classement[$equipeId]['encaisses'] = 0;
 
-            if($sport->id != $idBasketball)
+            if($sport->slug != 'basketball')
                 $classement[$equipeId]['nul'] = 0;
 
             $classement[$equipeId]['defaite'] = 0;
             $classement[$equipeId]['forfaits'] = 0;
+
             foreach ($matchesEquipe as $match) {
-                if($match->resultat($equipeId) != false){
+                $resultat = $match->resultat($equipeId);
+                if($resultat){
                     $classement[$equipeId]['joues']++;
 
-                    $resultat = $match->resultat($equipeId);
                     $marques = $resultat['marques'];
                     $encaisses = $resultat['encaisses'];
-                    $resultat = $resultat['type'];
+                    $typeResultat = $resultat['type']; // Victoire/Nul ou Défaite
                     
+                    // On regarde si l'équipe est forfait pour le match ou non
                     $infosSup = $match->infos();
                     $forfait = false;
-                    if($equipeId == $this->equipe_id_dom && isset($infosSup->forfait_eq_dom))
+                    if($equipeId == $match->equipe_id_dom && isset($infosSup->forfait_eq_dom))
                         $forfait = true;
-                    else if(isset($infosSup->forfait_eq_ext))
+                    if($equipeId == $match->equipe_id_ext && isset($infosSup->forfait_eq_ext))
                         $forfait = true;
 
-                    $classement[$equipeId][$resultat]++;
-                    $classement[$equipeId]['points'] += $bareme->$resultat;
+                    $classement[$equipeId][$typeResultat]++;
+                    $classement[$equipeId]['points'] += $bareme->$typeResultat;
 
                     $classement[$equipeId]['marques'] += $marques;
                     $classement[$equipeId]['encaisses'] += $encaisses;
 
-                    if($forfait === true && $bareme->forfait){
+                    // Si l'équipe est forfait, alors on applique le barème des matches forfaits
+                    if($forfait && $bareme->forfait){
                         $classement[$equipeId]['forfaits']++;
                         $classement[$equipeId]['points'] -= $bareme->forfait;
                     }
@@ -240,25 +238,38 @@ class Saison extends Model
             $classement[$equipeId]['defaite_0_3'] = 0;
             $classement[$equipeId]['defaite_1_3'] = 0;
             $classement[$equipeId]['defaite_2_3'] = 0;
+            $classement[$equipeId]['forfaits'] = 0;            
 
             foreach ($matchesEquipe as $match) {
-                if($match->resultatVolley($equipeId) != false){
+                $resultat = $match->resultat($equipeId, 'volleyball');
+                if($resultat){
                     $classement[$equipeId]['joues']++;
 
-                    $resultat = $match->resultatVolley($equipeId);
                     $marques = $resultat['marques'];
                     $encaisses = $resultat['encaisses'];
-                    $resultatScore = $resultat['resultat_score'];
-                    $resultat = $resultat['resultat'];
+                    $typeResultat = $resultat['type']; // Victoire/Nul ou Défaite
+                    $typeResultatAvecSets = $resultat['type_avec_sets'];
+                    
+                    // On regarde si l'équipe est forfait pour le match ou non
+                    $infosSup = $match->infos();
+                    $forfait = false;
+                    if($equipeId == $match->equipe_id_dom && isset($infosSup->forfait_eq_dom))
+                        $forfait = true;
+                    if($equipeId == $match->equipe_id_ext && isset($infosSup->forfait_eq_ext))
+                        $forfait = true;
 
-                    $classement[$equipeId]['points'] += $bareme[$resultatScore];
+                    $classement[$equipeId][$typeResultat]++;
+                    $classement[$equipeId][$typeResultatAvecSets]++;
+                    $classement[$equipeId]['points'] += $bareme[$typeResultatAvecSets];
 
                     $classement[$equipeId]['marques'] += $marques;
                     $classement[$equipeId]['encaisses'] += $encaisses;
 
-                    $classement[$equipeId][$resultat]++;
-                    $classement[$equipeId][$resultatScore]++;
-                    // $classement[$equipeId]['defaites'] += $defaite;
+                    // Si l'équipe est forfait, alors on applique le barème des matches forfaits
+                    if($forfait && $bareme['forfait']){
+                        $classement[$equipeId]['forfaits']++;
+                        $classement[$equipeId]['points'] -= $bareme['forfait'];
+                    }
                 }
             }
 

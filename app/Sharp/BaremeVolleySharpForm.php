@@ -59,7 +59,7 @@ class BaremeVolleySharpForm extends SharpForm
             'defaite_0_3' => 'required|integer|min:0|max:3',
             'defaite_1_3' => 'required|integer|min:0|max:3',
             'defaite_2_3' => 'required|integer|min:0|max:3',
-            'forfait' => 'required|integer|min:-1|max:0',
+            'forfait' => 'required|integer|min:0',
         ];
 
         Validator::make($data, $rules)->validate();

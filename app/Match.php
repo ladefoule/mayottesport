@@ -28,44 +28,10 @@ class Match extends Model
      * Elle renvoie false si le match ne s'est pas encore joué ou si l'id ne correspond pas aux équipes
      *
      * @param integer $equipe_id
+     * @param string $sport
      * @return void
      */
-    public function resultat(int $equipeId)
-    {
-        // Si l'id saisi ne correspond à aucune des deux équipes
-        if($this->equipe_id_dom != $equipeId && $this->equipe_id_ext != $equipeId)
-            return false;
-
-        $score_eq_dom = $this->score_eq_dom;
-        $score_eq_ext = $this->score_eq_ext;
-
-        // Si l'un des scores est null ou vide
-        if(strlen($score_eq_dom) == 0 || strlen($score_eq_ext) == 0)
-            return false;
-
-        if($score_eq_dom > $score_eq_ext)
-            $type = ($equipeId == $this->equipe_id_dom) ? 'victoire' : 'defaite';
-        else if($score_eq_dom < $score_eq_ext)
-            $type = ($equipeId == $this->equipe_id_dom) ? 'defaite' : 'victoire';
-        else
-            $type = 'nul';
-
-        if($this->equipe_id_dom == $equipeId){
-            $marques = $score_eq_dom;
-            $encaisses = $score_eq_ext;
-        }else{
-            $encaisses = $score_eq_dom;
-            $marques = $score_eq_ext;
-        }
-
-        return [
-            'type' => $type,
-            'marques' => $marques,
-            'encaisses' => $encaisses,
-        ];
-    }
-
-    public function resultatVolley(int $equipeId)
+    public function resultat(int $equipeId, $sportSlug = '')
     {
         // Si l'id saisi ne correspond à aucune des deux équipes
         if($this->equipe_id_dom != $equipeId && $this->equipe_id_ext != $equipeId)
@@ -80,23 +46,27 @@ class Match extends Model
 
         if($score_eq_dom > $score_eq_ext){
             if($equipeId == $this->equipe_id_dom){
-                $resultatScore = 'victoire_' . $score_eq_dom . '_' . $score_eq_ext;
-                $resultat = 'victoire';
+                if($sportSlug == 'volleyball')
+                    $typeResultatAvecSets = 'victoire_' . $score_eq_dom . '_' . $score_eq_ext;
+                $typeResultat = 'victoire';
             }else{
-                $resultatScore = 'defaite_' . $score_eq_ext . '_' . $score_eq_dom;
-                $resultat = 'defaite';
+                if($sportSlug == 'volleyball')
+                    $typeResultatAvecSets = 'defaite_' . $score_eq_ext . '_' . $score_eq_dom;
+                $typeResultat = 'defaite';
             }
         }
         else if($score_eq_dom < $score_eq_ext){
             if($equipeId == $this->equipe_id_dom){
-                $resultatScore = 'defaite_' . $score_eq_dom . '_' . $score_eq_ext;
-                $resultat = 'defaite';
+                if($sportSlug == 'volleyball')
+                    $typeResultatAvecSets = 'defaite_' . $score_eq_dom . '_' . $score_eq_ext;
+                $typeResultat = 'defaite';
             }else{
-                $resultatScore =  'victoire_' . $score_eq_ext . '_' . $score_eq_dom;
-                $resultat = 'victoire';
+                if($sportSlug == 'volleyball')
+                    $typeResultatAvecSets =  'victoire_' . $score_eq_ext . '_' . $score_eq_dom;
+                $typeResultat = 'victoire';
             }
-        }
-            
+        }else
+            $typeResultat = 'nul';
 
         if($this->equipe_id_dom == $equipeId){
             $marques = $score_eq_dom;
@@ -107,10 +77,10 @@ class Match extends Model
         }
 
         return [
-            'resultat' => $resultat,
-            'resultat_score' => $resultatScore,
+            'type' => $typeResultat,
             'marques' => $marques,
-            'encaisses' => $encaisses
+            'encaisses' => $encaisses,
+            'type_avec_sets' => $typeResultatAvecSets ?? '',
         ];
     }
 
@@ -129,12 +99,6 @@ class Match extends Model
             return $query->whereJourneeId($journeeId);
         })->ignore($match);
 
-        // request()['acces_bloque'] = request()->has('acces_bloque');
-        // request()['forfait_eq_dom'] = request()->has('forfait_eq_dom');
-        // request()['forfait_eq_ext'] = request()->has('forfait_eq_ext');
-        // request()['penalite_eq_dom'] = request()->has('penalite_eq_dom');
-        // request()['penalite_eq_ext'] = request()->has('penalite_eq_ext');
-        // request()['avec_tirs_au_but'] = request()->has('avec_tirs_au_but');
         $rules = [
             'journee_id' => 'required|exists:journees,id',
             'terrain_id' => 'nullable|exists:terrains,id',
