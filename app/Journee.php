@@ -116,7 +116,7 @@ class Journee extends Model
     public static function calendriersPageSport($sport, $page = 'home')
     {
         // $competitions = Competition::whereSportId($sport->id)->where('home_position', '>=', 1)->get();
-        $competitions = index('competition')->where('sport_id', $sport->id)->where($page . '_position', '>=', 1);
+        $competitions = index('competition')->where('sport_id', $sport->id)->where($page . '_position', '>=', 1)->sortBy($page . '_position');
         foreach ($competitions as $competition) {
             // $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
             $saison = index('saisons')->where('competition_id', $competition->id)->sortByDesc('annee_debut')->first();
