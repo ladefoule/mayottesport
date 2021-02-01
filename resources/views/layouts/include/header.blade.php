@@ -11,6 +11,9 @@
         # Block site from being framed with X-Frame-Options and CSP
         header("Content-Security-Policy: frame-ancestors 'none'");
         header("X-Frame-Options: DENY");
+
+        # Block pages from loading when they detect reflected XSS attacks
+        header('X-XSS-Protection: 1; mode=block');
     ?> 
 
     @yield('head')
