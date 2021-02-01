@@ -57,7 +57,7 @@
                         $hrefEqDom = $match->href_equipe_dom;
                         $hrefEqExt = $match->href_equipe_ext;
                         $resultat = $domicile ? $match->resultat_eq_dom : $match->resultat_eq_ext;
-                        $resultat = $resultat['resultat_type'] ?? '';
+                        $resultat = $resultat['type'] ?? '';
                     ?>
                     <div class="col-12 row d-flex flex-nowrap py-2 px-0 mx-0 border-bottom match-equipe @if($i==0) border-top @endif">
                         <div class="col-4 p-0 d-flex flex-wrap justify-content-start text-left align-items-center">
