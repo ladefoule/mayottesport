@@ -1,5 +1,5 @@
 <?php
-    $sports = index('sports');
+    $sports = index('sports')->sortBy('home_position');
     $competitions = index('competitions');
 ?>
 
