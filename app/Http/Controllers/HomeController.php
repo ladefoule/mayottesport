@@ -9,6 +9,7 @@ use App\Competition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
@@ -58,6 +59,10 @@ class HomeController extends Controller
      * @return \Illuminate\View\View
      */
     function sitemap(){
-        return view('sitemap');
+        $sitemap = view('sitemap')->render();
+        $headers = [
+            'Content-Type' => 'application/xml; charset=utf-8'
+        ];
+        return Response::make($sitemap, 200, $headers);
     }
 }
