@@ -564,10 +564,11 @@ main .nom-competition{
                 /* html{
                     font-size: 95%;
                 } */
-                /* #section-droite .fanion-calendrier img{
+
+                #section-droite .fanion-calendrier img{
                     display:block;
                     width:25px
-                } */
+                }
 
                 /* #section-droite .calendrier{
                     font-size: 0.85rem;
