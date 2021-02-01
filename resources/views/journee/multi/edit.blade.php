@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="col-12 form-row d-flex justify-content-center">
-                    <div class="col-1 offset-10 offset-md-10 offset-lg-8 text-center p-1">
+                    <div class="col-1 offset-11 text-center p-1">
                         <i class="far fa-trash-alt" title="Tout cocher/décocher"></i>
                         <input type="checkbox" data-action="cocher" id="tout">
                     </div>
@@ -39,13 +39,15 @@
                         <?php
                             $journee = $listeJournees[$i] ?? '';
                             $date = $journee->date ?? date('Y-m-d');
+                            $type = $journee->type;
 
                             $nameJourneeNumero = 'numero'.$i;
                             $nameJourneeDate = 'date'.$i;
                             $nameJourneeId = 'id'.$i;
                             $nameJourneeDelete = 'delete'.$i;
+                            $nameJourneeType = 'type'.$i;
                         ?>
-                        <div class="col-4 col-md-4 col-lg-3 mb-3">
+                        <div class="col-2 mb-3">
                             <label for="">Journée <span class="text-danger text-weight-bold">*</span></label>
                                 <input type="number" min="1" max="100" data-msg="Tous les champs <span class='text-danger font-italic'>Journée</span> sont obligatoires et leur contenu doit être entre 1 et 100."
                                 name="{{$nameJourneeNumero}}" class="form-control @error($nameJourneeNumero) is-invalid @enderror" value="{{ old($nameJourneeNumero) ?? $i }}">
@@ -55,7 +57,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-6 col-md-6 col-lg-5 mb-3">
+                        <div class="col-4 mb-3">
                             <label for="{{$nameJourneeDate}}">Date</label>
                             <input type="date"  data-msg="Tous les champs <span class='text-danger font-italic'>Date</span> sont obligatoires et doivent contenir une date valide."
                                 name="{{$nameJourneeDate}}" class="form-control @error($nameJourneeDate) is-invalid @enderror" value="{{ old($nameJourneeDate) ?? $date }}">
@@ -65,7 +67,21 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-1 d-flex align-items-center justify-content-center ml-2">
+                        <div class="col-5 mb-3">
+                            <label for="{{$nameJourneeType}}">Type</label>
+                            <select name="{{$nameJourneeType}}" class="form-control input-optionnel @error($nameJourneeType) is-invalid @enderror" value="{{ old($nameJourneeType) ?? $type }}">
+                                <option value=""></option>
+                                @foreach ($types as $key => $type_)
+                                    <option value="{{ $key }}" @if($key == $type) selected @endif>{{ $type_[1] }}</option>
+                                @endforeach
+                            </select>
+                            @error($nameJourneeType)
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-1 d-flex align-items-center justify-content-center pl-2">
                             <input type="checkbox" class="" name="{{ $nameJourneeDelete }}" @if(! $journee) disabled @endif>
                         </div>
                         <input type="hidden" name="{{ $nameJourneeId }}" value="{{ $journee->id ?? 0 }}">

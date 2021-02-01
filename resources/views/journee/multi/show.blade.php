@@ -23,16 +23,22 @@
             <div class="form-row d-flex justify-content-center">
                 @foreach ($journees as $journee)
                     <div class="col-12 form-row justify-content-center mb-3">
-                        <div class="col-4">
+                        <div class="col-2">
                             <ul class="list-group">
                                 <li class="list-group-item disabled" aria-disabled="true">Journée</li>
                                 <li class="list-group-item">{{ $journee->numero }}</li>
                             </ul>
                         </div>
-                        <div class="col-8">
+                        <div class="col-5">
                             <ul class="list-group">
                                 <li class="list-group-item disabled" aria-disabled="true">Date</li>
                                 <li class="list-group-item">{{ date('d/m/Y', strtotime($journee->date)) }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-5">
+                            <ul class="list-group">
+                                <li class="list-group-item disabled" aria-disabled="true">Type</li>
+                                <li class="list-group-item">{{ $journee->type ? $types[$journee->type][1] : '' }}</li>
                             </ul>
                         </div>
                     </div>

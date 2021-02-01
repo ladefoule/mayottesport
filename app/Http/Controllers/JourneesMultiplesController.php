@@ -70,18 +70,19 @@ class JourneesMultiplesController extends Controller
             $journee->nameJourneeDate = 'date'.$numero;
             $journee->nameJourneeId = 'id'.$numero;
             $journee->nameJourneeDelete = 'delete'.$numero;
+            $journee->nameJourneeType = 'type'.$numero;
 
             $listeJournees[$numero] = $journee;
         }
-        // dd($listeJournees);
-        // $journee = DB::table('journees')->where([ ['saison_id', '=', $saisonId], ['numero', '=', $i] ])->first();
 
+        $types = config('listes.types-journees');
         return view('journee.multi.edit', [
             'saison' => $sport->nom . ' - ' . $competition->nom . ' ' . $saison->nom,
             'saisonId' => $saisonId,
             'listeJournees' => $listeJournees ?? [],
             'nbJournees' => $nbJournees,
             'title' => $title,
+            'types' => $types,
             'h1' => $h1
         ]);
     }
@@ -101,13 +102,13 @@ class JourneesMultiplesController extends Controller
 
         // On supprime le cache index de la table
         Cache::forget('index-journees');
-        Cache::forget('indexcrud-journees');
 
         for ($i=1; $i <= $nbJournees; $i++) {
             if ($request['numero' . $i]) {
                 $journeeId = $request['id' . $i];
                 $numero = $request['numero' . $i];
                 $date = $request['date' . $i];
+                $type = $request['type' . $i];
 
                 $journee = Journee::find($journeeId);
                 $unique = Rule::unique('journees', 'numero')->where(function ($query) use ($numero, $saisonId) {
@@ -116,17 +117,20 @@ class JourneesMultiplesController extends Controller
 
                 $rules = [
                     'date' . $i => 'required|date',
+                    'type' . $i => 'nullable|integer|min:1',
                     'numero' . $i => ["required","integer","min:1","max:$nbJournees", $unique],
                 ];
 
                 $donnees = [
                     'numero'.$i => $numero,
-                    'date'.$i => $date
+                    'date'.$i => $date,
+                    'type'.$i => $type
                 ];
 
                 Validator::make($donnees, $rules)->validate();
                 $donnees = [
                     'numero' => $numero,
+                    'type' => $type,
                     'date' => $date,
                     'saison_id' => $saisonId
                 ];
@@ -171,12 +175,14 @@ class JourneesMultiplesController extends Controller
         $h1 = $title = 'Journees/SaisonId : ' . $saisonId;
         $journees = $saison->journees->sortBy('numero');
 
+        $types = config('listes.types-journees');
         return view('journee.multi.show', [
             'saison' => $sport->nom . ' - ' . $competition->nom . ' ' . $saison->nom,
             'title' => $title,
             'h1' => $h1,
             'saisonId' => $saisonId,
-            'journees' => $journees
+            'journees' => $journees,
+            'types' => $types
         ]);
     }
 }

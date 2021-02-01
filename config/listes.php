@@ -136,6 +136,10 @@ return [
         17 => ['7eme-tour', '7ème tour'],
         18 => ['8eme-tour', '8ème tour'],
         19 => ['9eme-tour', '9ème tour'],
+        20 => ['finale-regionale', 'Finale régionale'],
+        21 => ['phase-preliminaire', 'Phase préliminaire'],
+        22 => ['phase-preliminaire-tour-1', 'Phase préliminaire, tour 1'],
+        23 => ['phase-preliminaire-tour-2', 'Phase préliminaire, tour 2'],
     ],
 
     "types-modifs" => [
