@@ -14,6 +14,9 @@
 
         # Block pages from loading when they detect reflected XSS attacks
         header('X-XSS-Protection: 1; mode=block');
+
+        # Prevent browsers from incorrectly detecting non-scripts as scripts
+        header("X-Content-Type-Options: nosniff");
     ?> 
 
     @yield('head')
