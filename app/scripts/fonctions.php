@@ -127,7 +127,7 @@ function accesModifHoraire($match, $user)
  */
 function fanion($equipeUniqid)
 {
-    $fanion = 'foot-' . $equipeUniqid;
+    $fanion = $equipeUniqid;
     $exists = Storage::disk('public')->exists('img/fanion/' . $fanion . '.png');
     if ($exists == false)
         $fanion = "defaut-2";
