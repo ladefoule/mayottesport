@@ -175,10 +175,10 @@ class Match extends Model
                 'id' => $this->id,
                 'equipe_dom' => $equipeDom,
                 'href_equipe_dom' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => Str::slug($equipeDom->nom_complet)]),
-                'fanion_equipe_dom' => fanion($equipeDom->id),
+                'fanion_equipe_dom' => fanion($equipeDom->uniqid),
                 'equipe_ext' => $equipeExt,
                 'href_equipe_ext' => route('equipe.index', ['sport' => $sportNomSlug, 'equipe' => Str::slug($equipeExt->nom_complet)]),
-                'fanion_equipe_ext' => fanion($equipeExt->id),
+                'fanion_equipe_ext' => fanion($equipeExt->uniqid),
                 'url' => route('competition.match', [
                     'sport' => $sportNomSlug,
                     'annee' => str_replace('/', '-', $annee),
