@@ -218,7 +218,7 @@ class Saison extends Model
             $sport = index('sports')[$sport->id];
             $hrefEquipe = route('equipe.index', ['sport' => $sport->slug, 'equipe' => $equipe->slug_complet]);
             $nomEquipe = $equipe->nom;
-            $fanionEquipe = fanion($equipe->id);
+            $fanionEquipe = fanion($equipe->uniqid);
 
             $classement[$equipeId]['id'] = $equipeId;
             $classement[$equipeId]['nom'] = $nomEquipe;
