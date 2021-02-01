@@ -143,7 +143,7 @@ class EquipeController extends Controller
         $matches = $matches->union($saison->matches->where('equipe_id_ext', $equipeId))->sortBy('date');
 
         foreach ($matches as $match)
-            $match['resultat'] = $match->resultat($equipeId)['resultat'] ?? '';
+            $match['resultat'] = $match->resultat($equipeId)['type'] ?? '';
 
         return view('equipe.matches-ajax', [
             'equipe' => $equipe,
