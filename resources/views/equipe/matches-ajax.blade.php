@@ -3,7 +3,7 @@
     <?php
         $equipeDomId = $match->equipe_id_dom;
         $equipeExtId = $match->equipe_id_ext;
-        $resultat = $match->resultat;
+        $resultat = $match->resultat_type;
         $match = $match->infos();
     ?>
     <div class="col-12 row d-flex flex-nowrap py-2 px-0 mx-0 border-bottom match-equipe @if($i==0) border-top @endif">

@@ -45,7 +45,7 @@ class EquipeController extends Controller
         $prochainMatch = $matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
         $prochainMatchRender = '';
         if($prochainMatch){
-            $prochainMatch->resultat = $prochainMatch->resultat($equipe->id)['resultat'] ?? '';
+            $prochainMatch->resultat_type = $prochainMatch->resultat($equipe->id)['type'] ?? '';
             $matchesCollect[] = $prochainMatch;
             $prochainMatchRender = view('equipe.matches-ajax', [
                 'equipe' => $equipe,
@@ -58,7 +58,7 @@ class EquipeController extends Controller
         $dernierMatchRender = '';
         $matchesCollect = [];
         if($dernierMatch){
-            $dernierMatch->resultat = $dernierMatch->resultat($equipe->id)['resultat'] ?? '';
+            $dernierMatch->resultat_type = $dernierMatch->resultat($equipe->id)['type'] ?? '';
             $matchesCollect[] = $dernierMatch;
             $dernierMatchRender = view('equipe.matches-ajax', [
                 'equipe' => $equipe,
@@ -143,7 +143,7 @@ class EquipeController extends Controller
         $matches = $matches->union($saison->matches->where('equipe_id_ext', $equipeId))->sortBy('date');
 
         foreach ($matches as $match)
-            $match['resultat'] = $match->resultat($equipeId)['type'] ?? '';
+            $match['resultat_type'] = $match->resultat($equipeId)['type'] ?? '';
 
         return view('equipe.matches-ajax', [
             'equipe' => $equipe,
