@@ -48,7 +48,7 @@
                 </div>
             @endif
             <div class="col-12 text-center">
-                {{ $match->competition . ' : ' . $match->journee }}
+                {{ $match->competition . ' ' . $match->annee . ' : ' . $match->journee }}
             </div>
         </div>
     </div>

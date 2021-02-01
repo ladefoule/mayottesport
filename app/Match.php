@@ -193,6 +193,7 @@ class Match extends Model
                 'acces_bloque' => $this->acces_bloque,
                 'journee' => niemeJournee($journee->numero),
                 'competition' => $competition->nom,
+                'annee' => $annee,
                 'lieu' => $lieu,
                 'resultat_eq_dom' => $this->resultat($this->equipe_id_dom),
                 'resultat_eq_ext' => $this->resultat($this->equipe_id_ext),

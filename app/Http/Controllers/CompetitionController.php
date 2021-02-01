@@ -99,6 +99,29 @@ class CompetitionController extends Controller
         ]);
     }
 
+    public function classementSaison(Request $request, $sport, $competition, $annee)
+    {
+        Log::info(" -------- Controller Competition : classement -------- ");
+        $saison = $request->saison;
+        $sport = $request->sport;
+
+        // On vérifie l'année
+        if(annee($saison->annee_debut, $saison->annee_fin) != $annee)
+            abort(404);
+
+        $competition = index('competitions')[$saison->competition_id];
+        $annee = str_replace('-', '/', $annee);
+        $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
+        $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
+
+        $classement = saison($saison->id)['classement'];
+        return view('competition.classement-' . Str::slug($sport->nom), [
+            'classement' => $classement,
+            'title' => $title,
+            'h1' => $h1
+        ]);
+    }
+
     /**
      * Undocumented function
      *
