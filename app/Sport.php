@@ -52,6 +52,16 @@ class Sport extends Model
     }
 
     /**
+     * Les équipes liées
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function equipes()
+    {
+        return $this->hasMany('App\Equipe');
+    }
+
+    /**
      * Les articles liés au sport
      */
     public function articles()

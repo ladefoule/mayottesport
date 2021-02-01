@@ -45,12 +45,11 @@ class Competition
         $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
         $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
 
+        $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
+        if($competition->type == 1) // Type Championnat
+            $request->hrefClassement = route('competition.classement', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
+
         if($saison && count($saison->matches) > 0){
-            $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
-
-            if($competition->type == 1) // Type Championnat
-                $request->hrefClassement = route('competition.classement', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
-
             if($saison){
                 $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
                 foreach ($journeesPassees as $journee)

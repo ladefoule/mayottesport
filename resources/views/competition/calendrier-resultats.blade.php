@@ -1,10 +1,5 @@
 @extends('layouts.competition')
 
-<?php
-    $journeeActuelle = $journee;
-    $competition = request()->competition;
-?>
-
 @section('title', $title)
 
 @section('content')
@@ -12,20 +7,22 @@
     <div class="row bg-white shadow-div justify-content-center m-0">
         <div class="col-12 pb-3">
             <h1 class="h4 text-center col-12 px-3 py-4">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
-            <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
-                <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.left') !!}</a>
-                <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
-                    @foreach ($journees as $journee)
-                        <option value="{{ $journee->numero }}" @if($journeeActuelle->numero == $journee->numero) selected @endif>
-                                {{ niemeJournee($journee->numero) }}
-                        </option>
-                    @endforeach
-                </select>
-                <a id="next" data-id="{{ $journeeActuelle->numero + 1 }}" href="" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.right') !!}</a>
-            </div>
-            <div class="col-12 px-2" id="matches">
-                {!! $calendrierJourneeHtml !!}
-            </div>
+            @if($calendrierJourneeHtml)
+                <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
+                    <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.left') !!}</a>
+                    <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
+                        @foreach ($journees as $journee)
+                            <option value="{{ $journee->numero }}" @if($journeeActuelle->numero == $journee->numero) selected @endif>
+                                    {{ niemeJournee($journee->numero) }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <a id="next" data-id="{{ $journeeActuelle->numero + 1 }}" href="" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.right') !!}</a>
+                </div>
+                <div class="col-12 px-2" id="matches">
+                    {!! $calendrierJourneeHtml !!}
+                </div>
+            @endif
 
             {{-- PUB --}}
             <div class="col-12 m-auto py-3 px-2">

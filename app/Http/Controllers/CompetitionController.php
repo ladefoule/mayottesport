@@ -148,12 +148,13 @@ class CompetitionController extends Controller
 
         $title = $sport->nom . ' - ' . $competition->nom_complet . ' ' . $saison->nom . ' - Calendrier et résultats';
         return view('competition.calendrier-resultats', [
-            'calendrierJourneeHtml' => journee($journee->id)->render,
+            'calendrierJourneeHtml' => $journee ? journee($journee->id)->render : '',
             'saison' => $saison,
-            'journee' => $journee,
+            'journeeActuelle' => $journee,
             'journees' => $journees,
             'title' => $title,
-            'matches' => journee($journee->id)->matches,
+            'matches' => $journee ? journee($journee->id)->matches : '',
+            'competition' => $competition
         ]);
     }
 
