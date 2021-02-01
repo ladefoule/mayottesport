@@ -109,18 +109,16 @@ class EquipeSharpForm extends SharpForm
                 SharpFormSelectField::make("ville_id", $villes)
                 ->setLabel("Ville")
                 ->setDisplayAsDropdown()
-            )/* ->addField(
-                SharpFormCheckField::make("feminine", 'Féminine')
-                    ->setLabel("Féminine")
             )->addField(
-                SharpFormCheckField::make("non_mahoraise", 'Non mahoraise')
-                    ->setLabel("Non mahoraise")
-            ) */->addField(
                 SharpFormTextField::make("nom")
                     ->setLabel("Nom")
             )->addField(
                 SharpFormTextField::make("nom_complet")
                     ->setLabel("Nom complet")
+            )->addField(
+                SharpFormTextField::make("uniqid")
+                    ->setLabel("Uniqid")
+                    ->setReadOnly()
             );
     }
 
@@ -132,7 +130,7 @@ class EquipeSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('sport_id|6', 'nom|6', 'ville_id|6', 'nom_complet|6'/* , 'feminine|3', 'non_mahoraise|3' */);
+            $column->withFields('sport_id|6', 'nom|6', 'ville_id|6', 'nom_complet|6', 'uniqid|6');
         });
     }
 }
