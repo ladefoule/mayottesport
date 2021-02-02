@@ -41,24 +41,25 @@ class CompetitionController extends Controller
         $sport = $request->sport;
 
         // Recherche de la dernière saison de la compétition
-        $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+        // $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+        $saison = $request->derniereSaison;
 
         if($saison){
-            $journeesSuivantes = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->limit(2)->get();
-            foreach ($journeesSuivantes as $key => $journee){
-                $render = journee($journee->id)->render;
-                $prochains[] = $render;
-                if($key == 0)
-                    $prochaineJourneeRender = $render;
-            }
+            // $journeesSuivantes = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->limit(2)->get();
+            // foreach ($journeesSuivantes as $key => $journee){
+            //     $render = journee($journee->id)->render;
+            //     $prochains[] = $render;
+            //     if($key == 0)
+            //         $prochaineJourneeRender = $render;
+            // }
 
-            $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
-            foreach ($journeesPassees as $key => $journee){
-                $render = journee($journee->id)->render;
-                $resultats[] = $render;
-                if($key == 0)
-                    $derniereJourneeRender = $render;
-            }
+            // $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
+            // foreach ($journeesPassees as $key => $journee){
+            //     $render = journee($journee->id)->render;
+            //     $resultats[] = $render;
+            //     if($key == 0)
+            //         $derniereJourneeRender = $render;
+            // }
 
             if($competition->type == 1) // Type compétition
                $classement = saison($saison->id)['classement'];
@@ -73,10 +74,10 @@ class CompetitionController extends Controller
             'competition' => $competition,
             'sport' => $sport,
             'articles' => $articlesView ?? [],
-            'resultats' => $resultats ?? [],
-            'prochains' => $prochains ?? [],
-            'derniereJourneeRender' => $derniereJourneeRender ?? '',
-            'prochaineJourneeRender' => $prochaineJourneeRender ?? '',
+            'resultats' => $request->resultats,
+            'prochains' => $request->prochains,
+            'derniereJourneeRender' => $request->resultats,
+            'prochaineJourneeRender' => $request->prochains,
             'classement' => $classement ?? [],
         ]);
     }

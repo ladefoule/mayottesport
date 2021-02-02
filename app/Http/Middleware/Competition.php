@@ -69,8 +69,8 @@ class Competition
             $articles[$key] = article($article->uniqid);
 
         $request->articles = $articles;
-        $request->resultats = $resultats ?? [];
-        $request->prochains = $prochains ?? [];
+        $request->resultats = $resultats ?? '';
+        $request->prochains = $prochains ?? '';
         return $next($request);
     }
 }
