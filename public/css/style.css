@@ -389,11 +389,8 @@ a.non-cliquable, a.non-cliquable:hover{
 }
 
 .onglet.active{
-   background-color: tomato !important;
-}
-
-.onglet:active{
-    outline:none !important;
+   background-color: #38c172 !important;
+   /* background-color: tomato !important; */
 }
 
 .realisation{
@@ -569,6 +566,10 @@ main .nom-competition{
                     display:block;
                     width:25px
                 }
+
+                .onglet{
+                    font-size: 1rem !important;
+                 }
 
                 /* #section-droite .calendrier{
                     font-size: 0.85rem;

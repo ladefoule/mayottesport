@@ -195,7 +195,7 @@ function forgetCaches(string $table, object $instance)
    // On supprime les caches des articles
     } else if ($table == 'articles') {
         $article = $instance;
-         Cache::forget("article-" . $article->uniqid);
+        Cache::forget("article-" . $article->uniqid);
     }
 }
 

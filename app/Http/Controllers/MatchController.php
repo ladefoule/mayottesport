@@ -28,6 +28,7 @@ class MatchController extends Controller
     {
         Log::info("Accès au controller Match - Ip : " . request()->ip());
         $this->middleware(['sport', 'competition', 'match-uniqid', 'modification-match']);
+        $this->middleware(['saison'])->only('match');
     }
 
     /**
@@ -46,17 +47,13 @@ class MatchController extends Controller
         Log::info(" -------- Controller Match : match -------- ");
         $match = $request->match;
         $sport = $request->sport;
-        $journee = index('journees')[$match->journee_id];
-        $saison = index('saisons')[$journee->saison_id];
-
-        // On vérifie l'année
-        if(annee($saison->annee_debut, $saison->annee_fin) != $annee)
-            abort(404);
-
+        
         $infos = match($match->uniqid);
+        $journee = journee($match->journee_id);
         return view('competition.match', [
             'match' => $infos,
             'sport' => $sport,
+            'journee' => $journee,
             'accesModifHoraire' => $request->accesModifHoraire,
             'accesModifResultat' => $request->accesModifResultat,
         ]);

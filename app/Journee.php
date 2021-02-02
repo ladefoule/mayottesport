@@ -64,15 +64,24 @@ class Journee extends Model
         return Cache::rememberForever($key, function () {
             Log::info('Rechargement du cache : journee-' . $this->id);
 
+            $saison = $this->saison;
+            $competition = $saison->competition;
+            $sport = $competition->sport;
+
             // L'ensemble des matches de la journée
             $matches = $this->matches->sortBy('date')->sortBy('heure');
 
             $journee = collect();
+            // On associe d'abord tous les attributs
+            foreach ($this->attributes as $key => $value)
+                $journee->$key = $value;
+
             $matchesInfos = [];
             foreach ($matches as $match)
                 $matchesInfos[] = $match->infos();
 
             $journee->matches = $matchesInfos;
+            $journee->nom = $this->nom;
             $dateJournee = date('d/m/Y', strtotime($this->date));
             $types = config('listes.types-journees');
             if($this->type && isset($types[$this->type]))
@@ -85,6 +94,8 @@ class Journee extends Model
                 'journee' => $typeJournee,
                 'date' => $dateJournee,
             ])->render();
+
+            $journee->href = route('competition.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee(), 'journee' => $this->numero]);;
 
             return $journee;
         });

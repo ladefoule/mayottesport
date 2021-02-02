@@ -72,6 +72,7 @@ class Kernel extends HttpKernel
         'modification-match' => \App\Http\Middleware\ModificationMatch::class,
         'verif-table-crud' => \App\Http\Middleware\VerifTableCrud::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'saison' => \App\Http\Middleware\Saison::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'sport' => \App\Http\Middleware\Sport::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

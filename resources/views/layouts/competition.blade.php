@@ -5,7 +5,11 @@
     $hrefCalendrier = request()->hrefCalendrier;
     $hrefPalmares = request()->hrefPalmares;
     $hrefActualite = request()->hrefActualite;
+
     $competition = request()->competition;
+    $derniereSaison = request()->derniereSaison;
+
+    $saison = request()->saison ?? '';
     $sport = request()->sport;
     $routeName = request()->route()->getName();
 
@@ -35,6 +39,14 @@
                         <a href="{{ $hrefIndex }}" class="font-weight-bold mr-3 href-scroll-x text-green">
                             {{ Str::upper($competition->nom) }}
                         </a>
+                        @if($saison && $saison->id != $derniereSaison->id)
+                            <a href="" class="mr-3 non-cliquable cursor-default">
+                                {!! \Config::get('listes.boutons.right') !!}
+                            </a>
+                            <span class="mr-3">
+                                {{ $saison->annee() }}
+                            </span>
+                        @endif
                         <a href="" class="mr-3 non-cliquable cursor-default">
                             {!! \Config::get('listes.boutons.right') !!}
                         </a>
@@ -67,11 +79,12 @@
             <main class="col-lg-8 col-xl-8 p-0">
                 @yield('content')
             </main>
+
             <section id="section-droite" class="col-4 d-none d-lg-block pl-0">
                 <div class="my-3 bg-white shadow-div">
                     <div class="col-12 d-flex text-center p-2">
                         <span data-cible="resultats-section-droite"
-                            class="d-block col-6 p-3 border btn btn-secondary onglet @if($resultats) active @endif">Résultats</span>
+                            class="d-block col-6 px-2 py-3 border btn btn-secondary onglet @if($resultats) active @endif">Les derniers résultats</span>
                         <span data-cible="prochains-section-droite"
                             class="d-block col-6 p-3 border btn btn-secondary onglet @if(! $resultats) active @endif">À venir</span>
                     </div>
@@ -88,12 +101,11 @@
                                 </a>
                             </div>
                         @endif
-                        @foreach ($resultats as $resultat)
-                            <div class="p-3">
-                                {!! $resultat !!}
-                            </div>
-                        @endforeach
+                        <div class="p-3">
+                            {!! $resultats !!}
+                        </div>
                     </div>
+
                     <div id="prochains-section-droite" class="col-12 px-2 pt-0 d-none @if(!$resultats) d-block @endif">
                         @if($prochains)
                             <div class="col-12 text-center pt-1">
@@ -107,11 +119,9 @@
                                 </a>
                             </div>
                         @endif
-                        @foreach ($prochains as $prochain)
-                            <div class="p-3">
-                                {!! $prochain !!}
-                            </div>
-                        @endforeach
+                        <div class="p-3">
+                            {!! $prochains !!}
+                        </div>
                     </div>
 
                     <div class="col-12 pb-2 px-2">

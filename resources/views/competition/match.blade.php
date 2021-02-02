@@ -48,7 +48,7 @@
                 </div>
             @endif
             <div class="col-12 text-center">
-                {{ $match->competition . ' ' . $match->annee . ' : ' . $match->journee }}
+                {{ $match->competition . ' ' . $match->annee . ' - ' }} <a class="text-primary" href="{{ $journee->href }}">{{ $journee->nom }}</a>
             </div>
         </div>
     </div>

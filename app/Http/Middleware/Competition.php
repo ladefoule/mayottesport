@@ -25,9 +25,6 @@ class Competition
     public function handle($request, Closure $next)
     {
         Log::info(" -------- Middleware Competition -------- ");
-        // if (Validator::make(['competition' => $request->competition], ['competition' => 'alpha_dash|min:3'])->fails())
-        //     abort(404);
-
         $sport = $request->sport;
         $competition = CompetitionModel::whereSportId($sport->id)->whereSlugComplet($request->competition)->firstOrFail();
         $request->competition = $competition;
@@ -37,27 +34,30 @@ class Competition
 
         // $saison = Saison::where('competition_id', $competition->id)/* ->where('finie', '!=', 1) */->orderBy('finie')->orderBy('annee_debut')->first();
         // Recherche de la dernière saison de la compétition
-        $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
+        $derniereSaison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
 
         // Les infos requises pour toutes les pages du middleware
-        $request->saison = $saison; // la collection
+        $request->derniereSaison = $derniereSaison; // la collection
         $request->hrefSport = route('sport.index', ['sport' => $sportSlug]);
         $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
         $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
 
-        $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
         if($competition->type == 1) // Type Championnat
             $request->hrefClassement = route('competition.classement', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
+        
+        if($derniereSaison){
+            $journees = $derniereSaison->journees;
+            if(count($journees) > 0){
+                $derniereJournee = $journees->sortByDesc('numero')->first();
+                $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet, 'annee' => $derniereSaison->annee(), 'journee' => $derniereJournee->numero]);
+                
+                $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+                if($derniereJournee)
+                    $resultats = journee($derniereJournee->id)->render;
 
-        if($saison && count($saison->matches) > 0){
-            if($saison){
-                $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
-                foreach ($journeesPassees as $journee)
-                    $resultats[] = journee($journee->id)->render;
-
-                $journeesSuivantes = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->limit(2)->get();
-                foreach ($journeesSuivantes as $journee)
-                    $prochains[] = journee($journee->id)->render;
+                $journeeSuivante = $journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+                if($journeeSuivante)
+                    $prochains = journee($journeeSuivante->id)->render;
             }
         }
 

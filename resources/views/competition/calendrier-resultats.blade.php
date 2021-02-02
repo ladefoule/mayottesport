@@ -9,15 +9,15 @@
             <h1 class="h4 text-center col-12 px-3 py-4">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
             @if($calendrierJourneeHtml)
                 <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
-                    <a id="previous" data-id="{{ $journeeActuelle->numero - 1 }}" href="" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.left') !!}</a>
+                    <a id="previous" href="{{ $hrefJourneePrecedente }}" class="float-right pr-3 @if ($journeeActuelle->numero == 1) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.left') !!}</a>
                     <select class="form-control col-6 col-sm-4 col-md-3 px-2" name="journee" id="journees">
                         @foreach ($journees as $journee)
-                            <option value="{{ $journee->numero }}" @if($journeeActuelle->numero == $journee->numero) selected @endif>
-                                    {{ niemeJournee($journee->numero) }}
+                            <option value="{{ $journee->href }}" @if($journeeActuelle->numero == $journee->numero) selected @endif>
+                                    {{ $journee->nom }}
                             </option>
                         @endforeach
                     </select>
-                    <a id="next" data-id="{{ $journeeActuelle->numero + 1 }}" href="" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.right') !!}</a>
+                    <a id="next" href="{{ $hrefJourneeSuivante }}" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.right') !!}</a>
                 </div>
                 <div class="col-12 px-2" id="matches">
                     {!! $calendrierJourneeHtml !!}
@@ -38,14 +38,8 @@
 $(document).ready(function(){
     $('#journees').on('change', function() {
         option = this.options[this.selectedIndex]
-        journee = option.value
-        ajax(journee)
-    })
-    $('#previous, #next').on('click', function(e) {
-        e.preventDefault()
-        journee = this.dataset.id
-        if(! this.classList.contains('non-cliquable'))
-            ajax(journee)
+        href = option.value
+        window.location = href
     })
 })
 

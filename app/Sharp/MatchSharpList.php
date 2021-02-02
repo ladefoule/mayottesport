@@ -4,7 +4,6 @@ namespace App\Sharp;
 
 use App\Match;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
@@ -110,8 +109,6 @@ class MatchSharpList extends SharpEntityList
                 ->orWhere('equipesExt.nom', 'like', $word);
             });
         }
-
-        \Log::info(count($matches->get()));
 
         return $this->setCustomTransformer(
             "updated_at",
