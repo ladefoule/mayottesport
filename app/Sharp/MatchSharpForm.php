@@ -92,6 +92,8 @@ class MatchSharpForm extends SharpForm
         $ids = $match->matchInfos->pluck('id');
         MatchInfo::destroy($ids);
 
+        $match = $this->ignore($ignore)->save($match, $data);
+
         // On insère les nouvelles propriétés supplémentaires du match : pénalités, forfaits, etc...
         $proprietes = config('listes.proprietes-matches');
         foreach ($proprietes as $id => $propriete){
@@ -103,7 +105,6 @@ class MatchSharpForm extends SharpForm
                 ]);
         }
 
-        $this->ignore($ignore)->save($match, $data);
 
         // Rechargement des caches liés au match
         forgetCaches('matches', $match);
