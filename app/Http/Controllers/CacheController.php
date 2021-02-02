@@ -80,10 +80,8 @@ class CacheController extends Controller
          } else if ($table == 'articles') {
             $article = $instance;
             article($article->uniqid);
-
         }
 
         index($table);
-        refreshCachesLies($table);
     }
 }

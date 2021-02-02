@@ -200,27 +200,6 @@ function forgetCaches(string $table, object $instance)
 }
 
 /**
- * Rechargement de tous les caches index des tables qui utilisent les données de la $table
- * On ne doit recharger le cache que SI ET SEULEMENT SI les données des tables sont utilisées dans la génération des attributs nom ou crud_name
- * Ex: Saison->crudname = Competititon->crud_name . annee() ==> SEUL la table competitions peut engendrer le rechargement de la table saisons
- *
- * @param string $table - en snake_case
- * @return void
- */
-function refreshCachesLies(string $table)
-{
-    Log::info("Rechargement des caches des tables utilisant les données de : $table");
-    $tablesLiees = config('listes.caches-lies')[$table] ?? [];
-    foreach ($tablesLiees as $table) {
-        if (isset(config('listes.caches-lies')[$table]))
-            refreshCachesLies($table);
-
-        Cache::forget('index-' . Str::slug($table));
-        index($table);
-    }
-}
-
-/**
  * Fonction de comparaison pour générer les classements
  *
  * @param array $a
@@ -281,7 +260,7 @@ function index(string $table)
             foreach ($instances as $instance){
                 $collect = collect();
                 foreach ($instance->getAttributes() as $key => $value)
-                    $collect->$key = $value;;
+                    $collect->$key = $value;
 
                 $collect->nom = $instance->nom ?? '';
                 $index[$instance->id] = $collect;

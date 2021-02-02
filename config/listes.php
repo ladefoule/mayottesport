@@ -20,20 +20,6 @@ return [
         'voir' => '<i class="icon-eye"></i>',
     ],
 
-    /* $key => $values */
-    /* Si on met à jour le cache $key alors on doit recharger tous les caches $values */
-    'caches-lies' => [
-        'baremes' => ['bareme_infos'],
-        'competitions' => ['saisons'],
-        'crud-attributs' => ['crud_attribut_infos'],
-        'crud-tables' => ['crud_attributs'],
-        // 'matches' => ['modifs', 'match_infos'],
-        'saisons' => ['journees', /* 'equipe_saison' */],
-        'sports' => ['equipes', 'competitions', 'baremes'],
-        'users' => ['modifs'],
-        'villes' => ['terrains'],
-    ],
-
     "priorites-articles" => [
         1 => ['normale', 'Normale'],
         2 => ['elevee', 'Elevée'],
