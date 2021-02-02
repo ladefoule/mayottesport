@@ -39,7 +39,7 @@
                         <?php
                             $journee = $listeJournees[$i] ?? '';
                             $date = $journee->date ?? date('Y-m-d');
-                            $type = $journee->type;
+                            $type = $journee->type ?? '';
 
                             $nameJourneeNumero = 'numero'.$i;
                             $nameJourneeDate = 'date'.$i;
