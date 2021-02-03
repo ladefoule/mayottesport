@@ -47,12 +47,6 @@
                 <div class="col-lg-6 alert alert-danger text-dark p-3 d-none" id="messageErreur"></div>
             </div>
 
-            <div class="col-12 text-center">
-                <div class="col-12">
-                    {{ $match->competition }} : {{ $match->journee }}
-                </div>
-            </div>
-
             <div class="col-12 text-center p-3">
                 <button class="btn btn-danger text-white px-5">Valider</button>
             </div>

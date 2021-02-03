@@ -37,32 +37,21 @@
             </div>
 
             @if (count($errors) > 0)
-            <div class="col-12 p-3">
-                <div class="col-12 p-3 alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>  
-                    <strong>Erreur !</strong>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                <div class="col-12 p-3">
+                    <div class="col-12 p-3 alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>  
+                        <strong>Erreur !</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
             @endif
 
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <div class="col-lg-6 alert alert-danger text-dark p-3 d-none" id="messageErreur"></div>
-            </div>
-
-            <div class="col-12 text-center p-3">
-                @if($match->date_format)
-                    <div class="col-12 text-center">
-                        {!! config('listes.boutons.calendrier') !!} {{ $match->date_format }} @if($match->heure) {!! config('listes.boutons.horloge') !!} {{ $match->heure }} @endif
-                    </div>
-                @endif
-                <div class="col-12">
-                    {{ $match->competition }} : {{ $match->journee }}
-                </div>
             </div>
 
             <div class="col-12 text-center p-3">

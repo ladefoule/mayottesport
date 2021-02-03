@@ -230,7 +230,8 @@ class CompetitionController extends Controller
         return view('competition.palmares', [
             'saisons' => $saisons,
             'title' => $sport->nom . ' - ' . $competition->nom_complet . ' - Le palmarès',
-            'competition' => $competition
+            'competition' => $competition,
+            'sport' => $sport,
         ]);
     }
 

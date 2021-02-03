@@ -37,7 +37,7 @@ class Competition
         $derniereSaison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
 
         // Les infos requises pour toutes les pages du middleware
-        $request->derniereSaison = $derniereSaison; // la collection
+        $request->derniereSaison = $derniereSaison;
         $request->hrefSport = route('sport.index', ['sport' => $sportSlug]);
         $request->hrefIndex = route('competition.index', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
         $request->hrefPalmares = route('competition.palmares', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
@@ -49,7 +49,7 @@ class Competition
             $journees = $derniereSaison->journees;
             if(count($journees) > 0){
                 $derniereJournee = $journees->sortByDesc('numero')->first();
-                $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet, 'annee' => $derniereSaison->annee(), 'journee' => $derniereJournee->numero]);
+                $request->hrefCalendrier = route('competition.saison.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet, 'annee' => $derniereSaison->annee(), 'journee' => $derniereJournee->numero]);
                 
                 $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
                 if($derniereJournee){

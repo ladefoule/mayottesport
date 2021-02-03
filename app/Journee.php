@@ -101,7 +101,7 @@ class Journee extends Model
                 'date' => $dateJournee,
             ])->render();
 
-            $journee->href = route('competition.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee(), 'journee' => $this->numero]);;
+            $journee->href = route('competition.saison.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee(), 'journee' => $this->numero]);;
 
             return $journee;
         });

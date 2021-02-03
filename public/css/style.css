@@ -232,6 +232,10 @@ main .nom-sport{
     font-size: 1em;
 }
 
+.infos-match{
+    font-size: 0.9rem;
+}
+
 .mx--7{
     margin:-7px
 }
