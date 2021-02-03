@@ -15,22 +15,22 @@
         @csrf
         <div class="row m-0 text-white bloc-match bloc-match-{{ $sport->slug }} py-4" style="background-image: url('{{ asset('storage/img/sport/'.$sport->slug.'.jpg') }}')">
             <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1 mb-5">
-                <div class="col-lg-4 d-lg-inline py-2 px-0">
-                    <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="fanion-match">
+                <div class="col-md-4 col-lg-12 col-xl-4 py-2 px-0">
+                    <a href="{{ $match->href_equipe_dom }}"><img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="fanion-match"></a>
                 </div>
-                <div class="equipe-domicile col-lg-8 d-lg-inline py-2 px-0">
-                    {{ $match->equipe_dom->nom }}
+                <div class="equipe-domicile col-md-8 col-lg-12 col-xl-8 py-2 px-0">
+                    <a href="{{ $match->href_equipe_dom }}" class="text-white">{{ $match->equipe_dom->nom }}</a>
                 </div>
             </div>
             <div class="col-2 bloc-score d-flex align-items-center justify-content-around p-0 mb-5">
                 <span class="w-100 text-center font-weight-bold">{!! $match->score !!}</span>
             </div>
             <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-ext p-1 mb-5">
-                <div class="equipe-exterieur col-lg-8 d-lg-inline order-2 order-lg-1 py-2 px-0">
-                    {{ $match->equipe_ext->nom }}
+                <div class="equipe-exterieur col-md-8 col-lg-12 col-xl-8 order-2 order-md-1 order-lg-2 order-xl-1 py-2 px-0">
+                    <a href="{{ $match->href_equipe_ext }}" class="text-white">{{ $match->equipe_ext->nom }}</a>
                 </div>
-                <div class="col-lg-4 d-lg-inline order-1 order-lg-2 py-2 px-0">
-                    <img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="fanion-match">
+                <div class="col-md-4 col-lg-12 col-xl-4 order-1 order-md-2 order-lg-1 order-xl-2 py-2 px-0">
+                    <a href="{{ $match->href_equipe_ext }}"><img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="fanion-match"></a>
                 </div>
             </div>
 
