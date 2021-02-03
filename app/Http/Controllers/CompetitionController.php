@@ -82,18 +82,29 @@ class CompetitionController extends Controller
         ]);
     }
 
+    /**
+     * Page classement des championnats
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
     public function classement(Request $request)
     {
         Log::info(" -------- Controller Competition : classement -------- ");
         $derniereSaison = $request->derniereSaison;
+        $competition = $request->competition;
         $sport = $request->sport;
+        
+        $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet);
+        $h1 = 'Classement ' . Str::lower($competition->nom);
+        $classement = [];
+        if($derniereSaison){
+            $annee = annee($derniereSaison->annee_debut, $derniereSaison->annee_fin, '/');
+            $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
+            $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
 
-        $competition = index('competitions')[$derniereSaison->competition_id];
-        $annee = annee($derniereSaison->annee_debut, $derniereSaison->annee_fin, '/');
-        $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
-        $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
-
-        $classement = saison($derniereSaison->id)['classement'];
+            $classement = saison($derniereSaison->id)['classement'];
+        }
         return view('competition.classement-' . $sport->slug, [
             'classement' => $classement,
             'title' => $title,
@@ -101,13 +112,22 @@ class CompetitionController extends Controller
         ]);
     }
 
+    /**
+     * Accès au classement d'une saison de championnat
+     *
+     * @param Request $request
+     * @param string $sport
+     * @param string $competition
+     * @param string $annee
+     * @return \Illuminate\View\View
+     */
     public function classementSaison(Request $request, $sport, $competition, $annee)
     {
         Log::info(" -------- Controller Competition : classementSaison -------- ");
         $saison = $request->saison;
         $sport = $request->sport;
+        $competition = $request->competition;
 
-        $competition = index('competitions')[$saison->competition_id];
         $annee = str_replace('-', '/', $annee);
         $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
         $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
