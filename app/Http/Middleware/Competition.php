@@ -52,12 +52,16 @@ class Competition
                 $request->hrefCalendrier = route('competition.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet, 'annee' => $derniereSaison->annee(), 'journee' => $derniereJournee->numero]);
                 
                 $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
-                if($derniereJournee)
+                if($derniereJournee){
                     $resultats = journee($derniereJournee->id)->render_section_droite;
+                    $resultats_main = journee($derniereJournee->id)->render_main;
+                }
 
                 $journeeSuivante = $journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
-                if($journeeSuivante)
+                if($journeeSuivante){
                     $prochains = journee($journeeSuivante->id)->render_section_droite;
+                    $prochains_main = journee($journeeSuivante->id)->render_main;
+                }
             }
         }
 
@@ -71,6 +75,8 @@ class Competition
         $request->articles = $articles;
         $request->resultats = $resultats ?? '';
         $request->prochains = $prochains ?? '';
+        $request->resultats_main = $resultats_main ?? '';
+        $request->prochains_main = $prochains_main ?? '';
         return $next($request);
     }
 }

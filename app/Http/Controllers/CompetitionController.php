@@ -76,8 +76,8 @@ class CompetitionController extends Controller
             'articles' => $articlesView ?? [],
             'resultats' => $request->resultats,
             'prochains' => $request->prochains,
-            'derniereJourneeRender' => $request->resultats,
-            'prochaineJourneeRender' => $request->prochains,
+            'derniereJourneeRender' => $request->resultats_main,
+            'prochaineJourneeRender' => $request->prochains_main,
             'classement' => $classement ?? [],
         ]);
     }
