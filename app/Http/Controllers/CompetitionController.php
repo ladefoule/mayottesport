@@ -94,6 +94,10 @@ class CompetitionController extends Controller
         $derniereSaison = $request->derniereSaison;
         $competition = $request->competition;
         $sport = $request->sport;
+
+        // On vérifie qu'il s'agit bien d'un championnat
+        if($competition->type != 1)
+            abort(404);
         
         $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet);
         $h1 = 'Classement ' . Str::lower($competition->nom);
@@ -128,7 +132,11 @@ class CompetitionController extends Controller
         $sport = $request->sport;
         $competition = $request->competition;
 
-        $annee = str_replace('-', '/', $annee);
+        // On vérifie qu'il s'agit bien d'un championnat
+        if($competition->type != 1)
+            abort(404);
+
+        $annee = $saison->annee('/');
         $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
         $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
 
