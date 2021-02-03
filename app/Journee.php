@@ -76,11 +76,11 @@ class Journee extends Model
             foreach ($this->attributes as $key => $value)
                 $journee->$key = $value;
 
-            $matchesInfos = [];
+            $matchesAvecInfos = [];
             foreach ($matches as $match)
-                $matchesInfos[] = $match->infos();
+                $matchesAvecInfos[] = $match->infos();
 
-            $journee->matches = $matchesInfos;
+            $journee->matches = $matchesAvecInfos;
             $journee->nom = $this->nom;
             $dateJournee = date('d/m/Y', strtotime($this->date));
             $types = config('listes.types-journees');
@@ -89,7 +89,13 @@ class Journee extends Model
             else
                 $typeJournee = niemeJournee($this->numero);
 
-            $journee->render = view('journee.calendrier', [
+            $journee->render_section_droite = view('journee.calendrier-section-droite', [
+                'matches' => $journee->matches,
+                'journee' => $typeJournee,
+                'date' => $dateJournee,
+            ])->render();
+
+            $journee->render_main = view('journee.calendrier-main', [
                 'matches' => $journee->matches,
                 'journee' => $typeJournee,
                 'date' => $dateJournee,
@@ -144,7 +150,7 @@ class Journee extends Model
                     $resultats[] = [
                         'competition_nom' => $competition->nom,
                         'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]),
-                        'journee_render' => journee($derniereJournee->id)->render
+                        'journee_render' => journee($derniereJournee->id)->render_section_droite
                     ];
     
                 // $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
@@ -153,7 +159,7 @@ class Journee extends Model
                     $prochains[] = [
                         'competition_nom' => $competition->nom,
                         'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]),
-                        'journee_render' => journee($prochaineJournee->id)->render
+                        'journee_render' => journee($prochaineJournee->id)->render_section_droite
                     ];
             }
         }

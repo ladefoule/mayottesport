@@ -5,23 +5,28 @@
 @section('content')
 <div class="p-lg-3 h-100">
     <div class="row m-0 text-white bloc-match bloc-match-{{ $sport->slug }} py-4" style="background-image: url('{{ asset('storage/img/sport/'.$sport->slug.'.jpg') }}')">
-        <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-dom p-1 mb-5">
-            <div class="col-md-4 d-md-inline py-2 px-0">
-                <a href="{{ $match->href_equipe_dom }}"><img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="fanion-match"></a>
+        <div class="col-12 p-0 d-flex align-items-center">
+            <div class="row m-auto w-40 d-flex justify-content-between align-items-center bloc-equipe-dom p-1 mb-5">
+                <div class="col-md-4 col-lg-12 col-xl-4 py-2 px-0">
+                    <a href="{{ $match->href_equipe_dom }}"><img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="fanion-match"></a>
+                </div>
+                <div class="equipe-domicile col-md-8 col-lg-12 col-xl-8 py-2 px-0">
+                    <a href="{{ $match->href_equipe_dom }}" class="text-white">{{ $match->equipe_dom->nom }}</a>
+                </div>
             </div>
-            <div class="equipe-domicile col-md-8 d-md-inline py-2 px-0">
-                <a href="{{ $match->href_equipe_dom }}" class="text-white">{{ $match->equipe_dom->nom }}</a>
+            <div class="w-20 bloc-score d-flex flex-wrap align-items-center m-auto p-0 mb-5">
+                <span class="col-12 text-center p-0">{!! $match->score !!} @if(isset($match->avec_prolongations)) ap. @endif</span>
+                @if (isset($match->avec_tirs_au_but))
+                    <span class="col-12 p-0 text-center tirs-au-but">tab. {{ $match->tab_eq_dom . '-' . $match->tab_eq_ext }}</span>
+                @endif
             </div>
-        </div>
-        <div class="col-2 bloc-score d-flex align-items-center justify-content-around p-0 mb-5">
-            <span class="w-100 text-center">{!! $match->score !!}</span>
-        </div>
-        <div class="row mx-0 col-5 d-flex justify-content-between align-items-center bloc-equipe-ext p-1 mb-5">
-            <div class="equipe-exterieur col-md-8 d-md-inline order-2 order-md-1 py-2 px-0">
-                <a href="{{ $match->href_equipe_ext }}" class="text-white">{{ $match->equipe_ext->nom }}</a>
-            </div>
-            <div class="col-md-4 d-md-inline order-1 order-md-2 py-2 px-0">
-                <a href="{{ $match->href_equipe_ext }}"><img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="fanion-match"></a>
+            <div class="row m-auto w-40 d-flex justify-content-between align-items-center bloc-equipe-ext p-1 mb-5">
+                <div class="equipe-exterieur col-md-8 col-lg-12 col-xl-8 order-2 order-md-1 order-lg-2 order-xl-1 py-2 px-0">
+                    <a href="{{ $match->href_equipe_ext }}" class="text-white">{{ $match->equipe_ext->nom }}</a>
+                </div>
+                <div class="col-md-4 col-lg-12 col-xl-4 order-1 order-md-2 order-lg-1 order-xl-2 py-2 px-0">
+                    <a href="{{ $match->href_equipe_ext }}"><img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="fanion-match"></a>
+                </div>
             </div>
         </div>
 

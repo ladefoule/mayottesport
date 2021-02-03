@@ -61,7 +61,7 @@
                     ?>
                     <div class="col-12 row d-flex flex-nowrap py-2 px-0 mx-0 border-bottom match-equipe @if($i==0) border-top @endif">
                         <div class="col-4 p-0 d-flex flex-wrap justify-content-start text-left align-items-center">
-                            <div class="col-md-4 d-md-inline py-0 px-0 text-center logo-align-auto">
+                            <div class="col-md-3 d-md-inline py-0 px-0 text-center logo-align-auto">
                                 @if (! $domicile)
                                     <a class="text-dark" href="{{ $hrefEqDom }}">
                                 @endif
@@ -70,7 +70,7 @@
                                     </a>
                                 @endif
                             </div>
-                            <div class="equipe-domicile col-md-8 d-md-inline px-0 equipe-align-auto">
+                            <div class="equipe-domicile col-md-9 d-md-inline px-0 equipe-align-auto">
                                 @if (! $domicile)
                                     <a class="text-dark" href="{{ $hrefEqDom }}">
                                 @endif
@@ -93,7 +93,7 @@
                             ?>
                         </a>
                         <div class="col-4 p-0 d-flex flex-wrap justify-content-end align-items-center text-right">
-                            <div class="equipe-exterieur col-md-8 d-md-inline order-2 order-md-1 px-0 equipe-align-auto">
+                            <div class="equipe-exterieur col-md-9 d-md-inline order-2 order-md-1 px-0 equipe-align-auto">
                                 @if ($domicile)
                                     <a class="text-dark" href="{{ $hrefEqExt }}">
                                 @endif
@@ -102,7 +102,7 @@
                                     </a>
                                 @endif
                             </div>
-                            <div class="col-md-4 d-md-inline order-1 order-md-2 py-0 px-0 text-center logo-align-auto">
+                            <div class="col-md-3 d-md-inline order-1 order-md-2 py-0 px-0 text-center logo-align-auto">
                                 @if ($domicile)
                                     <a class="text-dark" href="{{ $hrefEqExt }}">
                                 @endif

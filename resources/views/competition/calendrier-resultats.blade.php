@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-lg-3">
     <div class="row bg-white shadow-div justify-content-center m-0">
-        <div class="col-12 pb-3">
+        <div class="col-12 pb-3 px-2">
             <h1 class="h4 text-center col-12 px-3 py-4">{{ $competition->nom . ' - Calendrier et résultats'}}</h1>
             @if($calendrierJourneeHtml)
                 <div class="col-12 d-flex flex-nowrap justify-content-center align-items-center pb-3">
@@ -19,7 +19,7 @@
                     </select>
                     <a id="next" href="{{ $hrefJourneeSuivante }}" class="float-left pl-3 @if ($journeeActuelle->numero == $saison->nb_journees) cursor-default non-cliquable @endif" style="font-size: 1.4rem">{!! \Config::get('listes.boutons.right') !!}</a>
                 </div>
-                <div class="col-12 px-2" id="matches">
+                <div class="col-12 px-0" id="matches">
                     {!! $calendrierJourneeHtml !!}
                 </div>
             @endif

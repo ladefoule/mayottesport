@@ -174,7 +174,7 @@ class CompetitionController extends Controller
 
         $title = $sport->nom . ' - ' . $competition->nom_complet . ' ' . $saison->nom . ' - Calendrier et résultats - ' . $journee->nom;
         return view('competition.calendrier-resultats', [
-            'calendrierJourneeHtml' => journee($journee->id)->render,
+            'calendrierJourneeHtml' => journee($journee->id)->render_main,
             'hrefJourneePrecedente' => $hrefJourneePrecedente,
             'hrefJourneeSuivante' => $hrefJourneeSuivante,
             'saison' => $saison,

@@ -53,11 +53,11 @@ class Competition
                 
                 $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
                 if($derniereJournee)
-                    $resultats = journee($derniereJournee->id)->render;
+                    $resultats = journee($derniereJournee->id)->render_section_droite;
 
                 $journeeSuivante = $journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
                 if($journeeSuivante)
-                    $prochains = journee($journeeSuivante->id)->render;
+                    $prochains = journee($journeeSuivante->id)->render_section_droite;
             }
         }
 

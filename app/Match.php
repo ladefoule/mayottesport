@@ -266,6 +266,7 @@ class Match extends Model
 
             return $date;
         }
+
         return $this->score_eq_dom . ' - ' . $this->score_eq_ext;
     }
 

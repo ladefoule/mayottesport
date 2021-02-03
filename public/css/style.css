@@ -236,6 +236,23 @@ main .nom-sport{
     margin:-7px
 }
 
+.w-40, main .match-calendrier .bloc-dom, main .match-calendrier .bloc-ext{
+    width:40%
+}
+
+
+.w-20, main .match-calendrier .bloc-sc{
+    width:20%
+}
+
+main .score{
+    font-size: 1.1em;
+}
+
+.tirs-au-but{
+    font-size: 1em;
+}
+
 .overflow-x-auto{
     overflow-x:auto
 }
@@ -316,14 +333,6 @@ a.non-cliquable, a.non-cliquable:hover{
    background-size :cover;
    font-size: 1rem;
 }
-
-/* .bloc-match-football{
-    background-image: url('../../storage/img/terrain-de-foot-6.jpg');
-}
-
-.bloc-match-volleyball{
-    background-image: url('../../storage/img/sport/volleyball.webp');
-} */
 
 .bloc-equipe-dom, .bloc-equipe-ext{
     font-size:1.1rem;
@@ -422,7 +431,11 @@ main .nom-competition{
     }
 
     .bloc-equipe-dom, .bloc-equipe-ext{
-        font-size:1.5rem;
+        font-size:1.3rem;
+    }
+
+    .bloc-score{
+        font-size: 1.4rem;
     }
 
     .calendrier{
@@ -431,10 +444,6 @@ main .nom-competition{
 
     .fanion-match{
         width:60px
-    }
-
-    .bloc-score{
-        font-size: 1.8rem;
     }
 
     /* Page saisie de résultat */
@@ -473,6 +482,18 @@ main .nom-competition{
         @media (min-width: 992px) {
             html{
                 font-size: 95%;
+            }
+
+            #section-droite .match-calendrier .bloc-dom, #section-droite .match-calendrier .bloc-ext{
+                width:37.5%
+            }
+            
+            #section-droite .match-calendrier .bloc-sc{
+                width:25%
+            }
+        
+            .bloc-match .equipe-exterieur, .bloc-match .equipe-domicile{
+                text-align: center;
             }
 
             .shadow-div{
@@ -540,7 +561,7 @@ main .nom-competition{
             }
 
             .bloc-equipe-dom, .bloc-equipe-ext{
-                font-size:1.5rem;
+                font-size:1.2rem;
             }
 
             a.resultat, a.horaire{
@@ -562,14 +583,30 @@ main .nom-competition{
                     font-size: 95%;
                 } */
 
+                #section-droite .score{
+                    font-size: 1em;
+                }
+
                 #section-droite .fanion-calendrier img{
                     display:block;
-                    width:25px
+                    width:22px
                 }
+
+                .bloc-match .equipe-domicile{
+                    text-align: left;
+                }
+            
+                .bloc-match .equipe-exterieur{
+                    text-align: right;
+                }  
 
                 .onglet{
                     font-size: 1rem !important;
                  }
+
+                 .bloc-equipe-dom, .bloc-equipe-ext{
+                    font-size:1.3rem;
+                }
 
                 /* #section-droite .calendrier{
                     font-size: 0.85rem;

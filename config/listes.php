@@ -54,6 +54,7 @@ return [
         5 => ["avec_tirs_au_but", "Avec tirs au but?"],
         6 => ["tab_eq_dom", "Tirs au but (dom.)"],
         7 => ["tab_eq_ext", "Tirs au but (ext.)"],
+        8 => ["avec_prolongations", "Avec prolongations"],
     ],
 
     "rules-score" => [
