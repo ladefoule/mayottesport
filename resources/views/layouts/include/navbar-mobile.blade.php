@@ -10,14 +10,16 @@
         </div>
         <div class="modal-body p-0">
             <nav class="navbar navbar-light bg-light navbar-mobile">
-                <div class="col-12 pr-2 align-self-stretch" id="navbarSupportedContent">
+                <div class="col-12 p-0 align-self-stretch" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item @if(request()->route()->getName() == 'home') active text-green font-weight-bold @endif mx-0 border-bottom">
                             <a class="nav-link text-body" href="{{ asset('/') }}"><span style="font-size:1.2rem" class="ml-2 pl-1">{!! config('listes.boutons.home') !!}</span> Accueil</a>
                         </li>
                         @foreach ($sports as $sport)
-                            <?php $competitionsLies = $competitions->where('sport_id', $sport->id); ?>
-                            @if (count($competitionsLies->all()) > 0)
+                            <?php 
+                                $competitionsLiees = $competitions->where('sport_id', $sport->id)->where('niveau', '!=', '')->sortBy('niveau');
+                            ?>
+                            @if (count($competitionsLiees->all()) > 0)
                                 <li id="modal-li-{{ $sport->slug }}" class="{{ $sport->slug }} nav-item dropdown border-bottom px-3">
                                     <span class="nav-link text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" id="navbarDropdownMenuLink{{ $sport->nom }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
@@ -25,7 +27,7 @@
                                     </span>
                                     <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->nom }}">
                                         <a class="dropdown-item @if(request()->route()->getName() == 'sport.index' && request()->route('sport') == $sport->slug) active bg-success @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
-                                        @foreach ($competitionsLies as $competition)
+                                        @foreach ($competitionsLiees as $competition)
                                             <a class="dropdown-item @if(request()->route()->getName() == 'competition.index' && request()->route('competition') == $competition->slug_complet) active bg-success @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
                                                 {{ $competition->nom }}
                                             </a>

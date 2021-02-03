@@ -113,6 +113,10 @@ class CompetitionSharpForm extends SharpForm
                     ->setLabel("Position (accueil)")
                     ->setShowControls()
             )->addField(
+                SharpFormNumberField::make("niveau")
+                    ->setLabel("Niveau")
+                    ->setShowControls()
+            )->addField(
                 SharpFormNumberField::make("index_position")
                     ->setLabel("Position (page sport)")
                     ->setShowControls()
@@ -141,7 +145,7 @@ class CompetitionSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('nom|6', 'sport_id|6', 'nom_complet|6', 'type|6', 'home_position|6', 'index_position|6', 'updated_at|6');
+            $column->withFields('nom|6', 'sport_id|6', 'nom_complet|6', 'type|6', 'home_position|6', 'index_position|6', 'niveau|6', 'updated_at|6');
         });
     }
 }

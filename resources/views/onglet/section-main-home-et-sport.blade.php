@@ -6,7 +6,7 @@
             <div class="col-12 p-3 d-flex flex-wrap justify-content-start align-items-stretch">
                 @if(! $articles && isset($sport) && $sport)
                     <div class="col-12">
-                        <h1 class="h3 text-center m-auto">{{ $sport->nom }} - Résultats et actualités</h1>
+                        <h1 class="h4 text-center m-auto">{{ $sport->nom }} - Résultats et actualités</h1>
                     </div>
                 @endif
                 {!! $articles !!}
@@ -19,6 +19,12 @@
         </div>
     </div>
 
+    @if(request()->sport)
+        <div class="d-lg-none col-12 p-3 bg-white">
+            <h1 class="h4 text-center m-auto">{{ request()->sport->nom }} - Résultats et actualités</h1>
+        </div>
+    @endif
+
     {{-- avec onglets --}}
     <div id="onglets-content" class="col-12 d-lg-none d-flex text-center py-3 px-2 bg-white">
         <span data-cible="a-la-une-content"
@@ -29,7 +35,7 @@
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && ! $filActualites) active @endif">Résultats</span>
     </div>
 
-    <div class="col-12 d-lg-none bg-white d-flex pb-3 px-0 flex-wrap justify-content-center">  
+    <div class="col-12 d-lg-none bg-white d-flex pb-3 px-0 flex-wrap justify-content-center">
         {{-- A LA UNE --}}
         <div id="a-la-une-content" class="col-12 pb-3 @if(! $articles) d-none @endif">
             <div class="d-flex flex-wrap justify-content-start align-items-stretch">
