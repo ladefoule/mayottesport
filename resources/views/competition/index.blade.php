@@ -11,27 +11,24 @@
 <div class="p-lg-3">
     <div class="col-12 px-2 pt-2 bg-white shadow-div">
         <div class="col-12">
-            <h1 class="h3 text-center m-auto p-3">{{ $sport->nom }} - {{ $competition->nom_complet }}</h1>
+            <h1 class="h4 text-center m-auto p-3">{{ $sport->nom }} - {{ $competition->nom_complet }}</h1>
         </div>
 
         {{-- LES DERNIERS RESULTATS --}}
         @if($derniereJourneeRender)
-            <div class="col-12">
-                <h3 class="col-12 h4 text-center mb-3 text-danger">Les derniers résultats</h3>
-                {!! $derniereJourneeRender !!}
-            </div>
-        @elseif($prochaineJourneeRender)
-            <div class="col-12">
-                <h3 class="col-12 h4 text-center mb-3 text-success">La prochaine journée</h3>
-                {!! $prochaineJourneeRender !!}
+            <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
+                <span class="border-bottom border-danger h4 text-center text-danger">Les derniers résultats</span>
+                <div class="p-0">
+                    {!! $derniereJourneeRender !!}
+                </div>
             </div>
         @endif
 
         {{-- LE CLASSEMENT --}}
         @if(count($classement) > 0)
-            <div class="col-12 py-3 mt-2 p-0">
-                <h3 class="col-12 h4 text-center mb-3 text-info">Le classement</h3>
-                <table class="table text-center classement w-100 border-bottom" id="classement">
+        <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
+            <span class="border-bottom border-info h4 text-center text-info mt-3">Le classement</span>
+                <table class="table text-center classement w-100 border-bottom mt-3" id="classement">
                     <thead {{-- class="thead-light thead-fixed" --}}>
                         <th class="px-2">#</th>
                         <th>{{Str::ucfirst('équipe')}}</th>
@@ -86,6 +83,15 @@
                 </table>
                 <div class="col-12 text-center pb-3">
                     <a class="font-size-1-rem" href="{{ $hrefClassement }}">Le classement complet</a>
+                </div>
+            </div>
+        @endif
+
+        @if($prochaineJourneeRender)
+            <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
+                <span class="border-bottom border-success h4 text-center text-success">À venir</span>
+                <div class="p-0">
+                    {!! $prochaineJourneeRender !!}
                 </div>
             </div>
         @endif
