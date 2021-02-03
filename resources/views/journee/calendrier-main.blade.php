@@ -32,14 +32,17 @@
                     </a>
                 </div>
             </div>
-            <a href="{{ $match->url }}" class="col-4 d-flex text-body flex-wrap justify-content-center align-items-center p-0">
+            <a href="{{ $match->url }}" class="col-4 d-flex text-body flex-wrap justify-content-center align-items-center p-0 border">
                 <?php
                 if(strlen($match->score_eq_dom) > 0 && strlen($match->score_eq_ext) > 0){
-                        echo '<span class="font-weight-bold text-body" style="font-size: 1.5rem">' . $match->score . '</span>';
-                        echo '<span class="col-12 text-center text-secondary" style="font-size:0.7rem">' . date_format(new DateTime($match->date), 'd/m') . '</span>';
+                    echo '<span class="col-12 text-align font-weight-bold text-body" style="font-size: 1.5rem">' . $match->score . '</span>';
+                    if($avecTab)
+                        echo '<span class="col-12 d-block text-align font-weight-bold text-body" style="font-size: 0.9rem"> tab. ' . $match->tab_eq_dom . '-' . $match->tab_eq_ext . '</span>';
+                    
+                    echo '<span class="col-12 d-block text-center text-secondary" style="font-size:0.7rem">' . date_format(new DateTime($match->date), 'd/m') . '</span>';
                 }
                 else
-                        echo '<span class="text-secondary" style="font-size: 1.5rem">' . date_format(new DateTime($match->date), 'd/m') . '</span>';
+                    echo '<span class="text-secondary" style="font-size: 1.5rem">' . date_format(new DateTime($match->date), 'd/m') . '</span>';
 
                 if($match->heure)
                     echo '<span class="col-12 text-center text-secondary" style="font-size:0.6rem">' . $match->heure . '</span>';
