@@ -18,7 +18,7 @@
         @if($derniereJourneeRender)
             <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
                 <span class="border-bottom border-danger h4 text-center text-danger">Les derniers résultats</span>
-                <div class="p-0">
+                <div class="col-12 p-0">
                     {!! $derniereJourneeRender !!}
                 </div>
             </div>
@@ -90,7 +90,7 @@
         @if($prochaineJourneeRender)
             <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
                 <span class="border-bottom border-success h4 text-center text-success">À venir</span>
-                <div class="p-0">
+                <div class="col-12 p-0">
                     {!! $prochaineJourneeRender !!}
                 </div>
             </div>
