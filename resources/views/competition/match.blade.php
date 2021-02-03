@@ -61,7 +61,7 @@
     <div class="row m-0 bg-white pt-2">
         <section class="col-12 pt-1">
             <div id="disqus_thread"></div>
-            <script>
+            <script defer>
                 /**
                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
