@@ -4,7 +4,7 @@
 
 @section('pub-top')
     {{-- PUB --}}
-    <div class="d-none d-lg-inline col-12 m-auto p-3">
+    <div class="d-none d-lg-block col-12 m-auto p-3">
         @include('pub.google-display-responsive')
     </div>
 @endsection
