@@ -51,13 +51,19 @@ class Saison extends Model
     }
 
     /**
-     * La dernière journée jouée
+     * Recherche du dernier match, à défaut de la dernière journée
      *
      * @return Journee
      */
     public function derniereJourneeId()
     {
-        return index('journees')->where('saison_id', $this->id)->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first()->id ?? '';
+        $dernierMatch = $this->matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+        if($dernierMatch)
+            $derniereJournee = $dernierMatch->journee;
+        else
+            $derniereJournee = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+
+        return $derniereJournee->id ?? '';
     }
 
     /**
@@ -67,7 +73,13 @@ class Saison extends Model
      */
     public function prochaineJourneeId()
     {
-        return index('journees')->where('saison_id', $this->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? '';
+        $prochainMatch = $this->matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+        if($prochainMatch)
+            $prochaineJournee = $prochainMatch->journee;
+        else
+            $prochaineJournee = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+
+        return $prochaineJournee->id ?? '';
     }
 
     /**

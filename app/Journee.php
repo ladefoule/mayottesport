@@ -69,7 +69,7 @@ class Journee extends Model
             $sport = $competition->sport;
 
             // L'ensemble des matches de la journée
-            $matches = $this->matches->sortBy('date')->sortBy('heure');
+            $matches = $this->matches()->orderBy('date')->orderBy('heure')->get();
 
             $journee = collect();
             // On associe d'abord tous les attributs
