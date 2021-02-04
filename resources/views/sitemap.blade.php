@@ -41,44 +41,57 @@
 
         {{-- LES COMPETITIONS --}}
         @foreach ($sport->competitions as $competition)
+            {{-- LA PAGE INDEX --}}
             <url>
                 <loc>{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}</loc>
             </url>
+
+            @if($competition->type == 1)
+                {{-- LA PAGE CLASSEMENT --}}
+                <url>
+                    <loc>{{ route('competition.classement', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}</loc>
+                </url>
+            @endif
 
             {{-- LE PALMARES --}}
             <url>
                 <loc>{{ route('competition.palmares', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}</loc>
             </url>
 
-            {{-- CALENDRIER/RESULTATS --}}
-            <url>
-                <loc>{{ route('competition.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}</loc>
-            </url>
-
             <?php 
-                $saison = App\Saison::where('competition_id', $competition->id)->where('finie', '!=', 1)->first();
-                if($saison)
-                    foreach($saison->matches as $match){
-                        $equipeDom = $match->equipeDom;
-                        $equipeExt = $match->equipeExt;
+                // LES SAISONS
+                $saisons = App\Saison::where('competition_id', $competition->id);
+                foreach ($saisons as $saison) {
+                    if(count($saison->journees) > 0){
+                        // LE CLASSEMENT DE LA SAISON
                         echo '<url>';
-                            echo '<loc>';
-                                echo route('competition.match', [
-                                    'sport' => $sport->slug, 'competition' => $competition->slug_complet,
-                                    'annee' => $saison->annee(), 'equipeDom' => $equipeDom->slug, 'equipeExt' => $equipeExt->slug,
-                                    'uniqid' => $match->uniqid
-                                ]);
-                            echo '</loc>';
+                            echo '<loc>' . route('competition.saison.classement', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee()]) . '</loc>';
                         echo '</url>';
+                        
+                        // CALENDRIER/RESULTATS DE LA SAISON
+                        foreach($saison->journees as $journee){
+                            echo '<url>';
+                                echo '<loc>' . route('competition.annee.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee(), 'journee' => $journee->numero]) . '</loc>';
+                            echo '</url>';
+                        }
+
+                        // LES MATCHES DE LA SAISON
+                        foreach($saison->matches as $match){
+                            $equipeDom = $match->equipeDom;
+                            $equipeExt = $match->equipeExt;
+                            echo '<url>';
+                                echo '<loc>';
+                                    echo route('competition.match', [
+                                        'sport' => $sport->slug, 'competition' => $competition->slug_complet,
+                                        'annee' => $saison->annee(), 'equipeDom' => $equipeDom->slug, 'equipeExt' => $equipeExt->slug,
+                                        'uniqid' => $match->uniqid
+                                    ]);
+                                echo '</loc>';
+                            echo '</url>';
+                        }
                     }
+                }
             ?>
-            
-            @if($competition->type == 1)
-                {{-- LE CLASSEMENT --}}
-                <url>
-                    <loc>{{ route('competition.classement', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}</loc>
-                </url>
-            @endif
         @endforeach
     @endforeach
 </urlset>
