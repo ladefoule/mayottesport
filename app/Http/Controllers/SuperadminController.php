@@ -71,7 +71,7 @@ class SuperadminController extends Controller
             'nom' => 'required|alpha_dash|min:5|max:50'
         ]);
 
-        $imageName = $request->nom . '-' .time().'.'.$request->image->extension();  
+        $imageName = $request->nom . '---' .date('d-m-Y-H-i-s').'.'.$request->image->extension();  
         $request->image->move(storage_path('app/public/img'), $imageName);
         return back()
             ->with('success','You have successfully upload image.')
