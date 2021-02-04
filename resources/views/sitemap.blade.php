@@ -60,7 +60,7 @@
 
             <?php 
                 // LES SAISONS
-                $saisons = App\Saison::whereCompetitionId( $competition->id)->all();
+                $saisons = App\Saison::whereCompetitionId( $competition->id)->get();
                 foreach ($saisons as $saison) {
                     if(count($saison->journees) > 0){
                         // LE CLASSEMENT DE LA SAISON
@@ -71,7 +71,7 @@
                         // CALENDRIER/RESULTATS DE LA SAISON
                         foreach($saison->journees as $journee){
                             echo '<url>';
-                                echo '<loc>' . route('competition.annee.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee(), 'journee' => $journee->numero]) . '</loc>';
+                                echo '<loc>' . route('competition.saison.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee(), 'journee' => $journee->numero]) . '</loc>';
                             echo '</url>';
                         }
 
