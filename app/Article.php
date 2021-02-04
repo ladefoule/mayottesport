@@ -98,8 +98,8 @@ class Article extends Model
 
             $infosPlus = [
                 'href' => $href,
-                'publie_le' => $this->created_at->translatedFormat('d F Y'),
-                'modifie_le' => $this->updated_at ? $this->updated_at->translatedFormat('d F Y') : '',
+                'publie_le' => $this->created_at->translatedFormat('d F Y à H:i'),
+                'modifie_le' => $this->updated_at ? $this->updated_at->translatedFormat('d F Y à H:i') : '',
                 'date_fil_actu' => $this->created_at->format('d/m'),
                 'heure_fil_actu' => $this->created_at->format('H:i'),
                 'categorie' => $categorie,

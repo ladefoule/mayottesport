@@ -21,6 +21,10 @@
                 </div>
                 {!! $article->article !!}
             </div>
+            <span class="px-3 pt-3 text-secondary">
+                publié le {{ $article->publie_le }}<br>
+                modifié le {{ $article->modifie_le }}
+            </span>
         </div>
     </div>
 </div>
