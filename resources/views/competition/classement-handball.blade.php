@@ -8,7 +8,7 @@
         <div class="col-12 py-3 px-0">
             <h1 class="col-12 h5 p-2 text-center">{{ $h1 }}</h1>
             <div class="col-12 mt-3 px-2">
-                <table class="table text-center classement w-100" id="classement">
+                <table class="table text-center classement w-100 border-bottom" id="classement">
                     <thead {{-- class="thead-light thead-fixed" --}}>
                         <th class="px-2">#</th>
                         <th>{{Str::ucfirst('équipe')}}</th>
@@ -53,12 +53,12 @@
                 </table>
             </div>
 
-            <div class="col-12 text-center pb-2">
+            <div class="col-12 text-center pb-3">
                 <span>Classement sous réserve d'homologation</span>
             </div>
 
             {{-- PUB --}}
-            <div class="col-12 m-auto py-3 px-2">
+            <div class="col-12 m-auto py-0 px-2">
                 @include('pub.google-display-responsive')
             </div>
         </div>

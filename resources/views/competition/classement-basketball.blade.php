@@ -50,11 +50,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-12 text-center pb-2">
+            <div class="col-12 text-center pb-3">
                 <span>Classement sous réserve d'homologation</span>
             </div>
 
-            <div class="col-12 m-auto py-3 px-2">
+            <div class="col-12 m-auto py-0 px-2">
                 @include('pub.google-display-responsive')
             </div>
         </div>
