@@ -52,38 +52,39 @@ class Saison extends Model
 
     /**
      * Recherche de la dernière journée.
-     * En premier on recherche le dernier match joué de la saison et on récupère sa journée.
-     * S'il n'y a pas de match, alors on récupère la dernière journée.
+     * //En premier on recherche le dernier match joué de la saison et on récupère sa journée.
+     * //S'il n'y a pas de match, alors on récupère la dernière journée.
      *
      * @return Journee
      */
-    public function derniereJournee()
-    {
-        $dernierMatch = $this->matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
-        if($dernierMatch)
-            $derniereJournee = $dernierMatch->journee;
-        else
-            $derniereJournee = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
-
-        return $derniereJournee ?? '';
-    }
+    // public function derniereJournee()
+    // {
+    //     // $dernierMatch = $this->matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+    //     // if($dernierMatch)
+    //     //     $derniereJournee = $dernierMatch->journee;
+    //     // else
+        
+    //     $derniereJournee = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
+    //     return $derniereJournee;
+    // }
 
     /**
      * Recherche de la prochaine journée. (Différente de la dernière journée)
      *
      * @return Journee
      */
-    public function prochaineJournee()
-    {
-        $derniereJournee = $this->derniereJournee();
-        $prochainMatch = $this->matches->where('journee_id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
-        if($prochainMatch)
-            $prochaineJournee = $prochainMatch->journee;
-        else
-            $prochaineJournee = $this->journees->where('id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+    // public function prochaineJournee()
+    // {
+    //     // $derniereJournee = $this->derniereJournee();
+    //     // $prochainMatch = $this->matches->where('journee_id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+    //     // if($prochainMatch)
+    //     //     $prochaineJournee = $prochainMatch->journee;
+    //     // else
+    //     //     $prochaineJournee = $this->journees->where('id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
 
-        return $prochaineJournee ?? '';
-    }
+    //     $prochaineJournee = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+    //     return $prochaineJournee;
+    // }
 
     /**
      * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction generateRanking
