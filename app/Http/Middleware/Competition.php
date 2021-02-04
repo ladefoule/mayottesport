@@ -46,17 +46,17 @@ class Competition
             $request->hrefClassement = route('competition.classement', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
         
         if($derniereSaison){
-            $derniereJourneeId = $derniereSaison->derniereJourneeId();
-            if($derniereJourneeId){
+            $derniereJournee = $derniereSaison->derniereJournee();
+            if($derniereJournee){
                 $request->hrefCalendrier = route('competition.saison.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet, 'annee' => $derniereSaison->annee(), 'journee' => $derniereJournee->numero]);
-                $resultats = journee($derniereJourneeId)->render_section_droite;
-                $resultats_main = journee($derniereJourneeId)->render_main;
+                $resultats = journee($derniereJournee->id)->render_section_droite;
+                $resultats_main = journee($derniereJournee->id)->render_main;
             }
 
-            $prochaineJourneeId = $derniereSaison->prochaineJourneeId();
-            if($prochaineJourneeId){
-                $prochains = journee($prochaineJourneeId)->render_section_droite;
-                $prochains_main = journee($prochaineJourneeId)->render_main;
+            $prochaineJournee = $derniereSaison->prochaineJournee();
+            if($prochaineJournee){
+                $prochains = journee($prochaineJournee->id)->render_section_droite;
+                $prochains_main = journee($prochaineJournee->id)->render_main;
             }
         }
 

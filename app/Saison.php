@@ -55,7 +55,7 @@ class Saison extends Model
      *
      * @return Journee
      */
-    public function derniereJourneeId()
+    public function derniereJournee()
     {
         $dernierMatch = $this->matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
         if($dernierMatch)
@@ -63,7 +63,7 @@ class Saison extends Model
         else
             $derniereJournee = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
 
-        return $derniereJournee->id ?? '';
+        return $derniereJournee ?? '';
     }
 
     /**
@@ -71,7 +71,7 @@ class Saison extends Model
      *
      * @return Journee
      */
-    public function prochaineJourneeId()
+    public function prochaineJournee()
     {
         $prochainMatch = $this->matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
         if($prochainMatch)
@@ -79,7 +79,7 @@ class Saison extends Model
         else
             $prochaineJournee = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
 
-        return $prochaineJournee->id ?? '';
+        return $prochaineJournee ?? '';
     }
 
     /**
