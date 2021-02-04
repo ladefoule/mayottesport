@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="p-lg-3">
-    <div class="col-12 px-2 pt-2 bg-white shadow-div">
+    <div class="col-12 px-2 pt-2 pb-3 bg-white shadow-div">
         <div class="col-12">
             <h1 class="h4 text-center m-auto p-3">{{ $sport->nom }} - {{ $competition->nom_complet }}</h1>
         </div>
@@ -97,12 +97,12 @@
         @endif
 
         {{-- L'ACTU --}}
-        <div class="row col-12 px-1">
+        <div class="row col-12 px-1 mb-3">
             {!! $articles !!}
         </div>
 
         {{-- PUB --}}
-        <div class="col-12 m-auto py-3 px-2">
+        <div class="col-12 m-auto p-0">
             @include('pub.google-display-responsive')
         </div>
     </div>
