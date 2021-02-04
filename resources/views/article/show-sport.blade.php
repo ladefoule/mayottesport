@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-lg-3 h-100">
     <div class="row m-0 bg-white h-100 shadow-div">
-        <div class="col-12 p-0">
+        <div class="col-12 p-0 d-flex flex-wrap">
             <h1 class="col-12 titre-page-article py-3">
                 <span class="categorie">{{ $article->categorie }}</span>
                 {{ $article->titre }}
