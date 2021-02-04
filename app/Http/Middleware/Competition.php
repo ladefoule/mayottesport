@@ -48,7 +48,7 @@ class Competition
         if($derniereSaison){
             $journees = $derniereSaison->journees;
             if(count($journees) > 0){
-                $derniereJournee = $journees->sortByDesc('numero')->first();
+                $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
                 $request->hrefCalendrier = route('competition.saison.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet, 'annee' => $derniereSaison->annee(), 'journee' => $derniereJournee->numero]);
                 
                 $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();

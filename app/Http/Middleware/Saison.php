@@ -31,7 +31,7 @@ class Saison
                 // $journees = $saison->journees;
                 $journees = index('journees')->where('saison_id', $saison->id);
                 if(count($journees) > 0){
-                    $derniereJournee = $journees->sortByDesc('numero')->first();
+                    $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
                     $request->hrefCalendrier = route('competition.saison.calendrier-resultats', ['sport' => $sport->slug, 'competition' => $competition->slug_complet, 'annee' => $saison->annee(), 'journee' => $derniereJournee->numero]);
                     
                     // Type Championnat et saison différente de la dernière
