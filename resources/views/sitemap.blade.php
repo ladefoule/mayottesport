@@ -60,8 +60,8 @@
 
             <?php 
                 // LES SAISONS
-                $saisons = App\Saison::where('competition_id', $competition->id)->all();
-                foreach ($competition->saisons as $saison) {
+                $saisons = App\Saison::whereCompetitionId( $competition->id)->all();
+                foreach ($saisons as $saison) {
                     if(count($saison->journees) > 0){
                         // LE CLASSEMENT DE LA SAISON
                         echo '<url>';
