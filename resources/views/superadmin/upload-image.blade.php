@@ -17,7 +17,7 @@
                         <strong>{{ $message }}</strong>
                     </div>
                     <div class="col-12">
-                        <img class="p-3 image-fluid w-100" src="{{ asset('storage/upload/img/' . Session::get('image')) }}">
+                        <img class="p-3 image-fluid w-100" src="{{ asset('storage/img/' . Session::get('image')) }}">
                     </div>
                 @endif
         
