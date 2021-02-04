@@ -39,13 +39,14 @@ class SportController extends Controller
         $calendriers = Journee::calendriersPageSport($sport, 'index');
 
         $articles = $sport->articles()
+            ->where('sport_id', $sport->id)
             ->where('valide', 1)
             ->where('visible', 1)
             ->whereNull('fil_actu')->orWhere('fil_actu', 0)
             ->orderBy('priorite', 'desc')
             ->orderBy('created_at', 'desc')
             ->distinct()
-            ->limit(5)->get();
+            ->limit(10)->get();
 
         $filActualites = Article::filActu($sport);
 
