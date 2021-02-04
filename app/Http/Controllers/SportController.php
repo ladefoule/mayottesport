@@ -38,15 +38,12 @@ class SportController extends Controller
         $sport = $request->sport;
         $calendriers = Journee::calendriersPageSport($sport, 'index');
 
-        $articles = $sport->articles()
-            ->where('sport_id', $sport->id)
+        $articles = $sport->articles
             ->where('valide', 1)
-            ->where('visible', 1)
-            ->whereNull('fil_actu')->orWhere('fil_actu', 0)
-            ->orderBy('priorite', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->distinct()
-            ->limit(10)->get();
+            ->where('pivot.visible', 1)
+            ->where('fil_actu', '!=', 1)
+            // ->sortByDesc('pivot.priorite')
+            ->sortByDesc('created_at');
 
         $filActualites = Article::filActu($sport);
 
