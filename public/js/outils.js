@@ -372,6 +372,10 @@ function tinymceFunc(selector, urlImages) {
                         title: 'Max width 80',
                         value: 'img_max_width_80'
                     },
+                    {
+                        title: 'Image fluid',
+                        value: 'img_fluid px-2'
+                    },
                 ]
             });
         }
