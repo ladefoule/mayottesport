@@ -261,10 +261,10 @@ class Match extends Model
         $heure = $this->heure;
         $date = $this->dateFormat('d/m');
         if(strlen($this->score_eq_dom) == 0 || strlen($this->score_eq_ext) == 0){
-            if($heure)
-                return $heure;
+            if($date)
+                return $date;
 
-            return $date;
+            return $heure;
         }
 
         return $this->score_eq_dom . ' - ' . $this->score_eq_ext;
