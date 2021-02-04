@@ -68,6 +68,9 @@
                                 <a class="dropdown-item" href="{{ route('script') }}">
                                     Exécuter un script
                                 </a>
+                                <a class="dropdown-item" href="{{ route('upload.image') }}">
+                                    Uploader une image
+                                </a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
