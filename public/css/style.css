@@ -139,7 +139,7 @@ main .nom-sport{
 }
 
 .preambule{
-    font-size:0.9rem
+    font-size:0.9rem !important
 }
 
 .titre-article,.titre-page-article,.titre-premier-article{
