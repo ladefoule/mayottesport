@@ -16,7 +16,7 @@
 
             <!-- Create the editor container -->
             <div class="col-12 pt-3 article">
-                <span class="font-weight-bold preambule">
+                <span class="font-weight-bold">
                     {!! $article->preambule !!}
                 </span>
                 {!! $article->article !!}

@@ -138,10 +138,6 @@ main .nom-sport{
    border-bottom: 1px gray solid;
 }
 
-.preambule{
-    font-size:0.9rem !important
-}
-
 .titre-article,.titre-page-article,.titre-premier-article{
     font-weight: bold;
     /* font-family:Verdana,sans-serif; */
