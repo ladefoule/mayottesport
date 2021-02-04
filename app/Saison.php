@@ -51,7 +51,9 @@ class Saison extends Model
     }
 
     /**
-     * Recherche du dernier match, à défaut de la dernière journée
+     * Recherche de la dernière journée.
+     * En premier on recherche le dernier match joué de la saison et on récupère sa journée.
+     * S'il n'y a pas de match, alors on récupère la dernière journée.
      *
      * @return Journee
      */
@@ -67,17 +69,18 @@ class Saison extends Model
     }
 
     /**
-     * La prochaine journée à jouer
+     * Recherche de la prochaine journée. (Différente de la dernière journée)
      *
      * @return Journee
      */
     public function prochaineJournee()
     {
-        $prochainMatch = $this->matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+        $derniereJournee = $this->derniereJournee();
+        $prochainMatch = $this->matches->where('journee_id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
         if($prochainMatch)
             $prochaineJournee = $prochainMatch->journee;
         else
-            $prochaineJournee = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
+            $prochaineJournee = $this->journees->where('id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
 
         return $prochaineJournee ?? '';
     }
