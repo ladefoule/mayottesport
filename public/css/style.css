@@ -26,22 +26,12 @@ body{
     background-attachment: fixed;
 }
 
-.font-size-1-rem{
-    font-size: 1rem;
-}
-
 footer{
     bottom:0
 }
 
 .modal-body .dropdown-item:active{
     background-color: green;
-}
-
-.navbar-mobile{
-    font-size:1.1rem;
-    /* background-color: #ebeff3 !important; */
-    /* background-color: #ebeff3 !important; */
 }
 
 .border-bottom-dashed{
@@ -115,10 +105,6 @@ a:hover{
     margin:0;
 }
 
-.fil-actu .date{
-    font-size: 1rem;
-}
-
 .fil-actu .categorie{
     font-size: 0.9rem;
 }
@@ -170,7 +156,7 @@ main .nom-sport{
     text-align: right;
 }
 
-.font-size-1{
+.font-size-1, .article, .fil-actu .date, .font-size-1-rem, .navbar-mobile{
     font-size: 1rem;
 }
 
