@@ -15,10 +15,10 @@
             </div>
 
             <!-- Create the editor container -->
-            <div class="col-12 pt-3">
-            <div class="font-weight-bold">
-                {!! $article->preambule !!}
-            </div>
+            <div class="col-12 pt-3 article">
+                <div class="font-weight-bold">
+                    {!! $article->preambule !!}
+                </div>
                 {!! $article->article !!}
             </div>
         </div>
