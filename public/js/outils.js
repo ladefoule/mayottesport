@@ -374,7 +374,7 @@ function tinymceFunc(selector, urlImages) {
                     },
                     {
                         title: 'Image fluid',
-                        value: 'w-100 img_fluid px-2'
+                        value: 'w-100 h-auto'
                     },
                 ]
             });
