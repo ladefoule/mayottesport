@@ -27,7 +27,7 @@
                     </a>
                 </div>
                 <div class="equipe-domicile col-md-9 d-md-inline px-0 equipe-align-auto">
-                    <a class="text-dark @if($equipeExtVainqueur) font-weight-bold @endif" href="{{ $match->href_equipe_dom }}">
+                    <a class="text-dark @if($equipeDomVainqueur) font-weight-bold @endif" href="{{ $match->href_equipe_dom }}">
                         {{ $match->equipe_dom->nom }}
                     </a>
                 </div>
@@ -50,7 +50,7 @@
             </a>
             <div class="col-4 p-0 d-flex flex-wrap justify-content-end align-items-center text-right">
                 <div class="equipe-exterieur col-md-9 d-md-inline order-2 order-md-1 px-0 equipe-align-auto">
-                    <a class="text-dark @if($equipeDomVainqueur) font-weight-bold @endif" href="{{ $match->href_equipe_ext }}">
+                    <a class="text-dark @if($equipeExtVainqueur) font-weight-bold @endif" href="{{ $match->href_equipe_ext }}">
                         {{ $match->equipe_ext->nom }}
                     </a>
                 </div>
