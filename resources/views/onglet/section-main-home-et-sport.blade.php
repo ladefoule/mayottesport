@@ -13,7 +13,7 @@
             </div>
 
             {{-- PUB --}}
-            <div class="col-12 m-auto py-3 px-2">
+            <div class="col-12 m-auto py-0 px-3">
                 @include('pub.google-display-responsive')
             </div>
         </div>
@@ -26,7 +26,7 @@
     @endif
 
     {{-- avec onglets --}}
-    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center py-3 px-2 bg-white">
+    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center pt-3 px-3 bg-white">
         <span data-cible="a-la-une-content"
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">À la une</span>
         <span data-cible="fil-actu-content"
@@ -44,7 +44,7 @@
         </div>
         
         {{-- FIL ACTU --}}
-        <div id="fil-actu-content" class="col-12 px-2 @if($articles || !$filActualites) d-none @endif">
+        <div id="fil-actu-content" class="col-12 px-3 @if($articles || !$filActualites) d-none @endif">
             <?php $i=0; ?>
             @foreach ($filActualites as $actu)
                 @if($i++ == 5)
@@ -69,7 +69,7 @@
         </div>
 
         {{-- RESULTATS --}}
-        <div id="resultats-content" class="col-12 px-2 @if($articles || $filActualites) d-none @endif">
+        <div id="resultats-content" class="col-12 px-3 @if($articles || $filActualites) d-none @endif">
             <?php $i = 0; ?>
             @foreach ($resultats as $sport => $journees)
                 @if($i++ == 2)
@@ -96,7 +96,7 @@
         </div>
 
         {{-- PUB --}}
-        <div class="col-12 m-auto px-2 py-2">
+        <div class="col-12 m-auto px-3 py-0">
             @include('pub.google-display-responsive')
         </div>
     </div>
