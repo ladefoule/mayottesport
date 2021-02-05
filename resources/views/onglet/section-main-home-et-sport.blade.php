@@ -35,7 +35,7 @@
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && ! $filActualites) active @endif">Résultats</span>
     </div>
 
-    <div class="col-12 d-lg-none bg-white d-flex pb-3 px-0 flex-wrap justify-content-center">
+    <div class="col-12 d-lg-none bg-white d-flex mb-3 px-0 flex-wrap justify-content-center">
         {{-- A LA UNE --}}
         <div id="a-la-une-content" class="col-12 pb-3 @if(! $articles) d-none @endif">
             <div class="d-flex flex-wrap justify-content-start align-items-stretch">
