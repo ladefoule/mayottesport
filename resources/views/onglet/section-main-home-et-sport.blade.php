@@ -37,13 +37,13 @@
     <div class="col-12 d-lg-none bg-white d-flex px-0 flex-wrap justify-content-center">
         {{-- A LA UNE --}}
         <div id="a-la-une-content" class="col-12 pb-3 @if(! $articles) d-none @endif">
-            <div class="d-flex flex-wrap justify-content-start align-items-stretch">
+            <div class="d-flex flex-wrap justify-content-start align-items-stretch p-0">
                 {!! $articles !!}
             </div>
         </div>
         
         {{-- FIL ACTU --}}
-        <div id="fil-actu-content" class="col-12 px-3 @if($articles || !$filActualites) d-none @endif">
+        <div id="fil-actu-content" class="col-12 px-3 pb-3 @if($articles || !$filActualites) d-none @endif">
             <?php $i=0; ?>
             @foreach ($filActualites as $actu)
                 @if($i++ == 5)
@@ -68,7 +68,7 @@
         </div>
 
         {{-- RESULTATS --}}
-        <div id="resultats-content" class="col-12 px-3 @if($articles || $filActualites) d-none @endif">
+        <div id="resultats-content" class="col-12 px-3 pb-0 @if($articles || $filActualites) d-none @endif">
             <?php $i = 0; ?>
             @foreach ($resultats as $sport => $journees)
                 @if($i++ == 2)
