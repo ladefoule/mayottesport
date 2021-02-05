@@ -105,9 +105,9 @@ a:hover{
     margin:0;
 }
 
-.fil-actu .categorie{
+/* .fil-actu .categorie{
     font-size: 0.9rem;
-}
+} */
 
 .text-green,a.text-green,a.text-green-light:hover{
     color:green !important
@@ -211,6 +211,10 @@ main .nom-sport{
 .bg-fond{
     background-color: #fff;
     /* background-color: #f8fafc; */
+}
+
+.text-blue-light{
+    color:rgb(133, 216, 231)
 }
 
 .class-ignoree{

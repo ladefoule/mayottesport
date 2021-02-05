@@ -61,7 +61,7 @@
                         @endif
                     </div>
                     <div class="col-10 p-2">
-                        <div class="categorie col-12 text-secondary p-0">{{ $actu->categorie }}</div>
+                        <div class="font-size-1-rem col-12 text-blue-light p-0">{{ $actu->categorie }}</div>
                         <div class="col-12 p-0">{!! $actu->preambule !!}</div>
                     </div>
                 </div>
