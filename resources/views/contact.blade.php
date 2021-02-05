@@ -22,6 +22,7 @@
             <div class="card-body">
                 <form method="POST" action="" id="formulaire">
                     @csrf
+                    <input type="hidden" name="prenom">
 
                     <div class="form-group row pb-2">
                         <label for="nom" class="col-md-3 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Nom</label>

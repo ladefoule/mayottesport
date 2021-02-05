@@ -29,6 +29,10 @@ class ContactController extends Controller
      */
     public function post(Request $request)
     {
+        // Champ caché pour piéger les robots
+        if(isset($request['prenom']) && $request['prenom'] != '')
+            abort(404);
+
         Log::info(" -------- Controller Contact : post -------- ");
         $rules = [
             'nom' => 'required|min:3|max:30',
