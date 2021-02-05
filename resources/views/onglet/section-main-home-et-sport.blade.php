@@ -1,5 +1,4 @@
 @section('content')
-{{-- <div class="p-0"> --}}
     {{-- classique écran large --}}
     <div class="d-none d-lg-block p-3">
         <div class="col-12 p-0 bg-white shadow-div">
@@ -35,7 +34,7 @@
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if(! $articles && ! $filActualites) active @endif">Résultats</span>
     </div>
 
-    <div class="col-12 d-lg-none bg-white d-flex mb-3 px-0 flex-wrap justify-content-center">
+    <div class="col-12 d-lg-none bg-white d-flex px-0 flex-wrap justify-content-center">
         {{-- A LA UNE --}}
         <div id="a-la-une-content" class="col-12 pb-3 @if(! $articles) d-none @endif">
             <div class="d-flex flex-wrap justify-content-start align-items-stretch">
@@ -96,9 +95,8 @@
         </div>
 
         {{-- PUB --}}
-        <div class="col-12 m-auto px-3 py-0">
+        <div class="col-12 m-auto px-3 pb-3">
             @include('pub.google-display-responsive')
         </div>
     </div>
-{{-- </div> --}}
 @endsection
