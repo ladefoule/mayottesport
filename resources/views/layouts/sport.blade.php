@@ -15,7 +15,7 @@
         {{-- Section scroll X --}}
         <section class="col-12 p-0 navbar-scroll-x top-main-site container-lg-fluid">
             <div class="container-lg">
-                <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
+                <div class="row overflow-x-auto py-2" id="navbar-scroll-x">
                     <div class="d-flex justify-content-start align-items-center flex-shrink-0">
                         @foreach ($competitions as $i => $competition)
                             <a class="mr-3 @if($i==0) ml-3 @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
