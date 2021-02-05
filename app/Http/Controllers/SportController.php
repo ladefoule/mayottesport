@@ -38,7 +38,7 @@ class SportController extends Controller
         $sport = $request->sport;
         $calendriers = Journee::calendriersPageSport($sport, 'index');
 
-        $articles = $sport->articles
+        $indexArticles = $sport->articles
             ->where('valide', 1)
             ->where('pivot.visible', 1)
             ->where('fil_actu', '!=', 1)
@@ -47,8 +47,9 @@ class SportController extends Controller
 
         $filActualites = Article::filActu($sport);
 
-        foreach ($articles as $key => $article)
-            $articles[$key] = article($article->uniqid);
+        $articles = collect();
+        foreach ($indexArticles as $id => $article)
+            $articles[] = article($article->uniqid);
 
          $articlesView = view('article.render', ['articles' => $articles])->render();
 
