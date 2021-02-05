@@ -51,7 +51,7 @@
                             {!! \Config::get('listes.boutons.right') !!}
                         </a>
                         @if ($hrefClassement)
-                            <a href="{{ $hrefClassement }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.classement') font-weight-bold text-body active @else text-secondary @endif pr-3">
+                            <a href="{{ $hrefClassement }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.classement' || request()->route()->getName() == 'competition.saison.classement') font-weight-bold text-body active @else text-secondary @endif pr-3">
                                 Le classement
                             </a>
                         @endif
@@ -61,7 +61,7 @@
                             </a>
                         @endif
                         @if ($hrefCalendrier)
-                            <a href="{{ $hrefCalendrier }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.calendrier-resultats') font-weight-bold text-body active @else text-secondary @endif pr-3">
+                            <a href="{{ $hrefCalendrier }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.saison.calendrier-resultats') font-weight-bold text-body active @else text-secondary @endif pr-3">
                                 Calendrier et résultats
                             </a>
                         @endif
