@@ -26,7 +26,7 @@
     @endif
 
     {{-- avec onglets --}}
-    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center pb-3 px-3 bg-white">
+    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center @if(request()->sport) pt-3 @endif pb-3 px-3 bg-white">
         <span data-cible="a-la-une-content"
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">À la une</span>
         <span data-cible="fil-actu-content"
