@@ -155,7 +155,7 @@ main .nom-sport{
     text-align: right;
 }
 
-.font-size-1, .article, .font-size-1-rem, .navbar-mobile{
+.nav-link-categorie,.font-size-1, .article, .font-size-1-rem, .navbar-mobile{
     font-size: 1rem;
 }
 

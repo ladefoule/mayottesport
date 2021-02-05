@@ -13,7 +13,7 @@
                 <div class="col-12 p-0 align-self-stretch" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item @if(request()->route()->getName() == 'home') active text-green font-weight-bold @endif mx-0 border-bottom">
-                            <a class="nav-link text-body" href="{{ asset('/') }}"><span style="font-size:1.2rem" class="ml-2 pl-1">{!! config('listes.boutons.home') !!}</span> Accueil</a>
+                            <a class="nav-link nav-link-categorie text-body" href="{{ asset('/') }}"><span style="font-size:1.2rem" class="ml-2 pl-1">{!! config('listes.boutons.home') !!}</span> Accueil</a>
                         </li>
                         @foreach ($sports as $sport)
                             <?php 
@@ -21,7 +21,7 @@
                             ?>
                             @if (count($competitionsLiees->all()) > 0)
                                 <li id="modal-li-{{ $sport->slug }}" class="{{ $sport->slug }} nav-item dropdown border-bottom px-3">
-                                    <span class="nav-link text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" id="navbarDropdownMenuLink{{ $sport->nom }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="nav-link nav-link-categorie text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" id="navbarDropdownMenuLink{{ $sport->nom }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
                                         {{ $sport->nom }}
                                     </span>
