@@ -73,7 +73,27 @@
 
     <!-- FIL ACTU -->
     <div id="bloc-fil-actu" class="col-12 p-2">
-        {!! $filActualites !!}
+        <?php $i=0; ?>
+        @foreach ($filActualites as $actu)
+            @if($i++ == 5)
+                <div class="col-12 border-bottom m-auto py-2">
+                    @include('pub.google-display-responsive')
+                </div>
+            @endif
+            <div class="col-12 d-flex border-bottom p-0">
+                <div class="date col-2 d-flex flex-wrap align-items-center justify-content-center text-secondary">
+                    @if($actu->date_fil_actu == date('d/m'))
+                        {!! $actu->heure_fil_actu !!}
+                    @else
+                        {!! $actu->date_fil_actu !!}
+                    @endif
+                </div>
+                <div class="font-size-1-rem col-10 p-2">
+                    <div class="col-12 text-primary p-0">{{ $actu->categorie }}</div>
+                    <div class="col-12 p-0">{!! $actu->preambule !!}</div>
+                </div>
+            </div>
+        @endforeach
     </div>
 
     <!-- RESULTATS -->
