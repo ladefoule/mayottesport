@@ -12,10 +12,10 @@
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2 align-self-stretch" id="navbarSupportedContent">
-           <ul class="navbar-nav mr-auto bg-white align-self-stretch" style="font-size: 1.05rem">
+           <ul class="navbar-nav mr-auto bg-white align-self-stretch" style="font-size: 1.2rem">
                @foreach ($sports as $id => $sport)
                 <li class="nav-item">
-                   <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active font-weight-bold text-green @endif" href="{{ route('sport.index', ['sport' => \Str::slug($sport->nom)]) }}">{{ $sport->nom }}</a>
+                   <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active font-weight-bold text-green @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">{{ $sport->nom }}</a>
                 </li>
                 @endforeach
                 <li class="nav-item">
