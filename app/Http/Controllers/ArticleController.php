@@ -80,13 +80,7 @@ class ArticleController extends Controller
             abort(404);
 
         $calendriers = Journee::calendriersPageHome();
-
-        $filActualites = Article::where('valide', 1)
-            ->where('fil_actu', 1)
-            ->where('home_visible', '>', 0)
-            ->orderBy('home_priorite', 'desc')
-            ->orderBy('created_at')
-            ->get();
+        $filActualites = Article::filActu();
 
         return view('article.show', [
             'article' => article($article->uniqid), 
