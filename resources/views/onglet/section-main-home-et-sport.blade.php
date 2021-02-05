@@ -43,7 +43,7 @@
         </div>
         
         {{-- FIL ACTU --}}
-        <div id="fil-actu-content" class="fli-actu col-12 px-3 pb-3 @if($articles || !$filActualites) d-none @endif">
+        <div id="fil-actu-content" class="fil-actu col-12 px-3 pb-3 @if($articles || !$filActualites) d-none @endif">
             <?php $i=0; ?>
             @foreach ($filActualites as $actu)
                 @if($i++ == 5)
@@ -52,7 +52,7 @@
                     </div>
                 @endif
                 <div class="col-12 d-flex border-bottom p-0">
-                    <div class="date d-flex flex-wrap align-items-center justify-content-center text-secondary">
+                    <div class="date col-2 p-0 d-flex flex-wrap align-items-center justify-content-center text-secondary">
                         @if($actu->date_fil_actu == date('d/m'))
                             {!! $actu->heure_fil_actu !!}
                         @else
