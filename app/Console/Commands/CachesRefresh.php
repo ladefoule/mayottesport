@@ -71,5 +71,10 @@ class CachesRefresh extends Command
                 $saison->infos();
             }
         }
+
+        // Les caches des articles
+        $articles = Article::all();
+        foreach ($articles as $article)
+            $article->infos();
     }
 }

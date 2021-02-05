@@ -44,7 +44,7 @@
                             @endif
                         @endforeach
                         {{-- <a class="border-bottom nav-item nav-link text-body px-3" href="{{ asset('/autres') }}">Autres</a> --}}
-                        <a class="border-bottom nav-item nav-link text-body mx-0" href="{{ asset('/contact') }}">
+                        <a class="border-bottom nav-link-categorie nav-item nav-link text-body mx-0" href="{{ asset('/contact') }}">
                             <span style="font-size:1.1rem" class="ml-2 pl-1 mr-1">{!! config('listes.boutons.contact') !!}</span> Contact
                         </a>
                     </ul>
