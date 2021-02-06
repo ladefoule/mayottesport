@@ -56,13 +56,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item px-3 border-bottom">
-                                <a class="nav-link text-body" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
+                                <a class="nav-link text-body nav-link-profil" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item px-3">
-                                    <a class="nav-link text-body" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
-                                </li>
-                            @endif
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-body nav-link-profil" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
+                            </li>
                         @else
                             <li class="nav-item dropdown px-3 {{-- border-bottom --}}">
                                 <span id="navbarDropdown" class="nav-link text-body dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

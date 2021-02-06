@@ -30,11 +30,11 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item pl-1 d-flex flex-shrink-0">
-                        <a class="nav-link" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
+                        <a class="nav-link nav-link-profil" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item pl-0 d-flex flex-shrink-0">
-                            <a class="nav-link" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
+                            <a class="nav-link nav-link-profil" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
                         </li>
                     @endif
                 @else
@@ -43,7 +43,7 @@
                         $urlGravatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?r=g&s=30&d=identicon';
                         $urlAvatar = $user->avatar ? asset('storage/upload/avatar/' . $user->avatar) : $urlGravatar;
                     ?>
-                    <li class="nav-item dropdown pl-2 d-flex flex-shrink-0">
+                    <li class="nav-item nav-link-profil dropdown pl-2 d-flex flex-shrink-0">
                         <span id="navbarDropdown" class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <img class="rounded-circle mr-2 avatar" src="{{ $urlAvatar }}" alt="Avatar">
                             {{ Auth::user()->pseudo }} <span class="caret"></span>
