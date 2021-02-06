@@ -46,11 +46,6 @@
         <div id="fil-actu-content" class="fil-actu col-12 px-3 pb-3 @if($articles || !$filActualites) d-none @endif">
             <?php $i=0; ?>
             @foreach ($filActualites as $actu)
-                @if($i++ == 5)
-                    <div class="col-12 border-bottom m-auto py-2">
-                        @include('pub.google-display-responsive')
-                    </div>
-                @endif
                 <div class="col-12 d-flex border-bottom p-0">
                     <div class="date col-2 p-0 d-flex flex-wrap align-items-center justify-content-center text-secondary">
                         @if($actu->date_fil_actu == date('d/m'))

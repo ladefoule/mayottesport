@@ -35,6 +35,11 @@
         </div>
 
         <div class="col-12 pb-3">
+            <label for="href_fil_actu">Href (fil actu)</label>
+            <input id="href_fil_actu" type="text" name="href_fil_actu" class="form-control input-optionnel" value="{{ old('href_fil_actu') ?? $article->href_fil_actu }}">
+        </div>
+
+        <div class="col-12 pb-3">
             <label for="article">Catégorie</label>
             <select name="sport_id" class="form-control input-optionnel @error('sport_id') is-invalid @enderror">
                 <option value="">Général</option>

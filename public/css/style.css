@@ -30,6 +30,10 @@ footer{
     bottom:0
 }
 
+.dropdown-item{
+    font-size: 1rem;
+}
+
 .modal-body .dropdown-item:active{
     background-color: green;
 }
