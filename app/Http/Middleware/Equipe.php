@@ -25,7 +25,8 @@ class Equipe
     public function handle($request, Closure $next)
     {
         Log::info(" -------- Middleware Equipe -------- ");
-        $equipe = EquipeModel::whereSlugComplet($request->equipe)->firstOrFail();
+        $sport = $request->sport;
+        $equipe = EquipeModel::whereSportId($sport->id)->whereSlugComplet($request->equipe)->firstOrFail();
 
         $request->equipe = $equipe;
         return $next($request);
