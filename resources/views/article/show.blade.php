@@ -108,11 +108,9 @@
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <h3 class="col-12 h4 py-2">
-                        <a class="text-green-light" href="{{ $journee['competition_href'] }}">
-                            {{ $journee['competition_nom'] }}
-                        </a>
-                    </h3>
+                    <a class="d-block nom-competition py-2" href="{{ $journee['competition_href'] }}">
+                        {{ $journee['competition_nom'] }}
+                    </a>
                     <div class="pl-0">
                             {!! $journee['journee_render'] !!}
                     </div>
@@ -131,11 +129,9 @@
             </div>
             @foreach ($journees as $journee)
                 <div class="col-12 text-center pb-3 justify-content-between">
-                    <h3 class="col-12 h4 py-2">
-                        <a class="text-green-light" href="{{ $journee['competition_href'] }}">
-                            {{ $journee['competition_nom'] }}
-                        </a>
-                    </h3>
+                    <a class="d-block nom-competition py-2" href="{{ $journee['competition_href'] }}">
+                        {{ $journee['competition_nom'] }}
+                    </a>
                     <div class="pl-0">
                             {!! $journee['journee_render'] !!}
                     </div>
