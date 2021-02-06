@@ -8,6 +8,7 @@
 namespace App\Console\Commands;
 
 use App\Saison;
+use App\Article;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
