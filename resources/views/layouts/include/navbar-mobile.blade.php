@@ -62,7 +62,7 @@
                                 <a class="nav-link text-body nav-link-profil" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
                             </li>
                         @else
-                            <li class="nav-item dropdown px-3 {{-- border-bottom --}}">
+                            <li class="nav-item nav-link-profil dropdown px-3">
                                 <span id="navbarDropdown" class="nav-link text-body dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <img class="rounded-circle mr-2 avatar" src="{{ $urlAvatar }}" alt="Avatar">
                                     {{ Auth::user()->pseudo }} <span class="caret"></span>

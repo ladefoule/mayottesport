@@ -4,7 +4,7 @@ return [
     /**
      * Enable ESI
      */
-    'esi' => env('LSCACHE_ESI_ENABLED', true),
+    'esi' => env('LSCACHE_ESI_ENABLED', false),
 
     /**
      * Default cache TTL in seconds

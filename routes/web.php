@@ -35,7 +35,7 @@ Route::group(['middleware'=> 'verified'], function () {
     Route::post('/{sport}/{competition}/resultat/{uniqid}', 'MatchController@resultatPost')->name('competition.match.resultat.post');
 
     /* MIDDLEWARE PREMIUM */
-    Route::group(['check-permission:premium|admin|superadmin', 'lscache:private;esi=on;max-age=120'], function () {
+    Route::group(['check-permission:premium|admin|superadmin'], function () {
         Route::get('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horaire')->name('competition.match.horaire');
         Route::post('/{sport}/{competition}/horaire/{uniqid}', 'MatchController@horairePost')->name('competition.match.horaire.post');
 
@@ -91,7 +91,7 @@ Route::post('/ajax/{table}', 'AjaxController@index')->name('ajax');
 Route::post('/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
 Route::get('/ajax/caches/reload', 'CacheController@reload')->name('cache.reload');
 
-Route::get('contact', 'ContactController@create')->name('contact')->middleware('lscache:max-age=3600;public;esi=on');
+Route::get('contact', 'ContactController@create')->name('contact');
 Route::post('contact', 'ContactController@post')->name('contact.post');
 Route::get('notre-politique-de-confidentialite.php', 'HomeController@politique')->name('politique');
 Route::get('sitemap.xml', 'HomeController@sitemap')->name('sitemap');
