@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Mail\Contact;
 use Illuminate\Support\Str;
 use App\Jobs\ProcessCacheReload;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -87,6 +89,13 @@ class RegisterController extends Controller
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         Log::info("Nouveau membre créé avec succès : " . $user->email);
+
+        // Envoi du mail de notification à l'admin
+        Mail::send('email.welcome', ['user' => $user], function ($message) {
+            $message->from(config('mail.username'), config('app.name'));
+        
+            $message->to(config('mail.contact'));
+        });
 
         // On recharge tous les caches dépendants en Asynchrone (Laravel Queues)
         forgetCaches('users', $user);
