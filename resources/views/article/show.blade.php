@@ -89,8 +89,10 @@
                     @endif
                 </div>
                 <div class="font-size-1-rem col-10 p-2">
-                    <div class="col-12 text-primary p-0">{{ $actu->categorie }}</div>
-                    <div class="col-12 p-0">{!! $actu->preambule !!}</div>
+                    <a href="{!! $actu->href_fil_actu !!}">
+                        <div class="col-12 text-success p-0">{{ $actu->categorie }}</div>
+                        <div class="col-12 p-0 text-body">{!! $actu->preambule !!}</div>
+                    </a>
                 </div>
             </div>
         @endforeach
