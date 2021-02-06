@@ -50,7 +50,7 @@ class AjaxController extends Controller
 
         foreach ($index as $id => $instance) {
             // Pour les saisons, on les n'affiche que les saisons avec des journées
-            if($table == 'saisons'){
+            if($table == 'saisons' && isset($request['avec_journees'])){
                 $journees = index('journees')->where('saison_id', $id);
                 if(count($journees))
                     $result[] = [

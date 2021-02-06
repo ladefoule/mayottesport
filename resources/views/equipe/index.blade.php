@@ -150,7 +150,7 @@ $(document).ready(function(){
             url : "<?php echo route('ajax', ['table' => 'saisons']) ?>",
             method : 'POST',
             idSelect : 'saison_id',
-            data : {competition_id:competition_id.value, _token:inputToken.value}
+            data : {competition_id:competition_id.value, _token:inputToken.value, avec_journees:true}
         }
 
         ajaxSelect(donneesRequeteAjax) // On récupère la liste des saisons
