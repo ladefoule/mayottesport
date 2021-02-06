@@ -91,7 +91,7 @@ class RegisterController extends Controller
         Log::info("Nouveau membre créé avec succès : " . $user->email);
 
         // Envoi du mail de notification à l'admin
-        Mail::send('email.welcome', ['user' => $user], function ($message) {
+        Mail::send('email.welcome', ['user' => $user->toArray()], function ($message) {
             $message->from(config('mail.username'), config('app.name'));
         
             $message->to(config('mail.contact'));
