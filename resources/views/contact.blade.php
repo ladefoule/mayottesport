@@ -60,7 +60,7 @@
                         <label for="objet" class="col-md-3 col-form-label text-md-right">Objet</label>
 
                         <div class="col-md-7">
-                            <input id="objet" type="text" pattern=".{5,50}" class="input-optionnel form-control @error('objet') is-invalid @enderror" name="objet"
+                            <input id="objet" type="text" class="input-optionnel form-control @error('objet') is-invalid @enderror" name="objet"
                                 value="{{ old('objet') }}" autofocus
                                 data-msg="Le champ <span class='text-danger font-italic'>objet</span> n'est pas valide.">
 

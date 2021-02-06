@@ -5,8 +5,8 @@
 @section('title', "Choix de l'article")
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-8 p-3">
+<div class="d-flex justify-content-center">
+    <div class="col-md-10 col-lg-9 col-xl-8 p-3">
         <div class="card">
             <div class="card-header">Choix de l'article</div>
 
@@ -19,10 +19,10 @@
 
                         <div class="col-md-10">
                             <select class="form-control @error('uniqid') is-invalid @enderror" name="uniqid" data-msg="Veuillez choisir un article.">
-                              <option value="">Choisir un article</option>
-                              @foreach ($articles as $article)
-                                  <option value="{{ $article->uniqid }}">{{ $article->titre }}</option>
-                              @endforeach
+                            <option value="">Choisir un article</option>
+                            @foreach ($articles as $article)
+                                <option value="{{ $article->uniqid }}">{{ $article->titre }}</option>
+                            @endforeach
                             </select>
 
                             @error('article')

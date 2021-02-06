@@ -179,7 +179,7 @@ class ArticleController extends Controller
     public function selectForm()
     {
         Log::info(" -------- Controller Article : selectForm -------- ");
-        $articles = index('articles');
+        $articles = index('articles')->sortByDesc('updated_at');
         return view('article.select', [
             'articles' => $articles
         ]);
