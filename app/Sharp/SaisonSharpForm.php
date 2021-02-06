@@ -134,6 +134,9 @@ class SaisonSharpForm extends SharpForm
                 SharpFormCheckField::make("finie", 'Finie')
                     ->setLabel("Finie")
             )->addField(
+                SharpFormCheckField::make("annulee", 'Annulée')
+                    ->setLabel("Annulée")
+            )->addField(
                 SharpFormTextField::make("nb_journees")
                     ->setLabel("Nombre de journées")
             )->addField(
@@ -164,7 +167,7 @@ class SaisonSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('competition_id|6', 'finie|6', 'annee_debut|6', 'annee_fin|6', 'nb_journees|6', 'equipes|6', 'bareme_id|6', 'equipe_id|6');
+            $column->withFields('competition_id|6', 'finie|3', 'annulee|3', 'annee_debut|6', 'annee_fin|6', 'nb_journees|6', 'equipes|6', 'bareme_id|6', 'equipe_id|6');
         });
     }
 }

@@ -20,7 +20,7 @@ class Saison extends Model
      *
      * @var array
      */
-    protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'nb_journees', 'bareme_id', 'competition_id', 'nb_descentes', 'nb_montees'];
+    protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'annulee', 'nb_journees', 'bareme_id', 'competition_id', 'nb_descentes', 'nb_montees'];
 
     /**
      * Les règles de validations
@@ -44,47 +44,12 @@ class Saison extends Model
             'nb_montees' => 'nullable|integer|min:0|max:10',
             'bareme_id' => 'nullable|exists:baremes,id',
             'competition_id' => 'required|exists:competitions,id',
-            'finie' => 'nullable|boolean'
+            'finie' => 'nullable|boolean',
+            'annulee' => 'nullable|boolean',
         ];
         $messages = ['annee_debut.unique' => "Le competition possède déjà une saison qui débute la même année."];
         return ['rules' => $rules, 'messages' => $messages];
     }
-
-    /**
-     * Recherche de la dernière journée.
-     * //En premier on recherche le dernier match joué de la saison et on récupère sa journée.
-     * //S'il n'y a pas de match, alors on récupère la dernière journée.
-     *
-     * @return Journee
-     */
-    // public function derniereJournee()
-    // {
-    //     // $dernierMatch = $this->matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
-    //     // if($dernierMatch)
-    //     //     $derniereJournee = $dernierMatch->journee;
-    //     // else
-        
-    //     $derniereJournee = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
-    //     return $derniereJournee;
-    // }
-
-    /**
-     * Recherche de la prochaine journée. (Différente de la dernière journée)
-     *
-     * @return Journee
-     */
-    // public function prochaineJournee()
-    // {
-    //     // $derniereJournee = $this->derniereJournee();
-    //     // $prochainMatch = $this->matches->where('journee_id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
-    //     // if($prochainMatch)
-    //     //     $prochaineJournee = $prochainMatch->journee;
-    //     // else
-    //     //     $prochaineJournee = $this->journees->where('id', '!=', $derniereJournee->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
-
-    //     $prochaineJournee = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
-    //     return $prochaineJournee;
-    // }
 
     /**
      * La fonction renvoie le classement s'il est déjà en cache. Sinon, elle fait appelle à la fonction generateRanking
