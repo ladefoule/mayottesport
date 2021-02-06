@@ -86,9 +86,7 @@ Route::post('/ajax/journees-url-editer', function () {
     return view('journee.ajax-url-editer');
 })->name('journees.ajax-url-editer'); // Récupérer l'url d'édition de journées multiples en AJAX
 
-Route::match(['get', 'post'], '/ajax/{table}', function ($table) {
-    return view('ajax.table', ['table' => $table]);
-})->name('ajax');
+Route::post('/ajax/{table}', 'AjaxController@index')->name('ajax');
 
 Route::post('/ajax/equipe/matches', 'EquipeController@matchesAjax')->name('equipe.matches');
 Route::get('/ajax/caches/reload', 'CacheController@reload')->name('cache.reload');

@@ -425,7 +425,7 @@ function ajaxSelect(params) {
         })
         .then(res => res.json())
         .then(res => {
-            if (res.length > 0) {
+            if (res) {
                 select.innerHTML = ''
                 let optionDefaut = dce('option')
                 optionDefaut.innerHTML = 'Sélectionner'

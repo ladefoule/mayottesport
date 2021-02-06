@@ -13,10 +13,8 @@ $table = str_replace('-', '_', $table);
 $joins = [
     'competitions' => ['sports'],
     'equipes' => ['saisons', 'sports'],
-    'baremes' => ['sports'],
-    'saisons' => ['competitions', 'sports'/* , 'baremes' */],
-    'journees' => ['saisons', 'competitions', 'sports'/* , 'baremes' */],
-    'matches' => ['journees', 'saisons', 'competitions', 'sports'/* , 'baremes' */, 'equipes'],
+    'saisons' => ['competitions', 'sports'],
+    'journees' => ['saisons', 'competitions', 'sports'],
 ];
 
 // Si la table n'est pas présente dans le tableau $joins
