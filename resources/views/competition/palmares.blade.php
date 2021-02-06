@@ -10,7 +10,7 @@
                 <h1 class="h4 text-center col-12">{{ $competition->nom . ' - Le palmarès'}}</h1>
             </div>
             <div class="col-12 d-flex flex-wrap align-items-start font-size-1-rem">
-                <table class="table text-center">
+                <table class="table text-center border-bottom">
                     <thead class="bg-light">
                         <tr>
                             <th>Saison</th>
@@ -34,11 +34,19 @@
                                     </a>
                                 @endif
                             </td>
-                            <td>{{ $saison->equipe_id ? index('equipes')[$saison->equipe_id]->nom : '' }}</td>
+                            <td>
+                                @if($saison->annulee)
+                                    X*
+                                @else
+                                    {{ $saison->equipe_id ? index('equipes')[$saison->equipe_id]->nom : '' }}
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+
+                <p class="text-left px-3">X => Saison annulée (pas de vainqueur)</p>
             </div>
         </div>
 
