@@ -139,7 +139,7 @@ class sportsharpForm extends SharpForm
                 SharpFormListField::make("competitions")
                     ->setLabel("Compétitions visible dans la navbar")
                     ->setAddable()
-                    ->setMaxItemCount(count(Sport::all()))
+                    ->setMaxItemCount(20) // 20 compétitions max par sport
                     ->setRemovable()
                     ->addItemField(
                         SharpFormSelectField::make("competition_id",
