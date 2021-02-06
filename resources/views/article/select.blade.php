@@ -15,9 +15,9 @@
                     @csrf
 
                     <div class="form-group row pb-2">
-                        <label for="uniqid" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Article</label>
+                        <label for="uniqid" class="col-md-2 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Article</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-10">
                             <select class="form-control @error('uniqid') is-invalid @enderror" name="uniqid" data-msg="Veuillez choisir un article.">
                               <option value="">Choisir un article</option>
                               @foreach ($articles as $article)
@@ -39,7 +39,7 @@
 
                     <div class="form-group row pb-2 mb-0">
                         <div class="col-md-8 offset-md-4">
-                            <button class="btn btn-primary">Valider</button>
+                            <button class="btn btn-success px-4">Valider</button>
                         </div>
                     </div>
                 </form>

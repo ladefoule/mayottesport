@@ -9,7 +9,7 @@
             <div class="col-12 p-4">
                 <h1 class="h4 text-center col-12">{{ $competition->nom . ' - Le palmarès'}}</h1>
             </div>
-            <div class="col-12 d-flex flex-wrap align-items-start">
+            <div class="col-12 d-flex flex-wrap align-items-start font-size-1-rem">
                 <table class="table text-center">
                     <thead class="bg-light">
                         <tr>
