@@ -307,78 +307,6 @@ function index(string $table)
 }
 
 /**
- * Style procédural de la méthode infos() de la classe Journee
- * Renvoie une collection qui contient les matches de la journée ainsi que le render (le html de l'affichage du calendrier)
- *
- * @param int $id
- * @return \Illuminate\Database\Eloquent\Collection
- */
-function journee(int $id)
-{
-    $key = "journee-" . $id;
-    if (Cache::has($key))
-        return Cache::get($key);
-    else
-        return Cache::rememberForever($key, function () use ($id) {
-            return Journee::findOrFail($id)->infos();
-        });
-}
-
-/**
- * Style procédural de la méthode infos() de la classe Saison
- * Retourne une collection qui contient le classement si c'est un championnat et d'autres infos sur la saison
- *
- * @param int $id
- * @return \Illuminate\Database\Eloquent\Collection
- */
-function saison(int $id)
-{
-    $key = "saison-" . $id;
-    if (Cache::has($key))
-        return Cache::get($key);
-    else
-        return Cache::rememberForever($key, function () use ($id) {
-            return Saison::findOrFail($id)->infos();
-        });
-}
-
-/**
- * Style procédural de la méthode infos() de la classe Article
- * Retourne une collection contenant toutes les infos sur l'article
- *
- * @param int $id
- * @return \Illuminate\Database\Eloquent\Collection
- */
-function article(int $id)
-{
-    $key = "article-" . $id;
-    if (Cache::has($key))
-        return Cache::get($key);
-    else
-        return Cache::rememberForever($key, function () use ($id) {
-            return Article::findOrFail($id)->infos();
-        });
-}
-
-/**
- * Style procédural de la méthode infos() de la classe Match
- * Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, ...
- *
- * @param int $id
- * @return \Illuminate\Database\Eloquent\Collection
- */
-function match(int $id)
-{
-    $key = "match-" . $id;
-    if (Cache::has($key))
-        return Cache::get($key);
-    else
-        return Cache::rememberForever($key, function () use ($id) {
-            return Match::findOrFail($id)->infos();
-        });
-}
-
-/**
  * Style procédural de la méthode infos() des classes
  * Retourne une collection contenant toutes les infos sur le match/la journée/etc...
  *
@@ -394,6 +322,78 @@ function infos(string $table, int $id)
     else
         return Cache::rememberForever($key, function () use ($id, $modele) {
             return $modele::findOrFail($id)->infos();
+        });
+}
+
+/**
+ * Style procédural de la méthode infos() de la classe Journee
+ * Renvoie une collection qui contient les matches de la journée ainsi que le render (le html de l'affichage du calendrier)
+ *
+ * @param int $journeeId
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function journee(int $journeeId)
+{
+    $key = "journee-" . $journeeId;
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use ($journeeId) {
+            return Journee::findOrFail($journeeId)->infos();
+        });
+}
+
+/**
+ * Style procédural de la méthode infos() de la classe Saison
+ * Retourne une collection qui contient le classement si c'est un championnat et d'autres infos sur la saison
+ *
+ * @param int $journeeId
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function saison(int $saisonId)
+{
+    $key = "saison-" . $saisonId;
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use ($saisonId) {
+            return Saison::findOrFail($saisonId)->infos();
+        });
+}
+
+/**
+ * Style procédural de la méthode infos() de la classe Article
+ * Retourne une collection contenant toutes les infos sur l'article
+ *
+ * @param string $uniqid
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function article(string $uniqid)
+{
+    $key = "article-" . $uniqid;
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use ($uniqid) {
+            return Article::whereUniqid($uniqid)->firstOrFail()->infos();
+        });
+}
+
+/**
+ * Style procédural de la méthode infos() de la classe Match
+ * Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, ...
+ *
+ * @param string $uniqid
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function match($uniqid)
+{
+    $key = "match-" . $uniqid;
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use ($uniqid) {
+            return Match::whereUniqid($uniqid)->firstOrFail()->infos();
         });
 }
 
