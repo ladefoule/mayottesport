@@ -15,6 +15,7 @@ use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use App\Sharp\Formatters\TimestampSharpFormatter;
+use App\Terrain;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
@@ -144,6 +145,13 @@ class MatchSharpForm extends SharpForm
             ];
         })->all();
 
+        $terrains = Terrain::orderBy('nom')->get()->map(function($terrain) {
+            return [
+                "id" => $terrain->id,
+                "label" => $terrain->nom . '('. $terrain->ville->nom .')'
+            ];
+        })->all();
+
         $this
             ->addField(
                 SharpFormTextField::make("uniqid")
@@ -230,6 +238,13 @@ class MatchSharpForm extends SharpForm
                 ->setDisplayAsDropdown()
                 ->setMultiple(false)
             )->addField(
+                SharpFormSelectField::make("terrain_id",
+                    $terrains
+                )
+                ->setLabel("Terrain")
+                ->setDisplayAsDropdown()
+                ->setClearable(true)
+            )->addField(
                 SharpFormTextField::make("updated_at")
                     ->setLabel("Modifié le")
                     ->setFormatter($timestampFormatter)
@@ -249,7 +264,7 @@ class MatchSharpForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'date|6', 'heure|6', 'equipe_id_dom|6', 'equipe_id_ext|6');
+            $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'date|6', 'heure|6', 'equipe_id_dom|6', 'equipe_id_ext|6', 'terrain_id|6');
             $column->withFields('score_eq_dom|6', 'score_eq_ext|6', 'forfait_eq_dom|3', 'penalite_eq_dom|3', 'forfait_eq_ext|3', 'penalite_eq_ext|3');
             if($this->sportSlug != 'volleyball')
                 $column->withFields('avec_prolongations|6', 'avec_tirs_au_but|6', 'tab_eq_dom|6', 'tab_eq_ext|6');
