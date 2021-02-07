@@ -59,7 +59,7 @@ class MatchSharpForm extends SharpForm
     public function update($id, array $data)
     {
         $match = $id ? Match::findOrFail($id) : new Match;
-        $ignore = ['saison', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext', 'avec_tirs_au_but', 'tab_eq_dom', 'tab_eq_ext'];
+        $ignore = ['saison', 'forfait_eq_dom', 'forfait_eq_ext', 'penalite_eq_dom', 'penalite_eq_ext', 'avec_tirs_au_but', 'avec_prolongations', 'tab_eq_dom', 'tab_eq_ext'];
 
         // Si le match existe déjà
         if(isset($match->id)){
@@ -177,8 +177,11 @@ class MatchSharpForm extends SharpForm
                 SharpFormCheckField::make("forfait_eq_ext", "Forfait (extérieur)")
                     ->setLabel("Forfait (extérieur)")
             )->addField(
-                SharpFormCheckField::make("avec_tirs_au_but", "Tirs au but?")
+                SharpFormCheckField::make("avec_tirs_au_but", "Tirs au but")
                     ->setLabel("Tirs au but?")
+            )->addField(
+                SharpFormCheckField::make("avec_prolongations", "Prolongations")
+                    ->setLabel("Prolongations?")
             )->addField(
                 SharpFormTextField::make("tab_eq_dom", "Tirs au but (domicile)")
                     ->setLabel("Tirs au but (domicile)")
@@ -249,7 +252,7 @@ class MatchSharpForm extends SharpForm
             $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'date|6', 'heure|6', 'equipe_id_dom|6', 'equipe_id_ext|6');
             $column->withFields('score_eq_dom|6', 'score_eq_ext|6', 'forfait_eq_dom|3', 'penalite_eq_dom|3', 'forfait_eq_ext|3', 'penalite_eq_ext|3');
             if($this->sportSlug != 'volleyball')
-                $column->withFields('avec_tirs_au_but', 'tab_eq_dom|6', 'tab_eq_ext|6');
+                $column->withFields('avec_prolongations|6', 'avec_tirs_au_but|6', 'tab_eq_dom|6', 'tab_eq_ext|6');
             $column->withFields('updated_at|6', 'user|6');
         });
 

@@ -115,6 +115,7 @@ class Match extends Model
             'forfait_eq_ext' => 'nullable|boolean',
             'penalite_eq_dom' => 'nullable|boolean',
             'penalite_eq_ext' => 'nullable|boolean',
+            'avec_prolongations' => 'nullable|boolean',
             'avec_tirs_au_but' => 'nullable|boolean',
             'tab_eq_dom' => ['required_with:tab_eq_ext','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:30'],
             'tab_eq_ext' => ['required_with:tab_eq_dom','exclude_if:avec_tirs_au_but,false','required_if:avec_tirs_au_but,true','integer','min:0','max:30'],
