@@ -36,10 +36,10 @@
 
             <div class="form-row col-12 p-3">
                 <div class="col-12 d-flex justify-content-center pb-3">
-                    <input class="text-center form-control col-6 col-md-4 col-lg-3" type="date" name="date" data-msg="Merci de saisir une date valide." value="{{ $match->date }}">
+                    <input class="text-center form-control col-6 col-md-4 col-lg-3" type="date" name="date" data-msg="Merci de saisir une date valide." value="{{ old('date') ?? $match->date }}">
                 </div>
                 <div class="col-12 d-flex justify-content-center">
-                    <input class="text-center form-control col-6 col-md-4 col-lg-3" type="time" name="heure" pattern="\d{2}:\d{2}" data-msg="Merci de saisir une heure." value="{{ $match->heure }}">
+                    <input class="text-center form-control col-6 col-md-4 col-lg-3" type="time" name="heure" pattern="\d{2}:\d{2}" data-msg="Merci de saisir une heure valide (hh:mm)." value="{{ old('heure') ?? $match->heure }}">
                 </div>
             </div>     
 

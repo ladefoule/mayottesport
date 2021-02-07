@@ -23,9 +23,9 @@
                 </div>
             </div>
             <div class="col-4 bloc-score d-flex align-items-center justify-content-center mb-5">
-                <input type="text" name="score_eq_dom" value="{{ $match->score_eq_dom }}" class="@error('score_eq_dom') is-invalid @enderror px-2 rounded text-center font-weight-bold" data-msg="Merci de saisir un score valide." pattern="\d+">
+                <input type="text" name="score_eq_dom" value="{{ old('score_eq_dom') ?? $match->score_eq_dom }}" class="@error('score_eq_dom') is-invalid @enderror px-2 rounded text-center font-weight-bold" data-msg="Merci de saisir un score valide." pattern="\d+">
                 <span class="p-2">-</span>
-                <input type="text" name="score_eq_ext" value="{{ $match->score_eq_ext }}" class="@error('score_eq_ext') is-invalid @enderror px-2 rounded text-center font-weight-bold" data-msg="Merci de saisir un score valide." pattern="\d+">
+                <input type="text" name="score_eq_ext" value="{{ old('score_eq_ext') ?? $match->score_eq_ext }}" class="@error('score_eq_ext') is-invalid @enderror px-2 rounded text-center font-weight-bold" data-msg="Merci de saisir un score valide." pattern="\d+">
             </div>
             <div class="row mx-0 col-4 d-flex justify-content-between align-items-center bloc-equipe-ext pl-2 mb-5">
                 <div class="equipe-exterieur col-md-8 col-lg-12 col-xl-8 order-2 order-md-1 order-lg-2 order-xl-1 py-2 px-0">
