@@ -271,7 +271,26 @@ class Match extends Model
             return $heure;
         }
 
-        return $this->score_eq_dom . ' - ' . $this->score_eq_ext;
+        $infosSup = $this->matchInfos;
+        $correspondances = config('listes.proprietes-matches');
+        foreach ($infosSup as $info){
+            $prop = $correspondances[$info->propriete_id][0];
+            $$prop = $info->valeur;
+        }
+
+        $infoScoreDom = $infoScoreExt = $infoScore = '';
+        if(isset($forfait_eq_dom))
+            $infoScoreDom = '<sup>(f)</sup> ';
+        if(isset($forfait_eq_ext))
+            $infoScoreExt = ' <sup>(f)</sup>';
+        if(isset($penalite_eq_dom))
+            $infoScoreDom = '<sup>(p)</sup> ';
+        if(isset($penalite_eq_ext))
+            $infoScoreExt = ' <sup>(p)</sup>';
+        if(isset($avec_prolongations))
+            $infoScore = '<span class="font-size-1-rem"> ap.</span>';
+
+        return $infoScoreDom . $this->score_eq_dom . ' - ' . $this->score_eq_ext . $infoScoreExt . $infoScore;
     }
 
     /**

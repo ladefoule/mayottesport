@@ -42,7 +42,7 @@
     </div>
     <a href="{{ $match->url }}" class="col-4 d-flex flex-wrap justify-content-center align-items-center p-0">
         @if(strlen($match->score_eq_dom) > 0 && strlen($match->score_eq_ext) > 0)
-            <span class="col-12 text-center font-weight-bold @if($resultat) {{ $resultat }} @else text-body @endif" style="font-size: 1.5rem">{{ $match->score }}</span>
+            <span class="col-12 text-center font-weight-bold @if($resultat) {{ $resultat }} @else text-body @endif" style="font-size: 1.5rem">{!! $match->score !!}</span>
             @if($avecTab)
                 <span class="col-12 text-center font-weight-bold @if($resultat) {{ $resultat }} @else text-body @endif" style="font-size: 0.9rem">tab. {{ $match->tab_eq_dom . '-' . $match->tab_eq_ext }}</span>
             @endif
