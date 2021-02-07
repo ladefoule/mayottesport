@@ -6,7 +6,6 @@
     <?php $i = 0 ?>
     @foreach ($matches as $match)
         <?php
-            // $match = match();
             $equipeDomVainqueur = $equipeExtVainqueur = false;
             $avecTab = isset($match->avec_tirs_au_but) ? true : false;
             $avecProlongations = isset($match->avec_prolongations) ? true : false;
@@ -33,7 +32,7 @@
                 </div>
             </div>
             <a href="{{ $match->url }}" class="col-4 d-flex text-body flex-wrap justify-content-center align-items-center p-0">
-                <?php
+            <?php
                 if(strlen($match->score_eq_dom) > 0 && strlen($match->score_eq_ext) > 0){
                     echo '<span class="col-12 text-center font-weight-bold text-body" style="font-size: 1.5rem">' . $match->score . '</span>';
                     if($avecTab)
@@ -46,7 +45,7 @@
 
                 if($match->heure)
                     echo '<span class="col-12 text-center text-secondary" style="font-size:0.6rem">' . $match->heure . '</span>';
-                ?>
+            ?>
             </a>
             <div class="col-4 p-0 d-flex flex-wrap justify-content-end align-items-center text-right">
                 <div class="equipe-exterieur col-md-9 d-md-inline order-2 order-md-1 px-0 equipe-align-auto">
@@ -60,7 +59,7 @@
                     </a>
                 </div>
             </div>
-    </div>
-    <?php $i++; ?>
+        </div>
+        <?php $i++; ?>
     @endforeach
 </div>

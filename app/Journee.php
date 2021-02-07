@@ -150,7 +150,7 @@ class Journee extends Model
                     $resultats[] = [
                         'competition_nom' => $competition->nom,
                         'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]),
-                        'journee_render' => journee($derniereJournee->id)->render_section_droite
+                        'journee_render' => infos('journees', $derniereJournee->id)->render_section_droite
                     ];
     
                 // $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
@@ -159,7 +159,7 @@ class Journee extends Model
                     $prochains[] = [
                         'competition_nom' => $competition->nom,
                         'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]),
-                        'journee_render' => journee($prochaineJournee->id)->render_section_droite
+                        'journee_render' => infos('journees', $prochaineJournee->id)->render_section_droite
                     ];
             }
         }

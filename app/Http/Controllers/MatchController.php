@@ -48,8 +48,8 @@ class MatchController extends Controller
         $match = $request->match;
         $sport = $request->sport;
         
-        $infos = match($match->uniqid);
-        $journee = journee($match->journee_id);
+        $infos = infos('matches', $match->id);
+        $journee = infos('journees', $match->journee_id);
         return view('competition.match', [
             'match' => $infos,
             'sport' => $sport,
@@ -76,7 +76,7 @@ class MatchController extends Controller
             abort(403);
         }
 
-        $infos = match($match->uniqid);
+        $infos = infos('matches', $match->id);
         return view('competition.resultat', [
             'match' => $infos,
             'sport' => $sport,

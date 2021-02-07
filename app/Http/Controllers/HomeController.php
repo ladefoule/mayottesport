@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Sport;
 use App\Article;
 use App\Journee;
-use App\Competition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
@@ -32,7 +29,7 @@ class HomeController extends Controller
 
         $articles = collect();
         foreach ($indexArticles as $id => $article)
-            $articles[] = article($article->uniqid);
+            $articles[] = infos('articles', $article->id);
 
          $articlesView = view('article.render', ['articles' => $articles])->render();
 

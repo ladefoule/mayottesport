@@ -83,7 +83,7 @@ class ArticleController extends Controller
         $filActualites = Article::filActu();
 
         return view('article.show', [
-            'article' => article($article->uniqid), 
+            'article' => infos('articles', $article->id), 
             'resultats' => $calendriers['resultats'],
             'prochains' => $calendriers['prochains'],
             'filActualites' => $filActualites
@@ -104,7 +104,7 @@ class ArticleController extends Controller
         $filActualites = Article::filActu($sport);
 
         return view('article.show-sport', [
-            'article' => article($article->uniqid), 
+            'article' => infos('articles', $article->id), 
             'resultats' => [$sport->nom => $calendriers['resultats']],
             'prochains' => [$sport->nom => $calendriers['prochains']],
             'filActualites' => $filActualites,
@@ -122,7 +122,7 @@ class ArticleController extends Controller
     {
         Log::info(" -------- Controller Article : showAdmin -------- ");
         $article = $request->article;
-        return view('article.show-admin', ['article' => article($article->uniqid), 'admin' => 'admin']);
+        return view('article.show-admin', ['article' => infos('articles', $article->id), 'admin' => 'admin']);
     }
 
     /**

@@ -50,14 +50,14 @@ class Competition
             $derniereJournee = $journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
             if($derniereJournee){
                 $request->hrefCalendrier = route('competition.saison.calendrier-resultats', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet, 'annee' => $derniereSaison->annee(), 'journee' => $derniereJournee->numero]);
-                $resultats = journee($derniereJournee->id)->render_section_droite;
-                $resultats_main = journee($derniereJournee->id)->render_main;
+                $resultats = infos('journees', $derniereJournee->id)->render_section_droite;
+                $resultats_main = infos('journees', $derniereJournee->id)->render_main;
             }
 
             $prochaineJournee = $journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
             if($prochaineJournee){
-                $prochains = journee($prochaineJournee->id)->render_section_droite;
-                $prochains_main = journee($prochaineJournee->id)->render_main;
+                $prochains = infos('journees', $prochaineJournee->id)->render_section_droite;
+                $prochains_main = infos('journees', $prochaineJournee->id)->render_main;
             }
         }
 
@@ -66,7 +66,7 @@ class Competition
             $request->hrefActualite = route('competition.actualite', ['sport' => $sportSlug, 'competition' => $competitionSlugComplet]);
 
         foreach ($articles as $key => $article)
-            $articles[$key] = article($article->uniqid);
+            $articles[$key] = infos('articles', $article->id);
 
         $request->articles = $articles;
         $request->resultats = $resultats ?? '';

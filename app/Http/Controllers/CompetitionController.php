@@ -44,26 +44,8 @@ class CompetitionController extends Controller
         // $saison = $competition->saisons()->orderBy('annee_debut', 'desc')->first();
         $saison = $request->derniereSaison;
 
-        if($saison){
-            // $journeesSuivantes = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->limit(2)->get();
-            // foreach ($journeesSuivantes as $key => $journee){
-            //     $render = journee($journee->id)->render;
-            //     $prochains[] = $render;
-            //     if($key == 0)
-            //         $prochaineJourneeRender = $render;
-            // }
-
-            // $journeesPassees = $saison->journees()->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->limit(2)->get();
-            // foreach ($journeesPassees as $key => $journee){
-            //     $render = journee($journee->id)->render;
-            //     $resultats[] = $render;
-            //     if($key == 0)
-            //         $derniereJourneeRender = $render;
-            // }
-
-            if($competition->type == 1) // Type compétition
-               $classement = saison($saison->id)['classement'];
-        }
+        if($saison && $competition->type == 1) // Type compétition
+            $classement = infos('saisons', $saison->id)['classement'];
 
         
         $articles = $request->articles;
@@ -140,7 +122,7 @@ class CompetitionController extends Controller
         $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
         $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
 
-        $classement = saison($saison->id)['classement'];
+        $classement = infos('saisons', $saison->id)['classement'];
         return view('competition.classement-' . $sport->slug, [
             'classement' => $classement,
             'title' => $title,
@@ -191,7 +173,7 @@ class CompetitionController extends Controller
             abort(404);
             
         foreach ($journees as $key => $journee_)
-            $journees[$key] = journee($journee_->id);
+            $journees[$key] = infos('journees', $journee_->id);
         
 
         $journeePrecedente = ($journee->numero > 1) ? $journees->where('numero', $journee->numero-1)->first() : '';
@@ -202,14 +184,14 @@ class CompetitionController extends Controller
 
         $title = $sport->nom . ' - ' . $competition->nom_complet . ' ' . $saison->nom . ' - Calendrier et résultats - ' . $journee->nom;
         return view('competition.calendrier-resultats', [
-            'calendrierJourneeHtml' => journee($journee->id)->render_main,
+            'calendrierJourneeHtml' => infos('journees', $journee->id)->render_main,
             'hrefJourneePrecedente' => $hrefJourneePrecedente,
             'hrefJourneeSuivante' => $hrefJourneeSuivante,
             'saison' => $saison,
             'journeeActuelle' => $journee,
             'journees' => $journees,
             'title' => $title,
-            'matches' => journee($journee->id)->matches,
+            'matches' => infos('journees', $journee->id)->matches,
             'competition' => $competition
         ]);
     }
@@ -244,6 +226,6 @@ class CompetitionController extends Controller
     public function journeeRender(Request $request)
     {
         $journee = Journee::whereSaisonId($request['saison'])->whereNumero($request['journee'])->firstOrFail();
-        return journee($journee->id)->render;
+        return infos('journees', $journee->id)->render;
     }
 }

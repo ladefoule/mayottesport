@@ -60,26 +60,26 @@ class CacheController extends Controller
                 $saison = $instance;
 
             if(isset($match))
-                match($match->uniqid);
+                infos('matches', $match->id);
 
             if(isset($journee))
-                journee($journee->id);
+                infos('journees', $journee->id);
 
             if(isset($saison))
-                saison($saison->id);
+                infos('saisons', $saison->id);
 
-        // Suppression de tous les caches saisons liés au barème
+        // Rechargement de tous les caches saisons liés au barème
         }else if(in_array($table, ['baremes'])){
             $bareme = $instance;
             $saisons = $bareme->saisons;
 
             foreach ($saisons as $saison)
-                saison($saison->id);
+                infos('saisons', $saison->id);
 
-         // On supprime les caches des articles
+         // On recharge les caches des articles
          } else if ($table == 'articles') {
             $article = $instance;
-            article($article->uniqid);
+            infos('articles', $article->id);
         }
 
         index($table);

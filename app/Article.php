@@ -134,7 +134,7 @@ class Article extends Model
             ->splice(0,10);
 
         foreach ($articles as $key => $article)
-            $articles[$key] = article($article->uniqid);
+            $articles[$key] = infos('articles', $article->id);
         
         return $articles;
     }

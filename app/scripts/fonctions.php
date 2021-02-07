@@ -70,8 +70,8 @@ function annee(int $debut, int $fin, string $separateur = '-')
 /**
  * On vérifie si l'utilisateur a le droit de modifier le résultats du match ou non
  *
- * @param Match
- * @param User
+ * @param Match|Collection
+ * @param User|Collection
  * @return bool
  */
 function accesModifResultat($match, $user)
@@ -79,16 +79,17 @@ function accesModifResultat($match, $user)
     if (! $user)
         return false;
 
-    $niveauUser = $user->role->niveau;
-    $lastUser = $match->user;
-    $niveauLastUser = $lastUser ? $lastUser->role->niveau : 0;
+    $match = infos('matches', $match->id);
+    $niveauUser = index('roles')[$user->role_id]->niveau;
+    $niveauLastUser = $match->niveau_last_user;
 
     // Les conditions d'accès refusé
+    // - Saison finie
     // - Journée bloquée
     // - Match bloqué
     // - Date du match > aujourd'hui
     // - Niveau de l'utilisateur ayant modifié le match > Niveau du membre connecté (ne concerne pas les admins)
-    if ($match->journee->acces_bloque || $match->bloque || ($niveauLastUser > $niveauUser && $niveauUser < 30) || $match->date > date('Y-m-d'))
+    if ($match->saison_finie || $match->journee_bloque || $match->acces_bloque || ($niveauLastUser > $niveauUser && $niveauUser < 30) || $match->date > date('Y-m-d'))
         return false;
 
     return true;
@@ -97,8 +98,8 @@ function accesModifResultat($match, $user)
 /**
  * On vérifie si l'utilisateur a le droit de modifier l'horaire du match ou non
  *
- * @param Match
- * @param User
+ * @param Match|Collection
+ * @param User|Collection
  * @return bool
  */
 function accesModifHoraire($match, $user)
@@ -106,13 +107,15 @@ function accesModifHoraire($match, $user)
     if (! $user)
         return false;
 
-    $niveauUser = $user->role->niveau;
+    $match = infos('matches', $match->id);
+    $niveauUser = index('roles')[$user->role_id]->niveau;
 
     // Les conditions d'accès refusé
+    // - Saison finie
     // - Journée bloquée
     // - Match bloqué
     // - Niveau de l'utilisateur connecté < 20 cad niveau membre (10)
-    if ($match->journee->acces_bloque || $match->bloque || $niveauUser < 20)
+    if ($match->saison_finie || $match->journee_bloque || $match->acces_bloque || $niveauUser < 20)
         return false;
 
     return true;
@@ -135,6 +138,12 @@ function fanion($equipeUniqid)
     return asset("/storage/img/fanion/" . $fanion . '.png');
 }
 
+/**
+ * Liste des images présentes dans le dossier public storage/img
+ * Liste utilisée par l'outil WYSIWYG tinymce
+ *
+ * @return void
+ */
 function imagesList()
 {
     $images = Storage::allFiles('public/img');
@@ -158,8 +167,6 @@ function imagesList()
  */
 function forgetCaches(string $table, object $instance)
 {
-    Log::info(" -------- Controller Crud : forgetCaches -------- ");
-
     $tableSlug = Str::slug($table);
     // On supprime le cache index de la table
     Cache::forget('index-' . $tableSlug);
@@ -177,25 +184,25 @@ function forgetCaches(string $table, object $instance)
             $saison = $instance;
 
         if (isset($match))
-            Cache::forget("match-" . $match->uniqid);
+            Cache::forget("matches-" . $match->id);
 
         if (isset($journee))
-            Cache::forget("journee-" . $journee->id);
+            Cache::forget("journees-" . $journee->id);
 
         if (isset($saison))
-            Cache::forget("saison-" . $saison->id);
+            Cache::forget("saisons-" . $saison->id);
 
         // Suppression de tous les caches saisons liés au barème
     } else if ($table == 'baremes') {
         $bareme = $instance;
         $saisons = $bareme->saisons;
         foreach ($saisons as $saisonTemp)
-            Cache::forget("saison-" . $saisonTemp->id);
+            Cache::forget("saisons-" . $saisonTemp->id);
 
    // On supprime les caches des articles
     } else if ($table == 'articles') {
         $article = $instance;
-        Cache::forget("article-" . $article->uniqid);
+        Cache::forget("articles-" . $article->id);
     }
 }
 
@@ -226,8 +233,8 @@ function diffParticuliere($saisonId, $idEquipe1, $bidEquipe2)
     $match1 = $match->where('equipe_id_dom', $idEquipe1)->where('equipe_id_ext', $idEquipe2);
     $match2 = $match->where('equipe_id_dom', $idEquipe2)->where('equipe_id_ext', $idEquipe1);
 
-    $match1 = match($match1->id);
-    $match2 = match($match2->id);
+    $match1 = infos('matches', $match1->id);
+    $match2 = infos('matches', $match2->id);
 }
 
 /**
@@ -310,12 +317,17 @@ function index(string $table)
  * Style procédural de la méthode infos() des classes
  * Retourne une collection contenant toutes les infos sur le match/la journée/etc...
  *
+ * @param int $table - table en snake_case
  * @param int $id
  * @return \Illuminate\Database\Eloquent\Collection
  */
 function infos(string $table, int $id)
 {
-    $modele = modelName($table);
+    // if(! in_array($table, ['matches', 'journees', 'saisons', 'articles']))
+    $modele = 'App\\' . modelName($table);
+    if(! method_exists($modele, 'infos'))
+        return [];
+
     $key = Str::slug($table) . "-" . $id;
     if (Cache::has($key))
         return Cache::get($key);

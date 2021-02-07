@@ -101,7 +101,7 @@ class EquipeController extends Controller
 
         // On récupère les infos pour chaque match
         foreach ($matches as $id => $match)
-            $matches[$id] = match($match->uniqid);
+            $matches[$id] = infos('matches', $match->id);
 
         $calendriers = Journee::calendriersPageSport($sport);
         $filActualites = Article::filActu($sport);

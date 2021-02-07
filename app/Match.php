@@ -166,6 +166,7 @@ class Match extends Model
             $competitionNomCompletSlug = Str::slug($competition->nom_complet);
             $sport = index('sports')[$competition->sport_id];
             $sportNomSlug = Str::slug($sport->nom);
+            $lastUser = $this->user_id ? index('users')[$this->user_id] : '';
 
             if($this->terrain)
                 $lieu = $this->terrain->nom . ' (' . $this->terrain->ville->nom . ')';
@@ -191,7 +192,9 @@ class Match extends Model
                 'score' => $this->score(),
                 'date_format' => $this->dateFormat(),
                 'title' => $sport->nom . " - Match " . $equipeDom->nom . ' vs ' . $equipeExt->nom . ' - ' . $competition->nom . ' ' . $annee,
-                'acces_bloque' => $this->acces_bloque,
+                'journee_bloque' => $journee->acces_bloque,
+                'saison_finie' => $saison->finie,
+                'niveau_last_user' => $lastUser ? index('roles')[$lastUser->role_id]->niveau : 0,
                 'journee' => niemeJournee($journee->numero),
                 'competition' => $competition->nom,
                 'annee' => $annee,

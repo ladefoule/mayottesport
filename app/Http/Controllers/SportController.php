@@ -49,7 +49,7 @@ class SportController extends Controller
 
         $articles = collect();
         foreach ($indexArticles as $id => $article)
-            $articles[] = article($article->uniqid);
+            $articles[] = infos('articles', $article->id);
 
          $articlesView = view('article.render', ['articles' => $articles])->render();
 
