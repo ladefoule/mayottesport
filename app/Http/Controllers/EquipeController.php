@@ -43,28 +43,21 @@ class EquipeController extends Controller
 
         // On recherche le prochain match de l'équipe toute compétition confondue
         $prochainMatch = $matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
-        $prochainMatchRender = '';
-        if($prochainMatch){
-            $prochainMatch->resultat_type = $prochainMatch->resultat($equipe->id)['type'] ?? '';
-            $matchesCollect[] = $prochainMatch;
-            $prochainMatchRender = view('equipe.matches-ajax', [
-                'equipe' => $equipe,
-                'matches' => $matchesCollect
+        if($prochainMatch)
+            $prochainMatchRender = view('journee.modele-calendrier-main', [
+                'match' => infos('matches', $prochainMatch->id),
+                'equipeId' => $equipe->id,
+                'i' => 0
             ])->render();
-        }
 
         // On recherche le dernier match de l'équipe toute compétition confondue
         $dernierMatch = $matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
-        $dernierMatchRender = '';
-        $matchesCollect = [];
-        if($dernierMatch){
-            $dernierMatch->resultat_type = $dernierMatch->resultat($equipe->id)['type'] ?? '';
-            $matchesCollect[] = $dernierMatch;
-            $dernierMatchRender = view('equipe.matches-ajax', [
-                'equipe' => $equipe,
-                'matches' => $matchesCollect
+        if($dernierMatch)
+            $dernierMatchRender = view('journee.modele-calendrier-main', [
+                'match' => infos('matches', $dernierMatch->id),
+                'equipeId' => $equipe->id,
+                'i' => 0
             ])->render();
-        }
 
         // Toutes les saisons dans lesquelles l'équipe a joué
         $saisons = index('equipe_saison')->where('equipe_id', $equipe->id)->pluck('saison_id');
@@ -116,8 +109,8 @@ class EquipeController extends Controller
             'derniereCompetition' => $derniereCompetition,
             'sport' => $sport,
             'matches' => $matches->sortBy('date'),
-            'dernierMatch' => $dernierMatchRender,
-            'prochainMatch' => $prochainMatchRender,
+            'dernierMatch' => $dernierMatchRender ?? '',
+            'prochainMatch' => $prochainMatchRender ?? '',
             'resultats' => $calendriers['resultats'] ? [$sport->nom => $calendriers['resultats']] : [],
             'prochains' => $calendriers['prochains'] ? [$sport->nom => $calendriers['prochains']] : [],
             'filActualites' => $filActualites
@@ -142,12 +135,10 @@ class EquipeController extends Controller
         $matches = $saison->matches->where('equipe_id_dom', $equipeId);
         $matches = $matches->union($saison->matches->where('equipe_id_ext', $equipeId))->sortBy('date');
 
-        foreach ($matches as $match)
-            $match['resultat_type'] = $match->resultat($equipeId)['type'] ?? '';
-
         return view('equipe.matches-ajax', [
             'equipe' => $equipe,
             'matches' => $matches,
+            'equipeId' => $equipe->id
         ])->render();
     }
 }

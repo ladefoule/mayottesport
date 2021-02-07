@@ -28,8 +28,8 @@ class Match extends Model
      * Elle renvoie false si le match ne s'est pas encore joué ou si l'id ne correspond pas aux équipes
      *
      * @param integer $equipe_id
-     * @param string $sport
-     * @return void
+     * @param string $sportSlug
+     * @return array|false
      */
     public function resultat(int $equipeId, $sportSlug = '')
     {
