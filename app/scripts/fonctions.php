@@ -201,6 +201,7 @@ function forgetCaches(string $table, object $instance)
 
 /**
  * Fonction de comparaison pour générer les classements
+ * Priorité : POINTS => DIFF BUTS => BUTS MARQUES
  *
  * @param array $a
  * @param array $b
@@ -219,8 +220,43 @@ function compare($a, $b)
     return ($a['points'] < $b['points']) ? 1 : -1;
 }
 
+function diffParticuliere($saisonId, $idEquipe1, $bidEquipe2)
+{
+    $matches = Saison::findOrFail($saisonId)->matches;
+    $match1 = $match->where('equipe_id_dom', $idEquipe1)->where('equipe_id_ext', $idEquipe2);
+    $match2 = $match->where('equipe_id_dom', $idEquipe2)->where('equipe_id_ext', $idEquipe1);
+
+    $match1 = match($match1->id);
+    $match2 = match($match2->id);
+}
+
+/**
+ * Fonction de comparaison pour générer les classements
+ * Priorité : POINTS => DIFF PARTICULIERE => DIFF BUTS => BUTS MARQUES
+ *
+ * @param array $a
+ * @param array $b
+ * @return int
+ */
+function compareParticulier($a, $b, $saisonId)
+{
+    if ($a['points'] == $b['points']) {
+        if (diffParticuliere($saisonId, $a['id'] == $b['id'])) {
+            if ($a['diff'] == $b['diff']) {
+                if ($a['marques'] == $b['marques'])
+                    return 0;
+                return ($a['marques'] < $b['marques']) ? 1 : -1;
+            }
+            return ($a['diff'] < $b['diff']) ? 1 : -1;
+        }
+        return ($a['diff'] < $b['diff']) ? 1 : -1;
+    }
+    return ($a['points'] < $b['points']) ? 1 : -1;
+}
+
 /**
  * Fonction de comparaison pour générer les classements de Volleyball
+ * Priorité : POINTS => COEFF SETS => SETS MARQUES
  *
  * @param array $a
  * @param array $b
@@ -274,17 +310,17 @@ function index(string $table)
  * Style procédural de la méthode infos() de la classe Journee
  * Renvoie une collection qui contient les matches de la journée ainsi que le render (le html de l'affichage du calendrier)
  *
- * @param int $journeeId
+ * @param int $id
  * @return \Illuminate\Database\Eloquent\Collection
  */
-function journee(int $journeeId)
+function journee(int $id)
 {
-    $key = "journee-" . $journeeId;
+    $key = "journee-" . $id;
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use ($journeeId) {
-            return Journee::findOrFail($journeeId)->infos();
+        return Cache::rememberForever($key, function () use ($id) {
+            return Journee::findOrFail($id)->infos();
         });
 }
 
@@ -292,17 +328,17 @@ function journee(int $journeeId)
  * Style procédural de la méthode infos() de la classe Saison
  * Retourne une collection qui contient le classement si c'est un championnat et d'autres infos sur la saison
  *
- * @param int $journeeId
+ * @param int $id
  * @return \Illuminate\Database\Eloquent\Collection
  */
-function saison(int $saisonId)
+function saison(int $id)
 {
-    $key = "saison-" . $saisonId;
+    $key = "saison-" . $id;
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use ($saisonId) {
-            return Saison::findOrFail($saisonId)->infos();
+        return Cache::rememberForever($key, function () use ($id) {
+            return Saison::findOrFail($id)->infos();
         });
 }
 
@@ -310,17 +346,17 @@ function saison(int $saisonId)
  * Style procédural de la méthode infos() de la classe Article
  * Retourne une collection contenant toutes les infos sur l'article
  *
- * @param string $uniqid
+ * @param int $id
  * @return \Illuminate\Database\Eloquent\Collection
  */
-function article(string $uniqid)
+function article(int $id)
 {
-    $key = "article-" . $uniqid;
+    $key = "article-" . $id;
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use ($uniqid) {
-            return Article::whereUniqid($uniqid)->firstOrFail()->infos();
+        return Cache::rememberForever($key, function () use ($id) {
+            return Article::findOrFail($id)->infos();
         });
 }
 
@@ -328,17 +364,36 @@ function article(string $uniqid)
  * Style procédural de la méthode infos() de la classe Match
  * Retourne une collection contenant toutes les infos sur le match : competition, saison, equipes, urls, ...
  *
- * @param string $uniqid
+ * @param int $id
  * @return \Illuminate\Database\Eloquent\Collection
  */
-function match($uniqid)
+function match(int $id)
 {
-    $key = "match-" . $uniqid;
+    $key = "match-" . $id;
     if (Cache::has($key))
         return Cache::get($key);
     else
-        return Cache::rememberForever($key, function () use ($uniqid) {
-            return Match::whereUniqid($uniqid)->firstOrFail()->infos();
+        return Cache::rememberForever($key, function () use ($id) {
+            return Match::findOrFail($id)->infos();
+        });
+}
+
+/**
+ * Style procédural de la méthode infos() des classes
+ * Retourne une collection contenant toutes les infos sur le match/la journée/etc...
+ *
+ * @param int $id
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+function infos(string $table, int $id)
+{
+    $modele = modelName($table);
+    $key = Str::slug($table) . "-" . $id;
+    if (Cache::has($key))
+        return Cache::get($key);
+    else
+        return Cache::rememberForever($key, function () use ($id, $modele) {
+            return $modele::findOrFail($id)->infos();
         });
 }
 
