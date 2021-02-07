@@ -40,6 +40,11 @@ $entities = [
         "form" => \App\Sharp\VilleSharpForm::class,
         "policy" => \App\Sharp\Policies\VillePolicy::class,
     ],
+    "terrain" => [
+        "list" => \App\Sharp\TerrainSharpList::class,
+        "form" => \App\Sharp\TerrainSharpForm::class,
+        "policy" => \App\Sharp\Policies\TerrainPolicy::class,
+    ],
     "bareme" => [
         "list" => \App\Sharp\BaremeSharpList::class,
         "form" => \App\Sharp\BaremeSharpForm::class,
@@ -172,6 +177,12 @@ $menu[] = [
     "label" => "Sports",
     "icon" => "fa-list",
     "entity" => "sport"
+];
+
+$menu[] = [
+    "label" => "Terrains",
+    "icon" => "fa-list",
+    "entity" => "terrain"
 ];
 
 $menu[] = [

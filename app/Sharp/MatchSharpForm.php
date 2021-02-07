@@ -148,7 +148,7 @@ class MatchSharpForm extends SharpForm
         $terrains = Terrain::orderBy('nom')->get()->map(function($terrain) {
             return [
                 "id" => $terrain->id,
-                "label" => $terrain->nom . '('. $terrain->ville->nom .')'
+                "label" => $terrain->nom . ' ('. $terrain->ville->nom .')'
             ];
         })->all();
 
