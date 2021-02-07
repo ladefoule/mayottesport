@@ -57,12 +57,12 @@ class Journee extends Model
      */
     public function infos()
     {
-        $key = 'journee-' . $this->id;
+        $key = 'journees-' . $this->id;
         if (Cache::has($key))
             return Cache::get($key);
 
         return Cache::rememberForever($key, function () {
-            Log::info('Rechargement du cache : journee-' . $this->id);
+            Log::info('Rechargement du cache : journees-' . $this->id);
 
             $saison = $this->saison;
             $competition = $saison->competition;

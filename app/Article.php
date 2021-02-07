@@ -74,7 +74,7 @@ class Article extends Model
      */
     public function infos()
     {
-        $key = 'article-'.$this->uniqid;
+        $key = 'articles-'.$this->id;
         if (Cache::has($key))
             return Cache::get($key);
 

@@ -142,12 +142,12 @@ class Match extends Model
      */
     public function infos()
     {
-        $key = 'match-'.$this->uniqid;
+        $key = 'matches-'.$this->id;
         if (Cache::has($key))
             return Cache::get($key);
 
         return Cache::rememberForever($key, function (){
-            Log::info('Rechargement du cache : match-' . $this->uniqid);
+            Log::info('Rechargement du cache : matches-' . $this->id);
 
             $infos = collect();
             // On associe d'abord tous les attributs

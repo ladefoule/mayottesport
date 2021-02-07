@@ -58,12 +58,12 @@ class Saison extends Model
      */
     public function infos()
     {
-        $key = 'saison-'.$this->id;
+        $key = 'saisons-'.$this->id;
         if (Cache::has($key))
             return Cache::get($key);
 
         return Cache::rememberForever($key, function (){
-            Log::info('Rechargement du cache : saison-' . $this->id);
+            Log::info('Rechargement du cache : saisons-' . $this->id);
 
             $type = $this->competition->type;
             $collect = collect();
