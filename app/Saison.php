@@ -67,14 +67,18 @@ class Saison extends Model
 
             $type = $this->competition->type;
             $collect = collect();
+            // On associe d'abord tous les attributs
+            foreach ($this->attributes as $key => $value)
+                $collect->$key = $value;
+                
             if($type == 1)
                 if($this->competition->sport->slug == 'volleyball')
-                    $collect['classement'] = $this->classementVolley();
+                    $collect->classement = $this->classementVolley();
                 else
-                    $collect['classement'] = $this->classement();
+                    $collect->classement = $this->classement();
 
-            $collect['derniere_journee_id'] = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first()->id ?? '';
-            $collect['prochaine_journee_id'] = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? '';
+            $collect->derniere_journee_id = $this->journees->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first()->id ?? '';
+            $collect->prochaine_journee_id = $this->journees->where('date', '>=', date('Y-m-d'))->sortBy('date')->first()->id ?? '';
             return $collect;
         });
     }

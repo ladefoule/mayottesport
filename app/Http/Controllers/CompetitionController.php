@@ -45,7 +45,7 @@ class CompetitionController extends Controller
         $saison = $request->derniereSaison;
 
         if($saison && $competition->type == 1) // Type compétition
-            $classement = infos('saisons', $saison->id)['classement'];
+            $classement = infos('saisons', $saison->id)->classement;
 
         
         $articles = $request->articles;
@@ -89,7 +89,7 @@ class CompetitionController extends Controller
             $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
             $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
 
-            $classement = saison($derniereSaison->id)['classement'];
+            $classement = infos('saisons', $derniereSaison->id)->classement;
         }
         return view('competition.classement-' . $sport->slug, [
             'classement' => $classement,
@@ -122,7 +122,7 @@ class CompetitionController extends Controller
         $title = $sport->nom . ' - Classement ' . Str::lower($competition->nom_complet) . ' ' . $annee;
         $h1 = 'Classement ' . Str::lower($competition->nom) . ' ' . $annee;
 
-        $classement = infos('saisons', $saison->id)['classement'];
+        $classement = infos('saisons', $saison->id)->classement;
         return view('competition.classement-' . $sport->slug, [
             'classement' => $classement,
             'title' => $title,
