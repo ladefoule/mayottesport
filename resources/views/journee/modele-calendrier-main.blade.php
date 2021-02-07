@@ -46,14 +46,18 @@
             @if($avecTab)
                 <span class="col-12 text-center font-weight-bold @if($resultat) {{ $resultat }} @else text-body @endif" style="font-size: 0.9rem">tab. {{ $match->tab_eq_dom . '-' . $match->tab_eq_ext }}</span>
             @endif
-            <span class="col-12 text-center text-secondary" style="font-size:0.8rem">{{ date_format(new DateTime($match->date), 'd/m') }}</span>
+            <span class="col-12 text-center text-secondary" style="font-size:0.9rem">{{ date_format(new DateTime($match->date), 'd/m') }}</span>
         @else
             <span class="text-secondary" style="font-size: 1.5rem">{{ date_format(new DateTime($match->date), 'd/m') }}</span>
+
+            {{-- Si on doit afficher la compétition, alors on affiche l'heure si le résultat du match n'est pas saisi --}}
+            @if(isset($afficherCompetition) && $match->heure)
+                <span class="col-12 text-center text-secondary" style="font-size:0.7rem"> {{ $match->heure }} </span>
+            @endif
         @endif
 
-        @if($match->heure)
-            <span class="col-12 text-center text-secondary" style="font-size:0.7rem">{{ $match->heure }}</span>
-        @endif
+        {{-- On affiche soit l'heure soit le nom de la compétition --}}
+        <span class="col-12 text-center text-secondary" style="font-size:0.7rem">@if(isset($afficherCompetition)) {{ $match->competition }} @else {{ $match->heure }} @endif</span>
     </a>
     <div class="col-4 p-0 d-flex flex-wrap justify-content-end align-items-center text-right">
         <div class="equipe-exterieur col-md-9 d-md-inline order-2 order-md-1 px-0 equipe-align-auto">

@@ -5,10 +5,10 @@
 @section('content')
 <div class="p-lg-3 h-100">
     <div class="row d-flex flex-wrap m-0 bg-white shadow-div">
-        <div class="col-12 d-flex px-0 pb-3">
-            <img src="{{ asset('/storage/img/equipe/'. $equipe->uniqid .'.jpg') }}" alt="" class="img-fluid m-auto">
-        </div>
-        <h1 class="h3 text-center col-12 text-body">{{ $equipe->nom }}</h1>
+        {{-- <div class="col-12 d-flex px-0 pb-3">
+            <img src="{{ asset('/storage/img/'. $equipe->photo) }}" alt="{{ $equipe->nom }}" class="img-fluid m-auto">
+        </div> --}}
+        <h1 class="h3 text-center col-12 text-body pt-3">{{ $equipe->nom }}</h1>
         <div class="row col-12 d-flex flex-wrap justify-content-center p-3 m-auto">
             @if ($dernierMatch)
             <div class="col-12 pb-3 m-auto px-0">

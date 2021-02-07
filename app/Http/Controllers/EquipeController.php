@@ -47,6 +47,7 @@ class EquipeController extends Controller
             $prochainMatchRender = view('journee.modele-calendrier-main', [
                 'match' => infos('matches', $prochainMatch->id),
                 'equipeId' => $equipe->id,
+                'afficherCompetition' => true,
                 'i' => 0
             ])->render();
 
@@ -56,6 +57,7 @@ class EquipeController extends Controller
             $dernierMatchRender = view('journee.modele-calendrier-main', [
                 'match' => infos('matches', $dernierMatch->id),
                 'equipeId' => $equipe->id,
+                'afficherCompetition' => true,
                 'i' => 0
             ])->render();
 
