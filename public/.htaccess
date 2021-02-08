@@ -5,6 +5,12 @@
 #PassengerAppType node
 #PassengerStartupFile resources/js/app.js
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+
+# Redirect non-www to www
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^mayottespprt\.com [NC]
+RewriteRule ^(.*)$ http://www.mayottespprt.com/$1 [L,R=301]
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
