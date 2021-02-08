@@ -80,6 +80,7 @@ $(document).ready(function(){
     var saisons = qs('#saison_id')
     var matches = qs('#matches')
     var inputToken = qs('input[name=_token]')
+    var equipeId = "<?php echo $equipe->id ?>"
 
     $('#competition_id').change(function(){
         matches.innerHTML = ''
@@ -90,7 +91,7 @@ $(document).ready(function(){
             url : "<?php echo route('ajax', ['table' => 'saisons']) ?>",
             method : 'POST',
             idSelect : 'saison_id',
-            data : {competition_id:competition_id.value, _token:inputToken.value, avec_journees:true}
+            data : {competition_id:competition_id.value, _token:inputToken.value, avec_journees:true, equipe_id:equipeId}
         }
 
         ajaxSelect(donneesRequeteAjax) // On récupère la liste des saisons

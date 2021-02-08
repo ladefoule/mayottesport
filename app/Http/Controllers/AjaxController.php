@@ -48,10 +48,21 @@ class AjaxController extends Controller
         else 
             $index = $index->sortByDesc($orderby['champ']);
 
+        if(isset($request['equipe_id'])){
+            // On récupère toutes les saisons dans lesquelles l'équipe participe
+            // Ensuite, on ne garde que ces saisons là dans la collection $index
+            $saisons = index('equipe_saison')->where('equipe_id', $request['equipe_id'])->pluck('saison_id')->all();
+            foreach ($index as $id => $instance)
+                if(! in_array($id, $saisons))
+                    $index->pull($id);
+
+        }
+
         foreach ($index as $id => $instance) {
-            // Pour les saisons, on les n'affiche que les saisons avec des journées
+            // On n'affiche que les saisons avec des journées si le paramètre est saisi
             if($table == 'saisons' && isset($request['avec_journees'])){
                 $journees = index('journees')->where('saison_id', $id);
+
                 if(count($journees))
                     $result[] = [
                         'id' => $instance->id,
