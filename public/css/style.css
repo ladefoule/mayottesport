@@ -445,10 +445,6 @@ main .nom-competition{
         font-size: 1rem;
     }
 
-    .fanion-match{
-        width:60px
-    }
-
     /* Page saisie de résultat */
     .bloc-score input{
         width:70px;
