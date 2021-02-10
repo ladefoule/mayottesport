@@ -43,7 +43,7 @@ class Kernel extends ConsoleKernel
         // On arrète les Jobs dans les files d'attente (exécution puis arrêt) et on relance une file d'attente
         // On s'assure ainsi que s'il y a plusieurs processus (queue:work) lancés, tous soient arrêtés. Et on en relance qu'un ensuite.
         $schedule->command('queue:restart')->everyThirtyMinutes();
-        $schedule->command('queue:work database --tries=3')->everyThirtyMinutes();
+        $schedule->command('queue:work database')->everyThirtyMinutes();
 
         // On exécute un dump de la bdd à 02:30
         // $schedule->command('dump:mysql')->dailyAt('02:30');
