@@ -90,7 +90,7 @@
 
         @if($prochaineJourneeRender)
             <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
-                <span class="border-bottom border-success h4 text-center text-success my-3">À venir</span>
+                <span class="border-bottom border-success h4 text-center text-success">À venir</span>
                 <div class="col-12 p-0">
                     {!! $prochaineJourneeRender !!}
                 </div>
@@ -100,7 +100,7 @@
         {{-- L'ACTU --}}
         @if($articles)
             <div class="row col-12 px-2 p-0 mt-0 d-flex justify-content-center flex-wrap">
-                <span class="border-bottom border-secondary h4 text-center text-secondary">L'actualité</span>
+                <span class="border-bottom border-secondary h4 text-center text-secondary my-3">L'actualité</span>
                 <div class="col-12 p-0">
                     {!! $articles !!}
                 </div>
