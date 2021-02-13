@@ -99,7 +99,7 @@
 
         {{-- L'ACTU --}}
         @if($articles)
-            <div class="row col-12 px-2 mb-3">
+            <div class="row col-12 px-2 mb-3 p-0 mt-0 d-flex justify-content-center flex-wrap">
                 <span class="border-bottom border-secondary h4 text-center text-secondary">L'actualité</span>
                 <div class="col-12 p-0">
                     {!! $articles !!}
