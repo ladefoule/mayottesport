@@ -68,7 +68,7 @@ class SuperadminController extends Controller
         Log::info(" -------- Controller Superadmin : imageUploadPost -------- ");
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'nom' => 'required|alpha_dash|min:5|max:50'
+            'nom' => 'required|alpha_dash|min:5|max:100'
         ]);
 
         $imageName = $request->nom . '---' .date('d-m-Y-H-i-s').'.'.$request->image->extension();  

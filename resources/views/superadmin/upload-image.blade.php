@@ -39,7 +39,7 @@
                         <label for="nom" class="col-md-4 col-form-label text-md-right"><span class="text-danger text-weight-bold">*</span> Nom</label>
 
                         <div class="col-md-6">
-                            <input id="nom" type="text" pattern=".{5,50}" class="form-control @error('nom') is-invalid @enderror" name="nom"
+                            <input id="nom" type="text" pattern=".{5,100}" class="form-control @error('nom') is-invalid @enderror" name="nom"
                                 value="{{ old('nom') }}" required autocomplete="nom" autofocus
                                 data-msg="Le <span class='text-danger font-italic'>Nom</span> ne peut contenir que des caractères alphanumériques ainsi que les caractères suivants : '-' et '_'">
 
