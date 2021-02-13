@@ -101,7 +101,7 @@
         @if($articles)
             <div class="row col-12 px-2 p-0 mt-0 d-flex justify-content-center flex-wrap">
                 <span class="border-bottom border-secondary h4 text-center text-secondary my-3">L'actualité</span>
-                <div class="col-12 p-0">
+                <div class="col-12 p-0 d-flex flex-wrap justify-content-start align-items-stretch">
                     {!! $articles !!}
                 </div>
                 <div class="col-12 text-center pb-3">
