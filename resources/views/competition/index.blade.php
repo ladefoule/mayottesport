@@ -1,6 +1,7 @@
 <?php 
     $hrefIndex = request()->hrefIndex;
     $hrefClassement = request()->hrefClassement ?? '';
+    $hrefActualite = request()->hrefActualite ?? '';
 ?>
 
 @extends('layouts.competition')
@@ -97,9 +98,17 @@
         @endif
 
         {{-- L'ACTU --}}
-        <div class="row col-12 px-1 mb-3">
-            {!! $articles !!}
-        </div>
+        @if($articles)
+            <div class="row col-12 px-2 mb-3">
+                <span class="border-bottom border-secondary h4 text-center text-secondary">L'actualité</span>
+                <div class="col-12 p-0">
+                    {!! $articles !!}
+                </div>
+                <div class="col-12 text-center pb-3">
+                    <a class="font-size-1-rem" href="{{ $hrefActualite }}">Toute l'actualité</a>
+                </div>
+            </div>
+        @endif
 
         {{-- PUB --}}
         <div class="col-12 m-auto p-0">
