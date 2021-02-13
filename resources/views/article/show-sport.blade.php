@@ -10,8 +10,8 @@
                 <span class="categorie">{{ $article->categorie }}</span>
                 {{ $article->titre }}
             </h1>
-            <div class="col-11 d-flex m-auto justify-content-center">
-                <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid img_max_80">
+            <div class="col-12 d-flex m-auto justify-content-center">
+                <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid">
             </div>
 
             <!-- Create the editor container -->
