@@ -104,6 +104,12 @@ class ArticleController extends Controller
         if (!$article->valide)
             abort(404);
 
+        $date = $article->created_at;
+        $articleSuivant = index('articles')->where('created_at', '>', $date)->where('fil_actu', '!=', 1)->sortBy('created_at')->first();
+        $articlePrecedent = index('articles')->where('created_at', '<', $date)->where('fil_actu', '!=', 1)->sortByDesc('created_at')->first();
+        $articleSuivant = $articleSuivant ? infos('articles', $articleSuivant->id) : '';
+        $articlePrecedent = $articlePrecedent ? infos('articles', $articlePrecedent->id) : '';
+
         $sport = $request->sport;
         $calendriers = Journee::calendriersPageSport($sport);
 
@@ -116,6 +122,8 @@ class ArticleController extends Controller
             'resultats' => [$sport->nom => $calendriers['resultats']],
             'prochains' => [$sport->nom => $calendriers['prochains']],
             'filActualites' => $filActualites,
+            'articleSuivant' => $articleSuivant,
+            'articlePrecedent' => $articlePrecedent,
         ]);
     }
 

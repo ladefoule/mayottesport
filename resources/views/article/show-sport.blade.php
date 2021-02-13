@@ -28,6 +28,23 @@
                 modifié le {{ $article->modifie_le }}
             </span>
 
+            @if($articleSuivant || $articlePrecedent)
+                <div class="col-12 p-0 d-flex mt-2">
+                    <div class="col-6 d-flex justify-content-start flex-wrap mb-auto">
+                        @if($articlePrecedent)
+                            <span class="col-12 p-0">{!! config('listes.boutons.left') !!} Précédent</span>
+                            <a class="col-12 p-0 pr-3 mb-auto" href="{{ $articlePrecedent->href }}">{{ $articlePrecedent->titre }}</a>
+                        @endif
+                    </div>
+                    <div class="col-6 d-flex justify-content-end flex-wrap text-right mb-auto">
+                        @if($articleSuivant)
+                            <span class="col-12 p-0">Suivant {!! config('listes.boutons.right') !!}</span>
+                            <a class="col-12 p-0 pl-3 mb-auto" href="{{ $articleSuivant->href }}">{{ $articleSuivant->titre }}</a>
+                        @endif
+                    </div>
+                </div>
+            @endif
+
             <div class="col-12 bg-white pt-2">
                 <div id="disqus_thread"></div>
                 <script>
