@@ -43,16 +43,20 @@
 
             @if($articleSuivant || $articlePrecedent)
                 <div class="col-12 p-0 d-flex mt-2">
-                    <div class="col-6 d-flex justify-content-start flex-wrap h-100 pr-2 border-right">
+                    <div class="col-6 d-flex justify-content-start flex-wrap h-100 align-items-start pl-0 pr-2 border-right">
                         @if($articlePrecedent)
-                            <span class="col-12 p-0">{!! config('listes.boutons.left') !!} Précédent</span>
-                            <a class="col-12 p-0 mb-auto" href="{{ $articlePrecedent->href }}">{{ $articlePrecedent->titre }}</a>
+                            <div class="col-12 p-0 d-flex flex-wrap">
+                                <span class="col-12 p-0">{!! config('listes.boutons.left') !!} Précédent</span>
+                                <a class="col-12 p-0 mb-auto" href="{{ $articlePrecedent->href }}">{{ $articlePrecedent->titre }}</a>
+                            </div>
                         @endif
                     </div>
-                    <div class="col-6 d-flex justify-content-end flex-wrap text-right h-100 pl-2">
+                    <div class="col-6 d-flex justify-content-end flex-wrap text-right align-items-start h-100 pl-2 pr-0">
                         @if($articleSuivant)
-                            <span class="col-12 p-0">Suivant {!! config('listes.boutons.right') !!}</span>
-                            <a class="col-12 p-0 mb-auto" href="{{ $articleSuivant->href }}">{{ $articleSuivant->titre }}</a>
+                            <div class="col-12 p-0 d-flex flex-wrap">
+                                <span class="col-12 p-0">Suivant {!! config('listes.boutons.right') !!}</span>
+                                <a class="col-12 p-0 mb-auto" href="{{ $articleSuivant->href }}">{{ $articleSuivant->titre }}</a>
+                            </div>
                         @endif
                     </div>
                 </div>
