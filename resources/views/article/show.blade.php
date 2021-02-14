@@ -46,15 +46,15 @@
 
             @if($articleSuivant || $articlePrecedent)
                 <div class="col-12 p-0 d-flex mt-2">
-                    <div class="col-6 d-flex justify-content-start flex-wrap h-100 mb-auto pr-2 border-right">
+                    <div class="col-6 d-flex justify-content-start flex-wrap h-100 pr-2 border-right">
                         @if($articlePrecedent)
                             <span class="col-12 p-0">{!! config('listes.boutons.left') !!} Précédent</span>
                             <a class="col-12 p-0 mb-auto" href="{{ $articlePrecedent->href }}">{{ $articlePrecedent->titre }}</a>
                         @endif
                     </div>
-                    <div class="col-6 d-flex justify-content-end flex-wrap text-right h-100 mb-auto pl-2">
+                    <div class="col-6 d-flex justify-content-end flex-wrap text-right h-100 pl-2">
                         @if($articleSuivant)
-                            <span class="col-12 p-0">Suivant {!! config('listes.boutons.right') !!}</span>
+                            <span class="col-12 p-0 mb-auto">Suivant {!! config('listes.boutons.right') !!}</span>
                             <a class="col-12 p-0 mb-auto" href="{{ $articleSuivant->href }}">{{ $articleSuivant->titre }}</a>
                         @endif
                     </div>
