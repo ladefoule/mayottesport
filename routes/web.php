@@ -22,6 +22,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes(['verify' => true]);
 
+Route::feeds();
+
 /* MIDDLEWARE AUTH */
 Route::group(['middleware'=> 'verified'], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');

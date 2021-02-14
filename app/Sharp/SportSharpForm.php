@@ -18,7 +18,7 @@ use Code16\Sharp\Form\Fields\SharpFormNumberField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
-class sportsharpForm extends SharpForm
+class SportSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
 

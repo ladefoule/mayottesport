@@ -2,13 +2,15 @@
 
 namespace App;
 
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Article extends Model implements Feedable
 {
     /**
      * Champs autorisés lors de la création
@@ -137,6 +139,24 @@ class Article extends Model
             $articles[$key] = infos('articles', $article->id);
         
         return $articles;
+    }
+
+    public function toFeedItem(): FeedItem
+    {
+        $article = infos('articles', $this->id);
+        return FeedItem::create()
+            ->id($this->id)
+            ->title($this->titre)
+            ->summary($this->preambule)
+            ->updated($this->updated_at)
+            ->link($article->href)
+            ->category($article->categorie)
+            ->author("M. ALI MOUSSA");
+    }
+
+    public static function getFeedItems()
+    {
+        return Article::where('fil_actu', '!=', 1)->orderBy('updated_at', 'desc')->get();
     }
 
     /**

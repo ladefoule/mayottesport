@@ -12,7 +12,7 @@ use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 
-class TerrainsharpForm extends SharpForm
+class TerrainSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
     
