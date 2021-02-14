@@ -106,7 +106,7 @@
     </div>
 
     <!-- FIL ACTU -->
-    <div id="bloc-fil-actu" class="col-12 p-2">
+    <div id="bloc-fil-actu" class="fil-actu col-12 p-2">
         <?php $i=0; ?>
         @foreach ($filActualites as $actu)
             @if($i++ == 5)
