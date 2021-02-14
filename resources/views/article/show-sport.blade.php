@@ -28,6 +28,19 @@
                 modifié le {{ $article->modifie_le }}
             </span>
 
+            {{-- Réseaux sociaux --}}
+            <div class="col-12 p-0 mt-2 px-3 d-flex">
+                <div class="col-12 border-bottom border-top d-flex px-0 flex-wrap py-2">
+                    {{-- Twitter --}}
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-via="mayottesport" data-hashtags="mayottesport" data-lang="fr" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    
+                    {{-- Facebook --}}
+                    <div class="ml-3 fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a>
+                    </div>
+                </div>
+            </div>
+
             @if($articleSuivant || $articlePrecedent)
                 <div class="col-12 p-0 d-flex mt-2">
                     <div class="col-6 d-flex justify-content-start flex-wrap mb-auto">

@@ -3,6 +3,9 @@
 @section('title', $article->titre)
 
 @section('content')
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v9.0" nonce="4xNA2MjG"></script>
+
 <div class="p-lg-3 h-100">
     <div class="row m-0 bg-white h-100 shadow-div">
         <div class="col-12 p-0 d-flex flex-wrap">
@@ -27,6 +30,19 @@
             <span class="col-12 px-3 text-secondary">
                 modifié le {{ $article->modifie_le }}
             </span>
+
+            {{-- Réseaux sociaux --}}
+            <div class="col-12 p-0 mt-2 px-3 d-flex">
+                <div class="col-12 border-bottom border-top d-flex px-0 flex-wrap py-2">
+                    {{-- Twitter --}}
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-via="mayottesport" data-hashtags="mayottesport" data-lang="fr" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    
+                    {{-- Facebook --}}
+                    <div class="ml-3 fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a>
+                    </div>
+                </div>
+            </div>
 
             @if($articleSuivant || $articlePrecedent)
                 <div class="col-12 p-0 d-flex mt-2">
