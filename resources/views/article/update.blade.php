@@ -25,6 +25,11 @@
         </div>
 
         <div class="col-12 pb-3">
+            <label for="img_description">Description de l'image</label>
+            <input id="img_description" type="text" name="img_description" class="form-control input-optionnel" value="{{ old('img_description') ?? $article->img_description }}">
+        </div>
+
+        <div class="col-12 pb-3">
             <label for="preambule">Préambule <span class="text-danger text-weight-bold">*</span></label>
             <textarea id="preambule" name="preambule" class="form-control @error('preambule') is-invalid @enderror">{{ old('preambule') ?? $article->preambule }}</textarea>
         </div>

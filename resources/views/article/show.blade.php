@@ -3,9 +3,6 @@
 @section('title', $article->titre)
 
 @section('head')
-    <meta name="language" content="fr">
-	<meta http-equiv="Content-Language" content="fr">
-	<meta name="robots" content="index, follow">
 	<meta name="description" content="{!! $article->preambule !!}">
 @endsection
 
@@ -22,6 +19,7 @@
             <div class="col-12 d-flex m-auto justify-content-center">
                 <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid">
             </div>
+            <div class="col-12 text-secondary">{{ $article->img_description }}</div>
 
             <!-- Create the editor container -->
             <div class="col-12 pt-3 article">

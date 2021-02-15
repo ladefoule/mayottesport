@@ -17,7 +17,7 @@ class Article extends Model implements Feedable
      *
      * @var array
      */
-    protected $fillable = ['img', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'fil_actu', 'href_fil_actu', 'sport_id', 'competition_id', 'user_id', 'user_update_id', 'slug', 'home_visible', 'home_priorite'];
+    protected $fillable = ['img', 'img_description', 'titre', 'article', 'preambule', 'uniqid', 'valide', 'fil_actu', 'href_fil_actu', 'sport_id', 'competition_id', 'user_id', 'user_update_id', 'slug', 'home_visible', 'home_priorite'];
 
     /**
      * Définition de l'affichage dans le CRUD
@@ -57,6 +57,7 @@ class Article extends Model implements Feedable
             'user_id' => 'required|integer|exists:users,id',
             'user_update_id' => 'nullable|integer|exists:users,id',
             'img' => 'nullable|min:5|max:200',
+            'img_description' => 'nullable|max:200',
             'uniqid' => ['required','string','size:13',$uniqid],
             'valide' => 'nullable|boolean',
             'fil_actu' => 'nullable|boolean',

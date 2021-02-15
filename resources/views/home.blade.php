@@ -3,9 +3,6 @@
 @section('title', "Mayotte Sport : actualités, résultats et classements")
 
 @section('head')
-    <meta name="language" content="fr">
-	<meta http-equiv="Content-Language" content="fr">
-	<meta name="robots" content="index, follow">
 	<meta name="identifier-url" content="https://www.mayottesport.com">
 	<meta name="geo.region" content="YT">
 	<meta name="google-site-verification" content="soJrYiV9rN9l0ETGHzaE7b6ARM1aamr-AkfMl0kJxmo">

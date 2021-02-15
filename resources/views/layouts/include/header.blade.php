@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="language" content="fr">
+	<meta http-equiv="Content-Language" content="fr">
+	<meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php
         // Only connect to this site via HTTPS for the two years (recommended)
