@@ -2,6 +2,13 @@
 
 @section('title', $article->titre)
 
+@section('head')
+    <meta name="language" content="fr">
+	<meta http-equiv="Content-Language" content="fr">
+	<meta name="robots" content="index, follow">
+	<meta name="description" content="{!! $article->preambule !!}">
+@endsection
+
 @section('content')
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v9.0" nonce="4xNA2MjG"></script>
@@ -10,7 +17,6 @@
     <div class="row m-0 bg-white h-100 shadow-div">
         <div class="col-12 p-0 d-flex flex-wrap">
             <h1 class="col-12 titre-page-article py-3">
-                {{-- <span class="categorie">{{ $article->categorie }}</span> --}}
                 {{ $article->titre }}
             </h1>
             <div class="col-12 d-flex m-auto justify-content-center">

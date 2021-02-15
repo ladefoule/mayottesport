@@ -18,14 +18,14 @@
         </div>
     </div>
 
-    @if(request()->sport)
+    {{-- @if(request()->sport)
         <div class="d-lg-none col-12 p-3 bg-white">
             <h1 class="h4 text-center m-auto">{{ request()->sport->nom }} - Résultats et actualités</h1>
         </div>
-    @endif
+    @endif --}}
 
     {{-- avec onglets --}}
-    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center @if(! request()->sport) pt-3 @endif pb-3 px-3 bg-white">
+    <div id="onglets-content" class="col-12 d-lg-none d-flex text-center py-3 px-3 bg-white">
         <span data-cible="a-la-une-content"
             class="text-decoration-none d-block col-4 p-3 border btn btn-secondary onglet @if($articles) active @endif">À la une</span>
         <span data-cible="fil-actu-content"

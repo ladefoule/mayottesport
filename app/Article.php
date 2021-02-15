@@ -106,7 +106,7 @@ class Article extends Model implements Feedable
                 'date_fil_actu' => $this->created_at->format('d/m'),
                 'heure_fil_actu' => $this->created_at->format('H:i'),
                 'categorie' => $categorie,
-                // 'src_img' => ($this->img) ? asset('/storage/img/' . $this->img) : '' // Todo : Image par défaut !?
+                // 'auteur' => $this->user->name . ' ' . Str::ucfirst($this->user->first_name)[0] ?? '',
             ];
 
             // Ensuite on associe les infos supplémentaires
@@ -141,6 +141,11 @@ class Article extends Model implements Feedable
         return $articles;
     }
 
+    /**
+     * Transformation de l'article en objet FeedItem pour les
+     *
+     * @return FeedItem
+     */
     public function toFeedItem(): FeedItem
     {
         $article = infos('articles', $this->id);
@@ -154,6 +159,11 @@ class Article extends Model implements Feedable
             ->author("M. ALI MOUSSA");
     }
 
+    /**
+     * Liste des articles visibles dans le flux RSS
+     *
+     * @return Collection
+     */
     public static function getFeedItems()
     {
         return Article::where('fil_actu', '!=', 1)->orderBy('updated_at', 'desc')->get();

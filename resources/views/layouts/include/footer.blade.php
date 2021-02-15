@@ -11,7 +11,7 @@
             @foreach ($sports as $sport)
                 <div class="col-6 col-md-4 col-lg-2 p-0">
                     <a class="h4 pt-3 pb-0 text-white justify-content-center d-flex align-items-center" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
-                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
+                        <img class="img-fluid mr-2" alt="Ballon de {{ $sport->nom }}" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
                         {{ $sport->nom }}
                     </a>
                     <ul class="list-unstyled">

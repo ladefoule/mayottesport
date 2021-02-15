@@ -22,12 +22,12 @@
                     <img class="card-img-top object-fit-cover" height="250" src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}">
                 </a>
                 <div class="card-body pb-0">
-                    <h4 class="card-title">
+                    <h2 class="h4 card-title">
                         <a class="titre-article" href="{{ $article->href }}">
                             <span class="categorie">{{ $article->categorie }}</span>
                             {{ $article->titre }}
                         </a>
-                    </h4>
+                    </h2>
                     <p class="text-secondary">Publié le {{ $article->publie_le }}</p>
                 </div>
             </div>

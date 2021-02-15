@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', "L'actualité sportive de Mayotte (976)")
+@section('title', "Mayotte Sport : actualités, résultats et classements")
 
 @section('head')
     <meta name="language" content="fr">
@@ -12,22 +12,10 @@
 	<meta name="geo.placename" content="Mzouazia">
 	<meta name="geo.position" content="-12.9260444; 45.1038634">
 	<meta name="icbm" content="-12.9260444, 45.1038634">
-	<meta name="author" content="Moussa ALI MOUSSA (Web Solutions)">
+	<meta name="author" content="M. ALI MOUSSA (Web Solutions)">
 	<meta name="description" content="Présente toute l'actualité du sport à Mayotte avec calendriers, résultats et classements des principaux championnats et compétitions de l'île au lagon.">
-	<meta name="keywords" content="mayotte, sport, football, volley-ball, actualité, basketball, handball, résultat, classement, maoré, mahorais, mzouasia, mzouazia, jumeaux, as jumelles, jvm, jeunes volleyeurs mzouasia, dht, dh, ph nord, ph sud, régionale 1, régionale 2, régionale 3, 976, ">
+	<meta name="keywords" content="mayotte, sport, mayottesport, football, foot, volley-ball, volley, actualité, actu, basketball, basket, handball, hand, résultat, classement, calendrier, maoré, mahorais, ile, 976, news, mzouasia, mzouazia,">
 @endsection
-
-{{-- 
-@section('content')
-    <div class="container justify-content-center bg-white mt-4 border border-danger m-auto h-100 w-100">
-        <div class="col-12 text-center p-3 d-none">
-            <h1 class="h4">MayotteSport.com : l'actualité sportive de Mayotte</h1>
-        </div>
-    </div>
-@endsection
-
-@section('section-droite')
-<div> --}}
 
 @include('onglet.section-main-home-et-sport')
 @include('onglet.section-droite-home-et-sport')

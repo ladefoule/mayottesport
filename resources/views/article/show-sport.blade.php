@@ -2,6 +2,13 @@
 
 @section('title', $article->titre)
 
+@section('head')
+    <meta name="language" content="fr">
+	<meta http-equiv="Content-Language" content="fr">
+	<meta name="robots" content="index, follow">
+	<meta name="description" content="{!! $article->preambule !!}">
+@endsection
+
 @section('content')
 <div class="p-lg-3 h-100">
     <div class="row m-0 bg-white h-100 shadow-div">
