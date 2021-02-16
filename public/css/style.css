@@ -505,9 +505,9 @@ main .nom-competition{
                 border-bottom: 1px green solid;
              }
 
-            #section-droite .fanion-calendrier img{
+            /* #section-droite .fanion-calendrier img{
                 display:none
-            }
+            } */
 
             #section-droite .calendrier .equipe-exterieur{
                 width: 100%;
@@ -585,10 +585,10 @@ main .nom-competition{
                     font-size: 1em;
                 }
 
-                #section-droite .fanion-calendrier img{
+                /* #section-droite .fanion-calendrier img{
                     display:block;
                     width:22px
-                }
+                } */
 
                 .bloc-match .equipe-domicile{
                     text-align: left;

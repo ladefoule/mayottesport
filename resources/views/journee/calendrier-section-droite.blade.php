@@ -19,12 +19,7 @@
         <a href="{{ $match->url }}" class="text-decoration-none text-body match-calendrier">
             <div class="row d-flex flex-nowrap py-2 border-bottom @if($i==0) border-top @endif">
                 <div class="bloc-dom p-0 d-flex justify-content-between align-items-center @if($equipeDomVainqueur) font-weight-bold @endif">
-                    <div class="fanion-calendrier pr-xl-1">
-                        <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}">
-                    </div>
-                    <div class="equipe-domicile">
-                        {{ $match->equipe_dom->nom }}
-                    </div>
+                    {{ $match->equipe_dom->nom }}
                 </div>
                 <div class="bloc-sc d-flex flex-wrap justify-content-center align-items-center p-0">
                     <span class="col-12 p-0 text-center score">{!! $match->score !!} @if($avecProlongations) ap. @endif</span>
