@@ -19,11 +19,11 @@
     </div>
 
     {{-- Le H1 pour la page d'accueil --}}
-    {{-- @if(! request()->sport)
+    @if(! request()->sport)
     <div class="d-none">
         <h1>Suivez toute l'actualité sportive de Mayotte</h1>
     </div>
-    @endif --}}
+    @endif
 
     {{-- avec onglets --}}
     <div id="onglets-content" class="col-12 d-lg-none d-flex text-center py-3 px-3 bg-white">
