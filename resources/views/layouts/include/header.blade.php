@@ -22,7 +22,7 @@
         header("X-Content-Type-Options: nosniff");
 
         # Compression avec gzip
-        header("Accept-Encoding: *");
+        // header("Accept-Encoding: *");
     ?> 
 
     @yield('head')
