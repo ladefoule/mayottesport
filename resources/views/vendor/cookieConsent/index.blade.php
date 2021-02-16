@@ -9,7 +9,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="cookiesConsentLabel">Consentement à l'utilisation des cookies</h5>
+                    <span class="modal-title" id="cookiesConsentLabel">Consentement à l'utilisation des cookies</span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

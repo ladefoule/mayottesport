@@ -88,34 +88,10 @@
         $('.non-cliquable').on('click', function(e) {
             e.preventDefault()
         })
-
-        // Si le bouton d'activation du modal comporte un data-sport, alors on affiche (ouvre) le menu du sport associé
-        // $('#navbarModal').on('show.bs.modal', function (event) {
-        //     var button = $(event.relatedTarget) // Button that triggered the modal
-        //     var sport = button.data('sport') // Extract info from data-* attributes
-
-            // let menu = qs('.dropdown.'+sport+' .dropdown-menu')
-            // let menu = $('.dropdown.'+sport+' .dropdown-menu')
-            // let menu = $('.dropdown.'+sport)
-            // cl(menu)
-            // if(menu){
-                // menu.classList.add('show')
-                // menu.dropdown('show')
-                // menu.click()
-                // $('.dropdown-toggle').dropdown();
-            // }
-        // })
-
-        // En refermant le modal, on referme tous les menus ouverts
-        // $('#navbarModal').on('hide.bs.modal', function (e) {
-        //     let menus = qsa('.dropdown .dropdown-menu.show')
-        //     menus.forEach(menu => {
-        //         menu.classList.remove('show')
-        //     });
-        // })
     })
 </script>
 @yield('script')
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0HRBTP8PC"></script>
 <script>
@@ -126,5 +102,4 @@
 </script>
 
 <script data-ad-client="ca-pub-6802785230681286" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-{{-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> --}}
 @include('cookieConsent::index')

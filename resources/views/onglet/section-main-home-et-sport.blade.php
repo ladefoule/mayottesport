@@ -18,11 +18,12 @@
         </div>
     </div>
 
-    {{-- @if(request()->sport)
-        <div class="d-lg-none col-12 p-3 bg-white">
-            <h1 class="h4 text-center m-auto">{{ request()->sport->nom }} - Résultats et actualités</h1>
-        </div>
-    @endif --}}
+    {{-- Le H1 pour la page d'accueil --}}
+    @if(! request()->sport)
+    <div class="d-none">
+        <h1>Suivez toute l'actualité sportive de Mayotte</h1>
+    </div>
+    @endif
 
     {{-- avec onglets --}}
     <div id="onglets-content" class="col-12 d-lg-none d-flex text-center py-3 px-3 bg-white">

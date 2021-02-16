@@ -1,12 +1,12 @@
 @foreach ($articles as $i => $article)
     @if ($i == 0 && (! isset($affichage) || $affichage != 'card'))
         <div class="col-12 d-flex flex-wrap p-0 border-bottom mb-3">
-            <h1 class="col-12 titre-premier-article p-0">
+            <h2 class="col-12 titre-premier-article p-0">
                 <a href="{{ $article->href }}">
                     <span class="categorie">{{ $article->categorie }}</span>
                     {{ $article->titre }}
                 </a>
-            </h1>
+            </h2>
             <div class="col-md-10 mx-auto my-3 p-0 text-center">
                 <a href="{{ $article->href }}"><img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid"></a>
             </div>

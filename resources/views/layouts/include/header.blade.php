@@ -20,11 +20,14 @@
 
         # Prevent browsers from incorrectly detecting non-scripts as scripts
         header("X-Content-Type-Options: nosniff");
+
+        # Compression avec gzip
+        header("Accept-Encoding: *");
     ?> 
 
     @yield('head')
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/storage/img/icons/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
-    <link rel="stylesheet" href="{{ asset('/css/style.css?t=' . now()) }}">{{-- A ENLEVER EN PRODUCTION --}}
+    <link rel="stylesheet" href="{{ asset('/css/style.css' }}">
     <title>@yield('title') | mayottesport.com</title>
 </head>
