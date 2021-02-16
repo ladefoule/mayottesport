@@ -483,6 +483,10 @@ main .nom-competition{
                 font-size: 95%;
             }
 
+            #section-droite .calendrier{
+                font-size: 0.95rem;
+            }
+
             #section-droite .match-calendrier .bloc-dom, #section-droite .match-calendrier .bloc-ext{
                 width:37.5%
             }
@@ -503,26 +507,6 @@ main .nom-competition{
 
             .border-bottom-sport{
                 border-bottom: 1px green solid;
-             }
-
-            /* #section-droite .fanion-calendrier img{
-                display:none
-            } */
-
-            #section-droite .calendrier .equipe-exterieur{
-                width: 100%;
-                font-size: 0.9rem;
-                text-align: right;
-            }
-
-            #section-droite .calendrier .equipe-domicile{
-                width: 100%;
-                font-size: 0.9rem;
-                text-align: left;
-            }
-
-            #section-droite .calendrier{
-                font-size: 0.9rem;
             }
 
             #section-droite .nom-sport{
@@ -581,14 +565,13 @@ main .nom-competition{
                     font-size: 100%;
                 } */
 
+                #section-droite .calendrier{
+                    font-size: 1rem;
+                }
+
                 #section-droite .score{
                     font-size: 1em;
                 }
-
-                /* #section-droite .fanion-calendrier img{
-                    display:block;
-                    width:22px
-                } */
 
                 .bloc-match .equipe-domicile{
                     text-align: left;
@@ -605,24 +588,6 @@ main .nom-competition{
                  .bloc-equipe-dom, .bloc-equipe-ext{
                     font-size:1.3rem;
                 }
-
-                /* #section-droite .calendrier{
-                    font-size: 0.85rem;
-                } */
-
-                /* #section-droite .calendrier,#section-droite .onglet,#section-droite .calendrier .equipe-exterieur,#section-droite .calendrier .equipe-domicile{
-                    font-size:1rem
-                } */
-
-                /* #section-droite .calendrier .equipe-exterieur{
-                    width: auto;
-                    text-align: left;
-                }
-    
-                #section-droite .calendrier .equipe-domicile{
-                    width: auto;
-                    text-align: right;
-                } */
             }
         }
     }
