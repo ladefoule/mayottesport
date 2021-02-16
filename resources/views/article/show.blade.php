@@ -3,7 +3,7 @@
 @section('title', $article->titre)
 
 @section('head')
-	<meta name="description" content="{!! $article->preambule !!}">
+	<meta name="description" content="{{ $article->preambule }}">
 @endsection
 
 @section('content')
