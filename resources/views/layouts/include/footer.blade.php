@@ -18,16 +18,17 @@
                         <?php 
                             $competitionsNavbar = index('competition_sport')
                                 ->where('sport_id', $sport->id)
-                                ->sortBy('position');
+                                ->sortBy('position')
+                                ->slice(0, 5);
 
                         ?>
-                        @foreach ($competitionsNavbar->slice(0, 5) as $competition)
+                        @foreach ($competitionsNavbar as $competition)
                             <li>
                                 <a class="text-light footer-link"
                                     href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug_complet]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
-                        @if(count($competitionsNavbar) > 5)
+                        @if(count($competitions->where('sport_id', $sport->id)) > count($competitionsNavbar))
                             <li>
                                 <a class="btn btn-link text-center" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
                             </li>
