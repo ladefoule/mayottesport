@@ -7,7 +7,7 @@
                     {{ $article->titre }}
                 </a>
             </h2>
-            <div class="col-md-10 mx-auto my-3 p-0 text-center">
+            <div class="col-12 mx-auto my-3 p-0 text-center">
                 <a href="{{ $article->href }}"><img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid"></a>
             </div>
             <div class="col-12 border-0 p-0 font-weight-bold" style="font-size: 1rem">
