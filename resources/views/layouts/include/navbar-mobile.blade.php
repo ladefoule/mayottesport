@@ -22,7 +22,7 @@
                             @if (count($competitionsLiees->all()) > 0)
                                 <li id="modal-li-{{ $sport->slug }}" class="{{ $sport->slug }} nav-item dropdown border-bottom px-3">
                                     <span class="nav-link nav-link-categorie text-body d-flex align-items-center dropdown-toggle @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" id="navbarDropdownMenuLink{{ $sport->nom }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
+                                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" alt="Ballon de {{ $sport->nom }}" width="18" height="18">
                                         {{ $sport->nom }}
                                     </span>
                                     <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->nom }}">
@@ -37,7 +37,7 @@
                             @else
                                 <li class="nav-item border-bottom px-3">
                                     <a class="nav-link text-body d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active text-green font-weight-bold @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
-                                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
+                                        <img class="img-fluid mr-2" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" alt="Ballon de {{ $sport->nom }}" width="18" height="18">
                                         {{ $sport->nom }}
                                     </a>
                                 </li>

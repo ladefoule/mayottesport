@@ -29,5 +29,5 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/storage/img/icons/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
-    <title>@yield('title') | mayottesport.com</title>
+    <title>@yield('title')</title>
 </head>
