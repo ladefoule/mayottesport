@@ -33,7 +33,8 @@
                 </category>
                 @endif
             @endforeach
-            <updated>{{ $item->updated->toRssString() }}</updated>
+            <updated>{{ $item->updated->format('d/m/Y H:i:s') }}</updated>
+            {{-- <updated>{{ $item->updated->toRssString() }}</updated> --}}
         </entry>
     @endforeach
 </feed>
