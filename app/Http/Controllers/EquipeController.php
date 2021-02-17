@@ -11,6 +11,7 @@ use App\Equipe;
 use App\Saison;
 use App\Article;
 use App\Journee;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -101,7 +102,7 @@ class EquipeController extends Controller
         $calendriers = Journee::calendriersPageSport($sport);
         $filActualites = Article::filActu($sport);
 
-        $title = $equipe->nom_complet . ' - ' . $sport->nom;
+        $title = $equipe->nom_complet . ' - Equipe de ' . Str::lower($sport->nom) . ' - Mayotte Sport';
         return view('equipe.index', [
             'equipe' => $equipe,
             'title' => $title,

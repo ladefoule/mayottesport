@@ -6,7 +6,7 @@
 
 @extends('layouts.competition')
 
-@section('title', $sport->nom . ' - ' . $competition->nom_complet)
+@section('title', $sport->nom . ' - ' . $competition->nom_complet . ' - Mayotte Sport')
 
 @section('content')
 <div class="p-lg-3">
