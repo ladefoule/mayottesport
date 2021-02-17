@@ -125,7 +125,7 @@
                     </div>
 
                     <div class="col-12 pb-2 px-2">
-                        @include('pub.google-display-responsive')
+                        @include('pub.google-display-fixe-vertical')
                     </div>
                 </div>
             </section>
