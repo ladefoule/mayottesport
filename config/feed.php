@@ -16,7 +16,7 @@ return [
             /*
              * The feed will be available on this url.
              */
-            'url' => 'feed',
+            'url' => 'rss.xml',
 
             'title' => 'Le flux RSS de Mayotte Sport',
             'description' => 'Retrouvez les dernières news et actualités publiées sur notre site mayottesport.com',
@@ -25,12 +25,12 @@ return [
             /*
              * The view that will render the feed.
              */
-            'view' => 'feed::atom',
+            'view' => 'feed::rss',
 
             /*
              * The type to be used in the <link> tag
              */
-            'type' => 'application/atom+xml',
+            'type' => 'application/rss+xml',
         ],
     ],
 ];
