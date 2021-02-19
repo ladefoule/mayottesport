@@ -26,9 +26,9 @@
     ?> 
 
     @yield('head')
-    <link rel="preload" href="{{ asset('fonts/fontello.woff2?a3e380081dca24519e40c6ba449af748') }}" as="font" type="font/woff2" crossorigin="anonymous">
+    {{-- <link rel="preload" href="{{ asset('fonts/fontello.woff2?a3e380081dca24519e40c6ba449af748') }}" as="font" type="font/woff2" crossorigin="anonymous"> --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/storage/img/icons/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
-    <link rel="stylesheet" href="{{ asset('/css/style.css?id='.now()) }}">
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <title>@yield('title')</title>
 </head>
