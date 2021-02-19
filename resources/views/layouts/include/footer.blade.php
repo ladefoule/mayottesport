@@ -30,7 +30,7 @@
                         @endforeach
                         @if(count($competitions->where('sport_id', $sport->id)) > count($competitionsNavbar))
                             <li class="pb-1 pb-sm-0">
-                                <a class="text-primary text-center" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
+                                <a class="text-primary text-center" {{-- type="button" --}} data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
                             </li>
                         @endif
                     </ul>
