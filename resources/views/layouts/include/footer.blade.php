@@ -23,14 +23,14 @@
 
                         ?>
                         @foreach ($competitionsNavbar as $competition)
-                            <li>
+                            <li class="pb-1">
                                 <a class="text-light footer-link"
                                     href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug_complet]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
                         @if(count($competitions->where('sport_id', $sport->id)) > count($competitionsNavbar))
-                            <li>
-                                <a class="btn btn-link text-center" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
+                            <li class="pb-1">
+                                <a class="text-primary text-center" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
                             </li>
                         @endif
                     </ul>
@@ -41,10 +41,10 @@
                     {!! config('listes.boutons.home') !!} Accueil
                 </a>
                 <ul class="list-unstyled">
-                    <li>
+                    <li class="pb-1">
                         <a class="footer-link text-light" href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
-                    <li>
+                    <li class="pb-1">
                         <a class="footer-link text-light" href="{{ route('politique') }}">Notre politique des cookies</a>
                     </li>
                 </ul>

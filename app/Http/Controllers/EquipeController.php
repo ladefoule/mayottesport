@@ -45,7 +45,7 @@ class EquipeController extends Controller
         // On recherche le prochain match de l'équipe toute compétition confondue
         $prochainMatch = $matches->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
         if($prochainMatch)
-            $prochainMatchRender = view('journee.modele-calendrier-main', [
+            $prochainMatchRender = view('journee.calendrier-modele-complet', [
                 'match' => infos('matches', $prochainMatch->id),
                 'equipeId' => $equipe->id,
                 'afficherCompetition' => true,
@@ -55,7 +55,7 @@ class EquipeController extends Controller
         // On recherche le dernier match de l'équipe toute compétition confondue
         $dernierMatch = $matches->where('date', '<', date('Y-m-d'))->sortByDesc('date')->first();
         if($dernierMatch)
-            $dernierMatchRender = view('journee.modele-calendrier-main', [
+            $dernierMatchRender = view('journee.calendrier-modele-complet', [
                 'match' => infos('matches', $dernierMatch->id),
                 'equipeId' => $equipe->id,
                 'afficherCompetition' => true,

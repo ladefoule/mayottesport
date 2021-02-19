@@ -4,6 +4,6 @@
     </p>
 
     @foreach ($matches as $match)
-        @include('journee.modele-calendrier-main', ['match' => infos('matches', $match->id)])
+        @include('journee.calendrier-modele-complet', ['match' => infos('matches', $match->id)])
     @endforeach
 </div>

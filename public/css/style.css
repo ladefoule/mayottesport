@@ -116,10 +116,6 @@ a:hover{
     color:green !important
 }
 
-.calendrier{
-    font-size: 0.9rem;
-}
-
 main .nom-sport{
     font-size: 1.2rem;
 }
@@ -149,6 +145,10 @@ main .nom-sport{
 .titre-premier-article{
     font-size: 20px;
     line-height: 22px;
+}
+
+.calendrier{
+    font-size: 1rem;
 }
 
 .calendrier .equipe-exterieur{
@@ -441,10 +441,6 @@ main .nom-competition{
         font-size: 1.4rem;
     }
 
-    .calendrier{
-        font-size: 1rem;
-    }
-
     /* Page saisie de résultat */
     .bloc-score input{
         width:70px;
@@ -481,10 +477,6 @@ main .nom-competition{
         @media (min-width: 992px) {
             html{
                 font-size: 95%;
-            }
-
-            #section-droite .calendrier{
-                font-size: 0.95rem;
             }
 
             #section-droite .match-calendrier .bloc-dom, #section-droite .match-calendrier .bloc-ext{
@@ -564,10 +556,6 @@ main .nom-competition{
                 /* html{
                     font-size: 100%;
                 } */
-
-                #section-droite .calendrier{
-                    font-size: 1rem;
-                }
 
                 #section-droite .score{
                     font-size: 1em;

@@ -89,7 +89,7 @@ class Journee extends Model
             else
                 $typeJournee = niemeJournee($this->numero);
 
-            $journee->render_section_droite = view('journee.calendrier-section-droite', [
+            $journee->render_section_droite = view('journee.calendrier-modele-simple', [
                 'matches' => $journee->matches,
                 'journee' => $typeJournee,
                 'date' => $dateJournee,
