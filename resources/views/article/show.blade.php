@@ -16,7 +16,7 @@
             <h1 class="col-12 titre-page-article py-3">
                 {{ $article->titre }}
             </h1>
-            <div class="col-12 d-flex m-auto justify-content-center">
+            <div class="row d-flex m-auto justify-content-center">
                 <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid">
             </div>
             <div class="col-12 text-secondary">{{ $article->img_description }}</div>
