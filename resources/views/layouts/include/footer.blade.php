@@ -4,7 +4,7 @@
 ?>
 
 <!-- Footer -->
-<footer class="col-12 footer font-small indigo text-white h-auto bg-dark mt-auto">
+<footer class="col-12 footer {{-- font-small --}} indigo text-white h-auto bg-dark mt-auto">
     <!-- Footer Links -->
     <div class="container text-center text-md-left p-0">
         <div class="row d-flex text-center">
@@ -23,13 +23,13 @@
 
                         ?>
                         @foreach ($competitionsNavbar as $competition)
-                            <li class="pb-1">
+                            <li class="pb-1 pb-sm-0">
                                 <a class="text-light footer-link"
                                     href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug_complet]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
                         @if(count($competitions->where('sport_id', $sport->id)) > count($competitionsNavbar))
-                            <li class="pb-1">
+                            <li class="pb-1 pb-sm-0">
                                 <a class="text-primary text-center" type="button" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
                             </li>
                         @endif
@@ -41,10 +41,10 @@
                     {!! config('listes.boutons.home') !!} Accueil
                 </a>
                 <ul class="list-unstyled">
-                    <li class="pb-1">
+                    <li class="pb-1 pb-sm-0">
                         <a class="footer-link text-light" href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
-                    <li class="pb-1">
+                    <li class="pb-1 pb-sm-0">
                         <a class="footer-link text-light" href="{{ route('politique') }}">Notre politique des cookies</a>
                     </li>
                 </ul>
