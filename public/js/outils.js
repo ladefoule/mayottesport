@@ -368,13 +368,13 @@ function tinymceFunc(selector, urlImages) {
                         title: 'None',
                         value: ''
                     },
-                    {
-                        title: 'Max width 80',
-                        value: 'img_max_width_80'
-                    },
+                    // {
+                    //     title: 'Max width 80',
+                    //     value: 'img_max_width_80'
+                    // },
                     {
                         title: 'Image fluid',
-                        value: 'w-100 h-auto'
+                        value: 'row w-100 h-auto'
                     },
                 ]
             });
