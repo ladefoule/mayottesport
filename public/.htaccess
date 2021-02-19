@@ -48,7 +48,7 @@ RewriteRule ^(.*)$ https://www.mayottesport.com/$1 [L,R=301]
 	ExpiresByType application/javascript 	"access plus 1 week"
 	ExpiresByType application/x-javascript 	"access plus 1 week"
 
-    <filesMatch "^app.(js|css)$"> 
+    <filesMatch "app\.(js|css)$"> 
         ExpiresDefault "access plus 1 year"
     </filesMatch>
 </IfModule>
