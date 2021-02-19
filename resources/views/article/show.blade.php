@@ -19,7 +19,7 @@
             <div class="row d-flex m-auto justify-content-center">
                 <img src="{{ $article->img }}" alt="{{ $article->titre }}" title="{{ $article->titre }}" class="img-fluid">
             </div>
-            <div class="col-12 text-secondary">{{ $article->img_description }}</div>
+            <div class="col-12 text-secondary pt-2">{{ $article->img_description }}</div>
 
             <!-- Create the editor container -->
             <div class="col-12 pt-3 article">
