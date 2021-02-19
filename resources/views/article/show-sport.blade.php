@@ -14,7 +14,7 @@
                 <span class="categorie">{{ $article->categorie }}</span>
                 {{ $article->titre }}
             </h1>
-            <div class="col-12 px-0 px-lg-3 d-flex m-auto justify-content-center">
+            <div class="col-12 px-0 px-lg-3 text-center">
                 <img src="{{ $article->img }}" alt="{{ $article->img_description ?? $article->titre }}" title="{{ $article->img_description ?? $article->titre }}" class="img-fluid h-auto">
             </div>
             <div class="col-12 text-secondary pt-2">{{ $article->img_description }}</div>
