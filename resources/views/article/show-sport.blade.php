@@ -7,6 +7,9 @@
 @endsection
 
 @section('content')
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v9.0" nonce="4xNA2MjG"></script>
+
 <div class="p-lg-3 h-100">
     <div class="row m-0 bg-white h-100 shadow-div">
         <div class="col-12 p-0 d-flex flex-wrap">
