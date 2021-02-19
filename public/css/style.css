@@ -355,7 +355,8 @@ a.non-cliquable, a.non-cliquable:hover{
 }
 
 .fanion-match{
-    width:50px
+    width:60px;
+    height:60px;
 }
 
 .crud-titre{
