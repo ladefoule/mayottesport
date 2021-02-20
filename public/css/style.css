@@ -338,14 +338,9 @@ a.non-cliquable, a.non-cliquable:hover{
     width:40px
 }
 
-.fanion-page-calendrier-complet{
+.fanion-match, .fanion-page-calendrier-complet{
     width:40px;
     height:40px;
-}
-
-.fanion-match{
-    width:60px;
-    height:60px;
 }
 
 .equipe-align-auto{
@@ -458,7 +453,12 @@ main .nom-competition{
             html{
                 font-size: 95%;
             }
-
+            
+            .fanion-match{
+                width:60px;
+                height:60px;
+            }
+            
             #section-droite .match-calendrier .bloc-dom, #section-droite .match-calendrier .bloc-ext{
                 width:37.5%
             }
