@@ -375,6 +375,7 @@ a.non-cliquable, a.non-cliquable:hover{
 
 .equipe-exterieur, .equipe-domicile{
     text-align: center;
+    font-size:0.9rem
 }
 
 .onglet{
@@ -447,10 +448,12 @@ main .nom-competition{
 
         .equipe-domicile{
             text-align: left;
+            font-size:1rem
         }
     
         .equipe-exterieur{
             text-align: right;
+            font-size:1rem
         }    
 
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
