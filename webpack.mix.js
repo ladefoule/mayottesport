@@ -11,12 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js(
-        [
-            // 'public/js/outils.js',
-            'resources/js/app.js'
-        ], 'public/js/app.js'
-    )
+mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css').version();
 
 mix.copy('node_modules/select2/dist/js/select2.js', 'public/node_modules/select2/select2.js');
@@ -29,3 +24,6 @@ mix.copy('node_modules/tinymce/jquery.tinymce.js', 'public/node_modules/tinymce/
 mix.copy('node_modules/tinymce/jquery.tinymce.min.js', 'public/node_modules/tinymce/jquery.tinymce.min.js');
 mix.copy('node_modules/tinymce/tinymce.js', 'public/node_modules/tinymce/tinymce.js');
 mix.copy('node_modules/tinymce/tinymce.min.js', 'public/node_modules/tinymce/tinymce.min.js');
+
+mix.minify('public/js/outils.js');
+mix.combine(['public/js/app.js', 'public/js/outils.js'], 'public/js/app.js');
