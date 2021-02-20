@@ -11,7 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js(
+        [
+            'public/js/outils.js',
+            'resources/js/app.js'
+        ], 'public/js/app.js'
+    )
    .sass('resources/sass/app.scss', 'public/css').version();
 
 mix.copy('node_modules/select2/dist/js/select2.js', 'public/node_modules/select2/select2.js');

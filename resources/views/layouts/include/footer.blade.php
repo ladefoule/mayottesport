@@ -77,7 +77,7 @@
 <!-- Footer -->
 
 <script src="{{ asset(mix('js/app.js')) }}"></script>
-<script src="{{ asset('/js/outils.js') }}"></script>
+{{-- <script src="{{ asset('/js/outils.js') }}"></script> --}}
 <script>
     $(document).ready(function() {
         // Centrage du lien actif dans le menu déroulant
