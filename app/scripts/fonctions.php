@@ -132,7 +132,7 @@ function fanion($equipeUniqid)
 {
     $fanion = $equipeUniqid;
     $path = "/storage/img/fanion/";
-    $extensions = ['webp', 'png', 'jpg', 'jpeg'];
+    $extensions = ['jpg', 'png'];
 
     foreach ($extensions as $extension) {
         $exists = Storage::disk('public')->exists('img/fanion/' . $fanion . '.' . $extension);
