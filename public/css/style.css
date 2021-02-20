@@ -345,6 +345,9 @@ a.non-cliquable, a.non-cliquable:hover{
 .fanion-match, .fanion-page-calendrier-complet{
     width:40px;
     height:40px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .equipe-align-auto{

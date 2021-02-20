@@ -9,8 +9,8 @@
             <div class="row m-auto w-40 d-flex justify-content-between align-items-center bloc-equipe-dom p-1 mb-5">
                 <div class="col-md-4 col-lg-12 col-xl-4 py-2 px-0 d-flex justify-content-center align-items-center">
                     <a href="{{ $match->href_equipe_dom }}">
-                        <div class="d-flex justify-content-center p-0 fanion-match">
-                            <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="img-fluid">
+                        <div class="fanion-match border" style="background-image: url('{{ $match->fanion_equipe_dom }}')">
+                            {{-- <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="img-fluid fanion-match"> --}}
                         </div>
                     </a>
                 </div>
@@ -30,8 +30,8 @@
                 </div>
                 <div class="col-md-4 col-lg-12 col-xl-4 order-1 order-md-2 order-lg-1 order-xl-2 py-2 px-0 d-flex justify-content-center align-items-center">
                     <a href="{{ $match->href_equipe_ext }}">
-                        <div class="d-flex justify-content-center p-0 fanion-match">
-                            <img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="img-fluid">
+                        <div class="fanion-match border" style="background-image: url('{{ $match->fanion_equipe_ext }}')">
+                            {{-- <img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="img-fluid fanion-match"> --}}
                         </div>
                     </a>
                 </div>

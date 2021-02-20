@@ -31,8 +31,8 @@
     <div class="col-4 p-0 d-flex flex-wrap justify-content-start text-left align-items-center">
         <div class="col-md-3 d-flex p-0 justify-content-center align-items-center logo-align-auto">
             <a href="{{ $match->href_equipe_dom }}" class="pb-1">
-                <div class="d-flex justify-content-center p-0 fanion-page-calendrier-complet">
-                    <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="img-fluid">
+                <div class="fanion-page-calendrier-complet" style="background-image: url('{{ $match->fanion_equipe_dom }}')">
+                    {{-- <img src="{{ $match->fanion_equipe_dom }}" alt="{{ $match->equipe_dom->nom }}" class="img-fluid"> --}}
                 </div>
             </a>
         </div>
@@ -71,8 +71,8 @@
         </div>
         <div class="col-md-3 d-flex p-0 justify-content-center align-items-center order-1 order-md-2 logo-align-auto">
             <a href="{{ $match->href_equipe_ext }}" class="pb-1">
-                <div class="d-flex justify-content-center p-0 fanion-page-calendrier-complet">
-                    <img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="img-fluid">
+                <div class="fanion-page-calendrier-complet" style="background-image: url('{{ $match->fanion_equipe_ext }}')">
+                    {{-- <img src="{{ $match->fanion_equipe_ext }}" alt="{{ $match->equipe_ext->nom }}" class="img-fluid"> --}}
                 </div>
             </a>
         </div>
