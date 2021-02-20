@@ -25,5 +25,5 @@ mix.copy('node_modules/tinymce/jquery.tinymce.min.js', 'public/node_modules/tiny
 mix.copy('node_modules/tinymce/tinymce.js', 'public/node_modules/tinymce/tinymce.js');
 mix.copy('node_modules/tinymce/tinymce.min.js', 'public/node_modules/tinymce/tinymce.min.js');
 
-mix.minify('public/js/outils.js');
+// mix.minify('public/js/outils.js');
 // mix.combine(['public/js/app.js', 'public/js/outils.min.js'], 'public/js/app.js');
