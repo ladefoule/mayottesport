@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="w-20 bloc-score d-flex flex-wrap align-items-center m-auto p-0 mb-5">
-                <span class="col-12 text-center p-0">{!! $match->score !!}</span>
+                <span class="col-12 text-center font-weight-bold p-0">{!! $match->score !!}</span>
                 @if (isset($match->avec_tirs_au_but))
                     <span class="col-12 p-0 text-center tirs-au-but">tab. {{ $match->tab_eq_dom . '-' . $match->tab_eq_ext }}</span>
                 @endif
