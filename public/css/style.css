@@ -431,6 +431,10 @@ main .nom-competition{
         width:35%
     }
 
+    .equipe-exterieur, .equipe-domicile{
+        font-size:1rem
+    }
+
     /* Large devices (desktops, 768px and up) => point de rupture bootstrap : MD */
     @media (min-width: 768px) {
         html{
@@ -448,12 +452,10 @@ main .nom-competition{
 
         .equipe-domicile{
             text-align: left;
-            font-size:1rem
         }
     
         .equipe-exterieur{
             text-align: right;
-            font-size:1rem
         }    
 
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
