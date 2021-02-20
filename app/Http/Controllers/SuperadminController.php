@@ -41,8 +41,8 @@ class SuperadminController extends Controller
     public function cacheRefresh()
     {
         Log::info(" -------- Controller Superadmin : cacheRefresh -------- ");
-        Artisan::call('refresh:cache');
-        Log::info('Rechargement du cache !');
+        Artisan::queue('refresh:cache');
+        Log::info('Rechargement du cache initié !');
         return "Rechargement du cache initié !";
     }
 

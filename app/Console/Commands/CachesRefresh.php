@@ -47,35 +47,34 @@ class CachesRefresh extends Command
     public function handle()
     {
         Log::info(" -------- Command refresh:cache -------- ");
-        // Les caches index et indexCrud ainsi que les listeAttributsVisibles pour chaque table
         
         $tables = DB::select('SHOW TABLES');
         $tables = array_map('current', $tables);
 
-        foreach ($tables as $table) {
-            if (!in_array($table, config('listes.tables-non-indexables')))
+        foreach ($tables as $table)
+            if (! in_array($table, config('listes.tables-non-indexables')))
                 index($table);
-        }
 
-        // Les caches saisons/journees et matches QUE pour les saisons en cours
-        $saisons = Saison::all();
-        foreach ($saisons as $saison) {
-            if (! $saison->finie) {
-                $matches = $saison->matches;
+        // Les caches des matches
+        $saisons = index('saisons');
+        foreach ($saisons as $saison){
+            $journees = index('journees')->where('saison_id', $saison->id);
+            foreach ($journees as $journee) {
+                $matches = index('matches')->where('journee_id', $journee->id);
                 foreach ($matches as $match)
-                    $match->infos();
+                    infos('matches', $match->id);
 
-                $journees = $saison->journees;
-                foreach ($journees as $journee)
-                    $journee->infos();
-
-                $saison->infos();
+                infos('journees', $journee->id);
+                
             }
+            infos('saisons', $saison->id);
         }
 
         // Les caches des articles
-        $articles = Article::all();
+        $articles = index('articles');
         foreach ($articles as $article)
-            $article->infos();
+            infos('articles', $article->id);
+
+        Log::info(" -------- FIN Command refresh:cache -------- ");
     }
 }

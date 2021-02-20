@@ -338,8 +338,14 @@ a.non-cliquable, a.non-cliquable:hover{
     width:40px
 }
 
-.fanion-page-equipe{
-    width:30px;
+.fanion-page-calendrier-complet{
+    width:45px;
+    height:45px;
+}
+
+.fanion-match{
+    width:60px;
+    height:60px;
 }
 
 .equipe-align-auto{
@@ -352,11 +358,6 @@ a.non-cliquable, a.non-cliquable:hover{
 
 .logo-align-auto{
     margin-top: auto;
-}
-
-.fanion-match{
-    width:60px;
-    height:60px;
 }
 
 .crud-titre{
@@ -442,10 +443,6 @@ main .nom-competition{
 
         .equipe-align-auto, .logo-align-auto{
             margin: 0;
-        }
-
-        .fanion-page-equipe{
-            width:35px;
         }
 
         .equipe-domicile{
