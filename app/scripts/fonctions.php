@@ -146,7 +146,7 @@ function fanion($equipeUniqid)
  */
 function imagesList()
 {
-    $images = Storage::allFiles('public/img');
+    $images = Storage::files('public/img');
     foreach ($images as $image) {
         $image = str_replace('public/', 'storage/', $image);
         $images_list[] = [
