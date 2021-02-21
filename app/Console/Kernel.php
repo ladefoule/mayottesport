@@ -54,12 +54,12 @@ class Kernel extends ConsoleKernel
         // $schedule->command('cache:clear')->dailyAt('03:00');
         $schedule->call(function () {
             Cache::flush();
-        })->dailyAt('11:15');
+        })->dailyAt('11:17');
 
         // On recharge tous les caches à 03:01
         $schedule->call(function () {
             Artisan::queue('refresh:cache');
-        })->dailyAt('11:16');
+        })->dailyAt('11:18');
         // $schedule->command('refresh:cache')->dailyAt('03:01');
     }
 
