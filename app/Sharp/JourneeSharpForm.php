@@ -51,8 +51,8 @@ class JourneeSharpForm extends SharpForm
 
         $this->save($journee, $data);
 
-        forgetCaches('articles', $journee);
-        ProcessCacheReload::dispatch('articles', $journee->id);
+        forgetCaches('journees', $journee);
+        ProcessCacheReload::dispatch('journees', $journee->id);
     }
 
     /**
@@ -62,8 +62,8 @@ class JourneeSharpForm extends SharpForm
     {
         $journee = Journee::findOrFail($id);
 
-        forgetCaches('articles', $journee);
-        ProcessCacheReload::dispatch('articles');
+        forgetCaches('journees', $journee);
+        ProcessCacheReload::dispatch('journees');
     }
 
     /**
