@@ -49,7 +49,7 @@ class JourneeSharpForm extends SharpForm
         $rules = $rules['rules'];
         Validator::make($data, $rules, $messages)->validate();
 
-        $this->save($journee, $data);
+        $journee = $this->save($journee, $data);
 
         forgetCaches('journees', $journee);
         ProcessCacheReload::dispatch('journees', $journee->id);
