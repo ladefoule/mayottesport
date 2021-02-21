@@ -30,13 +30,13 @@
             <div class="container">
                 <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
                     <div class="d-flex justify-content-start align-items-center p-0 flex-shrink-0">
-                        <a href="{{ $hrefSport }}" class="d-lg-none text-secondary mx-3 href-scroll-x">
+                        <a href="{{ $hrefSport }}" class="d-lg-none text-secondary mx-3 href-scroll-x border-0">
                             {{ $sport->nom }}
                         </a>
                         <a href="" class="d-lg-none mr-3 non-cliquable cursor-default">
                             {!! \Config::get('listes.boutons.right') !!}
                         </a>
-                        <a href="{{ $hrefIndex }}" class="font-weight-bold mr-3 href-scroll-x text-green">
+                        <a href="{{ $hrefIndex }}" class="font-weight-bold mr-3 href-scroll-x border-0 text-green">
                             {{ Str::upper($competition->nom) }}
                         </a>
                         @if($saison && $saison->id != $derniereSaison->id)
@@ -51,21 +51,21 @@
                             {!! \Config::get('listes.boutons.right') !!}
                         </a>
                         @if ($hrefClassement)
-                            <a href="{{ $hrefClassement }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.classement' || request()->route()->getName() == 'competition.saison.classement') font-weight-bold text-body active @else text-secondary @endif pr-3">
+                            <a href="{{ $hrefClassement }}" class="href-scroll-x border-0 @if(request()->route()->getName() == 'competition.classement' || request()->route()->getName() == 'competition.saison.classement') font-weight-bold text-body active @else text-secondary @endif pr-3">
                                 Le classement
                             </a>
                         @endif
                         @if ($hrefActualite)
-                            <a href="{{ $hrefActualite }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.actualite') font-weight-bold text-body active @else text-secondary @endif pr-3">
+                            <a href="{{ $hrefActualite }}" class="href-scroll-x border-0 @if(request()->route()->getName() == 'competition.actualite') font-weight-bold text-body active @else text-secondary @endif pr-3">
                                 L'actu
                             </a>
                         @endif
                         @if ($hrefCalendrier)
-                            <a href="{{ $hrefCalendrier }}" class="href-scroll-x @if(request()->route()->getName() == 'competition.saison.calendrier-resultats') font-weight-bold text-body active @else text-secondary @endif pr-3">
+                            <a href="{{ $hrefCalendrier }}" class="href-scroll-x border-0 @if(request()->route()->getName() == 'competition.saison.calendrier-resultats') font-weight-bold text-body active @else text-secondary @endif pr-3">
                                 Calendrier et résultats
                             </a>
                         @endif
-                        <a href="{{ $hrefPalmares }}" class="href-scroll-x mr-3 @if(request()->route()->getName() == 'competition.palmares') font-weight-bold text-body active @else text-secondary @endif">
+                        <a href="{{ $hrefPalmares }}" class="href-scroll-x border-0 mr-3 @if(request()->route()->getName() == 'competition.palmares') font-weight-bold text-body active @else text-secondary @endif">
                             Le palmarès
                         </a>
                     </div>
