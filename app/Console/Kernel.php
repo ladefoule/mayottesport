@@ -8,6 +8,8 @@
 
 namespace App\Console;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -49,10 +51,16 @@ class Kernel extends ConsoleKernel
         // $schedule->command('dump:mysql')->dailyAt('02:30');
 
         // On vide tout le cache une fois par jour à 03:00
-        $schedule->command('cache:clear')->dailyAt('03:00');
+        // $schedule->command('cache:clear')->dailyAt('03:00');
+        $schedule->call(function () {
+            Cache::flush();
+        })->dailyAt('11:15');
 
         // On recharge tous les caches à 03:01
-        $schedule->command('refresh:cache')->dailyAt('03:01');
+        $schedule->call(function () {
+            Artisan::queue('refresh:cache');
+        })->dailyAt('11:16');
+        // $schedule->command('refresh:cache')->dailyAt('03:01');
     }
 
     /**
