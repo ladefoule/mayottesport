@@ -52,8 +52,8 @@
         @else
             <span class="text-secondary" style="font-size: 1.5rem">{{ date_format(new DateTime($match->date), 'd/m') }}</span>
 
-            {{-- Si on doit afficher la compétition, alors on affiche l'heure si le résultat du match n'est pas saisi --}}
-            @if(isset($afficherCompetition) && $match->heure)
+            {{-- on affiche l'heure si le résultat du match n'est pas saisi --}}
+            @if($match->heure)
                 <span class="col-12 text-center text-secondary" style="font-size:0.9rem"> {{ $match->heure }} </span>
             @endif
         @endif
