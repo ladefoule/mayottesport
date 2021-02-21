@@ -52,7 +52,7 @@ class VilleSharpForm extends SharpForm
 
         $dataUpdate = Validator::make($data, $rules)->validate();
 
-        $this->save($ville, $dataUpdate);
+        $ville = $this->save($ville, $dataUpdate);
 
         forgetCaches('villes', $ville);
         ProcessCacheReload::dispatch('villes', $ville->id);

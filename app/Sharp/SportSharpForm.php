@@ -67,8 +67,6 @@ class SportSharpForm extends SharpForm
 
         $dataUpdate = Validator::make($data, $rules)->validate();
 
-        $this->save($sport, $dataUpdate);
-
         $sport->competitionsNavbar()->detach(); // Supprime toutes les relations sport/navbar
         foreach ($data['competitions'] as $competition){
             if($competition){
@@ -83,6 +81,11 @@ class SportSharpForm extends SharpForm
                 ]);
             }
         }
+        // On recharge le cache index de la table associative
+        forgetCaches('competition_sport');
+        ProcessCacheReload::dispatch('competition_sport');
+
+        $sport = $this->save($sport, $dataUpdate);
 
         forgetCaches('sports', $sport);
         ProcessCacheReload::dispatch('sports', $sport->id);

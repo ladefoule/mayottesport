@@ -61,7 +61,7 @@ class EquipeSharpForm extends SharpForm
         $rules = $rules['rules'];
         Validator::make($data, $rules, $messages)->validate();
 
-        $this->save($equipe, $data);
+        $equipe = $this->save($equipe, $data);
 
         forgetCaches('equipes', $equipe);
         ProcessCacheReload::dispatch('equipes', $equipe->id);

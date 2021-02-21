@@ -59,7 +59,7 @@ class CompetitionSharpForm extends SharpForm
 
         Validator::make($data, $rules, $messages)->validate();
 
-        $this->ignore($ignore)->save($competition, $data);
+        $competition = $this->ignore($ignore)->save($competition, $data);
 
         forgetCaches('competitions', $competition);
         ProcessCacheReload::dispatch('competitions', $competition->id);

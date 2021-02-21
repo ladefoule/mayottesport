@@ -45,7 +45,7 @@ class TerrainSharpForm extends SharpForm
         $rules = $rules['rules'];
         Validator::make($data, $rules, $messages)->validate();
 
-        $this->save($terrain, $data);
+        $terrain = $this->save($terrain, $data);
 
         forgetCaches('terrains', $terrain);
         ProcessCacheReload::dispatch('terrains', $terrain->id);

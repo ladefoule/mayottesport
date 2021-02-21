@@ -128,6 +128,13 @@ class ArticleSharpForm extends SharpForm
         $article->equipes()->detach(); // Supprime toutes les relations equipe/article concernant l'article
         foreach ($data['equipes'] as $equipe)
             $article->equipes()->attach($equipe['id']);
+
+        // On recharge les caches index des tables associatives
+        $tables = ['article_sport', 'article_competition', 'article_equipe'];
+        foreach ($tables as $table) {
+            forgetCaches($table);
+            ProcessCacheReload::dispatch($table);
+        }
     }
 
     /**

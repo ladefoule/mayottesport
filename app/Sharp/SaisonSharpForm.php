@@ -61,11 +61,15 @@ class SaisonSharpForm extends SharpForm
         $rules = $rules['rules'];
         Validator::make($data, $rules, $messages)->validate();
 
-        $this->ignore($ignore)->save($saison, $data);
-
         $saison->equipes()->detach(); // Supprime toutes les relations equipe/saison concernant la saison
         foreach ($data['equipes'] as $equipe)
             $saison->equipes()->attach($equipe['id']);
+        
+        // On recharge le cache index de la table associative
+        forgetCaches('equipe_saison');
+        ProcessCacheReload::dispatch('equipe_saison');
+
+        $saison = $this->ignore($ignore)->save($saison, $data);
 
         forgetCaches('saisons', $saison);
         ProcessCacheReload::dispatch('saisons', $saison->id);

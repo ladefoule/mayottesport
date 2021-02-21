@@ -168,13 +168,16 @@ function imagesList()
  *
  * @param string $table - en snake_case
  * @param object $instance
- * @return void
+ * @return void|true
  */
-function forgetCaches(string $table, object $instance)
+function forgetCaches(string $table, object $instance = null)
 {
     $tableSlug = Str::slug($table);
     // On supprime le cache index de la table
     Cache::forget('index-' . $tableSlug);
+
+    if(! $instance)
+        return true;
 
     // On supprime les caches directement liés au match, à la journée ou à la saison
     if (in_array($table, ['matches', 'journees', 'saisons'])) {

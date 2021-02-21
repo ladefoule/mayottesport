@@ -4,6 +4,7 @@ namespace App\Sharp;
 
 use App\Role;
 use App\User;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -37,6 +38,9 @@ class UserSharpForm extends SharpForm
         
         $data = Validator::make($data, $rules, $messages)->validate();
         $user->update($data);
+
+        forgetCaches('users', $user);
+        ProcessCacheReload::dispatch('users', $user->id);
     }
 
     public function delete($id)

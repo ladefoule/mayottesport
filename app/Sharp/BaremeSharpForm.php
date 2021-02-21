@@ -48,7 +48,7 @@ class BaremeSharpForm extends SharpForm
 
         Validator::make($data, $rules, $messages)->validate();
 
-        $this->save($bareme, $data);
+        $bareme = $this->save($bareme, $data);
 
         forgetCaches('baremes', $bareme);
         ProcessCacheReload::dispatch('baremes', $bareme->id);

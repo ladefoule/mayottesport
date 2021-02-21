@@ -4,6 +4,7 @@ namespace App\Sharp;
 
 use App\Role;
 use App\User;
+use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpSingleForm;
 use Illuminate\Support\Facades\Validator;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -52,6 +53,9 @@ class ProfilSharpForm extends SharpSingleForm
         
         $data = Validator::make($data, $rules, $messages)->validate();
         $user->update($data);
+
+        forgetCaches('users', $user);
+        ProcessCacheReload::dispatch('users', $user->id);
     }
 
     /**
