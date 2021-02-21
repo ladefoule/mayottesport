@@ -75,7 +75,7 @@
                     </div>
                 @endif
                 <div class="col-12 text-center pt-1">
-                    <a class="nom-sport text-primary border-bottom border-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
+                    <a class="nom-sport text-primary" href="{{ route('sport.index', ['sport' => \Str::slug($sport)]) }}">
                         {{ $sport }}
                     </a>
                 </div>
@@ -85,7 +85,7 @@
                             {{ $journee['competition_nom'] }}
                         </a>
                         <div class="pl-0">
-                                {!! $journee['journee_render'] !!}
+                            {!! $journee['journee_render'] !!}
                         </div>
                     </div>
                 @endforeach

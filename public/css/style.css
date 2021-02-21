@@ -21,7 +21,7 @@ body{
     /* background-color: #ebeff3; */
     /* background-color: #c9d3df; */
     /* background-image: url('../storage/img/fond-ecran-mayotte.jpg'); */
-    background-color: #e9f2fa;
+    background-color: #e9f2fa !important;
     /* background-size:1950px 1000px; */
     background-attachment: fixed;
 }
@@ -51,9 +51,9 @@ footer{
     height: 30px;
 }
 
-.border-bottom-nav.active,.border-bottom-nav:hover{
+.border-bottom-nav.active{
     border-top: 5px solid white;
-    border-bottom: 5px solid green;
+    border-bottom: 5px solid white;
     /* color: green !important; */
     /* background-color: rgba(211, 211, 235, 0.521); */
 }
@@ -63,16 +63,17 @@ footer{
 }
 
 a{
-    color: green;
+    color: green !important;
+    text-decoration: none !important;
 }
-
-/* .journee{
-    color:seagreen
-} */
 
 a:hover{
     text-decoration: none;
-    color: rgb(8, 189, 8);
+    color: rgb(8, 189, 8) !important;
+}
+
+.footer-link{
+    font-size: 0.9rem;
 }
 
 #navbar-scroll-x .btn-sm{
@@ -494,10 +495,6 @@ main .nom-competition{
                 box-shadow:0 0 5px 3px rgb(184, 184, 184)
             }
 
-            .border-bottom-sport{
-                border-bottom: 1px green solid;
-            }
-
             #section-droite .nom-sport{
                 font-size: 1.1rem;
             }
@@ -542,10 +539,6 @@ main .nom-competition{
             .bloc-score input{
                 width:80px;
                 height: 40px;
-            }
-
-            .note{
-                width:25%
             }
 
             /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */

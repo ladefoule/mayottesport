@@ -4,13 +4,13 @@
 ?>
 
 <!-- Footer -->
-<footer class="col-12 footer {{-- font-small --}} indigo text-white h-auto bg-dark mt-auto">
+<footer class="col-12 footer indigo text-white h-auto bg-dark mt-auto">
     <!-- Footer Links -->
     <div class="container text-center text-md-left p-0">
         <div class="row d-flex text-center">
             @foreach ($sports as $sport)
                 <div class="col-6 col-md-4 col-lg-2 p-0">
-                    <a class="h4 pt-3 pb-0 text-white justify-content-center d-flex align-items-center" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
+                    <a class="h5 pt-3 pb-0 text-white justify-content-center d-flex align-items-center" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">
                         <img class="img-fluid mr-2" alt="Ballon de {{ $sport->nom }}" src="{{ asset('/storage/img/icons/' . $sport->slug .'.png') }}" width="18" height="18">
                         {{ $sport->nom }}
                     </a>
@@ -23,29 +23,29 @@
 
                         ?>
                         @foreach ($competitionsNavbar as $competition)
-                            <li class="pb-1 pb-sm-0">
-                                <a class="text-light footer-link"
+                            <li>
+                                <a class="text-white footer-link"
                                     href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competitions[$competition->competition_id]->slug_complet]) }}">{{ $competitions[$competition->competition_id]->nom }}</a>
                             </li>
                         @endforeach
                         @if(count($competitions->where('sport_id', $sport->id)) > count($competitionsNavbar))
-                            <li class="pb-1 pb-sm-0">
-                                <a class="text-primary text-center" {{-- type="button" --}} data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
+                            <li class="py-1 pb-sm-0">
+                                <a class="{{-- btn-sm btn-light --}} text-primary text-center" data-toggle="modal" data-target="#navbarModal" data-sport="{{ $sport->slug }}">Voir+</a>
                             </li>
                         @endif
                     </ul>
                 </div>
             @endforeach
             <div class="col-6 col-md-4 col-lg-2 px-3">
-                <a class="h4 pt-3 pb-0 text-white justify-content-center d-flex align-items-center" href="{{ route('home') }}">
+                <a class="h5 pt-3 pb-0 text-white justify-content-center d-flex align-items-center" href="{{ route('home') }}">
                     {!! config('listes.boutons.home') !!} Accueil
                 </a>
                 <ul class="list-unstyled">
-                    <li class="pb-1 pb-sm-0">
-                        <a class="footer-link text-light" href="{{ route('contact') }}">Contactez-nous</a>
+                    <li>
+                        <a class="footer-link text-white" href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
-                    <li class="pb-1 pb-sm-0">
-                        <a class="footer-link text-light" href="{{ route('politique') }}">Notre politique des cookies</a>
+                    <li>
+                        <a class="footer-link text-white" href="{{ route('politique') }}">Notre politique des cookies</a>
                     </li>
                 </ul>
             </div>

@@ -16,7 +16,7 @@
             if($match->score_eq_ext > $match->score_eq_dom || $tab_eq_ext > $tab_eq_dom)
                 $equipeExtVainqueur = true;
         ?>
-        <a href="{{ $match->url }}" class="text-decoration-none text-body match-calendrier">
+        <a href="{{ $match->url }}" class="text-decoration-none text-dark match-calendrier">
             <div class="row d-flex flex-nowrap py-2 border-bottom @if($i==0) border-top @endif">
                 <div class="bloc-dom p-0 d-flex justify-content-start text-left align-items-center @if($equipeDomVainqueur) font-weight-bold @endif">
                     {{ $match->equipe_dom->nom }}

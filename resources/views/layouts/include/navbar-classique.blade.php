@@ -4,7 +4,7 @@
 ?>
 
 {{-- NAVBAR LARGE SCREEN --}}
-<nav class="navbar fixed-top navbar-light navbar-expand-lg @if(request()->sport || request()->route()->getName() == 'contact') border-bottom-sport @else border-bottom-defaut @endif bg-white p-0">
+<nav class="navbar fixed-top navbar-light navbar-expand-lg bg-white p-0 border-bottom-defaut">
    <div class="container">
        <a class="navbar-brand pl-3 pl-md-0" href="{{ route('home') }}"><img class="logo img-fluid" src="{{ asset('/storage/img/logo-mayottesport-com.jpg') }}" alt="Logo MayotteSport"></a>
        <button class="navbar-toggler mr-3 mr-md-0" type="button"
@@ -12,7 +12,7 @@
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="d-none d-lg-block collapse navbar-collapse pr-2 align-self-stretch" id="navbarSupportedContent">
-           <ul class="navbar-nav mr-auto bg-white align-self-stretch" style="font-size: 1.2rem">
+           <ul class="navbar-nav mr-auto bg-white align-self-stretch" style="font-size: 1.15rem">
                @foreach ($sports as $id => $sport)
                 <li class="nav-item">
                    <a class="nav-link border-bottom-nav text-body px-2 h-100 d-flex align-items-center @if (request()->sport && $sport->nom == request()->sport->nom) active font-weight-bold text-green @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">{{ $sport->nom }}</a>
@@ -30,11 +30,11 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item pl-1 d-flex flex-shrink-0">
-                        <a class="nav-link nav-link-profil" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
+                        <a class="nav-link nav-link-profil text-secondary" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item pl-0 d-flex flex-shrink-0">
-                            <a class="nav-link nav-link-profil" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
+                            <a class="nav-link nav-link-profil text-secondary" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
                         </li>
                     @endif
                 @else
@@ -50,29 +50,29 @@
                         </span>
 
                         <div class="dropdown-menu dropdown-menu-right mb-2" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('profil') }}">
+                            <a class="dropdown-item text-dark" href="{{ route('profil') }}">
                                 Mon profil
                             </a>
                             @if(in_array($role, ['admin', 'superadmin']))
-                                <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
+                                <a class="dropdown-item text-dark" href="{{ route('code16.sharp.home') }}">
                                     Administration
                                 </a>
                             @endif
                             @if($role == 'superadmin')
-                                <a class="dropdown-item" href="{{ route('cache.flush') }}">
+                                <a class="dropdown-item text-dark" href="{{ route('cache.flush') }}">
                                     Vider le cache
                                 </a>
-                                <a class="dropdown-item" href="{{ route('cache.refresh') }}">
+                                <a class="dropdown-item text-dark" href="{{ route('cache.refresh') }}">
                                     Recharger le cache
                                 </a>
-                                <a class="dropdown-item" href="{{ route('script') }}">
+                                <a class="dropdown-item text-dark" href="{{ route('script') }}">
                                     Exécuter un script
                                 </a>
-                                <a class="dropdown-item" href="{{ route('upload.image') }}">
+                                <a class="dropdown-item text-dark" href="{{ route('upload.image') }}">
                                     Uploader une image
                                 </a>
                             @endif
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a class="dropdown-item text-dark" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                 Déconnexion

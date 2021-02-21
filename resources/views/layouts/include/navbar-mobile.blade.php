@@ -26,9 +26,9 @@
                                         {{ $sport->nom }}
                                     </span>
                                     <div class="dropdown-menu mb-2" aria-labelledby="navbarDropdownMenuLink{{ $sport->nom }}">
-                                        <a class="dropdown-item @if(request()->route()->getName() == 'sport.index' && request()->route('sport') == $sport->slug) active bg-success @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
+                                        <a class="dropdown-item text-body @if(request()->route()->getName() == 'sport.index' && request()->route('sport') == $sport->slug) active bg-success @endif" href="{{ route('sport.index', ['sport' => $sport->slug]) }}">Accueil {{ \Str::lower($sport->nom) }}</a>
                                         @foreach ($competitionsLiees as $competition)
-                                            <a class="dropdown-item @if(request()->route()->getName() == 'competition.index' && request()->route('competition') == $competition->slug_complet) active bg-success @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
+                                            <a class="dropdown-item text-body @if(request()->route()->getName() == 'competition.index' && request()->route('competition') == $competition->slug_complet) active bg-success @endif" href="{{ route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]) }}">
                                                 {{ $competition->nom }}
                                             </a>
                                         @endforeach
@@ -56,10 +56,10 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item px-3 border-bottom">
-                                <a class="nav-link text-body nav-link-profil" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
+                                <a class="nav-link text-body nav-link-profil text-secondary" href="{{ route('login') }}"><span class="text-success">{!! config('listes.boutons.user') !!}</span> Se connecter</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link text-body nav-link-profil" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
+                                <a class="nav-link text-body nav-link-profil text-secondary" href="{{ route('register') }}"><span class="text-primary">{!! config('listes.boutons.user-add') !!}</span> S'inscrire</a>
                             </li>
                         @else
                             <li class="nav-item nav-link-profil dropdown px-3">
@@ -69,29 +69,29 @@
                                 </span>
 
                                 <div class="dropdown-menu dropdown-menu-right mb-2" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profil') }}">
+                                    <a class="dropdown-item text-body" href="{{ route('profil') }}">
                                         Mon profil
                                     </a>
                                     @if(in_array($role, ['admin', 'superadmin']))
-                                        <a class="dropdown-item" href="{{ route('code16.sharp.home') }}">
+                                        <a class="dropdown-item text-body" href="{{ route('code16.sharp.home') }}">
                                             Administration
                                         </a>
                                     @endif
                                     @if($role == 'superadmin')
-                                        <a class="dropdown-item" href="{{ route('cache.flush') }}">
+                                        <a class="dropdown-item text-body" href="{{ route('cache.flush') }}">
                                             Vider le cache
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('cache.refresh') }}">
+                                        <a class="dropdown-item text-body" href="{{ route('cache.refresh') }}">
                                             Recharger le cache
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('script') }}">
+                                        <a class="dropdown-item text-body" href="{{ route('script') }}">
                                             Exécuter un script
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('upload.image') }}">
+                                        <a class="dropdown-item text-body" href="{{ route('upload.image') }}">
                                             Uploader une image
                                         </a>
                                     @endif
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item text-body" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                         Déconnexion
