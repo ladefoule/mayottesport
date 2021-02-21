@@ -439,7 +439,7 @@ main .nom-competition{
     }
 
     .equipe-exterieur, .equipe-domicile{
-        font-size:1.2rem
+        font-size:1.1rem
     }
 
     /* Large devices (desktops, 768px and up) => point de rupture bootstrap : MD */
