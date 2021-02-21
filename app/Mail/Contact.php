@@ -10,11 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class Contact extends Mailable
 {
     use Queueable, SerializesModels;
- 
-    /**
-     * Elements de contact
-     * @var array
-     */
+
     public $contact;
  
     /**
@@ -22,7 +18,7 @@ class Contact extends Mailable
      *
      * @return void
      */
-    public function __construct(Array $contact)
+    public function __construct($contact)
     {
         $this->contact = $contact;
     }
@@ -34,7 +30,6 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->from($this->contact['email'])
-            ->view('email.contact');
+        return $this->view('email.contact');
     }
 }

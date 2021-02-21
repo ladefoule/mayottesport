@@ -166,7 +166,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE', true), // defaut : false
+    'secure' => env('SESSION_SECURE_COOKIE', null), // defaut : false
 
     /*
     |--------------------------------------------------------------------------

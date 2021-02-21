@@ -42,10 +42,11 @@ class ContactController extends Controller
         ];
 
         $data = Validator::make($request->all(), $rules)->validate();
-        Mail::to(config('mail.contact'))
-            ->queue(new Contact($data));
+        
+        Mail::to(env('APP_CONTACT_EMAIL'))
+            ->queue(new Contact(collect($data)));
  
-            return back()
-                ->with('success','Votre message a bien été envoyé. Merci.');
+        return back()
+            ->with('success','Votre message a bien été envoyé. Merci.');
     }
 }
