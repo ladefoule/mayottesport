@@ -71,8 +71,8 @@ return [
             'score_eq_ext' => 'required|integer|min:0|max:100',
         ],
         'rugby' => [
-            'score_eq_dom' => 'required|integer|min:0|max:120',
-            'score_eq_ext' => 'required|integer|min:0|max:120',
+            'score_eq_dom' => 'required|integer|min:0|max:150',
+            'score_eq_ext' => 'required|integer|min:0|max:150',
         ],
         'basketball' => [
             'score_eq_dom' => 'required|integer|min:0|max:200|different:score_eq_ext',
@@ -82,16 +82,12 @@ return [
 
     "tables-avec-colonne-uniqid" => ['matches', 'equipes', 'articles'],
 
-    "tables-gestion-crud" => [
-        'crud_tables', 'crud_attributs', 'crud_attribut_infos'
-    ],
-
     "tables-non-indexables" => [
-        'article_competition', 
-        'article_equipe', 
-        'article_sport', 
-        'competition_sport',
-        'equipe_saison', 
+        // 'article_competition', 
+        // 'article_equipe', 
+        // 'article_sport', 
+        // 'competition_sport',
+        // 'equipe_saison', 
         'failed_jobs', 
         'jobs', 
         'migrations', 
@@ -111,9 +107,10 @@ return [
         1 => ['finale', 'Finale'],
         2 => ['demi-finales', 'Demi-finales'],
         3 => ['quarts-de-finales', 'Quarts de finale'],
-        4 => ['8emes-de-finales', '1/8ème de finale'],
-        5 => ['16emes-de-finales', '1/16ème de finale'],
-        6 => ['32eme-de-finales', '1/32ème de finale'],
+        4 => ['8emes-de-finales', '1/8èmes de finale'],
+        5 => ['16emes-de-finales', '1/16èmes de finale'],
+        6 => ['32eme-de-finales', '1/32èmes de finale'],
+        7 => ['32eme-de-finales-nationale', '1/32èmes de finale nationale'],
         11 => ['1er-tour', '1er tour'],
         12 => ['2eme-tour', '2ème tour'],
         13 => ['3eme-tour', '3ème tour'],
