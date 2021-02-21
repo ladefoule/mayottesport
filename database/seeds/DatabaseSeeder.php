@@ -1,4 +1,7 @@
 <?php
+
+namespace Database\Seeders;
+
 use App\Cache;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,30 +15,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Suppression de tout le cache
-        Cache::flush();
+        // // Suppression de tout le cache
+        // Cache::flush();
 
-        // Disable all mass assignment restrictions
-        Model::unguard();
+        // // Disable all mass assignment restrictions
+        // Model::unguard();
 
-        $this->call([
-            SportTableSeeder::class,
-            VilleTableSeeder::class,
-            // TerrainTableSeeder::class,
-            EquipeTableSeeder::class,
-            CompetitionTableSeeder::class,
-            BaremeTableSeeder::class,
-            SaisonTableSeeder::class,
-            // JourneeTableSeeder::class,
-            RoleTableSeeder::class,
-            RegionTableSeeder::class,
-            UserTableSeeder::class,
-        ]);
+        // $this->call([
+        //     SportTableSeeder::class,
+        //     VilleTableSeeder::class,
+        //     // TerrainTableSeeder::class,
+        //     EquipeTableSeeder::class,
+        //     CompetitionTableSeeder::class,
+        //     BaremeTableSeeder::class,
+        //     SaisonTableSeeder::class,
+        //     // JourneeTableSeeder::class,
+        //     RoleTableSeeder::class,
+        //     RegionTableSeeder::class,
+        //     UserTableSeeder::class,
+        // ]);
 
-        // Log::info("Seed du CRUD");
-        // require 'app/scripts/gestion-crud-bdd.php';
+        // // Log::info("Seed du CRUD");
+        // // require 'app/scripts/gestion-crud-bdd.php';
 
-        // Re enable all mass assignment restrictions
-        Model::reguard();
+        // // Re enable all mass assignment restrictions
+        // Model::reguard();
     }
 }

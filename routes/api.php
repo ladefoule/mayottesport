@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::apiResource('/{table}', 'CrudAdminController');
 
-Route::get('/journee/render', 'CompetitionController@journeeRender')->name('journee.render');
+Route::get('/journee/render', [CompetitionController::class, 'journeeRender'])->name('journee.render');
 
 Route::post('/images', function (Request $request) {
     return imagesList();

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class RegionTableSeeder extends Seeder
@@ -12,13 +14,13 @@ class RegionTableSeeder extends Seeder
     public function run()
     {
         // On insère les regions
-        $regions = array("Mayotte", "La Réunion", "Métropole", "Autre");
-        foreach ($regions as $region) {
-            App\Region::create([
-                'nom' => $region,
-                // 'created_at' => now(),
-                // 'updated_at' => now()
-            ]);
-        }
+        // $regions = array("Mayotte", "La Réunion", "Métropole", "Autre");
+        // foreach ($regions as $region) {
+        //     App\Region::create([
+        //         'nom' => $region,
+        //         // 'created_at' => now(),
+        //         // 'updated_at' => now()
+        //     ]);
+        // }
     }
 }
