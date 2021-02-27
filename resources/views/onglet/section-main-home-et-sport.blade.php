@@ -13,7 +13,7 @@
 
             {{-- PUB --}}
             <div class="col-12 m-auto pb-3 pt-0 px-3">
-                @include('pub.google-display-responsive')
+                @include('pub.google-thematique-responsive')
             </div>
         </div>
     </div>
@@ -94,7 +94,7 @@
 
         {{-- PUB --}}
         <div class="col-12 m-auto px-3 py-0">
-            @include('pub.google-display-responsive')
+            @include('pub.google-thematique-responsive')
         </div>
     </div>
 @endsection
