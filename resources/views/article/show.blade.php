@@ -28,6 +28,9 @@
                 </span>
                 {!! $article->article !!}
             </div>
+            <div class="col-12">
+                @include('pub.google-in-article')
+            </div>
             <span class="col-12 px-3 text-secondary">
                 publié le {{ $article->publie_le }}
             </span>
