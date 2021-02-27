@@ -52,7 +52,7 @@
             <div class="row col-12 mt-3 mb-auto px-0" id="matches">
                 <?php $i = 0; ?>
                 @foreach ($matches as $match)
-                    @include('journee.calendrier-modele-complet', ['match' => infos('matches', $match->id), 'equipeId' => $equipe->id, 'i' => $i])
+                    @include('journee.calendrier-modele-complet', ['match' => infos('matches', $match->id), 'equipeId' => $equipe->id, 'i' => $i, 'afficherJournee' => true,])
                     <?php $i++; ?>
                 @endforeach
             </div>

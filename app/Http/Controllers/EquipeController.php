@@ -49,6 +49,7 @@ class EquipeController extends Controller
                 'match' => infos('matches', $prochainMatch->id),
                 'equipeId' => $equipe->id,
                 'afficherCompetition' => true,
+                'afficherJournee' => true,
                 'i' => 0
             ])->render();
 
@@ -59,6 +60,7 @@ class EquipeController extends Controller
                 'match' => infos('matches', $dernierMatch->id),
                 'equipeId' => $equipe->id,
                 'afficherCompetition' => true,
+                'afficherJournee' => true,
                 'i' => 0
             ])->render();
 

@@ -57,3 +57,6 @@ RewriteRule ^(.*)$ https://www.mayottesport.com/$1 [L,R=301]
 <IfModule Litespeed>
 </IfModule>
 # DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END
+
+RedirectPermanent /football/coupes/vainqueurs_coupe_de_france_regionale.php https://www.mayottesport.com/football/coupe-de-france/palmares.html
+RedirectPermanent /football/coupes/historique-des-vainqueurs-de-la-coupe-de-france-regionale.php https://www.mayottesport.com/football/coupe-de-france/palmares.html

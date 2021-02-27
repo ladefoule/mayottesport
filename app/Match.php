@@ -195,7 +195,7 @@ class Match extends Model
                 'journee_bloque' => $journee->acces_bloque,
                 'saison_finie' => $saison->finie,
                 'niveau_last_user' => $lastUser ? index('roles')[$lastUser->role_id]->niveau : 0,
-                'journee' => niemeJournee($journee->numero),
+                'journee' => $journee->nom,
                 'competition' => $competition->nom,
                 'annee' => $annee,
                 'lieu' => $lieu,
