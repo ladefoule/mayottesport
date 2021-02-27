@@ -120,7 +120,7 @@
 
                 <div class="form-group row">
                     <div class="col-md-7 offset-md-3">
-                        <button class="btn btn-success px-5">S'inscrire</button>
+                        <button class="btn btn-primary px-5">S'inscrire</button>
                     </div>
                 </div>
             </form>

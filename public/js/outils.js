@@ -357,13 +357,13 @@ function tinymceFunc(selector, urlImages) {
                 selector: selector,
                 width: '100%',
                 font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
-                toolbar:'insertfile a11ycheck undo redo | bold italic | forecolor backcolor | template codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link image tinydrive',
-                plugins: 'quickbars,link,advlist,autoresize,image,a11ychecker,advcode,anchor,autolink,codesample,fullscreen,help,image,imagetools,tinydrive,lists,media,noneditable,powerpaste,preview,searchreplace,table,template,tinymcespellchecker,visualblocks,wordcount',
+                toolbar:'undo redo | bold italic | forecolor backcolor | code codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
+                plugins: 'quickbars,link,advlist,autoresize,image,advcode,anchor,autolink,code,codesample,fullscreen,help,image,imagetools,lists,media,noneditable,powerpaste,preview,searchreplace,table,template,tinymcespellchecker,visualblocks,wordcount',
                 advlist_bullet_styles: 'square',
                 advlist_number_styles: 'lower-alpha,lower-roman,upper-alpha,upper-roman',
                 image_list: data,
                 fontsize_formats: "8pt 9pt 10pt 11pt 12pt 13pt 14pt 15pt 16pt 17px 18pt 24pt 30pt 36pt",
-                content_style: "body {font-size: 12pt;}",
+                content_style: "body {font-size: 13pt;}",
                 image_class_list: [{
                         title: 'None',
                         value: ''

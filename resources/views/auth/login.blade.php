@@ -77,8 +77,8 @@
                             @endif
                         </div>
                         <div class="col-md-7 offset-md-3 mt-3">
-                            <a class="btn btn-success" href="{{ route('register') }}">
-                                Pas encore inscrit(e) ? Créez votre accès.
+                            <a href="{{ route('register') }}">
+                                <button class="btn btn-success">Pas encore inscrit(e) ? Créez votre accès.</button>
                             </a>
                         </div>
                     </div>
