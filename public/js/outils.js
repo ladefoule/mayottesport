@@ -376,7 +376,10 @@ function tinymceFunc(selector, urlImages) {
                         title: 'Image fluid',
                         value: 'w-100 h-auto'
                     },
-                ]
+                ],
+                allow_script_urls: true,
+                valid_elements : '*[*]',
+                extended_valid_elements: 'script[language|type|src',
             });
         }
     })
