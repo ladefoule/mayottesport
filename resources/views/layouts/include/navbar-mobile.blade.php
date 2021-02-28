@@ -1,4 +1,3 @@
-<!-- Modal NAVBAR MOBILE -->
 <div class="modal fade" id="navbarModal" aria-labelledby="Menu" aria-describedby="Menu complet du site" tabindex="-1" aria-labelledby="navbarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
@@ -113,4 +112,3 @@
       </div>
     </div>
 </div>
-<!-- Fin Modal NAVBAR MOBILE -->

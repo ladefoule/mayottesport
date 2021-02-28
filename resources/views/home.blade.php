@@ -11,7 +11,7 @@
 	<meta name="icbm" content="-12.9260444, 45.1038634">
 	<meta name="author" content="M. ALI MOUSSA (Web Solutions)">
 	<meta name="description" content="Présente toute l'actualité du sport à Mayotte avec calendriers, résultats et classements des principaux championnats et compétitions de l'île au lagon.">
-	<meta name="keywords" content="mayotte, sport, mayottesport, football, foot, volley-ball, volley, actualité, actu, basketball, basket, handball, hand, résultat, classement, calendrier, maoré, mahorais, ile, 976, news, mzouasia, mzouazia,">
+	<meta name="keywords" content="mayotte, sport, mayottesport, football, foot, volley-ball, volley, actualité, actu, basketball, basket, handball, hand, résultat, classement, calendrier, palmarès, historique, maoré, mahorais, ile, 976, news, mzouasia, mzouazia,">
 @endsection
 
 @include('onglet.section-main-home-et-sport')

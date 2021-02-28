@@ -211,7 +211,7 @@ class CompetitionController extends Controller
         $saisons = index('saisons')->where('competition_id', $competition->id)->sortByDesc('annee_debut');
         return view('competition.palmares', [
             'saisons' => $saisons,
-            'title' => $sport->nom . ' - ' . $competition->nom_complet . ' - Le palmarès',
+            'title' =>  $competition->nom_complet . ' - Le palmarès - ' . $sport->nom . ' - Mayotte Sport',
             'competition' => $competition,
             'sport' => $sport,
         ]);

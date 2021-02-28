@@ -2,7 +2,6 @@
     $sports = index('sports')->sortBy('home_position')->slice(0, 5);
     $competitions = index('competitions');
 ?>
-
 {{-- NAVBAR LARGE SCREEN --}}
 <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-white p-0 border-bottom-defaut">
    <div class="container">
@@ -89,5 +88,4 @@
    </div>
 </nav>
 {{-- FIN NAVBAR LARGE SCREEN --}}
-
 @include('layouts.include.navbar-mobile')

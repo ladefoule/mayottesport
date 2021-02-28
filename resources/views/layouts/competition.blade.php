@@ -16,14 +16,10 @@
     $resultats = request()->resultats;
     $prochains = request()->prochains;
 ?>
-
-{{-- Header --}}
 @include('layouts.include.header')
 
 <body class="d-flex flex-wrap">
-    {{-- Navbar principal --}}
     @include('layouts.include.navbar-classique')
-
     <div class="col-12 mx-auto p-0">
         {{-- Section scroll X --}}
         <div class="navbar-scroll-x top-main-site container-fluid bg-white border-bottom px-0">
@@ -131,22 +127,19 @@
             </section>
         </div>
     </div>
-
-    {{-- Footer --}}
     @include('layouts.include.footer')
+    <script>
+        $(document).ready(function() {
+            // Gestion des onglets dans le main
+            var cibles = qsa('#prochains-content,#resultats-content,#actualites-content')
+            var onglets = qsa('main .onglet') 
+            ongletSwitch(cibles, onglets)
+    
+            // Gestion des onglets du bloc de droite
+            cibles = qsa('#prochains-section-droite,#resultats-section-droite')
+            onglets = qsa('#section-droite .onglet') 
+            ongletSwitch(cibles, onglets)
+        })
+    </script>
 </body>
-
 </html>
-<script>
-    $(document).ready(function() {
-        // Gestion des onglets dans le main
-        var cibles = qsa('#prochains-content,#resultats-content,#actualites-content')
-        var onglets = qsa('main .onglet') 
-        ongletSwitch(cibles, onglets)
-
-        // Gestion des onglets du bloc de droite
-        cibles = qsa('#prochains-section-droite,#resultats-section-droite')
-        onglets = qsa('#section-droite .onglet') 
-        ongletSwitch(cibles, onglets)
-    })
-</script>

@@ -2,17 +2,13 @@
     $sport = request()->sport; // Middleware Sport
     $competitions = $sport->competitionsNavbar()->orderBy('position')->get();
 ?>
-
-{{-- Header --}}
 @include('layouts.include.header')
 
 <body class="d-flex flex-wrap">
-    {{-- Navbar principal --}}
     @include('layouts.include.navbar-classique')
 
     <div class="col-12 mx-auto p-0">
         @if(count($competitions) > 0)
-        {{-- Section scroll X --}}
         <section class="col-12 p-0 navbar-scroll-x top-main-site container-lg-fluid">
             <div class="container-lg">
                 <div class="row overflow-x-auto py-3" id="navbar-scroll-x">
@@ -48,8 +44,6 @@
         </div>
     </div>
 
-    {{-- Footer --}}
     @include('layouts.include.footer')
 </body>
-
 </html>

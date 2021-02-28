@@ -20,7 +20,7 @@ class Saison extends Model
      *
      * @var array
      */
-    protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'annulee', 'nb_journees', 'bareme_id', 'competition_id', 'nb_descentes', 'nb_montees'];
+    // protected $fillable = ['annee_debut', 'annee_fin', 'finie', 'annulee', 'nb_journees', 'bareme_id', 'competition_id', 'nb_descentes', 'nb_montees'];
 
     /**
      * Les règles de validations
@@ -44,6 +44,8 @@ class Saison extends Model
             'nb_montees' => 'nullable|integer|min:0|max:10',
             'bareme_id' => 'nullable|exists:baremes,id',
             'competition_id' => 'required|exists:competitions,id',
+            'equipe_id' => 'nullable|exists:equipes,id',
+            'second' => 'nullable|exists:equipes,id',
             'finie' => 'nullable|boolean',
             'annulee' => 'nullable|boolean',
         ];

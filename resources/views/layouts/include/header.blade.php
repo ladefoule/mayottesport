@@ -23,11 +23,9 @@
 
         # Compression avec gzip
         header("Accept-Encoding: *");
-    ?> 
-
-    @yield('head')
+    ?>
+@yield('head')
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/storage/img/icons/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
-    {{-- <link rel="stylesheet" href="{{ asset('/css/style.css?id=4') }}"> --}}
     <title>@yield('title')</title>
 </head>

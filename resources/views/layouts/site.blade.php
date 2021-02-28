@@ -1,8 +1,6 @@
-{{-- Header --}}
 @include('layouts.include.header')
 
 <body class="d-flex flex-wrap">
-    {{-- Navbar principal --}}
     @include('layouts.include.navbar-classique')
 
     <div class="d-flex flex-wrap col-12 justify-content-center mx-auto p-0 top-main-site" style="max-width: 1300px">
@@ -16,8 +14,6 @@
         @endif
     </div>
 
-    {{-- Footer --}}
     @include('layouts.include.footer')
 </body>
-
 </html>
