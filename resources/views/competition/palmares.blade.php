@@ -23,8 +23,8 @@
                 <table class="table text-center border-bottom">
                     <thead class="bg-light">
                         <tr>
-                            <th class="col-4">Saison</th>
-                            <th class="col-4">Vainqueur</th>
+                            <th>Saison</th>
+                            <th>Vainqueur</th>
                             <th class="d-none d-md-table-cell">@if($competition->type == 1) Vice-champion @else Finaliste @endif</th>
                         </tr>
                     </thead>
