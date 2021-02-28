@@ -102,5 +102,8 @@
     gtag('config', 'G-S0HRBTP8PC');
 </script>
 
+{{-- Adsense --}}
 <script data-ad-client="ca-pub-6802785230681286" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+{{-- Cookies consent : Modal --}}
 @include('cookieConsent::index')

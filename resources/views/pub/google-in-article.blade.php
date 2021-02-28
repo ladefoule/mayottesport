@@ -1,4 +1,4 @@
-<ins class="adsbygoogle col-12 p-0 mx-auto overflow-x-hidden overflow-y-hidden d-flex justify-content-center"
+<ins class="adsbygoogle col-12 p-0 mb-3 mx-auto overflow-x-hidden overflow-y-hidden d-flex justify-content-center"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
      data-ad-format="fluid"

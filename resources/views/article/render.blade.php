@@ -1,5 +1,5 @@
 @foreach ($articles as $i => $article)
-    @if ($i == 0 && (! isset($affichage) || $affichage != 'card'))
+    @if ($i == 0)
         <div class="col-12 d-flex flex-wrap p-0 border-bottom mb-3">
             <h2 class="col-12 titre-premier-article p-0">
                 <a href="{{ $article->href }}">

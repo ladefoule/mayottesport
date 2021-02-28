@@ -50,7 +50,7 @@ class CompetitionController extends Controller
         
         $articles = $request->articles;
         if($articles)
-            $articlesView = view('article.render', ['articles' => $articles->slice(0, 5), 'affichage' => 'card'])->render();
+            $articlesView = view('article.render', ['articles' => $articles->slice(0, 5)])->render();
 
         return view('competition.index', [
             'competition' => $competition,

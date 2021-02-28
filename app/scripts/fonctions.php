@@ -140,7 +140,7 @@ function fanion($equipeUniqid)
             return asset($path . $fanion . '.' . $extension);
     }
     
-    return asset($path . 'defaut-2.png');
+    return asset($path . 'defaut.png');
 }
 
 /**

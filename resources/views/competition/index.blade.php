@@ -10,14 +10,14 @@
 
 @section('content')
 <div class="p-lg-3">
-    <div class="col-12 px-2 pt-2 pb-3 bg-white shadow-div">
+    <div class="col-12 px-0 pt-2 pb-3 bg-white shadow-div">
         <div class="col-12">
             <h1 class="h4 text-center m-auto p-3">{{ $sport->nom }} - {{ $competition->nom_complet }}</h1>
         </div>
 
         {{-- LES DERNIERS RESULTATS --}}
         @if($derniereJourneeRender)
-            <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
+            <div class="col-12 px-2 mt-0 d-flex justify-content-center flex-wrap mb-3">
                 <span class="border-bottom border-danger h4 text-center text-danger">Les derniers résultats</span>
                 <div class="col-12 p-0">
                     {!! $derniereJourneeRender !!}
@@ -27,7 +27,7 @@
 
         {{-- LE CLASSEMENT --}}
         @if(count($classement) > 0)
-        <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
+        <div class="col-12 px-2 mt-0 d-flex justify-content-center flex-wrap mb-3">
             <span class="border-bottom border-info h4 text-center text-info mt-3">Le classement</span>
                 <table class="table text-center classement w-100 border-bottom mt-3" id="classement">
                     <thead {{-- class="thead-light thead-fixed" --}}>
@@ -89,7 +89,7 @@
         @endif
 
         @if($prochaineJourneeRender)
-            <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap mb-3">
+            <div class="col-12 px-2 mt-0 d-flex justify-content-center flex-wrap mb-3">
                 <span class="border-bottom border-success h4 text-center text-success">À venir</span>
                 <div class="col-12 p-0">
                     {!! $prochaineJourneeRender !!}
@@ -99,7 +99,7 @@
 
         {{-- L'ACTU --}}
         @if($articles)
-            <div class="col-12 p-0 mt-0 d-flex justify-content-center flex-wrap">
+            <div class="col-12 px-3 mt-0 d-flex justify-content-center flex-wrap">
                 <span class="border-bottom border-secondary h4 text-center text-secondary my-3">L'actualité</span>
                 <div class="col-12 p-0 d-flex flex-wrap justify-content-start align-items-stretch">
                     {!! $articles !!}
@@ -111,7 +111,7 @@
         @endif
 
         {{-- PUB --}}
-        <div class="col-12 m-auto p-0">
+        <div class="col-12 m-auto">
             @include('pub.google-display-responsive')
         </div>
     </div>
