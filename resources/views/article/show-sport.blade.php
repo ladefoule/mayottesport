@@ -119,7 +119,7 @@
         @foreach ($filActualites as $actu)
             @if($i++ == 5)
                 <div class="col-12 border-bottom m-auto py-2">
-                    @include('pub.google-display-responsive')
+                    @include('pub.google-thematique-responsive')
                 </div>
             @endif
             <div class="col-12 d-flex border-bottom p-0">
