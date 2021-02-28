@@ -6,6 +6,12 @@
 <meta name="description" content="Retrouvez l'historique de la compétition : {{ $competition->nom }} de {{ $sport->nom }} à Mayotte.">
 @endsection
 
+@section('pub-top')
+<div class="d-none d-lg-block col-12 mx-auto mt-3">
+    @include('pub.google-display-responsive')
+</div>
+@endsection
+
 @section('content')
 <div class="p-lg-3">
     <div class="row m-0 bg-white shadow-div">
