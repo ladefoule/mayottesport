@@ -57,7 +57,6 @@
     <div class="row footer-social justify-content-center py-2 border-top border-secondary">
         <a target="_blank" href="https://www.facebook.com/mayottesport" class="mx-3"><img src="{{ asset('storage/img/icons/facebook.png') }}" alt="MayotteSport sur Facebook" title="MayotteSport sur Facebook" class="img-fluid bg-dark"></a>
         <a target="_blank" href="https://twitter.com/mayottesport" class="mx-3"><img src="{{ asset('storage/img/icons/twitter.png') }}" alt="MayotteSport sur Twitter" title="MayotteSport sur Twitter" class="img-fluid bg-dark"></a>
-        <a target="_blank" href="https://www.instagram.com/mayottesport.actu" class="mx-3"><img src="{{ asset('storage/img/icons/instagram.png') }}" alt="MayotteSport sur Instagram" title="MayotteSport sur Instagram" class="img-fluid bg-dark"></a>
         <a target="_blank" href="{{ asset('rss.xml') }}" class="mx-3"><img src="{{ asset('storage/img/icons/flux-rss.png') }}" alt="S'abonner aux flux rss" title="S'abonner aux flux rss" class="img-fluid bg-dark"></a>
     </div>
     <!-- Social buttons -->
