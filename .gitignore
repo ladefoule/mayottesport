@@ -21,6 +21,7 @@
 .env.backup
 .npmrc
 .phpunit.resultat.cache
+composer.lock
 Homestead.json
 Homestead.yaml
 npm-debug.log
