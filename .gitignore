@@ -1,6 +1,7 @@
 /.phive
 /.phpdoc
 /node_modules
+/public/.htaccess
 /public/css/app.css
 /public/js/app.js
 /public/js/select2.min.js
@@ -22,6 +23,7 @@
 .npmrc
 .phpunit.resultat.cache
 composer.lock
+package-lock.json
 Homestead.json
 Homestead.yaml
 npm-debug.log
