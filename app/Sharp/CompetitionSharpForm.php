@@ -132,7 +132,7 @@ class CompetitionSharpForm extends SharpForm
             )->addField(
                 SharpFormSelectField::make("type",
                     $types ?? []
-                )->setLabel("Priorité (page d'accueil)")
+                )->setLabel("Type de compétition")
                 ->setDisplayAsDropdown()
             );
     }

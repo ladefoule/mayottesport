@@ -36,7 +36,7 @@ class Sport extends Model
     {
         $rules = [
             'nom' => ['required','string','max:50','min:3',Rule::unique('sports')->ignore($sport)],
-            'home_position' => 'nullable|integer|min:1',
+            'home_position' => 'nullable|integer|min:0',
         ];
         return ['rules' => $rules];
     }
