@@ -1,5 +1,5 @@
 <?php
-    $sports = index('sports')->sortBy('home_position');
+    $sports = index('sports')->where('navbar_position', '>=', 1)->sortBy('navbar_position')->slice(0, 5);
     $competitions = index('competitions');
 ?>
 
@@ -15,7 +15,7 @@
                         {{ $sport->nom }}
                     </a>
                     <ul class="list-unstyled">
-                        <?php 
+                        <?php
                             $competitionsNavbar = index('competition_sport')
                                 ->where('sport_id', $sport->id)
                                 ->sortBy('position')
