@@ -33,7 +33,7 @@
                             {!! \Config::get('listes.boutons.right') !!}
                         </a>
                         <a href="{{ $hrefIndex }}" class="font-weight-bold mr-3 href-scroll-x text-green">
-                            {{ Str::upper($competition->nom) }}
+                            {{ $competition->nom }}
                         </a>
                         @if($saison && $saison->id != $derniereSaison->id)
                             <a href="" class="mr-3 non-cliquable cursor-default">
@@ -52,16 +52,16 @@
                             </a>
                         @endif
                         @if ($hrefActualite)
-                            <a href="{{ $hrefActualite }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.actualite') font-weight-bold text-body active @else text-secondary @endif">
+                            <a href="{{ $hrefActualite }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.actualite') text-body active @else text-secondary @endif">
                                 L'actu
                             </a>
                         @endif
                         @if ($hrefCalendrier)
-                            <a href="{{ $hrefCalendrier }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.saison.calendrier-resultats') font-weight-bold text-body active @else text-secondary @endif">
+                            <a href="{{ $hrefCalendrier }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.saison.calendrier-resultats') text-body active @else text-secondary @endif">
                                 Calendrier et résultats
                             </a>
                         @endif
-                        <a href="{{ $hrefPalmares }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.palmares') font-weight-bold text-body active @else text-secondary @endif">
+                        <a href="{{ $hrefPalmares }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.palmares') text-body active @else text-secondary @endif">
                             Le palmarès
                         </a>
                     </div>
@@ -132,12 +132,12 @@
         $(document).ready(function() {
             // Gestion des onglets dans le main
             var cibles = qsa('#prochains-content,#resultats-content,#actualites-content')
-            var onglets = qsa('main .onglet') 
+            var onglets = qsa('main .onglet')
             ongletSwitch(cibles, onglets)
-    
+
             // Gestion des onglets du bloc de droite
             cibles = qsa('#prochains-section-droite,#resultats-section-droite')
-            onglets = qsa('#section-droite .onglet') 
+            onglets = qsa('#section-droite .onglet')
             ongletSwitch(cibles, onglets)
         })
     </script>
