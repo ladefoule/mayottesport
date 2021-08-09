@@ -1,5 +1,5 @@
 <?php
-    $sports = index('sports')->sortBy('home_position')->slice(0, 5);
+    $sports = index('sports')->where('navbar_position', '>=', 1)->sortBy('navbar_position')->slice(0, 5);
     $competitions = index('competitions');
 ?>
 {{-- NAVBAR LARGE SCREEN --}}
@@ -37,7 +37,7 @@
                         </li>
                     @endif
                 @else
-                    <?php 
+                    <?php
                         $user = Auth::user();
                         $urlGravatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?r=g&s=30&d=identicon';
                         $urlAvatar = $user->avatar ? asset('storage/upload/avatar/' . $user->avatar) : $urlGravatar;

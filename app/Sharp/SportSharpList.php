@@ -27,6 +27,10 @@ class SportSharpList extends SharpEntityList
                 ->setLabel('Position (accueil)')
                 ->setSortable()
         )->addDataContainer(
+            EntityListDataContainer::make('navbar_position')
+                ->setLabel('Position (navbar)')
+                ->setSortable()
+        )->addDataContainer(
             EntityListDataContainer::make('updated_at')
                 ->setLabel('Modifié le')
                 ->setSortable()
@@ -41,9 +45,10 @@ class SportSharpList extends SharpEntityList
     public function buildListLayout(): void
     {
         $this
-        ->addColumn('nom', 4)
-        ->addColumn('home_position', 4)
-        ->addColumn('updated_at', 4);
+        ->addColumn('nom', 3)
+        ->addColumn('home_position', 3)
+        ->addColumn('navbar_position', 3)
+        ->addColumn('updated_at', 3);
     }
 
     /**
@@ -55,7 +60,8 @@ class SportSharpList extends SharpEntityList
     {
         $this->setInstanceIdAttribute('id')
             ->setSearchable()
-            ->setDefaultSort('home_position', 'asc')
+            ->setDefaultSort('home_position')
+            ->setDefaultSort('navbar_position', 'desc')
             ->setPaginated();
     }
 

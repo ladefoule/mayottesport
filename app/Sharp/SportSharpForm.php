@@ -62,7 +62,7 @@ class SportSharpForm extends SharpForm
         $rules = $rules['rules'];
         $data['slug'] = Str::slug($data['nom']);
 
-        $pluck = ['nom', 'home_position', 'slug'];
+        $pluck = ['nom', 'home_position', 'navbar_position', 'slug'];
         $rules = array_intersect_key($rules, array_flip($pluck));
 
         $dataUpdate = Validator::make($data, $rules)->validate();
@@ -131,7 +131,11 @@ class SportSharpForm extends SharpForm
                     ->setLabel("Nom")
             )->addField(
                 SharpFormNumberField::make("home_position")
-                    ->setLabel("Position (accueil)")
+                    ->setLabel("Position (résultats)")
+                    ->setShowControls()
+            )->addField(
+                SharpFormNumberField::make("navbar_position")
+                    ->setLabel("Position (navbar)")
                     ->setShowControls()
             )->addField(
                 SharpFormTextField::make("updated_at")
@@ -166,7 +170,7 @@ class SportSharpForm extends SharpForm
     public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('nom|6', 'home_position|6', 'updated_at|6');
+            $column->withFields('nom|6', 'updated_at|6', 'home_position|6', 'navbar_position|6');
         });
 
         $this->addColumn(12, function(FormLayoutColumn $column) {
