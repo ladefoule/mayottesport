@@ -44,8 +44,8 @@ class VilleSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $ville = $id ? Ville::findOrFail($id) : new Ville;    
-        
+        $ville = $id ? Ville::findOrFail($id) : new Ville;
+
         // On valide la requète
         $rules = Ville::rules($ville);
         $rules = $rules['rules'];
@@ -61,7 +61,7 @@ class VilleSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $ville = Ville::findOrFail($id);
         forgetCaches('villes', $ville);
@@ -77,8 +77,8 @@ class VilleSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
-    {        
+    public function buildFormFields(): void
+    {
         $this
             ->addField(
                 SharpFormTextField::make("nom")
@@ -91,7 +91,7 @@ class VilleSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('nom|6');

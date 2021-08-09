@@ -55,13 +55,13 @@ class SportSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $sport = $id ? Sport::findOrFail($id) : new Sport;    
-        
+        $sport = $id ? Sport::findOrFail($id) : new Sport;
+
         // On valide la requète
         $rules = Sport::rules($sport);
         $rules = $rules['rules'];
         $data['slug'] = Str::slug($data['nom']);
-        
+
         $pluck = ['nom', 'home_position', 'slug'];
         $rules = array_intersect_key($rules, array_flip($pluck));
 
@@ -94,7 +94,7 @@ class SportSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $sport = Sport::findOrFail($id);
         forgetCaches('sports', $sport);
@@ -110,8 +110,8 @@ class SportSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
-    {        
+    public function buildFormFields(): void
+    {
         $timestampFormatter = new TimestampSharpFormatter;
 
         $competitions = Competition::join('sports', 'sport_id', 'sports.id')
@@ -163,7 +163,7 @@ class SportSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('nom|6', 'home_position|6', 'updated_at|6');

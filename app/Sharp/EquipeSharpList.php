@@ -16,7 +16,7 @@ class EquipeSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListDataContainers()
+    public function buildListDataContainers(): void
     {
         $this->addDataContainer(
             EntityListDataContainer::make('sport_id')
@@ -42,7 +42,7 @@ class EquipeSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListLayout()
+    public function buildListLayout(): void
     {
         $this->addColumn('sport_id', 3)
         ->addColumn('nom', 3)
@@ -55,7 +55,7 @@ class EquipeSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListConfig()
+    public function buildListConfig(): void
     {
         $this->setInstanceIdAttribute('id')
             ->setSearchable()

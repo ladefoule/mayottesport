@@ -35,7 +35,7 @@ class UserSharpForm extends SharpForm
             'name' => $rules['rules']['name'],
             'pseudo' => $rules['rules']['pseudo'],
         ];
-        
+
         $data = Validator::make($data, $rules, $messages)->validate();
         $user->update($data);
 
@@ -43,7 +43,7 @@ class UserSharpForm extends SharpForm
         ProcessCacheReload::dispatch('users', $user->id);
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
         User::findOrFail($id)->delete();
     }
@@ -53,7 +53,7 @@ class UserSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
+    public function buildFormFields(): void
     {
         $this
             ->addField(
@@ -90,7 +90,7 @@ class UserSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('first_name|6','name|6', 'email|6', 'pseudo|6', 'role_id|6');

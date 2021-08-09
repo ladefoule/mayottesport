@@ -18,7 +18,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class JourneeSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     protected $sportSlug;
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
@@ -41,7 +41,7 @@ class JourneeSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $journee = $id ? Journee::findOrFail($id) : new Journee;    
+        $journee = $id ? Journee::findOrFail($id) : new Journee;
 
         // On valide la requète
         $rules = Journee::rules($journee);
@@ -58,7 +58,7 @@ class JourneeSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $journee = Journee::findOrFail($id);
 
@@ -71,7 +71,7 @@ class JourneeSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
+    public function buildFormFields(): void
     {
         $typesConfig = config('listes.types-journees');
         foreach($typesConfig as $id => $type){
@@ -122,7 +122,7 @@ class JourneeSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('saison_id|6', 'numero|6', 'date|6', 'type|6');

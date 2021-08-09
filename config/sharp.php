@@ -214,7 +214,7 @@ return [
     "custom_url_segment" => "adminsharp",
 
     // Optional. You can prevent Sharp version to be displayed in the page title. Default is true.
-    "display_sharp_version_in_title" => false,
+    "display_sharp_version_in_title" => true,
 
     // Optional. Handle extensions.
     //    "extensions" => [

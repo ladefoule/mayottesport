@@ -20,7 +20,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class BaremeVolleySharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
      *
@@ -47,8 +47,8 @@ class BaremeVolleySharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $bareme = $id ? Bareme::findOrFail($id) : new Bareme;    
-        
+        $bareme = $id ? Bareme::findOrFail($id) : new Bareme;
+
         // On valide la requète
         // $rules = Bareme::rules($bareme);
         // $messages = $rules['messages'] ?? [];
@@ -90,7 +90,7 @@ class BaremeVolleySharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $bareme = Bareme::findOrFail($id);
 
@@ -104,8 +104,8 @@ class BaremeVolleySharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
-    {        
+    public function buildFormFields(): void
+    {
         $sports = Sport::orderBy('sports.nom')->get()->map(function($sport) {
                 return [
                     "id" => $sport->id,
@@ -171,7 +171,7 @@ class BaremeVolleySharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('nom|6', 'sport_id|6', 'victoire_3_0|6', 'victoire_3_1|6', 'victoire_3_2|6', 'defaite_0_3|6', 'defaite_1_3|6', 'defaite_2_3|6', 'forfait|6');

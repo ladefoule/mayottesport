@@ -17,7 +17,7 @@ class MatchSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListDataContainers()
+    public function buildListDataContainers(): void
     {
         $this->addDataContainer(
             EntityListDataContainer::make('equipeDom')
@@ -54,7 +54,7 @@ class MatchSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListLayout()
+    public function buildListLayout(): void
     {
         $this
         ->addColumn('competition', 3)
@@ -70,7 +70,7 @@ class MatchSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListConfig()
+    public function buildListConfig(): void
     {
         $this->setInstanceIdAttribute('id')
             ->setSearchable()
@@ -85,7 +85,7 @@ class MatchSharpList extends SharpEntityList
 	* @return array
 	*/
     public function getListData(EntityListQueryParams $params)
-    {        
+    {
         $matches = Match::orderBy($params->sortedBy(), $params->sortedDir())
             ->join('journees', 'journee_id', '=', 'journees.id')
             ->join('saisons', 'saison_id', '=', 'saisons.id')

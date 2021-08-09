@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "code16/sharp": "^5.4",
+        "code16/sharp": "^6.0",
         "fideloper/proxy": "^4.0",
         "graphp/graphviz": "^0.2.2",
         "guzzlehttp/guzzle": "^7.2",
@@ -68,6 +68,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan vendor:publish --provider='Code16\\Sharp\\SharpServiceProvider' --tag=assets --force",
             "@php artisan package:discover --ansi"
         ],
         "post-root-package-install": [

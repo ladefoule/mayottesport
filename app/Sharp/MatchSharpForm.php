@@ -68,7 +68,7 @@ class MatchSharpForm extends SharpForm
         }else{
             $data['uniqid'] = uniqid();
         }
-        
+
         // On valide la requète
         $rules = Match::rules($match);
         $messages = $rules['messages'];
@@ -115,7 +115,7 @@ class MatchSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $match = Match::findOrFail($id);
         // Suppression des caches liés au match
@@ -132,7 +132,7 @@ class MatchSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
+    public function buildFormFields(): void
     {
         $timestampFormatter = new TimestampSharpFormatter;
         $equipes = Equipe::join('sports', 'sport_id', 'sports.id')
@@ -261,7 +261,7 @@ class MatchSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('saison|6', 'uniqid|6', 'journee_id|6', 'acces_bloque|6', 'date|6', 'heure|6', 'equipe_id_dom|6', 'equipe_id_ext|6', 'terrain_id|6');

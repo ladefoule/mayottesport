@@ -14,7 +14,7 @@ class ArticleSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListDataContainers()
+    public function buildListDataContainers(): void
     {
         $this->addDataContainer(
             EntityListDataContainer::make('titre')
@@ -48,7 +48,7 @@ class ArticleSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListLayout()
+    public function buildListLayout(): void
     {
         $this
         ->addColumn('titre', 4)
@@ -64,7 +64,7 @@ class ArticleSharpList extends SharpEntityList
     *
     * @return void
     */
-    public function buildListConfig()
+    public function buildListConfig(): void
     {
         $this->setInstanceIdAttribute('id')
             ->setSearchable()

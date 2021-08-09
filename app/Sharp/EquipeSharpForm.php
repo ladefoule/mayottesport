@@ -18,7 +18,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class EquipeSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     protected $sportSlug;
 
     /**
@@ -29,7 +29,7 @@ class EquipeSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $equipe = Equipe::findOrFail($id); 
+        $equipe = Equipe::findOrFail($id);
         return $this->transform(
             $equipe
         );
@@ -42,19 +42,19 @@ class EquipeSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $equipe = $id ? Equipe::findOrFail($id) : new Equipe;    
-        
+        $equipe = $id ? Equipe::findOrFail($id) : new Equipe;
+
         $data['slug'] = Str::slug($data['nom']);
         $data['slug_complet'] = Str::slug($data['nom_complet']);
 
-        
+
         // Si l'équipe existe déjà
         if(isset($equipe->id)){
             $data['uniqid'] = $equipe->uniqid;
         }else{
             $data['uniqid'] = uniqid();
         }
-        
+
         // On valide la requète
         $rules = Equipe::rules($equipe);
         $messages = $rules['messages'] ?? [];
@@ -70,7 +70,7 @@ class EquipeSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $equipe = Equipe::findOrFail($id);
 
@@ -84,7 +84,7 @@ class EquipeSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
+    public function buildFormFields(): void
     {
         $sports = Sport::orderBy('sports.nom')->get()->map(function($sport) {
                 return [
@@ -92,7 +92,7 @@ class EquipeSharpForm extends SharpForm
                     "label" => $sport->nom
                 ];
             })->all();
-        
+
         $villes = Ville::orderBy('villes.nom')->get()->map(function($ville) {
                 return [
                     "id" => $ville->id,
@@ -127,7 +127,7 @@ class EquipeSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('sport_id|6', 'nom|6', 'ville_id|6', 'nom_complet|6', 'uniqid|6');

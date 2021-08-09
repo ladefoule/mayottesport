@@ -19,7 +19,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class CompetitionSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     protected $sportSlug;
 
     /**
@@ -30,7 +30,7 @@ class CompetitionSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $competition = Competition::findOrFail($id); 
+        $competition = Competition::findOrFail($id);
 
         return $this->transform(
             $competition
@@ -44,8 +44,8 @@ class CompetitionSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $competition = $id ? Competition::findOrFail($id) : new Competition;    
-        
+        $competition = $id ? Competition::findOrFail($id) : new Competition;
+
         // On valide la requète
         $rules = Competition::rules($competition);
         $messages = $rules['messages'];
@@ -53,7 +53,7 @@ class CompetitionSharpForm extends SharpForm
 
         $data['slug'] = Str::slug($data['nom']);
         $data['slug_complet'] = Str::slug($data['nom_complet']);
-        
+
         $ignore = ['updated_at'];
         // $rules = array_diff_key($rules, array_flip($ignore));
 
@@ -68,7 +68,7 @@ class CompetitionSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $competition = Competition::findOrFail($id);
 
@@ -82,8 +82,8 @@ class CompetitionSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
-    {        
+    public function buildFormFields(): void
+    {
         $timestampFormatter = new TimestampSharpFormatter;
 
         $sports = Sport::orderBy('sports.nom')->get()->map(function($sport) {
@@ -142,7 +142,7 @@ class CompetitionSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('nom|6', 'sport_id|6', 'nom_complet|6', 'type|6', 'home_position|6', 'index_position|6', 'niveau|6', 'updated_at|6');

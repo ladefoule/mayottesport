@@ -13,7 +13,7 @@ class DashAdmin extends SharpDashboard
     /**
      * Build dashboard's widget using ->addWidget.
      */
-    protected function buildWidgets()
+    protected function buildWidgets(): void
     {
         $this->addWidget(
             SharpLineGraphWidget::make("capacities")
@@ -29,7 +29,7 @@ class DashAdmin extends SharpDashboard
     /**
      * Build dashboard's widgets layout.
      */
-    protected function buildWidgetsLayout()
+    protected function buildWidgetsLayout(): void
     {
         $this->addFullWidthWidget("capacities")
         ->addRow(function(DashboardLayoutRow $row) {
@@ -43,7 +43,7 @@ class DashAdmin extends SharpDashboard
      *
      * @param DashboardQueryParams $params
      */
-    protected function buildWidgetsData(DashboardQueryParams $params)
+    protected function buildWidgetsData(DashboardQueryParams $params): void
     {
         $this->setOrderedListData(
             "topTravelledShipTypes", [

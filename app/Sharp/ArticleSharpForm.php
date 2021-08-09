@@ -23,7 +23,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class ArticleSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
      *
@@ -44,7 +44,7 @@ class ArticleSharpForm extends SharpForm
                 'visible' => $sport->pivot->visible,
                 'priorite' => $sport->pivot->priorite,
             ];
-        
+
         // Les compétitions liés
         $competitions = $article->competitions->all();
         foreach ($competitions as $competition)
@@ -140,7 +140,7 @@ class ArticleSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $article = Article::findOrFail($id);
         forgetCaches('articles', $article);
@@ -156,7 +156,7 @@ class ArticleSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
+    public function buildFormFields(): void
     {
         $timestampFormatter = new TimestampSharpFormatter;
 
@@ -292,7 +292,7 @@ class ArticleSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('uniqid|6', 'valide|3', 'fil_actu|3', 'titre|12', 'sport_id|6', 'competition_id|6', 'home_visible|6', 'home_priorite|6');

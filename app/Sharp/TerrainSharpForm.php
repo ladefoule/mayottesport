@@ -15,7 +15,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class TerrainSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
      *
@@ -24,7 +24,7 @@ class TerrainSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $terrain = Terrain::findOrFail($id); 
+        $terrain = Terrain::findOrFail($id);
         return $this->transform(
             $terrain
         );
@@ -37,8 +37,8 @@ class TerrainSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $terrain = $id ? Terrain::findOrFail($id) : new Terrain;    
-        
+        $terrain = $id ? Terrain::findOrFail($id) : new Terrain;
+
         // On valide la requète
         $rules = Terrain::rules($terrain);
         $messages = $rules['messages'] ?? [];
@@ -54,7 +54,7 @@ class TerrainSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $terrain = Terrain::findOrFail($id);
 
@@ -68,8 +68,8 @@ class TerrainSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
-    {        
+    public function buildFormFields(): void
+    {
         $villes = Ville::orderBy('villes.nom')->get()->map(function($ville) {
                 return [
                     "id" => $ville->id,
@@ -93,7 +93,7 @@ class TerrainSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('nom|6', 'ville_id|6');

@@ -32,7 +32,7 @@ class ProfilSharpShow extends SharpSingleShow
      *
      * @return void
      */
-    public function buildShowFields()
+    public function buildShowFields(): void
     {
         $this->addField(
             SharpShowTextField::make("name")
@@ -60,13 +60,13 @@ class ProfilSharpShow extends SharpSingleShow
      *
      * @return void
      */
-    public function buildShowLayout()
+    public function buildShowLayout(): void
     {
         $this->addSection(
-            'PROFIL', 
+            'PROFIL',
             function(ShowLayoutSection $section) {
                 $section->addColumn(
-                    6, 
+                    6,
                     function(ShowLayoutColumn $column) {
                         $column->withSingleField("name")
                                 ->withSingleField("first_name")
@@ -79,7 +79,7 @@ class ProfilSharpShow extends SharpSingleShow
                 );
 
                 // $section->addColumn(
-                //     6, 
+                //     6,
                 //     function(ShowLayoutColumn $column) {
                 //         $column->withSingleField("name");
                 //     }
@@ -88,7 +88,7 @@ class ProfilSharpShow extends SharpSingleShow
         );
     }
 
-    function buildShowConfig()
+    function buildShowConfig(): void
     {
         //
     }

@@ -18,7 +18,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class SaisonSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     protected $sportSlug;
 
     /**
@@ -29,7 +29,7 @@ class SaisonSharpForm extends SharpForm
      */
     public function find($id): array
     {
-        $saison = Saison::findOrFail($id); 
+        $saison = Saison::findOrFail($id);
         // Les équipes liés
         $equipes = $saison->equipes->all();
         foreach ($equipes as $equipe)
@@ -52,7 +52,7 @@ class SaisonSharpForm extends SharpForm
      */
     public function update($id, array $data)
     {
-        $saison = $id ? Saison::findOrFail($id) : new Saison;    
+        $saison = $id ? Saison::findOrFail($id) : new Saison;
         $ignore = ['equipes', 'saisons'];
 
         // On valide la requète
@@ -64,7 +64,7 @@ class SaisonSharpForm extends SharpForm
         $saison->equipes()->detach(); // Supprime toutes les relations equipe/saison concernant la saison
         foreach ($data['equipes'] as $equipe)
             $saison->equipes()->attach($equipe['id']);
-        
+
         // On recharge le cache index de la table associative
         forgetCaches('equipe_saison');
         ProcessCacheReload::dispatch('equipe_saison');
@@ -78,7 +78,7 @@ class SaisonSharpForm extends SharpForm
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $saison = Saison::findOrFail($id);
 
@@ -92,7 +92,7 @@ class SaisonSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormFields()
+    public function buildFormFields(): void
     {
         $equipes = Equipe::join('sports', 'sport_id', 'sports.id')
                 ->where('sports.slug', $this->sportSlug)
@@ -113,7 +113,7 @@ class SaisonSharpForm extends SharpForm
                     "label" => $competition->nom
                 ];
             })->all();
-        
+
         $baremes = Bareme::join('sports', 'sport_id', 'sports.id')
             ->where('sports.slug', $this->sportSlug)
             ->select('baremes.*')
@@ -173,7 +173,7 @@ class SaisonSharpForm extends SharpForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('competition_id|6', 'finie|3', 'annulee|3', 'annee_debut|6', 'annee_fin|6', 'nb_journees|6', 'equipes|6', 'bareme_id|6', 'equipe_id|6', 'second|6');

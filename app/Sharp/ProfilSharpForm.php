@@ -15,7 +15,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 class ProfilSharpForm extends SharpSingleForm
 {
     use WithSharpFormEloquentUpdater;
-    
+
     /**
      * Retrieve a Model for the form and pack all its data as JSON.
      *
@@ -50,7 +50,7 @@ class ProfilSharpForm extends SharpSingleForm
             'name' => $rules['rules']['name'],
             'pseudo' => $rules['rules']['pseudo'],
         ];
-        
+
         $data = Validator::make($data, $rules, $messages)->validate();
         $user->update($data);
 
@@ -63,7 +63,7 @@ class ProfilSharpForm extends SharpSingleForm
      *
      * @return void
      */
-    public function buildFormFields()
+    public function buildFormFields(): void
     {
         $this
             ->addField(
@@ -101,7 +101,7 @@ class ProfilSharpForm extends SharpSingleForm
      *
      * @return void
      */
-    public function buildFormLayout()
+    public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
             $column->withFields('first_name|6','name|6', 'email|6', 'pseudo|6', 'role_id|6');
