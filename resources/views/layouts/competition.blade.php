@@ -47,7 +47,7 @@
                             {!! \Config::get('listes.boutons.right') !!}
                         </a>
                         @if ($hrefClassement)
-                            <a href="{{ $hrefClassement }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.classement' || request()->route()->getName() == 'competition.saison.classement') font-weight-bold text-body active @else text-secondary @endif">
+                            <a href="{{ $hrefClassement }}" class="mr-3 href-scroll-x @if(request()->route()->getName() == 'competition.classement' || request()->route()->getName() == 'competition.saison.classement') text-body active @else text-secondary @endif">
                                 Le classement
                             </a>
                         @endif
