@@ -19,7 +19,7 @@
             <div class="col-12 d-flex border-bottom p-0">
                 <div class="date col-2 d-flex align-items-center justify-content-center text-secondary">
                     @if($actu->date_fil_actu == date('d/m'))
-                        {!! $actu->heure_fil_actu !!}
+                        <span class="text-danger">{!! $actu->heure_fil_actu !!}</span>
                     @else
                         {!! $actu->date_fil_actu !!}
                     @endif
@@ -71,7 +71,7 @@
             @endforeach
         @endforeach
     </div>
-    
+
     {{-- PUB --}}
     <div class="col-12 m-auto py-3 px-2">
         @include('pub.google-display-fixe-vertical')
