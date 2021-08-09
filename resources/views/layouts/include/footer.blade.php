@@ -1,5 +1,6 @@
 <?php
     $sports = index('sports')->where('navbar_position', '>=', 1)->sortBy('navbar_position')->slice(0, 5);
+    dd($sports);
     $competitions = index('competitions');
 ?>
 
