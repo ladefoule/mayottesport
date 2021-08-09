@@ -461,17 +461,17 @@ main .nom-competition{
         .equipe-domicile{
             text-align: left;
         }
-    
+
         .equipe-exterieur{
             text-align: right;
-        }    
+        }
 
         /* Large devices (desktops, 992px and up) => point de rupture bootstrap : LG */
         @media (min-width: 992px) {
             html{
-                font-size: 95%;
+                font-size: 90%;
             }
-            
+
             .fanion-match{
                 width:40px;
                 height:40px;
@@ -480,11 +480,11 @@ main .nom-competition{
             #section-droite .match-calendrier .bloc-dom, #section-droite .match-calendrier .bloc-ext{
                 width:37.5%
             }
-            
+
             #section-droite .match-calendrier .bloc-sc{
                 width:25%
             }
-        
+
             .bloc-match .equipe-exterieur, .bloc-match .equipe-domicile{
                 text-align: center;
             }
@@ -559,10 +559,10 @@ main .nom-competition{
                 .bloc-match .equipe-domicile{
                     text-align: left;
                 }
-            
+
                 .bloc-match .equipe-exterieur{
                     text-align: right;
-                }  
+                }
 
                 .onglet{
                     font-size: 1rem !important;

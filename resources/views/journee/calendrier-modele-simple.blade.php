@@ -3,7 +3,7 @@
         {{ $journee }} : {{ $date }}</span>
     </p>
     @foreach($matches as $i => $match)
-        <?php 
+        <?php
             $equipeDomVainqueur = $equipeExtVainqueur = false;
             $avecTab = isset($match->avec_tirs_au_but) ? true : false;
             $avecProlongations = isset($match->avec_prolongations) ? true : false;
@@ -12,7 +12,7 @@
 
             if($match->score_eq_dom > $match->score_eq_ext || $tab_eq_dom > $tab_eq_ext)
                 $equipeDomVainqueur = true;
-            
+
             if($match->score_eq_ext > $match->score_eq_dom || $tab_eq_ext > $tab_eq_dom)
                 $equipeExtVainqueur = true;
         ?>

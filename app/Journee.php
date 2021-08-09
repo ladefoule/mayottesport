@@ -82,7 +82,7 @@ class Journee extends Model
 
             $journee->matches = $matchesAvecInfos;
             $journee->nom = $this->nom;
-            $dateJournee = date('d/m/Y', strtotime($this->date));
+            $dateJournee = date('d/m', strtotime($this->date));
             $types = config('listes.types-journees');
             if($this->type && isset($types[$this->type]))
                 $typeJournee = $types[$this->type][1];
@@ -152,7 +152,7 @@ class Journee extends Model
                         'competition_href' => route('competition.index', ['sport' => $sport->slug, 'competition' => $competition->slug_complet]),
                         'journee_render' => infos('journees', $derniereJournee->id)->render_section_droite
                     ];
-    
+
                 // $prochaineJournee = $saison->journees()->where('date', '>=', date('Y-m-d'))->orderBy('date')->first();
                 $prochaineJournee = index('journees')->where('saison_id', $saison->id)->where('date', '>=', date('Y-m-d'))->sortBy('date')->first();
                 if($prochaineJournee)
@@ -168,7 +168,7 @@ class Journee extends Model
             'resultats' => $resultats ?? [],
             'prochains' => $prochains ?? [],
         ];
-    } 
+    }
 
     /**
      * Définition de l'attribut nom qui affichera le numéro de la journée avec la saison accollée
