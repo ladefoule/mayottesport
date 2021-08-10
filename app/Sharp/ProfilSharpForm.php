@@ -4,6 +4,7 @@ namespace App\Sharp;
 
 use App\Role;
 use App\User;
+use App\Region;
 use App\Jobs\ProcessCacheReload;
 use Code16\Sharp\Form\SharpSingleForm;
 use Illuminate\Support\Facades\Validator;
@@ -49,6 +50,7 @@ class ProfilSharpForm extends SharpSingleForm
             'first_name' => $rules['rules']['first_name'],
             'name' => $rules['rules']['name'],
             'pseudo' => $rules['rules']['pseudo'],
+            'region_id' => $rules['rules']['region_id'],
         ];
 
         $data = Validator::make($data, $rules, $messages)->validate();
@@ -93,6 +95,19 @@ class ProfilSharpForm extends SharpSingleForm
                 ->setDisplayAsDropdown()
                 ->setMultiple(false)
                 ->setReadOnly(true)
+            )->addField(
+                SharpFormSelectField::make("region_id",
+                    Region::orderBy("nom")
+                    ->get()->map(function($region) {
+                        return [
+                            "id" => $region->id,
+                            "label" => $region->nom
+                        ];
+                    })->all()
+                )
+                ->setLabel("Région")
+                ->setDisplayAsDropdown()
+                ->setMultiple(false)
             );
     }
 
@@ -104,7 +119,7 @@ class ProfilSharpForm extends SharpSingleForm
     public function buildFormLayout(): void
     {
         $this->addColumn(12, function (FormLayoutColumn $column) {
-            $column->withFields('first_name|6','name|6', 'email|6', 'pseudo|6', 'role_id|6');
+            $column->withFields('first_name|6','name|6', 'email|6', 'pseudo|6', 'role_id|6', 'region_id|6');
         });
     }
 }
