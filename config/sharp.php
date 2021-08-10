@@ -4,6 +4,14 @@ use Illuminate\Support\Facades\Route;
 
 // $sports = Sport::select('nom', 'slug')->get();
 $sports = ['football', 'handball', 'volleyball', 'basketball', 'rugby'];
+$icons = [
+    'football' => 'fa-futbol',
+    'handball' => 'fa-baseball-ball',
+    'volleyball' => 'fa-volleyball-ball',
+    'basketball' => 'fa-basketball-ball',
+    'rugby' => 'fa-football-ball',
+];
+
 $entities = [
     "profil" => [
         "show" => \App\Sharp\ProfilSharpShow::class,
@@ -85,12 +93,7 @@ $menu = [
         "icon" => "fa-user",
         "entity" => "profil",
         "single" => true
-    ],
-    [
-        "label" => "Membres",
-        "icon" => "fa-user",
-        "entity" => "user",
-    ],
+    ]
 ];
 
 $menu[] = [
@@ -103,7 +106,7 @@ $menu[] = [
         ],
         [
             "label" => "Modifier",
-            "icon" => "el-icon-refresh",
+            "icon" => "fa-edit",
             "url" => "/admin/article/select"
         ],
         [
@@ -113,6 +116,49 @@ $menu[] = [
         ]
     ],
 ];
+
+// Le menu Matches
+$menuMatches = [];
+$menuMatches['label'] = 'Matches';
+foreach ($sports as $nom) {
+    $menuMatches['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => $icons[$nom],
+        "entity" => "match-" . $nom,
+    ];
+}
+$menu[] = $menuMatches;
+
+// Le menu Journées
+$menuJournees = [];
+$menuJournees['label'] = 'Journees';
+
+$menuJournees['entities'][] = [
+    "label" => "Ajout multiple",
+    "icon" => "fa-calendar",
+    "url" => "/admin/journees/multi/select"
+];
+
+foreach ($sports as $nom) {
+    $menuJournees['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => $icons[$nom],
+        "entity" => "journee-" . $nom,
+    ];
+}
+$menu[] = $menuJournees;
+
+// Le menu Saisons
+$menuSaisons = [];
+$menuSaisons['label'] = 'Saisons';
+foreach ($sports as $nom) {
+    $menuSaisons['entities'][] = [
+        "label" => ucfirst($nom),
+        "icon" => $icons[$nom],
+        "entity" => "saison-" . $nom,
+    ];
+}
+$menu[] = $menuSaisons;
 
 $menu[] = [
     "label" => "Barèmes",
@@ -138,40 +184,11 @@ $menu[] = [
     "entity" => "equipe",
 ];
 
-// Les menus Journées
-$menuJournees = [];
-$menuJournees['label'] = 'Journees';
-foreach ($sports as $nom) {
-    $menuJournees['entities'][] = [
-        "label" => ucfirst($nom),
-        "icon" => "fa-list",
-        "entity" => "journee-" . $nom,
-    ];
-}
-$menu[] = $menuJournees;
-
-$menuMatches = [];
-$menuMatches['label'] = 'Matches';
-foreach ($sports as $nom) {
-    $menuMatches['entities'][] = [
-        "label" => ucfirst($nom),
-        "icon" => "fa-list",
-        "entity" => "match-" . $nom,
-    ];
-}
-$menu[] = $menuMatches;
-
-// Les menus Saisons
-$menuSaisons = [];
-$menuSaisons['label'] = 'Saisons';
-foreach ($sports as $nom) {
-    $menuSaisons['entities'][] = [
-        "label" => ucfirst($nom),
-        "icon" => "fa-list",
-        "entity" => "saison-" . $nom,
-    ];
-}
-$menu[] = $menuSaisons;
+$menu[] = [
+    "label" => "Membres",
+    "icon" => "fa-users",
+    "entity" => "user",
+];
 
 $menu[] = [
     "label" => "Sports",
@@ -189,12 +206,6 @@ $menu[] = [
     "label" => "Villes",
     "icon" => "fa-list",
     "entity" => "ville",
-];
-
-$menu[] = [
-    "label" => "Les journées par saison",
-    "icon" => "fa-calendar",
-    "url" => "/admin/journees/multi/select",
 ];
 
 $menu[] = [
