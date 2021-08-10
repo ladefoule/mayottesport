@@ -131,7 +131,7 @@ $menu[] = $menuMatches;
 
 // Le menu Journées
 $menuJournees = [];
-$menuJournees['label'] = 'Journees';
+$menuJournees['label'] = 'Journées';
 
 $menuJournees['entities'][] = [
     "label" => "Ajout multiple",
@@ -179,7 +179,7 @@ $menu[] = [
 ];
 
 $menu[] = [
-    "label" => "Equipes",
+    "label" => "Équipes",
     "icon" => "fa-list",
     "entity" => "equipe",
 ];
